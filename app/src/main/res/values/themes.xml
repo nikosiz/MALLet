@@ -6,4 +6,12 @@
     </style>
 
     <style name="Theme.MALLet" parent="Base.Theme.MALLet" />
+
+    <style name="SplashTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+        <item name="colorPrimary">@color/primary_blue</item>
+        <item name="colorPrimaryDark">@color/secondary_blue</item>
+        <item name="colorAccent">@color/red</item>
+        <item name="android:statusBarColor">@color/red</item>
+    </style>
 </resources>
