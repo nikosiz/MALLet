@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/bottom_nav_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/ic_home_filled"
+        android:title="Home" />
+    <item
+        android:id="@+id/bottom_nav_library"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/ic_home_filled"
+        android:title="Library" />
+    <item
+        android:id="@+id/bottom_nav_add_new"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/ic_home_filled"
+        android:title="Add new" />
+    <item
+        android:id="@+id/bottom_nav_your_library"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/ic_home_filled"
+        android:title="Your library" />
+    <item
+        android:id="@+id/bottom_nav_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/ic_home_filled"
+        android:title="Profile" />
+</menu>
