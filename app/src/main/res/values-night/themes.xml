@@ -3,5 +3,15 @@
     <style name="Base.Theme.MALLet" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="android:statusBarColor">@color/primary_blue</item>
+
+    </style>
+
+    <style name="SplashTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+        <item name="colorPrimary">@color/primary_blue</item>
+        <item name="colorPrimaryDark">@color/secondary_blue_dark</item>
+        <item name="colorAccent">@color/red</item>
+        <item name="android:statusBarColor">@color/primary_blue</item>
     </style>
 </resources>

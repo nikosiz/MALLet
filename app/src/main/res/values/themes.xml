@@ -3,6 +3,8 @@
     <style name="Base.Theme.MALLet" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:fontFamily">@font/rem_variable</item>
+        <item name="android:statusBarColor">@color/primary_blue</item>
     </style>
 
     <style name="Theme.MALLet" parent="Base.Theme.MALLet" />
@@ -12,6 +14,6 @@
         <item name="colorPrimary">@color/primary_blue</item>
         <item name="colorPrimaryDark">@color/secondary_blue_dark</item>
         <item name="colorAccent">@color/red</item>
-        <item name="android:statusBarColor">@color/red</item>
+        <item name="android:statusBarColor">@color/primary_blue</item>
     </style>
 </resources>
