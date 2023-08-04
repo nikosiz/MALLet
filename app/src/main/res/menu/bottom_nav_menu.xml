@@ -11,24 +11,24 @@
         android:id="@+id/bottom_nav_library"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:icon="@drawable/ic_home_filled"
+        android:icon="@drawable/ic_library"
         android:title="Library" />
     <item
         android:id="@+id/bottom_nav_add_new"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:icon="@drawable/ic_home_filled"
+        android:icon="@drawable/ic_add"
         android:title="Add new" />
     <item
         android:id="@+id/bottom_nav_your_library"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:icon="@drawable/ic_home_filled"
+        android:icon="@drawable/ic_your_library"
         android:title="Your library" />
     <item
         android:id="@+id/bottom_nav_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:icon="@drawable/ic_home_filled"
+        android:icon="@drawable/ic_profile"
         android:title="Profile" />
 </menu>
