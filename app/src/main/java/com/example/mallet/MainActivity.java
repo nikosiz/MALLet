@@ -10,15 +10,12 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.mallet.databinding.ActivityMainBinding;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -81,34 +78,25 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout createFolder = dialog.findViewById(R.id.add_new_sheet_create_folder);
         LinearLayout createCollaboration = dialog.findViewById(R.id.add_new_sheet_create_collaboration);
 
-        createSet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        createSet.setOnClickListener(v -> {
 
-                dialog.dismiss();
-                Toast.makeText(MainActivity.this, "Create new set was clicked", Toast.LENGTH_SHORT).show();
+            dialog.dismiss();
+            Toast.makeText(MainActivity.this, "Create new set was clicked", Toast.LENGTH_SHORT).show();
 
-            }
         });
 
-        createFolder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        createFolder.setOnClickListener(v -> {
 
-                dialog.dismiss();
-                Toast.makeText(MainActivity.this, "Create new folder was clicked", Toast.LENGTH_SHORT).show();
+            dialog.dismiss();
+            Toast.makeText(MainActivity.this, "Create new folder was clicked", Toast.LENGTH_SHORT).show();
 
-            }
         });
 
-        createCollaboration.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        createCollaboration.setOnClickListener(v -> {
 
-                dialog.dismiss();
-                Toast.makeText(MainActivity.this, "Create new collaboration was clicked", Toast.LENGTH_SHORT).show();
+            dialog.dismiss();
+            Toast.makeText(MainActivity.this, "Create new collaboration was clicked", Toast.LENGTH_SHORT).show();
 
-            }
         });
 
         dialog.show();
