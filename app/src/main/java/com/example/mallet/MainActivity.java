@@ -6,10 +6,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.LinearLayout;
@@ -78,24 +80,24 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout createFolder = dialog.findViewById(R.id.add_new_sheet_create_folder);
         LinearLayout createCollaboration = dialog.findViewById(R.id.add_new_sheet_create_collaboration);
 
-        createSet.setOnClickListener(v -> {
-
+        createSet.setOnClickListener(view -> {
+            Intent intent = new Intent(this, CreateSetActivity.class);
             dialog.dismiss();
-            Toast.makeText(MainActivity.this, "Create new set was clicked", Toast.LENGTH_SHORT).show();
-
+            startActivity(intent);
+            //Toast.makeText(MainActivity.this, "Create new set", Toast.LENGTH_SHORT).show();
         });
 
         createFolder.setOnClickListener(v -> {
 
             dialog.dismiss();
-            Toast.makeText(MainActivity.this, "Create new folder was clicked", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "Create new folder", Toast.LENGTH_SHORT).show();
 
         });
 
         createCollaboration.setOnClickListener(v -> {
 
             dialog.dismiss();
-            Toast.makeText(MainActivity.this, "Create new collaboration was clicked", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "Create new collaboration", Toast.LENGTH_SHORT).show();
 
         });
 
