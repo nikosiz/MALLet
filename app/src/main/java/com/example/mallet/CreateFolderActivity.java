@@ -7,14 +7,14 @@ import androidx.appcompat.widget.Toolbar;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-public class CreateSetActivity extends AppCompatActivity {
+public class CreateFolderActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_set);
+        setContentView(R.layout.activity_create_folder);
 
-        Toolbar toolbar = findViewById(R.id.create_set_toolbar);
+        Toolbar toolbar = findViewById(R.id.create_folder_toolbar);
         setSupportActionBar(toolbar);
 
         // add back arrow to toolbar

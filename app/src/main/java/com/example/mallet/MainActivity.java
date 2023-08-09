@@ -89,8 +89,10 @@ public class MainActivity extends AppCompatActivity {
 
         createFolder.setOnClickListener(v -> {
 
+            Intent intent = new Intent(this, CreateFolderActivity.class);
             dialog.dismiss();
-            Toast.makeText(MainActivity.this, "Create new folder", Toast.LENGTH_SHORT).show();
+            startActivity(intent);
+            //Toast.makeText(MainActivity.this, "Create new folder", Toast.LENGTH_SHORT).show();
 
         });
 
