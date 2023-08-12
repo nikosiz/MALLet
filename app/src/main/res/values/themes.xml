@@ -17,4 +17,5 @@
         <item name="colorAccent">@color/carnation_red_500</item>
         <item name="android:statusBarColor">@color/downriver_blue_300</item>
     </style>
+
 </resources>
