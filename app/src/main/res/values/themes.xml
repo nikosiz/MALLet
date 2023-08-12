@@ -4,7 +4,7 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="android:fontFamily">@font/rem_variable</item>
-        <item name="android:statusBarColor">@color/dell_green_300</item>
+        <item name="android:statusBarColor">@color/downriver_blue_300</item>
         <item name="colorControlNormal">@color/white</item>
     </style>
 
@@ -12,9 +12,9 @@
 
     <style name="SplashTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_background</item>
-        <item name="colorPrimary">@color/dell_green_300</item>
-        <item name="colorPrimaryDark">@color/dell_green_800</item>
-        <item name="colorAccent">@color/windsor_violet_400</item>
-        <item name="android:statusBarColor">@color/dell_green_300</item>
+        <item name="colorPrimary">@color/downriver_blue_300</item>
+        <item name="colorPrimaryDark">@color/downriver_blue_800</item>
+        <item name="colorAccent">@color/carnation_red_500</item>
+        <item name="android:statusBarColor">@color/downriver_blue_300</item>
     </style>
 </resources>

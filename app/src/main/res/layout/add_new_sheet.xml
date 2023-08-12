@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:background="@drawable/top_corners_rounded"
     android:orientation="vertical">
 
@@ -21,14 +20,14 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/ic_new_set"
-            app:tint="@color/windsor_violet_900" />
+            app:tint="@color/calamander_brown_900" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:text="Create new set"
-            android:textColor="@color/windsor_violet_900"
+            android:textColor="@color/calamander_brown_900"
             android:textSize="16sp" />
 
     </LinearLayout>
@@ -46,14 +45,14 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/ic_new_folder"
-            app:tint="@color/windsor_violet_900" />
+            app:tint="@color/calamander_brown_900" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:text="Create new folder"
-            android:textColor="@color/windsor_violet_900"
+            android:textColor="@color/calamander_brown_900"
             android:textSize="16sp" />
 
     </LinearLayout>
@@ -71,14 +70,14 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/ic_new_collaboration"
-            app:tint="@color/windsor_violet_900" />
+            app:tint="@color/calamander_brown_900" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:text="Create new collaboration"
-            android:textColor="@color/windsor_violet_900"
+            android:textColor="@color/calamander_brown_900"
             android:textSize="16sp" />
 
     </LinearLayout>

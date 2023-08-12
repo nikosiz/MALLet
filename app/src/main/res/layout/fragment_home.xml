@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dell_green_50"
+    android:background="@color/white"
     tools:context=".HomeFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/dell_green_300">
+        android:background="@color/downriver_blue_300">
 
         <TextView
             android:layout_width="match_parent"
@@ -30,6 +30,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Home"
-            android:textColor="@color/windsor_violet_900" />
+            android:textColor="@color/calamander_brown_900" />
     </FrameLayout>
 </FrameLayout>
