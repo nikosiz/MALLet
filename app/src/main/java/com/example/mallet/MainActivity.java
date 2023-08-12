@@ -5,8 +5,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -18,6 +20,8 @@ import android.widget.LinearLayout;
 //import android.widget.Toast;
 
 import com.example.mallet.databinding.ActivityMainBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 
 import java.util.Objects;
 
@@ -37,8 +41,9 @@ public class MainActivity extends AppCompatActivity {
         // Replace the initial fragment with the HomeFragment
         replaceFragment(new HomeFragment());
 
-        // Remove the background of the bottom navigation view to make it transparent
-        //binding.bottomNavigationView.setBackground(null);
+        // Exception item index (0-based)
+        int exceptionItemIndex = 2;
+        setExceptionItemColor(exceptionItemIndex);
 
         // Set a listener for bottom navigation view item selection
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -60,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
             // Return true to indicate that the item selection was handled
             return true;
         });
+
 
     }
 
@@ -111,6 +117,16 @@ public class MainActivity extends AppCompatActivity {
         //dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
 
+    }
+
+    // TODO: Naprawić
+    @SuppressLint("RestrictedApi")
+    private void setExceptionItemColor(int exceptionItemIndex) {
+        BottomNavigationMenuView menuView = (BottomNavigationMenuView) binding.bottomNavigationView.getChildAt(0);
+        BottomNavigationItemView exceptionItem = (BottomNavigationItemView) menuView.getChildAt(exceptionItemIndex);
+        int color = getResources().getColor(R.color.downriver_blue_300);
+        //exceptionItem.setTextColor(color);
+        exceptionItem.setIconTintList(ColorStateList.valueOf(color));
     }
 
 }
