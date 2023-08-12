@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    // TODO: Naprawić
+    // TODO: Naprawić XD
     @SuppressLint("RestrictedApi")
     private void setExceptionItemColor(int exceptionItemIndex) {
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) binding.bottomNavigationView.getChildAt(0);
