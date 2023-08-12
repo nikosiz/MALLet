@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/russo_one_regular"
-            android:text="MALLet"
+            android:text="@string/app_name"
             android:textColor="@color/white"
             android:textSize="30dp" />
     </androidx.appcompat.widget.Toolbar>

@@ -19,6 +19,7 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:contentDescription="@+string/create_new_set_icon"
             android:src="@drawable/ic_new_set"
             app:tint="@color/calamander_brown_900" />
 
@@ -26,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:text="Create new set"
+            android:text="@string/create_new_set"
             android:textColor="@color/calamander_brown_900"
             android:textSize="16sp" />
 
@@ -44,6 +45,7 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:contentDescription="@+string/create_new_folder_icon"
             android:src="@drawable/ic_new_folder"
             app:tint="@color/calamander_brown_900" />
 
@@ -51,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:text="Create new folder"
+            android:text="@string/create_new_folder"
             android:textColor="@color/calamander_brown_900"
             android:textSize="16sp" />
 
@@ -69,6 +71,7 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:contentDescription="@+string/create_new_collaboration_icon"
             android:src="@drawable/ic_new_collaboration"
             app:tint="@color/calamander_brown_900" />
 
@@ -76,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:text="Create new collaboration"
+            android:text="@string/create_new_collaboration"
             android:textColor="@color/calamander_brown_900"
             android:textSize="16sp" />
 
