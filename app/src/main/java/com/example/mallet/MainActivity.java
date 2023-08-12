@@ -11,13 +11,15 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.View;
+//import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+//import android.widget.Toast;
 
 import com.example.mallet.databinding.ActivityMainBinding;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -88,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         createFolder.setOnClickListener(v -> {
-
             Intent intent = new Intent(this, CreateFolderActivity.class);
             dialog.dismiss();
             startActivity(intent);
@@ -97,14 +98,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
         createCollaboration.setOnClickListener(v -> {
-
+            Intent intent = new Intent(this, CreateCollaborationActivity.class);
             dialog.dismiss();
-            Toast.makeText(MainActivity.this, "Create new collaboration", Toast.LENGTH_SHORT).show();
+            startActivity(intent);
+            //Toast.makeText(MainActivity.this, "Create new collaboration", Toast.LENGTH_SHORT).show();
 
         });
 
         dialog.show();
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         //dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.getWindow().setGravity(Gravity.BOTTOM);

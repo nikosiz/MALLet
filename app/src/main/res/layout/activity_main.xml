@@ -15,16 +15,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- TODO: poprawić zmianę koloru w ADD NEW -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="65dp"
-        android:background="@color/secondary_blue_dark"
+        android:background="@color/dell_green_50"
         app:itemActiveIndicatorStyle="@android:color/transparent"
         app:itemIconSize="30dp"
         app:itemIconTint="@color/bottom_nav_icons"
-        app:itemRippleColor="@color/secondary_blue"
+        app:itemRippleColor="@color/dell_green_100"
         app:itemTextColor="@color/bottom_nav_icons"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"

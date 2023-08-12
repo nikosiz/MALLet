@@ -2,6 +2,8 @@
     <string name="app_name">MALLet</string>
     <string name="sanguage">Make Sanguage Great Again</string>
     <string name="app_logo">M</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="create_new_set">Create new set</string>
+    <string name="create_new_folder">Create new folder</string>
+    <string name="create_new_collaboration">Create new collaboration</string>
 </resources>

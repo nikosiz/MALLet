@@ -1,12 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#000500</color>
-    <color name="white">#F7F7F2</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
     <color name="primary_blue">#064789</color>
     <color name="primary_blue_dark">#043260</color>
     <color name="secondary_blue_dark">#427AA1</color>
     <color name="secondary_blue">#6895B4</color>
     <color name="secondary_blue_dark_light">#8EAFC7</color>
     <color name="red">#D7263D</color>
+
+    <!-- MATERIAL DESIGN COLOR PALETTE -->
+
+    <!-- PRIMARY COLOR -->
+    <!-- Primary -->
+    <color name="dell_green_50">#e1e9dc</color>
+    <color name="dell_green_100">#b6c8a9</color>
+    <color name="dell_green_200">#87a472</color>
+    <color name="dell_green_300">#5a843d</color>
+    <color name="dell_green_400">#3c6f16</color>
+    <color name="dell_green_500">#1a5a00</color>
+    <color name="dell_green_600">#134f00</color>
+    <color name="dell_green_700">#0b4100</color>
+    <color name="dell_green_800">#093200</color>
+    <color name="dell_green_900">#001b00</color>
+
+    <!-- Complementary -->
+    <color name="windsor_violet_50">#e4dce8</color>
+    <color name="windsor_violet_100">#bba9c8</color>
+    <color name="windsor_violet_200">#9071a5</color>
+    <color name="windsor_violet_300">#673985</color>
+    <color name="windsor_violet_400">#4b0d70</color>
+    <color name="windsor_violet_500">#2c005a</color>
+    <color name="windsor_violet_600">#260057</color>
+    <color name="windsor_violet_700">#1d0051</color>
+    <color name="windsor_violet_800">#17004c</color>
+    <color name="windsor_violet_900">#15004d</color>
+
+    <!-- Analogous -->
+    <color name="verdun_forest_green_50">#e8e9dc</color>
+    <color name="verdun_forest_green_100">#c5c8a9</color>
+    <color name="verdun_forest_green_200">#9ea470</color>
+    <color name="verdun_forest_green_300">#798338</color>
+    <color name="verdun_forest_green_400">#616f06</color>
+    <color name="verdun_forest_green_500">#485b00</color>
+    <color name="verdun_forest_green_600">#3c5000</color>
+    <color name="verdun_forest_green_700">#2d4100</color>
+    <color name="verdun_forest_green_800">#203000</color>
+    <color name="verdun_forest_green_900">#051600</color>
+
+    <color name="salad_forest_green_50">#e9f1ea</color>
+    <color name="salad_forest_green_100">#cadecb</color>
+    <color name="salad_forest_green_200">#a9c8ac</color>
+    <color name="salad_forest_green_300">#86b58a</color>
+    <color name="salad_forest_green_400">#6aa86f</color>
+    <color name="salad_forest_green_500">#509a55</color>
+    <color name="salad_forest_green_600">#488c4c</color>
+    <color name="salad_forest_green_700">#3e7b41</color>
+    <color name="salad_forest_green_800">#346a37</color>
+    <color name="salad_forest_green_900">#234c25</color>
+
+    <!-- Triadic -->
+    <color name="forest_green_pea_50">#dce9e4</color>
+    <color name="forest_green_pea_100">#a9c8bb</color>
+    <color name="forest_green_pea_200">#73a590</color>
+    <color name="forest_green_pea_300">#3f8468</color>
+    <color name="forest_green_pea_400">#1e6d4f</color>
+    <color name="forest_green_pea_500">#005738</color>
+    <color name="forest_green_pea_600">#004d30</color>
+    <color name="forest_green_pea_700">#004025</color>
+    <color name="forest_green_pea_800">#00321a</color>
+    <color name="forest_green_pea_900">#001b00</color>
+
+    <color name="waikawa_gray_50">#e8edf8</color>
+    <color name="waikawa_gray_100">#c8d4e1</color>
+    <color name="waikawa_gray_200">#a9b6c8</color>
+    <color name="waikawa_gray_300">#8999af</color>
+    <color name="waikawa_gray_400">#71839c</color>
+    <color name="waikawa_gray_500">#5a6f8a</color>
+    <color name="waikawa_gray_600">#4d6179</color>
+    <color name="waikawa_gray_700">#3d4e63</color>
+    <color name="waikawa_gray_800">#2e3c4d</color>
+    <color name="waikawa_gray_900">#1c2836</color>
+
+
+    <!-- SECONDARY COLOR -->
+    <!-- Secondary -->
+    <color name="nutmeg_red_50">#ffdfcc</color>
+    <color name="nutmeg_red_100">#f2baac</color>
+    <color name="nutmeg_red_200">#d09386</color>
+    <color name="nutmeg_red_300">#ad6c5e</color>
+    <color name="nutmeg_red_400">#945042</color>
+    <color name="nutmeg_red_500">#7b3427</color>
+    <color name="nutmeg_red_600">#6f2c22</color>
+    <color name="nutmeg_red_700">#5f2019</color>
+    <color name="nutmeg_red_800">#501313</color>
+    <color name="nutmeg_red_900">#400406</color>
+
+    <!-- Complementary -->
+    <color name="teal_50">#dff0f2</color>
+    <color name="teal_100">#afd9dd</color>
+    <color name="teal_200">#7bc2c7</color>
+    <color name="teal_300">#46aab0</color>
+    <color name="teal_400">#1b989d</color>
+    <color name="teal_500">#00878a</color>
+    <color name="teal_600">#007a7c</color>
+    <color name="teal_700">#006b6c</color>
+    <color name="teal_800">#005b5b</color>
+    <color name="teal_900">#04403e</color>
+
+    <!-- Analogous -->
+    <color name="hibiscus_pink_50">#f1dee5</color>
+    <color name="hibiscus_pink_100">#deadbf</color>
+    <color name="hibiscus_pink_200">#c87a96</color>
+    <color name="hibiscus_pink_300">#b4496f</color>
+    <color name="hibiscus_pink_400">#a52655</color>
+    <color name="hibiscus_pink_500">#98003d</color>
+    <color name="hibiscus_pink_600">#8a003a</color>
+    <color name="hibiscus_pink_700">#770035</color>
+    <color name="hibiscus_pink_800">#630130</color>
+    <color name="hibiscus_pink_900">#400424</color>
+
+    <color name="spice_mix_brown_50">#fce8ce</color>
+    <color name="spice_mix_brown_100">#e3c8ac</color>
+    <color name="spice_mix_brown_200">#c4a587</color>
+    <color name="spice_mix_brown_300">#a48360</color>
+    <color name="spice_mix_brown_400">#8d6943</color>
+    <color name="spice_mix_brown_500">#755026</color>
+    <color name="spice_mix_brown_600">#6a4720</color>
+    <color name="spice_mix_brown_700">#5c3b18</color>
+    <color name="spice_mix_brown_800">#4f2e11</color>
+    <color name="spice_mix_brown_900">#402004</color>
+
+    <!-- Triadic -->
+    <color name="forest_green_50">#e5f0e4</color>
+    <color name="forest_green_100">#c0dabd</color>
+    <color name="forest_green_200">#98c293</color>
+    <color name="forest_green_300">#70ab6a</color>
+    <color name="forest_green_400">#549b4d</color>
+    <color name="forest_green_500">#378b2e</color>
+    <color name="forest_green_600">#2f7e27</color>
+    <color name="forest_green_700">#256d1e</color>
+    <color name="forest_green_800">#1a5d14</color>
+    <color name="forest_green_900">#064004</color>
+
+    <color name="sycamore_yellow_50">#efefe2</color>
+    <color name="sycamore_yellow_100">#d9d7b8</color>
+    <color name="sycamore_yellow_200">#c0bd8c</color>
+    <color name="sycamore_yellow_300">#a9a660</color>
+    <color name="sycamore_yellow_400">#989540</color>
+    <color name="sycamore_yellow_500">#89851e</color>
+    <color name="sycamore_yellow_600">#7b7818</color>
+    <color name="sycamore_yellow_700">#6c6911</color>
+    <color name="sycamore_yellow_800">#5c590b</color>
+    <color name="sycamore_yellow_900">#403e04</color>
+
 
 </resources>

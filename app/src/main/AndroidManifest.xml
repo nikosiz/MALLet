@@ -19,6 +19,9 @@
             android:name=".CreateSetActivity"
             android:exported="false" />
         <activity
+            android:name=".CreateCollaborationActivity"
+            android:exported="false" />
+        <activity
             android:name=".SplashScreenActivity"
             android:exported="true"
             android:theme="@style/SplashTheme">
