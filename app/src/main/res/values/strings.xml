@@ -6,4 +6,18 @@
     <string name="create_new_set">Create new set</string>
     <string name="create_new_folder">Create new folder</string>
     <string name="create_new_collaboration">Create new collaboration</string>
+    <string name="delete_account">Delete account</string>
+    <string name="version">Version</string>
+    <string name="about">About</string>
+    <string name="change_password">Change password</string>
+    <string name="dark_mode_theme">System default</string>
+    <string name="dark_mode">Dark mode</string>
+    <string name="log_out">Log out</string>
+    <string name="your_languages">Your languages</string>
+    <string name="users_languages">user\'s languages</string>
+    <string name="app_version">0.0.0</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="notifications">Notifications</string>
+    <string name="save_sets_offline">Save sets for use offline</string>
 </resources>
