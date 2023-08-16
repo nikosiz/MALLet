@@ -113,7 +113,8 @@
                     app:boxCornerRadiusBottomStart="5dp"
                     app:boxCornerRadiusTopEnd="5dp"
                     app:boxCornerRadiusTopStart="5dp"
-                    app:boxStrokeWidth="2dp">
+                    app:boxStrokeWidth="2dp"
+                    app:passwordToggleEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/log_in_password_et"

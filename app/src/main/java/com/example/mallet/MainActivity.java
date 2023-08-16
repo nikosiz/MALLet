@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.LinearLayout;
@@ -44,23 +45,7 @@ public class MainActivity extends AppCompatActivity {
         setExceptionItemColor(exceptionItemIndex);
 
         // Set a listener for bottom navigation view item selection
-        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
-            int itemId = item.getItemId();
-            // Check which menu item was selected and replace the fragment accordingly
-            if (itemId == R.id.bottom_nav_home) {
-                replaceFragment(new HomeFragment());
-            } else if (itemId == R.id.bottom_nav_library) {
-                replaceFragment(new LibraryFragment());
-            } else if (itemId == R.id.bottom_nav_add_new) {
-                showBottomDialog();
-            } else if (itemId == R.id.bottom_nav_your_library) {
-                replaceFragment(new YourFragment());
-            } else if (itemId == R.id.bottom_nav_profile) {
-                replaceFragment(new ProfileFragment());
-            }
-            // Return true to indicate that the item selection was handled
-            return true;
-        });
+        binding.bottomNavigationView.setOnItemSelectedListener(this::onNavigationItemSelected);
     }
 
     // Method to replace the fragment in the bottom navigation container
@@ -104,5 +89,23 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationItemView exceptionItem = (BottomNavigationItemView) menuView.getChildAt(exceptionItemIndex);
         int color = getResources().getColor(R.color.downriver_blue_300);
         exceptionItem.setIconTintList(ColorStateList.valueOf(color));
+    }
+
+    private boolean onNavigationItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        // Check which menu item was selected and replace the fragment accordingly
+        if (itemId == R.id.bottom_nav_home) {
+            replaceFragment(new HomeFragment());
+        } else if (itemId == R.id.bottom_nav_library) {
+            replaceFragment(new LibraryFragment());
+        } else if (itemId == R.id.bottom_nav_add_new) {
+            showBottomDialog();
+        } else if (itemId == R.id.bottom_nav_your_library) {
+            replaceFragment(new YourFragment());
+        } else if (itemId == R.id.bottom_nav_profile) {
+            replaceFragment(new ProfileFragment());
+        }
+        // Return true to indicate that the item selection was handled
+        return true;
     }
 }
