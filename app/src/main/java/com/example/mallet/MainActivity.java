@@ -1,10 +1,5 @@
 package com.example.mallet;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
@@ -13,11 +8,14 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
-//import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.LinearLayout;
-//import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.mallet.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
@@ -41,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         // Replace the initial fragment with the HomeFragment
         replaceFragment(new HomeFragment());
 
-        // Exception item index (0-based)
+        // Set exception item index (0-based)
         int exceptionItemIndex = 2;
         setExceptionItemColor(exceptionItemIndex);
 
@@ -55,18 +53,14 @@ public class MainActivity extends AppCompatActivity {
                 replaceFragment(new LibraryFragment());
             } else if (itemId == R.id.bottom_nav_add_new) {
                 showBottomDialog();
-                //replaceFragment(new AddNewFragment());
             } else if (itemId == R.id.bottom_nav_your_library) {
                 replaceFragment(new YourFragment());
             } else if (itemId == R.id.bottom_nav_profile) {
                 replaceFragment(new ProfileFragment());
             }
-
             // Return true to indicate that the item selection was handled
             return true;
         });
-
-
     }
 
     // Method to replace the fragment in the bottom navigation container
@@ -79,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showBottomDialog() {
-
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.add_new_sheet);
@@ -88,45 +81,27 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout createFolder = dialog.findViewById(R.id.add_new_sheet_create_folder);
         LinearLayout createCollaboration = dialog.findViewById(R.id.add_new_sheet_create_collaboration);
 
-        createSet.setOnClickListener(view -> {
-            Intent intent = new Intent(this, CreateSetActivity.class);
-            dialog.dismiss();
-            startActivity(intent);
-            //Toast.makeText(MainActivity.this, "Create new set", Toast.LENGTH_SHORT).show();
-        });
-
-        createFolder.setOnClickListener(v -> {
-            Intent intent = new Intent(this, CreateFolderActivity.class);
-            dialog.dismiss();
-            startActivity(intent);
-            //Toast.makeText(MainActivity.this, "Create new folder", Toast.LENGTH_SHORT).show();
-
-        });
-
-        createCollaboration.setOnClickListener(v -> {
-            Intent intent = new Intent(this, CreateCollaborationActivity.class);
-            dialog.dismiss();
-            startActivity(intent);
-            //Toast.makeText(MainActivity.this, "Create new collaboration", Toast.LENGTH_SHORT).show();
-
-        });
+        createSet.setOnClickListener(view -> startCreateActivity(CreateSetActivity.class, dialog));
+        createFolder.setOnClickListener(view -> startCreateActivity(CreateFolderActivity.class, dialog));
+        createCollaboration.setOnClickListener(view -> startCreateActivity(CreateCollaborationActivity.class, dialog));
 
         dialog.show();
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        //dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
-
     }
 
-    // TODO: Naprawić XD
+    private void startCreateActivity(Class<?> activityClass, Dialog dialog) {
+        Intent intent = new Intent(this, activityClass);
+        dialog.dismiss();
+        startActivity(intent);
+    }
+
     @SuppressLint("RestrictedApi")
     private void setExceptionItemColor(int exceptionItemIndex) {
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) binding.bottomNavigationView.getChildAt(0);
         BottomNavigationItemView exceptionItem = (BottomNavigationItemView) menuView.getChildAt(exceptionItemIndex);
         int color = getResources().getColor(R.color.downriver_blue_300);
-        //exceptionItem.setTextColor(color);
         exceptionItem.setIconTintList(ColorStateList.valueOf(color));
     }
-
 }

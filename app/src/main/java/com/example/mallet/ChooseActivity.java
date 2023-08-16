@@ -2,7 +2,6 @@ package com.example.mallet;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.transition.TransitionInflater;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,21 +15,28 @@ public class ChooseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose);
 
+        // TODO: Remove this button and its functions before release
+        setupNoLoginButton();
+
+        // Find and set up the login button
+        setupLoginButton();
+    }
+
+    // TODO: Delete this method and related views before release
+    private void setupNoLoginButton() {
+        MaterialButton noLogin = findViewById(R.id.no_login);
+        noLogin.setOnClickListener(view -> {
+            Intent intent = new Intent(ChooseActivity.this, MainActivity.class);
+            startActivity(intent);
+        });
+    }
+
+    private void setupLoginButton() {
         MaterialButton logInButton = findViewById(R.id.choose_log_in_btn);
-
-        // Set up shared element enter transition
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setSharedElementEnterTransition(
-                    TransitionInflater.from(this).inflateTransition(R.transition.fade_and_slide));
-        }
-
-        logInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Open LogInActivity
-                Intent intent = new Intent(ChooseActivity.this, LogInActivity.class);
-                startActivity(intent);
-            }
+        logInButton.setOnClickListener(v -> {
+            // Open LogInActivity
+            Intent intent = new Intent(ChooseActivity.this, LogInActivity.class);
+            startActivity(intent);
         });
     }
 }
