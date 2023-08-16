@@ -20,4 +20,21 @@
     <string name="email">Email</string>
     <string name="notifications">Notifications</string>
     <string name="save_sets_offline">Save sets for use offline</string>
+    <string name="remember_me">Remember me</string>
+    <string name="dont_have_an_account">Don\'t have an account?\ </string>
+    <string name="sign_up_here">Sign up here</string>
+    <string name="by_logging_in_you_accept_mallet_s">By logging in, you accept MALLet\'s</string>
+    <string name="terms_of_service">Terms of service</string>
+    <string name="privacy_policy">Privacy policy</string>
+    <string name="and">and</string>
+    <string name="by_logging_in_you_accept">By logging in you accept MALLet\'s Terms of service and Privacy policy</string>
+    <string name="facebook">Facebook</string>
+    <string name="google">Google</string>
+    <string name="email_address">Email address</string>
+    <string name="welcome_back">Welcome back!</string>
+    <string name="password">Password</string>
+    <string name="or_log_in_with">or log in quickly with</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="email_incorrect">Provided email is incorrect</string>
+    <string name="log_in">Log in</string>
 </resources>
