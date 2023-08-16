@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    // TODO: Fix this issue
     @SuppressLint("RestrictedApi")
     private void setExceptionItemColor(int exceptionItemIndex) {
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) binding.bottomNavigationView.getChildAt(0);

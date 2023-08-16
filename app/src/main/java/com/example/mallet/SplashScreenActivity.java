@@ -1,11 +1,14 @@
 package com.example.mallet;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+//TODO: Fix "@SuppressLint("CustomSplashScreen")" if possible
+@SuppressLint("CustomSplashScreen")
 public class SplashScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
