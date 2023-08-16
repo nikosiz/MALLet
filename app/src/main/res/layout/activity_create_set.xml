@@ -18,7 +18,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/rem_variable"
+            android:fontFamily="@font/rem_regular"
             android:text="@string/create_new_set"
             android:textColor="@color/white"
             android:textSize="30dp" />

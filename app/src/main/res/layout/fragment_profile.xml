@@ -40,7 +40,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/black" />
+                    app:tint="@color/white" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -68,7 +68,7 @@
                         android:id="@+id/profile_email_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/rem_variable"
+                        android:fontFamily="@font/rem_regular"
                         android:gravity="bottom"
                         android:text="@string/email" />
 
@@ -76,7 +76,7 @@
                         android:id="@+id/profile_email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/rem_variable"
+                        android:fontFamily="@font/rem_regular"
                         android:gravity="top"
                         android:text="@string/email"
                         android:textColor="@color/downriver_blue_200" />
@@ -96,7 +96,7 @@
                         android:id="@+id/profile_username_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/rem_variable"
+                        android:fontFamily="@font/rem_regular"
                         android:gravity="bottom"
                         android:text="@string/username" />
 
@@ -104,7 +104,7 @@
                         android:id="@+id/profile_username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/rem_variable"
+                        android:fontFamily="@font/rem_regular"
                         android:gravity="top"
                         android:text="@string/username"
                         android:textColor="@color/downriver_blue_200" />
@@ -124,7 +124,7 @@
                         android:id="@+id/profile_change_password_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/rem_variable"
+                        android:fontFamily="@font/rem_regular"
                         android:gravity="center_vertical"
                         android:text="@string/change_password" />
                 </LinearLayout>
@@ -144,7 +144,7 @@
                         android:id="@+id/profile_notifications_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/rem_variable"
+                        android:fontFamily="@font/rem_regular"
                         android:gravity="center_vertical"
                         android:text="@string/notifications" />
                 </LinearLayout>
@@ -174,7 +174,7 @@
                         android:id="@+id/profile_your_languages_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/rem_variable"
+                        android:fontFamily="@font/rem_regular"
                         android:gravity="bottom"
                         android:text="@string/your_languages"
                         app:layout_constraintStart_toStartOf="parent"
@@ -184,7 +184,7 @@
                         android:id="@+id/profile_your_languages"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/rem_variable"
+                        android:fontFamily="@font/rem_regular"
                         android:gravity="top"
                         android:text="@string/users_languages"
                         android:textColor="@color/downriver_blue_200"
@@ -217,7 +217,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:fontFamily="@font/rem_variable"
+                        android:fontFamily="@font/rem_regular"
                         android:gravity="center_vertical"
                         android:text="@string/save_sets_offline"
                         app:layout_constraintStart_toStartOf="parent"
@@ -259,7 +259,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="3"
-                        android:fontFamily="@font/rem_variable"
+                        android:fontFamily="@font/rem_regular"
                         android:gravity="center_vertical"
                         android:text="@string/dark_mode"
                         app:layout_constraintStart_toStartOf="parent"
@@ -271,7 +271,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:fontFamily="@font/rem_variable"
+                        android:fontFamily="@font/rem_regular"
                         android:gravity="end"
                         android:text="@string/dark_mode_theme"
                         android:textColor="@color/downriver_blue_300"
@@ -293,7 +293,7 @@
                     android:id="@+id/profile_log_out_ll"
                     android:layout_width="match_parent"
                     android:layout_height="65dp"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:orientation="vertical"
                     android:paddingHorizontal="30dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -303,7 +303,7 @@
                         android:id="@+id/profile_log_out_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/rem_variable"
+                        android:fontFamily="@font/rem_regular"
                         android:gravity="center"
                         android:text="@string/log_out"
                         app:layout_constraintStart_toStartOf="parent"
@@ -336,7 +336,7 @@
                         android:id="@+id/profile_about_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/rem_variable"
+                        android:fontFamily="@font/rem_regular"
                         android:gravity="center"
                         android:text="@string/about"
                         app:layout_constraintStart_toStartOf="parent"
@@ -357,7 +357,7 @@
                         android:id="@+id/profile_version_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/rem_variable"
+                        android:fontFamily="@font/rem_regular"
                         android:gravity="bottom"
                         android:text="@string/version"
                         app:layout_constraintStart_toStartOf="parent"
@@ -367,7 +367,7 @@
                         android:id="@+id/profile_version"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/rem_variable"
+                        android:fontFamily="@font/rem_regular"
                         android:gravity="top"
                         android:text="@string/app_version"
                         android:textColor="@color/downriver_blue_300"
@@ -400,7 +400,7 @@
                         android:id="@+id/profile_delete_account_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/rem_variable"
+                        android:fontFamily="@font/rem_regular"
                         android:gravity="center"
                         android:text="@string/delete_account"
                         android:textColor="@color/carnation_red_700"
