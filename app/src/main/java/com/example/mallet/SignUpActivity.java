@@ -43,7 +43,7 @@ public class SignUpActivity extends AppCompatActivity {
         // Handle log in button click
         confirmLogIn.setOnClickListener(v -> {
             // Show a Toast message when the button is clicked
-            Toast.makeText(SignUpActivity.this, "Log in material button clicked", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignUpActivity.this, "Sign up button was clicked", Toast.LENGTH_SHORT).show();
         });
     }
 
