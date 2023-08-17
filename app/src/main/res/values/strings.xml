@@ -40,4 +40,7 @@
     <string name="to_change_password">To change your password, please follow the instructions.</string>
     <string name="new_password">New password</string>
     <string name="old_password">Old password</string>
+    <string name="confirm_new_password_error">Please, confirm new password</string>
+    <string name="input_new_password_error">Please, input new password</string>
+    <string name="input_your_password_error">Please, input your password</string>
 </resources>

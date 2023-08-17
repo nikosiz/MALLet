@@ -71,8 +71,19 @@ public class ProfileFragment extends Fragment {
         cancelBtn.setOnClickListener(v -> dialog.dismiss());
 
         confirmBtn.setOnClickListener(v -> {
-            showToast("OK button was clicked. The password should be verified but there is no backend yet.");
-            dialog.dismiss();
+            TextView passwordError = dialog.findViewById(R.id.verify_password_error);
+            TextInputEditText passwordEditText = dialog.findViewById(R.id.verify_password_et);
+
+            String password = passwordEditText.getText().toString();
+
+            if (TextUtils.isEmpty(password)) {
+
+                passwordError.setVisibility(View.VISIBLE);
+            } else {
+                passwordError.setVisibility(View.GONE);
+                showToast("OK button was clicked. The password should be verified but there is no backend yet.");
+                dialog.dismiss();
+            }
         });
     }
 
