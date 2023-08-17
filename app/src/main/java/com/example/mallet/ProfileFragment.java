@@ -4,17 +4,24 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.mallet.databinding.FragmentProfileBinding;
+import com.google.android.material.textfield.TextInputEditText;
+
+import org.w3c.dom.Text;
 
 import java.util.Objects;
 
@@ -33,30 +40,58 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.profileEmailLl.setOnClickListener(v -> showVerifyPasswordDialog());
-        binding.profileUsernameLl.setOnClickListener(v -> showVerifyPasswordDialog()); // Add click listener for changing username
-        binding.profileChangePasswordLl.setOnClickListener(v -> showChangePasswordDialog()); // Add click listener for changing password
-        binding.profileNotificationsCl.setOnClickListener(v -> toggleNotificationSettings()); // Add click listener for changing notification settings
-        binding.profileYourLanguagesLl.setOnClickListener(v -> openLanguageSettings()); // Add click listener for editing languages
-        binding.profileSaveOfflineSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> saveSetsOffline(isChecked)); // Add listener for saving sets offline
-        binding.profileDarkModeLl.setOnClickListener(v -> toggleDarkMode()); // Add click listener for changing app mode to dark
-        binding.profileLogOutLl.setOnClickListener(v -> logOut()); // Add click listener for logging out
-        binding.profileAboutLl.setOnClickListener(v -> showAboutSection()); // Add click listener for viewing "about" section
-        binding.profileDeleteAccountLl.setOnClickListener(v -> showDeleteAccountDialog()); // Add click listener for deleting the account
-
-        binding.profileEmailLl.setOnClickListener(v -> showVerifyPasswordDialog());
-
+        // Click listeners for various profile actions
+        setupClickListeners();
     }
 
+    // Set up click listeners for profile actions
+    private void setupClickListeners() {
+        binding.profileEmailLl.setOnClickListener(v -> showVerifyPasswordDialog());
+        binding.profileUsernameLl.setOnClickListener(v -> showVerifyPasswordDialog());
+        binding.profileChangePasswordLl.setOnClickListener(v -> showChangePasswordDialog());
+        binding.profileNotificationsCl.setOnClickListener(v -> toggleNotificationSettings());
+        binding.profileYourLanguagesLl.setOnClickListener(v -> openLanguageSettings());
+        binding.profileSaveOfflineSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> saveSetsOffline(isChecked));
+        binding.profileDarkModeLl.setOnClickListener(v -> toggleDarkMode());
+        binding.profileLogOutLl.setOnClickListener(v -> logOut());
+        binding.profileAboutLl.setOnClickListener(v -> showAboutSection());
+        binding.profileDeleteAccountLl.setOnClickListener(v -> showDeleteAccountDialog());
+    }
+
+    // Show the verify password dialog
     private void showVerifyPasswordDialog() {
-        final Dialog dialog = new Dialog(requireContext());
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.sheet_verify_password);
+        final Dialog dialog = createDialog(R.layout.sheet_verify_password);
 
         dialog.show();
+
+        // Find and set up cancel and confirm buttons
+        TextView cancelBtn = dialog.findViewById(R.id.verify_cancel_btn);
+        TextView confirmBtn = dialog.findViewById(R.id.verify_confirm_btn);
+
+        cancelBtn.setOnClickListener(v -> dialog.dismiss());
+
+        confirmBtn.setOnClickListener(v -> {
+            showToast("OK button was clicked. The password should be verified but there is no backend yet.");
+            dialog.dismiss();
+        });
+    }
+
+    // Create a dialog with common properties
+    private Dialog createDialog(int layoutResId) {
+        final Dialog dialog = new Dialog(requireContext());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(layoutResId);
+
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().setGravity(Gravity.BOTTOM);
+
+        return dialog;
+    }
+
+    // Show a toast message
+    private void showToast(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     private void showChangePasswordDialog() {
@@ -68,6 +103,57 @@ public class ProfileFragment extends Fragment {
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().setGravity(Gravity.BOTTOM);
+
+        // Find and set up cancel and confirm buttons
+        TextView cancelBtn = dialog.findViewById(R.id.change_password_cancel_btn);
+        TextView confirmBtn = dialog.findViewById(R.id.change_password_confirm_btn);
+
+        cancelBtn.setOnClickListener(v -> dialog.dismiss());
+
+        confirmBtn.setOnClickListener(v -> {
+            TextView oldPasswordError = dialog.findViewById(R.id.change_password_old_error_tv);
+            TextView newPasswordError = dialog.findViewById(R.id.change_password_new_error_tv);
+            TextView confirmNewPasswordError = dialog.findViewById(R.id.change_password_confirm_new_error_tv);
+            TextInputEditText oldPasswordEditText = dialog.findViewById(R.id.change_password_old_et);
+            TextInputEditText newPasswordEditText = dialog.findViewById(R.id.change_password_new_et);
+            TextInputEditText confirmNewPasswordEditText = dialog.findViewById(R.id.change_password_confirm_new_et);
+
+            String oldPassword = oldPasswordEditText.getText().toString();
+            String newPassword = newPasswordEditText.getText().toString();
+            String confirmNewPassword = confirmNewPasswordEditText.getText().toString();
+
+            if (TextUtils.isEmpty(oldPassword) || TextUtils.isEmpty(newPassword) || TextUtils.isEmpty(confirmNewPassword)) {
+                // Display error for empty fields
+                if (TextUtils.isEmpty(oldPassword)) {
+                    oldPasswordError.setVisibility(View.VISIBLE);
+                } else {
+                    oldPasswordError.setVisibility(View.GONE);
+                }
+
+                if (TextUtils.isEmpty(newPassword)) {
+                    newPasswordError.setVisibility(View.VISIBLE);
+                } else {
+                    newPasswordError.setVisibility(View.GONE);
+                }
+
+                if (TextUtils.isEmpty(confirmNewPassword)) {
+                    confirmNewPasswordError.setVisibility(View.VISIBLE);
+                } else {
+                    confirmNewPasswordError.setVisibility(View.GONE);
+                }
+
+                showToast("All fields must be filled.");
+            } else {
+                // Hide errors and close the dialog
+                oldPasswordError.setVisibility(View.GONE);
+                newPasswordError.setVisibility(View.GONE);
+                confirmNewPasswordError.setVisibility(View.GONE);
+
+                showToast("OK button was clicked. The password should be changed but there is no backend yet.");
+                dialog.dismiss();
+            }
+        });
+
     }
 
     private void toggleNotificationSettings() {
