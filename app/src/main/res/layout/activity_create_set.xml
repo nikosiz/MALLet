@@ -21,11 +21,10 @@
             android:fontFamily="@font/rem_regular"
             android:text="@string/create_new_set"
             android:textColor="@color/white"
-            android:textSize="30dp" />
+            android:textSize="30sp" />
     </androidx.appcompat.widget.Toolbar>
 
     <FrameLayout
-        android:id="@+id/create_set_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

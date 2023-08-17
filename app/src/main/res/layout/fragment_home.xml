@@ -22,11 +22,10 @@
             android:fontFamily="@font/russo_one_regular"
             android:text="@string/app_name"
             android:textColor="@color/white"
-            android:textSize="30dp" />
+            android:textSize="30sp" />
     </androidx.appcompat.widget.Toolbar>
 
     <FrameLayout
-        android:id="@+id/home_fragment_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:paddingHorizontal="20dp"

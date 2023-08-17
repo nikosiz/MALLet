@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Patterns;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +19,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.mallet.databinding.FragmentProfileBinding;
 import com.google.android.material.textfield.TextInputEditText;
-
-import org.w3c.dom.Text;
 
 import java.util.Objects;
 
@@ -74,7 +71,7 @@ public class ProfileFragment extends Fragment {
             TextView passwordError = dialog.findViewById(R.id.verify_password_error);
             TextInputEditText passwordEditText = dialog.findViewById(R.id.verify_password_et);
 
-            String password = passwordEditText.getText().toString();
+            String password = Objects.requireNonNull(passwordEditText.getText()).toString();
 
             if (TextUtils.isEmpty(password)) {
 
@@ -129,9 +126,9 @@ public class ProfileFragment extends Fragment {
             TextInputEditText newPasswordEditText = dialog.findViewById(R.id.change_password_new_et);
             TextInputEditText confirmNewPasswordEditText = dialog.findViewById(R.id.change_password_confirm_new_et);
 
-            String oldPassword = oldPasswordEditText.getText().toString();
-            String newPassword = newPasswordEditText.getText().toString();
-            String confirmNewPassword = confirmNewPasswordEditText.getText().toString();
+            String oldPassword = Objects.requireNonNull(oldPasswordEditText.getText()).toString();
+            String newPassword = Objects.requireNonNull(newPasswordEditText.getText()).toString();
+            String confirmNewPassword = Objects.requireNonNull(confirmNewPasswordEditText.getText()).toString();
 
             if (TextUtils.isEmpty(oldPassword) || TextUtils.isEmpty(newPassword) || TextUtils.isEmpty(confirmNewPassword)) {
                 // Display error for empty fields

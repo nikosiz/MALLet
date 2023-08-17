@@ -14,7 +14,6 @@
         android:scrollbars="none">
 
         <LinearLayout
-            android:id="@+id/profile_ll"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:gravity="center"
@@ -22,7 +21,6 @@
             android:paddingVertical="20dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/profile_cl_0"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:layout_marginTop="20dp"
@@ -31,7 +29,6 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:id="@+id/profile_photo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:contentDescription="Profile photo"
@@ -44,7 +41,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/profile_cl_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -66,7 +62,6 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
-                        android:id="@+id/profile_email_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/rem_regular"
@@ -74,7 +69,6 @@
                         android:text="@string/email" />
 
                     <TextView
-                        android:id="@+id/profile_email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/rem_regular"
@@ -102,7 +96,6 @@
                         android:text="@string/username" />
 
                     <TextView
-                        android:id="@+id/profile_username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/rem_regular"
@@ -122,7 +115,6 @@
                     app:layout_constraintTop_toBottomOf="@id/profile_username_ll">
 
                     <TextView
-                        android:id="@+id/profile_change_password_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/rem_regular"
@@ -131,7 +123,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/profile_notifications_cl"
                     android:layout_width="match_parent"
                     android:layout_height="65dp"
                     android:gravity="center_vertical"
@@ -142,7 +133,6 @@
                     app:layout_constraintTop_toBottomOf="@id/profile_change_password_ll">
 
                     <TextView
-                        android:id="@+id/profile_notifications_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/rem_regular"
@@ -152,7 +142,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/profile_cl_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -161,7 +150,6 @@
                 android:gravity="center_vertical">
 
                 <LinearLayout
-                    android:id="@+id/profile_your_languages_ll"
                     android:layout_width="match_parent"
                     android:layout_height="65dp"
                     android:gravity="center_vertical"
@@ -172,7 +160,6 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
-                        android:id="@+id/profile_your_languages_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/rem_regular"
@@ -182,7 +169,6 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/profile_your_languages"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/rem_regular"
@@ -195,7 +181,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/profile_cl_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -204,7 +189,6 @@
                 android:gravity="center_vertical">
 
                 <LinearLayout
-                    android:id="@+id/profile_save_offline_ll"
                     android:layout_width="match_parent"
                     android:layout_height="65dp"
                     android:orientation="horizontal"
@@ -213,8 +197,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
-                        android:id="@+id/profile_save_offline_title"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="1"
@@ -225,7 +208,6 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:id="@+id/profile_save_offline_switch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -237,7 +219,6 @@
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/profile_cl_4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -246,7 +227,6 @@
                 android:gravity="center_vertical">
 
                 <LinearLayout
-                    android:id="@+id/profile_dark_mode_ll"
                     android:layout_width="match_parent"
                     android:layout_height="65dp"
                     android:orientation="horizontal"
@@ -255,7 +235,6 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
-                        android:id="@+id/profile_dark_mode_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -267,7 +246,6 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/profile_dark_mode"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -282,7 +260,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/profile_cl_5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -291,7 +268,6 @@
                 android:gravity="center_vertical">
 
                 <LinearLayout
-                    android:id="@+id/profile_log_out_ll"
                     android:layout_width="match_parent"
                     android:layout_height="65dp"
                     android:gravity="center_vertical"
@@ -301,7 +277,6 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
-                        android:id="@+id/profile_log_out_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/rem_regular"
@@ -313,7 +288,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/profile_cl_6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -334,7 +308,6 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
-                        android:id="@+id/profile_about_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/rem_regular"
@@ -355,7 +328,6 @@
                     app:layout_constraintTop_toBottomOf="@id/profile_about_ll">
 
                     <TextView
-                        android:id="@+id/profile_version_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/rem_regular"
@@ -365,7 +337,6 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/profile_version"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/rem_regular"
@@ -379,7 +350,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/profile_cl_7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -388,7 +358,6 @@
                 android:gravity="center_vertical">
 
                 <LinearLayout
-                    android:id="@+id/profile_delete_account_ll"
                     android:layout_width="match_parent"
                     android:layout_height="65dp"
                     android:gravity="center"
@@ -398,7 +367,6 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
-                        android:id="@+id/profile_delete_account_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/rem_regular"

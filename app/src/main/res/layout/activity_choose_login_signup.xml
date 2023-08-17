@@ -35,7 +35,7 @@
         android:layout_height="65dp"
         android:layout_marginHorizontal="40dp"
         android:backgroundTint="@android:color/transparent"
-        android:text="Sign up"
+        android:text="@string/sign_up"
         android:textColor="@color/viking_blue_500"
         app:cornerRadius="0dp"
         app:layout_constraintEnd_toEndOf="parent"

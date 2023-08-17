@@ -31,7 +31,6 @@
     <string name="log_in">Log in</string>
     <string name="sign_up">Sign up</string>
     <string name="or_quickly">or quickly with</string>
-    <string name="log_in_here">Log in here</string>
     <string name="already_have_account">Already have an account?</string>
     <string name="by_signing_up_you_accept">By signing up you accept MALLet\'s Terms of service and Privacy policy</string>
     <string name="cancel">Cancel</string>
@@ -43,4 +42,14 @@
     <string name="confirm_new_password_error">Please, confirm new password</string>
     <string name="input_new_password_error">Please, input new password</string>
     <string name="input_your_password_error">Please, input your password</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="to_continue_enter_your_password">To continue, please enter your password.</string>
+    <string name="home">Home</string>
+    <string name="library">Library</string>
+    <string name="add_new">Add new</string>
+    <string name="your_library">Your library</string>
+    <string name="profile">Profile</string>
+    <string name="sign_up_with_email_address">Sign up with your email address</string>
+    <string name="log_in_here">Log in here</string>
+    <string name="log_in_with_email_address">Log in with your email address</string>
 </resources>
