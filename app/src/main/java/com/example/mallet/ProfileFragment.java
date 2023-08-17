@@ -46,7 +46,7 @@ public class ProfileFragment extends Fragment {
         binding.profileEmailLl.setOnClickListener(v -> showVerifyPasswordDialog());
         binding.profileUsernameLl.setOnClickListener(v -> showVerifyPasswordDialog());
         binding.profileChangePasswordLl.setOnClickListener(v -> showChangePasswordDialog());
-        binding.profileNotificationsCl.setOnClickListener(v -> toggleNotificationSettings());
+        binding.profileNotificationsLl.setOnClickListener(v -> toggleNotificationSettings());
         binding.profileYourLanguagesLl.setOnClickListener(v -> openLanguageSettings());
         binding.profileSaveOfflineSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> saveSetsOffline(isChecked));
         binding.profileDarkModeLl.setOnClickListener(v -> toggleDarkMode());

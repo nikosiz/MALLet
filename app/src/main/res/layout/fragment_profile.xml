@@ -52,6 +52,7 @@
                     android:id="@+id/profile_email_ll"
                     android:layout_width="match_parent"
                     android:layout_height="65dp"
+                    android:background="@drawable/ripple_linear_layout"
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="center_vertical"
@@ -81,8 +82,10 @@
                     android:id="@+id/profile_username_ll"
                     android:layout_width="match_parent"
                     android:layout_height="65dp"
+                    android:background="@drawable/ripple_linear_layout"
                     android:gravity="center_vertical"
                     android:orientation="vertical"
+
                     android:paddingHorizontal="30dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/profile_email_ll">
@@ -108,7 +111,9 @@
                     android:id="@+id/profile_change_password_ll"
                     android:layout_width="match_parent"
                     android:layout_height="65dp"
+                    android:background="@drawable/ripple_linear_layout"
                     android:gravity="center_vertical"
+
                     android:orientation="vertical"
                     android:paddingHorizontal="30dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -123,11 +128,14 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/profile_notifications_ll"
                     android:layout_width="match_parent"
                     android:layout_height="65dp"
+                    android:background="@drawable/ripple_linear_layout"
                     android:gravity="center_vertical"
                     android:orientation="vertical"
                     android:paddingHorizontal="30dp"
+
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/profile_change_password_ll">
@@ -150,10 +158,11 @@
                 android:gravity="center_vertical">
 
                 <LinearLayout
+                    android:id="@+id/profile_your_languages_ll"
                     android:layout_width="match_parent"
                     android:layout_height="65dp"
+                    android:background="@drawable/ripple_linear_layout"
                     android:gravity="center_vertical"
-
                     android:orientation="vertical"
                     android:paddingHorizontal="30dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -181,6 +190,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/profile_save_offline_switch_cl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -189,6 +199,7 @@
                 android:gravity="center_vertical">
 
                 <LinearLayout
+                    android:id="@+id/profile_save_offline_switch_ll"
                     android:layout_width="match_parent"
                     android:layout_height="65dp"
                     android:orientation="horizontal"
@@ -197,6 +208,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
+                        android:id="@+id/profile_save_offline_switch_tv"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -208,6 +220,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/profile_save_offline_switch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -219,6 +232,7 @@
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/profile_dark_mode_cl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -227,10 +241,13 @@
                 android:gravity="center_vertical">
 
                 <LinearLayout
+                    android:id="@+id/profile_dark_mode_ll"
                     android:layout_width="match_parent"
                     android:layout_height="65dp"
+                    android:background="@drawable/ripple_linear_layout"
                     android:orientation="horizontal"
                     android:paddingHorizontal="30dp"
+                    android:weightSum="3"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -248,8 +265,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
+                        android:layout_gravity="end|center"
                         android:fontFamily="@font/rem_regular"
                         android:gravity="end"
                         android:text="@string/dark_mode_theme"
@@ -260,6 +276,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/profile_log_out_cl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -268,8 +285,10 @@
                 android:gravity="center_vertical">
 
                 <LinearLayout
+                    android:id="@+id/profile_log_out_ll"
                     android:layout_width="match_parent"
                     android:layout_height="65dp"
+                    android:background="@drawable/ripple_linear_layout"
                     android:gravity="center_vertical"
                     android:orientation="vertical"
                     android:paddingHorizontal="30dp"
@@ -277,6 +296,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
+                        android:id="@+id/profile_log_out_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/rem_regular"
@@ -299,6 +319,7 @@
                     android:id="@+id/profile_about_ll"
                     android:layout_width="match_parent"
                     android:layout_height="65dp"
+                    android:background="@drawable/ripple_linear_layout"
                     android:gravity="center_vertical"
                     android:orientation="vertical"
                     android:paddingHorizontal="30dp"
@@ -350,6 +371,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/profile_delete_account_cl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -358,6 +380,7 @@
                 android:gravity="center_vertical">
 
                 <LinearLayout
+                    android:id="@+id/profile_delete_account_ll"
                     android:layout_width="match_parent"
                     android:layout_height="65dp"
                     android:gravity="center"
@@ -367,6 +390,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
+                        android:id="@+id/profile_delete_account_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/rem_regular"
