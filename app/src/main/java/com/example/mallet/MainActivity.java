@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
+        dialog.getWindow().setGravity(Gravity.BOTTOM)
     }
 
     private void startCreateActivity(Class<?> activityClass, Dialog dialog) {
