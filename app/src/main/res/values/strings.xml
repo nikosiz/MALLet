@@ -19,7 +19,7 @@
     <string name="notifications">Notifications</string>
     <string name="save_sets_offline">Save sets for use offline</string>
     <string name="remember_me">Remember me</string>
-    <string name="dont_have_an_account">Don\'t have an account?\ </string>
+    <string name="dont_have_an_account">Don\'t have an account?</string>
     <string name="sign_up_here">Sign up here</string>
     <string name="by_logging_in_you_accept">By logging in you accept MALLet\'s Terms of service and Privacy policy</string>
     <string name="facebook">Facebook</string>
@@ -30,4 +30,8 @@
     <string name="email_incorrect">Provided email is incorrect</string>
     <string name="log_in">Log in</string>
     <string name="sign_up">Sign up</string>
+    <string name="or_quickly">or quickly with</string>
+    <string name="log_in_here">Log in here</string>
+    <string name="already_have_account">Already have an account?</string>
+    <string name="by_signing_up_you_accept">By signing up you accept MALLet\'s Terms of service and Privacy policy</string>
 </resources>
