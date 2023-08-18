@@ -48,8 +48,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_alignEnd="@id/profile_photo"
-                    android:layout_alignBottom="@id/profile_photo"
-                    android:src="@drawable/ic_edit" />
+                    android:layout_alignBottom="@id/profile_photo" />
             </RelativeLayout>
 
             <View
@@ -142,7 +141,7 @@
             <View
                 android:id="@+id/profile_view_2"
                 android:layout_width="match_parent"
-                android:layout_height=20dp"/>
+                android:layout_height="20dp" />
 
             <LinearLayout
                 android:id="@+id/profile_notifications_ll"
