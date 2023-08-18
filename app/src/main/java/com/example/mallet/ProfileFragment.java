@@ -49,7 +49,7 @@ public class ProfileFragment extends Fragment {
         binding.profileNotificationsLl.setOnClickListener(v -> toggleNotificationSettings());
         binding.profileYourLanguagesLl.setOnClickListener(v -> openLanguageSettings());
         binding.profileSaveOfflineSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> saveSetsOffline(isChecked));
-        binding.profileDarkModeLl.setOnClickListener(v -> toggleDarkMode());
+        binding.profileThemeLl.setOnClickListener(v -> toggleDarkMode());
         binding.profileLogOutLl.setOnClickListener(v -> logOut());
         binding.profileAboutLl.setOnClickListener(v -> showAboutSection());
         binding.profileDeleteAccountLl.setOnClickListener(v -> showDeleteAccountDialog());
