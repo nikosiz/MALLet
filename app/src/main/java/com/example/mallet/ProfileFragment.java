@@ -43,25 +43,25 @@ public class ProfileFragment extends Fragment {
         setupClickListeners();
     }
 
-    public enum ProfileAction {
+    public enum VerifyPasswordAction {
         CHANGE_EMAIL, CHANGE_USERNAME
     }
 
     // Set up click listeners for profile actions
     private void setupClickListeners() {
-        binding.profileEmailLl.setOnClickListener(v -> showVerifyPasswordDialog(ProfileAction.CHANGE_EMAIL));
-        binding.profileUsernameLl.setOnClickListener(v -> showVerifyPasswordDialog(ProfileAction.CHANGE_USERNAME));
+        binding.profileEmailLl.setOnClickListener(v -> showVerifyPasswordDialog(VerifyPasswordAction.CHANGE_EMAIL));
+        binding.profileUsernameLl.setOnClickListener(v -> showVerifyPasswordDialog(VerifyPasswordAction.CHANGE_USERNAME));
         binding.profileChangePasswordLl.setOnClickListener(v -> changePassword());
         binding.profileNotificationsSwitch.setOnClickListener(v -> notificationSettings());
-        binding.profileSaveOfflineSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> saveSetsOffline(isChecked));
-        binding.profileThemeLl.setOnClickListener(v -> toggleDarkMode());
+        binding.profileSaveOfflineSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> saveSetsOffline());
+        binding.profileThemeLl.setOnClickListener(v -> changeTheme());
         binding.profileLogOutLl.setOnClickListener(v -> logOut());
         binding.profileAboutLl.setOnClickListener(v -> showAboutSection());
         binding.profileDeleteAccountLl.setOnClickListener(v -> showDeleteAccountDialog());
     }
 
     // Show the verify password dialog
-    private void showVerifyPasswordDialog(ProfileAction action) {
+    private void showVerifyPasswordDialog(VerifyPasswordAction action) {
         final Dialog dialog = createDialog(R.layout.dialog_verify_password);
 
         dialog.show();
@@ -87,9 +87,9 @@ public class ProfileFragment extends Fragment {
                 dialog.dismiss();
 
                 // Perform the appropriate action based on the provided action parameter
-                if (action == ProfileAction.CHANGE_EMAIL) {
+                if (action == VerifyPasswordAction.CHANGE_EMAIL) {
                     changeEmail();
-                } else if (action == ProfileAction.CHANGE_USERNAME) {
+                } else if (action == VerifyPasswordAction.CHANGE_USERNAME) {
                     changeUsername();
                 }
             }
@@ -262,11 +262,11 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-    private void saveSetsOffline(boolean isChecked) {
+    private void saveSetsOffline() {
         SwitchCompat saveOfflineSwitch = binding.profileSaveOfflineSwitch;
 
-        saveOfflineSwitch.setOnCheckedChangeListener((compoundButton, isChecked1) -> {
-            if (isChecked1) {
+        saveOfflineSwitch.setOnCheckedChangeListener((compoundButton, isChecked) -> {
+            if (isChecked) {
                 // TODO: Add functionality downloading sets
                 showToast("Sets downloaded (when the back end exists).");
             } else {
@@ -276,29 +276,26 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-    private void toggleDarkMode() {
+    private void changeTheme() {
         // Implement your logic to toggle dark mode
-    }
-
-    private void logOut() {
-        // Implement your logic for logging out
     }
 
     private void showAboutSection() {
         // Implement your logic to show the "about" section
     }
 
+    private void logOut() {
+        // Implement your logic for logging out
+    }
+
     private void showDeleteAccountDialog() {
         // Implement your logic to show the delete account dialog
     }
 
-    // Show a toast message
-    private void showToast(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-    }
+    //SHARED-ELEMENTS SECTION
 
-    // Create a dialog with common properties
     private Dialog createDialog(int layoutResId) {
+        // Create a dialog with common properties
         final Dialog dialog = new Dialog(requireContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(layoutResId);
@@ -308,5 +305,10 @@ public class ProfileFragment extends Fragment {
         dialog.getWindow().setGravity(Gravity.BOTTOM);
 
         return dialog;
+    }
+
+    // Show a toast message
+    private void showToast(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 }
