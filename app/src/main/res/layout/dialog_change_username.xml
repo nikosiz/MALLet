@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/top_corners_rounded"
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp"
+    android:paddingTop="20dp">
+
+    <TextView
+        android:id="@+id/change_username_enter_email_title_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/rem_bold"
+        android:text="Change username"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/change_username_view_0"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/change_username_enter_email_title_tv" />
+
+    <TextView
+        android:id="@+id/change_username_enter_email_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/rem_regular"
+        android:text="Enter new username."
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/change_username_view_0" />
+
+    <View
+        android:id="@+id/change_username_view_1"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/change_username_enter_email_tv" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/change_username_old_tit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:boxBackgroundMode="outline"
+        app:boxCornerRadiusBottomEnd="5dp"
+        app:boxCornerRadiusBottomStart="5dp"
+        app:boxCornerRadiusTopEnd="5dp"
+        app:boxCornerRadiusTopStart="5dp"
+        app:boxStrokeWidth="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/change_username_view_1">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/change_username_new_et"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:autofillHints="emailAddress"
+            android:hint="New username"
+            android:textColorHint="@color/downriver_blue_300"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/change_username_already_exists_error_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/rem_regular"
+            android:text="This username already exists."
+            android:textColor="@color/carnation_red_600"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/change_username_empty_error_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/rem_regular"
+            android:text="This field cannot be empty."
+            android:textColor="@color/carnation_red_600"
+            android:visibility="gone" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:id="@+id/change_username_cancel_confirm_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/change_username_old_tit">
+
+        <TextView
+            android:id="@+id/change_username_cancel_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:background="@drawable/ripple_text_btn"
+            android:text="@string/cancel"
+            android:textColor="@color/downriver_blue_500"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/change_username_confirm_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:background="@drawable/ripple_text_btn"
+            android:text="@string/ok"
+            android:textColor="@color/downriver_blue_500"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintTop_toBottomOf="@id/change_username_cancel_confirm_btn" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

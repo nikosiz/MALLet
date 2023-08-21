@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:backgroundTint="@color/white"
+    android:background="@color/downriver_blue_200"
     tools:context=".ProfileFragment">
 
     <ScrollView
@@ -38,17 +37,7 @@
                     android:layout_marginHorizontal="50dp"
                     android:contentDescription="Profile photo"
                     android:src="@drawable/ic_user"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/downriver_blue_500" />
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_alignEnd="@id/profile_photo"
-                    android:layout_alignBottom="@id/profile_photo" />
+                    app:tint="@color/downriver_blue_400" />
             </RelativeLayout>
 
             <View
@@ -65,10 +54,7 @@
                 android:focusable="true"
                 android:gravity="center_vertical"
                 android:orientation="vertical"
-                android:paddingHorizontal="30dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:paddingHorizontal="30dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -94,10 +80,7 @@
                 android:background="@drawable/ripple_linear_layout"
                 android:gravity="center_vertical"
                 android:orientation="vertical"
-
-                android:paddingHorizontal="30dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/profile_email_ll">
+                android:paddingHorizontal="30dp">
 
                 <TextView
                     android:id="@+id/profile_username_title"
@@ -125,9 +108,7 @@
                 android:gravity="center_vertical"
 
                 android:orientation="vertical"
-                android:paddingHorizontal="30dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/profile_username_ll">
+                android:paddingHorizontal="30dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -141,69 +122,40 @@
             <View
                 android:id="@+id/profile_view_2"
                 android:layout_width="match_parent"
-                android:layout_height="20dp" />
+                android:layout_height="10dp" />
 
             <LinearLayout
                 android:id="@+id/profile_notifications_ll"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
                 android:background="@drawable/ripple_linear_layout"
-                android:gravity="center_vertical"
-                android:orientation="vertical"
-                android:paddingHorizontal="30dp"
-
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/profile_change_password_ll">
+                android:orientation="horizontal"
+                android:paddingHorizontal="30dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/profile_notifications_switch_tv"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
                     android:fontFamily="@font/rem_regular"
                     android:gravity="center_vertical"
                     android:text="@string/notifications"
                     android:textColor="@color/downriver_blue_500" />
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/profile_notifications_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawableTint="@color/downriver_blue_500"
+                    app:thumbTint="@drawable/switch_thumb_color"
+                    app:trackDecorationTint="@drawable/switch_track_decoration_color"
+                    app:trackTint="@drawable/switch_track_color" />
             </LinearLayout>
 
             <View
                 android:id="@+id/profile_view_3"
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
-
-            <LinearLayout
-                android:id="@+id/profile_your_languages_ll"
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:background="@drawable/ripple_linear_layout"
-                android:gravity="center_vertical"
-                android:orientation="vertical"
-                android:paddingHorizontal="30dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/rem_regular"
-                    android:gravity="bottom"
-                    android:text="@string/your_languages"
-                    android:textColor="@color/downriver_blue_500"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/rem_regular"
-                    android:gravity="top"
-                    android:text="@string/users_languages"
-                    android:textColor="@color/downriver_blue_300"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/profile_username_title" />
-            </LinearLayout>
-
-            <View
-                android:id="@+id/profile_view_4"
                 android:layout_width="match_parent"
                 android:layout_height="10dp" />
 
@@ -213,9 +165,7 @@
                 android:layout_height="65dp"
                 android:background="@drawable/ripple_linear_layout"
                 android:orientation="horizontal"
-                android:paddingHorizontal="30dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:paddingHorizontal="30dp">
 
                 <TextView
                     android:id="@+id/profile_save_offline_switch_tv"
@@ -226,9 +176,7 @@
                     android:fontFamily="@font/rem_regular"
                     android:gravity="center_vertical"
                     android:text="@string/save_sets_offline"
-                    android:textColor="@color/downriver_blue_500"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:textColor="@color/downriver_blue_500" />
 
                 <com.google.android.material.materialswitch.MaterialSwitch
                     android:id="@+id/profile_save_offline_switch"
@@ -236,16 +184,14 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:drawableTint="@color/downriver_blue_500"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+
                     app:thumbTint="@drawable/switch_thumb_color"
                     app:trackDecorationTint="@drawable/switch_track_decoration_color"
                     app:trackTint="@drawable/switch_track_color" />
             </LinearLayout>
 
             <View
-                android:id="@+id/profile_view_5"
+                android:id="@+id/profile_view_4"
                 android:layout_width="match_parent"
                 android:layout_height="10dp" />
 
@@ -258,9 +204,7 @@
                 android:focusable="true"
                 android:orientation="horizontal"
                 android:paddingHorizontal="30dp"
-                android:weightSum="3"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:weightSum="3">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -269,9 +213,7 @@
                     android:layout_weight="3"
                     android:fontFamily="@font/rem_regular"
                     android:gravity="center_vertical"
-                    android:text="@string/dark_mode"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:text="@string/dark_mode" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -280,13 +222,11 @@
                     android:fontFamily="@font/rem_regular"
                     android:gravity="end"
                     android:text="@string/dark_mode_theme"
-                    android:textColor="@color/downriver_blue_300"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:textColor="@color/downriver_blue_300" />
             </LinearLayout>
 
             <View
-                android:id="@+id/profile_view_6"
+                android:id="@+id/profile_view_5"
                 android:layout_width="match_parent"
                 android:layout_height="10dp" />
 
@@ -297,9 +237,7 @@
                 android:background="@drawable/ripple_linear_layout"
                 android:gravity="center_vertical"
                 android:orientation="vertical"
-                android:paddingHorizontal="30dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:paddingHorizontal="30dp">
 
                 <TextView
                     android:id="@+id/profile_log_out_tv"
@@ -307,13 +245,11 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/rem_regular"
                     android:gravity="center"
-                    android:text="@string/log_out"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:text="@string/log_out" />
             </LinearLayout>
 
             <View
-                android:id="@+id/profile_view_7"
+                android:id="@+id/profile_view_6"
                 android:layout_width="match_parent"
                 android:layout_height="10dp" />
 
@@ -324,20 +260,14 @@
                 android:background="@drawable/ripple_linear_layout"
                 android:gravity="center_vertical"
                 android:orientation="vertical"
-                android:paddingHorizontal="30dp"
-                app:layout_constraintBottom_toTopOf="@id/profile_version_ll"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:paddingHorizontal="30dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/rem_regular"
                     android:gravity="center"
-                    android:text="@string/about"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:text="@string/about" />
             </LinearLayout>
 
             <LinearLayout
@@ -347,18 +277,14 @@
                 android:background="@drawable/ripple_linear_layout"
                 android:gravity="center_vertical"
                 android:orientation="vertical"
-                android:paddingHorizontal="30dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/profile_about_ll">
+                android:paddingHorizontal="30dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/rem_regular"
                     android:gravity="bottom"
-                    android:text="@string/version"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:text="@string/version" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -366,13 +292,11 @@
                     android:fontFamily="@font/rem_regular"
                     android:gravity="top"
                     android:text="@string/app_version"
-                    android:textColor="@color/downriver_blue_300"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/profile_username_title" />
+                    android:textColor="@color/downriver_blue_300" />
             </LinearLayout>
 
             <View
-                android:id="@+id/profile_view_9"
+                android:id="@+id/profile_view_7"
                 android:layout_width="match_parent"
                 android:layout_height="10dp" />
 
@@ -383,9 +307,7 @@
                 android:background="@drawable/ripple_linear_layout"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:paddingHorizontal="30dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:paddingHorizontal="30dp">
 
                 <TextView
                     android:id="@+id/profile_delete_account_tv"
@@ -394,9 +316,7 @@
                     android:fontFamily="@font/rem_regular"
                     android:gravity="center"
                     android:text="@string/delete_account"
-                    android:textColor="@color/carnation_red_700"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:textColor="@color/carnation_red_700" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
