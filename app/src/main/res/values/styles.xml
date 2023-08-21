@@ -4,7 +4,10 @@
 
     <style name="AppLogoStyle" parent="Widget.AppCompat.TextView">
         <item name="android:layout_gravity">center_vertical</item>
-
+        <item name="android:autoSizeMaxTextSize">300sp</item>
+        <item name="android:autoSizeMinTextSize">12sp</item>
+        <item name="android:autoSizeStepGranularity">2sp</item>
+        <item name="android:autoSizeTextType">uniform</item>
         <item name="android:fontFamily">@font/russo_one_regular</item>
         <item name="android:gravity">center</item>
         <item name="android:text">@string/app_logo</item>

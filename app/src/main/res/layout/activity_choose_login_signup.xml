@@ -24,13 +24,7 @@
             style="@style/AppLogoStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:animation="@anim/pulse_anim"
-            android:autoSizeMaxTextSize="300sp"
-            android:autoSizeMinTextSize="12sp"
-            android:autoSizeStepGranularity="2sp"
-            android:autoSizeTextType="uniform" />
-
-
+            android:animation="@anim/pulse_anim" />
     </LinearLayout>
 
     <androidx.cardview.widget.CardView
@@ -93,14 +87,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="10dp" />
 
+                <!-- TODO: Delete -->
                 <Button
                     android:id="@+id/choose_no_log_in_btn"
-                    style="@style/SocialButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="NO LOGIN"
-                    android:textSize="20sp"
-                    app:backgroundTint="@null" />
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <View

@@ -2,14 +2,20 @@ package com.example.mallet;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Patterns;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,28 +26,22 @@ import java.util.Objects;
 
 public class LogInActivity extends AppCompatActivity {
 
+    private com.example.mallet.databinding.ActivityLogInBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_log_in);
+        binding = com.example.mallet.databinding.ActivityLogInBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
 
-        //Set up remember checkbox
-        setupRememberCheckBox();
-
-        //Set up confirm login button
-        setupLogInButton();
-
-        // Set up social login buttons
-        setupGoogleButton();
-        setupFacebookButton();
-
-        setupSignUpField();
+        setupClickListeners();
 
         // Initialize views
-        TextView pulsatingTextView = findViewById(R.id.log_in_logo);
-        TextInputEditText editTextEmail = findViewById(R.id.log_in_email_et);
-        TextView textViewError = findViewById(R.id.log_in_error_tv);
-        TextView forgotPassword = findViewById(R.id.log_in_forgot_password_tv);
+        TextView pulsatingTextView = binding.logInLogo;
+        TextInputEditText editTextEmail = binding.logInEmailEt;
+        TextView textViewError = binding.logInErrorTv;
+        TextView forgotPassword = binding.logInForgotPasswordTv;
 
         // Apply pulsating animation to logo
         Animation pulsateAnimation = AnimationUtils.loadAnimation(this, R.anim.pulse_anim);
@@ -55,8 +55,7 @@ public class LogInActivity extends AppCompatActivity {
         });
 
         // Handle forgot password click
-        forgotPassword.setOnClickListener(v -> showToast("Forgot password field was clicked"));
-
+        forgotPassword.setOnClickListener(v -> forgotPassword());
     }
 
     // Validate email format
@@ -68,42 +67,72 @@ public class LogInActivity extends AppCompatActivity {
         }
     }
 
-    private void setupRememberCheckBox() {
-        CheckBox rememberMe = findViewById(R.id.log_in_remember_cb);
-        // Handle remember me checkbox click
-        rememberMe.setOnClickListener(v -> {
-            if (rememberMe.isChecked()) {
-                showToast("Remember me checkbox is checked");
+    private void forgotPassword() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_forgot_password);
+
+        LinearLayout createCollaboration = dialog.findViewById(R.id.add_new_sheet_create_collaboration);
+
+        dialog.show();
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+
+        // Find and set up cancel and confirm buttons
+        TextView cancelBtn = dialog.findViewById(R.id.forgot_password_cancel_btn);
+        TextView confirmBtn = dialog.findViewById(R.id.forgot_password_confirm_btn);
+
+        cancelBtn.setOnClickListener(v -> dialog.dismiss());
+
+        confirmBtn.setOnClickListener(v -> {
+            TextView emptyEmailError = dialog.findViewById(R.id.forgot_password_empty_error_tv);
+            TextView doesNotExistError = dialog.findViewById(R.id.forgot_password_does_not_exist_error_tv);
+            TextView validError = dialog.findViewById(R.id.forgot_password_provide_valid_error_tv);
+            TextInputEditText emailEditText = dialog.findViewById(R.id.forgot_password_new_et);
+
+            String email = Objects.requireNonNull(emailEditText.getText()).toString();
+
+            if (TextUtils.isEmpty(email)) {
+                emptyEmailError.setVisibility(View.VISIBLE);
+                validError.setVisibility(View.GONE);
+                doesNotExistError.setVisibility(View.GONE);
+            } else if (!TextUtils.isEmpty(email) && !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                emptyEmailError.setVisibility(View.GONE);
+                validError.setVisibility(View.VISIBLE);
+                doesNotExistError.setVisibility(View.GONE);
             } else {
-                showToast("Remember me checkbox is unchecked");
+                // TODO: Add functionality checking if email exists
+                /* if(!email.exists) {
+                    validEmailError.setVisibility(View.GONE);
+                    emptyFieldError.setVisibility(View.GONE);
+                    doesNotExistError.setVisibility(View.VISIBLE);
+                } else {
+                    validEmailError.setVisibility(View.GONE);
+                    emptyFieldError.setVisibility(View.GONE);
+                    doesNotExistError.setVisibility(View.GONE);
+                    dismiss();
+                    sendEmailWithResetLink();
+                }*/
+                // Hide errors, close the dialog, and show toast
+
+                showToast("OK button was clicked. The email with reset link be sent but there is no backend yet.");
+                dialog.dismiss();
             }
         });
     }
 
-    private void setupLogInButton() {
-        Button confirmLogIn = findViewById(R.id.log_in_confirm_btn);
-        confirmLogIn.setOnClickListener(v -> showToast("Log in button was clicked"));
+    private void setupClickListeners() {
+        binding.logInConfirmBtn.setOnClickListener(v -> showToast("Log in button was clicked"));
+        binding.logInGoogleBtn.setOnClickListener(v -> showToast("Log in with Google button was clicked"));
+        binding.logInFacebookBtn.setOnClickListener(v -> showToast("Log in with Facebook button was clicked"));
+        binding.signUpBtn.setOnClickListener(v -> signUpRedirect());
     }
 
-    private void setupGoogleButton() {
-        MaterialButton logInGoogle = findViewById(R.id.log_in_google_btn);
-        logInGoogle.setOnClickListener(v -> showToast("Log in with Google button was clicked"));
+    private void signUpRedirect() {
+        Intent intent = new Intent(LogInActivity.this, SignUpActivity.class);
+        startActivity(intent);
     }
-
-    private void setupFacebookButton() {
-        MaterialButton logInFacebook = findViewById(R.id.log_in_facebook_btn);
-        logInFacebook.setOnClickListener(v -> showToast("Log in with Facebook button was clicked"));
-    }
-
-    private void setupSignUpField() {
-        TextView signUp = findViewById(R.id.sign_up_btn);
-
-        signUp.setOnClickListener(v -> {
-            Intent intent = new Intent(LogInActivity.this, SignUpActivity.class);
-            startActivity(intent);
-        });
-    }
-
 
     // Show a toast message
     private void showToast(String message) {

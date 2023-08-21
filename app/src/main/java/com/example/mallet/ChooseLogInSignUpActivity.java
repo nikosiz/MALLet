@@ -3,11 +3,15 @@ package com.example.mallet;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
 
 @SuppressLint("CustomSplashScreen")
 public class ChooseLogInSignUpActivity extends AppCompatActivity {
@@ -17,9 +21,17 @@ public class ChooseLogInSignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_login_signup);
 
+
         setupLoginButton();
         setupSignUpButton();
         setupNoLogInButton();
+
+        // Initialize views
+        TextView pulsatingTextView = findViewById(R.id.choose_logo_tv);
+
+        // Apply pulsating animation to logo
+        Animation pulsateAnimation = AnimationUtils.loadAnimation(this, R.anim.pulse_anim);
+        pulsatingTextView.startAnimation(pulsateAnimation);
 
     }
 
