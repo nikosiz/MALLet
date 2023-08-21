@@ -24,21 +24,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp" />
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center">
-
-                <ImageView
-                    android:id="@+id/profile_photo"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginHorizontal="50dp"
-                    android:contentDescription="Profile photo"
-                    android:src="@drawable/ic_user"
-                    app:tint="@color/downriver_blue_400" />
-            </RelativeLayout>
+            <ImageView
+                android:id="@+id/profile_photo"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginHorizontal="50dp"
+                android:contentDescription="Profile photo"
+                android:src="@drawable/ic_user"
+                app:tint="@color/downriver_blue_400" />
 
             <View
                 android:id="@+id/profile_view_1"
@@ -57,20 +50,18 @@
                 android:paddingHorizontal="30dp">
 
                 <TextView
+                    style="@style/BasicTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/rem_regular"
                     android:gravity="bottom"
-                    android:text="@string/email"
-                    android:textColor="@color/downriver_blue_500" />
+                    android:text="@string/email" />
 
                 <TextView
+                    style="@style/BasicSubTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/rem_regular"
                     android:gravity="top"
-                    android:text="@string/email"
-                    android:textColor="@color/downriver_blue_300" />
+                    android:text="@string/email" />
             </LinearLayout>
 
             <LinearLayout
@@ -84,20 +75,18 @@
 
                 <TextView
                     android:id="@+id/profile_username_title"
+                    style="@style/BasicTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/rem_regular"
                     android:gravity="bottom"
-                    android:text="@string/username"
-                    android:textColor="@color/downriver_blue_500" />
+                    android:text="@string/username" />
 
                 <TextView
+                    style="@style/BasicSubTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/rem_regular"
                     android:gravity="top"
-                    android:text="@string/username"
-                    android:textColor="@color/downriver_blue_300" />
+                    android:text="@string/username" />
             </LinearLayout>
 
             <LinearLayout
@@ -111,12 +100,11 @@
                 android:paddingHorizontal="30dp">
 
                 <TextView
+                    style="@style/BasicTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/rem_regular"
                     android:gravity="center_vertical"
-                    android:text="@string/change_password"
-                    android:textColor="@color/downriver_blue_500" />
+                    android:text="@string/change_password" />
             </LinearLayout>
 
             <View
@@ -134,20 +122,20 @@
 
                 <TextView
                     android:id="@+id/profile_notifications_switch_tv"
+                    style="@style/BasicTextStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:fontFamily="@font/rem_regular"
                     android:gravity="center_vertical"
-                    android:text="@string/notifications"
-                    android:textColor="@color/downriver_blue_500" />
+                    android:text="@string/notifications" />
 
                 <com.google.android.material.materialswitch.MaterialSwitch
                     android:id="@+id/profile_notifications_switch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:checked="true"
                     android:drawableTint="@color/downriver_blue_500"
                     app:thumbTint="@drawable/switch_thumb_color"
                     app:trackDecorationTint="@drawable/switch_track_decoration_color"
@@ -169,14 +157,13 @@
 
                 <TextView
                     android:id="@+id/profile_save_offline_switch_tv"
+                    style="@style/BasicTextStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:fontFamily="@font/rem_regular"
                     android:gravity="center_vertical"
-                    android:text="@string/save_sets_offline"
-                    android:textColor="@color/downriver_blue_500" />
+                    android:text="@string/save_sets_offline" />
 
                 <com.google.android.material.materialswitch.MaterialSwitch
                     android:id="@+id/profile_save_offline_switch"
@@ -184,7 +171,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:drawableTint="@color/downriver_blue_500"
-
+                    android:checked="false"
                     app:thumbTint="@drawable/switch_thumb_color"
                     app:trackDecorationTint="@drawable/switch_track_decoration_color"
                     app:trackTint="@drawable/switch_track_color" />
@@ -207,22 +194,22 @@
                 android:weightSum="3">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    style="@style/BasicTextStyle"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="3"
-                    android:fontFamily="@font/rem_regular"
                     android:gravity="center_vertical"
-                    android:text="@string/dark_mode" />
+                    android:text="Application theme" />
 
                 <TextView
+                    android:id="@+id/profile_theme_selected_tv"
+                    style="@style/BasicSubTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center"
-                    android:fontFamily="@font/rem_regular"
                     android:gravity="end"
-                    android:text="@string/dark_mode_theme"
-                    android:textColor="@color/downriver_blue_300" />
+                    android:text="Selected theme" />
             </LinearLayout>
 
             <View
@@ -241,9 +228,9 @@
 
                 <TextView
                     android:id="@+id/profile_log_out_tv"
+                    style="@style/BasicTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/rem_regular"
                     android:gravity="center"
                     android:text="@string/log_out" />
             </LinearLayout>
@@ -263,9 +250,9 @@
                 android:paddingHorizontal="30dp">
 
                 <TextView
+                    style="@style/BasicTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/rem_regular"
                     android:gravity="center"
                     android:text="@string/about" />
             </LinearLayout>
@@ -282,17 +269,16 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/rem_regular"
+
                     android:gravity="bottom"
                     android:text="@string/version" />
 
                 <TextView
+                    style="@style/BasicSubTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/rem_regular"
                     android:gravity="top"
-                    android:text="@string/app_version"
-                    android:textColor="@color/downriver_blue_300" />
+                    android:text="@string/app_version" />
             </LinearLayout>
 
             <View
@@ -313,7 +299,7 @@
                     android:id="@+id/profile_delete_account_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/rem_regular"
+
                     android:gravity="center"
                     android:text="@string/delete_account"
                     android:textColor="@color/carnation_red_700" />

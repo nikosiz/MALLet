@@ -18,7 +18,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/rem_regular"
+
             android:text="@string/create_new_collaboration"
             android:textColor="@color/white"
             android:textSize="25sp" />

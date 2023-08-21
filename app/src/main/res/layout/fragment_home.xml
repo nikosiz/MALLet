@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@color/white"
-            android:text="@string/create_new_set" />
+            android:text="@string/home" />
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

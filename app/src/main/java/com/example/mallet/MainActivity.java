@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -27,7 +28,9 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
 
     // Binding object to access views in the layout
-    ActivityMainBinding binding;
+    private ActivityMainBinding binding;
+    private static final String SELECTED_FRAGMENT_KEY = "selected_fragment";
+    private int selectedFragmentId = R.id.bottom_nav_home;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,15 +40,26 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Replace the initial fragment with the HomeFragment
-        replaceFragment(new HomeFragment());
+        // Restore selected fragment state
+        if (savedInstanceState != null) {
+            selectedFragmentId = savedInstanceState.getInt(SELECTED_FRAGMENT_KEY, R.id.bottom_nav_home);
+            binding.bottomNavigationView.setSelectedItemId(selectedFragmentId);
+        } else {
+            replaceFragment(new HomeFragment());
+        }
 
         // Set exception item index (0-based)
         int exceptionItemIndex = 2;
         setExceptionItemColor(exceptionItemIndex);
 
         // Set a listener for bottom navigation view item selection
-        binding.bottomNavigationView.setOnItemSelectedListener(this::onNavigationItemSelected);
+        binding.bottomNavigationView.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putInt(SELECTED_FRAGMENT_KEY, selectedFragmentId);
+        super.onSaveInstanceState(outState);
     }
 
     // Method to replace the fragment in the bottom navigation container
@@ -82,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // TODO: Fix this issue
     @SuppressLint("RestrictedApi")
     private void setExceptionItemColor(int exceptionItemIndex) {
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) binding.bottomNavigationView.getChildAt(0);
@@ -92,17 +105,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean onNavigationItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
+        selectedFragmentId = item.getItemId(); // Update the selected fragment ID
         // Check which menu item was selected and replace the fragment accordingly
-        if (itemId == R.id.bottom_nav_home) {
+        if (selectedFragmentId == R.id.bottom_nav_home) {
             replaceFragment(new HomeFragment());
-        } else if (itemId == R.id.bottom_nav_library) {
+        } else if (selectedFragmentId == R.id.bottom_nav_library) {
             replaceFragment(new LibraryFragment());
-        } else if (itemId == R.id.bottom_nav_add_new) {
+        } else if (selectedFragmentId == R.id.bottom_nav_add_new) {
             showBottomDialog();
-        } else if (itemId == R.id.bottom_nav_your_library) {
+        } else if (selectedFragmentId == R.id.bottom_nav_your_library) {
             replaceFragment(new YourFragment());
-        } else if (itemId == R.id.bottom_nav_profile) {
+        } else if (selectedFragmentId == R.id.bottom_nav_profile) {
             replaceFragment(new ProfileFragment());
         }
         // Return true to indicate that the item selection was handled

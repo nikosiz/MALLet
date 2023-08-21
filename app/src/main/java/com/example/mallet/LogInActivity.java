@@ -54,7 +54,6 @@ public class LogInActivity extends AppCompatActivity {
             }
         });
 
-
         // Handle forgot password click
         forgotPassword.setOnClickListener(v -> showToast("Forgot password field was clicked"));
 

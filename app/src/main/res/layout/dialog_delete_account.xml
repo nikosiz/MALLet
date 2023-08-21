@@ -10,9 +10,9 @@
 
     <TextView
         android:id="@+id/delete_acc_enter_password_title_tv"
+        style="@style/BasicBoldTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/rem_bold"
         android:text="Delete account"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,9 +27,9 @@
 
     <TextView
         android:id="@+id/delete_acc_enter_password_tv"
+        style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/rem_regular"
         android:text="You are about to delete your account permanently. If you want to continue, please input your password."
         android:textSize="19sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,42 +67,54 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/delete_acc_password_error"
+            android:id="@+id/delete_acc_empty_error"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginBottom="5dp"
-            android:fontFamily="@font/rem_regular"
-            android:text="@string/input_your_password_error"
+            android:text="This field cannot be empty."
             android:textColor="@color/carnation_red_600"
             android:visibility="gone" />
-    </com.google.android.material.textfield.TextInputLayout>
 
-    <View
-        android:id="@+id/delete_acc_view_3"
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/delete_acc_password_tit" />
+        <TextView
+            android:id="@+id/delete_acc_wrong_pass_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginBottom="5dp"
+            android:text="The password you provided is incorrect."
+            android:textColor="@color/carnation_red_600"
+            android:visibility="gone" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <CheckBox
         android:id="@+id/delete_acc_cb"
-        android:layout_width="wrap_content"
+        style="@style/BasicTextStyle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:background="@drawable/ripple_text_btn"
         android:text="I am aware that this action is irreversible"
-        android:textColor="@color/downriver_blue_500"
-        android:textSize="17sp"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/delete_acc_view_3" />
+        app:layout_constraintTop_toBottomOf="@id/delete_acc_password_tit" />
+
+    <TextView
+        android:id="@+id/delete_acc_checkbox_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="You need to check this box in order to continue."
+        android:textColor="@color/carnation_red_600"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/delete_acc_cb" />
 
     <View
         android:id="@+id/delete_acc_view_2"
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/delete_acc_cb" />
+        app:layout_constraintTop_toBottomOf="@id/delete_acc_checkbox_error" />
 
     <LinearLayout
         android:id="@+id/delete_acc_cancel_confirm_btn"
@@ -115,6 +127,7 @@
 
         <TextView
             android:id="@+id/delete_acc_cancel_btn"
+            style="@style/BasicTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
@@ -125,6 +138,7 @@
 
         <TextView
             android:id="@+id/delete_acc_confirm_btn"
+            style="@style/BasicTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"

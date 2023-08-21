@@ -53,13 +53,12 @@
 
             <TextView
                 android:id="@+id/log_in_email_title"
+                style="@style/BasicTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:text="@string/log_in_with_email_address"
-                android:textSize="23sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/log_in_ll" />
+                android:textSize="23sp" />
 
             <View
                 android:layout_width="match_parent"
@@ -139,6 +138,7 @@
 
                     <CheckBox
                         android:id="@+id/log_in_remember_cb"
+                        style="@style/BasicTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/downriver_blue_700"
@@ -150,6 +150,7 @@
 
                     <TextView
                         android:id="@+id/log_in_forgot_password_tv"
+                        style="@style/BasicTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
@@ -169,19 +170,11 @@
 
                 <Button
                     android:id="@+id/log_in_confirm_btn"
+                    style="@style/BasicButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/background_basic_btn"
-                    android:maxWidth="10dp"
                     android:text="@string/log_in"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    app:backgroundTint="@null"
-                    app:cornerRadius="20dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/log_in_password_et"
-                    app:rippleColor="@color/black" />
+                    app:backgroundTint="@null" />
 
 
             </LinearLayout>
@@ -200,6 +193,7 @@
                 app:layout_constraintTop_toBottomOf="@id/log_in_ll">
 
                 <TextView
+                    style="@style/BasicTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -223,16 +217,11 @@
                     <!-- TODO: <com.google.android.gms.common.SignInButton -->
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/log_in_google_btn"
+                        style="@style/SocialButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:background="@drawable/background_social_btn"
-                        android:gravity="center"
+                        android:layout_marginHorizontal="10dp"
                         android:text="@string/google"
-                        android:textAllCaps="false"
-                        android:textColor="@color/downriver_blue_500"
-                        app:backgroundTint="@null"
-                        app:cornerRadius="4dp"
                         app:icon="@drawable/ic_google"
                         app:iconGravity="textStart"
                         app:iconTint="@null"
@@ -243,15 +232,12 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/log_in_facebook_btn"
+                        style="@style/SocialButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginHorizontal="10dp"
                         android:background="@drawable/background_social_btn"
                         android:text="@string/facebook"
-                        android:textAllCaps="false"
-                        android:textColor="@color/downriver_blue_500"
-                        app:backgroundTint="@null"
-                        app:cornerRadius="4dp"
                         app:icon="@drawable/ic_facebook"
                         app:iconGravity="textStart"
                         app:iconTint="@null"
@@ -276,6 +262,7 @@
                 app:layout_constraintTop_toBottomOf="@id/log_in_other_options_ll">
 
                 <TextView
+                    style="@style/BasicTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -284,12 +271,12 @@
 
                 <TextView
                     android:id="@+id/sign_up_btn"
+                    style="@style/BasicBoldTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ripple_text_btn"
                     android:clickable="true"
                     android:focusable="true"
-                    android:fontFamily="@font/rem_bold"
                     android:padding="5dp"
                     android:text="@string/sign_up_here"
                     android:textSize="20sp" />
@@ -309,6 +296,7 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <TextView
+                    style="@style/BasicTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"

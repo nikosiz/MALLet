@@ -6,116 +6,131 @@
     android:background="@drawable/top_corners_rounded"
     android:orientation="vertical"
     android:paddingHorizontal="20dp"
-    android:paddingTop="20dp">
+    android:paddingTop="20dp"
+    android:theme="@style/Base.Theme.MALLet">
 
     <TextView
-        android:id="@+id/choose_theme_enter_password_title_tv"
+        android:id="@+id/change_theme_enter_password_title_tv"
+        style="@style/BasicBoldTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/rem_bold"
         android:text="Choose theme"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
-        android:id="@+id/choose_theme_view_0"
+        android:id="@+id/change_theme_view_0"
         android:layout_width="match_parent"
         android:layout_height="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/choose_theme_enter_password_title_tv" />
+        app:layout_constraintTop_toBottomOf="@id/change_theme_enter_password_title_tv" />
 
     <TextView
-        android:id="@+id/choose_theme_enter_password_tv"
+        android:id="@+id/change_theme_enter_password_tv"
+        style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/rem_regular"
         android:text="Choose the application theme"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/choose_theme_view_0" />
+        app:layout_constraintTop_toBottomOf="@id/change_theme_view_0" />
 
     <View
-        android:id="@+id/choose_theme_view_1"
+        android:id="@+id/change_theme_view_1"
         android:layout_width="match_parent"
         android:layout_height="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/choose_theme_enter_password_tv" />
+        app:layout_constraintTop_toBottomOf="@id/change_theme_enter_password_tv" />
 
     <LinearLayout
-        android:id="@+id/choose_theme_checkboxes_ll"
+        android:id="@+id/change_theme_radio_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/choose_theme_view_1">
+        app:layout_constraintTop_toBottomOf="@id/change_theme_view_1">
 
-        <CheckBox
-            android:id="@+id/choose_mode_system_cb"
-            android:layout_width="match_parent"
+        <RadioGroup
+            android:id="@+id/change_theme_rg"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="System default" />
+            android:orientation="vertical">
 
-        <CheckBox
-            android:id="@+id/choose_mode_light_cb"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Light" />
+            <RadioButton
+                android:id="@+id/system_default_rb"
+                style="@style/CustomRadioButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="System default"
+                android:textSize="15sp" />
 
-        <CheckBox
-            android:id="@+id/choose_mode_dark_cb"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Dark" />
+            <RadioButton
+                android:id="@+id/light_theme_rb"
+                style="@style/CustomRadioButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Light theme"
+                android:textSize="15sp" />
+
+            <RadioButton
+                android:id="@+id/dark_theme_rb"
+                style="@style/CustomRadioButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dark theme"
+                android:textSize="15sp" />
+        </RadioGroup>
+
     </LinearLayout>
 
     <View
-        android:id="@+id/choose_theme_view_2"
+        android:id="@+id/change_theme_view_2"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/choose_theme_checkboxes_ll" />
+        app:layout_constraintTop_toBottomOf="@id/change_theme_radio_ll" />
 
     <LinearLayout
-        android:id="@+id/choose_theme_cancel_confirm_btn"
+        android:id="@+id/change_theme_cancel_confirm_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="end"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/choose_theme_view_2">
+        app:layout_constraintTop_toBottomOf="@id/change_theme_view_2">
 
         <TextView
-            android:id="@+id/choose_theme_cancel_btn"
+            android:id="@+id/change_theme_cancel_btn"
+            style="@style/BasicTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:background="@drawable/ripple_text_btn"
             android:text="@string/cancel"
-            android:textColor="@color/downriver_blue_500"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/choose_theme_confirm_btn"
+            android:id="@+id/change_theme_confirm_btn"
+            style="@style/BasicTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:background="@drawable/ripple_text_btn"
             android:text="@string/ok"
-            android:textColor="@color/downriver_blue_500"
             android:textSize="20sp" />
     </LinearLayout>
 
     <View
-        android:id="@+id/choose_theme_view_3"
+        android:id="@+id/change_theme_view_3"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/choose_theme_cancel_confirm_btn" />
+        app:layout_constraintTop_toBottomOf="@id/change_theme_cancel_confirm_btn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

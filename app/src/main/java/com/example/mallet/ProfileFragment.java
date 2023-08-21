@@ -1,6 +1,9 @@
 package com.example.mallet;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -11,16 +14,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.mallet.databinding.FragmentProfileBinding;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+
+import org.w3c.dom.Text;
 
 import java.util.Objects;
 
@@ -41,6 +51,7 @@ public class ProfileFragment extends Fragment {
 
         // Click listeners for various profile actions
         setupClickListeners();
+
     }
 
     public enum VerifyPasswordAction {
@@ -58,6 +69,7 @@ public class ProfileFragment extends Fragment {
         binding.profileLogOutLl.setOnClickListener(v -> logOut());
         binding.profileAboutLl.setOnClickListener(v -> showAboutSection());
         binding.profileDeleteAccountLl.setOnClickListener(v -> showDeleteAccountDialog());
+
     }
 
     // Show the verify password dialog
@@ -256,8 +268,12 @@ public class ProfileFragment extends Fragment {
             if (isChecked) {
                 // TODO: Add functionality showing notifications
                 showToast("You will get notifications when the back end exists.");
+                binding.profileNotificationsSwitch.setChecked(true);
+
             } else {
                 showToast("You will not get notifications when the back end exists.");
+                binding.profileNotificationsSwitch.setChecked(false);
+
             }
         });
     }
@@ -277,25 +293,155 @@ public class ProfileFragment extends Fragment {
     }
 
     private void changeTheme() {
-        // Implement your logic to toggle dark mode
+        final Dialog dialog = new Dialog(requireContext());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_change_theme);
+
+        dialog.show();
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+
+        // Find and set up cancel and confirm buttons
+        TextView cancelBtn = dialog.findViewById(R.id.change_theme_cancel_btn);
+        TextView confirmBtn = dialog.findViewById(R.id.change_theme_confirm_btn);
+        RadioGroup themeRadioGroup = dialog.findViewById(R.id.change_theme_rg);
+
+        // Get the currently saved theme selection
+        String savedTheme = getSavedTheme();
+
+        if (savedTheme.equals("Light Theme")) {
+            themeRadioGroup.check(R.id.light_theme_rb);
+        } else if (savedTheme.equals("Dark Theme")) {
+            themeRadioGroup.check(R.id.dark_theme_rb);
+        } else {
+            themeRadioGroup.check(R.id.system_default_rb);
+        }
+
+        cancelBtn.setOnClickListener(v -> dialog.dismiss());
+
+        confirmBtn.setOnClickListener(v -> {
+            int checkedId = themeRadioGroup.getCheckedRadioButtonId();
+
+            String selectedThemeName;
+            if (checkedId == R.id.light_theme_rb) {
+                selectedThemeName = "Light Theme";
+            } else if (checkedId == R.id.dark_theme_rb) {
+                selectedThemeName = "Dark Theme";
+            } else {
+                selectedThemeName = "System Default Theme";
+            }
+
+            saveSelectedTheme(selectedThemeName); // Save the selected theme name
+            showToast(selectedThemeName);
+            applyTheme(selectedThemeName); // Apply the new theme immediately
+            dialog.dismiss();
+        });
     }
 
+
+    private void saveSelectedTheme(String themeName) {
+        SharedPreferences preferences = requireContext().getSharedPreferences("theme_prefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("selectedTheme", themeName);
+        editor.apply();
+    }
+
+    private String getSavedTheme() {
+        SharedPreferences preferences = requireContext().getSharedPreferences("theme_prefs", Context.MODE_PRIVATE);
+        return preferences.getString("selectedTheme", "System Default Theme");
+    }
+
+    private void applyTheme(String themeName) {
+        int themeMode;
+        if (themeName.equals("Light Theme")) {
+            themeMode = AppCompatDelegate.MODE_NIGHT_NO;
+        } else if (themeName.equals("Dark Theme")) {
+            themeMode = AppCompatDelegate.MODE_NIGHT_YES;
+        } else {
+            themeMode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
+        }
+
+        AppCompatDelegate.setDefaultNightMode(themeMode);
+
+        // Recreate the activity to apply the new theme immediately
+        requireActivity().recreate();
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+
     private void showAboutSection() {
-        // Implement your logic to show the "about" section
+        // TODO: Implement logic to show the "about" section
+        showToast("This is the about section.");
     }
 
     private void logOut() {
-        // Implement your logic for logging out
+        // TODO: Implement logic for logging out
+
+        showToast("You were logged out. For now, as we do not have any backend, we are just going to move you to the ChooseLogInSignUpActivity.java");
+        Intent intent = new Intent(getContext(), ChooseLogInSignUpActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+        getActivity().finish();
     }
 
     private void showDeleteAccountDialog() {
-        // Implement your logic to show the delete account dialog
+        final Dialog dialog = new Dialog(requireContext());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_delete_account);
+
+        dialog.show();
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+
+        // Find and set up cancel and confirm buttons
+        TextView cancelBtn = dialog.findViewById(R.id.delete_acc_cancel_btn);
+        TextView confirmBtn = dialog.findViewById(R.id.delete_acc_confirm_btn);
+        CheckBox deleteAccountCheckBox = dialog.findViewById(R.id.delete_acc_cb);
+
+        cancelBtn.setOnClickListener(v -> dialog.dismiss());
+
+        confirmBtn.setOnClickListener(v -> {
+            TextView emptyPasswordError = dialog.findViewById(R.id.delete_acc_empty_error);
+            TextView wrongPasswordError = dialog.findViewById(R.id.delete_acc_wrong_pass_error);
+            TextView checkError = dialog.findViewById(R.id.delete_acc_checkbox_error);
+            TextInputEditText passwordEditText = dialog.findViewById(R.id.delete_acc_password_et);
+
+            String password = Objects.requireNonNull(passwordEditText.getText()).toString();
+
+            if (TextUtils.isEmpty(password) && !deleteAccountCheckBox.isChecked()) {
+                // Display error for empty password
+                emptyPasswordError.setVisibility(View.VISIBLE);
+                checkError.setVisibility(View.VISIBLE);
+                wrongPasswordError.setVisibility(View.GONE); // Hide wrong password error if shown
+            } else if (!TextUtils.isEmpty(password) && !deleteAccountCheckBox.isChecked()) {
+                emptyPasswordError.setVisibility(View.GONE);
+                checkError.setVisibility(View.VISIBLE);
+                wrongPasswordError.setVisibility(View.GONE);
+            } else if (TextUtils.isEmpty(password) && deleteAccountCheckBox.isChecked()) {
+                emptyPasswordError.setVisibility(View.VISIBLE);
+                checkError.setVisibility(View.GONE);
+                wrongPasswordError.setVisibility(View.GONE);
+            } else {
+                // TODO: Add functionality for checking if the password is correct
+                emptyPasswordError.setVisibility(View.GONE);
+                checkError.setVisibility(View.GONE);
+                showToast("When we have backend, we will check if the password is correct. For now we just jump to ChooseLogInSignUp.java.");
+                Intent intent = new Intent(getContext(), ChooseLogInSignUpActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
     }
 
-    //SHARED-ELEMENTS SECTION
 
+    // Create a dialog with common properties
     private Dialog createDialog(int layoutResId) {
-        // Create a dialog with common properties
         final Dialog dialog = new Dialog(requireContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(layoutResId);
@@ -305,10 +451,5 @@ public class ProfileFragment extends Fragment {
         dialog.getWindow().setGravity(Gravity.BOTTOM);
 
         return dialog;
-    }
-
-    // Show a toast message
-    private void showToast(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 }
