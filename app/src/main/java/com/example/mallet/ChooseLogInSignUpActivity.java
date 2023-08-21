@@ -3,6 +3,7 @@ package com.example.mallet;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,7 +24,7 @@ public class ChooseLogInSignUpActivity extends AppCompatActivity {
     }
 
     private void setupLoginButton() {
-        MaterialButton logInButton = findViewById(R.id.splash_log_in_btn);
+        Button logInButton = findViewById(R.id.choose_log_in_btn);
         logInButton.setOnClickListener(v -> {
             // Open LogInActivity
             Intent intent = new Intent(ChooseLogInSignUpActivity.this, LogInActivity.class);
@@ -32,7 +33,7 @@ public class ChooseLogInSignUpActivity extends AppCompatActivity {
     }
 
     private void setupSignUpButton() {
-        MaterialButton logInButton = findViewById(R.id.splash_sign_up_btn);
+        Button logInButton = findViewById(R.id.choose_sign_up_btn);
         logInButton.setOnClickListener(v -> {
             // Open LogInActivity
             Intent intent = new Intent(ChooseLogInSignUpActivity.this, SignUpActivity.class);
@@ -42,7 +43,7 @@ public class ChooseLogInSignUpActivity extends AppCompatActivity {
 
     // TODO: Delete this and everything connected
     private void setupNoLogInButton() {
-        MaterialButton logInButton = findViewById(R.id.splash_no_login_btn);
+        Button logInButton = findViewById(R.id.choose_no_log_in_btn);
         logInButton.setOnClickListener(v -> {
             // Open LogInActivity
             Intent intent = new Intent(ChooseLogInSignUpActivity.this, MainActivity.class);

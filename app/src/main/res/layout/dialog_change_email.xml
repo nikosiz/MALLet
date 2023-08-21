@@ -10,10 +10,11 @@
 
     <TextView
         android:id="@+id/change_email_enter_email_title_tv"
-        style="@style/DialogTitleTextStyle"
+        style="@style/BasicBoldTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Change email"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
