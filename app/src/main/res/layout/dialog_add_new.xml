@@ -5,13 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/top_corners_rounded"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingHorizontal="30dp">
+
+    <View
+        android:id="@+id/add_new_view_0"
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
 
     <LinearLayout
-        android:id="@+id/add_new_sheet_create_set"
+        android:id="@+id/add_new_create_set"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:orientation="horizontal"
         android:padding="10dp"
         tools:ignore="UseCompoundDrawables">
@@ -24,17 +29,23 @@
             app:tint="@color/calamander_brown_900" />
 
         <TextView
+            style="@style/BasicTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:text="@string/create_new_set"
             android:textColor="@color/calamander_brown_900"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
 
     </LinearLayout>
 
+    <View
+        android:id="@+id/add_new_view_1"
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
     <LinearLayout
-        android:id="@+id/add_new_sheet_create_folder"
+        android:id="@+id/add_new_create_folder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -50,17 +61,23 @@
             app:tint="@color/calamander_brown_900" />
 
         <TextView
+            style="@style/BasicTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:text="@string/create_new_folder"
             android:textColor="@color/calamander_brown_900"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
 
     </LinearLayout>
 
+    <View
+        android:id="@+id/add_new_view_2"
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
     <LinearLayout
-        android:id="@+id/add_new_sheet_create_collaboration"
+        android:id="@+id/add_new_create_collaboration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -76,13 +93,19 @@
             app:tint="@color/calamander_brown_900" />
 
         <TextView
+            style="@style/BasicTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:text="@string/create_new_collaboration"
             android:textColor="@color/calamander_brown_900"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
 
     </LinearLayout>
+
+    <View
+        android:id="@+id/add_new_view_3"
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
 
 </LinearLayout>

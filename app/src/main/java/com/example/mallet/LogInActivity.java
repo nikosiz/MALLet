@@ -72,7 +72,7 @@ public class LogInActivity extends AppCompatActivity {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_forgot_password);
 
-        LinearLayout createCollaboration = dialog.findViewById(R.id.add_new_sheet_create_collaboration);
+        LinearLayout createCollaboration = dialog.findViewById(R.id.add_new_create_collaboration);
 
         dialog.show();
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);

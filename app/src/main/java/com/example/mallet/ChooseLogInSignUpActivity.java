@@ -1,6 +1,5 @@
 package com.example.mallet;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.animation.Animation;
@@ -10,10 +9,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputEditText;
-
-@SuppressLint("CustomSplashScreen")
 public class ChooseLogInSignUpActivity extends AppCompatActivity {
 
     @Override

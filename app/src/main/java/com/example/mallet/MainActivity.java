@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -53,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
         setExceptionItemColor(exceptionItemIndex);
 
         // Set a listener for bottom navigation view item selection
-        binding.bottomNavigationView.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
+        //binding.bottomNavigationView.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
+        binding.bottomNavigationView.setOnItemSelectedListener(this::onNavigationItemSelected);
     }
 
     @Override
@@ -74,11 +76,11 @@ public class MainActivity extends AppCompatActivity {
     private void showBottomDialog() {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.add_new_sheet);
+        dialog.setContentView(R.layout.dialog_add_new);
 
-        LinearLayout createSet = dialog.findViewById(R.id.add_new_sheet_create_set);
-        LinearLayout createFolder = dialog.findViewById(R.id.add_new_sheet_create_folder);
-        LinearLayout createCollaboration = dialog.findViewById(R.id.add_new_sheet_create_collaboration);
+        LinearLayout createSet = dialog.findViewById(R.id.add_new_create_set);
+        LinearLayout createFolder = dialog.findViewById(R.id.add_new_create_folder);
+        LinearLayout createCollaboration = dialog.findViewById(R.id.add_new_create_collaboration);
 
         createSet.setOnClickListener(view -> startCreateActivity(CreateSetActivity.class, dialog));
         createFolder.setOnClickListener(view -> startCreateActivity(CreateFolderActivity.class, dialog));
@@ -96,11 +98,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    @SuppressLint("RestrictedApi")
     private void setExceptionItemColor(int exceptionItemIndex) {
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) binding.bottomNavigationView.getChildAt(0);
         BottomNavigationItemView exceptionItem = (BottomNavigationItemView) menuView.getChildAt(exceptionItemIndex);
-        int color = getResources().getColor(R.color.downriver_blue_300);
+        int color = ContextCompat.getColor(this, R.color.downriver_blue_300);
         exceptionItem.setIconTintList(ColorStateList.valueOf(color));
     }
 
