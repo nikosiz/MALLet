@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.CheckBox;
-import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,10 +26,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.mallet.databinding.FragmentProfileBinding;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
-
-import org.w3c.dom.Text;
 
 import java.util.Objects;
 
@@ -385,7 +381,7 @@ public class ProfileFragment extends Fragment {
         Intent intent = new Intent(getContext(), ChooseLogInSignUpActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
-        getActivity().finish();
+        Objects.requireNonNull(getActivity()).finish();
     }
 
     private void showDeleteAccountDialog() {
@@ -434,7 +430,7 @@ public class ProfileFragment extends Fragment {
                 Intent intent = new Intent(getContext(), ChooseLogInSignUpActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
-                getActivity().finish();
+                Objects.requireNonNull(getActivity()).finish();
             }
         });
     }

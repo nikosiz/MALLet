@@ -30,9 +30,7 @@ public class HomeFragment extends Fragment {
     private void setupHomeBtn(View rootView) {
         Button startLearn = rootView.findViewById(R.id.home_button);
 
-        startLearn.setOnClickListener(v -> {
-            startLearnActivity();
-        });
+        startLearn.setOnClickListener(v -> startLearnActivity());
     }
 
     private void startLearnActivity() {
