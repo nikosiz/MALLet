@@ -45,6 +45,7 @@ dependencies {
     // Added by authors
     implementation "androidx.core:core-splashscreen:1.0.1"
     implementation 'com.google.android.gms:play-services-auth:20.6.0'
-
+    implementation 'com.github.yuyakaido:cardstackview:2.3.4'
+    implementation 'com.squareup.picasso:picasso:2.8'
 
 }

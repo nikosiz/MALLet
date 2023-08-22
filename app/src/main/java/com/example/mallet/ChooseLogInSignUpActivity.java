@@ -16,7 +16,6 @@ public class ChooseLogInSignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_login_signup);
 
-
         setupLoginButton();
         setupSignUpButton();
         setupNoLogInButton();
@@ -27,7 +26,6 @@ public class ChooseLogInSignUpActivity extends AppCompatActivity {
         // Apply pulsating animation to logo
         Animation pulsateAnimation = AnimationUtils.loadAnimation(this, R.anim.pulse_anim);
         pulsatingTextView.startAnimation(pulsateAnimation);
-
     }
 
     private void setupLoginButton() {
@@ -40,19 +38,18 @@ public class ChooseLogInSignUpActivity extends AppCompatActivity {
     }
 
     private void setupSignUpButton() {
-        Button logInButton = findViewById(R.id.choose_sign_up_btn);
-        logInButton.setOnClickListener(v -> {
-            // Open LogInActivity
+        Button signUpButton = findViewById(R.id.choose_sign_up_btn);
+        signUpButton.setOnClickListener(v -> {
+            // Open SignUpActivity
             Intent intent = new Intent(ChooseLogInSignUpActivity.this, SignUpActivity.class);
             startActivity(intent);
         });
     }
 
-    // TODO: Delete this and everything connected
     private void setupNoLogInButton() {
-        Button logInButton = findViewById(R.id.choose_no_log_in_btn);
-        logInButton.setOnClickListener(v -> {
-            // Open LogInActivity
+        Button noLogInButton = findViewById(R.id.choose_no_log_in_btn);
+        noLogInButton.setOnClickListener(v -> {
+            // Open MainActivity
             Intent intent = new Intent(ChooseLogInSignUpActivity.this, MainActivity.class);
             startActivity(intent);
         });
