@@ -51,4 +51,12 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
             translation.setText(data.getTranslation());
         }
     }
+
+    public List<ItemModel> getItems() {
+        return items;
+    }
+
+    public void setItems(List<ItemModel> items) {
+        this.items = items;
+    }
 }

@@ -3,7 +3,7 @@ package com.example.mallet;
 public class ItemModel {
     private String word, definition, translation;
 
-    public ItemModel(){
+    public ItemModel() {
 
     }
 
@@ -13,12 +13,15 @@ public class ItemModel {
         this.translation = translation;
     }
 
-    public int getWord() {
+    public String getWord() {
+        return word;
     }
 
-    public int getDefinition() {
+    public String getDefinition() {
+        return definition;
     }
 
-    public int getTranslation() {
+    public String getTranslation() {
+        return translation;
     }
 }
