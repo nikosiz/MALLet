@@ -41,22 +41,39 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/learn_swipe_left_btn"
+            style="@style/RoundButtonStyle"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
             android:layout_marginHorizontal="10dp"
-            android:text="Left" />
+            android:onClick="swipeLeft"
+            app:icon="@drawable/ic_x_mark"
+            app:iconSize="30dp"
+            app:iconTint="@color/persimmon_red_300" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/learn_undo_btn"
+            style="@style/RoundButtonStyle"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
             android:layout_marginHorizontal="10dp"
-            android:text="Undo" />
+            android:onClick="undoSwipe"
+            app:icon="@drawable/ic_undo"
+            app:iconSize="30dp"
+            app:iconTint="@color/white" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/learn_swipe_right_btn"
+            style="@style/RoundButtonStyle"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginHorizontal="10dp"
-            android:text="Right" />
+            android:onClick="swipeRight"
+            app:icon="@drawable/ic_check_mark"
+            app:iconSize="30dp"
+            app:iconTint="@color/green_yellow_300" />
     </LinearLayout>
 
     <View

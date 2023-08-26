@@ -11,11 +11,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
 
+import com.example.mallet.databinding.ActivityLearnBinding;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackListener;
-import com.yuyakaido.android.cardstackview.CardStackView;
 import com.yuyakaido.android.cardstackview.Direction;
+import com.yuyakaido.android.cardstackview.Duration;
 import com.yuyakaido.android.cardstackview.StackFrom;
+import com.yuyakaido.android.cardstackview.SwipeAnimationSetting;
 import com.yuyakaido.android.cardstackview.SwipeableMethod;
 
 import java.util.ArrayList;
@@ -23,16 +25,22 @@ import java.util.List;
 
 public class LearnActivity extends AppCompatActivity {
 
+    private ActivityLearnBinding binding;
     private static final String TAG = "LearnActivity";
     private CardStackLayoutManager manager;
-    private CardStackAdapter adapter;
+    private FlashcardStackAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_learn);
+        binding = ActivityLearnBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        CardStackView cardStackView = findViewById(R.id.card_stack_view);
+        setupCardStackView();
+        setupSwipeButtons();
+    }
+
+    private void setupCardStackView() {
         manager = new CardStackLayoutManager(this, new CardStackListener() {
             @Override
             public void onCardDragging(Direction direction, float ratio) {
@@ -43,29 +51,21 @@ public class LearnActivity extends AppCompatActivity {
             public void onCardSwiped(Direction direction) {
                 Log.d(TAG, "onCardSwiped: d = " + manager.getTopPosition() + " d = " + direction);
 
-                /*if (direction == Direction.Top) {
-                    Toast.makeText(LearnActivity.this, "Top", Toast.LENGTH_SHORT).show();
-                }
-                if (direction == Direction.Bottom) {
-                    Toast.makeText(LearnActivity.this, "Bottom", Toast.LENGTH_SHORT).show();
-                }*/
                 if (direction == Direction.Left) {
                     Toast.makeText(LearnActivity.this, "Left", Toast.LENGTH_SHORT).show();
-                }
-                if (direction == Direction.Right) {
+                } else if (direction == Direction.Right) {
                     Toast.makeText(LearnActivity.this, "Right", Toast.LENGTH_SHORT).show();
                 }
 
-                // Paginating
                 if (manager.getTopPosition() == adapter.getItemCount() - 5) {
                     paginate();
                 }
             }
 
             private void paginate() {
-                List<ItemModel> oldItem = adapter.getItems();
-                List<ItemModel> newItem = new ArrayList<>(addList());
-                CardStackCallback callback = new CardStackCallback(oldItem, newItem);
+                List<FlashcardModel> oldItem = adapter.getItems();
+                List<FlashcardModel> newItem = new ArrayList<>(addList());
+                FlashcardStackCallback callback = new FlashcardStackCallback(oldItem, newItem);
                 DiffUtil.DiffResult results = DiffUtil.calculateDiff(callback);
                 adapter.setItems(newItem);
                 results.dispatchUpdatesTo(adapter);
@@ -75,13 +75,11 @@ public class LearnActivity extends AppCompatActivity {
             public void onCardRewound() {
                 Log.d(TAG, "onCardRewound: p = " + manager.getTopPosition());
                 Toast.makeText(LearnActivity.this, "REWIND", Toast.LENGTH_SHORT).show();
-
             }
 
             @Override
             public void onCardCanceled() {
                 Log.d(TAG, "onCardRewound: p = " + manager.getTopPosition());
-
             }
 
             @Override
@@ -93,9 +91,10 @@ public class LearnActivity extends AppCompatActivity {
             @Override
             public void onCardDisappeared(View view, int position) {
                 TextView tv = view.findViewById(R.id.item_word);
-                Log.d(TAG, "onCardAppeared: " + position + ", word: " + tv.getText());
+                Log.d(TAG, "onCardDisappeared: " + position + ", word: " + tv.getText());
             }
         });
+
         manager.setStackFrom(StackFrom.Bottom);
         manager.setVisibleCount(3);
         manager.setTranslationInterval(4.0f);
@@ -104,25 +103,78 @@ public class LearnActivity extends AppCompatActivity {
         manager.setMaxDegree(0.0f);
         manager.setDirections(Direction.HORIZONTAL);
         manager.setCanScrollHorizontal(true);
-        manager.setSwipeableMethod(SwipeableMethod.Manual);
+        manager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual);
         manager.setOverlayInterpolator(new LinearInterpolator());
         manager.setCanScrollVertical(false);
-        adapter = new CardStackAdapter(addList());
-        cardStackView.setLayoutManager(manager);
-        cardStackView.setAdapter(adapter);
-        cardStackView.setItemAnimator(new DefaultItemAnimator());
 
+        adapter = new FlashcardStackAdapter(addList());
+        binding.cardStackView.setLayoutManager(manager);
+        binding.cardStackView.setAdapter(adapter);
+        binding.cardStackView.setItemAnimator(new DefaultItemAnimator());
     }
 
-    private List<ItemModel> addList() {
-        List<ItemModel> items = new ArrayList<>();
-        items.add(new ItemModel("Apple", "A red fruit", "Jabłko"));
-        items.add(new ItemModel("Orange", "An orange fruit", "Pomarańcza"));
-        items.add(new ItemModel("Pear", "A round yellow fruit", "Gruszka"));
-        items.add(new ItemModel("Banana", "A long, curved yellow fruit", "Banan"));
-        items.add(new ItemModel("Strawberry", "A small red fruit", "Truskawka"));
+    private void setupSwipeButtons() {
+        binding.learnSwipeLeftBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                performSwipe(Direction.Left);
+            }
+        });
 
+        binding.learnSwipeRightBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                performSwipe(Direction.Right);
+            }
+        });
 
+        binding.learnUndoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                undoSwipe();
+            }
+        });
+    }
+
+    private void performSwipe(Direction direction) {
+        int currentPosition = manager.getTopPosition();
+        if (currentPosition >= 0 && currentPosition < adapter.getItemCount()) {
+            if (direction == Direction.Left) {
+                manager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual);
+                manager.setSwipeAnimationSetting(new SwipeAnimationSetting.Builder()
+                        .setDirection(Direction.Left)
+                        .setDuration(Duration.Normal.duration)
+                        .build());
+            } else if (direction == Direction.Right) {
+                manager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual);
+                manager.setSwipeAnimationSetting(new SwipeAnimationSetting.Builder()
+                        .setDirection(Direction.Right)
+                        .setDuration(Duration.Normal.duration)
+                        .build());
+            }
+
+            binding.cardStackView.swipe();
+        } else {
+            Toast.makeText(this, "No more cards to swipe", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void undoSwipe() {
+        int currentPosition = manager.getTopPosition();
+        if (currentPosition >= 0 && currentPosition < adapter.getItemCount()) {
+            binding.cardStackView.rewind();
+        } else {
+            Toast.makeText(this, "No more cards to undo", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private List<FlashcardModel> addList() {
+        List<FlashcardModel> items = new ArrayList<>();
+        items.add(new FlashcardModel("Apple", "A red fruit", "Jabłko"));
+        items.add(new FlashcardModel("Orange", "An orange fruit", "Pomarańcza"));
+        items.add(new FlashcardModel("Pear", "A round yellow fruit", "Gruszka"));
+        items.add(new FlashcardModel("Banana", "A long, curved yellow fruit", "Banan"));
+        items.add(new FlashcardModel("Strawberry", "A small red fruit", "Truskawka"));
         return items;
     }
 }

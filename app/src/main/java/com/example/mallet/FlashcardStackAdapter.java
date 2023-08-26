@@ -10,53 +10,64 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.ViewHolder> {
+// Import necessary classes and packages
 
-    private List<ItemModel> items;
+public class FlashcardStackAdapter extends RecyclerView.Adapter<FlashcardStackAdapter.ViewHolder> {
 
-    public CardStackAdapter(List<ItemModel> items) {
+    private List<FlashcardModel> items; // List to hold the data for the adapter
+
+    // Constructor to initialize the adapter with data
+    public FlashcardStackAdapter(List<FlashcardModel> items) {
         this.items = items;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Inflate the item_card.xml layout for each item view
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.item_card, parent, false);
+        View view = inflater.inflate(R.layout.flashcard_model, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        // Bind data to the views within the ViewHolder
         holder.setData(items.get(position));
     }
 
     @Override
     public int getItemCount() {
+        // Return the number of items in the list
         return items.size();
     }
 
+    // ViewHolder class that holds references to the views within each item view
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView word, definition, translation;
+
         ViewHolder(@NonNull View itemView) {
             super(itemView);
+            // Initialize the TextViews with their corresponding views from the layout
             word = itemView.findViewById(R.id.item_word);
             definition = itemView.findViewById(R.id.item_definition);
             translation = itemView.findViewById(R.id.item_translation);
         }
 
-        public void setData(ItemModel data) {
+        // Method to set data from the data model to the views
+        public void setData(FlashcardModel data) {
             word.setText(data.getWord());
             definition.setText(data.getDefinition());
             translation.setText(data.getTranslation());
         }
     }
 
-    public List<ItemModel> getItems() {
+    // Getter and setter methods for the items list
+    public List<FlashcardModel> getItems() {
         return items;
     }
 
-    public void setItems(List<ItemModel> items) {
+    public void setItems(List<FlashcardModel> items) {
         this.items = items;
     }
 }
