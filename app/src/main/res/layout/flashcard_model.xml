@@ -52,13 +52,15 @@
         android:id="@+id/left_overlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/overlay_black">
+        android:background="@drawable/overlay_swipe_review">
 
-        <ImageView
+        <TextView
+            style="@style/BasicBoldTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/ic_arrow_back" />
+            android:text="To review"
+            android:textSize="50sp" />
 
     </FrameLayout>
 
@@ -66,41 +68,15 @@
         android:id="@+id/right_overlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/overlay_black">
+        android:background="@drawable/overlay_swipe_know">
 
-        <ImageView
+        <TextView
+            style="@style/BasicBoldTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/ic_arrow_forward" />
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/top_overlay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/overlay_black">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_arrow_up" />
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/bottom_overlay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/overlay_black">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_arrow_down" />
+            android:text="Know"
+            android:textSize="50sp" />
 
     </FrameLayout>
 
