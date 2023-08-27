@@ -378,7 +378,7 @@ public class ProfileFragment extends Fragment {
         // TODO: Implement logic for logging out
 
         showToast("You were logged out. For now, as we do not have any backend, we are just going to move you to the ChooseLogInSignUpActivity.java");
-        Intent intent = new Intent(getContext(), ChooseLogInSignUpActivity.class);
+        Intent intent = new Intent(getContext(), LogInSignUpActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
         Objects.requireNonNull(getActivity()).finish();
@@ -427,7 +427,7 @@ public class ProfileFragment extends Fragment {
                 emptyPasswordError.setVisibility(View.GONE);
                 checkError.setVisibility(View.GONE);
                 showToast("When we have backend, we will check if the password is correct. For now we just jump to ChooseLogInSignUp.java.");
-                Intent intent = new Intent(getContext(), ChooseLogInSignUpActivity.class);
+                Intent intent = new Intent(getContext(), LogInSignUpActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
                 Objects.requireNonNull(getActivity()).finish();

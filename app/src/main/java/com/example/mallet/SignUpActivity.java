@@ -68,7 +68,7 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // Start ChooseLogInSignUpActivity and clear the back stack
-        Intent intent = new Intent(SignUpActivity.this, ChooseLogInSignUpActivity.class);
+        Intent intent = new Intent(SignUpActivity.this, LogInSignUpActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
         finish(); // Finish the SignUpActivity

@@ -34,7 +34,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ChooseLogInSignUpActivity"
+            android:name=".LogInSignUpActivity"
             android:exported="true"
             android:screenOrientation="portrait" >
             <intent-filter>
