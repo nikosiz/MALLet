@@ -387,7 +387,7 @@ public class ProfileFragment extends Fragment {
         Intent intent = new Intent(getContext(), LogInSignUpActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
-        Objects.requireNonNull(getActivity()).finish();
+        requireActivity().finish();
     }
 
     private void showDeleteAccountDialog() {
@@ -436,7 +436,7 @@ public class ProfileFragment extends Fragment {
                 Intent intent = new Intent(getContext(), LogInSignUpActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
-                Objects.requireNonNull(getActivity()).finish();
+                requireActivity().finish();
             }
         });
     }

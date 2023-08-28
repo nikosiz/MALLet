@@ -3,6 +3,7 @@ package com.example.mallet;
 import androidx.recyclerview.widget.DiffUtil;
 
 import java.util.List;
+import java.util.Objects;
 
 public class FlashcardStackCallback extends DiffUtil.Callback {
 
@@ -27,7 +28,7 @@ public class FlashcardStackCallback extends DiffUtil.Callback {
 
     @Override
     public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-        return oldItem.get(oldItemPosition).getWord() == newItem.get(newItemPosition).getWord();
+        return Objects.equals(oldItem.get(oldItemPosition).getWord(), newItem.get(newItemPosition).getWord());
     }
 
     @Override

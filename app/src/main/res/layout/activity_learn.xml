@@ -47,7 +47,6 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginHorizontal="10dp"
-            android:onClick="swipeLeft"
             app:icon="@drawable/ic_x_mark"
             app:iconSize="30dp"
             app:iconTint="@color/persimmon_red_300" />
@@ -59,7 +58,6 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginHorizontal="10dp"
-            android:onClick="undoSwipe"
             app:icon="@drawable/ic_undo"
             app:iconSize="30dp"
             app:iconTint="@color/white" />
@@ -70,7 +68,6 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginHorizontal="10dp"
-            android:onClick="swipeRight"
             app:icon="@drawable/ic_check_mark"
             app:iconSize="30dp"
             app:iconTint="@color/green_yellow_300" />
