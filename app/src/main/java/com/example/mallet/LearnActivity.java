@@ -114,26 +114,11 @@ public class LearnActivity extends AppCompatActivity {
     }
 
     private void setupSwipeButtons() {
-        binding.learnSwipeLeftBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                performSwipe(Direction.Left);
-            }
-        });
+        binding.learnSwipeLeftBtn.setOnClickListener(v -> performSwipe(Direction.Left));
 
-        binding.learnSwipeRightBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                performSwipe(Direction.Right);
-            }
-        });
+        binding.learnSwipeRightBtn.setOnClickListener(v -> performSwipe(Direction.Right));
 
-        binding.learnUndoBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                undoSwipe();
-            }
-        });
+        binding.learnUndoBtn.setOnClickListener(v -> undoSwipe());
     }
 
     private void performSwipe(Direction direction) {
@@ -161,7 +146,7 @@ public class LearnActivity extends AppCompatActivity {
 
     private void undoSwipe() {
         int currentPosition = manager.getTopPosition();
-        if (currentPosition >= 0 && currentPosition < adapter.getItemCount()) {
+        if (currentPosition > 0) { // Check if there are cards to rewind
             binding.cardStackView.rewind();
         } else {
             Toast.makeText(this, "No more cards to undo", Toast.LENGTH_SHORT).show();

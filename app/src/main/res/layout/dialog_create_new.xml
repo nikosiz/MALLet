@@ -26,7 +26,7 @@
             android:layout_height="30dp"
             android:contentDescription="@+string/create_new_set_icon"
             android:src="@drawable/ic_new_set"
-            app:tint="@color/calamander_brown_900" />
+            app:tint="@color/danube_blue_800" />
 
         <TextView
             style="@style/BasicTextStyle"
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:text="@string/create_new_set"
-            android:textColor="@color/calamander_brown_900"
+            android:textColor="@color/danube_blue_800"
             android:textSize="20sp" />
 
     </LinearLayout>
@@ -58,7 +58,7 @@
             android:layout_height="30dp"
             android:contentDescription="@+string/create_new_folder_icon"
             android:src="@drawable/ic_new_folder"
-            app:tint="@color/calamander_brown_900" />
+            app:tint="@color/danube_blue_800" />
 
         <TextView
             style="@style/BasicTextStyle"
@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:text="@string/create_new_folder"
-            android:textColor="@color/calamander_brown_900"
+            android:textColor="@color/danube_blue_800"
             android:textSize="20sp" />
 
     </LinearLayout>
@@ -90,7 +90,7 @@
             android:layout_height="30dp"
             android:contentDescription="@+string/create_new_group_icon"
             android:src="@drawable/ic_new_group"
-            app:tint="@color/calamander_brown_900" />
+            app:tint="@color/danube_blue_800" />
 
         <TextView
             style="@style/BasicTextStyle"
@@ -98,7 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:text="@string/create_new_group"
-            android:textColor="@color/calamander_brown_900"
+            android:textColor="@color/danube_blue_800"
             android:textSize="20sp" />
 
     </LinearLayout>
