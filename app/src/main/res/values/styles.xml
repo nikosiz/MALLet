@@ -98,6 +98,14 @@
         <item name="android:gravity">center_vertical</item>
     </style>
 
+    <style name="TabTitleStyle" parent="Widget.Design.TabLayout">
+        <item name="android:textSize">16sp</item> <!-- Adjust the text size as needed -->
+        <item name="android:fontFamily">@font/rem_regular</item>
+        <item name="android:textAllCaps">false</item>
+        <!-- Add more attributes to customize the appearance if desired -->
+    </style>
+
+
 </resources><!--
 <item name=""></item>
 <item name=""></item>

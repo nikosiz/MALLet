@@ -120,11 +120,11 @@ public class MainActivity extends AppCompatActivity {
         if (selectedFragmentId == R.id.bottom_nav_home) {
             replaceFragment(new HomeFragment());
         } else if (selectedFragmentId == R.id.bottom_nav_library) {
-            replaceFragment(new LibraryFragment());
+            replaceFragment(new SetDatabaseFragment());
         } else if (selectedFragmentId == R.id.bottom_nav_add_new) {
             showCreateNewDialog();
         } else if (selectedFragmentId == R.id.bottom_nav_your_library) {
-            replaceFragment(new YourFragment());
+            replaceFragment(new YourLibraryFragment());
         } else if (selectedFragmentId == R.id.bottom_nav_profile) {
             replaceFragment(new ProfileFragment());
         }
