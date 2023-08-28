@@ -59,6 +59,6 @@ public class LibrarySetsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_library_sets, container, false);
+        return inflater.inflate(R.layout.fragment_your_library_sets, container, false);
     }
 }
