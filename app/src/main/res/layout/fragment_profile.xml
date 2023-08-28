@@ -7,7 +7,7 @@
     android:background="@color/downriver_blue_200"
     tools:context=".ProfileFragment">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none">
@@ -170,8 +170,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:drawableTint="@color/downriver_blue_500"
                     android:checked="false"
+                    android:drawableTint="@color/downriver_blue_500"
                     app:thumbTint="@drawable/switch_thumb_color"
                     app:trackDecorationTint="@drawable/switch_track_decoration_color"
                     app:trackTint="@drawable/switch_track_color" />
@@ -305,5 +305,5 @@
                     android:textColor="@color/carnation_red_700" />
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

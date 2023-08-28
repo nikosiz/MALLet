@@ -1,12 +1,19 @@
 package com.example.mallet;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.os.Bundle;
-import android.view.MenuItem;
+import com.example.mallet.databinding.ActivityCreateFolderBinding;
+
 
 public class CreateFolderActivity extends AppCompatActivity {
+    private ActivityCreateFolderBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,7 +22,7 @@ public class CreateFolderActivity extends AppCompatActivity {
 
         // Initialize and set up the toolbar
         setUpToolbar();
-
+        setupClickListeners();
     }
 
     // Initialize and set up the toolbar with back arrow functionality.
@@ -30,14 +37,22 @@ public class CreateFolderActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle arrow click here
-        if (item.getItemId() == android.R.id.home) {
-            // Finish this activity and return to the previous activity (if any)
-            finish();
-        }
+    private void setupClickListeners() {
+        TextView cancelBtn = findViewById(R.id.create_folder_cancel_btn);
 
-        return super.onOptionsItemSelected(item);
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Close the activity and return to MainActivity with HomeFragment opened
+                Intent intent = new Intent(CreateFolderActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

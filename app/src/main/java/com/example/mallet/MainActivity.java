@@ -1,3 +1,7 @@
+// TODO:
+//  1. After clicking "add new", the selection of the previous item disappears
+//  2. Fix all @SuppressLint("RestrictedApi")s
+
 package com.example.mallet;
 
 import android.annotation.SuppressLint;
@@ -98,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // TODO: Fix @SuppressLint("RestrictedApi")
     @SuppressLint("RestrictedApi")
     private void setExceptionItemColor(int exceptionItemIndex) {
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) binding.bottomNavigationView.getChildAt(0);

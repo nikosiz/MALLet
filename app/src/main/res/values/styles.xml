@@ -47,7 +47,7 @@
         <item name="android:fontFamily">@font/rem_regular</item>
         <item name="android:textAllCaps">false</item>
         <item name="rippleColor">@color/black</item>
-        <item name="android:background">@drawable/background_basic_btn</item>
+        <item name="android:background">@drawable/bg_basic_btn</item>
     </style>
 
     <style name="RoundButtonStyle" parent="Widget.AppCompat.Button">
@@ -60,8 +60,17 @@
         <item name="android:fontFamily">@font/rem_regular</item>
         <item name="android:textAllCaps">false</item>
         <item name="rippleColor">@color/black</item>
-        <item name="android:background">@drawable/background_round_btn</item>
+        <item name="android:background">@drawable/bg_round_btn</item>
     </style>
+
+    <style name="TextButtonStyle" parent="Widget.AppCompat.TextView">
+        <item name="backgroundTint">@null</item>
+        <item name="android:fontFamily">@font/rem_regular</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:background">@drawable/bg_text_btn</item>
+    </style>
+
+
 
     <style name="SocialButtonStyle" parent="Widget.AppCompat.Button">
         <item name="android:textColor">@color/downriver_blue_500</item>
@@ -71,7 +80,7 @@
         <item name="android:fontFamily">@font/rem_regular</item>
         <item name="android:textAllCaps">false</item>
         <item name="rippleColor">@color/black</item>
-        <item name="android:background">@drawable/background_social_btn</item>
+        <item name="android:background">@drawable/bg_social_btn</item>
     </style>
 
     <style name="RadioButtonStyle" parent="Widget.Material3.CompoundButton.CheckBox">
@@ -91,7 +100,7 @@
         <item name="android:gravity">center_vertical</item>
     </style>
 
-    <style name="TextButtonStyle" parent="Widget.AppCompat.TextView">
+    <style name="TextButtonStyle2" parent="Widget.AppCompat.TextView">
         <item name="backgroundTint">@null</item>
         <item name="android:color">@color/downriver_blue_500</item>
         <item name="android:fontFamily">@font/rem_regular</item>

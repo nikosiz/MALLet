@@ -1,76 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/create_set_card_word_tit"
-            app:boxBackgroundMode="filled"
-            app:boxCornerRadiusBottomEnd=""
-            app:boxStrokeWidth="3dp"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/create_set_card_word_et"
+            <EditText
+                android:id="@+id/editWord"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:autofillHints="emailAddress"
-                android:backgroundTint="@color/downriver_blue_50"
+                android:layout_height="wrap_content"
                 android:hint="Word"
-                android:textColorHint="@color/downriver_blue_300"
-                android:textSize="20sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:inputType="text" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="5dp" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/create_set_card_definition_tit"
-            app:boxBackgroundMode="filled"
-            app:boxStrokeWidth="3dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/create_set_card_definition_et"
+            <EditText
+                android:id="@+id/editDefinition"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:autofillHints="emailAddress"
-                android:backgroundTint="@color/downriver_blue_50"
+                android:layout_height="wrap_content"
                 android:hint="Definition"
-                android:textColorHint="@color/downriver_blue_300"
-                android:textSize="20sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:inputType="text" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="5dp" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/create_set_card_translation_tit"
-            app:boxBackgroundMode="filled"
-            app:boxStrokeWidth="3dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/create_set_card_translation_et"
+            <EditText
+                android:id="@+id/editTranslation"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:autofillHints="emailAddress"
-                android:backgroundTint="@color/downriver_blue_50"
+                android:layout_height="wrap_content"
                 android:hint="Translation"
-                android:textColorHint="@color/downriver_blue_300"
-                android:textSize="20sp" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
+                android:inputType="text" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </androidx.cardview.widget.CardView>
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash_background"
+    android:background="@drawable/splash_bg"
     tools:context=".LogInActivity">
 
 
@@ -236,7 +236,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="10dp"
-                        android:background="@drawable/background_social_btn"
+                        android:background="@drawable/bg_social_btn"
                         android:text="@string/facebook"
                         app:icon="@drawable/ic_facebook"
                         app:iconGravity="textStart"
