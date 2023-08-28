@@ -18,8 +18,8 @@ public class SetDatabaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_set_database, container, false);
 
-        ViewPager2 viewPager = view.findViewById(R.id.view_pager);
-        TabLayout tabLayout = view.findViewById(R.id.tab_layout);
+        ViewPager2 viewPager = view.findViewById(R.id.your_library_view_pager);
+        TabLayout tabLayout = view.findViewById(R.id.your_library_tab_layout);
 
         // Create a FragmentStateAdapter
         FragmentStateAdapter adapter = new FragmentStateAdapter(getChildFragmentManager(), getLifecycle()) {
