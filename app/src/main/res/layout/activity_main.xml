@@ -23,7 +23,7 @@
         app:itemActiveIndicatorStyle="@android:color/transparent"
         app:itemIconSize="30dp"
         app:itemIconTint="@color/bottom_nav_icons"
-        app:itemRippleColor="@color/downriver_blue_500"
+        app:itemRippleColor="@color/colorPrimary"
         app:itemTextColor="@color/bottom_nav_icons"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"

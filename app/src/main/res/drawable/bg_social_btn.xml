@@ -6,7 +6,7 @@
             <solid android:color="@color/carnation_red_200" />
             <stroke
                 android:width="2dp"
-                android:color="@color/downriver_blue_500" />
+                android:color="@color/colorPrimary" />
         </shape>
     </item>
     <item>
@@ -14,7 +14,7 @@
             <solid android:color="@color/white" />
             <stroke
                 android:width="2dp"
-                android:color="@color/downriver_blue_500" />
+                android:color="@color/colorPrimary" />
             <corners android:radius="4dp" />
         </shape>
     </item>

@@ -4,7 +4,7 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="android:fontFamily">@font/rem_regular</item>
-        <item name="android:statusBarColor">@color/downriver_blue_500</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
         <item name="colorControlNormal">@color/white</item>
     </style>
 

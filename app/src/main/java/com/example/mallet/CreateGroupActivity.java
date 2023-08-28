@@ -1,7 +1,9 @@
 package com.example.mallet;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -9,19 +11,18 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.mallet.databinding.ActivityCreateFolderBinding;
+import com.example.mallet.databinding.ActivityCreateGroupBinding;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;
 
-
-public class CreateFolderActivity extends AppCompatActivity {
-    private ActivityCreateFolderBinding binding;
+public class CreateGroupActivity extends AppCompatActivity {
+    private ActivityCreateGroupBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityCreateFolderBinding.inflate(getLayoutInflater());
+        binding = ActivityCreateGroupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Initialize and set up the toolbar
@@ -31,7 +32,7 @@ public class CreateFolderActivity extends AppCompatActivity {
 
     // Initialize and set up the toolbar with back arrow functionality.
     private void setupToolbar() {
-        Toolbar toolbar = findViewById(R.id.create_folder_toolbar);
+        Toolbar toolbar = binding.createGroupToolbar;
         setSupportActionBar(toolbar);
 
         /*// Display back arrow on the toolbar
@@ -42,8 +43,9 @@ public class CreateFolderActivity extends AppCompatActivity {
     }
 
     private void setupClickListeners() {
-        binding.createFolderCancelBtn.setOnClickListener(v -> closeActivity());
-        binding.createFolderConfirmBtn.setOnClickListener(v -> createFolder());
+        binding.createGroupCancelBtn.setOnClickListener(v -> closeActivity());
+        binding.createGroupConfirmBtn.setOnClickListener(v -> createGroup());
+
     }
 
     private void closeActivity() {
@@ -51,15 +53,15 @@ public class CreateFolderActivity extends AppCompatActivity {
     }
 
     // TODO
-    private void createFolder() {
-        TextView emptyNameError = binding.createFolderNameError;
-        TextInputEditText folderNameEditText = binding.createFolderNameEt;
-        String folderName = Objects.requireNonNull(folderNameEditText.getText()).toString();
+    private void createGroup() {
+        TextView emptyNameError = binding.createGroupNameError;
+        TextInputEditText groupNameEditText = binding.createGroupNameEt;
+        String groupName = Objects.requireNonNull(groupNameEditText.getText()).toString();
 
-        if (TextUtils.isEmpty(folderName)) {
+        if (TextUtils.isEmpty(groupName)) {
             emptyNameError.setVisibility(View.VISIBLE);
         } else {
-            showToast("The folder will be created... In the future... With backend...");
+            showToast("The group will be created... In the future... With backend...");
             finish();
         }
     }

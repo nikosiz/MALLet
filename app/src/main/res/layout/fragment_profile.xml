@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/downriver_blue_200"
+    android:background="@color/danube_blue_50"
     tools:context=".ProfileFragment">
 
     <androidx.core.widget.NestedScrollView
@@ -22,7 +22,7 @@
             <View
                 android:id="@+id/profile_view_0"
                 android:layout_width="match_parent"
-                android:layout_height="30dp" />
+                android:layout_height="50dp" />
 
             <ImageView
                 android:id="@+id/profile_photo"
@@ -31,7 +31,7 @@
                 android:layout_marginHorizontal="50dp"
                 android:contentDescription="Profile photo"
                 android:src="@drawable/ic_user"
-                app:tint="@color/downriver_blue_400" />
+                app:tint="@color/danube_blue_200" />
 
             <View
                 android:id="@+id/profile_view_1"
@@ -41,94 +41,108 @@
             <LinearLayout
                 android:id="@+id/profile_email_ll"
                 android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:background="@drawable/ripple_linear_layout"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center_vertical"
+                android:minHeight="65dp"
                 android:orientation="vertical"
                 android:paddingHorizontal="30dp">
 
                 <TextView
-                    style="@style/BasicTextStyle"
+                    style="@style/BasicBoldTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="bottom"
-                    android:text="@string/email" />
+                    android:text="@string/email"
+                    android:textColor="@color/danube_blue_900"
+                    android:textSize="16sp" />
 
                 <TextView
                     style="@style/BasicSubTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="top"
-                    android:text="@string/email" />
+                    android:text="@string/email"
+                    android:textColor="@color/danube_blue_700"
+                    android:textSize="15sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/profile_username_ll"
                 android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:background="@drawable/ripple_linear_layout"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:gravity="center_vertical"
+                android:minHeight="65dp"
                 android:orientation="vertical"
                 android:paddingHorizontal="30dp">
 
                 <TextView
                     android:id="@+id/profile_username_title"
-                    style="@style/BasicTextStyle"
+                    style="@style/BasicBoldTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="bottom"
-                    android:text="@string/username" />
+                    android:text="@string/username"
+                    android:textSize="16sp" />
 
                 <TextView
                     style="@style/BasicSubTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="top"
-                    android:text="@string/username" />
+                    android:text="@string/username"
+
+                    android:textColor="@color/danube_blue_700"
+                    android:textSize="15sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/profile_change_password_ll"
                 android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:background="@drawable/ripple_linear_layout"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:gravity="center_vertical"
+                android:minHeight="65dp"
 
                 android:orientation="vertical"
                 android:paddingHorizontal="30dp">
 
                 <TextView
-                    style="@style/BasicTextStyle"
+                    style="@style/BasicBoldTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:text="@string/change_password" />
+                    android:text="@string/change_password"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <View
                 android:id="@+id/profile_view_2"
                 android:layout_width="match_parent"
-                android:layout_height="10dp" />
+                android:layout_height="5dp" />
 
             <LinearLayout
                 android:id="@+id/profile_notifications_ll"
                 android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:background="@drawable/ripple_linear_layout"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:minHeight="65dp"
                 android:orientation="horizontal"
                 android:paddingHorizontal="30dp">
 
                 <TextView
                     android:id="@+id/profile_notifications_switch_tv"
-                    style="@style/BasicTextStyle"
+                    style="@style/BasicBoldTextStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="@string/notifications" />
+                    android:text="@string/notifications"
+                    android:textSize="16sp" />
 
                 <com.google.android.material.materialswitch.MaterialSwitch
                     android:id="@+id/profile_notifications_switch"
@@ -145,25 +159,27 @@
             <View
                 android:id="@+id/profile_view_3"
                 android:layout_width="match_parent"
-                android:layout_height="10dp" />
+                android:layout_height="5dp" />
 
             <LinearLayout
                 android:id="@+id/profile_save_offline_switch_ll"
                 android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:background="@drawable/ripple_linear_layout"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:minHeight="65dp"
                 android:orientation="horizontal"
                 android:paddingHorizontal="30dp">
 
                 <TextView
                     android:id="@+id/profile_save_offline_switch_tv"
-                    style="@style/BasicTextStyle"
+                    style="@style/BasicBoldTextStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="@string/save_sets_offline" />
+                    android:text="@string/save_sets_offline"
+                    android:textSize="16sp" />
 
                 <com.google.android.material.materialswitch.MaterialSwitch
                     android:id="@+id/profile_save_offline_switch"
@@ -180,129 +196,163 @@
             <View
                 android:id="@+id/profile_view_4"
                 android:layout_width="match_parent"
-                android:layout_height="10dp" />
+                android:layout_height="5dp" />
 
             <LinearLayout
                 android:id="@+id/profile_theme_ll"
                 android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:background="@drawable/ripple_linear_layout"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:clickable="true"
                 android:focusable="true"
+                android:minHeight="65dp"
                 android:orientation="horizontal"
                 android:paddingHorizontal="30dp"
                 android:weightSum="3">
 
                 <TextView
-                    style="@style/BasicTextStyle"
+                    style="@style/BasicBoldTextStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="3"
                     android:gravity="center_vertical"
-                    android:text="Application theme" />
+                    android:text="Color theme"
+                    android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/profile_theme_selected_tv"
+                    android:id="@+id/profile_theme_system_default_tv"
                     style="@style/BasicSubTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center"
                     android:gravity="end"
-                    android:text="Selected theme" />
+                    android:text="System default"
+                    android:textColor="@color/danube_blue_700"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/profile_theme_light_tv"
+                    style="@style/BasicSubTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center"
+                    android:gravity="end"
+                    android:text="Light"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/profile_theme_dark_tv"
+                    style="@style/BasicSubTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center"
+                    android:gravity="end"
+                    android:text="Dark"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <View
                 android:id="@+id/profile_view_5"
                 android:layout_width="match_parent"
-                android:layout_height="10dp" />
+                android:layout_height="5dp" />
 
             <LinearLayout
                 android:id="@+id/profile_log_out_ll"
                 android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:background="@drawable/ripple_linear_layout"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:gravity="center_vertical"
+                android:minHeight="65dp"
                 android:orientation="vertical"
                 android:paddingHorizontal="30dp">
 
                 <TextView
                     android:id="@+id/profile_log_out_tv"
-                    style="@style/BasicTextStyle"
+                    style="@style/BasicBoldTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/log_out" />
+                    android:text="@string/log_out"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <View
                 android:id="@+id/profile_view_6"
                 android:layout_width="match_parent"
-                android:layout_height="10dp" />
+                android:layout_height="5dp" />
 
             <LinearLayout
                 android:id="@+id/profile_about_ll"
                 android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:background="@drawable/ripple_linear_layout"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:gravity="center_vertical"
+                android:minHeight="65dp"
                 android:orientation="vertical"
                 android:paddingHorizontal="30dp">
 
                 <TextView
-                    style="@style/BasicTextStyle"
+                    style="@style/BasicBoldTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/about" />
+                    android:text="@string/about"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/profile_version_ll"
                 android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:background="@drawable/ripple_linear_layout"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:gravity="center_vertical"
+                android:minHeight="65dp"
                 android:orientation="vertical"
                 android:paddingHorizontal="30dp">
 
                 <TextView
+                    style="@style/BasicBoldTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:gravity="bottom"
-                    android:text="@string/version" />
+                    android:text="@string/version"
+                    android:textSize="16sp" />
 
                 <TextView
                     style="@style/BasicSubTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="top"
-                    android:text="@string/app_version" />
+                    android:text="@string/app_version"
+                    android:textColor="@color/danube_blue_700"
+                    android:textSize="15sp" />
             </LinearLayout>
 
             <View
                 android:id="@+id/profile_view_7"
                 android:layout_width="match_parent"
-                android:layout_height="10dp" />
+                android:layout_height="5dp" />
 
             <LinearLayout
                 android:id="@+id/profile_delete_account_ll"
                 android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:background="@drawable/ripple_linear_layout"
+                android:layout_height="wrap_content"
+                android:background="@color/carnation_red_100"
                 android:gravity="center"
+                android:minHeight="65dp"
                 android:orientation="vertical"
                 android:paddingHorizontal="30dp">
 
                 <TextView
                     android:id="@+id/profile_delete_account_tv"
+                    style="@style/BasicBoldTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:gravity="center"
                     android:text="@string/delete_account"
-                    android:textColor="@color/carnation_red_700" />
+                    android:textColor="@color/carnation_red_700"
+                    android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

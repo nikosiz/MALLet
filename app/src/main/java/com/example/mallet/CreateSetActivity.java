@@ -1,10 +1,11 @@
 package com.example.mallet;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class CreateSetActivity extends AppCompatActivity {
 
@@ -14,19 +15,19 @@ public class CreateSetActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_set);
 
         // Initialize and set up the toolbar
-        setUpToolbar();
+        setupToolbar();
     }
 
     // Initialize and set up the toolbar with back arrow functionality.
-    private void setUpToolbar() {
+    private void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.create_set_toolbar);
         setSupportActionBar(toolbar);
 
-        // Display back arrow on the toolbar
+        /*// Display back arrow on the toolbar
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
+        }*/
     }
 
     @Override
@@ -38,5 +39,19 @@ public class CreateSetActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void closeActivity() {
+        finish(); // Finish the LogInActivity
+    }
+
+    // TODO
+    private void createGroup() {
+        showToast("The set will be created... In the future... With backend...");
+        finish();
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

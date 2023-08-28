@@ -30,7 +30,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CreateCollaborationActivity"
+            android:name=".CreateGroupActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

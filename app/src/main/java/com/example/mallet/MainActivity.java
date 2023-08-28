@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         setExceptionItemColor(exceptionItemIndex);
 
         // Set a listener for bottom navigation view item selection
-        //binding.bottomNavigationView.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
+        //default: binding.bottomNavigationView.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
         binding.bottomNavigationView.setOnItemSelectedListener(this::onNavigationItemSelected);
     }
 
@@ -77,18 +77,19 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    private void showBottomDialog() {
+    // Method to show the bottom dialog for "Create new" options
+    private void showCreateNewDialog() {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_add_new);
+        dialog.setContentView(R.layout.dialog_create_new);
 
         LinearLayout createSet = dialog.findViewById(R.id.add_new_create_set);
         LinearLayout createFolder = dialog.findViewById(R.id.add_new_create_folder);
-        LinearLayout createCollaboration = dialog.findViewById(R.id.add_new_create_collaboration);
+        LinearLayout createGroup = dialog.findViewById(R.id.add_new_create_group);
 
-        createSet.setOnClickListener(view -> startCreateActivity(CreateSetActivity.class, dialog));
-        createFolder.setOnClickListener(view -> startCreateActivity(CreateFolderActivity.class, dialog));
-        createCollaboration.setOnClickListener(view -> startCreateActivity(CreateCollaborationActivity.class, dialog));
+        createSet.setOnClickListener(view -> startNewActivity(CreateSetActivity.class, dialog));
+        createFolder.setOnClickListener(view -> startNewActivity(CreateFolderActivity.class, dialog));
+        createGroup.setOnClickListener(view -> startNewActivity(CreateGroupActivity.class, dialog));
 
         dialog.show();
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -96,12 +97,14 @@ public class MainActivity extends AppCompatActivity {
         dialog.getWindow().setGravity(Gravity.BOTTOM);
     }
 
-    private void startCreateActivity(Class<?> activityClass, Dialog dialog) {
+    // Method to start a create activity and dismiss the dialog
+    private void startNewActivity(Class<?> activityClass, Dialog dialog) {
         Intent intent = new Intent(this, activityClass);
         dialog.dismiss();
         startActivity(intent);
     }
 
+    // Method to set icon tint for a specific item
     @SuppressLint("RestrictedApi")
     private void setExceptionItemColor(int exceptionItemIndex) {
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) binding.bottomNavigationView.getChildAt(0);
@@ -110,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         exceptionItem.setIconTintList(ColorStateList.valueOf(color));
     }
 
+    // Method to handle bottom navigation item selection
     private boolean onNavigationItemSelected(MenuItem item) {
         selectedFragmentId = item.getItemId(); // Update the selected fragment ID
         // Check which menu item was selected and replace the fragment accordingly
@@ -118,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (selectedFragmentId == R.id.bottom_nav_library) {
             replaceFragment(new LibraryFragment());
         } else if (selectedFragmentId == R.id.bottom_nav_add_new) {
-            showBottomDialog();
+            showCreateNewDialog();
         } else if (selectedFragmentId == R.id.bottom_nav_your_library) {
             replaceFragment(new YourFragment());
         } else if (selectedFragmentId == R.id.bottom_nav_profile) {

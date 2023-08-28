@@ -81,7 +81,7 @@
                     app:boxCornerRadiusBottomStart="5dp"
                     app:boxCornerRadiusTopEnd="5dp"
                     app:boxCornerRadiusTopStart="5dp"
-                    app:boxStrokeColor="@color/downriver_blue_500"
+                    app:boxStrokeColor="@color/colorPrimary"
                     app:boxStrokeWidth="2dp">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -117,7 +117,7 @@
                     app:boxCornerRadiusBottomStart="5dp"
                     app:boxCornerRadiusTopEnd="5dp"
                     app:boxCornerRadiusTopStart="5dp"
-                    app:boxStrokeColor="@color/downriver_blue_500"
+                    app:boxStrokeColor="@color/colorPrimary"
                     app:boxStrokeWidth="2dp"
                     app:passwordToggleEnabled="true">
 

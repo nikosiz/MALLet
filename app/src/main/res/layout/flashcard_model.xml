@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginVertical="20dp"
     android:background="?attr/selectableItemBackground"
     android:foreground="?attr/selectableItemBackground"
     android:outlineAmbientShadowColor="@color/black"
@@ -17,14 +18,15 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="20dp">
 
         <TextView
             android:id="@+id/item_word"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="WORD"
-            android:textColor="@android:color/white"
+            android:textColor="@color/danube_blue_600"
             android:textSize="26sp"
             android:textStyle="bold" />
 
@@ -33,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="DEFINITION"
-            android:textColor="@android:color/white"
+            android:textColor="@color/danube_blue_600"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -42,13 +44,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TRANSLATION"
-            android:textColor="@android:color/white"
+            android:textColor="@color/danube_blue_600"
             android:textSize="20sp"
             android:textStyle="bold" />
 
     </LinearLayout>
 
-    <FrameLayout
+    <!--<FrameLayout
         android:id="@+id/left_overlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -60,6 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="To review"
+            android:textColor="@color/strawberry_pink_50"
             android:textSize="50sp" />
 
     </FrameLayout>
@@ -76,8 +79,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Know"
+            android:textColor="@color/screamin_green_50"
             android:textSize="50sp" />
 
-    </FrameLayout>
+    </FrameLayout>-->
 
 </androidx.cardview.widget.CardView>

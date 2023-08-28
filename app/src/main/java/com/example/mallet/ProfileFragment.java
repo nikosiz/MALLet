@@ -1,3 +1,6 @@
+// TODO:
+//  1. Change SELECTED THEME TextView according to the theme selected
+
 package com.example.mallet;
 
 import android.app.Dialog;
@@ -308,6 +311,7 @@ public class ProfileFragment extends Fragment {
 
         if (savedTheme.equals("Light Theme")) {
             themeRadioGroup.check(R.id.light_theme_rb);
+
         } else if (savedTheme.equals("Dark Theme")) {
             themeRadioGroup.check(R.id.dark_theme_rb);
         } else {
@@ -349,9 +353,11 @@ public class ProfileFragment extends Fragment {
     }
 
     private void applyTheme(String themeName) {
+
         int themeMode;
         if (themeName.equals("Light Theme")) {
             themeMode = AppCompatDelegate.MODE_NIGHT_NO;
+
         } else if (themeName.equals("Dark Theme")) {
             themeMode = AppCompatDelegate.MODE_NIGHT_YES;
         } else {

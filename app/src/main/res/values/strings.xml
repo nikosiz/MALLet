@@ -3,7 +3,7 @@
     <string name="app_logo">M</string>
     <string name="create_new_set">Create new set</string>
     <string name="create_new_folder">Create new folder</string>
-    <string name="create_new_collaboration">Create new collaboration</string>
+    <string name="create_new_group">Create new group</string>
     <string name="delete_account">Delete account</string>
     <string name="version">Version</string>
     <string name="about">About</string>
@@ -52,4 +52,9 @@
     <string name="sign_up_with_email_address">Sign up with your email address</string>
     <string name="log_in_here">Log in here</string>
     <string name="log_in_with_email_address">Log in with your email address</string>
+    <string name="folder_name">Folder name</string>
+    <string name="field_cannot_be_empty">This field cannot be empty</string>
+    <string name="description">Description (optional)</string>
+    <string name="group_name">Group name</string>
+    <string name="allow_group_members">Allow group members to edit sets and add new members</string>
 </resources>

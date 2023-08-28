@@ -133,7 +133,7 @@
             android:layout_marginHorizontal="10dp"
             android:background="@drawable/ripple_text_btn"
             android:text="@string/cancel"
-            android:textColor="@color/downriver_blue_500"
+            android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
 
         <TextView

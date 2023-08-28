@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateSetActivity">
+    tools:context=".CreateGroupActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/create_folder_toolbar"
+        android:id="@+id/create_group_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
@@ -18,13 +18,13 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/create_new_folder"
+            android:text="@string/create_new_group"
             android:textColor="@color/white"
             android:textSize="30sp" />
     </androidx.appcompat.widget.Toolbar>
 
     <FrameLayout
-        android:id="@+id/create_folder_fl"
+        android:id="@+id/create_group_fl"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
@@ -32,16 +32,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/create_folder_toolbar">
+        app:layout_constraintTop_toBottomOf="@id/create_group_toolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/create_folder_fl_ll"
+            android:id="@+id/create_group_fl_ll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/create_folder_name_tit"
+                android:id="@+id/create_group_name_tit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:boxBackgroundMode="outline"
@@ -54,17 +54,15 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/create_folder_name_et"
-                    style="@style/BasicTextStyle"
+                    android:id="@+id/create_group_name_et"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="@string/folder_name"
-                    android:textSize="20sp"
-                    app:boxStrokeColor="@color/colorSecondaryDark" />
+                    android:hint="@string/group_name"
+                    android:textColorHint="@color/downriver_blue_300"
+                    android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/create_folder_name_error"
-                    style="@style/BasicTextStyle"
+                    android:id="@+id/create_group_name_error"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
@@ -75,13 +73,13 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <View
-                android:id="@+id/create_folder_0"
+                android:id="@+id/create_group_0"
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
-                app:layout_constraintTop_toBottomOf="@id/create_folder_name_tit" />
+                app:layout_constraintTop_toBottomOf="@id/create_group_name_tit" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/create_folder_description_tit"
+                android:id="@+id/create_group_description_tit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:boxBackgroundMode="outline"
@@ -91,39 +89,74 @@
                 app:boxCornerRadiusTopStart="5dp"
                 app:boxStrokeColor="@color/colorSecondaryDark"
                 app:boxStrokeWidth="2dp"
-                app:layout_constraintTop_toBottomOf="@id/create_folder_0">
+                app:layout_constraintTop_toBottomOf="@id/create_group_0">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/create_folder_description_et"
-                    style="@style/BasicTextStyle"
+                    android:id="@+id/create_group_description_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="top"
                     android:hint="@string/description"
                     android:inputType="textMultiLine"
                     android:minHeight="100dp"
-                    android:textSize="20sp"
-                    app:boxStrokeColor="@color/colorSecondaryDark" />
+                    android:textColorHint="@color/downriver_blue_300"
+                    android:textSize="20sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <View
-                android:id="@+id/create_folder_1"
+                android:id="@+id/create_group_1"
                 android:layout_width="match_parent"
-                android:layout_height="5dp"
-                app:layout_constraintTop_toBottomOf="@id/create_folder_description_tit" />
+                android:layout_height="10dp"
+                app:layout_constraintTop_toBottomOf="@id/create_group_description_tit" />
 
             <LinearLayout
-                android:id="@+id/create_folder_cancel_confirm_ll"
+                android:id="@+id/create_group_switch_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/create_group_1">
+
+                <TextView
+                    android:id="@+id/create_group_switch_tv"
+                    style="@style/BasicTextStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/allow_group_members"
+                    android:textSize="15sp" />
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/create_group_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="30dp"
+                    android:checked="true"
+                    android:drawableTint="@color/colorPrimary"
+                    app:thumbTint="@drawable/switch_thumb_color"
+                    app:trackDecorationTint="@drawable/switch_track_decoration_color"
+                    app:trackTint="@drawable/switch_track_color" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/create_group_2"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                app:layout_constraintTop_toBottomOf="@id/create_group_switch_ll" />
+
+            <LinearLayout
+                android:id="@+id/create_group_cancel_confirm_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="end"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/create_folder_1">
+                app:layout_constraintTop_toBottomOf="@id/create_group_2">
 
                 <TextView
-                    android:id="@+id/create_folder_cancel_btn"
-                    style="@style/BasicTextStyle"
+                    android:id="@+id/create_group_cancel_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
@@ -135,12 +168,13 @@
                     android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/create_folder_confirm_btn"
-                    style="@style/BasicTextStyle"
+                    android:id="@+id/create_group_confirm_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
                     android:background="@drawable/ripple_text_btn"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:text="@string/ok"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20sp" />
