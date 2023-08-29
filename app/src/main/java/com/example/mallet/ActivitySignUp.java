@@ -16,7 +16,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;
 
-public class SignUpActivity extends AppCompatActivity {
+public class ActivitySignUp extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class SignUpActivity extends AppCompatActivity {
         // Handle log in button click
         confirmLogIn.setOnClickListener(v -> {
             // Show a Toast message when the button is clicked
-            Toast.makeText(SignUpActivity.this, "Sign up button was clicked", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ActivitySignUp.this, "Sign up button was clicked", Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -60,7 +60,7 @@ public class SignUpActivity extends AppCompatActivity {
         TextView signUp = findViewById(R.id.log_in_btn);
 
         signUp.setOnClickListener(v -> {
-            Intent intent = new Intent(SignUpActivity.this, LogInActivity.class);
+            Intent intent = new Intent(ActivitySignUp.this, ActivityLogIn.class);
             startActivity(intent);
         });
     }
@@ -68,7 +68,7 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // Start ChooseLogInSignUpActivity and clear the back stack
-        Intent intent = new Intent(SignUpActivity.this, LogInSignUpActivity.class);
+        Intent intent = new Intent(ActivitySignUp.this, ActivityOpening.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
         finish(); // Finish the SignUpActivity

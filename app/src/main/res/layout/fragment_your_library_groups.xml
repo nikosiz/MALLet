@@ -1,20 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LibraryGroupsFragment">
+    tools:context=".FragmentYourLibraryGroups">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Your groups" />
-    </LinearLayout>
+            android:gravity=""
+            android:orientation="vertical"
+            android:padding="20dp">
 
-</FrameLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <TextView
+                style="@style/BasicTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Here a list of started folders  is going to be displayed (looking like those in the HomeFragment). "
+                android:textSize="20sp" />
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

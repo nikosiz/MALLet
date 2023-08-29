@@ -1,8 +1,6 @@
 package com.example.mallet;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,12 +15,10 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.mallet.databinding.FragmentYourLibraryBinding;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
 
-public class YourLibraryFragment extends Fragment {
+public class FragmentYourLibrary extends Fragment {
 
     private FragmentYourLibraryBinding binding;
     private TabLayout tabLayout;
@@ -30,7 +26,6 @@ public class YourLibraryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_your_library, container, false);
-
 
 
         ViewPager2 viewPager = view.findViewById(R.id.your_library_view_pager);
@@ -50,11 +45,11 @@ public class YourLibraryFragment extends Fragment {
                 Fragment result = null;
                 // Return the appropriate fragment for each tab
                 if (position == 0) {
-                    result = new LibrarySetsFragment();
+                    result = new FragmentYourLibrarySets();
                 } else if (position == 1) {
-                    result = new LibraryFoldersFragment();
+                    result = new FragmentYourLibraryFolders();
                 } else if (position == 2) {
-                    result = new LibraryGroupsFragment();
+                    result = new FragmentYourLibraryGroups();
                 }
                 return Objects.requireNonNull(result);
             }

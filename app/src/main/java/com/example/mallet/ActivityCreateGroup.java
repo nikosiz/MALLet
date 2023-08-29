@@ -8,20 +8,19 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.mallet.databinding.ActivityCreateFolderBinding;
+import com.example.mallet.databinding.ActivityCreateGroupBinding;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
 
-
-public class CreateFolderActivity extends AppCompatActivity {
-    private ActivityCreateFolderBinding binding;
+public class ActivityCreateGroup extends AppCompatActivity {
+    private ActivityCreateGroupBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityCreateFolderBinding.inflate(getLayoutInflater());
+        binding = ActivityCreateGroupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Initialize and set up the toolbar
@@ -31,9 +30,10 @@ public class CreateFolderActivity extends AppCompatActivity {
 
     // Initialize and set up the toolbar with back arrow functionality.
     private void setupToolbar() {
-        Toolbar toolbar = findViewById(R.id.create_folder_toolbar);
+        Toolbar toolbar = binding.createGroupToolbar;
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(""); // Set the title to an empty string
+
 
         // Display back arrow on the toolbar
         if (getSupportActionBar() != null) {
@@ -43,7 +43,8 @@ public class CreateFolderActivity extends AppCompatActivity {
     }
 
     private void setupClickListeners() {
-        binding.createFolderSaveBtn.setOnClickListener(v -> createFolder());
+        binding.createGroupSaveBtn.setOnClickListener(v -> createGroup());
+
     }
 
     @Override
@@ -57,19 +58,22 @@ public class CreateFolderActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void closeActivity() {
+        finish(); // Finish the LogInActivity
+    }
+
     // TODO
-    private void createFolder() {
-        TextInputEditText folderNameEditText = binding.createFolderNameEt;
-        String folderName = Objects.requireNonNull(folderNameEditText.getText()).toString();
-        TextInputLayout createSetNameTil = binding.createFolderNameTil;
+    private void createGroup() {
+        TextInputEditText groupNameEditText = binding.createGroupNameEt;
+        TextInputLayout createSetNameTil = binding.createGroupNameTil;
 
+        String groupName = Objects.requireNonNull(groupNameEditText.getText()).toString();
 
-        if (!TextUtils.isEmpty(folderName)) {
-            showToast("The folder will be created... In the future... With backend...");
-            finish();
-        } else {
+        if (TextUtils.isEmpty(groupName)) {
             createSetNameTil.setError("This field cannot be empty");
-
+        } else {
+            showToast("The group will be created... In the future... With backend...");
+            finish();
         }
     }
 

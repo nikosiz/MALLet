@@ -5,16 +5,16 @@ import androidx.recyclerview.widget.DiffUtil;
 import java.util.List;
 import java.util.Objects;
 
-public class FlashcardStackCallback extends DiffUtil.Callback {
+public class CallbackFlashcardStack extends DiffUtil.Callback {
 
-    private List<FlashcardModel> oldItem;
+    private List<ModelFlashcard> oldItem;
 
-    public FlashcardStackCallback(List<FlashcardModel> oldItem, List<FlashcardModel> newItem) {
+    public CallbackFlashcardStack(List<ModelFlashcard> oldItem, List<ModelFlashcard> newItem) {
         this.oldItem = oldItem;
         this.newItem = newItem;
     }
 
-    private List<FlashcardModel> newItem;
+    private List<ModelFlashcard> newItem;
 
     @Override
     public int getOldListSize() {

@@ -23,12 +23,12 @@ import com.yuyakaido.android.cardstackview.SwipeableMethod;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LearnActivity extends AppCompatActivity {
+public class ActivityLearn extends AppCompatActivity {
 
     private ActivityLearnBinding binding;
     private static final String TAG = "LearnActivity";
     private CardStackLayoutManager manager;
-    private FlashcardStackAdapter adapter;
+    private AdapterFlashcardStack adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +52,9 @@ public class LearnActivity extends AppCompatActivity {
                 Log.d(TAG, "onCardSwiped: d = " + manager.getTopPosition() + " d = " + direction);
 
                 if (direction == Direction.Left) {
-                    Toast.makeText(LearnActivity.this, "Left", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityLearn.this, "Left", Toast.LENGTH_SHORT).show();
                 } else if (direction == Direction.Right) {
-                    Toast.makeText(LearnActivity.this, "Right", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityLearn.this, "Right", Toast.LENGTH_SHORT).show();
                 }
 
                 if (manager.getTopPosition() == adapter.getItemCount() - 5) {
@@ -63,9 +63,9 @@ public class LearnActivity extends AppCompatActivity {
             }
 
             private void paginate() {
-                List<FlashcardModel> oldItem = adapter.getItems();
-                List<FlashcardModel> newItem = new ArrayList<>(addList());
-                FlashcardStackCallback callback = new FlashcardStackCallback(oldItem, newItem);
+                List<ModelFlashcard> oldItem = adapter.getItems();
+                List<ModelFlashcard> newItem = new ArrayList<>(addList());
+                CallbackFlashcardStack callback = new CallbackFlashcardStack(oldItem, newItem);
                 DiffUtil.DiffResult results = DiffUtil.calculateDiff(callback);
                 adapter.setItems(newItem);
                 results.dispatchUpdatesTo(adapter);
@@ -74,7 +74,7 @@ public class LearnActivity extends AppCompatActivity {
             @Override
             public void onCardRewound() {
                 Log.d(TAG, "onCardRewound: p = " + manager.getTopPosition());
-                Toast.makeText(LearnActivity.this, "REWIND", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActivityLearn.this, "REWIND", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -107,7 +107,7 @@ public class LearnActivity extends AppCompatActivity {
         manager.setOverlayInterpolator(new LinearInterpolator());
         manager.setCanScrollVertical(false);
 
-        adapter = new FlashcardStackAdapter(addList());
+        adapter = new AdapterFlashcardStack(addList());
         binding.cardStackView.setLayoutManager(manager);
         binding.cardStackView.setAdapter(adapter);
         binding.cardStackView.setItemAnimator(new DefaultItemAnimator());
@@ -153,13 +153,13 @@ public class LearnActivity extends AppCompatActivity {
         }
     }
 
-    private List<FlashcardModel> addList() {
-        List<FlashcardModel> items = new ArrayList<>();
-        items.add(new FlashcardModel("Apple", "A red fruit", "Jabłko"));
-        items.add(new FlashcardModel("Orange", "An orange fruit", "Pomarańcza"));
-        items.add(new FlashcardModel("Pear", "A round yellow fruit", "Gruszka"));
-        items.add(new FlashcardModel("Banana", "A long, curved yellow fruit", "Banan"));
-        items.add(new FlashcardModel("Strawberry", "A small red fruit", "Truskawka"));
+    private List<ModelFlashcard> addList() {
+        List<ModelFlashcard> items = new ArrayList<>();
+        items.add(new ModelFlashcard("Apple", "A red fruit", "Jabłko"));
+        items.add(new ModelFlashcard("Orange", "An orange fruit", "Pomarańcza"));
+        items.add(new ModelFlashcard("Pear", "A round yellow fruit", "Gruszka"));
+        items.add(new ModelFlashcard("Banana", "A long, curved yellow fruit", "Banan"));
+        items.add(new ModelFlashcard("Strawberry", "A small red fruit", "Truskawka"));
         return items;
     }
 }

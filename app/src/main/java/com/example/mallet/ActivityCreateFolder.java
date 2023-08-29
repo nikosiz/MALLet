@@ -3,26 +3,25 @@ package com.example.mallet;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.mallet.databinding.ActivityCreateSetBinding;
+import com.example.mallet.databinding.ActivityCreateFolderBinding;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
 
-public class CreateSetActivity extends AppCompatActivity {
-    private ActivityCreateSetBinding binding;
+
+public class ActivityCreateFolder extends AppCompatActivity {
+    private ActivityCreateFolderBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityCreateSetBinding.inflate(getLayoutInflater());
+        binding = ActivityCreateFolderBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Initialize and set up the toolbar
@@ -32,7 +31,7 @@ public class CreateSetActivity extends AppCompatActivity {
 
     // Initialize and set up the toolbar with back arrow functionality.
     private void setupToolbar() {
-        Toolbar toolbar = findViewById(R.id.create_set_toolbar);
+        Toolbar toolbar = findViewById(R.id.create_folder_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(""); // Set the title to an empty string
 
@@ -44,8 +43,7 @@ public class CreateSetActivity extends AppCompatActivity {
     }
 
     private void setupClickListeners() {
-        binding.createSetSaveBtn.setOnClickListener(v -> createSet());
-
+        binding.createFolderSaveBtn.setOnClickListener(v -> createFolder());
     }
 
     @Override
@@ -60,18 +58,19 @@ public class CreateSetActivity extends AppCompatActivity {
     }
 
     // TODO
-    private void createSet() {
-        TextInputEditText setNameEditText = binding.createSetNameEt;
-        TextInputLayout createSetNameTil = binding.createSetNameTil;
-        String setName = Objects.requireNonNull(setNameEditText.getText()).toString();
+    private void createFolder() {
+        TextInputEditText folderNameEditText = binding.createFolderNameEt;
+        String folderName = Objects.requireNonNull(folderNameEditText.getText()).toString();
+        TextInputLayout createSetNameTil = binding.createFolderNameTil;
 
-        if (TextUtils.isEmpty(setName)) {
-            createSetNameTil.setError("This field cannot be empty");
-        } else {
-            showToast("The set will be created... In the future... With backend...");
+
+        if (!TextUtils.isEmpty(folderName)) {
+            showToast("The folder will be created... In the future... With backend...");
             finish();
-        }
+        } else {
+            createSetNameTil.setError("This field cannot be empty");
 
+        }
     }
 
     private void showToast(String message) {

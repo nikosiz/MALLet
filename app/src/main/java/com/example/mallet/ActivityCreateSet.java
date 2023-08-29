@@ -3,26 +3,24 @@ package com.example.mallet;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.mallet.databinding.ActivityCreateGroupBinding;
+import com.example.mallet.databinding.ActivityCreateSetBinding;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
 
-public class CreateGroupActivity extends AppCompatActivity {
-    private ActivityCreateGroupBinding binding;
+public class ActivityCreateSet extends AppCompatActivity {
+    private ActivityCreateSetBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityCreateGroupBinding.inflate(getLayoutInflater());
+        binding = ActivityCreateSetBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Initialize and set up the toolbar
@@ -32,10 +30,9 @@ public class CreateGroupActivity extends AppCompatActivity {
 
     // Initialize and set up the toolbar with back arrow functionality.
     private void setupToolbar() {
-        Toolbar toolbar = binding.createGroupToolbar;
+        Toolbar toolbar = findViewById(R.id.create_set_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(""); // Set the title to an empty string
-
 
         // Display back arrow on the toolbar
         if (getSupportActionBar() != null) {
@@ -45,7 +42,7 @@ public class CreateGroupActivity extends AppCompatActivity {
     }
 
     private void setupClickListeners() {
-        binding.createGroupSaveBtn.setOnClickListener(v -> createGroup());
+        binding.createSetSaveBtn.setOnClickListener(v -> createSet());
 
     }
 
@@ -60,23 +57,19 @@ public class CreateGroupActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void closeActivity() {
-        finish(); // Finish the LogInActivity
-    }
-
     // TODO
-    private void createGroup() {
-        TextInputEditText groupNameEditText = binding.createGroupNameEt;
-        TextInputLayout createSetNameTil = binding.createGroupNameTil;
+    private void createSet() {
+        TextInputEditText setNameEditText = binding.createSetNameEt;
+        TextInputLayout createSetNameTil = binding.createSetNameTil;
+        String setName = Objects.requireNonNull(setNameEditText.getText()).toString();
 
-        String groupName = Objects.requireNonNull(groupNameEditText.getText()).toString();
-
-        if (TextUtils.isEmpty(groupName)) {
+        if (TextUtils.isEmpty(setName)) {
             createSetNameTil.setError("This field cannot be empty");
         } else {
-            showToast("The group will be created... In the future... With backend...");
+            showToast("The set will be created... In the future... With backend...");
             finish();
         }
+
     }
 
     private void showToast(String message) {

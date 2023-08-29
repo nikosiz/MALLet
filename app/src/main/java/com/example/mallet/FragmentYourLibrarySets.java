@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link LibrarySetsFragment#newInstance} factory method to
+ * Use the {@link FragmentYourLibrarySets#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LibrarySetsFragment extends Fragment {
+public class FragmentYourLibrarySets extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +24,7 @@ public class LibrarySetsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public LibrarySetsFragment() {
+    public FragmentYourLibrarySets() {
         // Required empty public constructor
     }
 
@@ -37,8 +37,8 @@ public class LibrarySetsFragment extends Fragment {
      * @return A new instance of fragment LibrarySetsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static LibrarySetsFragment newInstance(String param1, String param2) {
-        LibrarySetsFragment fragment = new LibrarySetsFragment();
+    public static FragmentYourLibrarySets newInstance(String param1, String param2) {
+        FragmentYourLibrarySets fragment = new FragmentYourLibrarySets();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

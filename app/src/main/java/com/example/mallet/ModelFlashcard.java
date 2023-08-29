@@ -1,18 +1,18 @@
 package com.example.mallet;
 
 // Define a class named ItemModel
-public class FlashcardModel {
+public class ModelFlashcard {
 
     // Private fields to hold word, definition, and translation data
     private String word, definition, translation;
 
     // Default constructor for the ItemModel class
-    public FlashcardModel() {
+    public ModelFlashcard() {
         // Empty constructor
     }
 
     // Parameterized constructor to initialize the fields with data
-    public FlashcardModel(String word, String definition, String translation) {
+    public ModelFlashcard(String word, String definition, String translation) {
         this.word = word;
         this.definition = definition;
         this.translation = translation;

@@ -13,28 +13,28 @@
         android:theme="@style/Theme.MALLet"
         tools:targetApi="31" >
         <activity
-            android:name=".LearnActivity"
+            android:name=".ActivityLearn"
             android:exported="false" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".ActivitySignUp"
             android:exported="false" />
         <activity
-            android:name=".LogInActivity"
+            android:name=".ActivityLogIn"
             android:exported="false" />
         <activity
-            android:name=".CreateFolderActivity"
+            android:name=".ActivityCreateFolder"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CreateSetActivity"
+            android:name=".ActivityCreateSet"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CreateGroupActivity"
+            android:name=".ActivityCreateGroup"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LogInSignUpActivity"
+            android:name=".ActivityOpening"
             android:exported="true"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -44,7 +44,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".ActivityMain"
             android:exported="true"
             android:screenOrientation="portrait" >
             <intent-filter>

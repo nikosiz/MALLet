@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".HomeFragment">
+    tools:context=".FragmentHome">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/home_fragment_toolbar"
@@ -203,75 +203,11 @@
                     app:layout_constraintTop_toBottomOf="@id/home_view_3">
 
                     <LinearLayout
+                        android:id="@+id/home_folders_ll"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal">
 
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/home_folder_1"
-                            android:layout_width="290dp"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:elevation="3dp"
-                            android:maxWidth="10dp"
-                            app:cardCornerRadius="20dp">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical"
-                                android:padding="20dp">
-
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@drawable/ic_folder"
-                                    app:tint="@color/danube_blue_800" />
-
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:layout_height="20dp" />
-
-                                <TextView
-                                    style="@style/BasicBoldTextStyle"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:autoSizeMaxTextSize="25sp"
-                                    android:autoSizeMinTextSize="15sp"
-                                    android:autoSizeStepGranularity="2sp"
-                                    android:autoSizeTextType="uniform"
-                                    android:singleLine="true"
-                                    android:text="Folder #1"
-                                    android:textColor="@color/danube_blue_800" />
-
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:layout_height="5dp" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center_vertical"
-                                    android:orientation="horizontal">
-
-                                    <ImageView
-                                        android:layout_width="25dp"
-                                        android:layout_height="25dp"
-                                        android:src="@drawable/ic_profile" />
-
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center_vertical"
-                                        android:shadowColor="@color/emerald_green_50"
-                                        android:text="ictStudent997" />
-                                </LinearLayout>
-                            </LinearLayout>
-                        </androidx.cardview.widget.CardView>
-
-                        <View
-                            android:layout_width="10dp"
-                            android:layout_height="match_parent" />
                     </LinearLayout>
                 </HorizontalScrollView>
 

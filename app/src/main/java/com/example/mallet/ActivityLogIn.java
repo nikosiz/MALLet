@@ -22,7 +22,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;
 
-public class LogInActivity extends AppCompatActivity {
+public class ActivityLogIn extends AppCompatActivity {
 
     private com.example.mallet.databinding.ActivityLogInBinding binding;
 
@@ -126,7 +126,7 @@ public class LogInActivity extends AppCompatActivity {
     }
 
     private void signUpRedirect() {
-        Intent intent = new Intent(LogInActivity.this, SignUpActivity.class);
+        Intent intent = new Intent(ActivityLogIn.this, ActivitySignUp.class);
         startActivity(intent);
     }
 
@@ -138,7 +138,7 @@ public class LogInActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // Start ChooseLogInSignUpActivity and clear the back stack
-        Intent intent = new Intent(LogInActivity.this, LogInSignUpActivity.class);
+        Intent intent = new Intent(ActivityLogIn.this, ActivityOpening.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
         finish(); // Finish the LogInActivity

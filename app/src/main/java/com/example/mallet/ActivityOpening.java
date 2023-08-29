@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class LogInSignUpActivity extends AppCompatActivity {
+public class ActivityOpening extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class LogInSignUpActivity extends AppCompatActivity {
         Button logInButton = findViewById(R.id.choose_log_in_btn);
         logInButton.setOnClickListener(v -> {
             // Open LogInActivity
-            Intent intent = new Intent(LogInSignUpActivity.this, LogInActivity.class);
+            Intent intent = new Intent(ActivityOpening.this, ActivityLogIn.class);
             startActivity(intent);
         });
     }
@@ -41,7 +41,7 @@ public class LogInSignUpActivity extends AppCompatActivity {
         Button signUpButton = findViewById(R.id.choose_sign_up_btn);
         signUpButton.setOnClickListener(v -> {
             // Open SignUpActivity
-            Intent intent = new Intent(LogInSignUpActivity.this, SignUpActivity.class);
+            Intent intent = new Intent(ActivityOpening.this, ActivitySignUp.class);
             startActivity(intent);
         });
     }
@@ -50,7 +50,7 @@ public class LogInSignUpActivity extends AppCompatActivity {
         Button noLogInButton = findViewById(R.id.choose_no_log_in_btn);
         noLogInButton.setOnClickListener(v -> {
             // Open MainActivity
-            Intent intent = new Intent(LogInSignUpActivity.this, MainActivity.class);
+            Intent intent = new Intent(ActivityOpening.this, ActivityMain.class);
             startActivity(intent);
         });
     }

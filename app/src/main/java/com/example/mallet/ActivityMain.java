@@ -30,7 +30,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
+public class ActivityMain extends AppCompatActivity {
 
     // Binding object to access views in the layout
     private ActivityMainBinding binding;
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             selectedFragmentId = savedInstanceState.getInt(SELECTED_FRAGMENT_KEY, R.id.bottom_nav_home);
             binding.bottomNavigationView.setSelectedItemId(selectedFragmentId);
         } else {
-            replaceFragment(new HomeFragment());
+            replaceFragment(new FragmentHome());
         }
 
         // Set exception item index (0-based)
@@ -87,9 +87,9 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout createFolder = dialog.findViewById(R.id.add_new_create_folder);
         LinearLayout createGroup = dialog.findViewById(R.id.add_new_create_group);
 
-        createSet.setOnClickListener(view -> startNewActivity(CreateSetActivity.class, dialog));
-        createFolder.setOnClickListener(view -> startNewActivity(CreateFolderActivity.class, dialog));
-        createGroup.setOnClickListener(view -> startNewActivity(CreateGroupActivity.class, dialog));
+        createSet.setOnClickListener(view -> startNewActivity(ActivityCreateSet.class, dialog));
+        createFolder.setOnClickListener(view -> startNewActivity(ActivityCreateFolder.class, dialog));
+        createGroup.setOnClickListener(view -> startNewActivity(ActivityCreateGroup.class, dialog));
 
         dialog.show();
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -118,15 +118,15 @@ public class MainActivity extends AppCompatActivity {
         selectedFragmentId = item.getItemId(); // Update the selected fragment ID
         // Check which menu item was selected and replace the fragment accordingly
         if (selectedFragmentId == R.id.bottom_nav_home) {
-            replaceFragment(new HomeFragment());
+            replaceFragment(new FragmentHome());
         } else if (selectedFragmentId == R.id.bottom_nav_library) {
-            replaceFragment(new SetDatabaseFragment());
+            replaceFragment(new FragmentSetsDatabase());
         } else if (selectedFragmentId == R.id.bottom_nav_add_new) {
             showCreateNewDialog();
         } else if (selectedFragmentId == R.id.bottom_nav_your_library) {
-            replaceFragment(new YourLibraryFragment());
+            replaceFragment(new FragmentYourLibrary());
         } else if (selectedFragmentId == R.id.bottom_nav_profile) {
-            replaceFragment(new ProfileFragment());
+            replaceFragment(new FragmentProfile());
         }
         // Return true to indicate that the item selection was handled
         return true;

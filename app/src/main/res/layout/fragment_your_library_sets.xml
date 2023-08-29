@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LibrarySetsFragment">
+    tools:context=".FragmentYourLibrarySets">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -52,7 +52,7 @@
                 style="@style/BasicTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Here a list of started sets is going to be displayed (looking like in HomeFragment). The text entered in the search field will limit the pop-ups displayed to only those matching the search."
+                android:text="Here a list of started sets is going to be displayed (looking like those in the HomeFragment). The text entered in the search field will limit the pop-ups displayed to only those matching the search."
                 android:textSize="20sp" />
 
 

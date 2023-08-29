@@ -7,14 +7,13 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.mallet.databinding.FragmentProfileBinding;
 import com.example.mallet.databinding.FragmentSetDatabaseBinding;
 
-public class SetDatabaseFragment extends Fragment {
+public class FragmentSetsDatabase extends Fragment {
 
     private FragmentSetDatabaseBinding binding;
 
-    public SetDatabaseFragment() {
+    public FragmentSetsDatabase() {
         // Required empty public constructor
     }
 

@@ -12,12 +12,12 @@ import java.util.List;
 
 // Import necessary classes and packages
 
-public class FlashcardStackAdapter extends RecyclerView.Adapter<FlashcardStackAdapter.ViewHolder> {
+public class AdapterFlashcardStack extends RecyclerView.Adapter<AdapterFlashcardStack.ViewHolder> {
 
-    private List<FlashcardModel> items; // List to hold the data for the adapter
+    private List<ModelFlashcard> items; // List to hold the data for the adapter
 
     // Constructor to initialize the adapter with data
-    public FlashcardStackAdapter(List<FlashcardModel> items) {
+    public AdapterFlashcardStack(List<ModelFlashcard> items) {
         this.items = items;
     }
 
@@ -26,7 +26,7 @@ public class FlashcardStackAdapter extends RecyclerView.Adapter<FlashcardStackAd
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // Inflate the item_card.xml layout for each item view
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.flashcard_model, parent, false);
+        View view = inflater.inflate(R.layout.model_flashcard, parent, false);
         return new ViewHolder(view);
     }
 
@@ -55,7 +55,7 @@ public class FlashcardStackAdapter extends RecyclerView.Adapter<FlashcardStackAd
         }
 
         // Method to set data from the data model to the views
-        public void setData(FlashcardModel data) {
+        public void setData(ModelFlashcard data) {
             word.setText(data.getWord());
             definition.setText(data.getDefinition());
             translation.setText(data.getTranslation());
@@ -63,11 +63,11 @@ public class FlashcardStackAdapter extends RecyclerView.Adapter<FlashcardStackAd
     }
 
     // Getter and setter methods for the items list
-    public List<FlashcardModel> getItems() {
+    public List<ModelFlashcard> getItems() {
         return items;
     }
 
-    public void setItems(List<FlashcardModel> items) {
+    public void setItems(List<ModelFlashcard> items) {
         this.items = items;
     }
 }
