@@ -16,11 +16,24 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:layout_width="match_parent"
+            style="@style/BasicBoldTextStyle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:text="@string/create_new_folder"
             android:textColor="@color/white"
             android:textSize="30sp" />
+
+        <ImageView
+            android:id="@+id/create_folder_save_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginHorizontal="20dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_check"
+            app:tint="@color/white" />
     </androidx.appcompat.widget.Toolbar>
 
     <FrameLayout
@@ -41,7 +54,7 @@
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/create_folder_name_tit"
+                android:id="@+id/create_folder_name_til"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:boxBackgroundMode="outline"
@@ -78,10 +91,10 @@
                 android:id="@+id/create_folder_0"
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
-                app:layout_constraintTop_toBottomOf="@id/create_folder_name_tit" />
+                app:layout_constraintTop_toBottomOf="@id/create_folder_name_til" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/create_folder_description_tit"
+                android:id="@+id/create_folder_description_til"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:boxBackgroundMode="outline"
@@ -105,46 +118,6 @@
                     android:textSize="20sp"
                     app:boxStrokeColor="@color/colorSecondaryDark" />
             </com.google.android.material.textfield.TextInputLayout>
-
-            <View
-                android:id="@+id/create_folder_1"
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                app:layout_constraintTop_toBottomOf="@id/create_folder_description_tit" />
-
-            <LinearLayout
-                android:id="@+id/create_folder_cancel_confirm_ll"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/create_folder_1">
-
-                <TextView
-                    android:id="@+id/create_folder_cancel_btn"
-                    style="@style/BasicTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:background="@drawable/ripple_text_btn"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:text="@string/cancel"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/create_folder_confirm_btn"
-                    style="@style/BasicTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:background="@drawable/ripple_text_btn"
-                    android:text="@string/ok"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="20sp" />
-            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 

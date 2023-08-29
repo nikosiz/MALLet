@@ -2,8 +2,7 @@ package com.example.mallet;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
-import android.widget.TextView;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +10,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.mallet.databinding.ActivityCreateFolderBinding;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
 
@@ -33,34 +33,43 @@ public class CreateFolderActivity extends AppCompatActivity {
     private void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.create_folder_toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(""); // Set the title to an empty string
 
-        /*// Display back arrow on the toolbar
+        // Display back arrow on the toolbar
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }*/
+        }
     }
 
     private void setupClickListeners() {
-        binding.createFolderCancelBtn.setOnClickListener(v -> closeActivity());
-        binding.createFolderConfirmBtn.setOnClickListener(v -> createFolder());
+        binding.createFolderSaveBtn.setOnClickListener(v -> createFolder());
     }
 
-    private void closeActivity() {
-        finish(); // Finish the LogInActivity
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle arrow click here
+        if (item.getItemId() == android.R.id.home) {
+            // Finish this activity and return to the previous activity (if any)
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     // TODO
     private void createFolder() {
-        TextView emptyNameError = binding.createFolderNameError;
         TextInputEditText folderNameEditText = binding.createFolderNameEt;
         String folderName = Objects.requireNonNull(folderNameEditText.getText()).toString();
+        TextInputLayout createSetNameTil = binding.createFolderNameTil;
 
-        if (TextUtils.isEmpty(folderName)) {
-            emptyNameError.setVisibility(View.VISIBLE);
-        } else {
+
+        if (!TextUtils.isEmpty(folderName)) {
             showToast("The folder will be created... In the future... With backend...");
             finish();
+        } else {
+            createSetNameTil.setError("This field cannot be empty");
+
         }
     }
 

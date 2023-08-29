@@ -44,7 +44,7 @@
         app:layout_constraintTop_toBottomOf="@id/change_username_enter_email_tv" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/change_username_old_tit"
+        android:id="@+id/change_username_old_til"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:boxBackgroundMode="outline"
@@ -97,7 +97,7 @@
         android:gravity="end"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/change_username_old_tit">
+        app:layout_constraintTop_toBottomOf="@id/change_username_old_til">
 
         <TextView
             android:id="@+id/change_username_cancel_btn"

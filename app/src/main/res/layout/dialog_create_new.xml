@@ -25,7 +25,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:contentDescription="@+string/create_new_set_icon"
-            android:src="@drawable/ic_new_set"
+            android:src="@drawable/ic_create_set"
             app:tint="@color/danube_blue_800" />
 
         <TextView
@@ -57,7 +57,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:contentDescription="@+string/create_new_folder_icon"
-            android:src="@drawable/ic_new_folder"
+            android:src="@drawable/ic_create_folder"
             app:tint="@color/danube_blue_800" />
 
         <TextView
@@ -89,7 +89,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:contentDescription="@+string/create_new_group_icon"
-            android:src="@drawable/ic_new_group"
+            android:src="@drawable/ic_create_group"
             app:tint="@color/danube_blue_800" />
 
         <TextView

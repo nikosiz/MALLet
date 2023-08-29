@@ -16,11 +16,25 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:layout_width="match_parent"
+            style="@style/BasicBoldTextStyle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:text="@string/create_new_group"
             android:textColor="@color/white"
+
             android:textSize="30sp" />
+
+        <ImageView
+            android:id="@+id/create_group_save_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginHorizontal="20dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_check"
+            app:tint="@color/white" />
     </androidx.appcompat.widget.Toolbar>
 
     <FrameLayout
@@ -41,7 +55,7 @@
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/create_group_name_tit"
+                android:id="@+id/create_group_name_til"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:boxBackgroundMode="outline"
@@ -51,6 +65,7 @@
                 app:boxCornerRadiusTopStart="5dp"
                 app:boxStrokeColor="@color/colorSecondaryDark"
                 app:boxStrokeWidth="2dp"
+                app:errorEnabled="true"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -60,26 +75,10 @@
                     android:hint="@string/group_name"
                     android:textColorHint="@color/downriver_blue_300"
                     android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/create_group_name_error"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginBottom="5dp"
-                    android:text="@string/field_cannot_be_empty"
-                    android:textColor="@color/carnation_red_600"
-                    android:visibility="gone" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <View
-                android:id="@+id/create_group_0"
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                app:layout_constraintTop_toBottomOf="@id/create_group_name_tit" />
-
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/create_group_description_tit"
+                android:id="@+id/create_group_description_til"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:boxBackgroundMode="outline"
@@ -89,7 +88,7 @@
                 app:boxCornerRadiusTopStart="5dp"
                 app:boxStrokeColor="@color/colorSecondaryDark"
                 app:boxStrokeWidth="2dp"
-                app:layout_constraintTop_toBottomOf="@id/create_group_0">
+                app:layout_constraintTop_toBottomOf="@id/create_group_name_til">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/create_group_description_et"
@@ -107,7 +106,7 @@
                 android:id="@+id/create_group_1"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-                app:layout_constraintTop_toBottomOf="@id/create_group_description_tit" />
+                app:layout_constraintTop_toBottomOf="@id/create_group_description_til" />
 
             <LinearLayout
                 android:id="@+id/create_group_switch_ll"
@@ -138,46 +137,6 @@
                     app:thumbTint="@drawable/switch_thumb_color"
                     app:trackDecorationTint="@drawable/switch_track_decoration_color"
                     app:trackTint="@drawable/switch_track_color" />
-            </LinearLayout>
-
-            <View
-                android:id="@+id/create_group_2"
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                app:layout_constraintTop_toBottomOf="@id/create_group_switch_ll" />
-
-            <LinearLayout
-                android:id="@+id/create_group_cancel_confirm_ll"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/create_group_2">
-
-                <TextView
-                    android:id="@+id/create_group_cancel_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:background="@drawable/ripple_text_btn"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:text="@string/cancel"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/create_group_confirm_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:background="@drawable/ripple_text_btn"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:text="@string/ok"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="20sp" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>

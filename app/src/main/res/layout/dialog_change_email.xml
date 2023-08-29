@@ -37,7 +37,7 @@
         android:layout_height="10dp" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/change_email_new_tit"
+        android:id="@+id/change_email_new_til"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:boxBackgroundMode="outline"

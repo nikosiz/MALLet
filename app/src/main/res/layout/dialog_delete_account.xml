@@ -48,7 +48,7 @@
         app:layout_constraintTop_toBottomOf="@id/delete_acc_enter_password_tv" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/delete_acc_password_tit"
+        android:id="@+id/delete_acc_password_til"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:boxBackgroundMode="outline"
@@ -106,7 +106,7 @@
         android:textColor="@color/danube_blue_800"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/delete_acc_password_tit" />
+        app:layout_constraintTop_toBottomOf="@id/delete_acc_password_til" />
 
     <TextView
         android:id="@+id/delete_acc_checkbox_error"

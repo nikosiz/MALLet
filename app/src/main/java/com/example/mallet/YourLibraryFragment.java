@@ -12,12 +12,17 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.mallet.databinding.FragmentSetDatabaseBinding;
+import com.example.mallet.databinding.FragmentYourLibraryBinding;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.Objects;
 
 public class YourLibraryFragment extends Fragment {
+
+    private FragmentYourLibraryBinding binding;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

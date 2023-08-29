@@ -29,6 +29,7 @@
         android:id="@+id/home_fl"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:orientation="vertical"
         android:paddingHorizontal="20dp"
         android:paddingVertical="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -36,14 +37,356 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/home_fragment_toolbar">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/home_button"
-            style="@style/BasicButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="@string/home" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/home_sets_ll"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/BasicBoldTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Recent sets"
+                    android:textColor="@color/danube_blue_900"
+                    android:textSize="20sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/home_recent_set_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:elevation="3dp"
+                            android:maxWidth="10dp"
+                            app:cardCornerRadius="20dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:padding="20dp">
+
+                                <TextView
+                                    style="@style/BasicBoldTextStyle"
+                                    android:layout_width="250dp"
+                                    android:layout_height="wrap_content"
+                                    android:autoSizeMaxTextSize="20sp"
+                                    android:autoSizeMinTextSize="12sp"
+                                    android:autoSizeStepGranularity="2sp"
+                                    android:autoSizeTextType="uniform"
+                                    android:singleLine="true"
+                                    android:text="Set #1"
+                                    android:textColor="@color/danube_blue_800" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:shadowColor="@color/emerald_green_50"
+                                    android:text="8 terms" />
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="30dp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:layout_width="25dp"
+                                        android:layout_height="25dp"
+                                        android:src="@drawable/ic_profile" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:shadowColor="@color/emerald_green_50"
+                                        android:text="creatorOfThisSet97" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <View
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent" />
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/home_recent_set_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:elevation="3dp"
+                            android:maxWidth="10dp"
+                            app:cardCornerRadius="20dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:padding="20dp">
+
+                                <TextView
+                                    style="@style/BasicBoldTextStyle"
+                                    android:layout_width="250dp"
+                                    android:layout_height="wrap_content"
+                                    android:autoSizeMaxTextSize="20sp"
+                                    android:autoSizeMinTextSize="12sp"
+                                    android:autoSizeStepGranularity="2sp"
+                                    android:autoSizeTextType="uniform"
+                                    android:singleLine="true"
+                                    android:text="Set #2"
+                                    android:textColor="@color/danube_blue_800" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:shadowColor="@color/emerald_green_50"
+                                    android:text="8 terms" />
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="30dp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:layout_width="25dp"
+                                        android:layout_height="25dp"
+                                        android:src="@drawable/ic_profile" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:shadowColor="@color/emerald_green_50"
+                                        android:text="creatorOfThisSet97" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <View
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent" />
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/home_recent_set_3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:elevation="3dp"
+                            android:maxWidth="10dp"
+                            app:cardCornerRadius="20dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:padding="20dp">
+
+                                <TextView
+                                    style="@style/BasicBoldTextStyle"
+                                    android:layout_width="250dp"
+                                    android:layout_height="wrap_content"
+                                    android:autoSizeMaxTextSize="20sp"
+                                    android:autoSizeMinTextSize="12sp"
+                                    android:autoSizeStepGranularity="2sp"
+                                    android:autoSizeTextType="uniform"
+                                    android:singleLine="true"
+                                    android:text="Set #3"
+                                    android:textColor="@color/danube_blue_800" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:shadowColor="@color/emerald_green_50"
+                                    android:text="8 terms" />
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="30dp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:layout_width="25dp"
+                                        android:layout_height="25dp"
+                                        android:src="@drawable/ic_profile" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:shadowColor="@color/emerald_green_50"
+                                        android:text="creatorOfThisSet97" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <View
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent" />
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/home_recent_set_4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:elevation="3dp"
+                            android:maxWidth="10dp"
+                            app:cardCornerRadius="20dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:padding="20dp">
+
+                                <TextView
+                                    style="@style/BasicBoldTextStyle"
+                                    android:layout_width="250dp"
+                                    android:layout_height="wrap_content"
+                                    android:autoSizeMaxTextSize="20sp"
+                                    android:autoSizeMinTextSize="12sp"
+                                    android:autoSizeStepGranularity="2sp"
+                                    android:autoSizeTextType="uniform"
+                                    android:singleLine="true"
+                                    android:text="Set #4"
+                                    android:textColor="@color/danube_blue_800" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:shadowColor="@color/emerald_green_50"
+                                    android:text="8 terms" />
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="30dp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:layout_width="25dp"
+                                        android:layout_height="25dp"
+                                        android:src="@drawable/ic_profile" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:shadowColor="@color/emerald_green_50"
+                                        android:text="creatorOfThisSet97" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <View
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent" />
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/home_recent_set_5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:elevation="3dp"
+                            android:maxWidth="10dp"
+                            app:cardCornerRadius="20dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:padding="20dp">
+
+                                <TextView
+                                    style="@style/BasicBoldTextStyle"
+                                    android:layout_width="250dp"
+                                    android:layout_height="wrap_content"
+                                    android:autoSizeMaxTextSize="20sp"
+                                    android:autoSizeMinTextSize="12sp"
+                                    android:autoSizeStepGranularity="2sp"
+                                    android:autoSizeTextType="uniform"
+                                    android:singleLine="true"
+                                    android:text="Set #5"
+                                    android:textColor="@color/danube_blue_800" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:shadowColor="@color/emerald_green_50"
+                                    android:text="8 terms" />
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="30dp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:layout_width="25dp"
+                                        android:layout_height="25dp"
+                                        android:src="@drawable/ic_profile" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:shadowColor="@color/emerald_green_50"
+                                        android:text="creatorOfThisSet97" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/home_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center"
+                    android:gravity="center"
+                    android:text="@string/home" />
+            </LinearLayout>
+
+        </ScrollView>
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
