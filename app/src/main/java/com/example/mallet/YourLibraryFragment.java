@@ -1,6 +1,8 @@
 package com.example.mallet;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,8 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.mallet.databinding.FragmentYourLibraryBinding;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
 
@@ -27,8 +31,11 @@ public class YourLibraryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_your_library, container, false);
 
+
+
         ViewPager2 viewPager = view.findViewById(R.id.your_library_view_pager);
         TabLayout tabLayout = view.findViewById(R.id.your_library_tab_layout);
+
 
         // Create a FragmentStateAdapter
         FragmentStateAdapter adapter = new FragmentStateAdapter(getChildFragmentManager(), getLifecycle()) {
