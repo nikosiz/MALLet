@@ -7,24 +7,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.mallet.databinding.FragmentHomeBinding;
 import com.example.mallet.databinding.FragmentProfileBinding;
 
 public class HomeFragment extends Fragment {
 
-    private FragmentProfileBinding binding;
+    private FragmentHomeBinding binding;
 
-    public HomeFragment() {
-        // Required empty public constructor
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-        setupHomeBtn(rootView);
-        return rootView;
+    private void setupClickListeners() {
+
     }
 
     private void setupHomeBtn(View rootView) {
