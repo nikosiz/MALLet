@@ -106,7 +106,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
-            android:background="@drawable/ripple_text_btn"
+            android:background="@drawable/bg_ripple"
             android:text="@string/cancel"
             android:textColor="@color/danube_blue_800"
             android:textSize="20sp" />
@@ -116,7 +116,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
-            android:background="@drawable/ripple_text_btn"
+            android:background="@drawable/bg_ripple"
             android:text="@string/ok"
             android:textColor="@color/danube_blue_800"
             android:textSize="20sp" />

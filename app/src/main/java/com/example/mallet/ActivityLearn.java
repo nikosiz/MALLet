@@ -162,4 +162,6 @@ public class ActivityLearn extends AppCompatActivity {
         items.add(new ModelFlashcard("Strawberry", "A small red fruit", "Truskawka"));
         return items;
     }
+
+    
 }

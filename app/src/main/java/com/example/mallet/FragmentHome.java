@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,38 +19,33 @@ import java.util.List;
 public class FragmentHome extends Fragment {
 
     private FragmentHomeBinding binding;
-    private LinearLayout homeFoldersLl;
-    private List<ModelFolder> homeFoldersList;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        FragmentHomeBinding binding = FragmentHomeBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
 
-        homeFoldersLl = view.findViewById(R.id.home_folders_ll); // Change to LinearLayout
-        homeFoldersList = getHomeFoldersList();
-
+        // Your code to populate the LinearLayout
+        List<ModelFolder> homeFoldersList = getHomeFoldersList();
         for (ModelFolder folder : homeFoldersList) {
-            View folderItemView = inflater.inflate(R.layout.model_folder, homeFoldersLl, false);
+            View folderItemView = inflater.inflate(R.layout.model_folder, binding.homeFoldersLl, false);
 
             TextView folderNameTextView = folderItemView.findViewById(R.id.folder_model_name_tv);
             folderNameTextView.setText(folder.getFolderName());
 
             // Add folderItemView to the linearLayout
-            homeFoldersLl.addView(folderItemView);
+            binding.homeFoldersLl.addView(folderItemView);
         }
+
+        setupClickListeners(binding);
 
         return view;
     }
 
-    private void setupClickListeners() {
 
-    }
-
-    private void setupHomeBtn(View rootView) {
-        Button startLearn = rootView.findViewById(R.id.home_button);
-
-        startLearn.setOnClickListener(v -> startLearnActivity());
+    private void setupClickListeners(FragmentHomeBinding binding) {
+        binding.homeButton.setOnClickListener(v -> startLearnActivity());
     }
 
     // TODO: The same for sets and groups

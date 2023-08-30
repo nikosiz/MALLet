@@ -2,19 +2,25 @@ package com.example.mallet;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.mallet.databinding.ActivityOpeningBinding;
+
 public class ActivityOpening extends AppCompatActivity {
+    private ActivityOpeningBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_choose_login_signup);
+        binding = com.example.mallet.databinding.ActivityOpeningBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         setupLoginButton();
         setupSignUpButton();
@@ -54,4 +60,6 @@ public class ActivityOpening extends AppCompatActivity {
             startActivity(intent);
         });
     }
+
+    
 }

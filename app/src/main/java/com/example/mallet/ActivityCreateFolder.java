@@ -3,7 +3,7 @@ package com.example.mallet;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -44,6 +44,15 @@ public class ActivityCreateFolder extends AppCompatActivity {
 
     private void setupClickListeners() {
         binding.createFolderSaveBtn.setOnClickListener(v -> createFolder());
+        binding.createFolderAddDescriptionLl.setOnClickListener(v -> addDescription());
+    }
+
+    private void addDescription() {
+        TextInputLayout folderDescriptionTextInputLayout = binding.createFolderDescriptionTil;
+        TextInputEditText folderDescriptionEditText = binding.createFolderDescriptionEt;
+        String folderDescription = Objects.requireNonNull(folderDescriptionEditText.getText()).toString();
+
+        FrontendUtils.showItem(folderDescriptionTextInputLayout);
     }
 
     @Override
@@ -62,18 +71,14 @@ public class ActivityCreateFolder extends AppCompatActivity {
         TextInputEditText folderNameEditText = binding.createFolderNameEt;
         String folderName = Objects.requireNonNull(folderNameEditText.getText()).toString();
         TextInputLayout createSetNameTil = binding.createFolderNameTil;
-
+        TextView emptyError = binding.createFolderEmptyNameError;
 
         if (!TextUtils.isEmpty(folderName)) {
-            showToast("The folder will be created... In the future... With backend...");
+            FrontendUtils.hideitem(emptyError);
+            FrontendUtils.showToast(this, "The folder will be created... In the future... With backend...");
             finish();
         } else {
-            createSetNameTil.setError("This field cannot be empty");
-
+            FrontendUtils.showItem(emptyError);
         }
-    }
-
-    private void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

@@ -1,6 +1,9 @@
 package com.example.mallet;
 
+import com.example.mallet.databinding.ModelFolderBinding;
+
 public class ModelFolder {
+    private ModelFolderBinding binding;
     private String folderOwner;
     private String folderName;
 

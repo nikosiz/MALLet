@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginHorizontal="20dp"
+            android:background="@drawable/bg_ripple"
             android:clickable="true"
             android:focusable="true"
             android:src="@drawable/ic_check"
@@ -76,7 +77,7 @@
                     app:boxStrokeColor="@color/colorSecondaryDark" />
 
                 <TextView
-                    android:id="@+id/create_folder_name_error"
+                    android:id="@+id/create_folder_empty_name_error"
                     style="@style/BasicTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -88,15 +89,50 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <View
-                android:id="@+id/create_folder_0"
+                android:id="@+id/create_folder_v0"
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
                 app:layout_constraintTop_toBottomOf="@id/create_folder_name_til" />
+
+            <LinearLayout
+                android:id="@+id/create_folder_add_description_ll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_ripple"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="end"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/create_folder_v0">
+
+                <ImageView
+                    android:id="@+id/create_folder_add_description_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:contentDescription="add description"
+                    android:src="@drawable/ic_plus" />
+
+                <TextView
+                    android:id="@+id/create_folder_add_description_tv"
+                    style="@style/BasicTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Description"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/create_folder_v1"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                app:layout_constraintTop_toBottomOf="@id/create_folder_add_description_ll" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/create_folder_description_til"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 app:boxBackgroundMode="outline"
                 app:boxCornerRadiusBottomEnd="5dp"
                 app:boxCornerRadiusBottomStart="5dp"
@@ -104,7 +140,7 @@
                 app:boxCornerRadiusTopStart="5dp"
                 app:boxStrokeColor="@color/colorSecondaryDark"
                 app:boxStrokeWidth="2dp"
-                app:layout_constraintTop_toBottomOf="@id/create_folder_0">
+                app:layout_constraintTop_toBottomOf="@id/create_folder_v1">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/create_folder_description_et"

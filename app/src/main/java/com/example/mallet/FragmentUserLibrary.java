@@ -6,26 +6,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.mallet.databinding.FragmentYourLibraryBinding;
+import com.example.mallet.databinding.FragmentUserLibraryBinding;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.Objects;
 
-public class FragmentYourLibrary extends Fragment {
+public class FragmentUserLibrary extends Fragment {
 
-    private FragmentYourLibraryBinding binding;
+    private FragmentUserLibraryBinding binding;
     private TabLayout tabLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_your_library, container, false);
+        View view = inflater.inflate(R.layout.fragment_user_library, container, false);
 
 
         ViewPager2 viewPager = view.findViewById(R.id.your_library_view_pager);
@@ -45,11 +46,11 @@ public class FragmentYourLibrary extends Fragment {
                 Fragment result = null;
                 // Return the appropriate fragment for each tab
                 if (position == 0) {
-                    result = new FragmentYourLibrarySets();
+                    result = new FragmentUserLibrarySets();
                 } else if (position == 1) {
-                    result = new FragmentYourLibraryFolders();
+                    result = new FragmentUserLibraryFolders();
                 } else if (position == 2) {
-                    result = new FragmentYourLibraryGroups();
+                    result = new FragmentUserLibraryGroups();
                 }
                 return Objects.requireNonNull(result);
             }
@@ -87,4 +88,5 @@ public class FragmentYourLibrary extends Fragment {
         return view;
 
     }
+
 }

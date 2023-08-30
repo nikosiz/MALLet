@@ -13,9 +13,11 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -124,11 +126,13 @@ public class ActivityMain extends AppCompatActivity {
         } else if (selectedFragmentId == R.id.bottom_nav_add_new) {
             showCreateNewDialog();
         } else if (selectedFragmentId == R.id.bottom_nav_your_library) {
-            replaceFragment(new FragmentYourLibrary());
+            replaceFragment(new FragmentUserLibrary());
         } else if (selectedFragmentId == R.id.bottom_nav_profile) {
             replaceFragment(new FragmentProfile());
         }
         // Return true to indicate that the item selection was handled
         return true;
     }
+
+    
 }

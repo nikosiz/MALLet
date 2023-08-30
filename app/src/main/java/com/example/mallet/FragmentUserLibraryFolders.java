@@ -10,19 +10,19 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.mallet.databinding.FragmentYourLibraryFoldersBinding;
+import com.example.mallet.databinding.FragmentUserLibraryFoldersBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FragmentYourLibraryFolders extends Fragment implements AdapterFolder.OnFolderClickListener {
-    private FragmentYourLibraryFoldersBinding binding;
+public class FragmentUserLibraryFolders extends Fragment implements AdapterFolder.OnFolderClickListener {
+    private FragmentUserLibraryFoldersBinding binding;
     private LinearLayout yourLibraryFoldersLl;
     private List<ModelFolder> yourLibraryFoldersList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_your_library_folders, container, false);
+        View view = inflater.inflate(R.layout.fragment_user_library_folders, container, false);
 
         yourLibraryFoldersLl = view.findViewById(R.id.your_library_folders_ll); // Change to LinearLayout
         yourLibraryFoldersList = getYourLibraryFoldersList();
@@ -53,10 +53,6 @@ public class FragmentYourLibraryFolders extends Fragment implements AdapterFolde
     }
 
     public void onFolderClick(ModelFolder folder) {
-        showToast("ASDF");
-    }
-
-    private void showToast(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        FrontendUtils.showToast(getContext(),"ASDF");
     }
 }

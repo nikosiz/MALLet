@@ -20,7 +20,6 @@ import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -94,7 +93,7 @@ public class FragmentProfile extends Fragment {
             } else {
                 // TODO: Add functionality verifying password
                 passwordError.setVisibility(View.GONE);
-                showToast("OK button was clicked. The password should be verified but there is no backend yet.");
+                FrontendUtils.showToast(getContext(), "OK button was clicked. The password should be verified but there is no backend yet.");
                 dialog.dismiss();
 
                 // Perform the appropriate action based on the provided action parameter
@@ -148,7 +147,7 @@ public class FragmentProfile extends Fragment {
                 validEmailError.setVisibility(View.GONE);
                 emptyFieldError.setVisibility(View.GONE);
                 alreadyExistsError.setVisibility(View.GONE);
-                showToast("OK button was clicked. The email should be changed but there is no backend yet.");
+                FrontendUtils.showToast(getContext(), "OK button was clicked. The email should be changed but there is no backend yet.");
                 dialog.dismiss();
             }
         });
@@ -192,7 +191,7 @@ public class FragmentProfile extends Fragment {
                 // Hide errors, close the dialog, and show toast
                 emptyFieldError.setVisibility(View.GONE);
                 alreadyExistsError.setVisibility(View.GONE);
-                showToast("OK button was clicked. The username should be changed but there is no backend yet.");
+                FrontendUtils.showToast(getContext(), "OK button was clicked. The username should be changed but there is no backend yet.");
                 dialog.dismiss();
             }
         });
@@ -246,14 +245,14 @@ public class FragmentProfile extends Fragment {
                     confirmNewPasswordError.setVisibility(View.GONE);
                 }
 
-                showToast("All fields must be filled.");
+                FrontendUtils.showToast(getContext(), "All fields must be filled.");
             } else {
                 // TODO: Add functionality changing password
                 // Hide errors and close the dialog
                 oldPasswordError.setVisibility(View.GONE);
                 newPasswordError.setVisibility(View.GONE);
                 confirmNewPasswordError.setVisibility(View.GONE);
-                showToast("OK button was clicked. The password should be changed but there is no backend yet.");
+                FrontendUtils.showToast(getContext(), "OK button was clicked. The password should be changed but there is no backend yet.");
                 dialog.dismiss();
             }
         });
@@ -266,11 +265,11 @@ public class FragmentProfile extends Fragment {
         showNotificationsSwitch.setOnCheckedChangeListener((compoundButton, isChecked) -> {
             if (isChecked) {
                 // TODO: Add functionality showing notifications
-                showToast("You will get notifications when the back end exists.");
+                FrontendUtils.showToast(getContext(), "You will get notifications when the back end exists.");
                 binding.profileNotificationsSwitch.setChecked(true);
 
             } else {
-                showToast("You will not get notifications when the back end exists.");
+                FrontendUtils.showToast(getContext(), "You will not get notifications when the back end exists.");
                 binding.profileNotificationsSwitch.setChecked(false);
 
             }
@@ -283,10 +282,10 @@ public class FragmentProfile extends Fragment {
         saveOfflineSwitch.setOnCheckedChangeListener((compoundButton, isChecked) -> {
             if (isChecked) {
                 // TODO: Add functionality downloading sets
-                showToast("Sets downloaded (when the back end exists).");
+                FrontendUtils.showToast(getContext(), "Sets downloaded (when the back end exists).");
             } else {
                 // TODO: Add functionality deleting sets
-                showToast("Sets deleted (when the back end exists).");
+                FrontendUtils.showToast(getContext(), "Sets deleted (when the back end exists).");
             }
         });
     }
@@ -333,7 +332,7 @@ public class FragmentProfile extends Fragment {
             }
 
             saveSelectedTheme(selectedThemeName); // Save the selected theme name
-            showToast(selectedThemeName);
+            FrontendUtils.showToast(getContext(), selectedThemeName);
             applyTheme(selectedThemeName); // Apply the new theme immediately
             dialog.dismiss();
         });
@@ -370,20 +369,16 @@ public class FragmentProfile extends Fragment {
         requireActivity().recreate();
     }
 
-    private void showToast(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-    }
-
 
     private void showAboutSection() {
         // TODO: Implement logic to show the "about" section
-        showToast("This is the about section.");
+        FrontendUtils.showToast(getContext(), "This is the about section.");
     }
 
     private void logOut() {
         // TODO: Implement logic for logging out
 
-        showToast("You were logged out. For now, as we do not have any backend, we are just going to move you to the ChooseLogInSignUpActivity.java");
+        FrontendUtils.showToast(getContext(), "You were logged out. For now, as we do not have any backend, we are just going to move you to the ChooseLogInSignUpActivity.java");
         Intent intent = new Intent(getContext(), ActivityOpening.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
@@ -432,7 +427,7 @@ public class FragmentProfile extends Fragment {
                 // TODO: Add functionality for checking if the password is correct
                 emptyPasswordError.setVisibility(View.GONE);
                 checkError.setVisibility(View.GONE);
-                showToast("When we have backend, we will check if the password is correct. For now we just jump to ChooseLogInSignUp.java.");
+                FrontendUtils.showToast(getContext(), "When we have backend, we will check if the password is correct. For now we just jump to ChooseLogInSignUp.java.");
                 Intent intent = new Intent(getContext(), ActivityOpening.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);

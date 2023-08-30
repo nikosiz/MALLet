@@ -101,7 +101,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
-        android:background="@drawable/ripple_text_btn"
+        android:background="@drawable/bg_ripple"
         android:text="I am aware that this action is irreversible"
         android:textColor="@color/danube_blue_800"
         android:textSize="16sp"
@@ -139,7 +139,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
-            android:background="@drawable/ripple_text_btn"
+            android:background="@drawable/bg_ripple"
 
             android:text="@string/cancel"
             android:textColor="@color/danube_blue_800"
@@ -151,7 +151,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
-            android:background="@drawable/ripple_text_btn"
+            android:background="@drawable/bg_ripple"
             android:text="Delete my account"
             android:textColor="@color/carnation_red_700"
             android:textSize="20sp" />

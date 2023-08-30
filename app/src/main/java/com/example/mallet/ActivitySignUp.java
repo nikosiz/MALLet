@@ -1,7 +1,5 @@
 package com.example.mallet;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -12,16 +10,22 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.mallet.databinding.ActivitySignUpBinding;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;
 
 public class ActivitySignUp extends AppCompatActivity {
 
+    private ActivitySignUpBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
+        binding = com.example.mallet.databinding.ActivitySignUpBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         setupLogInField();
 
@@ -73,4 +77,6 @@ public class ActivitySignUp extends AppCompatActivity {
         startActivity(intent);
         finish(); // Finish the SignUpActivity
     }
+
+    
 }

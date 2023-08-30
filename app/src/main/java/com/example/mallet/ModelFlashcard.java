@@ -1,7 +1,10 @@
 package com.example.mallet;
 
+import com.example.mallet.databinding.ModelFlashcardBinding;
+
 // Define a class named ItemModel
 public class ModelFlashcard {
+    private ModelFlashcardBinding binding;
 
     // Private fields to hold word, definition, and translation data
     private String word, definition, translation;

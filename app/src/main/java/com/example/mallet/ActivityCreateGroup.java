@@ -3,9 +3,11 @@ package com.example.mallet;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.mallet.databinding.ActivityCreateGroupBinding;
@@ -23,61 +25,80 @@ public class ActivityCreateGroup extends AppCompatActivity {
         binding = ActivityCreateGroupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Initialize and set up the toolbar
         setupToolbar();
-        setupClickListeners();
+        setupListeners();
     }
 
-    // Initialize and set up the toolbar with back arrow functionality.
     private void setupToolbar() {
         Toolbar toolbar = binding.createGroupToolbar;
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(""); // Set the title to an empty string
+        Objects.requireNonNull(getSupportActionBar()).setTitle(""); // Set the title to an empty string
 
 
-        // Display back arrow on the toolbar
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
     }
 
-    private void setupClickListeners() {
-        binding.createGroupSaveBtn.setOnClickListener(v -> createGroup());
+    private void setupListeners() {
+        binding.createGroupSaveBtn.setOnClickListener(v -> saveGroup());
+        binding.createGroupSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> allowOthersToManageGroup());
+        binding.createGroupAddDescriptionLl.setOnClickListener(v -> addDescription());
 
+    }
+
+    private void allowOthersToManageGroup() {
+        SwitchCompat allowOthers = binding.createGroupSwitch;
+
+        // TODO: Is this correct?
+        allowOthers.setChecked(true);
+        FrontendUtils.showToast(this, "Other users will have the capability to manage this group. When we implement backend.");
+
+        allowOthers.setOnCheckedChangeListener((compoundButton, isChecked) -> {
+            if (isChecked) {
+                // TODO: Add functionality, fix the switch
+                FrontendUtils.showToast(this, "Other users will have the capability to manage this group. When we implement backend.");
+            } else {
+                // TODO: Add functionality, fix the switch
+                FrontendUtils.showToast(this, "Other users WILL NOT have the capability to manage this group. When we implement backend.");
+            }
+        });
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle arrow click here
         if (item.getItemId() == android.R.id.home) {
-            // Finish this activity and return to the previous activity (if any)
             finish();
         }
-
         return super.onOptionsItemSelected(item);
     }
 
-    private void closeActivity() {
-        finish(); // Finish the LogInActivity
+    // TODO
+    private void addDescription() {
+        TextInputLayout groupDescriptionTextInputLayout = binding.createGroupDescriptionTil;
+        TextInputEditText groupDescriptionEditText = binding.createGroupDescriptionEt;
+        View aboveDescriptionTil = binding.createGroupV1;
+        String folderDescription = Objects.requireNonNull(groupDescriptionEditText.getText()).toString();
+
+        FrontendUtils.showItem(groupDescriptionTextInputLayout);
+        FrontendUtils.showItem(aboveDescriptionTil);
+
     }
 
     // TODO
-    private void createGroup() {
+    private void saveGroup() {
         TextInputEditText groupNameEditText = binding.createGroupNameEt;
         TextInputLayout createSetNameTil = binding.createGroupNameTil;
-
+        TextView emptyError = binding.createGroupEmptyNameError;
         String groupName = Objects.requireNonNull(groupNameEditText.getText()).toString();
 
         if (TextUtils.isEmpty(groupName)) {
-            createSetNameTil.setError("This field cannot be empty");
+            FrontendUtils.showItem(emptyError);
         } else {
-            showToast("The group will be created... In the future... With backend...");
+            FrontendUtils.hideitem(emptyError);
+            FrontendUtils.showToast(this, "The group will be created... In the future... With backend...");
             finish();
         }
-    }
-
-    private void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

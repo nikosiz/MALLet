@@ -3,6 +3,8 @@ package com.example.mallet;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,7 +45,16 @@ public class ActivityCreateSet extends AppCompatActivity {
 
     private void setupClickListeners() {
         binding.createSetSaveBtn.setOnClickListener(v -> createSet());
+        binding.createSetAddDescriptionLl.setOnClickListener(v -> addDescription());
 
+    }
+
+    private void addDescription() {
+        TextInputLayout setDescriptionTextInputLayout = binding.createSetDescriptionTil;
+        TextInputEditText setDescriptionEditText = binding.createSetDescriptionEt;
+        String setDescription = Objects.requireNonNull(setDescriptionEditText.getText()).toString();
+
+        FrontendUtils.showItem(setDescriptionTextInputLayout);
     }
 
     @Override
@@ -57,22 +68,19 @@ public class ActivityCreateSet extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
     // TODO
     private void createSet() {
         TextInputEditText setNameEditText = binding.createSetNameEt;
-        TextInputLayout createSetNameTil = binding.createSetNameTil;
         String setName = Objects.requireNonNull(setNameEditText.getText()).toString();
+        TextView emptyNameError = binding.createSetEmptyNameError;
 
         if (TextUtils.isEmpty(setName)) {
-            createSetNameTil.setError("This field cannot be empty");
+            FrontendUtils.showItem(emptyNameError);
         } else {
-            showToast("The set will be created... In the future... With backend...");
+            FrontendUtils.hideitem(emptyNameError);
+            FrontendUtils.showToast(this,"The set will be created... In the future... With backend...");
             finish();
         }
-
-    }
-
-    private void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

@@ -13,7 +13,6 @@ import java.util.List;
 // Import necessary classes and packages
 
 public class AdapterFlashcardStack extends RecyclerView.Adapter<AdapterFlashcardStack.ViewHolder> {
-
     private List<ModelFlashcard> items; // List to hold the data for the adapter
 
     // Constructor to initialize the adapter with data

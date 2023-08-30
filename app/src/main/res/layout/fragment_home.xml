@@ -42,10 +42,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/home_sets_ll"
+            <LinearLayout
+                android:id="@+id/home_ll"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:orientation="vertical"
                 android:padding="20dp">
 
                 <View
@@ -56,29 +57,37 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/home_sets_title_tv"
-                    style="@style/BasicBoldTextStyle"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/home_sets_title_ll"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Recent sets"
-                    android:textColor="@color/danube_blue_900"
-                    android:textSize="20sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/home_view_0" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/home_sets_view_all_tv"
-                    style="@style/BasicTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:text="View all"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/home_view_0" />
+                    <TextView
+                        android:id="@+id/home_sets_title_tv"
+                        style="@style/BasicBoldTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Recent sets"
+                        android:textColor="@color/danube_blue_900"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/home_view_0" />
+
+                    <TextView
+                        android:id="@+id/home_sets_view_all_tv"
+                        style="@style/BasicTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity=""
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:text="View all"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/home_view_0" />
+                </LinearLayout>
 
                 <View
                     android:id="@+id/home_view_1"
@@ -93,6 +102,7 @@
                     app:layout_constraintTop_toBottomOf="@id/home_view_1">
 
                     <LinearLayout
+                        android:id="@+id/home_sets_ll"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal">
@@ -313,7 +323,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/home_groups_hsv" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
         </ScrollView>
     </FrameLayout>

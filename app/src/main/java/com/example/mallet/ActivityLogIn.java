@@ -1,7 +1,5 @@
 package com.example.mallet;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,22 +14,23 @@ import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.mallet.databinding.ActivityLogInBinding;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;
 
 public class ActivityLogIn extends AppCompatActivity {
 
-    private com.example.mallet.databinding.ActivityLogInBinding binding;
+    private ActivityLogInBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = com.example.mallet.databinding.ActivityLogInBinding.inflate(getLayoutInflater());
-        View view = binding.getRoot();
-        setContentView(view);
+        setContentView(binding.getRoot());
 
         setupClickListeners();
 
@@ -112,16 +111,16 @@ public class ActivityLogIn extends AppCompatActivity {
                 }*/
                 // Hide errors, close the dialog, and show toast
 
-                showToast("OK button was clicked. The email with reset link be sent but there is no backend yet.");
+                FrontendUtils.showToast(this,"OK button was clicked. The email with reset link be sent but there is no backend yet.");
                 dialog.dismiss();
             }
         });
     }
 
     private void setupClickListeners() {
-        binding.logInConfirmBtn.setOnClickListener(v -> showToast("Log in button was clicked"));
-        binding.logInGoogleBtn.setOnClickListener(v -> showToast("Log in with Google button was clicked"));
-        binding.logInFacebookBtn.setOnClickListener(v -> showToast("Log in with Facebook button was clicked"));
+        binding.logInConfirmBtn.setOnClickListener(v -> FrontendUtils.showToast(this,"Log in button was clicked"));
+        binding.logInGoogleBtn.setOnClickListener(v -> FrontendUtils.showToast(this,"Log in with Google button was clicked"));
+        binding.logInFacebookBtn.setOnClickListener(v -> FrontendUtils.showToast(this,"Log in with Facebook button was clicked"));
         binding.signUpBtn.setOnClickListener(v -> signUpRedirect());
     }
 
@@ -131,9 +130,7 @@ public class ActivityLogIn extends AppCompatActivity {
     }
 
     // Show a toast message
-    private void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
+    
 
     @Override
     public void onBackPressed() {
