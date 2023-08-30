@@ -14,7 +14,6 @@ import java.util.List;
 
 public class AdapterFolder extends BaseAdapter {
 
-
     private Context context;
     private List<ModelFolder> folderList;
 

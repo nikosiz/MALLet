@@ -96,7 +96,7 @@ public class ActivityCreateGroup extends AppCompatActivity {
         if (TextUtils.isEmpty(groupName)) {
             FrontendUtils.showItem(emptyError);
         } else {
-            FrontendUtils.hideitem(emptyError);
+            FrontendUtils.hideItem(emptyError);
             FrontendUtils.showToast(this, "The group will be created... In the future... With backend...");
             finish();
         }

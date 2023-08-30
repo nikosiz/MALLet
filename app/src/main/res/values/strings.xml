@@ -59,4 +59,8 @@
     <string name="allow_group_members">Allow group members to edit sets and add new members</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="color_theme">Color theme</string>
+    <string name="notifications_switch">Notifications switch</string>
+    <string name="profile_photo">Profile photo</string>
+    <string name="save_btn">Save button</string>
 </resources>

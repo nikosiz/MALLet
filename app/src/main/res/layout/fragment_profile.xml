@@ -25,24 +25,26 @@
                 android:layout_height="50dp" />
 
             <ImageView
-                android:id="@+id/profile_photo"
+                android:id="@+id/profile_user_photo_iv"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginHorizontal="50dp"
-                android:contentDescription="Profile photo"
+                android:clickable="true"
+                android:contentDescription="@string/profile_photo"
+                android:focusable="true"
                 android:src="@drawable/ic_user"
                 app:tint="@color/danube_blue_200" />
 
             <View
                 android:id="@+id/profile_view_1"
                 android:layout_width="match_parent"
-                android:layout_height="20dp" />
+                android:layout_height="25dp" />
 
             <LinearLayout
                 android:id="@+id/profile_email_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@drawable/bg_ripple_white_rect"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center_vertical"
@@ -73,7 +75,7 @@
                 android:id="@+id/profile_username_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@drawable/bg_ripple_white_rect"
                 android:gravity="center_vertical"
                 android:minHeight="65dp"
                 android:orientation="vertical"
@@ -103,7 +105,8 @@
                 android:id="@+id/profile_change_password_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@drawable/bg_ripple_white_rect"
+
                 android:gravity="center_vertical"
                 android:minHeight="65dp"
 
@@ -128,7 +131,8 @@
                 android:id="@+id/profile_notifications_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@drawable/bg_ripple_white_rect"
+
                 android:minHeight="65dp"
                 android:orientation="horizontal"
                 android:paddingHorizontal="30dp">
@@ -149,7 +153,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:checked="true"
+                    android:contentDescription="@string/notifications_switch"
                     android:drawableTint="@color/downriver_blue_500"
                     app:thumbTint="@drawable/switch_thumb_color"
                     app:trackDecorationTint="@drawable/switch_track_decoration_color"
@@ -165,7 +169,8 @@
                 android:id="@+id/profile_save_offline_switch_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@drawable/bg_ripple_white_rect"
+
                 android:minHeight="65dp"
                 android:orientation="horizontal"
                 android:paddingHorizontal="30dp">
@@ -202,7 +207,8 @@
                 android:id="@+id/profile_theme_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@drawable/bg_ripple_white_rect"
+
                 android:clickable="true"
                 android:focusable="true"
                 android:minHeight="65dp"
@@ -217,7 +223,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="3"
                     android:gravity="center_vertical"
-                    android:text="Color theme"
+                    android:text="@string/color_theme"
                     android:textSize="16sp" />
 
                 <TextView
@@ -258,35 +264,11 @@
                 android:layout_height="5dp" />
 
             <LinearLayout
-                android:id="@+id/profile_log_out_ll"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:gravity="center_vertical"
-                android:minHeight="65dp"
-                android:orientation="vertical"
-                android:paddingHorizontal="30dp">
-
-                <TextView
-                    android:id="@+id/profile_log_out_tv"
-                    style="@style/BasicBoldTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/log_out"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-            <View
-                android:id="@+id/profile_view_6"
-                android:layout_width="match_parent"
-                android:layout_height="5dp" />
-
-            <LinearLayout
                 android:id="@+id/profile_about_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@drawable/bg_ripple_white_rect"
+
                 android:gravity="center_vertical"
                 android:minHeight="65dp"
                 android:orientation="vertical"
@@ -305,7 +287,8 @@
                 android:id="@+id/profile_version_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@drawable/bg_ripple_white_rect"
+
                 android:gravity="center_vertical"
                 android:minHeight="65dp"
                 android:orientation="vertical"
@@ -331,6 +314,31 @@
 
             <View
                 android:id="@+id/profile_view_7"
+                android:layout_width="match_parent"
+                android:layout_height="5dp" />
+
+            <LinearLayout
+                android:id="@+id/profile_log_out_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_ripple_white_rect"
+                android:gravity="center"
+                android:minHeight="65dp"
+                android:orientation="vertical"
+                android:paddingHorizontal="30dp">
+
+                <TextView
+                    android:id="@+id/profile_log_out_tv"
+                    style="@style/BasicBoldTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/log_out"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/profile_view_6"
                 android:layout_width="match_parent"
                 android:layout_height="5dp" />
 

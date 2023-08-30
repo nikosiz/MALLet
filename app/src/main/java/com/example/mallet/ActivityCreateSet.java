@@ -3,9 +3,7 @@ package com.example.mallet;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -78,7 +76,7 @@ public class ActivityCreateSet extends AppCompatActivity {
         if (TextUtils.isEmpty(setName)) {
             FrontendUtils.showItem(emptyNameError);
         } else {
-            FrontendUtils.hideitem(emptyNameError);
+            FrontendUtils.hideItem(emptyNameError);
             FrontendUtils.showToast(this,"The set will be created... In the future... With backend...");
             finish();
         }

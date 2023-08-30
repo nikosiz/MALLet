@@ -67,6 +67,7 @@ public class FragmentUserLibrary extends Fragment {
             // Customize the text size for each tab
             for (int i = 0; i < tabLayout.getTabCount(); i++) {
                 TextView tabTextView = (TextView) LayoutInflater.from(requireContext())
+                        // TODO: Fix the null problem
                         .inflate(R.layout.tab_text, null); // Use the layout used internally by TabLayout
                 tabTextView.setText(Objects.requireNonNull(tabLayout.getTabAt(i)).getText());
                 tabTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15); // Adjust the size as needed

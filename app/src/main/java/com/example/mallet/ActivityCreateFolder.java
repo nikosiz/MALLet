@@ -74,7 +74,7 @@ public class ActivityCreateFolder extends AppCompatActivity {
         TextView emptyError = binding.createFolderEmptyNameError;
 
         if (!TextUtils.isEmpty(folderName)) {
-            FrontendUtils.hideitem(emptyError);
+            FrontendUtils.hideItem(emptyError);
             FrontendUtils.showToast(this, "The folder will be created... In the future... With backend...");
             finish();
         } else {

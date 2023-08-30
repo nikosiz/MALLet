@@ -1,5 +1,6 @@
 package com.example.mallet;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
 import android.widget.Toast;
@@ -12,7 +13,7 @@ public class FrontendUtils {
         }
     }
 
-    public static void hideitem(View view) {
+    public static void hideItem(View view) {
         if (view != null) {
             view.setVisibility(View.GONE);
         }
@@ -22,4 +23,9 @@ public class FrontendUtils {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
+    public static void showDialog(Dialog dialog) {
+        if (dialog != null) {
+            dialog.show();
+        }
+    }
 }

@@ -32,6 +32,7 @@
             android:layout_marginHorizontal="20dp"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
+            android:contentDescription="@string/save_btn"
             android:focusable="true"
             android:src="@drawable/ic_check"
             app:tint="@color/white" />

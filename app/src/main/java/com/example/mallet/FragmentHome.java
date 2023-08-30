@@ -31,11 +31,22 @@ public class FragmentHome extends Fragment {
         for (ModelFolder folder : homeFoldersList) {
             View folderItemView = inflater.inflate(R.layout.model_folder, binding.homeFoldersLl, false);
 
-            TextView folderNameTextView = folderItemView.findViewById(R.id.folder_model_name_tv);
-            folderNameTextView.setText(folder.getFolderName());
+            TextView folderNameTv = folderItemView.findViewById(R.id.folder_model_name_tv);
+            folderNameTv.setText(folder.getFolderName());
 
             // Add folderItemView to the linearLayout
             binding.homeFoldersLl.addView(folderItemView);
+        }
+
+        List<ModelGroup> homeGroupList = getHomeGroupList();
+        for (ModelGroup group : homeGroupList) {
+            View groupItemView = inflater.inflate(R.layout.model_group, binding.homeGroupsLl, false);
+
+            TextView groupNameTv = groupItemView.findViewById(R.id.group_model_name_tv);
+            groupNameTv.setText(group.getGroupName());
+
+            // Add folderItemView to the linearLayout
+            binding.homeGroupsLl.addView(groupItemView);
         }
 
         setupClickListeners(binding);
@@ -60,6 +71,14 @@ public class FragmentHome extends Fragment {
         folderList.add(new ModelFolder("ictStudent997", "Folder #6"));
         folderList.add(new ModelFolder("ictStudent997", "Folder #7"));
         return folderList;
+    }
+
+    private List<ModelGroup> getHomeGroupList() {
+        List<ModelGroup> groupList = new ArrayList<>();
+        groupList.add(new ModelGroup("Group #1"));
+        groupList.add(new ModelGroup("Group #2"));
+        groupList.add(new ModelGroup("Group #3"));
+        return groupList;
     }
 
     private void startLearnActivity() {
