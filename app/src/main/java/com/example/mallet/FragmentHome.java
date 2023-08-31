@@ -26,6 +26,23 @@ public class FragmentHome extends Fragment {
         FragmentHomeBinding binding = FragmentHomeBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
+        List<ModelKit> homeKitList = getHomeKitList();
+        for (ModelKit kit : homeKitList) {
+            View kitItemView = inflater.inflate(R.layout.model_kit, binding.homeKitLl, false);
+
+            TextView kitNameTv = kitItemView.findViewById(R.id.kit_model_name_tv);
+            kitNameTv.setText(kit.getKitName());
+
+            TextView kitTermsTv = kitItemView.findViewById(R.id.kit_model_terms_tv);
+            kitTermsTv.setText(kit.getKitTerms() + " terms");
+
+            TextView kitCreatorTv = kitItemView.findViewById(R.id.kit_model_creator_tv);
+            kitCreatorTv.setText(kit.getKitCreator());
+
+            // Add folderItemView to the linearLayout
+            binding.homeKitLl.addView(kitItemView);
+        }
+
         // Your code to populate the LinearLayout
         List<ModelFolder> homeFoldersList = getHomeFoldersList();
         for (ModelFolder folder : homeFoldersList) {
@@ -33,6 +50,9 @@ public class FragmentHome extends Fragment {
 
             TextView folderNameTv = folderItemView.findViewById(R.id.folder_model_name_tv);
             folderNameTv.setText(folder.getFolderName());
+
+            TextView folderCreatorTv = folderItemView.findViewById(R.id.folder_model_creator_tv);
+            folderCreatorTv.setText(folder.getFolderCreator());
 
             // Add folderItemView to the linearLayout
             binding.homeFoldersLl.addView(folderItemView);
@@ -54,22 +74,30 @@ public class FragmentHome extends Fragment {
         return view;
     }
 
-
     private void setupClickListeners(FragmentHomeBinding binding) {
         binding.homeButton.setOnClickListener(v -> startLearnActivity());
+        binding.homeKitViewAllTv.setOnClickListener(v->);
+        binding.homeFoldersViewAllTv.setOnClickListener(v->);
+        binding.homeGroupsViewAllTv.setOnClickListener(v->);
     }
 
-    // TODO: The same for sets and groups
+    private List<ModelKit> getHomeKitList() {
+        List<ModelKit> kitList = new ArrayList<>();
+        kitList.add(new ModelKit("Set #1", "102", "user123"));
+        kitList.add(new ModelKit("Set #2", "144", "user123"));
+        kitList.add(new ModelKit("Set #3", "256", "user123"));
+        kitList.add(new ModelKit("Set #4", "138", "user123"));
+        kitList.add(new ModelKit("Set #5", "101", "user123"));
+        return kitList;
+    }
 
     private List<ModelFolder> getHomeFoldersList() {
         List<ModelFolder> folderList = new ArrayList<>();
-        folderList.add(new ModelFolder("ictStudent997", "Folder #1"));
-        folderList.add(new ModelFolder("ictStudent997", "Folder #2"));
-        folderList.add(new ModelFolder("ictStudent997", "Folder #3"));
-        folderList.add(new ModelFolder("ictStudent997", "Folder #4"));
-        folderList.add(new ModelFolder("ictStudent997", "Folder #5"));
-        folderList.add(new ModelFolder("ictStudent997", "Folder #6"));
-        folderList.add(new ModelFolder("ictStudent997", "Folder #7"));
+        folderList.add(new ModelFolder("user123", "Folder #1"));
+        folderList.add(new ModelFolder("user123", "Folder #2"));
+        folderList.add(new ModelFolder("user123", "Folder #3"));
+        folderList.add(new ModelFolder("user123", "Folder #4"));
+        folderList.add(new ModelFolder("user123", "Folder #5"));
         return folderList;
     }
 
@@ -78,6 +106,8 @@ public class FragmentHome extends Fragment {
         groupList.add(new ModelGroup("Group #1"));
         groupList.add(new ModelGroup("Group #2"));
         groupList.add(new ModelGroup("Group #3"));
+        groupList.add(new ModelGroup("Group #4"));
+        groupList.add(new ModelGroup("Group #5"));
         return groupList;
     }
 

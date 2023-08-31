@@ -42,7 +42,7 @@ public class FragmentUserLibraryFolders extends Fragment implements AdapterFolde
 
     private List<ModelFolder> getYourLibraryFoldersList() {
         List<ModelFolder> folderList = new ArrayList<>();
-        folderList.add(new ModelFolder("ictStudent997", "Folder #1"));
+        folderList.add(new ModelFolder("user123", "Folder #1"));
         folderList.add(new ModelFolder("ictStudent997", "Folder #2"));
         folderList.add(new ModelFolder("ictStudent997", "Folder #3"));
         folderList.add(new ModelFolder("ictStudent997", "Folder #4"));

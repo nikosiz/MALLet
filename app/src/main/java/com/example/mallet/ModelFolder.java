@@ -4,16 +4,16 @@ import com.example.mallet.databinding.ModelFolderBinding;
 
 public class ModelFolder {
     private ModelFolderBinding binding;
-    private String folderOwner;
+    private String folderCreator;
     private String folderName;
 
-    public ModelFolder(String folderOwner, String folderName) {
-        this.folderOwner = folderOwner;
+    public ModelFolder(String folderName, String folderCreator) {
+        this.folderCreator = folderCreator;
         this.folderName = folderName;
     }
 
-    public String getFolderOwner() {
-        return folderOwner;
+    public String getFolderCreator() {
+        return folderCreator;
     }
 
     public String getFolderName() {

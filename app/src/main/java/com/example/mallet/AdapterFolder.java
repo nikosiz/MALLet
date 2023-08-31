@@ -47,10 +47,10 @@ public class AdapterFolder extends BaseAdapter {
 
         ModelFolder folder = folderList.get(position);
 
-        TextView folderOwnerTv = itemView.findViewById(R.id.folder_model_owner_tv);
+        TextView folderOwnerTv = itemView.findViewById(R.id.folder_model_creator_tv);
         TextView folderNameTv = itemView.findViewById(R.id.folder_model_name_tv);
 
-        folderOwnerTv.setText(folder.getFolderOwner());
+        folderOwnerTv.setText(folder.getFolderCreator());
         folderNameTv.setText(folder.getFolderName());
 
         return itemView;

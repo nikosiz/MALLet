@@ -24,12 +24,12 @@
         android:padding="20dp">
 
         <ImageView
-            android:id="@+id/group_model_iv"
+            android:id="@+id/group_model_icon_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="Folder icon"
             android:src="@drawable/ic_create_group"
-            app:tint="@color/danube_blue_800" />
+            app:tint="@color/danube_blue_500" />
 
         <View
             android:layout_width="match_parent"
@@ -45,8 +45,8 @@
             android:autoSizeStepGranularity="2sp"
             android:autoSizeTextType="uniform"
             android:singleLine="true"
-            android:text="Group #1"
-            android:textColor="@color/danube_blue_800"
+            android:text="group_name"
+            android:textColor="@color/danube_blue_900"
             android:textSize="20sp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

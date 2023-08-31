@@ -1,8 +1,8 @@
-<!-- res/layout/card_folder.xml -->
+<!-- res/layout/card_group.xml -->
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/tools"
-    android:id="@+id/model_folder_card_view"
+    android:id="@+id/model_kit_card_view"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_margin="5dp"
@@ -14,29 +14,16 @@
     app:cardCornerRadius="20dp"
     app:cardElevation="3dp"
     card_view:strokeColor="@color/danube_blue_800">
-    <!-- TODO: MAKE THIS CLICKABLE -->
+
     <LinearLayout
-        android:id="@+id/folder_model_cv_ll"
+        android:id="@+id/kit_model_cv_ll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:orientation="vertical"
         android:padding="20dp">
 
-        <ImageView
-            android:id="@+id/folder_model_icon_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="Folder icon"
-            android:src="@drawable/ic_folder"
-            app:tint="@color/danube_blue_500" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="20dp" />
-
         <TextView
-            android:id="@+id/folder_model_name_tv"
+            android:id="@+id/kit_model_name_tv"
             style="@style/BasicBoldTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,22 +32,37 @@
             android:autoSizeStepGranularity="2sp"
             android:autoSizeTextType="uniform"
             android:singleLine="true"
-            android:text="folder_name"
+            android:text="set_name"
             android:textColor="@color/danube_blue_900"
             android:textSize="20sp" />
 
+        <TextView
+            android:id="@+id/kit_model_terms_tv"
+            style="@style/BasicTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoSizeMaxTextSize="25sp"
+            android:autoSizeMinTextSize="15sp"
+            android:autoSizeStepGranularity="2sp"
+            android:autoSizeTextType="uniform"
+            android:singleLine="true"
+            android:text="number_of_terms"
+            android:textColor="@color/danube_blue_500"
+            android:textSize="15sp" />
+
         <View
             android:layout_width="match_parent"
-            android:layout_height="5dp" />
+            android:layout_height="30dp" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/kit_model_creator_ll"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/folder_model_creator_iv"
+                android:id="@+id/kit_model_creator_iv"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:contentDescription="User icon"
@@ -68,7 +70,7 @@
                 app:tint="@color/danube_blue_800" />
 
             <TextView
-                android:id="@+id/folder_model_creator_tv"
+                android:id="@+id/kit_model_creator_tv"
                 style="@style/BasicTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

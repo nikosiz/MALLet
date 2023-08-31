@@ -9,24 +9,24 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class AdapterGroup extends BaseAdapter {
+public class AdapterKit extends BaseAdapter {
 
     private Context context;
-    private List<String> groupNameList;
+    private List<ModelKit> kitList;
 
-    public AdapterGroup(Context context, List<String> groupNameList) {
+    public AdapterKit(Context context, List<ModelKit> kitList) {
         this.context = context;
-        this.groupNameList = groupNameList;
+        this.kitList = kitList;
     }
 
     @Override
     public int getCount() {
-        return groupNameList.size();
+        return kitList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return groupNameList.get(position);
+        return kitList.get(position);
     }
 
     @Override
@@ -39,14 +39,18 @@ public class AdapterGroup extends BaseAdapter {
         View itemView = convertView;
         if (itemView == null) {
             LayoutInflater inflater = LayoutInflater.from(context);
-            itemView = inflater.inflate(R.layout.model_group, parent, false);
+            itemView = inflater.inflate(R.layout.model_kit, parent, false);
         }
 
-        String groupName = groupNameList.get(position);
+        ModelKit kit = kitList.get(position);
 
-        TextView groupNameTv = itemView.findViewById(R.id.group_model_name_tv);
+        TextView kitNameTv = itemView.findViewById(R.id.kit_model_name_tv);
+        TextView kitCreatorTv = itemView.findViewById(R.id.kit_model_creator_tv);
+        TextView kitTermsTv = itemView.findViewById(R.id.kit_model_terms_tv);
 
-        groupNameTv.setText(groupName);
+        kitNameTv.setText(kit.getKitName());
+        kitCreatorTv.setText("Created by: " + kit.getKitCreator());
+        kitTermsTv.setText("Terms: " + kit.getKitTerms());
 
         return itemView;
     }
