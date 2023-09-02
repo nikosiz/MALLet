@@ -6,10 +6,12 @@ public class ModelFolder {
     private ModelFolderBinding binding;
     private String folderCreator;
     private String folderName;
+    private String sets;
 
-    public ModelFolder(String folderName, String folderCreator) {
+    public ModelFolder(String folderName, String folderCreator, String sets) {
         this.folderCreator = folderCreator;
         this.folderName = folderName;
+        this.sets = sets;
     }
 
     public String getFolderCreator() {
@@ -18,5 +20,13 @@ public class ModelFolder {
 
     public String getFolderName() {
         return folderName;
+    }
+
+    public String getSets() {
+        return sets;
+    }
+
+    public void setSets(String sets) {
+        this.sets = sets;
     }
 }

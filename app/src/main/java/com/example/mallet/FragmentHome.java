@@ -14,7 +14,9 @@ import androidx.fragment.app.Fragment;
 import com.example.mallet.databinding.FragmentHomeBinding;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FragmentHome extends Fragment {
 
@@ -26,27 +28,46 @@ public class FragmentHome extends Fragment {
         FragmentHomeBinding binding = FragmentHomeBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
-        List<ModelKit> homeKitList = getHomeKitList();
-        for (ModelKit kit : homeKitList) {
-            View kitItemView = inflater.inflate(R.layout.model_kit, binding.homeKitLl, false);
+        List<ModelLearningSet> homeLearningSetList = getHomeLearningSetList();
+        List<ModelFolder> homeFolderList = getHomeFolderList();
+        List<ModelGroup> homeGroupList = getHomeGroupList();
 
-            TextView kitNameTv = kitItemView.findViewById(R.id.kit_model_name_tv);
-            kitNameTv.setText(kit.getKitName());
+        setupClickListeners(binding);
+        displaySets(homeLearningSetList, binding, inflater);
+        displayFolders(homeFolderList, binding, inflater);
+        displayGroups(homeGroupList, binding, inflater);
+        return view;
+    }
 
-            TextView kitTermsTv = kitItemView.findViewById(R.id.kit_model_terms_tv);
-            kitTermsTv.setText(kit.getKitTerms() + " terms");
+    private void displaySets(List<ModelLearningSet> learningSetList, FragmentHomeBinding binding, LayoutInflater inflater) {
+        for (ModelLearningSet learningSet : learningSetList) {
+            View learningSetItemView = inflater.inflate(R.layout.model_learning_set, binding.homeLearningSetLl, false);
 
-            TextView kitCreatorTv = kitItemView.findViewById(R.id.kit_model_creator_tv);
-            kitCreatorTv.setText(kit.getKitCreator());
+            TextView learningSetNameTv = learningSetItemView.findViewById(R.id.learning_set_model_name_tv);
+            learningSetNameTv.setText(learningSet.getLearningSetName());
+
+            TextView learningSetTermsTv = learningSetItemView.findViewById(R.id.learning_set_model_terms_tv);
+            learningSetTermsTv.setText(learningSet.getLearningSetTerms() + " terms");
+
+            TextView learningSetCreatorTv = learningSetItemView.findViewById(R.id.learning_set_model_creator_tv);
+            learningSetCreatorTv.setText(learningSet.getLearningSetCreator());
 
             // Add folderItemView to the linearLayout
-            binding.homeKitLl.addView(kitItemView);
-        }
+            binding.homeLearningSetHsvLl.addView(learningSetItemView);
 
-        // Your code to populate the LinearLayout
-        List<ModelFolder> homeFoldersList = getHomeFoldersList();
-        for (ModelFolder folder : homeFoldersList) {
-            View folderItemView = inflater.inflate(R.layout.model_folder, binding.homeFoldersLl, false);
+            // Set click listener for the learningSetItemView
+            learningSetItemView.setOnClickListener(v -> {
+                // Open the SetManagement activity and pass the set name as an extra
+                Intent intent = new Intent(getContext(), ActivityViewLearningSet.class);
+                intent.putExtra("set_name", learningSet.getLearningSetName());
+                startActivity(intent);
+            });
+        }
+    }
+
+    private void displayFolders(List<ModelFolder> folderList, FragmentHomeBinding binding, LayoutInflater inflater) {
+        for (ModelFolder folder : folderList) {
+            View folderItemView = inflater.inflate(R.layout.model_folder, binding.homeFolderLl, false);
 
             TextView folderNameTv = folderItemView.findViewById(R.id.folder_model_name_tv);
             folderNameTv.setText(folder.getFolderName());
@@ -55,59 +76,99 @@ public class FragmentHome extends Fragment {
             folderCreatorTv.setText(folder.getFolderCreator());
 
             // Add folderItemView to the linearLayout
-            binding.homeFoldersLl.addView(folderItemView);
-        }
+            binding.homeFoldersHsvLl.addView(folderItemView);
 
-        List<ModelGroup> homeGroupList = getHomeGroupList();
-        for (ModelGroup group : homeGroupList) {
-            View groupItemView = inflater.inflate(R.layout.model_group, binding.homeGroupsLl, false);
+            // Set click listener for the learningSetItemView
+            folderItemView.setOnClickListener(v -> {
+                Map<String, Object> dataMap = new HashMap<>();
+                //TODO: Change to:
+                // intent.putExtra("learningSetId", learningSet.getId());
+                //intent.putExtra("folder_name", folder.getFolderName());
+                dataMap.put("folder_name", folder.getFolderName());
+                dataMap.put("folder_creator", folder.getFolderCreator());
+                dataMap.put("folder_sets", folder.getSets());
+                Intent intent = new Intent(getContext(), ActivityViewFolder.class);
+                passDataToActivity(intent, dataMap);
+                startActivity(intent);
+            });
+        }
+    }
+
+    private void displayGroups(List<ModelGroup> groupList, FragmentHomeBinding binding, LayoutInflater inflater) {
+        for (ModelGroup group : groupList) {
+            View groupItemView = inflater.inflate(R.layout.model_group, binding.homeGroupLl, false);
 
             TextView groupNameTv = groupItemView.findViewById(R.id.group_model_name_tv);
             groupNameTv.setText(group.getGroupName());
 
             // Add folderItemView to the linearLayout
-            binding.homeGroupsLl.addView(groupItemView);
+            binding.homeGroupHsvLl.addView(groupItemView);
+
+            groupItemView.setOnClickListener(v -> {
+                Map<String, Object> dataMap = new HashMap<>();
+
+                dataMap.put("group_name", group.getGroupName());
+                dataMap.put("group_sets", group.getSetAmount());
+
+                Intent intent = new Intent(getContext(), ActivityViewGroup.class);
+                passDataToActivity(intent, dataMap);
+                startActivity(intent);
+            });
         }
-
-        setupClickListeners(binding);
-
-        return view;
     }
+
 
     private void setupClickListeners(FragmentHomeBinding binding) {
         binding.homeButton.setOnClickListener(v -> startLearnActivity());
-        binding.homeKitViewAllTv.setOnClickListener(v->);
-        binding.homeFoldersViewAllTv.setOnClickListener(v->);
-        binding.homeGroupsViewAllTv.setOnClickListener(v->);
+        binding.homeLearningSetViewAllTv.setOnClickListener(v -> showAllLearningSets());
+        binding.homeFolderViewAllTv.setOnClickListener(v -> showAllFolders());
+        binding.homeGroupViewAllTv.setOnClickListener(v -> showAllGroups());
     }
 
-    private List<ModelKit> getHomeKitList() {
-        List<ModelKit> kitList = new ArrayList<>();
-        kitList.add(new ModelKit("Set #1", "102", "user123"));
-        kitList.add(new ModelKit("Set #2", "144", "user123"));
-        kitList.add(new ModelKit("Set #3", "256", "user123"));
-        kitList.add(new ModelKit("Set #4", "138", "user123"));
-        kitList.add(new ModelKit("Set #5", "101", "user123"));
-        return kitList;
+    private void showAllGroups() {
+        // TODO: Here should open UserLibraryFragment with Groups tab selected
+        FrontendUtils.showToast(getContext(), "Here should open UserLibraryFragment with Groups tab selected");
     }
 
-    private List<ModelFolder> getHomeFoldersList() {
+    private void showAllFolders() {
+        // TODO: Here should open UserLibraryFragment with Folders tab selected
+        FrontendUtils.showToast(getContext(), "Here should open UserLibraryFragment with Folders tab selected");
+
+    }
+
+    private void showAllLearningSets() {
+        // TODO: Here should open UserLibraryFragment with Sets tab selected
+        FrontendUtils.showToast(getContext(), "Here should open UserLibraryFragment with Sets tab selected");
+    }
+
+
+    private List<ModelLearningSet> getHomeLearningSetList() {
+        List<ModelLearningSet> learningSetList = new ArrayList<>();
+        learningSetList.add(new ModelLearningSet("Set #1", "102", "user123"));
+        learningSetList.add(new ModelLearningSet("Set #2", "144", "user123"));
+        learningSetList.add(new ModelLearningSet("Set #3", "256", "user123"));
+        learningSetList.add(new ModelLearningSet("Set #4", "138", "user123"));
+        learningSetList.add(new ModelLearningSet("Set #5", "101", "user123"));
+        return learningSetList;
+    }
+
+    private List<ModelFolder> getHomeFolderList() {
         List<ModelFolder> folderList = new ArrayList<>();
-        folderList.add(new ModelFolder("user123", "Folder #1"));
-        folderList.add(new ModelFolder("user123", "Folder #2"));
-        folderList.add(new ModelFolder("user123", "Folder #3"));
-        folderList.add(new ModelFolder("user123", "Folder #4"));
-        folderList.add(new ModelFolder("user123", "Folder #5"));
+        folderList.add(new ModelFolder("Folder #1", "user123", "3"));
+        folderList.add(new ModelFolder("Folder #2", "user123", "7"));
+        folderList.add(new ModelFolder("Folder #3", "user123", "2"));
+        folderList.add(new ModelFolder("Folder #4", "user123", "8"));
+        folderList.add(new ModelFolder("Folder #5", "user123", "1"));
         return folderList;
     }
 
     private List<ModelGroup> getHomeGroupList() {
         List<ModelGroup> groupList = new ArrayList<>();
-        groupList.add(new ModelGroup("Group #1"));
-        groupList.add(new ModelGroup("Group #2"));
-        groupList.add(new ModelGroup("Group #3"));
-        groupList.add(new ModelGroup("Group #4"));
-        groupList.add(new ModelGroup("Group #5"));
+        groupList.add(new ModelGroup("Group #1", "2"));
+        groupList.add(new ModelGroup("Group #2", "5"));
+        groupList.add(new ModelGroup("Group #3", "2"));
+        groupList.add(new ModelGroup("Group #4", "8"));
+        groupList.add(new ModelGroup("Group #5", "5"));
         return groupList;
     }
 
@@ -115,4 +176,22 @@ public class FragmentHome extends Fragment {
         Intent intent = new Intent(getContext(), ActivityLearn.class);
         startActivity(intent);
     }
+
+    public static void passDataToActivity(Intent intent, Map<String, Object> dataMap) {
+        for (Map.Entry<String, Object> entry : dataMap.entrySet()) {
+            String key = entry.getKey();
+            Object value = entry.getValue();
+
+            if (value instanceof String) {
+                intent.putExtra(key, (String) value);
+            } else if (value instanceof Integer) {
+                intent.putExtra(key, (int) value);
+            } else if (value instanceof Boolean) {
+                intent.putExtra(key, (boolean) value);
+            } else if (value instanceof Float) {
+                intent.putExtra(key, (float) value);
+            } // Add more data types as needed
+        }
+    }
+
 }

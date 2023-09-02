@@ -5,15 +5,17 @@ import java.util.List;
 
 public class ModelGroup {
     private String groupName;
-    private List<String> memberNicks;
+    private List<String> members;
 
     // TODO: Change to IDs or some other identification method
-    private List<String> assignedSetNames;
+    private List<String> sets;
+    private String setAmount;
 
-    public ModelGroup(String groupName) {
+    public ModelGroup(String groupName,String setAmount) {
         this.groupName = groupName;
-        this.memberNicks = new ArrayList<>();
-        this.assignedSetNames = new ArrayList<>();
+        this.members = new ArrayList<>();
+        this.sets = new ArrayList<>();
+        this.setAmount = setAmount;
     }
 
     public String getGroupName() {
@@ -24,19 +26,27 @@ public class ModelGroup {
         this.groupName = groupName;
     }
 
-    public List<String> getMemberNicks() {
-        return memberNicks;
+    public List<String> getMembers() {
+        return members;
     }
 
-    public void addMember(String nickname) {
-        memberNicks.add(nickname);
+    public void addMember(String username) {
+        members.add(username);
     }
 
-    public List<String> getAssignedSets() {
-        return assignedSetNames;
+    public List<String> getSets() {
+        return sets;
     }
 
-    public void assignSet(String setNameOrId) {
-        assignedSetNames.add(setNameOrId);
+    public void addSet(String setNameOrId) {
+        sets.add(setNameOrId);
+    }
+
+    public String getSetAmount() {
+        return setAmount;
+    }
+
+    public void setSetAmount(String setAmount) {
+        this.setAmount = setAmount;
     }
 }

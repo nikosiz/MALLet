@@ -88,6 +88,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="bottom"
                     android:text="@string/username"
+
+                    android:textColor="@color/danube_blue_900"
                     android:textSize="16sp" />
 
                 <TextView
@@ -119,6 +121,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:text="@string/change_password"
+                    android:textColor="@color/danube_blue_900"
+
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -146,6 +150,8 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:text="@string/notifications"
+                    android:textColor="@color/danube_blue_900"
+
                     android:textSize="16sp" />
 
                 <com.google.android.material.materialswitch.MaterialSwitch
@@ -183,7 +189,9 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
+
                     android:text="@string/save_sets_offline"
+                    android:textColor="@color/danube_blue_900"
                     android:textSize="16sp" />
 
                 <com.google.android.material.materialswitch.MaterialSwitch
@@ -224,6 +232,8 @@
                     android:layout_weight="3"
                     android:gravity="center_vertical"
                     android:text="@string/color_theme"
+                    android:textColor="@color/danube_blue_900"
+
                     android:textSize="16sp" />
 
                 <TextView
@@ -280,6 +290,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/about"
+                    android:textColor="@color/danube_blue_900"
+
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -300,6 +312,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="bottom"
                     android:text="@string/version"
+
+                    android:textColor="@color/danube_blue_900"
                     android:textSize="16sp" />
 
                 <TextView
@@ -334,6 +348,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/log_out"
+                    android:textColor="@color/danube_blue_900"
+
                     android:textSize="16sp" />
             </LinearLayout>
 

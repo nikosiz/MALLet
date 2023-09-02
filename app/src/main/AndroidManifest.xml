@@ -13,13 +13,16 @@
         android:theme="@style/Theme.MALLet"
         tools:targetApi="31">
         <activity
-            android:name=".ActivitySetManagement"
+            android:name=".ActivityManageGroup"
             android:exported="false" />
         <activity
-            android:name=".ActivityGroupManagement"
+            android:name=".ActivityViewLearningSet"
             android:exported="false" />
         <activity
-            android:name=".ActivityFolderManagement"
+            android:name=".ActivityViewGroup"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityViewFolder"
             android:exported="false" />
         <activity
             android:name=".ActivityLearn"

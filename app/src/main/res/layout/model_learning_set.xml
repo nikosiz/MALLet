@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/tools"
-    android:id="@+id/model_kit_card_view"
+    android:id="@+id/model_learning_set_card_view"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_margin="5dp"
@@ -16,14 +16,14 @@
     card_view:strokeColor="@color/danube_blue_800">
 
     <LinearLayout
-        android:id="@+id/kit_model_cv_ll"
+        android:id="@+id/learning_set_model_cv_ll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="20dp">
 
         <TextView
-            android:id="@+id/kit_model_name_tv"
+            android:id="@+id/learning_set_model_name_tv"
             style="@style/BasicBoldTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/kit_model_terms_tv"
+            android:id="@+id/learning_set_model_terms_tv"
             style="@style/BasicTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,14 +55,14 @@
             android:layout_height="30dp" />
 
         <LinearLayout
-            android:id="@+id/kit_model_creator_ll"
+            android:id="@+id/learning_set_model_creator_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/kit_model_creator_iv"
+                android:id="@+id/learning_set_model_creator_iv"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:contentDescription="User icon"
@@ -70,7 +70,7 @@
                 app:tint="@color/danube_blue_800" />
 
             <TextView
-                android:id="@+id/kit_model_creator_tv"
+                android:id="@+id/learning_set_model_creator_tv"
                 style="@style/BasicTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

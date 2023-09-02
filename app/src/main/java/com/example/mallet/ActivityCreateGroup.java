@@ -52,7 +52,6 @@ public class ActivityCreateGroup extends AppCompatActivity {
         SwitchCompat allowOthers = binding.createGroupSwitch;
 
         // TODO: Is this correct?
-        allowOthers.setChecked(true);
         FrontendUtils.showToast(this, "Other users will have the capability to manage this group. When we implement backend.");
 
         allowOthers.setOnCheckedChangeListener((compoundButton, isChecked) -> {

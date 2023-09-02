@@ -17,7 +17,7 @@
     <style name="BasicTextStyle" parent="Widget.AppCompat.TextView">
         <item name="android:textAllCaps">false</item>
         <item name="android:fontFamily">@font/rem_regular</item>
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
     </style>
 
     <style name="BasicSubTextStyle" parent="Widget.AppCompat.TextView">
