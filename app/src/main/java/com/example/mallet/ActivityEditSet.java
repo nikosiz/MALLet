@@ -24,7 +24,7 @@ public class ActivityEditSet extends AppCompatActivity {
 
     // Initialize and set up the toolbar with back arrow functionality.
     private void setupToolbar() {
-        Toolbar toolbar = findViewById(R.id.create_set_toolbar);
+        Toolbar toolbar = findViewById(R.id.edit_set_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(""); // Set the title to an empty string
 
@@ -36,7 +36,7 @@ public class ActivityEditSet extends AppCompatActivity {
     }
 
     private void setupClickListeners() {
-        binding.createSetSaveBtn.setOnClickListener(v -> createSet());
+        binding.editSetSaveBtn.setOnClickListener(v -> createSet());
 
     }
 

@@ -59,8 +59,7 @@
         android:clickable="true"
         android:focusable="true"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/create_group_v0">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
             android:id="@+id/create_group_add_description_iv"
@@ -95,8 +94,7 @@
         app:boxCornerRadiusTopEnd="5dp"
         app:boxCornerRadiusTopStart="5dp"
         app:boxStrokeColor="@color/colorSecondaryDark"
-        app:boxStrokeWidth="2dp"
-        app:layout_constraintTop_toBottomOf="@id/create_group_v1">
+        app:boxStrokeWidth="2dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/create_group_description_et"
@@ -119,8 +117,7 @@
         android:id="@+id/create_group_switch_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/create_group_v2">
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/create_group_switch_tv"

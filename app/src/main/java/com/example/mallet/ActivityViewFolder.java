@@ -71,9 +71,7 @@ public class ActivityViewFolder extends AppCompatActivity {
 
         folderEditBtn.setOnClickListener(v -> editFolderName());
 
-        folderAddBtn.setOnClickListener(v -> {
-            addSets();
-        });
+        folderAddBtn.setOnClickListener(v -> addSets());
 
         folderShareBtn.setOnClickListener(v -> {
             // TODO: Maybe share folder via link of some kind ?

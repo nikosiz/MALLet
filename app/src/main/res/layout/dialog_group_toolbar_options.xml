@@ -22,6 +22,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="invite members icon"
             android:src="@drawable/ic_invite_members"
             app:tint="@color/danube_blue_800" />
 
@@ -48,7 +49,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_settings"
-            app:tint="@color/danube_blue_800" />
+            app:tint="@color/danube_blue_800"
+            android:contentDescription="manage group icon" />
 
         <TextView
             style="@style/BasicTextStyle"
@@ -73,7 +75,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_logout"
-            app:tint="@color/danube_blue_800" />
+            app:tint="@color/danube_blue_800"
+            android:contentDescription="leave group icon" />
 
         <TextView
             style="@style/BasicTextStyle"
@@ -98,7 +101,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_report"
-            app:tint="@color/carnation_red_300" />
+            app:tint="@color/carnation_red_300"
+            android:contentDescription="report group icon" />
 
         <TextView
             style="@style/BasicTextStyle"
