@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityCreateSet">
+    tools:context=".ActivityEditGroup">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/create_set_toolbar"
+        android:id="@+id/create_group_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/danube_blue_600"
@@ -20,12 +20,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:text="@string/create_new_set"
+            android:text="Group"
             android:textColor="@color/white"
+
             android:textSize="30sp" />
 
         <ImageView
-            android:id="@+id/create_set_save_btn"
+            android:id="@+id/create_group_save_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -39,7 +40,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <FrameLayout
-        android:id="@+id/create_set_fl"
+        android:id="@+id/create_group_fl"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
@@ -47,16 +48,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/create_set_toolbar">
+        app:layout_constraintTop_toBottomOf="@id/create_group_toolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/create_set_fl_ll"
+            android:id="@+id/create_group_fl_ll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/create_set_name_til"
+                android:id="@+id/create_group_name_til"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:boxBackgroundMode="outline"
@@ -67,23 +68,17 @@
                 app:boxStrokeColor="@color/colorSecondaryDark"
                 app:boxStrokeWidth="2dp"
                 app:layout_constraintTop_toTopOf="parent">
-                <!--app:counterEnabled="true"
-                    app:counterMaxLength="45"
-                    app:counterTextAppearance="@style/BasicTextStyle"
-                    app:errorEnabled="true"-->
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/create_set_name_et"
-                    style="@style/BasicTextStyle"
+                    android:id="@+id/create_group_name_et"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="Set name"
-                    android:maxLength="45"
-                    android:textSize="20sp"
-                    app:boxStrokeColor="@color/colorSecondaryDark" />
+                    android:hint="@string/group_name"
+                    android:textColorHint="@color/downriver_blue_300"
+                    android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/create_set_empty_name_error"
+                    android:id="@+id/create_group_empty_name_error"
                     style="@style/BasicTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -95,31 +90,32 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <View
-                android:id="@+id/create_set_0"
+                android:id="@+id/create_group_v0"
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
-                app:layout_constraintTop_toBottomOf="@id/create_set_name_til" />
+                app:layout_constraintTop_toBottomOf="@id/create_group_name_til" />
 
             <LinearLayout
-                android:id="@+id/create_set_add_description_ll"
+                android:id="@+id/create_group_add_description_ll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_ripple"
                 android:clickable="true"
                 android:focusable="true"
+                android:gravity="end"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/create_set_0">
+                app:layout_constraintTop_toBottomOf="@id/create_group_v0">
 
                 <ImageView
-                    android:id="@+id/create_set_add_description_iv"
+                    android:id="@+id/create_group_add_description_iv"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:contentDescription="add description"
                     android:src="@drawable/ic_plus" />
 
                 <TextView
-                    android:id="@+id/create_set_add_description_tv"
+                    android:id="@+id/create_group_add_description_tv"
                     style="@style/BasicTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -128,14 +124,14 @@
             </LinearLayout>
 
             <View
-                android:id="@+id/create_set_above_description_v"
+                android:id="@+id/create_group_v1"
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
                 android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/create_set_add_description_ll" />
+                app:layout_constraintTop_toBottomOf="@id/create_group_add_description_ll" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/create_set_description_til"
+                android:id="@+id/create_group_description_til"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
@@ -146,21 +142,55 @@
                 app:boxCornerRadiusTopStart="5dp"
                 app:boxStrokeColor="@color/colorSecondaryDark"
                 app:boxStrokeWidth="2dp"
-                app:layout_constraintTop_toBottomOf="@id/create_set_above_description_v">
+                app:layout_constraintTop_toBottomOf="@id/create_group_v1">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/create_set_description_et"
-                    style="@style/BasicTextStyle"
+                    android:id="@+id/create_group_description_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="top"
                     android:hint="@string/description"
                     android:inputType="textMultiLine"
                     android:minHeight="100dp"
-                    android:textSize="20sp"
-                    app:boxStrokeColor="@color/colorSecondaryDark" />
+                    android:textColorHint="@color/downriver_blue_300"
+                    android:textSize="20sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <View
+                android:id="@+id/create_group_v2"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                app:layout_constraintTop_toBottomOf="@id/create_group_description_til" />
+
+            <LinearLayout
+                android:id="@+id/create_group_switch_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/create_group_v2">
+
+                <TextView
+                    android:id="@+id/create_group_switch_tv"
+                    style="@style/BasicTextStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/allow_group_members"
+                    android:textSize="15sp" />
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/create_group_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="30dp"
+                    android:drawableTint="@color/colorPrimary"
+                    app:thumbTint="@drawable/switch_thumb_color"
+                    app:trackDecorationTint="@drawable/switch_track_decoration_color"
+                    app:trackTint="@drawable/switch_track_color" />
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 

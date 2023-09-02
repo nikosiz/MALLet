@@ -34,15 +34,15 @@
             android:name=".ActivityLogIn"
             android:exported="false" />
         <activity
-            android:name=".ActivityCreateFolder"
+            android:name=".ActivityEditFolder"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ActivityCreateSet"
+            android:name=".ActivityEditSet"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ActivityCreateGroup"
+            android:name=".ActivityEditGroup"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

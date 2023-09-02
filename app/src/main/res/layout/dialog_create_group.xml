@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/create_group_fl_ll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/top_corners_rounded"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/create_group_name_til"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:boxBackgroundMode="outline"
+        app:boxCornerRadiusBottomEnd="5dp"
+        app:boxCornerRadiusBottomStart="5dp"
+        app:boxCornerRadiusTopEnd="5dp"
+        app:boxCornerRadiusTopStart="5dp"
+        app:boxStrokeColor="@color/colorSecondaryDark"
+        app:boxStrokeWidth="2dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/create_group_name_et"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/group_name"
+            android:textColorHint="@color/downriver_blue_300"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/create_group_empty_name_error"
+            style="@style/BasicTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginBottom="5dp"
+            android:text="@string/field_cannot_be_empty"
+            android:textColor="@color/carnation_red_600"
+            android:visibility="gone" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        app:layout_constraintTop_toBottomOf="@id/create_group_name_til" />
+
+    <LinearLayout
+        android:id="@+id/create_group_add_description_ll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:background="@drawable/bg_ripple"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/create_group_v0">
+
+        <ImageView
+            android:id="@+id/create_group_add_description_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:contentDescription="add description"
+            android:src="@drawable/ic_plus" />
+
+        <TextView
+            android:id="@+id/create_group_add_description_tv"
+            style="@style/BasicTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/create_group_add_description_ll" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/create_group_description_til"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:boxBackgroundMode="outline"
+        app:boxCornerRadiusBottomEnd="5dp"
+        app:boxCornerRadiusBottomStart="5dp"
+        app:boxCornerRadiusTopEnd="5dp"
+        app:boxCornerRadiusTopStart="5dp"
+        app:boxStrokeColor="@color/colorSecondaryDark"
+        app:boxStrokeWidth="2dp"
+        app:layout_constraintTop_toBottomOf="@id/create_group_v1">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/create_group_description_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:hint="@string/description"
+            android:inputType="textMultiLine"
+            android:minHeight="100dp"
+            android:textColorHint="@color/downriver_blue_300"
+            android:textSize="20sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        app:layout_constraintTop_toBottomOf="@id/create_group_description_til" />
+
+    <LinearLayout
+        android:id="@+id/create_group_switch_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/create_group_v2">
+
+        <TextView
+            android:id="@+id/create_group_switch_tv"
+            style="@style/BasicTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/allow_group_members"
+            android:textSize="15sp" />
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/create_group_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="30dp"
+            android:drawableTint="@color/colorPrimary"
+            app:thumbTint="@drawable/switch_thumb_color"
+            app:trackDecorationTint="@drawable/switch_track_decoration_color"
+            app:trackTint="@drawable/switch_track_color" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+    <LinearLayout
+        android:id="@+id/create_group_cancel_confirm_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/create_group_cancel_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:background="@drawable/bg_ripple"
+            android:text="@string/cancel"
+            android:textColor="@color/danube_blue_800"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/create_group_confirm_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:background="@drawable/bg_ripple"
+            android:text="@string/ok"
+            android:textColor="@color/danube_blue_800"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
+
+</LinearLayout>
