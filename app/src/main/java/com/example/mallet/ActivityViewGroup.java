@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Window;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +12,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.mallet.databinding.ActivityViewGroupBinding;
 import com.example.mallet.databinding.DialogGroupToolbarOptionsBinding;
+
+import java.util.Objects;
 
 public class ActivityViewGroup extends AppCompatActivity {
 
@@ -32,7 +33,7 @@ public class ActivityViewGroup extends AppCompatActivity {
     private void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.group_management_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(""); // Set the title to an empty string
+        Objects.requireNonNull(getSupportActionBar()).setTitle(""); // Set the title to an empty string
 
         // Display back arrow on the toolbar
         if (getSupportActionBar() != null) {
@@ -51,10 +52,10 @@ public class ActivityViewGroup extends AppCompatActivity {
         DialogGroupToolbarOptionsBinding binding = DialogGroupToolbarOptionsBinding.inflate(LayoutInflater.from(this));
         dialog.setContentView(binding.getRoot());
 
-        LinearLayout inviteMembersBtn = binding.groupToolbarOptionsInviteLl;
-        LinearLayout manageGroupBtn = binding.groupToolbarManageContentsLl;
-        LinearLayout leaveGroupBtn = binding.groupToolbarOptionsLeaveLl;
-        LinearLayout reportGroupBtn = binding.groupToolbarOptionsReportLl;
+        TextView inviteMembersBtn = binding.groupToolbarOptionsInvite;
+        TextView manageGroupBtn = binding.groupToolbarOptionsManage;
+        TextView leaveGroupBtn = binding.groupToolbarOptionsLeave;
+        TextView reportGroupBtn = binding.groupToolbarOptionsReport;
 
 
         inviteMembersBtn.setOnClickListener(v -> {
@@ -66,7 +67,7 @@ public class ActivityViewGroup extends AppCompatActivity {
         });
 
         leaveGroupBtn.setOnClickListener(v -> {
-            // TDDO: leaveGroup()
+            // TODO: leaveGroup()
             dialog.dismiss();
             leaveGroup();
         });
@@ -103,15 +104,4 @@ public class ActivityViewGroup extends AppCompatActivity {
         }
     }
 
-    /*private Dialog createDialog(int layoutResId) {
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(layoutResId);
-
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
-
-        return dialog;
-    }*/
 }

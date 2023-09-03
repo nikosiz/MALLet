@@ -7,14 +7,14 @@ import java.util.Objects;
 
 public class CallbackFlashcardStack extends DiffUtil.Callback {
 
-    private List<ModelFlashcard> oldItem;
+    private final List<ModelFlashcard> oldItem;
 
     public CallbackFlashcardStack(List<ModelFlashcard> oldItem, List<ModelFlashcard> newItem) {
         this.oldItem = oldItem;
         this.newItem = newItem;
     }
 
-    private List<ModelFlashcard> newItem;
+    private final List<ModelFlashcard> newItem;
 
     @Override
     public int getOldListSize() {

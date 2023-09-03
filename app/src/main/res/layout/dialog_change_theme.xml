@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_corners_rounded"
@@ -16,17 +15,12 @@
         android:layout_height="wrap_content"
         android:text="Choose theme"
         android:textColor="@color/danube_blue_900"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="20sp"/>
 
     <View
         android:id="@+id/change_theme_view_0"
         android:layout_width="match_parent"
-        android:layout_height="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/change_theme_enter_password_title_tv" />
+        android:layout_height="5dp"/>
 
     <TextView
         android:id="@+id/change_theme_enter_password_tv"
@@ -35,79 +29,57 @@
         android:layout_height="wrap_content"
         android:text="Choose the application theme"
         android:textColor="@color/danube_blue_800"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/change_theme_view_0" />
+        android:textSize="20sp"/>
 
     <View
         android:id="@+id/change_theme_view_1"
         android:layout_width="match_parent"
-        android:layout_height="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/change_theme_enter_password_tv" />
+        android:layout_height="10dp" />
 
-    <LinearLayout
-        android:id="@+id/change_theme_radio_ll"
+    <RadioGroup
+        android:id="@+id/change_theme_rg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/change_theme_view_1">
+        android:orientation="vertical">
 
-        <RadioGroup
-            android:id="@+id/change_theme_rg"
-            android:layout_width="wrap_content"
+        <RadioButton
+            android:id="@+id/system_default_rb"
+            style="@style/CustomRadioButtonStyle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:text="System default"
+            android:textColor="@color/danube_blue_800"
+            android:textSize="15sp" />
 
-            <RadioButton
-                android:id="@+id/system_default_rb"
-                style="@style/CustomRadioButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="System default"
-                android:textColor="@color/danube_blue_800"
-                android:textSize="15sp" />
+        <RadioButton
+            android:id="@+id/light_theme_rb"
+            style="@style/CustomRadioButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Light theme"
+            android:textColor="@color/danube_blue_800"
+            android:textSize="15sp" />
 
-            <RadioButton
-                android:id="@+id/light_theme_rb"
-                style="@style/CustomRadioButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Light theme"
-                android:textColor="@color/danube_blue_800"
-                android:textSize="15sp" />
-
-            <RadioButton
-                android:id="@+id/dark_theme_rb"
-                style="@style/CustomRadioButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Dark theme"
-                android:textColor="@color/danube_blue_800"
-                android:textSize="15sp" />
-        </RadioGroup>
-
-    </LinearLayout>
+        <RadioButton
+            android:id="@+id/dark_theme_rb"
+            style="@style/CustomRadioButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dark theme"
+            android:textColor="@color/danube_blue_800"
+            android:textSize="15sp" />
+    </RadioGroup>
 
     <View
-        android:id="@+id/change_theme_view_2"
         android:layout_width="match_parent"
-        android:layout_height="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/change_theme_radio_ll" />
+        android:layout_height="10dp"/>
 
     <LinearLayout
         android:id="@+id/change_theme_cancel_confirm_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="end"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/change_theme_view_2">
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/change_theme_cancel_btn"
@@ -135,9 +107,6 @@
     <View
         android:id="@+id/change_theme_view_3"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/change_theme_cancel_confirm_btn" />
+        android:layout_height="50dp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

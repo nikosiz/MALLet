@@ -8,6 +8,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.mallet.databinding.ActivityEditLearningSetBinding;
 
+import java.util.Objects;
+
 public class ActivityEditLearningSet extends AppCompatActivity {
     private ActivityEditLearningSetBinding binding;
 
@@ -26,7 +28,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     private void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.edit_set_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(""); // Set the title to an empty string
+        Objects.requireNonNull(getSupportActionBar()).setTitle(""); // Set the title to an empty string
 
         // Display back arrow on the toolbar
         if (getSupportActionBar() != null) {

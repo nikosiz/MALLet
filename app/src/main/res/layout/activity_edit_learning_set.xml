@@ -39,45 +39,40 @@
             app:tint="@color/white" />
     </androidx.appcompat.widget.Toolbar>
 
-    <FrameLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@id/edit_set_toolbar">
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_round_btn">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:padding="20dp"
-                        android:text="card_1" />
-                </androidx.cardview.widget.CardView>
+                android:background="@drawable/bg_round_btn">
 
                 <TextView
-                    android:id="@+id/edit_set_name"
-                    style="@style/BasicBoldTextStyle"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="set_name"
-                    android:textColor="@color/danube_blue_900"
-                    android:textSize="20sp" />
+                    android:layout_gravity="center"
+                    android:padding="20dp"
+                    android:text="card_1" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/edit_set_name"
+                style="@style/BasicBoldTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="set_name"
+                android:textColor="@color/danube_blue_900"
+                android:textSize="20sp" />
 
 
-            </LinearLayout>
-        </ScrollView>
-    </FrameLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

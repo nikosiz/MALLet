@@ -1,118 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:gravity="bottom"
     android:orientation="vertical"
     android:paddingHorizontal="30dp"
     android:paddingTop="30dp">
 
-    <LinearLayout
-        android:id="@+id/group_toolbar_options_invite_ll"
+
+    <TextView
+        android:id="@+id/group_toolbar_options_invite"
+        style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_invite_members"
+        android:drawablePadding="35dp"
+        android:drawableTint="@color/danube_blue_800"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:padding="20dp"
+        android:text="Invite members"
+        android:textSize="20sp" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="invite members icon"
-            android:src="@drawable/ic_invite_members"
-            app:tint="@color/danube_blue_800" />
+    <TextView
+        android:id="@+id/group_toolbar_options_manage"
 
-        <TextView
-            style="@style/BasicTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
-            android:text="Invite members"
-            android:textSize="20sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/group_toolbar_manage_contents_ll"
+        style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_settings"
+        android:drawablePadding="35dp"
+        android:drawableTint="@color/danube_blue_800"
+
         android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:padding="20dp"
+        android:text="Manage"
+        android:textSize="20sp" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_settings"
-            app:tint="@color/danube_blue_800"
-            android:contentDescription="manage group icon" />
+    <TextView
+        android:id="@+id/group_toolbar_options_leave"
 
-        <TextView
-            style="@style/BasicTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
-            android:text="Manage"
-            android:textSize="20sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/group_toolbar_options_leave_ll"
+        style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_logout"
+        android:drawablePadding="35dp"
+        android:drawableTint="@color/danube_blue_800"
+
         android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:padding="20dp"
+        android:text="Leave group"
+        android:textSize="20sp" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_logout"
-            app:tint="@color/danube_blue_800"
-            android:contentDescription="leave group icon" />
+    <TextView
+        android:id="@+id/group_toolbar_options_report"
 
-        <TextView
-            style="@style/BasicTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
-            android:text="Leave group"
-            android:textSize="20sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/group_toolbar_options_report_ll"
+        style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_report"
+        android:drawablePadding="35dp"
+        android:drawableTint="@color/carnation_red_300"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_report"
-            app:tint="@color/carnation_red_300"
-            android:contentDescription="report group icon" />
-
-        <TextView
-            style="@style/BasicTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
-            android:text="Report"
-            android:textColor="@color/carnation_red_300"
-            android:textSize="20sp" />
-    </LinearLayout>
+        android:padding="20dp"
+        android:text="Report"
+        android:textColor="@color/carnation_red_300"
+        android:textSize="20sp" />
 
     <View
         android:layout_width="match_parent"

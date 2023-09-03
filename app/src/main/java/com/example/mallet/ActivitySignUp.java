@@ -19,12 +19,10 @@ import java.util.Objects;
 
 public class ActivitySignUp extends AppCompatActivity {
 
-    private ActivitySignUpBinding binding;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = com.example.mallet.databinding.ActivitySignUpBinding.inflate(getLayoutInflater());
+        com.example.mallet.databinding.ActivitySignUpBinding binding = com.example.mallet.databinding.ActivitySignUpBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setupLogInField();

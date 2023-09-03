@@ -4,7 +4,6 @@ public class ModelLearningSet {
     private String learningSetName;
     private String learningSetCreator;
     private String learningSetTerms;
-    private int id;
 
     public ModelLearningSet(String learningSetName,
                             String learningSetTerms,
@@ -12,7 +11,6 @@ public class ModelLearningSet {
         this.learningSetName = learningSetName;
         this.learningSetCreator = learningSetCreator;
         this.learningSetTerms = learningSetTerms;
-        this.id = id;
     }
 
     public String getLearningSetName() {

@@ -11,8 +11,8 @@ import java.util.List;
 
 public class AdapterLearningSet extends BaseAdapter {
 
-    private Context context;
-    private List<ModelLearningSet> learningSetList;
+    private final Context context;
+    private final List<ModelLearningSet> learningSetList;
 
     public AdapterLearningSet(Context context, List<ModelLearningSet> learningSetList) {
         this.context = context;

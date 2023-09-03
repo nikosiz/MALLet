@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     tools:context=".FragmentHome">
 
     <androidx.appcompat.widget.Toolbar
@@ -25,197 +24,188 @@
             android:textSize="30sp" />
     </androidx.appcompat.widget.Toolbar>
 
-
-    <FrameLayout
-        android:id="@+id/home_fl"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/home_fragment_toolbar">
 
-        <ScrollView
+        <LinearLayout
+            android:id="@+id/home_ll"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <View
+                android:id="@+id/home_view_0"
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
 
             <LinearLayout
-                android:id="@+id/home_ll"
+                android:id="@+id/home_learning_set_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
+                android:orientation="horizontal">
 
-                <View
-                    android:id="@+id/home_view_0"
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp" />
-
-                <LinearLayout
-                    android:id="@+id/home_learning_set_ll"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/home_learning_set_title_tv"
+                    style="@style/BasicBoldTextStyle"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_weight="1"
+                    android:text="Recent sets"
+                    android:textColor="@color/danube_blue_900"
+                    android:textSize="20sp" />
 
-                    <TextView
-                        android:id="@+id/home_learning_set_title_tv"
-                        style="@style/BasicBoldTextStyle"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Recent sets"
-                        android:textColor="@color/danube_blue_900"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/home_learning_set_view_all_tv"
-                        style="@style/BasicTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:gravity="end"
-                        android:text="View all" />
-                </LinearLayout>
-
-                <View
-                    android:id="@+id/home_view_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-                <HorizontalScrollView
-                    android:id="@+id/home_learning_set_hsv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <LinearLayout
-                        android:id="@+id/home_learning_set_hsv_ll"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                    </LinearLayout>
-                </HorizontalScrollView>
-
-                <View
-                    android:id="@+id/home_view_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-                <LinearLayout
-                    android:id="@+id/home_folder_ll"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/home_folder_title_tv"
-                        style="@style/BasicBoldTextStyle"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Folders"
-                        android:textColor="@color/danube_blue_900"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/home_folder_view_all_tv"
-                        style="@style/BasicTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:gravity="end"
-                        android:text="View all" />
-                </LinearLayout>
-
-                <View
-                    android:id="@+id/home_view_3"
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-                <HorizontalScrollView
-                    android:id="@+id/home_folders_hsv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <LinearLayout
-                        android:id="@+id/home_folders_hsv_ll"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:orientation="horizontal">
-
-                    </LinearLayout>
-                </HorizontalScrollView>
-
-                <View
-                    android:id="@+id/home_view_4"
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-                <LinearLayout
-                    android:id="@+id/home_group_ll"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/home_group_title_tv"
-                        style="@style/BasicBoldTextStyle"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Groups"
-                        android:textColor="@color/danube_blue_900"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/home_group_view_all_tv"
-                        style="@style/BasicTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:gravity="end"
-                        android:text="View all" />
-                </LinearLayout>
-
-                <View
-                    android:id="@+id/home_view_5"
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-                <HorizontalScrollView
-                    android:id="@+id/home_group_hsv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <LinearLayout
-                        android:id="@+id/home_group_hsv_ll"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                    </LinearLayout>
-                </HorizontalScrollView>
-
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/home_button"
+                <TextView
+                    android:id="@+id/home_learning_set_view_all_tv"
+                    style="@style/BasicTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|center"
-                    android:gravity="center"
-                    android:text="@string/home" />
+                    android:layout_gravity="center_vertical"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="end"
+                    android:text="View all" />
             </LinearLayout>
 
-        </ScrollView>
-    </FrameLayout>
+            <View
+                android:id="@+id/home_view_1"
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <HorizontalScrollView
+                android:id="@+id/home_learning_set_hsv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/home_learning_set_hsv_ll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <View
+                android:id="@+id/home_view_2"
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <LinearLayout
+                android:id="@+id/home_folder_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/home_folder_title_tv"
+                    style="@style/BasicBoldTextStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Folders"
+                    android:textColor="@color/danube_blue_900"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/home_folder_view_all_tv"
+                    style="@style/BasicTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="end"
+                    android:text="View all" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/home_view_3"
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <HorizontalScrollView
+                android:id="@+id/home_folders_hsv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/home_folders_hsv_ll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <View
+                android:id="@+id/home_view_4"
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <LinearLayout
+                android:id="@+id/home_group_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/home_group_title_tv"
+                    style="@style/BasicBoldTextStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Groups"
+                    android:textColor="@color/danube_blue_900"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/home_group_view_all_tv"
+                    style="@style/BasicTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="end"
+                    android:text="View all" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/home_view_5"
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <HorizontalScrollView
+                android:id="@+id/home_group_hsv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/home_group_hsv_ll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/home_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center"
+                android:gravity="center"
+                android:text="@string/home" />
+        </LinearLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

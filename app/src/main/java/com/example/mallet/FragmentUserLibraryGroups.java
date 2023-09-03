@@ -13,8 +13,7 @@ public class FragmentUserLibraryGroups extends Fragment {
     private FragmentUserLibraryGroupsBinding binding;
 
     public static FragmentUserLibraryGroups newInstance(String param1, String param2) {
-        FragmentUserLibraryGroups fragment = new FragmentUserLibraryGroups();
-        return fragment;
+        return new FragmentUserLibraryGroups();
     }
 
     @Override

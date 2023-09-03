@@ -53,34 +53,22 @@
             android:layout_width="match_parent"
             android:layout_height="5dp" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/folder_model_creator_tv"
+            style="@style/BasicTextStyle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autoSizeMaxTextSize="20sp"
+            android:autoSizeMinTextSize="15sp"
+            android:autoSizeStepGranularity="2sp"
+            android:autoSizeTextType="uniform"
+            android:drawableStart="@drawable/ic_profile"
+            android:drawablePadding="5dp"
+            android:drawableTint="@color/danube_blue_800"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/folder_model_creator_iv"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:contentDescription="User icon"
-                android:src="@drawable/ic_profile"
-                app:tint="@color/danube_blue_800" />
-
-            <TextView
-                android:id="@+id/folder_model_creator_tv"
-                style="@style/BasicTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:autoSizeMaxTextSize="25sp"
-                android:autoSizeMinTextSize="15sp"
-                android:autoSizeStepGranularity="2sp"
-                android:autoSizeTextType="uniform"
-                android:singleLine="true"
-                android:text="creator_name"
-                android:textColor="@color/danube_blue_800"
-                android:textSize="20sp" />
-        </LinearLayout>
+            android:singleLine="true"
+            android:text="creator_name"
+            android:textColor="@color/danube_blue_800"
+            android:textSize="20sp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

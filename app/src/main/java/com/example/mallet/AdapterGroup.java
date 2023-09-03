@@ -11,8 +11,8 @@ import java.util.List;
 
 public class AdapterGroup extends BaseAdapter {
 
-    private Context context;
-    private List<String> groupNameList;
+    private final Context context;
+    private final List<String> groupNameList;
 
     public AdapterGroup(Context context, List<String> groupNameList) {
         this.context = context;

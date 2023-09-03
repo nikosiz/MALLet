@@ -14,9 +14,8 @@ public class FragmentUserLibrarySets extends Fragment {
     private FragmentUserLibrarySetsBinding binding;
 
     public static FragmentUserLibrarySets newInstance(String param1, String param2) {
-        FragmentUserLibrarySets fragment = new FragmentUserLibrarySets();
 
-        return fragment;
+        return new FragmentUserLibrarySets();
     }
 
     @Override

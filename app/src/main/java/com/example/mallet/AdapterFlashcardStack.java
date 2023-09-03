@@ -42,8 +42,10 @@ public class AdapterFlashcardStack extends RecyclerView.Adapter<AdapterFlashcard
     }
 
     // ViewHolder class that holds references to the views within each item view
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView word, definition, translation;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        final TextView word;
+        final TextView definition;
+        final TextView translation;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);

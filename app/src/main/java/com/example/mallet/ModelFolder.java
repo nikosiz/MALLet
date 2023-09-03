@@ -4,8 +4,8 @@ import com.example.mallet.databinding.ModelFolderBinding;
 
 public class ModelFolder {
     private ModelFolderBinding binding;
-    private String folderCreator;
-    private String folderName;
+    private final String folderCreator;
+    private final String folderName;
     private String sets;
 
     public ModelFolder(String folderName, String folderCreator, String sets) {

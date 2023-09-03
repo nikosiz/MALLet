@@ -12,12 +12,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.mallet.databinding.ActivityOpeningBinding;
 
 public class ActivityOpening extends AppCompatActivity {
-    private ActivityOpeningBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = com.example.mallet.databinding.ActivityOpeningBinding.inflate(getLayoutInflater());
+        com.example.mallet.databinding.ActivityOpeningBinding binding = com.example.mallet.databinding.ActivityOpeningBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setupLoginButton();

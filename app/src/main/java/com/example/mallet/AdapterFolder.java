@@ -11,8 +11,8 @@ import java.util.List;
 
 public class AdapterFolder extends BaseAdapter {
 
-    private Context context;
-    private List<ModelFolder> folderList;
+    private final Context context;
+    private final List<ModelFolder> folderList;
 
     public AdapterFolder(Context context, List<ModelFolder> folderList) {
         this.context = context;

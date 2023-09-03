@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class AdapterFlashcardSmall extends RecyclerView.Adapter<AdapterFlashcardSmall.FlashcardViewHolder> {
-    private List<ModelFlashcardSmall> flashcards;
+    private final List<ModelFlashcardSmall> flashcards;
 
     public AdapterFlashcardSmall(List<ModelFlashcardSmall> flashcards) {
         this.flashcards = flashcards;
@@ -37,8 +37,8 @@ public class AdapterFlashcardSmall extends RecyclerView.Adapter<AdapterFlashcard
     }
 
     static class FlashcardViewHolder extends RecyclerView.ViewHolder {
-        TextView WordTV;
-        TextView TranslationTV;
+        final TextView WordTV;
+        final TextView TranslationTV;
 
         FlashcardViewHolder(View itemView) {
             super(itemView);

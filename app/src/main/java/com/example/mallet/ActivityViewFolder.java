@@ -2,17 +2,12 @@ package com.example.mallet;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.CheckBox;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,7 +39,7 @@ public class ActivityViewFolder extends AppCompatActivity {
     private void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.view_folder_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(""); // Set the title to an empty string
+        Objects.requireNonNull(getSupportActionBar()).setTitle(""); // Set the title to an empty string
 
         // Display back arrow on the toolbar
         if (getSupportActionBar() != null) {
@@ -63,10 +58,10 @@ public class ActivityViewFolder extends AppCompatActivity {
         DialogFolderToolbarOptionsBinding binding = DialogFolderToolbarOptionsBinding.inflate(LayoutInflater.from(this));
         dialog.setContentView(binding.getRoot());
 
-        LinearLayout folderEditBtn = binding.folderToolbarOptionsEdit;
-        LinearLayout folderAddBtn = binding.folderToolbarOptionsAdd;
-        LinearLayout folderShareBtn = binding.folderToolbarOptionsShare;
-        LinearLayout folderDeleteBtn = binding.folderToolbarOptionsDelete;
+        TextView folderEditBtn = binding.folderToolbarOptionsEdit;
+        TextView folderAddBtn = binding.folderToolbarOptionsAdd;
+        TextView folderShareBtn = binding.folderToolbarOptionsShare;
+        TextView folderDeleteBtn = binding.folderToolbarOptionsDelete;
 
 
         folderEditBtn.setOnClickListener(v -> editFolderName());

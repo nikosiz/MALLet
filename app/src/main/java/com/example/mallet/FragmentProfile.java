@@ -75,7 +75,7 @@ public class FragmentProfile extends Fragment {
 
     // Enum to represent password verification actions
     public enum VerifyPasswordAction {
-        CHANGE_EMAIL, CHANGE_USERNAME;
+        CHANGE_EMAIL, CHANGE_USERNAME
     }
     // Show a dialog to change email address
 
@@ -453,15 +453,4 @@ public class FragmentProfile extends Fragment {
         FrontendUtils.showDialog(dialog);
     }
 
-    /*private Dialog createDialog(int layoutResId) {
-        final Dialog dialog = new Dialog(getContext());
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(layoutResId);
-
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
-
-        return dialog;
-    }*/
 }

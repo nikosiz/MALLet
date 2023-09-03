@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/danube_blue_50"
-    tools:context=".FragmentFlashcards">
+    tools:context=".FragmentFlashcards"
+    tools:ignore="Overdraw">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/flashcards_toolbar"

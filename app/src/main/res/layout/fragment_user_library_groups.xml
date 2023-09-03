@@ -1,33 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FragmentUserLibraryGroups">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:gravity=""
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp">
 
-        <LinearLayout
+        <View
             android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <TextView
+            style="@style/BasicTextStyle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity=""
-            android:orientation="vertical"
-            android:padding="20dp">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="20dp" />
-
-            <TextView
-                style="@style/BasicTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Here a list of started folders  is going to be displayed (looking like those in the HomeFragment). "
-                android:textSize="20sp" />
+            android:text="Here a list of started folders  is going to be displayed (looking like those in the HomeFragment). "
+            android:textSize="20sp" />
 
 
-        </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>

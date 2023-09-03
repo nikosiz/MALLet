@@ -68,8 +68,6 @@ public class FragmentHome extends Fragment {
                 dataMap.put("set_name", learningSet.getLearningSetName());
                 dataMap.put("set_creator", learningSet.getLearningSetCreator());
                 dataMap.put("set_terms", learningSet.getLearningSetTerms());
-                //dataMap.put("set_word", learningSet.getLearningSetWord());
-                //dataMap.put("set_definition", learningSet.getLearningSetDefinition());
                 Intent intent = new Intent(getContext(), ActivityViewLearningSet.class);
                 passDataToActivity(intent, dataMap);
                 startActivity(intent);
@@ -94,8 +92,6 @@ public class FragmentHome extends Fragment {
             folderItemView.setOnClickListener(v -> {
                 Map<String, Object> dataMap = new HashMap<>();
                 //TODO: Change to:
-                // intent.putExtra("learningSetId", learningSet.getId());
-                //intent.putExtra("folder_name", folder.getFolderName());
                 dataMap.put("folder_name", folder.getFolderName());
                 dataMap.put("folder_creator", folder.getFolderCreator());
                 dataMap.put("folder_sets", folder.getSets());

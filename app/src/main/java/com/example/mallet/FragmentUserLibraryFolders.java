@@ -16,15 +16,13 @@ import java.util.List;
 
 public class FragmentUserLibraryFolders extends Fragment implements AdapterFolder.OnFolderClickListener {
     private FragmentUserLibraryFoldersBinding binding;
-    private LinearLayout yourLibraryFoldersLl;
-    private List<ModelFolder> yourLibraryFoldersList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_library_folders, container, false);
 
-        yourLibraryFoldersLl = view.findViewById(R.id.your_library_folders_ll); // Change to LinearLayout
-        yourLibraryFoldersList = getYourLibraryFoldersList();
+        LinearLayout yourLibraryFoldersLl = view.findViewById(R.id.your_library_folders_ll); // Change to LinearLayout
+        List<ModelFolder> yourLibraryFoldersList = getYourLibraryFoldersList();
 
         for (ModelFolder folder : yourLibraryFoldersList) {
             View folderItemView = inflater.inflate(R.layout.model_folder, yourLibraryFoldersLl, false);

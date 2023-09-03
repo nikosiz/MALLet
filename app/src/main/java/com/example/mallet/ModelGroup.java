@@ -5,10 +5,10 @@ import java.util.List;
 
 public class ModelGroup {
     private String groupName;
-    private List<String> members;
+    private final List<String> members;
 
     // TODO: Change to IDs or some other identification method
-    private List<String> sets;
+    private final List<String> sets;
     private String setAmount;
 
     public ModelGroup(String groupName,String setAmount) {

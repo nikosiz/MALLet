@@ -34,15 +34,7 @@
             android:name=".ActivityLogIn"
             android:exported="false" />
         <activity
-            android:name=".ActivityEditFolder"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".ActivityEditLearningSet"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ActivityEditGroup"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
