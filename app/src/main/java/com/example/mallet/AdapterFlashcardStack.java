@@ -23,7 +23,7 @@ public class AdapterFlashcardStack extends RecyclerView.Adapter<AdapterFlashcard
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Inflate the item_card.xml layout for each item view
+        // Inflate the flashcardcard.xml layout for each item view
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.model_flashcard, parent, false);
         return new ViewHolder(view);
@@ -48,9 +48,9 @@ public class AdapterFlashcardStack extends RecyclerView.Adapter<AdapterFlashcard
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             // Initialize the TextViews with their corresponding views from the layout
-            word = itemView.findViewById(R.id.item_word);
-            definition = itemView.findViewById(R.id.item_definition);
-            translation = itemView.findViewById(R.id.item_translation);
+            word = itemView.findViewById(R.id.flashcard_word);
+            definition = itemView.findViewById(R.id.flashcard_definition);
+            translation = itemView.findViewById(R.id.flashcard_translation);
         }
 
         // Method to set data from the data model to the views

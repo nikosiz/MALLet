@@ -8,15 +8,12 @@ import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mallet.AdapterFlashcardStack;
-import com.example.mallet.CallbackFlashcardStack;
-import com.example.mallet.ModelFlashcard;
-import com.example.mallet.R;
 import com.example.mallet.databinding.FragmentFlashcardsBinding;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackListener;
@@ -28,6 +25,7 @@ import com.yuyakaido.android.cardstackview.SwipeableMethod;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class FragmentFlashcards extends Fragment {
 
@@ -43,8 +41,20 @@ public class FragmentFlashcards extends Fragment {
 
         setupCardStackView();
         setupSwipeButtons();
-
+        setupToolbar();
         return view;
+    }
+
+    private void setupToolbar() {
+        Toolbar toolbar = binding.flashcardsToolbar;
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        Objects.requireNonNull(((AppCompatActivity) getActivity()).getSupportActionBar()).setTitle(""); // Set the title to an empty string
+
+        // Display back arrow on the toolbar
+        if (((AppCompatActivity) getActivity()).getSupportActionBar() != null) {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
     }
 
     private void setupCardStackView() {
@@ -95,13 +105,13 @@ public class FragmentFlashcards extends Fragment {
 
             @Override
             public void onCardAppeared(View view, int position) {
-                TextView tv = view.findViewById(R.id.item_word);
+                TextView tv = view.findViewById(R.id.flashcard_word);
                 // Log.d(TAG, "onCardAppeared: " + position + ", word: " + tv.getText());
             }
 
             @Override
             public void onCardDisappeared(View view, int position) {
-                TextView tv = view.findViewById(R.id.item_word);
+                TextView tv = view.findViewById(R.id.flashcard_word);
                 // Log.d(TAG, "onCardDisappeared: " + position + ", word: " + tv.getText());
             }
         });

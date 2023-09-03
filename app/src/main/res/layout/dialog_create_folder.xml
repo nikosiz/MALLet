@@ -4,7 +4,7 @@
     android:id="@+id/create_folder_fl_ll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/top_corners_rounded"
+    android:background="@drawable/bg_corners_rounded"
     android:orientation="vertical"
     android:padding="20dp">
 

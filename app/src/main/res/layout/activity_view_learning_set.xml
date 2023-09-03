@@ -7,7 +7,7 @@
     tools:context=".ActivityViewLearningSet">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/view_set_toolbar"
+        android:id="@+id/flashcards_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/danube_blue_300"
@@ -23,149 +23,333 @@
             android:layout_marginHorizontal="20dp"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
-            android:contentDescription="@string/save_btn"
+            android:contentDescription="toolbar options"
             android:focusable="true"
             android:src="@drawable/ic_toolbar_options"
             app:tint="@color/white" />
     </androidx.appcompat.widget.Toolbar>
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/view_set_toolbar">
+        app:layout_constraintTop_toBottomOf="@id/flashcards_toolbar">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="20dp">
-
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/viewPager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="20dp" />
+            android:layout_height="match_parent">
 
             <LinearLayout
-                android:id="@+id/view_set_cards_ll"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="20dp">
 
-                <TextView
-                    android:id="@+id/view_set_name_tv"
-                    style="@style/BasicBoldTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:gravity="center"
-                    android:text="set_name"
-                    android:textColor="@color/danube_blue_900"
-                    android:textSize="20dp" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="5dp" />
+                    android:layout_height="10dp" />
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp" />
 
                 <LinearLayout
+                    android:id="@+id/view_set_cards_ll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center|start"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="user icon"
-                        android:src="@drawable/ic_profile"
-                        app:tint="@color/danube_blue_800" />
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/view_set_creator_tv"
-                        style="@style/BasicTextStyle"
+                        android:id="@+id/view_set_name_tv"
+                        style="@style/BasicBoldTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:text="user_name"
-                        android:textColor="@color/danube_blue_800" />
+                        android:layout_gravity="start"
+                        android:gravity="center"
+                        android:text="set_name"
+                        android:textColor="@color/danube_blue_900"
+                        android:textSize="20sp" />
 
                     <View
-                        android:layout_width="2dp"
-                        android:layout_height="20dp"
-                        android:layout_marginHorizontal="10dp"
-                        android:background="@color/danube_blue_200" />
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center|start"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="user icon"
+                            android:src="@drawable/ic_profile"
+                            app:tint="@color/danube_blue_800" />
+
+                        <TextView
+                            android:id="@+id/view_set_creator_tv"
+                            style="@style/BasicTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="user_name"
+                            android:textColor="@color/danube_blue_800" />
+
+                        <View
+                            android:layout_width="2dp"
+                            android:layout_height="20dp"
+                            android:layout_marginHorizontal="10dp"
+                            android:background="@color/danube_blue_200" />
+
+                        <TextView
+                            android:id="@+id/view_set_terms_tv"
+                            style="@style/BasicTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="terms"
+                            android:textColor="@color/danube_blue_400" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/view_set_flashcards"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="5dp"
+                        android:layout_marginVertical="5dp"
+                        android:background="@drawable/bg_social_btn"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:minWidth="300dp"
+                        app:cardCornerRadius="5dp"
+                        app:cardElevation="3dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bg_corners_rounded"
+                            android:gravity="center_vertical"
+                            android:padding="10dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:contentDescription="flashcards icon"
+                                android:src="@drawable/ic_flashcards"
+                                app:tint="@color/danube_blue_800" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="10dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/BasicBoldTextStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Flashcards"
+                                    android:textColor="@color/danube_blue_800"
+                                    android:textSize="15sp" />
+
+                                <TextView
+                                    style="@style/BasicTextStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Review terms and definitions"
+                                    android:textColor="@color/danube_blue_800"
+                                    android:textSize="15sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/view_set_learn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="5dp"
+                        android:layout_marginVertical="5dp"
+
+                        android:background="@drawable/bg_social_btn"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:minWidth="300dp"
+                        app:cardCornerRadius="5dp"
+                        app:cardElevation="3dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bg_corners_rounded"
+                            android:gravity="center_vertical"
+                            android:padding="10dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:contentDescription="learn icon"
+                                android:src="@drawable/ic_learn"
+                                app:tint="@color/danube_blue_800" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="10dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/BasicBoldTextStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Learn"
+                                    android:textColor="@color/danube_blue_800"
+                                    android:textSize="15sp" />
+
+                                <TextView
+                                    style="@style/BasicTextStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Study in your own pace"
+                                    android:textColor="@color/danube_blue_800"
+                                    android:textSize="15sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/view_set_test"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="5dp"
+                        android:layout_marginVertical="5dp"
+                        android:background="@drawable/bg_social_btn"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:minWidth="300dp"
+                        app:cardCornerRadius="5dp"
+                        app:cardElevation="3dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bg_corners_rounded"
+                            android:gravity="center_vertical"
+                            android:padding="10dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:contentDescription="test icon"
+                                android:src="@drawable/ic_test"
+                                app:tint="@color/danube_blue_800" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="10dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/BasicBoldTextStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Test"
+                                    android:textColor="@color/danube_blue_800"
+                                    android:textSize="15sp" />
+
+                                <TextView
+                                    style="@style/BasicTextStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Take a test to check your knowledge"
+                                    android:textColor="@color/danube_blue_800"
+                                    android:textSize="15sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/view_set_match"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="5dp"
+
+                        android:layout_marginVertical="5dp"
+                        android:background="@drawable/bg_social_btn"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:minWidth="300dp"
+                        app:cardCornerRadius="5dp"
+                        app:cardElevation="3dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bg_corners_rounded"
+                            android:gravity="center_vertical"
+                            android:padding="10dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:contentDescription="match icon"
+                                android:src="@drawable/ic_match"
+                                app:tint="@color/danube_blue_800" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="10dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/BasicBoldTextStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Match"
+                                    android:textColor="@color/danube_blue_800"
+                                    android:textSize="15sp" />
+
+                                <TextView
+                                    style="@style/BasicTextStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Match terms and definitions"
+                                    android:textColor="@color/danube_blue_800"
+                                    android:textSize="15sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp" />
 
                     <TextView
-                        android:id="@+id/view_set_terms_tv"
-                        style="@style/BasicTextStyle"
-                        android:layout_width="wrap_content"
+                        style="@style/BasicBoldTextStyle"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="terms"
-                        android:textColor="@color/danube_blue_400" />
+                        android:text="Cards in this set"
+                        android:textColor="@color/danube_blue_900"
+                        android:textSize="20sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp" />
+
                 </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-                <Button
-                    android:id="@+id/view_set_flashcards"
-                    style="@style/BasicButtonStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Flashcards"
-                    android:textSize="15sp"
-                    app:backgroundTint="@null" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-                <Button
-                    android:id="@+id/view_set_learn"
-                    style="@style/BasicButtonStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="learn"
-                    android:textSize="15sp"
-                    app:backgroundTint="@null" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-                <Button
-                    android:id="@+id/view_set_test"
-                    style="@style/BasicButtonStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="test"
-                    android:textSize="15sp"
-                    app:backgroundTint="@null" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-                <Button
-                    android:id="@+id/view_set_match"
-                    style="@style/BasicButtonStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="match"
-                    android:textSize="15sp"
-                    app:backgroundTint="@null" />
-
-
             </LinearLayout>
-        </LinearLayout>
+        </ScrollView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

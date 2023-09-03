@@ -45,7 +45,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     }
 
     private void setupToolbar() {
-        Toolbar toolbar = findViewById(R.id.view_set_toolbar);
+        Toolbar toolbar = findViewById(R.id.flashcards_toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle(""); // Set the title to an empty string
 
