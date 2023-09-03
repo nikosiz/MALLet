@@ -45,20 +45,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="10dp" />
 
-            <HorizontalScrollView
-                android:id="@+id/view_set_hsv"
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPager"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="10dp">
-
-                <LinearLayout
-                    android:id="@+id/view_set_hsv_ll"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                </LinearLayout>
-            </HorizontalScrollView>
+                android:layout_height="match_parent" />
 
             <View
                 android:layout_width="match_parent"
@@ -106,16 +96,38 @@
                         android:layout_marginStart="10dp"
                         android:text="user_name"
                         android:textColor="@color/danube_blue_800" />
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="20dp"
+                        android:layout_marginHorizontal="10dp"
+                        android:background="@color/danube_blue_200" />
+
+                    <TextView
+                        android:id="@+id/view_set_terms_tv"
+                        style="@style/BasicTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="terms"
+                        android:textColor="@color/danube_blue_400" />
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
 
                 <Button
                     android:id="@+id/view_set_flashcards"
                     style="@style/BasicButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="flashcards"
+                    android:text="Flashcards"
                     android:textSize="15sp"
                     app:backgroundTint="@null" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
 
                 <Button
                     android:id="@+id/view_set_learn"
@@ -126,6 +138,10 @@
                     android:textSize="15sp"
                     app:backgroundTint="@null" />
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
                 <Button
                     android:id="@+id/view_set_test"
                     style="@style/BasicButtonStyle"
@@ -135,6 +151,10 @@
                     android:textSize="15sp"
                     app:backgroundTint="@null" />
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
                 <Button
                     android:id="@+id/view_set_match"
                     style="@style/BasicButtonStyle"
@@ -143,6 +163,8 @@
                     android:text="match"
                     android:textSize="15sp"
                     app:backgroundTint="@null" />
+
+
             </LinearLayout>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

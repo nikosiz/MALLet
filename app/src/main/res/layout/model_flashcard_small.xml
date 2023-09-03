@@ -1,8 +1,8 @@
-<!-- res/layout/card_folder.xml -->
+<!-- res/layout/card_group.xml -->
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/tools"
-    android:id="@+id/model_flashcard_small_cv"
+    android:id="@+id/model_model_small_card_view"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_margin="5dp"
@@ -16,49 +16,42 @@
     card_view:strokeColor="@color/danube_blue_800">
 
     <LinearLayout
-        android:id="@+id/model_flashcard_small_ll"
+        android:id="@+id/model_small_model_cv_ll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="100dp">
 
         <TextView
-            android:id="@+id/model_flashcard_small_word_tv"
+            android:id="@+id/model_small_word"
             style="@style/BasicTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="50dp"
+            android:layout_marginStart="5dp"
             android:autoSizeMaxTextSize="25sp"
             android:autoSizeMinTextSize="15sp"
             android:autoSizeStepGranularity="2sp"
             android:autoSizeTextType="uniform"
-            android:gravity="center"
             android:singleLine="true"
-            android:text="flashcard_word"
-            android:textColor="@color/danube_blue_900"
+            android:text="word"
+            android:textColor="@color/danube_blue_800"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/model_flashcard_small_definition_tv"
+            android:id="@+id/model_small_translation"
             style="@style/BasicTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="50dp"
+            android:layout_marginStart="5dp"
             android:autoSizeMaxTextSize="25sp"
-
             android:autoSizeMinTextSize="15sp"
             android:autoSizeStepGranularity="2sp"
             android:autoSizeTextType="uniform"
-            android:gravity="center"
             android:singleLine="true"
-            android:text="flashcard_definition"
-            android:textColor="@color/danube_blue_900"
+            android:text="translation"
+            android:textColor="@color/danube_blue_800"
             android:textSize="20sp"
             android:visibility="gone" />
-
     </LinearLayout>
 </androidx.cardview.widget.CardView>

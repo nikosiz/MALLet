@@ -67,6 +67,7 @@ public class FragmentHome extends Fragment {
                 Map<String, Object> dataMap = new HashMap<>();
                 dataMap.put("set_name", learningSet.getLearningSetName());
                 dataMap.put("set_creator", learningSet.getLearningSetCreator());
+                dataMap.put("set_terms", learningSet.getLearningSetTerms());
                 //dataMap.put("set_word", learningSet.getLearningSetWord());
                 //dataMap.put("set_definition", learningSet.getLearningSetDefinition());
                 Intent intent = new Intent(getContext(), ActivityViewLearningSet.class);
@@ -147,11 +148,11 @@ public class FragmentHome extends Fragment {
 
     private List<ModelLearningSet> getHomeLearningSetList() {
         List<ModelLearningSet> learningSetList = new ArrayList<>();
-        learningSetList.add(new ModelLearningSet("Set #1", "102", "user123", "Apple", "Jabłko"));
-        learningSetList.add(new ModelLearningSet("Set #2", "144", "user123", "Apple", "Jabłko"));
-        learningSetList.add(new ModelLearningSet("Set #3", "256", "user123", "Apple", "Jabłko"));
-        learningSetList.add(new ModelLearningSet("Set #4", "138", "user123", "Apple", "Jabłko"));
-        learningSetList.add(new ModelLearningSet("Set #5", "101", "user123", "Apple", "Jabłko"));
+        learningSetList.add(new ModelLearningSet("Set #1", "102", "user123", 566));
+        learningSetList.add(new ModelLearningSet("Set #2", "144", "user123", 915));
+        learningSetList.add(new ModelLearningSet("Set #3", "256", "user123", 684));
+        learningSetList.add(new ModelLearningSet("Set #4", "138", "user123", 694));
+        learningSetList.add(new ModelLearningSet("Set #5", "101", "user123", 354));
         return learningSetList;
     }
 
