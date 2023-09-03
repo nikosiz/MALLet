@@ -6,15 +6,15 @@ import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.mallet.databinding.ActivityEditSetBinding;
+import com.example.mallet.databinding.ActivityEditLearningSetBinding;
 
-public class ActivityEditSet extends AppCompatActivity {
-    private ActivityEditSetBinding binding;
+public class ActivityEditLearningSet extends AppCompatActivity {
+    private ActivityEditLearningSetBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityEditSetBinding.inflate(getLayoutInflater());
+        binding = ActivityEditLearningSetBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Initialize and set up the toolbar

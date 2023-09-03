@@ -144,7 +144,7 @@ public class ActivityMain extends AppCompatActivity {
     }
 
     private void createSetAndOpenEditActivity(Dialog dialog) {
-        Intent intent = new Intent(this, ActivityEditSet.class);
+        Intent intent = new Intent(this, ActivityEditLearningSet.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
         FrontendUtils.showToast(this, "Here you can add vocabulary to your new set... In the future... With backend...");

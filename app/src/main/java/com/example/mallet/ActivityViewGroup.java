@@ -29,6 +29,18 @@ public class ActivityViewGroup extends AppCompatActivity {
         getGroupData();
     }
 
+    private void setupToolbar() {
+        Toolbar toolbar = findViewById(R.id.group_management_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(""); // Set the title to an empty string
+
+        // Display back arrow on the toolbar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+    }
+
     private void setupListeners() {
         binding.groupManagementOptionsBtn.setOnClickListener(v -> showOptions());
     }
@@ -71,18 +83,6 @@ public class ActivityViewGroup extends AppCompatActivity {
         // TODO
         FrontendUtils.showToast(this, "You left the group");
 
-    }
-
-    private void setupToolbar() {
-        Toolbar toolbar = findViewById(R.id.group_management_toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(""); // Set the title to an empty string
-
-        // Display back arrow on the toolbar
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
     }
 
     private void getGroupData() {

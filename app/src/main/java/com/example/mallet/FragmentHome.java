@@ -39,6 +39,13 @@ public class FragmentHome extends Fragment {
         return view;
     }
 
+    private void setupClickListeners(FragmentHomeBinding binding) {
+        binding.homeButton.setOnClickListener(v -> startViewSetActivity());
+        binding.homeLearningSetViewAllTv.setOnClickListener(v -> showAllLearningSets());
+        binding.homeFolderViewAllTv.setOnClickListener(v -> showAllFolders());
+        binding.homeGroupViewAllTv.setOnClickListener(v -> showAllGroups());
+    }
+
     private void displaySets(List<ModelLearningSet> learningSetList, FragmentHomeBinding binding, LayoutInflater inflater) {
         for (ModelLearningSet learningSet : learningSetList) {
             View learningSetItemView = inflater.inflate(R.layout.model_learning_set, binding.homeLearningSetLl, false);
@@ -57,9 +64,13 @@ public class FragmentHome extends Fragment {
 
             // Set click listener for the learningSetItemView
             learningSetItemView.setOnClickListener(v -> {
-                // Open the SetManagement activity and pass the set name as an extra
+                Map<String, Object> dataMap = new HashMap<>();
+                dataMap.put("set_name", learningSet.getLearningSetName());
+                dataMap.put("set_creator", learningSet.getLearningSetCreator());
+                //dataMap.put("set_word", learningSet.getLearningSetWord());
+                //dataMap.put("set_definition", learningSet.getLearningSetDefinition());
                 Intent intent = new Intent(getContext(), ActivityViewLearningSet.class);
-                intent.putExtra("set_name", learningSet.getLearningSetName());
+                passDataToActivity(intent, dataMap);
                 startActivity(intent);
             });
         }
@@ -117,14 +128,6 @@ public class FragmentHome extends Fragment {
         }
     }
 
-
-    private void setupClickListeners(FragmentHomeBinding binding) {
-        binding.homeButton.setOnClickListener(v -> startLearnActivity());
-        binding.homeLearningSetViewAllTv.setOnClickListener(v -> showAllLearningSets());
-        binding.homeFolderViewAllTv.setOnClickListener(v -> showAllFolders());
-        binding.homeGroupViewAllTv.setOnClickListener(v -> showAllGroups());
-    }
-
     private void showAllGroups() {
         // TODO: Here should open UserLibraryFragment with Groups tab selected
         FrontendUtils.showToast(getContext(), "Here should open UserLibraryFragment with Groups tab selected");
@@ -144,11 +147,11 @@ public class FragmentHome extends Fragment {
 
     private List<ModelLearningSet> getHomeLearningSetList() {
         List<ModelLearningSet> learningSetList = new ArrayList<>();
-        learningSetList.add(new ModelLearningSet("Set #1", "102", "user123"));
-        learningSetList.add(new ModelLearningSet("Set #2", "144", "user123"));
-        learningSetList.add(new ModelLearningSet("Set #3", "256", "user123"));
-        learningSetList.add(new ModelLearningSet("Set #4", "138", "user123"));
-        learningSetList.add(new ModelLearningSet("Set #5", "101", "user123"));
+        learningSetList.add(new ModelLearningSet("Set #1", "102", "user123", "Apple", "Jabłko"));
+        learningSetList.add(new ModelLearningSet("Set #2", "144", "user123", "Apple", "Jabłko"));
+        learningSetList.add(new ModelLearningSet("Set #3", "256", "user123", "Apple", "Jabłko"));
+        learningSetList.add(new ModelLearningSet("Set #4", "138", "user123", "Apple", "Jabłko"));
+        learningSetList.add(new ModelLearningSet("Set #5", "101", "user123", "Apple", "Jabłko"));
         return learningSetList;
     }
 
@@ -172,8 +175,8 @@ public class FragmentHome extends Fragment {
         return groupList;
     }
 
-    private void startLearnActivity() {
-        Intent intent = new Intent(getContext(), ActivityLearn.class);
+    private void startViewSetActivity() {
+        Intent intent = new Intent(getContext(), ActivityViewLearningSet.class);
         startActivity(intent);
     }
 

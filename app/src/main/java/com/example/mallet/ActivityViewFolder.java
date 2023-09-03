@@ -41,10 +41,6 @@ public class ActivityViewFolder extends AppCompatActivity {
         getFolderData();
     }
 
-    private void setupListeners() {
-        binding.viewFolderOptionsBtn.setOnClickListener(v -> showOptions());
-    }
-
     private void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.view_folder_toolbar);
         setSupportActionBar(toolbar);
@@ -55,6 +51,10 @@ public class ActivityViewFolder extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
+    }
+
+    private void setupListeners() {
+        binding.viewFolderOptionsBtn.setOnClickListener(v -> showOptions());
     }
 
     private void showOptions() {
@@ -158,17 +158,5 @@ public class ActivityViewFolder extends AppCompatActivity {
                 folderSetsTV.setText(folderSets + " sets");
             }
         }
-    }
-
-    private Dialog createDialog(int layoutResId) {
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(layoutResId);
-
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
-
-        return dialog;
     }
 }

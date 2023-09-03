@@ -5,10 +5,20 @@ public class ModelLearningSet {
     private String learningSetCreator;
     private String learningSetTerms;
 
-    public ModelLearningSet(String learningSetName, String learningSetTerms, String learningSetCreator) {
+    // TODO: update this to be a list of words, now it's just for test
+    private String learningSetWord;
+    private String learningSetDefinition;
+
+
+    public ModelLearningSet(String learningSetName,
+                            String learningSetTerms,
+                            String learningSetCreator,
+                            String learningSetWord, String learningSetDefinition) {
         this.learningSetName = learningSetName;
         this.learningSetCreator = learningSetCreator;
         this.learningSetTerms = learningSetTerms;
+        this.learningSetWord = learningSetWord;
+        this.learningSetDefinition = learningSetDefinition;
     }
 
     public String getLearningSetName() {
@@ -33,5 +43,21 @@ public class ModelLearningSet {
 
     public void setLearningSetCreator(String learningSetCreator) {
         this.learningSetCreator = learningSetCreator;
+    }
+
+    public String getLearningSetWord() {
+        return learningSetWord;
+    }
+
+    public void setLearningSetWord(String learningSetWord) {
+        this.learningSetWord = learningSetWord;
+    }
+
+    public String getLearningSetDefinition() {
+        return learningSetDefinition;
+    }
+
+    public void setLearningSetDefinition(String learningSetDefinition) {
+        this.learningSetDefinition = learningSetDefinition;
     }
 }
