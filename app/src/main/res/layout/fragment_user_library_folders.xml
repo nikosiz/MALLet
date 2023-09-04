@@ -7,10 +7,25 @@
     tools:context=".FragmentUserLibraryFolders">
 
     <LinearLayout
-        android:id="@+id/your_library_folders_ll"
+        android:id="@+id/user_library_folders"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingHorizontal="20dp" />
+        android:paddingHorizontal="20dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <LinearLayout
+            android:id="@+id/user_library_folders_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+    </LinearLayout>
 
 </ScrollView>

@@ -34,7 +34,7 @@ public class AdapterGroup extends RecyclerView.Adapter<AdapterGroup.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ModelGroup group = groupList.get(position);
 
-        holder.groupNameTv.setText(group.getGroupName());
+        holder.groupNameTV.setText(group.getGroupName());
 
         // Set a click listener for the group item
         holder.itemView.setOnClickListener(view -> {
@@ -50,11 +50,11 @@ public class AdapterGroup extends RecyclerView.Adapter<AdapterGroup.ViewHolder> 
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView groupNameTv;
+        TextView groupNameTV;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            groupNameTv = itemView.findViewById(R.id.group_model_name_tv);
+            groupNameTV = itemView.findViewById(R.id.group_model_name_tv);
         }
     }
 

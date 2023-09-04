@@ -35,8 +35,8 @@ public class AdapterFolder extends RecyclerView.Adapter<AdapterFolder.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ModelFolder folder = folderList.get(position);
 
-        holder.folderOwnerTv.setText(folder.getFolderCreator());
-        holder.folderNameTv.setText(folder.getFolderName());
+        holder.folderOwnerTV.setText(folder.getFolderCreator());
+        holder.folderNameTV.setText(folder.getFolderName());
 
         // Set a click listener for the group item
         holder.itemView.setOnClickListener(view -> {
@@ -53,13 +53,13 @@ public class AdapterFolder extends RecyclerView.Adapter<AdapterFolder.ViewHolder
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView folderOwnerTv;
-        TextView folderNameTv;
+        TextView folderOwnerTV;
+        TextView folderNameTV;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            folderOwnerTv = itemView.findViewById(R.id.folder_model_creator_tv);
-            folderNameTv = itemView.findViewById(R.id.folder_model_name_tv);
+            folderOwnerTV = itemView.findViewById(R.id.folder_model_creator_tv);
+            folderNameTV = itemView.findViewById(R.id.folder_model_name_tv);
         }
     }
 

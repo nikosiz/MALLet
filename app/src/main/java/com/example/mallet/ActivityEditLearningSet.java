@@ -26,7 +26,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
     // Initialize and set up the toolbar with back arrow functionality.
     private void setupToolbar() {
-        Toolbar toolbar = findViewById(R.id.edit_set_toolbar);
+        Toolbar toolbar = binding.editSetToolbar;
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle(""); // Set the title to an empty string
 
@@ -38,7 +38,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     }
 
     private void setupClickListeners() {
-        binding.editSetOptionsBtn.setOnClickListener(v -> createSet());
+        binding.editSetOptionsIv.setOnClickListener(v -> createSet());
 
     }
 

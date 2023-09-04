@@ -84,9 +84,9 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             String setCreator = intent.getStringExtra("set_creator");
             String setTerms = intent.getStringExtra("set_terms");
 
-            TextView setNameTV = findViewById(R.id.view_set_name_tv);
-            TextView setCreatorTV = findViewById(R.id.view_set_creator_tv);
-            TextView setTermsTV = findViewById(R.id.view_set_terms_tv);
+            TextView setNameTV = binding.viewSetNameTv;
+            TextView setCreatorTV = binding.viewSetCreatorTv;
+            TextView setTermsTV = binding.viewSetTermsTv;
 
             if (setName != null) {
                 setNameTV.setText(setName);

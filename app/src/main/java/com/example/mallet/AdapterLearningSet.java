@@ -37,9 +37,9 @@ public class AdapterLearningSet extends RecyclerView.Adapter<AdapterLearningSet.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ModelLearningSet learningSet = learningSetList.get(position);
 
-        holder.learningSetNameTv.setText(learningSet.getLearningSetName());
-        holder.learningSetCreatorTv.setText(learningSet.getLearningSetCreator());
-        holder.learningSetTermsTv.setText(learningSet.getLearningSetTerms() + " terms");
+        holder.learningSetNameTV.setText(learningSet.getLearningSetName());
+        holder.learningSetCreatorTV.setText(learningSet.getLearningSetCreator());
+        holder.learningSetTermsTV.setText(learningSet.getLearningSetTerms() + " terms");
 
         // Set a click listener for the group item
         holder.itemView.setOnClickListener(view -> {
@@ -55,15 +55,15 @@ public class AdapterLearningSet extends RecyclerView.Adapter<AdapterLearningSet.
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView learningSetNameTv;
-        TextView learningSetCreatorTv;
-        TextView learningSetTermsTv;
+        TextView learningSetNameTV;
+        TextView learningSetCreatorTV;
+        TextView learningSetTermsTV;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            learningSetNameTv = itemView.findViewById(R.id.learning_set_model_name_tv);
-            learningSetCreatorTv = itemView.findViewById(R.id.learning_set_model_creator_tv);
-            learningSetTermsTv = itemView.findViewById(R.id.learning_set_model_terms_tv);
+            learningSetNameTV = itemView.findViewById(R.id.learning_set_model_name_tv);
+            learningSetCreatorTV = itemView.findViewById(R.id.learning_set_model_creator_tv);
+            learningSetTermsTV = itemView.findViewById(R.id.learning_set_model_terms_tv);
         }
     }
 

@@ -27,8 +27,8 @@ public class AdapterFlashcardSmall extends RecyclerView.Adapter<AdapterFlashcard
     @Override
     public void onBindViewHolder(@NonNull FlashcardViewHolder holder, int position) {
         ModelFlashcardSmall flashcard = flashcards.get(position);
-        holder.WordTV.setText(flashcard.getWord());
-        holder.TranslationTV.setText(flashcard.getTranslation());
+        holder.wordTV.setText(flashcard.getWord());
+        holder.translationTV.setText(flashcard.getTranslation());
     }
 
     @Override
@@ -37,13 +37,13 @@ public class AdapterFlashcardSmall extends RecyclerView.Adapter<AdapterFlashcard
     }
 
     static class FlashcardViewHolder extends RecyclerView.ViewHolder {
-        final TextView WordTV;
-        final TextView TranslationTV;
+        final TextView wordTV;
+        final TextView translationTV;
 
         FlashcardViewHolder(View itemView) {
             super(itemView);
-            WordTV = itemView.findViewById(R.id.model_small_word);
-            TranslationTV = itemView.findViewById(R.id.model_small_translation);
+            wordTV = itemView.findViewById(R.id.model_small_word);
+            translationTV = itemView.findViewById(R.id.model_small_translation);
         }
     }
 }

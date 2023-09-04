@@ -12,51 +12,50 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.mallet.databinding.ActivityOpeningBinding;
 
 public class ActivityOpening extends AppCompatActivity {
+    private ActivityOpeningBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        com.example.mallet.databinding.ActivityOpeningBinding binding = com.example.mallet.databinding.ActivityOpeningBinding.inflate(getLayoutInflater());
+        binding = ActivityOpeningBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setupLoginButton();
         setupSignUpButton();
         setupNoLogInButton();
+        setupAnimatedLogo();
+    }
 
-        // Initialize views
-        TextView pulsatingTextView = findViewById(R.id.choose_logo_tv);
-
-        // Apply pulsating animation to logo
-        Animation pulsateAnimation = AnimationUtils.loadAnimation(this, R.anim.pulse_anim);
-        pulsatingTextView.startAnimation(pulsateAnimation);
+    private void setupAnimatedLogo() {
+        TextView logoTV = binding.chooseLogoTv;
+        Animation pulseAnimation = AnimationUtils.loadAnimation(this, R.anim.pulse_anim);
+        logoTV.startAnimation(pulseAnimation);
     }
 
     private void setupLoginButton() {
-        Button logInButton = findViewById(R.id.choose_log_in_btn);
+        Button logInButton = binding.chooseLogInBtn;
         logInButton.setOnClickListener(v -> {
-            // Open LogInActivity
             Intent intent = new Intent(ActivityOpening.this, ActivityLogIn.class);
             startActivity(intent);
         });
     }
 
     private void setupSignUpButton() {
-        Button signUpButton = findViewById(R.id.choose_sign_up_btn);
+        Button signUpButton = binding.chooseSignUpBtn;
         signUpButton.setOnClickListener(v -> {
-            // Open SignUpActivity
             Intent intent = new Intent(ActivityOpening.this, ActivitySignUp.class);
             startActivity(intent);
         });
     }
 
+    // TODO: Delete when log in and sign up are handled
     private void setupNoLogInButton() {
-        Button noLogInButton = findViewById(R.id.choose_no_log_in_btn);
+        Button noLogInButton = binding.chooseNoLogInBtn;
         noLogInButton.setOnClickListener(v -> {
-            // Open MainActivity
             Intent intent = new Intent(ActivityOpening.this, ActivityMain.class);
             startActivity(intent);
         });
     }
 
-    
+
 }

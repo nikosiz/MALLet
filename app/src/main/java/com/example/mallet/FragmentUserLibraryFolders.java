@@ -19,25 +19,25 @@ public class FragmentUserLibraryFolders extends Fragment implements AdapterFolde
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_user_library_folders, container, false);
+        binding = FragmentUserLibraryFoldersBinding.inflate(inflater, container, false);
 
-        LinearLayout yourLibraryFoldersLl = view.findViewById(R.id.your_library_folders_ll); // Change to LinearLayout
-        List<ModelFolder> yourLibraryFoldersList = getYourLibraryFoldersList();
+        LinearLayout userLibraryFoldersLl = binding.userLibraryFoldersLl; // Change to LinearLayout
+        List<ModelFolder> userLibraryFoldersList = getUserLibraryFoldersList();
 
-        for (ModelFolder folder : yourLibraryFoldersList) {
-            View folderItemView = inflater.inflate(R.layout.model_folder, yourLibraryFoldersLl, false);
+        for (ModelFolder folder : userLibraryFoldersList) {
+            View folderItemView = inflater.inflate(R.layout.model_folder, userLibraryFoldersLl, false);
 
-            TextView folderNameTextView = folderItemView.findViewById(R.id.folder_model_name_tv);
-            folderNameTextView.setText(folder.getFolderName());
+            TextView folderNameTV = folderItemView.findViewById(R.id.folder_model_name_tv);
+            folderNameTV.setText(folder.getFolderName());
 
             // Add folderItemView to the linearLayout
-            yourLibraryFoldersLl.addView(folderItemView);
+            userLibraryFoldersLl.addView(folderItemView);
         }
 
-        return view;
+        return binding.getRoot();
     }
 
-    private List<ModelFolder> getYourLibraryFoldersList() {
+    private List<ModelFolder> getUserLibraryFoldersList() {
         List<ModelFolder> folderList = new ArrayList<>();
         folderList.add(new ModelFolder("Folder #1", "user123", "3"));
         folderList.add(new ModelFolder("Folder #2", "user123", "7"));
@@ -48,6 +48,6 @@ public class FragmentUserLibraryFolders extends Fragment implements AdapterFolde
     }
 
     public void onFolderClick(ModelFolder folder) {
-        FrontendUtils.showToast(getContext(),"ASDF");
+        FrontendUtils.showToast(getContext(), "ASDF");
     }
 }

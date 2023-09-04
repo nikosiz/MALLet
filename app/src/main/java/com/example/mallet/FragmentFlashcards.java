@@ -38,12 +38,12 @@ public class FragmentFlashcards extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentFlashcardsBinding.inflate(inflater, container, false);
-        View view = binding.getRoot();
 
         setupCardStackView();
         setupSwipeButtons();
         setupToolbar();
-        return view;
+
+        return binding.getRoot();
     }
 
     private void setupToolbar() {
@@ -106,14 +106,14 @@ public class FragmentFlashcards extends Fragment {
 
             @Override
             public void onCardAppeared(View view, int position) {
-                TextView tv = view.findViewById(R.id.flashcard_word);
-                // Log.d(TAG, "onCardAppeared: " + position + ", word: " + tv.getText());
+                TextView wordTV = view.findViewById(R.id.flashcard_word);
+                // Log.d(TAG, "onCardAppeared: " + position + ", word: " + wordTV.getText());
             }
 
             @Override
             public void onCardDisappeared(View view, int position) {
-                TextView tv = view.findViewById(R.id.flashcard_word);
-                // Log.d(TAG, "onCardDisappeared: " + position + ", word: " + tv.getText());
+                TextView wordTV = view.findViewById(R.id.flashcard_word);
+                // Log.d(TAG, "onCardDisappeared: " + position + ", word: " + wordTV.getText());
             }
         });
 

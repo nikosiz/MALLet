@@ -31,7 +31,7 @@ public class ActivityViewGroup extends AppCompatActivity {
     }
 
     private void setupToolbar() {
-        Toolbar toolbar = findViewById(R.id.group_management_toolbar);
+        Toolbar toolbar = binding.groupManagementToolbar;
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle(""); // Set the title to an empty string
 
@@ -94,8 +94,8 @@ public class ActivityViewGroup extends AppCompatActivity {
             String groupName = intent.getStringExtra("group_name");
             String groupSets = intent.getStringExtra("group_sets");
 
-            TextView groupNameTV = findViewById(R.id.group_management_name);
-            TextView groupSetsTV = findViewById(R.id.group_management_sets);
+            TextView groupNameTV = binding.groupManagementName;
+            TextView groupSetsTV = binding.groupManagementSets;
 
             if (groupName != null) {
                 groupNameTV.setText(groupName);

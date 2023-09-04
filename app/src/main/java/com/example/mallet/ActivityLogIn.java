@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mallet.databinding.ActivityLogInBinding;
+import com.example.mallet.databinding.DialogForgotPasswordBinding;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;
@@ -35,14 +37,14 @@ public class ActivityLogIn extends AppCompatActivity {
         setupClickListeners();
 
         // Initialize views
-        TextView pulsatingTextView = binding.logInLogo;
+        TextView pulsatingTV = binding.logInLogo;
         TextInputEditText editTextEmail = binding.logInEmailEt;
         TextView textViewError = binding.logInErrorTv;
         TextView forgotPassword = binding.logInForgotPasswordTv;
 
         // Apply pulsating animation to logo
-        Animation pulsateAnimation = AnimationUtils.loadAnimation(this, R.anim.pulse_anim);
-        pulsatingTextView.startAnimation(pulsateAnimation);
+        Animation pulseAnimation = AnimationUtils.loadAnimation(this, R.anim.pulse_anim);
+        pulsatingTV.startAnimation(pulseAnimation);
 
         // Validate email on focus change
         editTextEmail.setOnFocusChangeListener((v, hasFocus) -> {
@@ -52,7 +54,7 @@ public class ActivityLogIn extends AppCompatActivity {
         });
 
         // Handle forgot password click
-        forgotPassword.setOnClickListener(v -> forgotPassword());
+        forgotPassword.setOnClickListener(v -> forgotPasswordDialog());
     }
 
     // Validate email format
@@ -64,10 +66,11 @@ public class ActivityLogIn extends AppCompatActivity {
         }
     }
 
-    private void forgotPassword() {
+    private void forgotPasswordDialog() {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_forgot_password);
+        DialogForgotPasswordBinding binding = DialogForgotPasswordBinding.inflate(LayoutInflater.from(this));
+        dialog.setContentView(binding.getRoot());
 
         dialog.show();
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -75,16 +78,16 @@ public class ActivityLogIn extends AppCompatActivity {
         dialog.getWindow().setGravity(Gravity.BOTTOM);
 
         // Find and set up cancel and confirm buttons
-        TextView cancelBtn = dialog.findViewById(R.id.forgot_password_cancel_btn);
-        TextView confirmBtn = dialog.findViewById(R.id.forgot_password_confirm_btn);
+        TextView cancelBtn = binding.forgotPasswordCancelBtn;
+        TextView confirmBtn = binding.forgotPasswordConfirmBtn;
 
         cancelBtn.setOnClickListener(v -> dialog.dismiss());
 
         confirmBtn.setOnClickListener(v -> {
-            TextView emptyEmailError = dialog.findViewById(R.id.forgot_password_empty_error_tv);
-            TextView doesNotExistError = dialog.findViewById(R.id.forgot_password_does_not_exist_error_tv);
-            TextView validError = dialog.findViewById(R.id.forgot_password_provide_valid_error_tv);
-            TextInputEditText emailEditText = dialog.findViewById(R.id.forgot_password_new_et);
+            TextView emptyEmailError = binding.forgotPasswordEmptyErrorTv;
+            TextView doesNotExistError = binding.forgotPasswordDoesNotExistErrorTv;
+            TextView validError = binding.forgotPasswordProvideValidErrorTv;
+            TextInputEditText emailEditText = binding.forgotPasswordNewEt;
 
             String email = Objects.requireNonNull(emailEditText.getText()).toString();
 
@@ -111,16 +114,16 @@ public class ActivityLogIn extends AppCompatActivity {
                 }*/
                 // Hide errors, close the dialog, and show toast
 
-                FrontendUtils.showToast(this,"OK button was clicked. The email with reset link be sent but there is no backend yet.");
+                FrontendUtils.showToast(this, "OK button was clicked. The email with reset link be sent but there is no backend yet.");
                 dialog.dismiss();
             }
         });
     }
 
     private void setupClickListeners() {
-        binding.logInConfirmBtn.setOnClickListener(v -> FrontendUtils.showToast(this,"Log in button was clicked"));
-        binding.logInGoogleBtn.setOnClickListener(v -> FrontendUtils.showToast(this,"Log in with Google button was clicked"));
-        binding.logInFacebookBtn.setOnClickListener(v -> FrontendUtils.showToast(this,"Log in with Facebook button was clicked"));
+        binding.logInConfirmBtn.setOnClickListener(v -> FrontendUtils.showToast(this, "Log in button was clicked"));
+        binding.logInGoogleBtn.setOnClickListener(v -> FrontendUtils.showToast(this, "Log in with Google button was clicked"));
+        binding.logInFacebookBtn.setOnClickListener(v -> FrontendUtils.showToast(this, "Log in with Facebook button was clicked"));
         binding.signUpBtn.setOnClickListener(v -> signUpRedirect());
     }
 
@@ -130,7 +133,7 @@ public class ActivityLogIn extends AppCompatActivity {
     }
 
     // Show a toast message
-    
+
 
     @Override
     public void onBackPressed() {

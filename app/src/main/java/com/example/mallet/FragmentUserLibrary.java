@@ -25,14 +25,11 @@ public class FragmentUserLibrary extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_user_library, container, false);
+        binding = FragmentUserLibraryBinding.inflate(inflater, container, false);
 
+        ViewPager2 viewPager = binding.userLibraryViewPager;
+        TabLayout tabLayout = binding.userLibraryTabLayout;
 
-        ViewPager2 viewPager = view.findViewById(R.id.your_library_view_pager);
-        TabLayout tabLayout = view.findViewById(R.id.your_library_tab_layout);
-
-
-        // Create a FragmentStateAdapter
         FragmentStateAdapter adapter = new FragmentStateAdapter(getChildFragmentManager(), getLifecycle()) {
             @Override
             public int getItemCount() {
@@ -65,16 +62,16 @@ public class FragmentUserLibrary extends Fragment {
 
             // Customize the text size for each tab
             for (int i = 0; i < tabLayout.getTabCount(); i++) {
-                TextView tabTextView = (TextView) LayoutInflater.from(requireContext())
+                TextView tabTV = (TextView) LayoutInflater.from(requireContext())
                         // TODO: Fix the null problem
                         .inflate(R.layout.tab_text, null); // Use the layout used internally by TabLayout
-                tabTextView.setText(Objects.requireNonNull(tabLayout.getTabAt(i)).getText());
-                tabTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15); // Adjust the size as needed
-                Objects.requireNonNull(tabLayout.getTabAt(i)).setCustomView(tabTextView);
+                tabTV.setText(Objects.requireNonNull(tabLayout.getTabAt(i)).getText());
+                tabTV.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15); // Adjust the size as needed
+                Objects.requireNonNull(tabLayout.getTabAt(i)).setCustomView(tabTV);
 
-                ViewGroup.LayoutParams layoutParams = tabTextView.getLayoutParams();
+                ViewGroup.LayoutParams layoutParams = tabTV.getLayoutParams();
                 layoutParams.width = 200;
-                tabTextView.setLayoutParams(layoutParams);
+                tabTV.setLayoutParams(layoutParams);
             }
         });
 
@@ -85,8 +82,6 @@ public class FragmentUserLibrary extends Fragment {
                 }
         ).attach();
 
-        return view;
-
+        return binding.getRoot();
     }
-
 }

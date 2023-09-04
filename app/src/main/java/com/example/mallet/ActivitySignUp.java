@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.mallet.databinding.ActivityMainBinding;
 import com.example.mallet.databinding.ActivitySignUpBinding;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -19,21 +20,23 @@ import java.util.Objects;
 
 public class ActivitySignUp extends AppCompatActivity {
 
+    ActivitySignUpBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        com.example.mallet.databinding.ActivitySignUpBinding binding = com.example.mallet.databinding.ActivitySignUpBinding.inflate(getLayoutInflater());
+        binding = ActivitySignUpBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setupLogInField();
 
         // Initialize views
-        TextInputEditText editTextEmail = findViewById(R.id.sign_up_email_et);
-        TextView textViewError = findViewById(R.id.sign_up_error_tv);
-        Button confirmLogIn = findViewById(R.id.sign_up_confirm_btn);
-        TextView pulsatingTextView = findViewById(R.id.sign_up_logo);
-        Animation pulsateAnimation = AnimationUtils.loadAnimation(this, R.anim.pulse_anim);
-        pulsatingTextView.startAnimation(pulsateAnimation);
+        TextInputEditText editTextEmail = binding.signUpEmailEt;
+        TextView textViewError = binding.signUpErrorTv;
+        Button confirmLogIn = binding.signUpConfirmBtn;
+        TextView pulsatingTV = binding.signUpLogo;
+        Animation pulseAnimation = AnimationUtils.loadAnimation(this, R.anim.pulse_anim);
+        pulsatingTV.startAnimation(pulseAnimation);
 
         // Validate email on focus change
         editTextEmail.setOnFocusChangeListener((v, hasFocus) -> {
@@ -50,16 +53,16 @@ public class ActivitySignUp extends AppCompatActivity {
     }
 
     // Validate email format
-    private void validateEmail(String email, TextView errorTextView) {
+    private void validateEmail(String email, TextView errorTV) {
         if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            errorTextView.setVisibility(View.GONE);
+            errorTV.setVisibility(View.GONE);
         } else {
-            errorTextView.setVisibility(View.VISIBLE);
+            errorTV.setVisibility(View.VISIBLE);
         }
     }
 
     private void setupLogInField() {
-        TextView signUp = findViewById(R.id.log_in_btn);
+        TextView signUp = binding.logInBtn;
 
         signUp.setOnClickListener(v -> {
             Intent intent = new Intent(ActivitySignUp.this, ActivityLogIn.class);

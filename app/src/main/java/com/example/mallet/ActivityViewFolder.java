@@ -37,7 +37,7 @@ public class ActivityViewFolder extends AppCompatActivity {
     }
 
     private void setupToolbar() {
-        Toolbar toolbar = findViewById(R.id.view_folder_toolbar);
+        Toolbar toolbar = binding.viewFolderToolbar;
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle(""); // Set the title to an empty string
 
@@ -143,9 +143,9 @@ public class ActivityViewFolder extends AppCompatActivity {
             String folderCreator = intent.getStringExtra("folder_creator");
             String folderSets = intent.getStringExtra("folder_sets");
 
-            TextView folderNameTV = findViewById(R.id.view_folder_name);
-            TextView folderCreatorTV = findViewById(R.id.view_folder_creator);
-            TextView folderSetsTV = findViewById(R.id.view_folder_sets);
+            TextView folderNameTV = binding.viewFolderName;
+            TextView folderCreatorTV = binding.viewFolderCreator;
+            TextView folderSetsTV = binding.viewFolderSets;
 
             if (folderName != null) {
                 folderNameTV.setText(folderName);

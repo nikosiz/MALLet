@@ -30,7 +30,9 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.mallet.databinding.ActivityMainBinding;
 import com.example.mallet.databinding.DialogCreateFolderBinding;
 import com.example.mallet.databinding.DialogCreateGroupBinding;
+import com.example.mallet.databinding.DialogCreateNewBinding;
 import com.example.mallet.databinding.DialogCreateSetBinding;
+import com.example.mallet.databinding.DialogForgotPasswordBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.textfield.TextInputEditText;
@@ -49,7 +51,6 @@ public class ActivityMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Inflate the layout using view binding
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -89,11 +90,12 @@ public class ActivityMain extends AppCompatActivity {
     private void showCreateNewDialog() {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        DialogCreateNewBinding binding = DialogCreateNewBinding.inflate(LayoutInflater.from(this));
         dialog.setContentView(R.layout.dialog_create_new);
 
-        LinearLayout createSet = dialog.findViewById(R.id.add_new_create_set);
-        LinearLayout createFolder = dialog.findViewById(R.id.add_new_create_folder);
-        LinearLayout createGroup = dialog.findViewById(R.id.add_new_create_group);
+        LinearLayout createSet = binding.addNewCreateSet;
+        LinearLayout createFolder = binding.addNewCreateFolder;
+        LinearLayout createGroup = binding.addNewCreateGroup;
 
         createSet.setOnClickListener(v -> {
             dialog.dismiss();
@@ -135,7 +137,7 @@ public class ActivityMain extends AppCompatActivity {
                 FrontendUtils.showItem(emptyNameError);
             } else {
                 FrontendUtils.hideItem(emptyNameError);
-                createSetAndOpenEditActivity(dialog);
+                openEditSetActivity(dialog);
                 dialog.dismiss();
             }
         });
@@ -143,7 +145,7 @@ public class ActivityMain extends AppCompatActivity {
         FrontendUtils.showDialog(dialog);
     }
 
-    private void createSetAndOpenEditActivity(Dialog dialog) {
+    private void openEditSetActivity(Dialog dialog) {
         Intent intent = new Intent(this, ActivityEditLearningSet.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
@@ -170,7 +172,7 @@ public class ActivityMain extends AppCompatActivity {
                 FrontendUtils.showItem(emptyNameError);
             } else {
                 FrontendUtils.hideItem(emptyNameError);
-                createFolderAndOpenEditActivity(dialog);
+                openViewFolderActivity(dialog);
                 dialog.dismiss();
             }
         });
@@ -178,7 +180,7 @@ public class ActivityMain extends AppCompatActivity {
         FrontendUtils.showDialog(dialog);
     }
 
-    private void createFolderAndOpenEditActivity(Dialog dialog) {
+    private void openViewFolderActivity(Dialog dialog) {
         Intent intent = new Intent(this, ActivityViewFolder.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
@@ -205,7 +207,7 @@ public class ActivityMain extends AppCompatActivity {
                 FrontendUtils.showItem(emptyNameError);
             } else {
                 FrontendUtils.hideItem(emptyNameError);
-                createGroupAndOpenEditActivity(dialog);
+                openViewGroupActivity(dialog);
                 dialog.dismiss();
             }
         });
@@ -213,18 +215,11 @@ public class ActivityMain extends AppCompatActivity {
         FrontendUtils.showDialog(dialog);
     }
 
-    private void createGroupAndOpenEditActivity(Dialog dialog) {
+    private void openViewGroupActivity(Dialog dialog) {
         Intent intent = new Intent(this, ActivityViewGroup.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
         FrontendUtils.showToast(this, "Here you can view and manage your folder... In the future... With backend...");
-    }
-
-    // Method to start a create activity and dismiss the dialog
-    private void startNewActivity(Class<?> activityClass, Dialog dialog) {
-        Intent intent = new Intent(this, activityClass);
-        dialog.dismiss();
-        startActivity(intent);
     }
 
     // Method to set icon tint for a specific item

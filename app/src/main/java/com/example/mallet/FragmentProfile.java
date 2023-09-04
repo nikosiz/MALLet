@@ -42,6 +42,7 @@ public class FragmentProfile extends Fragment {
 
     @Nullable
     @Override
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         return binding.getRoot();
@@ -80,25 +81,24 @@ public class FragmentProfile extends Fragment {
     // Show a dialog to change email address
 
     private void changeEmailDialog() {
-        //final Dialog dialog = createDialog(R.layout.dialog_change_email);
         final Dialog dialog = new Dialog(requireContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         DialogChangeEmailBinding binding = DialogChangeEmailBinding.inflate(LayoutInflater.from(requireContext()));
         dialog.setContentView(binding.getRoot());
 
-        // Find views inside the dialog layout
-        TextView cancelBtn = dialog.findViewById(R.id.change_email_cancel_btn);
-        TextView confirmBtn = dialog.findViewById(R.id.change_email_confirm_btn);
+
+        TextView cancelBtn = binding.changeEmailCancelBtn;
+        TextView confirmBtn = binding.changeEmailConfirmBtn;
 
         // Set click listeners and perform actions
         cancelBtn.setOnClickListener(v -> dialog.dismiss());
 
         confirmBtn.setOnClickListener(v -> {
-            TextView validEmailError = dialog.findViewById(R.id.change_email_provide_valid_error_tv);
-            TextView alreadyExistsError = dialog.findViewById(R.id.change_email_already_exists_error_tv);
-            TextView emptyFieldError = dialog.findViewById(R.id.change_email_empty_error_tv);
+            TextView validEmailError = binding.changeEmailProvideValidErrorTv;
+            TextView alreadyExistsError = binding.changeEmailAlreadyExistsErrorTv;
+            TextView emptyFieldError = binding.changeEmailEmptyErrorTv;
 
-            TextInputEditText newEmailEditText = dialog.findViewById(R.id.change_email_new_et);
+            TextInputEditText newEmailEditText = binding.changeEmailNewEt;
 
             String newEmail = Objects.requireNonNull(newEmailEditText.getText()).toString();
 
@@ -128,15 +128,14 @@ public class FragmentProfile extends Fragment {
 
     // Show a dialog to verify the password before certain actions
     private void verifyPasswordDialog(VerifyPasswordAction action) {
-        //final Dialog dialog = createDialog(R.layout.dialog_verify_password);
         final Dialog dialog = new Dialog(requireContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         DialogVerifyPasswordBinding binding = DialogVerifyPasswordBinding.inflate(LayoutInflater.from(requireContext()));
         dialog.setContentView(binding.getRoot());
 
         // Find views inside the dialog layout
-        TextView cancelBtn = dialog.findViewById(R.id.verify_cancel_btn);
-        TextView confirmBtn = dialog.findViewById(R.id.verify_confirm_btn);
+        TextView cancelBtn = binding.verifyCancelBtn;
+        TextView confirmBtn = binding.verifyConfirmBtn;
 
         // Cancel button click listener
         cancelBtn.setOnClickListener(v -> dialog.dismiss());
@@ -145,8 +144,8 @@ public class FragmentProfile extends Fragment {
         confirmBtn.setOnClickListener(v -> {
             // TODO
             // Process password verification
-            TextView passwordError = dialog.findViewById(R.id.verify_password_error);
-            TextInputEditText passwordEditText = dialog.findViewById(R.id.verify_password_et);
+            TextView passwordError = binding.verifyPasswordError;
+            TextInputEditText passwordEditText = binding.verifyPasswordEt;
             String password = Objects.requireNonNull(passwordEditText.getText()).toString();
 
             // Perform action based on verification and action type
@@ -162,7 +161,7 @@ public class FragmentProfile extends Fragment {
                 if (action == VerifyPasswordAction.CHANGE_EMAIL) {
                     changeEmailDialog();
                 } else if (action == VerifyPasswordAction.CHANGE_USERNAME) {
-                    changeUsername();
+                    changeUsernameDialog();
                 }
             }
         });
@@ -171,8 +170,7 @@ public class FragmentProfile extends Fragment {
         FrontendUtils.showDialog(dialog);
     }
 
-    private void changeUsername() {
-        //final Dialog dialog = createDialog(R.layout.dialog_change_username);
+    private void changeUsernameDialog() {
         final Dialog dialog = new Dialog(requireContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         DialogChangeUsernameBinding binding = DialogChangeUsernameBinding.inflate(LayoutInflater.from(requireContext()));
@@ -186,10 +184,10 @@ public class FragmentProfile extends Fragment {
         cancelBtn.setOnClickListener(v -> dialog.dismiss());
 
         confirmBtn.setOnClickListener(v -> {
-            TextView alreadyExistsError = dialog.findViewById(R.id.change_username_already_exists_error_tv);
-            TextView emptyFieldError = dialog.findViewById(R.id.change_username_empty_error_tv);
+            TextView alreadyExistsError = binding.changeUsernameAlreadyExistsErrorTv;
+            TextView emptyFieldError = binding.changeUsernameEmptyErrorTv;
 
-            TextInputEditText newUsernameEditText = dialog.findViewById(R.id.change_username_new_et);
+            TextInputEditText newUsernameEditText = binding.changeUsernameNewEt;
 
             String newUsername = Objects.requireNonNull(newUsernameEditText.getText()).toString();
 
@@ -215,25 +213,23 @@ public class FragmentProfile extends Fragment {
     }
 
     private void changePasswordDialog() {
-        //final Dialog dialog = createDialog(R.layout.dialog_change_password);
         final Dialog dialog = new Dialog(requireContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         DialogChangePasswordBinding binding = DialogChangePasswordBinding.inflate(LayoutInflater.from(requireContext()));
         dialog.setContentView(binding.getRoot());
-        // Find views inside the dialog layout
-        TextView cancelBtn = dialog.findViewById(R.id.change_password_cancel_btn);
-        TextView confirmBtn = dialog.findViewById(R.id.change_password_confirm_btn);
 
-        // Set click listeners and perform actions
+        TextView cancelBtn = binding.changePasswordCancelBtn;
+        TextView confirmBtn = binding.changePasswordConfirmBtn;
+
         cancelBtn.setOnClickListener(v -> dialog.dismiss());
 
         confirmBtn.setOnClickListener(v -> {
-            TextView oldPasswordError = dialog.findViewById(R.id.change_password_old_error_tv);
-            TextView newPasswordError = dialog.findViewById(R.id.change_password_new_error_tv);
-            TextView confirmNewPasswordError = dialog.findViewById(R.id.change_password_confirm_new_error_tv);
-            TextInputEditText oldPasswordEditText = dialog.findViewById(R.id.change_password_old_et);
-            TextInputEditText newPasswordEditText = dialog.findViewById(R.id.change_password_new_et);
-            TextInputEditText confirmNewPasswordEditText = dialog.findViewById(R.id.change_password_confirm_new_et);
+            TextView oldPasswordError = binding.changePasswordOldErrorTv;
+            TextView newPasswordError = binding.changePasswordNewErrorTv;
+            TextView confirmNewPasswordError = binding.changePasswordConfirmNewErrorTv;
+            TextInputEditText oldPasswordEditText = binding.changePasswordOldEt;
+            TextInputEditText newPasswordEditText = binding.changePasswordNewEt;
+            TextInputEditText confirmNewPasswordEditText = binding.changePasswordConfirmNewEt;
 
             String oldPassword = Objects.requireNonNull(oldPasswordEditText.getText()).toString();
             String newPassword = Objects.requireNonNull(newPasswordEditText.getText()).toString();
@@ -452,5 +448,4 @@ public class FragmentProfile extends Fragment {
         });
         FrontendUtils.showDialog(dialog);
     }
-
 }

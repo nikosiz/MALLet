@@ -3,26 +3,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentUserLibraryGroups">
+    android:orientation="vertical"
+    tools:context=".FragmentUserLibraryFolders">
 
     <LinearLayout
+        android:id="@+id/user_library_groups"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity=""
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingHorizontal="20dp">
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="20dp" />
+            android:layout_height="10dp" />
 
-        <TextView
-            style="@style/BasicTextStyle"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/user_library_groups_ll"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Here a list of started folders  is going to be displayed (looking like those in the HomeFragment). "
-            android:textSize="20sp" />
+            android:orientation="vertical" />
 
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
     </LinearLayout>
+
 </ScrollView>

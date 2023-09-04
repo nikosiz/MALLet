@@ -41,38 +41,8 @@ public class FragmentHome extends Fragment {
         AdapterLearningSet adapterSets = new AdapterLearningSet(getContext(), createSetList(), v -> startViewSetActivity());
         viewPager.setAdapter(adapterSets);
 
-        // Set a PageTransformer to achieve the scaling and centering effect
-        viewPager.setPageTransformer(new ViewPager2.PageTransformer() {
-            private static final float MIN_Y_SCALE = 0.9f;
-            private static final float MIN_X_SCALE = 0.9f;
+        viewPager.setPageTransformer((page, position) -> FrontendUtils.applySwipeTransformer(page, position));
 
-            private static final float MIN_ALPHA = 0.9f;
-
-            @Override
-            public void transformPage(@NonNull View page, float position) {
-                float absPosition = Math.abs(position);
-
-                // Center element (scale it fully)
-                if (absPosition < 1) {
-                    page.setScaleY(Math.max(MIN_Y_SCALE, 1 - absPosition));
-                    page.setScaleX(Math.max(MIN_X_SCALE, 1 - absPosition));
-                    page.setAlpha(Math.max(MIN_ALPHA, 1 - absPosition));
-                }
-                // Elements to the left
-                else if (position < 0) {
-                    page.setScaleY(MIN_Y_SCALE);
-                    page.setScaleX(MIN_X_SCALE);
-
-                    page.setAlpha(MIN_ALPHA);
-                }
-                // Elements to the right
-                else {
-                    page.setScaleY(MIN_Y_SCALE);
-                    page.setScaleX(MIN_X_SCALE);
-                    page.setAlpha(MIN_ALPHA);
-                }
-            }
-        });
     }
 
     // Create a list of flashcards (you can replace this with your actual data)
@@ -94,38 +64,7 @@ public class FragmentHome extends Fragment {
 
         viewPager.setAdapter(adapterFolders);
 
-        // Set a PageTransformer to achieve the scaling and centering effect
-        viewPager.setPageTransformer(new ViewPager2.PageTransformer() {
-            private static final float MIN_Y_SCALE = 0.9f;
-            private static final float MIN_X_SCALE = 0.9f;
-
-            private static final float MIN_ALPHA = 0.9f;
-
-            @Override
-            public void transformPage(@NonNull View page, float position) {
-                float absPosition = Math.abs(position);
-
-                // Center element (scale it fully)
-                if (absPosition < 1) {
-                    page.setScaleY(Math.max(MIN_Y_SCALE, 1 - absPosition));
-                    page.setScaleX(Math.max(MIN_X_SCALE, 1 - absPosition));
-                    page.setAlpha(Math.max(MIN_ALPHA, 1 - absPosition));
-                }
-                // Elements to the left
-                else if (position < 0) {
-                    page.setScaleY(MIN_Y_SCALE);
-                    page.setScaleX(MIN_X_SCALE);
-
-                    page.setAlpha(MIN_ALPHA);
-                }
-                // Elements to the right
-                else {
-                    page.setScaleY(MIN_Y_SCALE);
-                    page.setScaleX(MIN_X_SCALE);
-                    page.setAlpha(MIN_ALPHA);
-                }
-            }
-        });
+        viewPager.setPageTransformer((page, position) -> FrontendUtils.applySwipeTransformer(page, position));
     }
 
     // Create a list of flashcards (you can replace this with your actual data)
@@ -145,38 +84,8 @@ public class FragmentHome extends Fragment {
         AdapterGroup adapterGroups = new AdapterGroup(getContext(), createGroupList(), v -> startViewGroupActivity());
         viewPager.setAdapter(adapterGroups);
 
-        // Set a PageTransformer to achieve the scaling and centering effect
-        viewPager.setPageTransformer(new ViewPager2.PageTransformer() {
-            private static final float MIN_Y_SCALE = 0.9f;
-            private static final float MIN_X_SCALE = 0.9f;
+        viewPager.setPageTransformer((page, position) -> FrontendUtils.applySwipeTransformer(page, position));
 
-            private static final float MIN_ALPHA = 0.9f;
-
-            @Override
-            public void transformPage(@NonNull View page, float position) {
-                float absPosition = Math.abs(position);
-
-                // Center element (scale it fully)
-                if (absPosition < 1) {
-                    page.setScaleY(Math.max(MIN_Y_SCALE, 1 - absPosition));
-                    page.setScaleX(Math.max(MIN_X_SCALE, 1 - absPosition));
-                    page.setAlpha(Math.max(MIN_ALPHA, 1 - absPosition));
-                }
-                // Elements to the left
-                else if (position < 0) {
-                    page.setScaleY(MIN_Y_SCALE);
-                    page.setScaleX(MIN_X_SCALE);
-
-                    page.setAlpha(MIN_ALPHA);
-                }
-                // Elements to the right
-                else {
-                    page.setScaleY(MIN_Y_SCALE);
-                    page.setScaleX(MIN_X_SCALE);
-                    page.setAlpha(MIN_ALPHA);
-                }
-            }
-        });
     }
 
     // Create a list of flashcards (you can replace this with your actual data)
@@ -214,11 +123,6 @@ public class FragmentHome extends Fragment {
 
     private void startViewSetActivity() {
         Intent intent = new Intent(getContext(), ActivityViewLearningSet.class);
-
-        List<ModelLearningSet> sets = createSetList();
-        Map<String, Object> dataMap = new HashMap<>();
-        dataMap.put("learning_sets", sets);
-        passDataToActivity(intent, dataMap);
         startActivity(intent);
     }
 
