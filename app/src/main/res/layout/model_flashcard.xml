@@ -7,7 +7,7 @@
     android:layout_marginVertical="20dp"
     android:clickable="true"
     app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="5dp"
+    app:cardCornerRadius="10dp"
     app:cardPreventCornerOverlap="false"
     app:cardUseCompatPadding="true">
 

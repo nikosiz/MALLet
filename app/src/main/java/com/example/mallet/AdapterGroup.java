@@ -4,50 +4,61 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class AdapterGroup extends BaseAdapter {
+public class AdapterGroup extends RecyclerView.Adapter<AdapterGroup.ViewHolder> {
 
     private final Context context;
-    private final List<String> groupNameList;
+    private final List<ModelGroup> groupList;
+    private final OnGroupClickListener groupClickListener;
 
-    public AdapterGroup(Context context, List<String> groupNameList) {
+    public AdapterGroup(Context context, List<ModelGroup> groupList, OnGroupClickListener groupClickListener) {
         this.context = context;
-        this.groupNameList = groupNameList;
+        this.groupList = groupList;
+        this.groupClickListener = groupClickListener;
+    }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(context).inflate(R.layout.model_group, parent, false);
+        return new ViewHolder(itemView);
     }
 
     @Override
-    public int getCount() {
-        return groupNameList.size();
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        ModelGroup group = groupList.get(position);
+
+        holder.groupNameTv.setText(group.getGroupName());
+
+        // Set a click listener for the group item
+        holder.itemView.setOnClickListener(view -> {
+            if (groupClickListener != null) {
+                groupClickListener.onGroupClick(group);
+            }
+        });
     }
 
     @Override
-    public Object getItem(int position) {
-        return groupNameList.get(position);
+    public int getItemCount() {
+        return groupList.size();
     }
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView groupNameTv;
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View itemView = convertView;
-        if (itemView == null) {
-            LayoutInflater inflater = LayoutInflater.from(context);
-            itemView = inflater.inflate(R.layout.model_group, parent, false);
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            groupNameTv = itemView.findViewById(R.id.group_model_name_tv);
         }
+    }
 
-        String groupName = groupNameList.get(position);
-
-        TextView groupNameTv = itemView.findViewById(R.id.group_model_name_tv);
-
-        groupNameTv.setText(groupName);
-
-        return itemView;
+    public interface OnGroupClickListener {
+        void onGroupClick(ModelGroup group);
     }
 }

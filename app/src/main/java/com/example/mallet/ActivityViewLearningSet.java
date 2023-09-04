@@ -17,10 +17,12 @@ import java.util.Objects;
 
 public class ActivityViewLearningSet extends AppCompatActivity {
 
+    ActivityViewLearningSetBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        com.example.mallet.databinding.ActivityViewLearningSetBinding binding = ActivityViewLearningSetBinding.inflate(getLayoutInflater());
+        binding = ActivityViewLearningSetBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setupToolbar();
@@ -28,11 +30,14 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
         setupClickListeners(binding);
 
-        ViewPager2 viewPager = findViewById(R.id.viewPager);
-        AdapterFlashcardSmall flashcardAdapter = new AdapterFlashcardSmall(createSmallFlashcardList()); // Create your flashcard list here
+        setupViewpager();
 
+    }
+
+    private void setupViewpager() {
+        ViewPager2 viewPager = binding.viewSetViewpager;
+        AdapterFlashcardSmall flashcardAdapter = new AdapterFlashcardSmall((createSmallFlashcardList()));
         viewPager.setAdapter(flashcardAdapter);
-
     }
 
     // Create a list of flashcards (you can replace this with your actual data)
@@ -45,7 +50,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     }
 
     private void setupToolbar() {
-        Toolbar toolbar = findViewById(R.id.flashcards_toolbar);
+        Toolbar toolbar = binding.viewSetToolbar;
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle(""); // Set the title to an empty string
 

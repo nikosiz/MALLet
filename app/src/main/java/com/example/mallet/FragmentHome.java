@@ -5,11 +5,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.mallet.databinding.FragmentHomeBinding;
 
@@ -25,104 +25,175 @@ public class FragmentHome extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        FragmentHomeBinding binding = FragmentHomeBinding.inflate(inflater, container, false);
-        View view = binding.getRoot();
-
-        List<ModelLearningSet> homeLearningSetList = getHomeLearningSetList();
-        List<ModelFolder> homeFolderList = getHomeFolderList();
-        List<ModelGroup> homeGroupList = getHomeGroupList();
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
 
         setupClickListeners(binding);
-        displaySets(homeLearningSetList, binding, inflater);
-        displayFolders(homeFolderList, binding, inflater);
-        displayGroups(homeGroupList, binding, inflater);
-        return view;
+
+        setupSetsViewpager();
+        setupFoldersViewpager();
+        setupGroupsViewpager();
+
+        return binding.getRoot();
+    }
+
+    private void setupSetsViewpager() {
+        ViewPager2 viewPager = binding.homeSetsViewpager;
+        AdapterLearningSet adapterSets = new AdapterLearningSet(getContext(), createSetList(), v -> startViewSetActivity());
+        viewPager.setAdapter(adapterSets);
+
+        // Set a PageTransformer to achieve the scaling and centering effect
+        viewPager.setPageTransformer(new ViewPager2.PageTransformer() {
+            private static final float MIN_Y_SCALE = 0.9f;
+            private static final float MIN_X_SCALE = 0.9f;
+
+            private static final float MIN_ALPHA = 0.9f;
+
+            @Override
+            public void transformPage(@NonNull View page, float position) {
+                float absPosition = Math.abs(position);
+
+                // Center element (scale it fully)
+                if (absPosition < 1) {
+                    page.setScaleY(Math.max(MIN_Y_SCALE, 1 - absPosition));
+                    page.setScaleX(Math.max(MIN_X_SCALE, 1 - absPosition));
+                    page.setAlpha(Math.max(MIN_ALPHA, 1 - absPosition));
+                }
+                // Elements to the left
+                else if (position < 0) {
+                    page.setScaleY(MIN_Y_SCALE);
+                    page.setScaleX(MIN_X_SCALE);
+
+                    page.setAlpha(MIN_ALPHA);
+                }
+                // Elements to the right
+                else {
+                    page.setScaleY(MIN_Y_SCALE);
+                    page.setScaleX(MIN_X_SCALE);
+                    page.setAlpha(MIN_ALPHA);
+                }
+            }
+        });
+    }
+
+    // Create a list of flashcards (you can replace this with your actual data)
+    private List<ModelLearningSet> createSetList() {
+        List<ModelLearningSet> sets = new ArrayList<>();
+
+        sets.add(new ModelLearningSet("Set #1", "102", "user123", 566));
+        sets.add(new ModelLearningSet("Set #2", "144", "user123", 915));
+        sets.add(new ModelLearningSet("Set #3", "256", "user123", 684));
+        sets.add(new ModelLearningSet("Set #4", "138", "user123", 694));
+        sets.add(new ModelLearningSet("Set #5", "101", "user123", 354));
+
+        return sets;
+    }
+
+    private void setupFoldersViewpager() {
+        ViewPager2 viewPager = binding.homeFoldersViewpager;
+        AdapterFolder adapterFolders = new AdapterFolder(getContext(), createFolderList(), v -> startViewFolderActivity());
+
+        viewPager.setAdapter(adapterFolders);
+
+        // Set a PageTransformer to achieve the scaling and centering effect
+        viewPager.setPageTransformer(new ViewPager2.PageTransformer() {
+            private static final float MIN_Y_SCALE = 0.9f;
+            private static final float MIN_X_SCALE = 0.9f;
+
+            private static final float MIN_ALPHA = 0.9f;
+
+            @Override
+            public void transformPage(@NonNull View page, float position) {
+                float absPosition = Math.abs(position);
+
+                // Center element (scale it fully)
+                if (absPosition < 1) {
+                    page.setScaleY(Math.max(MIN_Y_SCALE, 1 - absPosition));
+                    page.setScaleX(Math.max(MIN_X_SCALE, 1 - absPosition));
+                    page.setAlpha(Math.max(MIN_ALPHA, 1 - absPosition));
+                }
+                // Elements to the left
+                else if (position < 0) {
+                    page.setScaleY(MIN_Y_SCALE);
+                    page.setScaleX(MIN_X_SCALE);
+
+                    page.setAlpha(MIN_ALPHA);
+                }
+                // Elements to the right
+                else {
+                    page.setScaleY(MIN_Y_SCALE);
+                    page.setScaleX(MIN_X_SCALE);
+                    page.setAlpha(MIN_ALPHA);
+                }
+            }
+        });
+    }
+
+    // Create a list of flashcards (you can replace this with your actual data)
+    private List<ModelFolder> createFolderList() {
+        List<ModelFolder> folders = new ArrayList<>();
+        folders.add(new ModelFolder("Folder #1", "user123", "3"));
+        folders.add(new ModelFolder("Folder #2", "user123", "7"));
+        folders.add(new ModelFolder("Folder #3", "user123", "2"));
+        folders.add(new ModelFolder("Folder #4", "user123", "8"));
+        folders.add(new ModelFolder("Folder #5", "user123", "1"));
+        // Add more flashcards as needed
+        return folders;
+    }
+
+    private void setupGroupsViewpager() {
+        ViewPager2 viewPager = binding.homeGroupsViewpager;
+        AdapterGroup adapterGroups = new AdapterGroup(getContext(), createGroupList(), v -> startViewGroupActivity());
+        viewPager.setAdapter(adapterGroups);
+
+        // Set a PageTransformer to achieve the scaling and centering effect
+        viewPager.setPageTransformer(new ViewPager2.PageTransformer() {
+            private static final float MIN_Y_SCALE = 0.9f;
+            private static final float MIN_X_SCALE = 0.9f;
+
+            private static final float MIN_ALPHA = 0.9f;
+
+            @Override
+            public void transformPage(@NonNull View page, float position) {
+                float absPosition = Math.abs(position);
+
+                // Center element (scale it fully)
+                if (absPosition < 1) {
+                    page.setScaleY(Math.max(MIN_Y_SCALE, 1 - absPosition));
+                    page.setScaleX(Math.max(MIN_X_SCALE, 1 - absPosition));
+                    page.setAlpha(Math.max(MIN_ALPHA, 1 - absPosition));
+                }
+                // Elements to the left
+                else if (position < 0) {
+                    page.setScaleY(MIN_Y_SCALE);
+                    page.setScaleX(MIN_X_SCALE);
+
+                    page.setAlpha(MIN_ALPHA);
+                }
+                // Elements to the right
+                else {
+                    page.setScaleY(MIN_Y_SCALE);
+                    page.setScaleX(MIN_X_SCALE);
+                    page.setAlpha(MIN_ALPHA);
+                }
+            }
+        });
+    }
+
+    // Create a list of flashcards (you can replace this with your actual data)
+    private List<ModelGroup> createGroupList() {
+        List<ModelGroup> groups = new ArrayList<>();
+        groups.add(new ModelGroup("Group #1", "2"));
+        groups.add(new ModelGroup("Group #2", "5"));
+        groups.add(new ModelGroup("Group #3", "2"));
+        groups.add(new ModelGroup("Group #4", "8"));
+        groups.add(new ModelGroup("Group #5", "5"));
+        return groups;
     }
 
     private void setupClickListeners(FragmentHomeBinding binding) {
-        binding.homeButton.setOnClickListener(v -> startViewSetActivity());
         binding.homeLearningSetViewAllTv.setOnClickListener(v -> showAllLearningSets());
         binding.homeFolderViewAllTv.setOnClickListener(v -> showAllFolders());
         binding.homeGroupViewAllTv.setOnClickListener(v -> showAllGroups());
-    }
-
-    private void displaySets(List<ModelLearningSet> learningSetList, FragmentHomeBinding binding, LayoutInflater inflater) {
-        for (ModelLearningSet learningSet : learningSetList) {
-            View learningSetItemView = inflater.inflate(R.layout.model_learning_set, binding.homeLearningSetLl, false);
-
-            TextView learningSetNameTv = learningSetItemView.findViewById(R.id.learning_set_model_name_tv);
-            learningSetNameTv.setText(learningSet.getLearningSetName());
-
-            TextView learningSetTermsTv = learningSetItemView.findViewById(R.id.learning_set_model_terms_tv);
-            learningSetTermsTv.setText(learningSet.getLearningSetTerms() + " terms");
-
-            TextView learningSetCreatorTv = learningSetItemView.findViewById(R.id.learning_set_model_creator_tv);
-            learningSetCreatorTv.setText(learningSet.getLearningSetCreator());
-
-            // Add folderItemView to the linearLayout
-            binding.homeLearningSetHsvLl.addView(learningSetItemView);
-
-            // Set click listener for the learningSetItemView
-            learningSetItemView.setOnClickListener(v -> {
-                Map<String, Object> dataMap = new HashMap<>();
-                dataMap.put("set_name", learningSet.getLearningSetName());
-                dataMap.put("set_creator", learningSet.getLearningSetCreator());
-                dataMap.put("set_terms", learningSet.getLearningSetTerms());
-                Intent intent = new Intent(getContext(), ActivityViewLearningSet.class);
-                passDataToActivity(intent, dataMap);
-                startActivity(intent);
-            });
-        }
-    }
-
-    private void displayFolders(List<ModelFolder> folderList, FragmentHomeBinding binding, LayoutInflater inflater) {
-        for (ModelFolder folder : folderList) {
-            View folderItemView = inflater.inflate(R.layout.model_folder, binding.homeFolderLl, false);
-
-            TextView folderNameTv = folderItemView.findViewById(R.id.folder_model_name_tv);
-            folderNameTv.setText(folder.getFolderName());
-
-            TextView folderCreatorTv = folderItemView.findViewById(R.id.folder_model_creator_tv);
-            folderCreatorTv.setText(folder.getFolderCreator());
-
-            // Add folderItemView to the linearLayout
-            binding.homeFoldersHsvLl.addView(folderItemView);
-
-            // Set click listener for the learningSetItemView
-            folderItemView.setOnClickListener(v -> {
-                Map<String, Object> dataMap = new HashMap<>();
-                //TODO: Change to:
-                dataMap.put("folder_name", folder.getFolderName());
-                dataMap.put("folder_creator", folder.getFolderCreator());
-                dataMap.put("folder_sets", folder.getSets());
-                Intent intent = new Intent(getContext(), ActivityViewFolder.class);
-                passDataToActivity(intent, dataMap);
-                startActivity(intent);
-            });
-        }
-    }
-
-    private void displayGroups(List<ModelGroup> groupList, FragmentHomeBinding binding, LayoutInflater inflater) {
-        for (ModelGroup group : groupList) {
-            View groupItemView = inflater.inflate(R.layout.model_group, binding.homeGroupLl, false);
-
-            TextView groupNameTv = groupItemView.findViewById(R.id.group_model_name_tv);
-            groupNameTv.setText(group.getGroupName());
-
-            // Add folderItemView to the linearLayout
-            binding.homeGroupHsvLl.addView(groupItemView);
-
-            groupItemView.setOnClickListener(v -> {
-                Map<String, Object> dataMap = new HashMap<>();
-
-                dataMap.put("group_name", group.getGroupName());
-                dataMap.put("group_sets", group.getSetAmount());
-
-                Intent intent = new Intent(getContext(), ActivityViewGroup.class);
-                passDataToActivity(intent, dataMap);
-                startActivity(intent);
-            });
-        }
     }
 
     private void showAllGroups() {
@@ -141,39 +212,23 @@ public class FragmentHome extends Fragment {
         FrontendUtils.showToast(getContext(), "Here should open UserLibraryFragment with Sets tab selected");
     }
 
-
-    private List<ModelLearningSet> getHomeLearningSetList() {
-        List<ModelLearningSet> learningSetList = new ArrayList<>();
-        learningSetList.add(new ModelLearningSet("Set #1", "102", "user123", 566));
-        learningSetList.add(new ModelLearningSet("Set #2", "144", "user123", 915));
-        learningSetList.add(new ModelLearningSet("Set #3", "256", "user123", 684));
-        learningSetList.add(new ModelLearningSet("Set #4", "138", "user123", 694));
-        learningSetList.add(new ModelLearningSet("Set #5", "101", "user123", 354));
-        return learningSetList;
-    }
-
-    private List<ModelFolder> getHomeFolderList() {
-        List<ModelFolder> folderList = new ArrayList<>();
-        folderList.add(new ModelFolder("Folder #1", "user123", "3"));
-        folderList.add(new ModelFolder("Folder #2", "user123", "7"));
-        folderList.add(new ModelFolder("Folder #3", "user123", "2"));
-        folderList.add(new ModelFolder("Folder #4", "user123", "8"));
-        folderList.add(new ModelFolder("Folder #5", "user123", "1"));
-        return folderList;
-    }
-
-    private List<ModelGroup> getHomeGroupList() {
-        List<ModelGroup> groupList = new ArrayList<>();
-        groupList.add(new ModelGroup("Group #1", "2"));
-        groupList.add(new ModelGroup("Group #2", "5"));
-        groupList.add(new ModelGroup("Group #3", "2"));
-        groupList.add(new ModelGroup("Group #4", "8"));
-        groupList.add(new ModelGroup("Group #5", "5"));
-        return groupList;
-    }
-
     private void startViewSetActivity() {
         Intent intent = new Intent(getContext(), ActivityViewLearningSet.class);
+
+        List<ModelLearningSet> sets = createSetList();
+        Map<String, Object> dataMap = new HashMap<>();
+        dataMap.put("learning_sets", sets);
+        passDataToActivity(intent, dataMap);
+        startActivity(intent);
+    }
+
+    private void startViewFolderActivity() {
+        Intent intent = new Intent(getContext(), ActivityViewFolder.class);
+        startActivity(intent);
+    }
+
+    private void startViewGroupActivity() {
+        Intent intent = new Intent(getContext(), ActivityViewGroup.class);
         startActivity(intent);
     }
 

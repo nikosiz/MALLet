@@ -11,7 +11,7 @@
     android:clickable="true"
     android:focusable="true"
     android:minWidth="300dp"
-    app:cardCornerRadius="20dp"
+    app:cardCornerRadius="10dp"
     app:cardElevation="3dp"
     card_view:strokeColor="@color/danube_blue_800">
     <!-- TODO: MAKE THIS CLICKABLE -->

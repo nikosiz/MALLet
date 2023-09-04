@@ -38,7 +38,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     }
 
     private void setupClickListeners() {
-        binding.editSetSaveBtn.setOnClickListener(v -> createSet());
+        binding.editSetOptionsBtn.setOnClickListener(v -> createSet());
 
     }
 

@@ -7,7 +7,7 @@
     tools:context=".ActivityViewLearningSet">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/flashcards_toolbar"
+        android:id="@+id/view_set_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/danube_blue_300"
@@ -33,7 +33,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/flashcards_toolbar">
+        app:layout_constraintTop_toBottomOf="@id/view_set_toolbar">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -45,13 +45,12 @@
                 android:orientation="vertical"
                 android:padding="20dp">
 
-
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="10dp" />
 
                 <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/viewPager"
+                    android:id="@+id/view_set_viewpager"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
@@ -131,7 +130,7 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:minWidth="300dp"
-                        app:cardCornerRadius="5dp"
+                        app:cardCornerRadius="10dp"
                         app:cardElevation="3dp">
 
                         <LinearLayout
@@ -184,7 +183,7 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:minWidth="300dp"
-                        app:cardCornerRadius="5dp"
+                        app:cardCornerRadius="10dp"
                         app:cardElevation="3dp">
 
                         <LinearLayout
@@ -236,7 +235,7 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:minWidth="300dp"
-                        app:cardCornerRadius="5dp"
+                        app:cardCornerRadius="10dp"
                         app:cardElevation="3dp">
 
                         <LinearLayout
@@ -289,7 +288,7 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:minWidth="300dp"
-                        app:cardCornerRadius="5dp"
+                        app:cardCornerRadius="10dp"
                         app:cardElevation="3dp">
 
                         <LinearLayout

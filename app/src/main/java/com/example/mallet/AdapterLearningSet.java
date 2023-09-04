@@ -4,54 +4,70 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.mallet.databinding.ActivityViewLearningSetBinding;
 
 import java.util.List;
 
-public class AdapterLearningSet extends BaseAdapter {
-
+public class AdapterLearningSet extends RecyclerView.Adapter<AdapterLearningSet.ViewHolder> {
+    ModelLearningSet binding;
     private final Context context;
     private final List<ModelLearningSet> learningSetList;
+    private final AdapterLearningSet.OnLearningSetClickListener setClickListener;
 
-    public AdapterLearningSet(Context context, List<ModelLearningSet> learningSetList) {
+
+    public AdapterLearningSet(Context context, List<ModelLearningSet> learningSetList, AdapterLearningSet.OnLearningSetClickListener setClickListener) {
         this.context = context;
         this.learningSetList = learningSetList;
+        this.setClickListener = setClickListener;
+    }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(context).inflate(R.layout.model_learning_set, parent, false);
+        return new ViewHolder(itemView);
     }
 
     @Override
-    public int getCount() {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        ModelLearningSet learningSet = learningSetList.get(position);
+
+        holder.learningSetNameTv.setText(learningSet.getLearningSetName());
+        holder.learningSetCreatorTv.setText(learningSet.getLearningSetCreator());
+        holder.learningSetTermsTv.setText(learningSet.getLearningSetTerms() + " terms");
+
+        // Set a click listener for the group item
+        holder.itemView.setOnClickListener(view -> {
+            if (setClickListener != null) {
+                setClickListener.onSetClick(learningSet);
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
         return learningSetList.size();
     }
 
-    @Override
-    public Object getItem(int position) {
-        return learningSetList.get(position);
-    }
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView learningSetNameTv;
+        TextView learningSetCreatorTv;
+        TextView learningSetTermsTv;
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View itemView = convertView;
-        if (itemView == null) {
-            LayoutInflater inflater = LayoutInflater.from(context);
-            itemView = inflater.inflate(R.layout.model_learning_set, parent, false);
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            learningSetNameTv = itemView.findViewById(R.id.learning_set_model_name_tv);
+            learningSetCreatorTv = itemView.findViewById(R.id.learning_set_model_creator_tv);
+            learningSetTermsTv = itemView.findViewById(R.id.learning_set_model_terms_tv);
         }
+    }
 
-        ModelLearningSet learningSet = learningSetList.get(position);
-
-        TextView learningSetNameTv = itemView.findViewById(R.id.learning_set_model_name_tv);
-        TextView learningSetCreatorTv = itemView.findViewById(R.id.learning_set_model_creator_tv);
-        TextView learningSetTermsTv = itemView.findViewById(R.id.learning_set_model_terms_tv);
-
-        learningSetNameTv.setText(learningSet.getLearningSetName());
-        learningSetCreatorTv.setText("Created by: " + learningSet.getLearningSetCreator());
-        learningSetTermsTv.setText("Terms: " + learningSet.getLearningSetTerms());
-
-        return itemView;
+    public interface OnLearningSetClickListener {
+        void onSetClick(ModelLearningSet set);
     }
 }
