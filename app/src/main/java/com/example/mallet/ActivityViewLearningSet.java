@@ -2,10 +2,16 @@ package com.example.mallet;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -31,22 +37,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         setupClickListeners(binding);
 
         setupViewpager();
-
-    }
-
-    private void setupViewpager() {
-        ViewPager2 viewPager = binding.viewSetViewpager;
-        AdapterFlashcardSmall flashcardAdapter = new AdapterFlashcardSmall((createSmallFlashcardList()));
-        viewPager.setAdapter(flashcardAdapter);
-    }
-
-    // Create a list of flashcards (you can replace this with your actual data)
-    private List<ModelFlashcardSmall> createSmallFlashcardList() {
-        List<ModelFlashcardSmall> flashcards = new ArrayList<>();
-        flashcards.add(new ModelFlashcardSmall("Apple", "Jabłko"));
-        flashcards.add(new ModelFlashcardSmall("Pear", "Gruszka"));
-        // Add more flashcards as needed
-        return flashcards;
+        displayFlashcards(createSmallFlashcardList(), binding, getLayoutInflater());
     }
 
     private void setupToolbar() {
@@ -59,6 +50,21 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
+    }
+
+    private void setupViewpager() {
+        ViewPager2 viewPager = binding.viewSetViewpager;
+        AdapterFlashcardSmall flashcardAdapter = new AdapterFlashcardSmall((createSmallFlashcardList()));
+        viewPager.setAdapter(flashcardAdapter);
+    }
+    // Create a list of flashcards (you can replace this with your actual data)
+
+    private List<ModelFlashcardSmall> createSmallFlashcardList() {
+        List<ModelFlashcardSmall> flashcards = new ArrayList<>();
+        flashcards.add(new ModelFlashcardSmall("Apple", "Jabłko"));
+        flashcards.add(new ModelFlashcardSmall("Pear", "Gruszka"));
+        // Add more flashcards as needed
+        return flashcards;
     }
 
     private void setupClickListeners(ActivityViewLearningSetBinding binding) {
@@ -95,5 +101,44 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             }
         }
     }
+
+    private void displayFlashcards(List<ModelFlashcardSmall> learningSetList, ActivityViewLearningSetBinding binding, LayoutInflater inflater) {
+        // Clear any existing flashcards from the layout
+        binding.viewSetAllFlashcardsLl.removeAllViews();
+
+        for (ModelFlashcardSmall flashcardSmall : learningSetList) {
+            // Create a new flashcard view
+            View flashcardSmallItemView = inflater.inflate(R.layout.model_flashcard_small, binding.viewSetAllFlashcardsLl, false);
+
+            CardView modelSmallCV = flashcardSmallItemView.findViewById(R.id.model_small_card_view);
+            ViewGroup.MarginLayoutParams  layoutParams = new ViewGroup.MarginLayoutParams(
+                    ViewGroup.MarginLayoutParams.MATCH_PARENT,
+                    ViewGroup.MarginLayoutParams.WRAP_CONTENT
+            );
+            layoutParams.setMargins(10,10,10,10);
+            modelSmallCV.setLayoutParams(layoutParams);
+
+            LinearLayout modelSmallLL = flashcardSmallItemView.findViewById(R.id.model_small_cv_ll);
+            modelSmallLL.setPadding(0, 100, 0, 100);
+
+            TextView learningSetNameTV = flashcardSmallItemView.findViewById(R.id.model_small_word);
+            learningSetNameTV.setGravity(0);
+
+            View viewBetweenWordAndTerm = flashcardSmallItemView.findViewById(R.id.model_small_translation_v);
+            viewBetweenWordAndTerm.setVisibility(View.VISIBLE);
+
+            TextView learningSetTermsTV = flashcardSmallItemView.findViewById(R.id.model_small_translation);
+            learningSetTermsTV.setVisibility(View.VISIBLE);
+            learningSetTermsTV.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+
+            // Set the text for the word and translation
+            learningSetNameTV.setText(flashcardSmall.getWord());
+            learningSetTermsTV.setText(flashcardSmall.getTranslation());
+
+            // Add the flashcard to the linearLayout
+            binding.viewSetAllFlashcardsLl.addView(flashcardSmallItemView);
+        }
+    }
+
 
 }

@@ -1,20 +1,19 @@
 <!-- res/layout/card_group.xml -->
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/model_model_small_card_view"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:id="@+id/model_small_card_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layout_margin="5dp"
     android:layout_marginHorizontal="10dp"
     android:background="@drawable/bg_social_btn"
     android:clickable="true"
     android:focusable="true"
-    android:minWidth="300dp"
     app:cardCornerRadius="10dp"
     app:cardElevation="3dp">
 
     <LinearLayout
-        android:id="@+id/model_small_model_cv_ll"
+        android:id="@+id/model_small_cv_ll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -36,6 +35,12 @@
             android:textColor="@color/danube_blue_800"
             android:textSize="20sp" />
 
+        <View
+            android:id="@+id/model_small_translation_v"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:visibility="gone" />
+
         <TextView
             android:id="@+id/model_small_translation"
             style="@style/BasicTextStyle"
@@ -45,7 +50,6 @@
             android:autoSizeMaxTextSize="25sp"
             android:autoSizeMinTextSize="15sp"
             android:autoSizeStepGranularity="2sp"
-            android:autoSizeTextType="uniform"
             android:singleLine="true"
             android:text="translation"
             android:textColor="@color/danube_blue_800"

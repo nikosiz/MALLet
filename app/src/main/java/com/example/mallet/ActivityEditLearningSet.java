@@ -28,7 +28,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     private void setupToolbar() {
         Toolbar toolbar = binding.editSetToolbar;
         setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle(""); // Set the title to an empty string
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Edit set"); // Set the title to an empty string
 
         // Display back arrow on the toolbar
         if (getSupportActionBar() != null) {
@@ -57,6 +57,4 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         // TODO
         FrontendUtils.showToast(this, "Set created");
     }
-
-
 }
