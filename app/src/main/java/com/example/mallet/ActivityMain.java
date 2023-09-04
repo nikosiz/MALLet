@@ -32,7 +32,6 @@ import com.example.mallet.databinding.DialogCreateFolderBinding;
 import com.example.mallet.databinding.DialogCreateGroupBinding;
 import com.example.mallet.databinding.DialogCreateNewBinding;
 import com.example.mallet.databinding.DialogCreateSetBinding;
-import com.example.mallet.databinding.DialogForgotPasswordBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.textfield.TextInputEditText;

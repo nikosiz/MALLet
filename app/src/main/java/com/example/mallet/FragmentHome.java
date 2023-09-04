@@ -14,7 +14,6 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.mallet.databinding.FragmentHomeBinding;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -41,7 +40,7 @@ public class FragmentHome extends Fragment {
         AdapterLearningSet adapterSets = new AdapterLearningSet(getContext(), createSetList(), v -> startViewSetActivity());
         viewPager.setAdapter(adapterSets);
 
-        viewPager.setPageTransformer((page, position) -> FrontendUtils.applySwipeTransformer(page, position));
+        viewPager.setPageTransformer(FrontendUtils::applySwipeTransformer);
 
     }
 
@@ -64,7 +63,7 @@ public class FragmentHome extends Fragment {
 
         viewPager.setAdapter(adapterFolders);
 
-        viewPager.setPageTransformer((page, position) -> FrontendUtils.applySwipeTransformer(page, position));
+        viewPager.setPageTransformer(FrontendUtils::applySwipeTransformer);
     }
 
     // Create a list of flashcards (you can replace this with your actual data)
@@ -84,7 +83,7 @@ public class FragmentHome extends Fragment {
         AdapterGroup adapterGroups = new AdapterGroup(getContext(), createGroupList(), v -> startViewGroupActivity());
         viewPager.setAdapter(adapterGroups);
 
-        viewPager.setPageTransformer((page, position) -> FrontendUtils.applySwipeTransformer(page, position));
+        viewPager.setPageTransformer(FrontendUtils::applySwipeTransformer);
 
     }
 

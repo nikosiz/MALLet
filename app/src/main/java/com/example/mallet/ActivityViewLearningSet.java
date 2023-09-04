@@ -45,7 +45,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     }
 
     private void setupToolbar() {
-        Toolbar toolbar = (Toolbar) binding.viewSetToolbar;
+        Toolbar toolbar = binding.viewSetToolbar;
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle(""); // Set the title to an empty string
 
@@ -61,7 +61,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         AdapterFlashcardSmall flashcardAdapter = new AdapterFlashcardSmall((createSmallFlashcardList()));
         viewPager.setAdapter(flashcardAdapter);
 
-        viewPager.setPageTransformer((page, position) -> FrontendUtils.applySwipeTransformer(page, position));
+        viewPager.setPageTransformer(FrontendUtils::applySwipeTransformer);
 
     }
     // Create a list of flashcards (you can replace this with your actual data)

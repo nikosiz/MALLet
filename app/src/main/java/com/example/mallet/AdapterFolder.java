@@ -53,8 +53,8 @@ public class AdapterFolder extends RecyclerView.Adapter<AdapterFolder.ViewHolder
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView folderOwnerTV;
-        TextView folderNameTV;
+        final TextView folderOwnerTV;
+        final TextView folderNameTV;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -70,13 +70,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:clickable="true"
-        android:drawableStart="@drawable/ic_plus"
-        android:drawableTint="@color/danube_blue_800"
         android:focusable="true"
         android:gravity="center_vertical"
         android:text="Description"
         android:textColor="@color/danube_blue_800"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        app:drawableStartCompat="@drawable/ic_plus"
+        app:drawableTint="@color/danube_blue_800" />
 
     <View
         android:id="@+id/create_set_above_description_v"

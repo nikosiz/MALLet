@@ -50,7 +50,7 @@ public class AdapterGroup extends RecyclerView.Adapter<AdapterGroup.ViewHolder> 
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView groupNameTV;
+        final TextView groupNameTV;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

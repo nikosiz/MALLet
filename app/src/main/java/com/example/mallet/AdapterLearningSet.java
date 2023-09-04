@@ -9,8 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mallet.databinding.ActivityViewLearningSetBinding;
-
 import java.util.List;
 
 public class AdapterLearningSet extends RecyclerView.Adapter<AdapterLearningSet.ViewHolder> {
@@ -55,9 +53,9 @@ public class AdapterLearningSet extends RecyclerView.Adapter<AdapterLearningSet.
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView learningSetNameTV;
-        TextView learningSetCreatorTV;
-        TextView learningSetTermsTV;
+        final TextView learningSetNameTV;
+        final TextView learningSetCreatorTV;
+        final TextView learningSetTermsTV;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

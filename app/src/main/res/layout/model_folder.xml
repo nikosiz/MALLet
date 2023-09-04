@@ -62,13 +62,13 @@
             android:autoSizeMinTextSize="15sp"
             android:autoSizeStepGranularity="2sp"
             android:autoSizeTextType="uniform"
-            android:drawableStart="@drawable/ic_profile"
             android:drawablePadding="5dp"
-            android:drawableTint="@color/danube_blue_800"
             android:gravity="center_vertical"
             android:singleLine="true"
             android:text="creator_name"
             android:textColor="@color/danube_blue_800"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            app:drawableStartCompat="@drawable/ic_profile"
+            app:drawableTint="@color/danube_blue_800" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

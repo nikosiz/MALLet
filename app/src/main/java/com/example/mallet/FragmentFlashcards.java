@@ -48,7 +48,7 @@ public class FragmentFlashcards extends Fragment {
 
     private void setupToolbar() {
         Toolbar toolbar = binding.flashcardsToolbar;
-        ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
+        ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
         Objects.requireNonNull(((AppCompatActivity) getActivity()).getSupportActionBar()).setTitle(""); // Set the title to an empty string
 
         // Display back arrow on the toolbar

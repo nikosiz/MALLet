@@ -20,12 +20,11 @@ import java.util.Objects;
 
 public class FragmentUserLibrary extends Fragment {
 
-    private FragmentUserLibraryBinding binding;
     private TabLayout tabLayout;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentUserLibraryBinding.inflate(inflater, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        com.example.mallet.databinding.FragmentUserLibraryBinding binding = FragmentUserLibraryBinding.inflate(inflater, container, false);
 
         ViewPager2 viewPager = binding.userLibraryViewPager;
         TabLayout tabLayout = binding.userLibraryTabLayout;
@@ -63,8 +62,7 @@ public class FragmentUserLibrary extends Fragment {
             // Customize the text size for each tab
             for (int i = 0; i < tabLayout.getTabCount(); i++) {
                 TextView tabTV = (TextView) LayoutInflater.from(requireContext())
-                        // TODO: Fix the null problem
-                        .inflate(R.layout.tab_text, null); // Use the layout used internally by TabLayout
+                        .inflate(R.layout.tab_text, tabLayout, false); // Provide tabLayout as the root view
                 tabTV.setText(Objects.requireNonNull(tabLayout.getTabAt(i)).getText());
                 tabTV.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15); // Adjust the size as needed
                 Objects.requireNonNull(tabLayout.getTabAt(i)).setCustomView(tabTV);
@@ -73,6 +71,7 @@ public class FragmentUserLibrary extends Fragment {
                 layoutParams.width = 200;
                 tabTV.setLayoutParams(layoutParams);
             }
+
         });
 
         // Connect the TabLayout with the ViewPager

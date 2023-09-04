@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.mallet.databinding.FragmentUserLibraryFoldersBinding;
@@ -15,11 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentUserLibraryFolders extends Fragment implements AdapterFolder.OnFolderClickListener {
-    private FragmentUserLibraryFoldersBinding binding;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentUserLibraryFoldersBinding.inflate(inflater, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        com.example.mallet.databinding.FragmentUserLibraryFoldersBinding binding = FragmentUserLibraryFoldersBinding.inflate(inflater, container, false);
 
         LinearLayout userLibraryFoldersLl = binding.userLibraryFoldersLl; // Change to LinearLayout
         List<ModelFolder> userLibraryFoldersList = getUserLibraryFoldersList();

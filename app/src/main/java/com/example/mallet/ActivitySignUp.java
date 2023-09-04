@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.mallet.databinding.ActivityMainBinding;
 import com.example.mallet.databinding.ActivitySignUpBinding;
 import com.google.android.material.textfield.TextInputEditText;
 

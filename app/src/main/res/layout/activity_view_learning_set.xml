@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="@color/danube_blue_100"
     android:fitsSystemWindows="true"
-    tools:context=".ActivityViewLearningSet">
+    tools:context=".ActivityViewLearningSet"
+    tools:ignore="Overdraw">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/view_set_toolbar"

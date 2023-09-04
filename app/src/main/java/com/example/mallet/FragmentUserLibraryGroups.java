@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.mallet.databinding.FragmentUserLibraryGroupsBinding;
@@ -19,7 +20,7 @@ public class FragmentUserLibraryGroups extends Fragment {
     private FragmentUserLibraryGroupsBinding binding;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentUserLibraryGroupsBinding.inflate(inflater, container, false);
 
@@ -45,9 +46,7 @@ public class FragmentUserLibraryGroups extends Fragment {
             userLibraryGroupsLl.addView(groupItemView);
 
             // TODO pass needed data
-            groupItemView.setOnClickListener(v -> {
-                startViewGroupActivity();
-            });
+            groupItemView.setOnClickListener(v -> startViewGroupActivity());
         }
     }
 

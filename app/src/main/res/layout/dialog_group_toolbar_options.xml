@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="bottom"
@@ -13,13 +14,13 @@
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableStart="@drawable/ic_invite_members"
         android:drawablePadding="35dp"
-        android:drawableTint="@color/danube_blue_800"
         android:gravity="center_vertical"
         android:padding="20dp"
         android:text="Invite members"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        app:drawableStartCompat="@drawable/ic_invite_members"
+        app:drawableTint="@color/danube_blue_800" />
 
     <TextView
         android:id="@+id/group_toolbar_options_manage"
@@ -27,14 +28,14 @@
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableStart="@drawable/ic_settings"
         android:drawablePadding="35dp"
-        android:drawableTint="@color/danube_blue_800"
 
         android:gravity="center_vertical"
         android:padding="20dp"
         android:text="Manage"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        app:drawableStartCompat="@drawable/ic_settings"
+        app:drawableTint="@color/danube_blue_800" />
 
     <TextView
         android:id="@+id/group_toolbar_options_leave"
@@ -42,14 +43,14 @@
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableStart="@drawable/ic_logout"
         android:drawablePadding="35dp"
-        android:drawableTint="@color/danube_blue_800"
 
         android:gravity="center_vertical"
         android:padding="20dp"
         android:text="Leave group"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        app:drawableStartCompat="@drawable/ic_logout"
+        app:drawableTint="@color/danube_blue_800" />
 
     <TextView
         android:id="@+id/group_toolbar_options_report"
@@ -57,14 +58,14 @@
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableStart="@drawable/ic_report"
         android:drawablePadding="35dp"
-        android:drawableTint="@color/carnation_red_300"
         android:gravity="center_vertical"
         android:padding="20dp"
         android:text="Report"
         android:textColor="@color/carnation_red_300"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        app:drawableStartCompat="@drawable/ic_report"
+        app:drawableTint="@color/carnation_red_300" />
 
     <View
         android:layout_width="match_parent"
