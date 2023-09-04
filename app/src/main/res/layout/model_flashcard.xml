@@ -19,13 +19,13 @@
         android:padding="20dp">
 
         <TextView
-            android:id="@+id/flashcard_word"
+            android:id="@+id/flashcard_term"
             style="@style/BasicTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="word"
+            android:text="term"
             android:textColor="@color/danube_blue_600"
             android:textSize="30sp" />
 

@@ -1,12 +1,17 @@
 package com.example.mallet;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.Window;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.mallet.databinding.ActivityEditLearningSetBinding;
+import com.example.mallet.databinding.DialogSetOptionsBinding;
 
 import java.util.Objects;
 
@@ -28,17 +33,21 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     private void setupToolbar() {
         Toolbar toolbar = binding.editSetToolbar;
         setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle("Edit set"); // Set the title to an empty string
+        Objects.requireNonNull(getSupportActionBar()).setTitle("");
 
         // Display back arrow on the toolbar
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         }
     }
 
     private void setupClickListeners() {
-        binding.editSetOptionsIv.setOnClickListener(v -> createSet());
+        binding.editSetOptionsIv.setOnClickListener(v -> setOptionsDialog());
+
+    }
+
+    private void setOptionsDialog() {
 
     }
 

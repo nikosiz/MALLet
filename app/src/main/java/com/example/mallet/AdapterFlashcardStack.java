@@ -43,21 +43,21 @@ public class AdapterFlashcardStack extends RecyclerView.Adapter<AdapterFlashcard
 
     // ViewHolder class that holds references to the views within each item view
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        final TextView word;
+        final TextView term;
         final TextView definition;
         final TextView translation;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             // Initialize the TextViews with their corresponding views from the layout
-            word = itemView.findViewById(R.id.flashcard_word);
+            term = itemView.findViewById(R.id.flashcard_term);
             definition = itemView.findViewById(R.id.flashcard_definition);
             translation = itemView.findViewById(R.id.flashcard_translation);
         }
 
         // Method to set data from the data model to the views
         public void setData(ModelFlashcard data) {
-            word.setText(data.getWord());
+            term.setText(data.getTerm());
             definition.setText(data.getDefinition());
             translation.setText(data.getTranslation());
         }

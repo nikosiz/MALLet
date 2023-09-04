@@ -1,11 +1,14 @@
 package com.example.mallet;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.mallet.databinding.ActivityViewLearningSetBinding;
+import com.example.mallet.databinding.DialogSetOptionsBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,21 +45,24 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     }
 
     private void setupToolbar() {
-        Toolbar toolbar = binding.viewSetToolbar;
+        Toolbar toolbar = (Toolbar) binding.viewSetToolbar;
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle(""); // Set the title to an empty string
 
-        // Display back arrow on the toolbar
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
+
+        binding.viewSetOptionsBtn.setOnClickListener(v -> dialogSetOptions());
     }
 
     private void setupViewpager() {
         ViewPager2 viewPager = binding.viewSetViewpager;
         AdapterFlashcardSmall flashcardAdapter = new AdapterFlashcardSmall((createSmallFlashcardList()));
         viewPager.setAdapter(flashcardAdapter);
+
+        viewPager.setPageTransformer((page, position) -> FrontendUtils.applySwipeTransformer(page, position));
+
     }
     // Create a list of flashcards (you can replace this with your actual data)
 
@@ -73,6 +80,27 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         binding.viewSetTest.setOnClickListener(v -> openActivityLearn(FragmentTest.class));
         binding.viewSetMatch.setOnClickListener(v -> openActivityLearn(FragmentMatch.class));
 
+    }
+
+    private void dialogSetOptions() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        DialogSetOptionsBinding binding = DialogSetOptionsBinding.inflate(LayoutInflater.from(this));
+        dialog.setContentView(binding.getRoot());
+
+        binding.setToolbarOptionsEdit.setOnClickListener(v -> openActivity(this, ActivityEditLearningSet.class));
+        //binding.setToolbarOptionsAddFolder.setOnClickListener(v ->);
+        //binding.setToolbarOptionsAddGroup.setOnClickListener(v ->);
+        //binding.setToolbarOptionsDelete.setOnClickListener(v ->);
+
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        FrontendUtils.showDialog(dialog);
+
+    }
+
+    public static void openActivity(Context context, Class<?> targetActivityClass) {
+        Intent intent = new Intent(context, targetActivityClass);
+        context.startActivity(intent);
     }
 
     private void openActivityLearn(Class<? extends Fragment> fragmentClass) {
@@ -111,17 +139,17 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             View flashcardSmallItemView = inflater.inflate(R.layout.model_flashcard_small, binding.viewSetAllFlashcardsLl, false);
 
             CardView modelSmallCV = flashcardSmallItemView.findViewById(R.id.model_small_card_view);
-            ViewGroup.MarginLayoutParams  layoutParams = new ViewGroup.MarginLayoutParams(
+            ViewGroup.MarginLayoutParams layoutParams = new ViewGroup.MarginLayoutParams(
                     ViewGroup.MarginLayoutParams.MATCH_PARENT,
                     ViewGroup.MarginLayoutParams.WRAP_CONTENT
             );
-            layoutParams.setMargins(10,10,10,10);
+            layoutParams.setMargins(10, 20, 10, 10);
             modelSmallCV.setLayoutParams(layoutParams);
 
             LinearLayout modelSmallLL = flashcardSmallItemView.findViewById(R.id.model_small_cv_ll);
             modelSmallLL.setPadding(0, 100, 0, 100);
 
-            TextView learningSetNameTV = flashcardSmallItemView.findViewById(R.id.model_small_word);
+            TextView learningSetNameTV = flashcardSmallItemView.findViewById(R.id.model_small_term);
             learningSetNameTV.setGravity(0);
 
             View viewBetweenWordAndTerm = flashcardSmallItemView.findViewById(R.id.model_small_translation_v);

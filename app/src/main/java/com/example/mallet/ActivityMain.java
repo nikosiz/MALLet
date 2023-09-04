@@ -126,7 +126,7 @@ public class ActivityMain extends AppCompatActivity {
 
         TextInputEditText setNameTIET = binding.createSetNameEt;
         TextInputLayout descriptionTIL = binding.createSetDescriptionTil;
-        binding.createSetAddDescriptionLl.setOnClickListener(v -> FrontendUtils.showItem(descriptionTIL));
+        binding.createSetAddDescription.setOnClickListener(v -> FrontendUtils.showItem(descriptionTIL));
         binding.createSetCancelBtn.setOnClickListener(v -> dialog.dismiss());
         binding.createSetConfirmBtn.setOnClickListener(v -> {
             TextInputEditText setNameEditText = binding.createSetNameEt;
@@ -161,7 +161,7 @@ public class ActivityMain extends AppCompatActivity {
         TextInputEditText setNameTIET = binding.createFolderNameEt;
         TextInputLayout descriptionTIL = binding.createFolderDescriptionTil;
 
-        binding.createFolderAddDescriptionLl.setOnClickListener(v -> FrontendUtils.showItem(descriptionTIL));
+        binding.createFolderAddDescription.setOnClickListener(v -> FrontendUtils.showItem(descriptionTIL));
         binding.createFolderCancelBtn.setOnClickListener(v -> dialog.dismiss());
         binding.createFolderConfirmBtn.setOnClickListener(v -> {
             TextInputEditText setNameEditText = binding.createFolderNameEt;
@@ -196,7 +196,7 @@ public class ActivityMain extends AppCompatActivity {
         TextInputEditText setNameTIET = binding.createGroupNameEt;
         TextInputLayout descriptionTIL = binding.createGroupDescriptionTil;
 
-        binding.createGroupAddDescriptionLl.setOnClickListener(v -> FrontendUtils.showItem(descriptionTIL));
+        binding.createGroupAddDescription.setOnClickListener(v -> FrontendUtils.showItem(descriptionTIL));
         binding.createGroupCancelBtn.setOnClickListener(v -> dialog.dismiss());
         binding.createGroupConfirmBtn.setOnClickListener(v -> {
             TextInputEditText setNameEditText = binding.createGroupNameEt;

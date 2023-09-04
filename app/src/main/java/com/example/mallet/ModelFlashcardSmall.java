@@ -6,8 +6,8 @@ import com.example.mallet.databinding.ModelFlashcardBinding;
 public class ModelFlashcardSmall {
     private ModelFlashcardBinding binding;
 
-    // Private fields to hold word, definition, and translation data
-    private String word, translation;
+    // Private fields to hold term, definition, and translation data
+    private String term, translation;
 
     // Default constructor for the ItemModel class
     public ModelFlashcardSmall() {
@@ -15,14 +15,14 @@ public class ModelFlashcardSmall {
     }
 
     // Parameterized constructor to initialize the fields with data
-    public ModelFlashcardSmall(String word, String translation) {
-        this.word = word;
+    public ModelFlashcardSmall(String term, String translation) {
+        this.term = term;
         this.translation = translation;
     }
 
-    // Getter method to retrieve the word data
+    // Getter method to retrieve the term data
     public String getWord() {
-        return word;
+        return term;
     }
 
     // Getter method to retrieve the translation data

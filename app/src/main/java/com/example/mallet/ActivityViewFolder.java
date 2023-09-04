@@ -44,7 +44,7 @@ public class ActivityViewFolder extends AppCompatActivity {
         // Display back arrow on the toolbar
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         }
     }
 

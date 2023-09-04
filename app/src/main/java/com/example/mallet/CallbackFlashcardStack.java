@@ -28,7 +28,7 @@ public class CallbackFlashcardStack extends DiffUtil.Callback {
 
     @Override
     public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-        return Objects.equals(oldItem.get(oldItemPosition).getWord(), newItem.get(newItemPosition).getWord());
+        return Objects.equals(oldItem.get(oldItemPosition).getTerm(), newItem.get(newItemPosition).getTerm());
     }
 
     @Override
