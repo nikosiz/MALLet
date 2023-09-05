@@ -12,6 +12,10 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.mallet.databinding.FragmentHomeBinding;
+import com.example.mallet.utils.AdapterFolder;
+import com.example.mallet.utils.AdapterGroup;
+import com.example.mallet.utils.AdapterLearningSet;
+import com.example.mallet.utils.FrontendUtils;
 
 import java.util.ArrayList;
 import java.util.List;

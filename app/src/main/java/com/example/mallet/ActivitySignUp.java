@@ -1,25 +1,24 @@
 package com.example.mallet;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Patterns;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mallet.databinding.ActivitySignUpBinding;
-import com.google.android.material.textfield.TextInputEditText;
-
-import java.util.Objects;
+import com.example.mallet.databinding.DialogChooseUsernameBinding;
+import com.example.mallet.utils.FrontendUtils;
 
 public class ActivitySignUp extends AppCompatActivity {
 
     ActivitySignUpBinding binding;
+    DialogChooseUsernameBinding dialogBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,37 +26,37 @@ public class ActivitySignUp extends AppCompatActivity {
         binding = ActivitySignUpBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        setupAnimation();
+        setupListeners();
         setupLogInField();
-
-        // Initialize views
-        TextInputEditText editTextEmail = binding.signUpEmailEt;
-        TextView textViewError = binding.signUpErrorTv;
-        Button confirmLogIn = binding.signUpConfirmBtn;
-        TextView pulsatingTV = binding.signUpLogo;
-        Animation pulseAnimation = AnimationUtils.loadAnimation(this, R.anim.pulse_anim);
-        pulsatingTV.startAnimation(pulseAnimation);
-
-        // Validate email on focus change
-        editTextEmail.setOnFocusChangeListener((v, hasFocus) -> {
-            if (!hasFocus) {
-                validateEmail(Objects.requireNonNull(editTextEmail.getText()).toString(), textViewError);
-            }
-        });
-
-        // Handle log in button click
-        confirmLogIn.setOnClickListener(v -> {
-            // Show a Toast message when the button is clicked
-            Toast.makeText(ActivitySignUp.this, "Sign up button was clicked", Toast.LENGTH_SHORT).show();
-        });
     }
 
-    // Validate email format
-    private void validateEmail(String email, TextView errorTV) {
-        if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            errorTV.setVisibility(View.GONE);
+    private void setupListeners() {
+        binding.signUpContinue.setOnClickListener(v -> chooseUsernameDialog());
+    }
+
+    private void chooseUsernameDialog() {
+        String email = binding.signUpEmailEt.getText().toString();
+        TextView emailErrorTV = binding.signUpEmailErrorTv;
+
+        String password = binding.signUpPasswordEt.getText().toString();
+        TextView passwordErrorTV = binding.signUpPasswordErrorTv;
+
+        if (FrontendUtils.emailPatternCheck(email, emailErrorTV) == true
+                && FrontendUtils.passwordPatternCheck(password, passwordErrorTV) == true) {
+            Dialog dialog = FrontendUtils.createDialog(this, "dialog_choose_username");
+            DialogChooseUsernameBinding binding = DialogChooseUsernameBinding.inflate(getLayoutInflater());
+            FrontendUtils.showDialog(dialog);
+            FrontendUtils.showToast(this, "\"Continue\" in sign up activity was clicked");
         } else {
-            errorTV.setVisibility(View.VISIBLE);
+            FrontendUtils.showToast(this, "NOPE");
         }
+    }
+
+    private void setupAnimation() {
+        TextView pulsatingLogoTV = binding.signUpLogo;
+        Animation pulseAnimation = AnimationUtils.loadAnimation(this, R.anim.pulse_anim);
+        pulsatingLogoTV.startAnimation(pulseAnimation);
     }
 
     private void setupLogInField() {
@@ -77,6 +76,98 @@ public class ActivitySignUp extends AppCompatActivity {
         startActivity(intent);
         finish(); // Finish the SignUpActivity
     }
+/*
+    public void handleRegisterBtn() {
 
-    
+        dialogBinding = DialogChooseUsernameBinding.inflate(LayoutInflater.from(this));
+
+        disableElements();
+        String email = binding.signUpEmailEt.getText().toString();
+        String password = binding.signUpPasswordEt.getText().toString();
+        String username = dialogBinding.chooseUsernameNameEt.getText().toString();
+
+        boolean validateAllData = validateAllData(email, password, username);
+
+        // TODO
+        if (validateAllData) {
+            FrontendUtils.showProgressBar(this);
+            FrontendUtils.showToast(this, "Sign up successful");
+            signUpRequest(email, password, username, new VolleyRequestCallback() {
+                @Override
+                public void onSuccess() {
+                    Dialog dialog = FrontendUtils.createDialog(this, "dialog_open_email");
+                    dialog.setContentView(binding.getRoot());
+
+                }
+            });
+        } else {
+            FrontendUtils.showToast(this, "Sign up failed");
+            enableElements();
+        }
+    }
+
+    // TODO update to fit to MALLet and MAKE SANGUAGE GREAT AGAIN
+    public void signUpRequest(String username, String email, String password, String secondLanguage, final VolleyRequestCallback callback) {
+
+        String URL = "https://sanguage.herokuapp.com/registration";
+        try {
+            JSONObject signUpJSON = createSignUpJSON(username, email, password, secondLanguage);
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URL, signUpJSON, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        String userID = response.getString("messages");
+                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(SignUpActivity.this);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putLong("userID", Long.valueOf(userID));
+                        editor.apply();
+                        callback.onSuccess();
+                    } catch (JSONException jsonException) {
+                        jsonException.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    try {
+                        String message = RequestErrorParser.parseError(error);
+                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                    } catch (JSONException jsonException) {
+                        jsonException.printStackTrace();
+                    }
+                    Log.e("signUpRequest - onErrorResponse()", String.valueOf(error));
+                    hideProgressBar();
+                    enableAllActions();
+                }
+            }
+            );
+            queue.add(jsonObjectRequest);
+        } catch (JSONException j) {
+            Log.e("SignUp - signUpRequest()", j.getMessage());
+        }
+    }
+
+    public JSONObject createSignUpJSON(String username, String email, String password, String) throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("email", email);
+        jsonObject.put("password", password);
+        jsonObject.put("username", username);
+        return jsonObject;
+
+    }
+
+
+    public void disableElements(View... elements) {
+        for (View element : elements) {
+            element.setEnabled(false);
+        }
+    }
+
+    public void enableElements(View... elements) {
+        for (View element : elements) {
+            element.setEnabled(true);
+        }
+    }
+*/
+
 }

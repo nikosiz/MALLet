@@ -16,6 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.mallet.databinding.ActivityViewFolderBinding;
 import com.example.mallet.databinding.DialogDeleteFolderBinding;
 import com.example.mallet.databinding.DialogFolderToolbarOptionsBinding;
+import com.example.mallet.utils.FrontendUtils;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;

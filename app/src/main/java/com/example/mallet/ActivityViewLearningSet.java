@@ -20,6 +20,8 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.mallet.databinding.ActivityViewLearningSetBinding;
 import com.example.mallet.databinding.DialogSetOptionsBinding;
+import com.example.mallet.utils.AdapterFlashcardSmall;
+import com.example.mallet.utils.FrontendUtils;
 
 import java.util.ArrayList;
 import java.util.List;

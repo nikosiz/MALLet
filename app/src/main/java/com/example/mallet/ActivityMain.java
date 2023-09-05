@@ -32,6 +32,7 @@ import com.example.mallet.databinding.DialogCreateFolderBinding;
 import com.example.mallet.databinding.DialogCreateGroupBinding;
 import com.example.mallet.databinding.DialogCreateNewBinding;
 import com.example.mallet.databinding.DialogCreateSetBinding;
+import com.example.mallet.utils.FrontendUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.textfield.TextInputEditText;
@@ -87,7 +88,8 @@ public class ActivityMain extends AppCompatActivity {
 
     // Method to show the bottom dialog for "Create new" options
     private void showCreateNewDialog() {
-        final Dialog dialog = new Dialog(this);
+        //final Dialog dialog = new Dialog(this);
+        Dialog dialog = FrontendUtils.createDialog(this,"dialog_create_new");
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         DialogCreateNewBinding binding = DialogCreateNewBinding.inflate(LayoutInflater.from(this));
         dialog.setContentView(R.layout.dialog_create_new);
@@ -112,14 +114,12 @@ public class ActivityMain extends AppCompatActivity {
         });
 
         dialog.show();
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
     }
 
     private void dialogCreateNewSet() {
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //final Dialog dialog = new Dialog(this);
+        Dialog dialog = FrontendUtils.createDialog(this,"dialog_create_set");
+        //dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         DialogCreateSetBinding binding = DialogCreateSetBinding.inflate(LayoutInflater.from(this));
         dialog.setContentView(binding.getRoot());
 
@@ -152,8 +152,9 @@ public class ActivityMain extends AppCompatActivity {
     }
 
     private void dialogCreateNewFolder() {
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //final Dialog dialog = new Dialog(this);
+        //dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        Dialog dialog = FrontendUtils.createDialog(this,"dialog_create_folder");
         DialogCreateFolderBinding binding = DialogCreateFolderBinding.inflate(LayoutInflater.from(this));
         dialog.setContentView(binding.getRoot());
 
@@ -187,7 +188,8 @@ public class ActivityMain extends AppCompatActivity {
     }
 
     private void dialogCreateNewGroup() {
-        final Dialog dialog = new Dialog(this);
+        //final Dialog dialog = new Dialog(this);
+        Dialog dialog = FrontendUtils.createDialog(this,"dialog_create_group");
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         DialogCreateGroupBinding binding = DialogCreateGroupBinding.inflate(LayoutInflater.from(this));
         dialog.setContentView(binding.getRoot());

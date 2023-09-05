@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mallet.databinding.ActivityLogInBinding;
 import com.example.mallet.databinding.DialogForgotPasswordBinding;
+import com.example.mallet.utils.FrontendUtils;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;
@@ -34,7 +35,7 @@ public class ActivityLogIn extends AppCompatActivity {
         binding = com.example.mallet.databinding.ActivityLogInBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        setupClickListeners();
+        setupListeners();
 
         // Initialize views
         TextView pulsatingTV = binding.logInLogo;
@@ -120,7 +121,7 @@ public class ActivityLogIn extends AppCompatActivity {
         });
     }
 
-    private void setupClickListeners() {
+    private void setupListeners() {
         binding.logInConfirmBtn.setOnClickListener(v -> FrontendUtils.showToast(this, "Log in button was clicked"));
         binding.logInGoogleBtn.setOnClickListener(v -> FrontendUtils.showToast(this, "Log in with Google button was clicked"));
         binding.logInFacebookBtn.setOnClickListener(v -> FrontendUtils.showToast(this, "Log in with Facebook button was clicked"));
@@ -131,9 +132,6 @@ public class ActivityLogIn extends AppCompatActivity {
         Intent intent = new Intent(ActivityLogIn.this, ActivitySignUp.class);
         startActivity(intent);
     }
-
-    // Show a toast message
-
 
     @Override
     public void onBackPressed() {

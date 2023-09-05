@@ -32,6 +32,7 @@ import com.example.mallet.databinding.DialogChangeUsernameBinding;
 import com.example.mallet.databinding.DialogDeleteAccountBinding;
 import com.example.mallet.databinding.DialogVerifyPasswordBinding;
 import com.example.mallet.databinding.FragmentProfileBinding;
+import com.example.mallet.utils.FrontendUtils;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;

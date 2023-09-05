@@ -1,4 +1,4 @@
-package com.example.mallet;
+package com.example.mallet.utils;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.mallet.ModelGroup;
+import com.example.mallet.R;
 
 import java.util.List;
 

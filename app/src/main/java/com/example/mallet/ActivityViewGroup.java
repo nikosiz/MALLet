@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.mallet.databinding.ActivityViewGroupBinding;
 import com.example.mallet.databinding.DialogGroupToolbarOptionsBinding;
+import com.example.mallet.utils.FrontendUtils;
 
 import java.util.Objects;
 

@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.mallet.databinding.FragmentUserLibraryFoldersBinding;
+import com.example.mallet.utils.AdapterFolder;
+import com.example.mallet.utils.FrontendUtils;
 
 import java.util.ArrayList;
 import java.util.List;

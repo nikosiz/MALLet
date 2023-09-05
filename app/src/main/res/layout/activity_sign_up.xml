@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:gravity="center"
-        android:padding="20dp"
+        android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@id/sign_up_cv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,24 +41,28 @@
         android:id="@+id/sign_up_cv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="-20dp"
-        app:cardCornerRadius="10dp"
+        app:cardCornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="30dp">
+            android:padding="20dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
 
             <TextView
                 android:id="@+id/sign_up_email_title"
-                style="@style/BasicTextStyle"
+                style="@style/BasicBoldTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:text="@string/sign_up_with_email_address"
-                android:textSize="23sp" />
+                android:textColor="@color/danube_blue_900"
+                android:textSize="20sp" />
 
             <View
                 android:layout_width="match_parent"
@@ -85,7 +89,7 @@
                     android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/sign_up_error_tv"
+                    android:id="@+id/sign_up_email_error_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
@@ -115,80 +119,91 @@
                     android:inputType="textPassword"
                     android:textColorHint="@color/downriver_blue_300"
                     android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/sign_up_password_error_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="The password string must contain at least one letter, one number and one special character. Also, it cannot be shorter than 8 characters"
+                    android:textColor="@color/carnation_red_600"
+                    android:visibility="gone" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="10dp" />
 
-            <Button
-                android:id="@+id/sign_up_confirm_btn"
-                style="@style/BasicButtonStyle"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/sign_up_continue"
+                style="@style/BasicTextStyle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/sign_up" />
+                android:layout_gravity="end"
+                android:clickable="true"
+                android:drawableEnd="@drawable/ic_arrow_forward"
+                android:drawablePadding="10dp"
+                android:drawableTint="@color/danube_blue_800"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:text="Continue"
+                android:textColor="@color/danube_blue_800"
+                android:textSize="20sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <TextView
+                style="@style/BasicTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="@string/or_quickly"
+
+                android:textColor="@color/danube_blue_900"
+                android:textSize="20sp" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="10dp" />
 
             <LinearLayout
-                android:id="@+id/sign_up_other_options_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:gravity="center"
+                android:orientation="horizontal">
 
-                <TextView
-                    style="@style/BasicTextStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:text="@string/or_quickly"
-                    android:textSize="20sp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
+                <!-- Google Sign-In Button -->
+                <!-- TODO: <com.google.android.gms.common.SignInButton -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/sign_up_google_btn"
+                    style="@style/SocialButtonStyle"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:orientation="horizontal"
-                    app:layout_constraintHorizontal_chainStyle="spread_inside">
+                    android:layout_marginHorizontal="10dp"
+                    android:minWidth="140dp"
+                    android:text="@string/google"
+                    app:icon="@drawable/ic_google"
+                    app:iconGravity="textStart"
+                    app:iconTint="@null" />
 
-                    <!-- Google Sign-In Button -->
-                    <!-- TODO: <com.google.android.gms.common.SignInButton -->
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/sign_up_google_btn"
-                        style="@style/SocialButtonStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
-                        android:text="@string/google"
-                        app:icon="@drawable/ic_google"
-                        app:iconGravity="textStart"
-                        app:iconTint="@null"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/sign_up_facebook_btn"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/sign_up_facebook_btn"
-                        style="@style/SocialButtonStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
-                        android:text="@string/facebook"
-                        app:icon="@drawable/ic_facebook"
-                        app:iconGravity="textStart"
-                        app:iconTint="@null"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/sign_up_google_btn"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/sign_up_facebook_btn"
+                    style="@style/SocialButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:minWidth="140dp"
+                    android:text="@string/facebook"
+                    app:icon="@drawable/ic_facebook"
+                    app:iconGravity="textStart"
+                    app:iconTint="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/sign_up_google_btn"
+                    app:layout_constraintTop_toTopOf="parent" />
             </LinearLayout>
 
             <View
@@ -199,53 +214,47 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/sign_up_other_options_ll">
+                android:orientation="horizontal">
 
                 <TextView
                     style="@style/BasicTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:paddingTop="6dp"
 
-                    android:text="@string/already_have_account" />
+                    android:paddingTop="6dp"
+                    android:text="@string/already_have_account"
+                    android:textColor="@color/danube_blue_900" />
 
                 <TextView
                     android:id="@+id/log_in_btn"
                     style="@style/BasicBoldTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:background="@drawable/bg_ripple"
                     android:clickable="true"
                     android:focusable="true"
                     android:padding="5dp"
                     android:text="@string/log_in_here"
+                    android:textColor="@color/danube_blue_900"
                     android:textSize="20sp" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="90dp" />
+                android:layout_height="75dp" />
 
-            <LinearLayout
+            <TextView
+                style="@style/BasicTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:gravity="center"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
-
-                <TextView
-                    style="@style/BasicTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/by_signing_up_you_accept"
-                    android:textSize="10sp" />
-            </LinearLayout>
+                android:text="@string/by_signing_up_you_accept"
+                android:textColor="@color/danube_blue_900"
+                android:textSize="10sp" />
 
             <View
                 android:layout_width="match_parent"
