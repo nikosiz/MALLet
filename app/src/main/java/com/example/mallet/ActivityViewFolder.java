@@ -16,7 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.mallet.databinding.ActivityViewFolderBinding;
 import com.example.mallet.databinding.DialogDeleteFolderBinding;
 import com.example.mallet.databinding.DialogFolderToolbarOptionsBinding;
-import com.example.mallet.utils.FrontendUtils;
+import com.example.mallet.utils.Utils;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;
@@ -80,7 +80,7 @@ public class ActivityViewFolder extends AppCompatActivity {
 
         });
 
-        FrontendUtils.showDialog(dialog);
+        Utils.showDialog(dialog);
 
     }
 
@@ -120,7 +120,7 @@ public class ActivityViewFolder extends AppCompatActivity {
                 // TODO: Add functionality for checking if the password is correct
                 emptyNameError.setVisibility(View.GONE);
                 checkboxError.setVisibility(View.GONE);
-                FrontendUtils.showToast(this, "When we have backend, we will check if the name is correct. For now we just close this dialog");
+                Utils.showToast(this, "When we have backend, we will check if the name is correct. For now we just close this dialog");
                 dialog.dismiss();
             }
         });

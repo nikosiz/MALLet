@@ -41,7 +41,8 @@
         android:id="@+id/sign_up_cv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="15dp"
+        android:layout_margin="20dp"
+        app:cardCornerRadius="30dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
@@ -58,11 +59,16 @@
                 android:id="@+id/sign_up_email_title"
                 style="@style/BasicBoldTextStyle"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:autoSizeMaxTextSize="24sp"
+                android:autoSizeMinTextSize="16sp"
+                android:autoSizeStepGranularity="1sp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
                 android:text="@string/sign_up_with_email_address"
                 android:textColor="@color/danube_blue_900"
-                android:textSize="20sp" />
+                android:textSize="22sp" />
 
             <View
                 android:layout_width="match_parent"
@@ -97,6 +103,16 @@
                     android:text="@string/email_incorrect"
                     android:textColor="@color/carnation_red_600"
                     android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/sign_up_email_empty_email_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/field_cannot_be_empty"
+                    android:textColor="@color/carnation_red_600"
+                    android:visibility="gone" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -121,12 +137,32 @@
                     android:textSize="20sp" />
 
                 <TextView
+                    android:id="@+id/sign_up_email_empty_password_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/field_cannot_be_empty"
+                    android:textColor="@color/carnation_red_600"
+                    android:visibility="gone" />
+
+                <TextView
                     android:id="@+id/sign_up_password_error_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:layout_marginBottom="5dp"
-                    android:text="The password string must contain at least one letter, one number and one special character. Also, it cannot be shorter than 8 characters"
+                    android:text="The password must contain at least 8 characters: one letter, one number and one special character"
+                    android:textColor="@color/carnation_red_600"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/sign_up_password_space_error_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="The password cannot contain spaces"
                     android:textColor="@color/carnation_red_600"
                     android:visibility="gone" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -141,15 +177,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
+                android:background="@drawable/bg_ripple"
                 android:clickable="true"
-                android:drawableEnd="@drawable/ic_arrow_forward"
                 android:drawablePadding="10dp"
-                android:drawableTint="@color/danube_blue_800"
                 android:focusable="true"
                 android:gravity="center_vertical"
+                android:paddingHorizontal="5dp"
                 android:text="Continue"
                 android:textColor="@color/danube_blue_800"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                app:drawableEndCompat="@drawable/ic_arrow_forward"
+                app:drawableTint="@color/danube_blue_800" />
 
             <View
                 android:layout_width="match_parent"
@@ -158,10 +196,9 @@
             <TextView
                 style="@style/BasicTextStyle"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/or_quickly"
-
                 android:textColor="@color/danube_blue_900"
                 android:textSize="20sp" />
 
@@ -221,7 +258,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-
                     android:paddingTop="6dp"
                     android:text="@string/already_have_account"
                     android:textColor="@color/danube_blue_900" />
@@ -244,7 +280,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="75dp" />
+                android:layout_height="50dp" />
 
             <TextView
                 style="@style/BasicTextStyle"

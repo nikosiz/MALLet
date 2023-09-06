@@ -40,7 +40,7 @@ public class AdapterLearningSet extends RecyclerView.Adapter<AdapterLearningSet.
 
         holder.learningSetNameTV.setText(learningSet.getLearningSetName());
         holder.learningSetCreatorTV.setText(learningSet.getLearningSetCreator());
-        holder.learningSetTermsTV.setText(learningSet.getLearningSetTerms() + " terms");
+        holder.learningSetTermsTV.setText(learningSet.getNumberOfTerms() + " terms");
 
         // Set a click listener for the group item
         holder.itemView.setOnClickListener(view -> {

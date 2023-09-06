@@ -20,10 +20,10 @@ public class ActivityOpening extends AppCompatActivity {
         binding = ActivityOpeningBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        setupAnimatedLogo();
         setupLoginButton();
         setupSignUpButton();
         setupNoLogInButton();
-        setupAnimatedLogo();
     }
 
     private void setupAnimatedLogo() {

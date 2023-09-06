@@ -5,7 +5,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -14,20 +18,23 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mallet.databinding.ActivityLogInBinding;
 import com.example.mallet.databinding.DialogForgotPasswordBinding;
-import com.example.mallet.utils.FrontendUtils;
+import com.example.mallet.utils.Utils;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 public class ActivityLogIn extends AppCompatActivity {
 
     private ActivityLogInBinding binding;
+    private final Handler handler = new Handler(Looper.getMainLooper());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,36 +42,171 @@ public class ActivityLogIn extends AppCompatActivity {
         binding = com.example.mallet.databinding.ActivityLogInBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        setupAnimation();
         setupListeners();
+        initializeViews();
+    }
 
-        // Initialize views
-        TextView pulsatingTV = binding.logInLogo;
-        TextInputEditText editTextEmail = binding.logInEmailEt;
-        TextView textViewError = binding.logInErrorTv;
-        TextView forgotPassword = binding.logInForgotPasswordTv;
+    // Initialize views and attach text change listeners
+    private void initializeViews() {
+        EditText emailEditText = binding.logInEmailEt;
+        EditText passwordEditText = binding.logInPasswordEt;
+        TextView emailErrorTV = binding.logInEmailErrorTv;
+        TextView emailEmptyTV = binding.logInEmailEmptyEmailTv;
+        TextView passwordErrorTV = binding.logInPasswordErrorTv;
+        TextView passwordEmptyTV = binding.logInEmailEmptyPasswordTv;
+        TextView passwordSpaceErrorTV = binding.logInPasswordSpaceErrorTv;
 
-        // Apply pulsating animation to logo
-        Animation pulseAnimation = AnimationUtils.loadAnimation(this, R.anim.pulse_anim);
-        pulsatingTV.startAnimation(pulseAnimation);
+        Pattern passwordPattern = Pattern.compile("^" +
+                "(?=.*[0-9])" +         // at least 1 digit
+                "(?=.*[a-z])" +         // at least 1 lowercase letter
+                "(?=.*[A-Z])" +         // at least 1 uppercase letter
+                "(?=.*[@#$%^&+=])" +    // at least 1 special character
+                "(?=\\S+$)" +           // no white spaces
+                ".{8,}" +               // at least 8 characters
+                "$");
 
-        // Validate email on focus change
-        editTextEmail.setOnFocusChangeListener((v, hasFocus) -> {
-            if (!hasFocus) {
-                validateEmail(Objects.requireNonNull(editTextEmail.getText()).toString(), textViewError);
+        // Initialize text change listeners for email and password fields
+        initializeTextWatchers(emailEditText, passwordEditText, emailErrorTV, emailEmptyTV, passwordErrorTV, passwordEmptyTV, passwordSpaceErrorTV, passwordPattern);
+    }
+
+    // Initialize text change listeners for email and password fields
+    private void initializeTextWatchers(
+            EditText emailEditText,
+            EditText passwordEditText,
+            TextView emailErrorTV,
+            TextView emailEmptyTV,
+            TextView passwordErrorTV,
+            TextView passwordEmptyTV,
+            TextView passwordSpaceErrorTV,
+            Pattern passwordPattern) {
+
+        emailEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // This method is not used here, but you can implement it if needed.
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String email = s.toString().trim();
+                Utils.hideItem(emailErrorTV);
+                Utils.hideItem(emailEmptyTV);
+
+                if (email.isEmpty()) {
+                    Utils.showItem(emailEmptyTV);
+                } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    Utils.showItem(emailErrorTV);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // This method is not used here, but you can implement it if needed.
             }
         });
 
-        // Handle forgot password click
-        forgotPassword.setOnClickListener(v -> forgotPasswordDialog());
+        passwordEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // This method is not used here, but you can implement it if needed.
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String password = s.toString().trim();
+                Utils.hideItem(passwordErrorTV);
+                Utils.hideItem(passwordEmptyTV);
+                Utils.hideItem(passwordSpaceErrorTV);
+
+                if (password.isEmpty()) {
+                    Utils.showItem(passwordEmptyTV);
+                } else if (!passwordPattern.matcher(password).matches()) {
+                    Utils.showItem(passwordErrorTV);
+                } else if (password.contains(" ")) {
+                    Utils.showItem(passwordSpaceErrorTV);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // This method is not used here, but you can implement it if needed.
+            }
+        });
     }
 
-    // Validate email format
-    private void validateEmail(String email, TextView errorTextView) {
-        if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            errorTextView.setVisibility(View.GONE);
+    // Handle the "Continue" button click and show the username dialog if data is valid
+    private void handleLogin() {
+        String email = Objects.requireNonNull(binding.logInEmailEt.getText()).toString();
+        String password = Objects.requireNonNull(binding.logInPasswordEt.getText()).toString();
+
+        boolean isValid = validateLoginData(email, password);
+
+        if (!isValid) {
+            //TODO delete
+            Utils.showToast(this, "Invalid email or password");
         } else {
-            errorTextView.setVisibility(View.VISIBLE);
+
+            //TODO delete and validate login
+            Utils.showToast(this, "Email and password correct. Logging in...");
+            handler.postDelayed(() -> Utils.openActivity(this, ActivityMain.class), 3000);
+
         }
+    }
+
+    // Set up animation for the pulsating logo
+    private void setupAnimation() {
+        TextView pulsatingLogoTV = binding.logInLogo;
+        Animation pulseAnimation = AnimationUtils.loadAnimation(this, R.anim.pulse_anim);
+        pulsatingLogoTV.startAnimation(pulseAnimation);
+    }
+
+    // Validate signup data including email and password
+    private boolean validateLoginData(String email, String password) {
+        TextView emailErrorTV = binding.logInEmailErrorTv;
+        TextView emailEmptyTV = binding.logInEmailEmptyEmailTv;
+        TextView passwordErrorTV = binding.logInPasswordErrorTv;
+        TextView passwordEmptyTV = binding.logInEmailEmptyPasswordTv;
+        TextView passwordSpaceErrorTV = binding.logInPasswordSpaceErrorTv;
+
+        Pattern passwordPattern = Pattern.compile("^" +
+                "(?=.*[0-9])" +         // at least 1 digit
+                "(?=.*[a-z])" +         // at least 1 lowercase letter
+                "(?=.*[A-Z])" +         // at least 1 uppercase letter
+                "(?=.*[@#$%^&+=])" +    // at least 1 special character
+                "(?=\\S+$)" +           // no white spaces
+                ".{8,}" +               // at least 8 characters
+                "$");
+
+        // Reset error messages initially
+        Utils.hideItem(emailErrorTV);
+        Utils.hideItem(emailEmptyTV);
+        Utils.hideItem(passwordErrorTV);
+        Utils.hideItem(passwordEmptyTV);
+        Utils.hideItem(passwordSpaceErrorTV);
+
+        boolean isValid = true;
+
+        if (email.isEmpty()) {
+            Utils.showItem(emailEmptyTV);
+            isValid = false;
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            Utils.showItem(emailErrorTV);
+            isValid = false;
+        }
+
+        if (password.isEmpty()) {
+            Utils.showItem(passwordEmptyTV);
+            isValid = false;
+        } else if (!passwordPattern.matcher(password).matches()) {
+            Utils.showItem(passwordErrorTV);
+            isValid = false;
+        } else if (password.contains(" ")) {
+            Utils.showItem(passwordSpaceErrorTV);
+            isValid = false;
+        }
+
+        return isValid;
     }
 
     private void forgotPasswordDialog() {
@@ -115,16 +257,17 @@ public class ActivityLogIn extends AppCompatActivity {
                 }*/
                 // Hide errors, close the dialog, and show toast
 
-                FrontendUtils.showToast(this, "OK button was clicked. The email with reset link be sent but there is no backend yet.");
+                Utils.showToast(this, "OK button was clicked. The email with reset link be sent but there is no backend yet.");
                 dialog.dismiss();
             }
         });
     }
 
     private void setupListeners() {
-        binding.logInConfirmBtn.setOnClickListener(v -> FrontendUtils.showToast(this, "Log in button was clicked"));
-        binding.logInGoogleBtn.setOnClickListener(v -> FrontendUtils.showToast(this, "Log in with Google button was clicked"));
-        binding.logInFacebookBtn.setOnClickListener(v -> FrontendUtils.showToast(this, "Log in with Facebook button was clicked"));
+        binding.logInConfirmBtn.setOnClickListener(v -> handleLogin());
+        binding.logInGoogleBtn.setOnClickListener(v -> Utils.showToast(this, "Log in with Google button was clicked"));
+        binding.logInFacebookBtn.setOnClickListener(v -> Utils.showToast(this, "Log in with Facebook button was clicked"));
+        binding.logInForgotPasswordTv.setOnClickListener(v -> forgotPasswordDialog());
         binding.signUpBtn.setOnClickListener(v -> signUpRedirect());
     }
 

@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.DiffUtil;
 
 import com.example.mallet.databinding.FragmentFlashcardsBinding;
 import com.example.mallet.utils.AdapterFlashcardStack;
+import com.example.mallet.utils.Utils;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackListener;
 import com.yuyakaido.android.cardstackview.Direction;
@@ -177,12 +178,6 @@ public class FragmentFlashcards extends Fragment {
     }
 
     private List<ModelFlashcard> addList() {
-        List<ModelFlashcard> items = new ArrayList<>();
-        items.add(new ModelFlashcard("Apple", "A red fruit", "Jabłko"));
-        items.add(new ModelFlashcard("Orange", "An orange fruit", "Pomarańcza"));
-        items.add(new ModelFlashcard("Pear", "A round yellow fruit", "Gruszka"));
-        items.add(new ModelFlashcard("Banana", "A long, curved yellow fruit", "Banan"));
-        items.add(new ModelFlashcard("Strawberry", "A small red fruit", "Truskawka"));
-        return items;
+        return Utils.readFlashcardsFromFile(getContext(), "vocab.txt");
     }
 }

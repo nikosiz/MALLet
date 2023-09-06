@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.mallet.databinding.FragmentUserLibraryFoldersBinding;
 import com.example.mallet.utils.AdapterFolder;
-import com.example.mallet.utils.FrontendUtils;
+import com.example.mallet.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +50,6 @@ public class FragmentUserLibraryFolders extends Fragment implements AdapterFolde
     }
 
     public void onFolderClick(ModelFolder folder) {
-        FrontendUtils.showToast(getContext(), "ASDF");
+        Utils.showToast(getContext(), "ASDF");
     }
 }

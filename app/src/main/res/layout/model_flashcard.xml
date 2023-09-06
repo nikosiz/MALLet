@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/flashcard_cv"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginHorizontal="10dp"
-    android:layout_marginVertical="20dp"
+    android:layout_marginHorizontal="5dp"
+    android:layout_marginVertical="5dp"
     android:clickable="true"
+    android:focusable="true"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="10dp"
     app:cardPreventCornerOverlap="false"
     app:cardUseCompatPadding="true">
 
     <LinearLayout
+        android:id="@+id/flashcard_cv_ll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="100dp">
 
         <TextView
             android:id="@+id/flashcard_term"
@@ -30,8 +33,10 @@
             android:textSize="30sp" />
 
         <View
+            android:id="@+id/flashcard_view_definition"
             android:layout_width="match_parent"
-            android:layout_height="10dp" />
+            android:layout_height="10dp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/flashcard_definition"
@@ -42,7 +47,14 @@
             android:gravity="center"
             android:text="definition"
             android:textColor="@color/danube_blue_600"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:visibility="gone" />
+
+        <View
+            android:id="@+id/flashcard_view_translation"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/flashcard_translation"
@@ -53,8 +65,7 @@
             android:gravity="center"
             android:text="translation_pl"
             android:textColor="@color/danube_blue_600"
-            android:textSize="30sp"
-            android:visibility="gone" />
+            android:textSize="25sp" />
 
     </LinearLayout>
 

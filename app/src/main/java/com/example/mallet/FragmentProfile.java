@@ -7,9 +7,12 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +35,7 @@ import com.example.mallet.databinding.DialogChangeUsernameBinding;
 import com.example.mallet.databinding.DialogDeleteAccountBinding;
 import com.example.mallet.databinding.DialogVerifyPasswordBinding;
 import com.example.mallet.databinding.FragmentProfileBinding;
-import com.example.mallet.utils.FrontendUtils;
+import com.example.mallet.utils.Utils;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;
@@ -71,7 +74,7 @@ public class FragmentProfile extends Fragment {
 
     private void changePicture() {
         // TODO: Dialog with pictures to choose from and apply for user
-        FrontendUtils.showToast(getContext(), "Here a dialog will appear and you will have the possibility to choose a new picture.");
+        Utils.showToast(getContext(), "Here a dialog will appear and you will have the possibility to choose a new picture.");
     }
 
 
@@ -82,24 +85,22 @@ public class FragmentProfile extends Fragment {
     // Show a dialog to change email address
 
     private void changeEmailDialog() {
-        final Dialog dialog = new Dialog(requireContext());
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        DialogChangeEmailBinding binding = DialogChangeEmailBinding.inflate(LayoutInflater.from(requireContext()));
-        dialog.setContentView(binding.getRoot());
+        final Dialog dialog = createDialog(R.layout.dialog_change_email);
 
+        DialogChangeEmailBinding dialogBinding = DialogChangeEmailBinding.inflate(LayoutInflater.from(requireContext()));
 
-        TextView cancelBtn = binding.changeEmailCancelBtn;
-        TextView confirmBtn = binding.changeEmailConfirmBtn;
+        TextView cancelBtn = dialogBinding.changeEmailCancelBtn;
+        TextView confirmBtn = dialogBinding.changeEmailConfirmBtn;
 
         // Set click listeners and perform actions
         cancelBtn.setOnClickListener(v -> dialog.dismiss());
 
         confirmBtn.setOnClickListener(v -> {
-            TextView validEmailError = binding.changeEmailProvideValidErrorTv;
-            TextView alreadyExistsError = binding.changeEmailAlreadyExistsErrorTv;
-            TextView emptyFieldError = binding.changeEmailEmptyErrorTv;
+            TextView validEmailError = dialogBinding.changeEmailProvideValidErrorTv;
+            TextView alreadyExistsError = dialogBinding.changeEmailAlreadyExistsErrorTv;
+            TextView emptyFieldError = dialogBinding.changeEmailEmptyErrorTv;
 
-            TextInputEditText newEmailEditText = binding.changeEmailNewEt;
+            TextInputEditText newEmailEditText = dialogBinding.changeEmailNewEt;
 
             String newEmail = Objects.requireNonNull(newEmailEditText.getText()).toString();
 
@@ -118,21 +119,21 @@ public class FragmentProfile extends Fragment {
                 validEmailError.setVisibility(View.GONE);
                 emptyFieldError.setVisibility(View.GONE);
                 alreadyExistsError.setVisibility(View.GONE);
-                FrontendUtils.showToast(getContext(), "OK button was clicked. The email should be changed but there is no backend yet.");
+                Utils.showToast(getContext(), "OK button was clicked. The email should be changed but there is no backend yet.");
                 dialog.dismiss();
             }
+            dialog.show();
         });
 
         //dialog.show();
-        FrontendUtils.showDialog(dialog);
+        Utils.showDialog(dialog);
     }
 
     // Show a dialog to verify the password before certain actions
     private void verifyPasswordDialog(VerifyPasswordAction action) {
-        final Dialog dialog = new Dialog(requireContext());
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        final Dialog dialog = createDialog(R.layout.dialog_verify_password);
+
         DialogVerifyPasswordBinding binding = DialogVerifyPasswordBinding.inflate(LayoutInflater.from(requireContext()));
-        dialog.setContentView(binding.getRoot());
 
         // Find views inside the dialog layout
         TextView cancelBtn = binding.verifyCancelBtn;
@@ -156,7 +157,7 @@ public class FragmentProfile extends Fragment {
                 // TODO
                 // Add functionality verifying password
                 passwordError.setVisibility(View.GONE);
-                FrontendUtils.showToast(getContext(), "OK button was clicked. The password should be verified but there is no backend yet.");
+                Utils.showToast(getContext(), "OK button was clicked. The password should be verified but there is no backend yet.");
                 dialog.dismiss();
 
                 if (action == VerifyPasswordAction.CHANGE_EMAIL) {
@@ -168,27 +169,26 @@ public class FragmentProfile extends Fragment {
         });
 
         // Show the dialog
-        FrontendUtils.showDialog(dialog);
+        dialog.show();
     }
 
     private void changeUsernameDialog() {
-        final Dialog dialog = new Dialog(requireContext());
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        DialogChangeUsernameBinding binding = DialogChangeUsernameBinding.inflate(LayoutInflater.from(requireContext()));
-        dialog.setContentView(binding.getRoot());
+        final Dialog dialog = createDialog(R.layout.dialog_change_username);
+
+        DialogChangeUsernameBinding dialogBinding = DialogChangeUsernameBinding.inflate(LayoutInflater.from(requireContext()));
 
         // Find views inside the dialog layout
-        TextView cancelBtn = binding.changeUsernameCancelBtn;
-        TextView confirmBtn = binding.changeUsernameConfirmBtn;
+        TextView cancelBtn = dialogBinding.changeUsernameCancelBtn;
+        TextView confirmBtn = dialogBinding.changeUsernameConfirmBtn;
 
         // Set click listeners and perform actions
         cancelBtn.setOnClickListener(v -> dialog.dismiss());
 
         confirmBtn.setOnClickListener(v -> {
-            TextView alreadyExistsError = binding.changeUsernameAlreadyExistsErrorTv;
-            TextView emptyFieldError = binding.changeUsernameEmptyErrorTv;
+            TextView alreadyExistsError = dialogBinding.changeUsernameAlreadyExistsErrorTv;
+            TextView emptyFieldError = dialogBinding.changeUsernameEmptyErrorTv;
 
-            TextInputEditText newUsernameEditText = binding.changeUsernameNewEt;
+            TextInputEditText newUsernameEditText = dialogBinding.changeUsernameNewEt;
 
             String newUsername = Objects.requireNonNull(newUsernameEditText.getText()).toString();
 
@@ -205,17 +205,18 @@ public class FragmentProfile extends Fragment {
                 // TODO: Add functionality changing username
                 emptyFieldError.setVisibility(View.GONE);
                 alreadyExistsError.setVisibility(View.GONE);
-                FrontendUtils.showToast(getContext(), "OK button was clicked. The username should be changed but there is no backend yet.");
+                Utils.showToast(getContext(), "OK button was clicked. The username should be changed but there is no backend yet.");
                 dialog.dismiss();
             }
+            dialog.show();
         });
 
-        FrontendUtils.showDialog(dialog);
+        Utils.showDialog(dialog);
     }
 
     private void changePasswordDialog() {
-        final Dialog dialog = new Dialog(requireContext());
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        final Dialog dialog = createDialog(R.layout.dialog_change_password);
+
         DialogChangePasswordBinding binding = DialogChangePasswordBinding.inflate(LayoutInflater.from(requireContext()));
         dialog.setContentView(binding.getRoot());
 
@@ -255,37 +256,37 @@ public class FragmentProfile extends Fragment {
                     confirmNewPasswordError.setVisibility(View.GONE);
                 }
 
-                FrontendUtils.showToast(getContext(), "All fields must be filled.");
+                Utils.showToast(getContext(), "All fields must be filled.");
             } else {
                 // TODO: Add functionality changing password
                 oldPasswordError.setVisibility(View.GONE);
                 newPasswordError.setVisibility(View.GONE);
                 confirmNewPasswordError.setVisibility(View.GONE);
-                FrontendUtils.showToast(getContext(), "OK button was clicked. The password should be changed but there is no backend yet.");
+                Utils.showToast(getContext(), "OK button was clicked. The password should be changed but there is no backend yet.");
                 dialog.dismiss();
             }
         });
-        FrontendUtils.showDialog(dialog);
 
+        dialog.show();
     }
 
     // Handle notification settings
     private void notificationSettings() {
         SwitchCompat showNotificationsSwitch = binding.profileNotificationsSwitch;
 
-        FrontendUtils.showToast(getContext(), "You will get notifications when the back end exists.");
+        Utils.showToast(getContext(), "You will get notifications when the back end exists.");
 
         // Handle switch state change
         showNotificationsSwitch.setOnCheckedChangeListener((compoundButton, isChecked) -> {
             if (isChecked) {
                 // TODO
                 // Enable notifications
-                FrontendUtils.showToast(getContext(), "You will get notifications when the back end exists.");
+                Utils.showToast(getContext(), "You will get notifications when the back end exists.");
                 binding.profileNotificationsSwitch.setChecked(true);
             } else {
                 // TODO
                 // Disable notifications
-                FrontendUtils.showToast(getContext(), "You WILL NOT get notifications when the back end exists.");
+                Utils.showToast(getContext(), "You WILL NOT get notifications when the back end exists.");
                 binding.profileNotificationsSwitch.setChecked(false);
             }
         });
@@ -295,33 +296,31 @@ public class FragmentProfile extends Fragment {
     private void saveSetsOffline() {
         SwitchCompat saveOfflineSwitch = binding.profileSaveOfflineSwitch;
 
-        FrontendUtils.showToast(getContext(), "The sets will not be saved for offline use.");
+        Utils.showToast(getContext(), "The sets will not be saved for offline use.");
 
         saveOfflineSwitch.setOnCheckedChangeListener((compoundButton, isChecked) -> {
             if (isChecked) {
                 // TODO
                 // Download sets
-                FrontendUtils.showToast(getContext(), "Sets downloaded (when the back end exists).");
+                Utils.showToast(getContext(), "Sets downloaded (when the back end exists).");
             } else {
                 // TODO
                 // Delete downloaded sets
-                FrontendUtils.showToast(getContext(), "Sets deleted (when the back end exists).");
+                Utils.showToast(getContext(), "Sets deleted (when the back end exists).");
             }
         });
     }
 
     // Change the app's theme
     private void changeThemeDialog() {
-        //final Dialog dialog = createDialog(R.layout.dialog_change_theme);
-        final Dialog dialog = new Dialog(requireContext());
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        DialogChangeThemeBinding binding = DialogChangeThemeBinding.inflate(LayoutInflater.from(requireContext()));
-        dialog.setContentView(binding.getRoot());
+        final Dialog dialog = createDialog(R.layout.dialog_change_theme);
+
+        DialogChangeThemeBinding dialogBinding = DialogChangeThemeBinding.inflate(LayoutInflater.from(requireContext()));
 
         // Find views inside the dialog layout
-        TextView cancelBtn = binding.changeThemeCancelBtn;
-        TextView confirmBtn = binding.changeThemeConfirmBtn;
-        RadioGroup themeRadioGroup = binding.changeThemeRg;
+        TextView cancelBtn = dialogBinding.changeThemeCancelBtn;
+        TextView confirmBtn = dialogBinding.changeThemeConfirmBtn;
+        RadioGroup themeRadioGroup = dialogBinding.changeThemeRg;
 
         String savedTheme = getSavedTheme();
 
@@ -349,11 +348,11 @@ public class FragmentProfile extends Fragment {
             }
 
             saveSelectedTheme(selectedThemeName);
-            FrontendUtils.showToast(getContext(), selectedThemeName);
+            Utils.showToast(getContext(), selectedThemeName);
             applyTheme(selectedThemeName);
             dialog.dismiss();
         });
-        FrontendUtils.showDialog(dialog);
+        dialog.show();
     }
 
     private void saveSelectedTheme(String themeName) {
@@ -384,43 +383,37 @@ public class FragmentProfile extends Fragment {
     }
 
     private void showAboutSection() {
-        //final Dialog dialog = createDialog(R.layout.dialog_about);
-        final Dialog dialog = new Dialog(requireContext());
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        DialogAboutBinding binding = DialogAboutBinding.inflate(LayoutInflater.from(requireContext()));
-        dialog.setContentView(binding.getRoot());
+        final Dialog dialog = createDialog(R.layout.dialog_about);
 
-        // Find views inside the dialog layout
+        DialogAboutBinding dialogBinding = DialogAboutBinding.inflate(LayoutInflater.from(requireContext()));
 
-        FrontendUtils.showDialog(dialog);
-        //FrontendUtils.showToast(getContext(), "This is the about section.");
+
+        dialog.show();
     }
 
     private void logOut() {
         // TODO: Implement logic for logging out
 
-        FrontendUtils.showToast(getContext(), "You were logged out. For now, as we do not have any backend, we are just going to move you to the ChooseLogInSignUpActivity.java");
+        Utils.showToast(getContext(), "You were logged out. For now, as we do not have any backend, we are just going to move you to the ChooseLogInSignUpActivity.java");
         requireActivity().finish();
     }
 
     private void showDeleteAccountDialog() {
-        //final Dialog dialog = new Dialog(requireContext());
-        final Dialog dialog = new Dialog(requireContext());
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        DialogDeleteAccountBinding binding = DialogDeleteAccountBinding.inflate(LayoutInflater.from(requireContext()));
-        dialog.setContentView(binding.getRoot());
+        final Dialog dialog = createDialog(R.layout.dialog_delete_account);
 
-        TextView cancelBtn = binding.deleteAccCancelBtn;
-        TextView confirmBtn = binding.deleteAccConfirmBtn;
-        CheckBox deleteAccountCheckBox = binding.deleteAccCb;
+        DialogDeleteAccountBinding dialogBinding = DialogDeleteAccountBinding.inflate(LayoutInflater.from(requireContext()));
+
+        TextView cancelBtn = dialogBinding.deleteAccCancelBtn;
+        TextView confirmBtn = dialogBinding.deleteAccConfirmBtn;
+        CheckBox deleteAccountCheckBox = dialogBinding.deleteAccCb;
 
         cancelBtn.setOnClickListener(v -> dialog.dismiss());
 
         confirmBtn.setOnClickListener(v -> {
-            TextView emptyPasswordError = binding.deleteAccEmptyError;
-            TextView wrongPasswordError = binding.deleteAccWrongPassError;
-            TextView checkError = binding.deleteAccCheckboxError;
-            TextInputEditText passwordEditText = binding.deleteAccPasswordEt;
+            TextView emptyPasswordError = dialogBinding.deleteAccEmptyError;
+            TextView wrongPasswordError = dialogBinding.deleteAccWrongPassError;
+            TextView checkError = dialogBinding.deleteAccCheckboxError;
+            TextInputEditText passwordEditText = dialogBinding.deleteAccPasswordEt;
 
             String password = Objects.requireNonNull(passwordEditText.getText()).toString();
 
@@ -440,13 +433,23 @@ public class FragmentProfile extends Fragment {
                 // TODO: Add functionality for checking if the password is correct
                 emptyPasswordError.setVisibility(View.GONE);
                 checkError.setVisibility(View.GONE);
-                FrontendUtils.showToast(getContext(), "When we have backend, we will check if the password is correct. For now we just jump to ChooseLogInSignUp.java.");
+                Utils.showToast(getContext(), "When we have backend, we will check if the password is correct. For now we just jump to ChooseLogInSignUp.java.");
                 Intent intent = new Intent(getContext(), ActivityOpening.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
                 requireActivity().finish();
             }
         });
-        FrontendUtils.showDialog(dialog);
+        dialog.show();
+    }
+
+    private Dialog createDialog(int layoutResId) {
+        final Dialog dialog = new Dialog(getContext());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(layoutResId);
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+        return dialog;
     }
 }

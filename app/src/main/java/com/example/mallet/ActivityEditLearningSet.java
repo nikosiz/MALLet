@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.mallet.databinding.ActivityEditLearningSetBinding;
-import com.example.mallet.utils.FrontendUtils;
+import com.example.mallet.utils.Utils;
 
 import java.util.Objects;
 
@@ -60,6 +60,6 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
     public void createSet() {
         // TODO
-        FrontendUtils.showToast(this, "Set created");
+        Utils.showToast(this, "Set created");
     }
 }

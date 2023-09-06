@@ -1,28 +1,37 @@
 package com.example.mallet.utils;
 
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.util.Patterns;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+
+import com.example.mallet.ModelFlashcard;
 import com.example.mallet.R;
 
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
-public class FrontendUtils {
+public class Utils {
+
+    private static boolean backClickCounter = false;
 
     public static void showItem(View view) {
         if (view != null) {
@@ -40,10 +49,7 @@ public class FrontendUtils {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
-    public static Dialog createDialog(Context context, String layoutName) {
-        // Get the layout resource ID based on the layoutName
-        int layoutResourceId = context.getResources().getIdentifier(layoutName, "layout", context.getPackageName());
-
+    public static Dialog createDialog(Context context, int layoutResourceId) {
         // Check if the layout resource ID is valid
         if (layoutResourceId == 0) {
             // Handle the case where the layout does not exist
@@ -60,16 +66,16 @@ public class FrontendUtils {
         dialog.setContentView(dialogView);
 
         // Customize the dialog's appearance
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().setGravity(Gravity.BOTTOM);
 
         return dialog;
     }
 
+
     public static void showDialog(Dialog dialog) {
         if (dialog != null) {
-            // Show the dialog
             dialog.show();
         }
     }
@@ -98,23 +104,6 @@ public class FrontendUtils {
             page.setScaleY(MIN_Y_SCALE);
             page.setScaleX(MIN_X_SCALE);
             page.setAlpha(MIN_ALPHA);
-        }
-    }
-
-    public static void passDataToActivity(Intent intent, Map<String, Object> dataMap) {
-        for (Map.Entry<String, Object> entry : dataMap.entrySet()) {
-            String key = entry.getKey();
-            Object value = entry.getValue();
-
-            if (value instanceof String) {
-                intent.putExtra(key, (String) value);
-            } else if (value instanceof Integer) {
-                intent.putExtra(key, (int) value);
-            } else if (value instanceof Boolean) {
-                intent.putExtra(key, (boolean) value);
-            } else if (value instanceof Float) {
-                intent.putExtra(key, (float) value);
-            } // Add more data types as needed
         }
     }
 
@@ -148,26 +137,58 @@ public class FrontendUtils {
         progressBarView.setVisibility(View.GONE);
     }
 
-    public static boolean emailPatternCheck(String email, TextView errorTV) {
-        if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            errorTV.setVisibility(View.GONE);
-            return true;
-        } else {
-            errorTV.setVisibility(View.VISIBLE);
-            return false;
-        }
+    public static void openActivity(Context context, Class<?> activityClass) {
+        Intent intent = new Intent(context, activityClass);
+        context.startActivity(intent);
     }
 
-    public static boolean passwordPatternCheck(String password, TextView errorTV) {
-        Pattern p = Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$");
-
-        if(p.matcher(password).matches()){
-            errorTV.setVisibility(View.GONE);
-            return true;
-        } else {
-            errorTV.setVisibility(View.VISIBLE);
-            return false;
-        }
+    public static void openActivityWithFragment(Context context, Class<? extends Fragment> fragmentClass, Class<?> targetActivityClass) {
+        Intent intent = new Intent(context, targetActivityClass);
+        intent.putExtra("fragment_class", fragmentClass.getName());
+        context.startActivity(intent);
     }
+
+    public static void terminateApp(Activity activity) {
+        if (backClickCounter) {
+            activity.finishAffinity();
+            System.exit(0);
+            return;
+        }
+
+        backClickCounter = true;
+        Toast.makeText(activity, "Press back again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(() -> backClickCounter = false, 2000); // Reset the flag after 2 seconds
+    }
+
+    public static List<ModelFlashcard> readFlashcardsFromFile(Context context, String filePath) {
+        List<ModelFlashcard> flashcards = new ArrayList<>();
+
+        try {
+            AssetManager assetManager = context.getAssets();
+            InputStreamReader inputStreamReader = new InputStreamReader(assetManager.open(filePath));
+            BufferedReader reader = new BufferedReader(inputStreamReader);
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(";");
+                if (parts.length == 3) {
+                    String term = parts[0].trim();
+                    String definition = parts[1].trim();
+                    String translation = parts[2].trim();
+                    flashcards.add(new ModelFlashcard(term, definition, translation));
+                }
+            }
+
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return flashcards;
+    }
+
+
+
 
 }

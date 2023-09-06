@@ -78,6 +78,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_ripple_white_rect"
                 android:gravity="center_vertical"
+
                 android:minHeight="65dp"
                 android:orientation="vertical"
                 android:paddingHorizontal="30dp">
@@ -136,7 +137,7 @@
                 android:id="@+id/profile_notifications_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_ripple_white_rect"
+                android:background="@color/white"
 
                 android:minHeight="65dp"
                 android:orientation="horizontal"
@@ -176,7 +177,7 @@
                 android:id="@+id/profile_save_offline_switch_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_ripple_white_rect"
+                android:background="@color/white"
 
                 android:minHeight="65dp"
                 android:orientation="horizontal"
@@ -300,8 +301,7 @@
                 android:id="@+id/profile_version_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_ripple_white_rect"
-
+                android:background="@color/white"
                 android:gravity="center_vertical"
                 android:minHeight="65dp"
                 android:orientation="vertical"
@@ -363,7 +363,7 @@
                 android:id="@+id/profile_delete_account_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/carnation_red_100"
+                android:background="@drawable/bg_ripple_red_rect"
                 android:gravity="center"
                 android:minHeight="65dp"
                 android:orientation="vertical"

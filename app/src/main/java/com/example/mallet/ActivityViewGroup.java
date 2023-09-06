@@ -12,7 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.mallet.databinding.ActivityViewGroupBinding;
 import com.example.mallet.databinding.DialogGroupToolbarOptionsBinding;
-import com.example.mallet.utils.FrontendUtils;
+import com.example.mallet.utils.Utils;
 
 import java.util.Objects;
 
@@ -77,13 +77,13 @@ public class ActivityViewGroup extends AppCompatActivity {
             // TODO: ActivityReport
         });
 
-        FrontendUtils.showDialog(dialog);
+        Utils.showDialog(dialog);
 
     }
 
     private void leaveGroup() {
         // TODO
-        FrontendUtils.showToast(this, "You left the group");
+        Utils.showToast(this, "You left the group");
 
     }
 

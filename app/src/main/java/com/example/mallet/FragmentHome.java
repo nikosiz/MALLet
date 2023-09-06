@@ -12,10 +12,11 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.mallet.databinding.FragmentHomeBinding;
+import com.example.mallet.utils.AdapterFlashcard;
 import com.example.mallet.utils.AdapterFolder;
 import com.example.mallet.utils.AdapterGroup;
 import com.example.mallet.utils.AdapterLearningSet;
-import com.example.mallet.utils.FrontendUtils;
+import com.example.mallet.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,47 +31,83 @@ public class FragmentHome extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
 
+        // Set up click listeners for "View All" buttons
         setupClickListeners(binding);
 
-        setupSetsViewpager();
-        setupFoldersViewpager();
-        setupGroupsViewpager();
+        // Set up ViewPager for Learning Sets
+        setupViewPager(binding.homeSetsViewpager, createSetList());
+
+        // Set up ViewPager for Folders
+        setupViewPager(binding.homeFoldersViewpager, createFolderList());
+
+        // Set up ViewPager for Groups
+        setupViewPager(binding.homeGroupsViewpager, createGroupList());
 
         return binding.getRoot();
-    }
-
-    private void setupSetsViewpager() {
-        ViewPager2 viewPager = binding.homeSetsViewpager;
-        AdapterLearningSet adapterSets = new AdapterLearningSet(getContext(), createSetList(), v -> startViewSetActivity());
-        viewPager.setAdapter(adapterSets);
-
-        viewPager.setPageTransformer(FrontendUtils::applySwipeTransformer);
 
     }
 
-    // Create a list of flashcards (you can replace this with your actual data)
+    private void setupViewPager(ViewPager2 viewPager, List<?> itemList) {
+        // Determine the appropriate adapter based on the item type
+        if (!itemList.isEmpty()) {
+            Object item = itemList.get(0);
+            if (item instanceof ModelLearningSet) {
+                viewPager = binding.homeSetsViewpager;
+                AdapterLearningSet adapterSets = new AdapterLearningSet(getContext(), createSetList(), v -> Utils.openActivity(getContext(), ActivityViewLearningSet.class));
+                viewPager.setAdapter(adapterSets);
+
+                viewPager.setPageTransformer(Utils::applySwipeTransformer);
+            } else if (item instanceof ModelFolder) {
+                viewPager = binding.homeFoldersViewpager;
+                AdapterFolder adapterFolders = new AdapterFolder(getContext(), createFolderList(), v -> Utils.openActivity(getContext(), ActivityViewFolder.class));
+
+                viewPager.setAdapter(adapterFolders);
+
+                viewPager.setPageTransformer(Utils::applySwipeTransformer);
+            } else if (item instanceof ModelGroup) {
+                viewPager = binding.homeGroupsViewpager;
+                AdapterGroup adapterGroups = new AdapterGroup(getContext(), createGroupList(), v -> Utils.openActivity(getContext(), ActivityViewGroup.class));
+                viewPager.setAdapter(adapterGroups);
+
+                viewPager.setPageTransformer(Utils::applySwipeTransformer);
+            }
+        }
+
+        // Apply a swipe transformer
+        viewPager.setPageTransformer(Utils::applySwipeTransformer);
+    }
+
+    // Create a list of learning sets
     private List<ModelLearningSet> createSetList() {
         List<ModelLearningSet> sets = new ArrayList<>();
-
-        sets.add(new ModelLearningSet("Set #1", "102", "user123", 566));
-        sets.add(new ModelLearningSet("Set #2", "144", "user123", 915));
-        sets.add(new ModelLearningSet("Set #3", "256", "user123", 684));
-        sets.add(new ModelLearningSet("Set #4", "138", "user123", 694));
-        sets.add(new ModelLearningSet("Set #5", "101", "user123", 354));
-
+        sets.add(new ModelLearningSet("Set #1", testFlashcards(), "user123", 566));
+        sets.add(new ModelLearningSet("Set #2", testFlashcards(), "user123", 915));
+        sets.add(new ModelLearningSet("Set #3", testFlashcards(), "user123", 684));
+        sets.add(new ModelLearningSet("Set #4", testFlashcards(), "user123", 694));
+        sets.add(new ModelLearningSet("Set #5", testFlashcards(), "user123", 354));
         return sets;
     }
 
-    private void setupFoldersViewpager() {
-        ViewPager2 viewPager = binding.homeFoldersViewpager;
-        AdapterFolder adapterFolders = new AdapterFolder(getContext(), createFolderList(), v -> startViewFolderActivity());
-
-        viewPager.setAdapter(adapterFolders);
-
-        viewPager.setPageTransformer(FrontendUtils::applySwipeTransformer);
+    private List<ModelFlashcard> testFlashcards() {
+        return Utils.readFlashcardsFromFile(getContext(), "vocab.txt");
     }
 
-    // Create a list of flashcards (you can replace this with your actual data)
+    private void displayFlashcardsInViewPager(List<ModelFlashcard> flashcards, ViewPager2 viewPager) {
+        List<ModelFlashcard> simplifiedFlashcards = new ArrayList<>();
+
+        for (ModelFlashcard flashcard : flashcards) {
+            // Create simplified flashcards with only TERM and TRANSLATION
+            ModelFlashcard simplifiedFlashcard = new ModelFlashcard(flashcard.getTerm(), "", flashcard.getTranslation());
+            simplifiedFlashcards.add(simplifiedFlashcard);
+        }
+
+        AdapterFlashcard adapter = new AdapterFlashcard(simplifiedFlashcards, v -> Utils.openActivity(getContext(), ActivityViewLearningSet.class));
+        viewPager.setAdapter(adapter);
+        viewPager.setPageTransformer(Utils::applySwipeTransformer);
+    }
+
+
+    // Create a list of folders
     private List<ModelFolder> createFolderList() {
         List<ModelFolder> folders = new ArrayList<>();
         folders.add(new ModelFolder("Folder #1", "user123", "3"));
@@ -78,20 +115,10 @@ public class FragmentHome extends Fragment {
         folders.add(new ModelFolder("Folder #3", "user123", "2"));
         folders.add(new ModelFolder("Folder #4", "user123", "8"));
         folders.add(new ModelFolder("Folder #5", "user123", "1"));
-        // Add more flashcards as needed
         return folders;
     }
 
-    private void setupGroupsViewpager() {
-        ViewPager2 viewPager = binding.homeGroupsViewpager;
-        AdapterGroup adapterGroups = new AdapterGroup(getContext(), createGroupList(), v -> startViewGroupActivity());
-        viewPager.setAdapter(adapterGroups);
-
-        viewPager.setPageTransformer(FrontendUtils::applySwipeTransformer);
-
-    }
-
-    // Create a list of flashcards (you can replace this with your actual data)
+    // Create a list of groups
     private List<ModelGroup> createGroupList() {
         List<ModelGroup> groups = new ArrayList<>();
         groups.add(new ModelGroup("Group #1", "2"));
@@ -102,43 +129,21 @@ public class FragmentHome extends Fragment {
         return groups;
     }
 
+    // Set up click listeners for "View All" buttons
     private void setupClickListeners(FragmentHomeBinding binding) {
-        binding.homeLearningSetViewAllTv.setOnClickListener(v -> showAllLearningSets());
-        binding.homeFolderViewAllTv.setOnClickListener(v -> showAllFolders());
-        binding.homeGroupViewAllTv.setOnClickListener(v -> showAllGroups());
+        binding.homeLearningSetViewAllTv.setOnClickListener(v -> showAllItems("Learning Sets"));
+        binding.homeFolderViewAllTv.setOnClickListener(v -> showAllItems("Folders"));
+        binding.homeGroupViewAllTv.setOnClickListener(v -> showAllItems("Groups"));
     }
 
-    private void showAllGroups() {
-        // TODO: Here should open UserLibraryFragment with Groups tab selected
-        FrontendUtils.showToast(getContext(), "Here should open UserLibraryFragment with Groups tab selected");
+    // Show all items (e.g., open a list view with all items of a specific type)
+    private void showAllItems(String itemType) {
+
+        // TODO: Implement this method to display all items of a specific type
+        Utils.showToast(getContext(), "Here should open a list of " + itemType);
     }
 
-    private void showAllFolders() {
-        // TODO: Here should open UserLibraryFragment with Folders tab selected
-        FrontendUtils.showToast(getContext(), "Here should open UserLibraryFragment with Folders tab selected");
-
-    }
-
-    private void showAllLearningSets() {
-        // TODO: Here should open UserLibraryFragment with Sets tab selected
-        FrontendUtils.showToast(getContext(), "Here should open UserLibraryFragment with Sets tab selected");
-    }
-
-    private void startViewSetActivity() {
-        Intent intent = new Intent(getContext(), ActivityViewLearningSet.class);
-        startActivity(intent);
-    }
-
-    private void startViewFolderActivity() {
-        Intent intent = new Intent(getContext(), ActivityViewFolder.class);
-        startActivity(intent);
-    }
-
-    private void startViewGroupActivity() {
-        Intent intent = new Intent(getContext(), ActivityViewGroup.class);
-        startActivity(intent);
-    }
-
+    // Utility method to pass data to an activity via an intent
     public static void passDataToActivity(Intent intent, Map<String, Object> dataMap) {
         for (Map.Entry<String, Object> entry : dataMap.entrySet()) {
             String key = entry.getKey();
@@ -155,5 +160,4 @@ public class FragmentHome extends Fragment {
             } // Add more data types as needed
         }
     }
-
 }
