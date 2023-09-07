@@ -1,0 +1,7 @@
+Animals
+Animal_Enthusiast_12
+Dog;A domesticated mammal;Pies
+Cat;A small domesticated carnivorous mammal;Kot
+Elephant;A large, herbivorous mammal with a trunk;Słoń
+Lion;A large wild cat known for its mane;Lew
+Giraffe;A tall, long-necked African mammal;Żyrafa

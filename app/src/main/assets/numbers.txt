@@ -1,0 +1,8 @@
+Numbers
+MathGeek
+One;The first natural number;Jeden
+Two;The second natural number;Dwa
+Three;The third natural number;Trzy
+Four;The fourth natural number;Cztery
+Five;The fifth natural number;Pięć
+Six;The sixth natural number;Sześć

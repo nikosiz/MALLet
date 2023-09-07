@@ -1,0 +1,6 @@
+Fruits
+Fruit_Lover_15
+Apple;A round fruit with red or green skin;Jabłko
+Banana;A long, curved fruit with yellow skin;Banan
+Orange;A citrus fruit with a sweet and tangy flavor;Pomarańcza
+Grapes;;Winogrona

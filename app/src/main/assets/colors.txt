@@ -1,0 +1,7 @@
+Colors
+Color_Lover
+Red;The color of a ripe tomato;Czerwony
+Blue;The color of the sky on a clear day;Niebieski
+Green;The color of grass and leaves;Zielony
+Yellow;The color of a ripe banana;Żółty
+Purple;A color that combines blue and red;Fioletowy

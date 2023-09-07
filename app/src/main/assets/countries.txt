@@ -1,0 +1,7 @@
+Countries
+World_Traveler
+United States;A country in North America;Stany Zjednoczone
+France;A European country known for its cuisine;Francja
+Japan;An island nation in East Asia;Japonia
+Brazil;A South American country with a diverse culture;Brazylia
+India;A country in South Asia known for its spices;Indie
