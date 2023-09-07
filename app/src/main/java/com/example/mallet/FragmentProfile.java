@@ -126,7 +126,7 @@ public class FragmentProfile extends Fragment {
         });
 
         //dialog.show();
-        Utils.showDialog(dialog);
+        dialog.show();;
     }
 
     // Show a dialog to verify the password before certain actions
@@ -211,7 +211,7 @@ public class FragmentProfile extends Fragment {
             dialog.show();
         });
 
-        Utils.showDialog(dialog);
+        dialog.show();;
     }
 
     private void changePasswordDialog() {
@@ -394,7 +394,7 @@ public class FragmentProfile extends Fragment {
     private void logOut() {
         // TODO: Implement logic for logging out
 
-        Utils.showToast(getContext(), "You were logged out. For now, as we do not have any backend, we are just going to move you to the ChooseLogInSignUpActivity.java");
+        Utils.showToast(getContext(), "You were logged out. For now, as we do not have any backend, we are just going to move you to the ChooseLogInSignupActivity.java");
         requireActivity().finish();
     }
 
@@ -433,7 +433,7 @@ public class FragmentProfile extends Fragment {
                 // TODO: Add functionality for checking if the password is correct
                 emptyPasswordError.setVisibility(View.GONE);
                 checkError.setVisibility(View.GONE);
-                Utils.showToast(getContext(), "When we have backend, we will check if the password is correct. For now we just jump to ChooseLogInSignUp.java.");
+                Utils.showToast(getContext(), "When we have backend, we will check if the password is correct. For now we just jump to ChooseLogInSignup.java.");
                 Intent intent = new Intent(getContext(), ActivityOpening.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);

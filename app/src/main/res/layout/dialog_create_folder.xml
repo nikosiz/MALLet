@@ -6,11 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_corners_rounded"
     android:orientation="vertical"
-    android:padding="20dp">
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="30dp" />
+    android:padding="30dp">
 
     <TextView
         style="@style/BasicBoldTextStyle"
@@ -18,11 +14,22 @@
         android:layout_height="wrap_content"
         android:text="Create new folder"
         android:textColor="@color/danube_blue_900"
-        android:textSize="30sp" />
+        android:textSize="20sp" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="15dp" />
+        android:layout_height="5dp" />
+
+    <TextView
+        style="@style/BasicTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Choose a name for your folder. You can also add description if you want"
+        android:textSize="20sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/create_folder_name_til"

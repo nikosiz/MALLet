@@ -80,7 +80,7 @@ public class ActivityViewFolder extends AppCompatActivity {
 
         });
 
-        Utils.showDialog(dialog);
+        dialog.show();;
 
     }
 
@@ -126,7 +126,7 @@ public class ActivityViewFolder extends AppCompatActivity {
         });
 
         dialog.show();
-        //FrontendUtils.showDialog(dialog);
+        //dialog.show();;
     }
 
     private void addSets() {

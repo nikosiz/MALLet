@@ -1,68 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/opening_parent_ll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/splash_bg"
-    tools:context=".ActivityLogIn">
+    android:orientation="vertical"
+    tools:context=".ActivityOpening">
 
 
-    <LinearLayout
-        android:id="@+id/choose_logo_ll"
+    <TextView
+        android:id="@+id/opening_logo_tv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:animation="@anim/pulse_anim"
+        android:autoSizeMaxTextSize="500sp"
+        android:autoSizeMinTextSize="2sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="@font/russo_one_regular"
         android:gravity="center"
-        android:padding="20dp"
-        app:layout_constraintBottom_toTopOf="@id/choose_cv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/choose_logo_tv"
-            style="@style/AppLogoStyle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:animation="@anim/pulse_anim" />
-    </LinearLayout>
+        android:text="@string/app_logo"
+        android:textColor="@color/white" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/choose_cv"
+        android:id="@+id/opening_cv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="-20dp"
+        android:layout_margin="20dp"
         app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
-            android:id="@+id/choose_cv_ll"
+            android:id="@+id/opening_cv_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="30dp">
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
             <TextView
-                android:id="@+id/choose_title"
-                style="@style/BasicTextStyle"
+                android:id="@+id/opening_title"
+                style="@style/BasicBoldTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:text="Choose what you want to do "
-                android:textSize="23sp" />
+                android:textColor="@color/danube_blue_900"
+                android:textSize="21sp" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="10dp" />
 
             <LinearLayout
-                android:id="@+id/choose_ll"
+                android:id="@+id/opening_choose_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/choose_sign_up_btn"
+                    android:id="@+id/opening_signup_btn"
                     style="@style/BasicButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -75,11 +79,11 @@
                     android:layout_height="10dp" />
 
                 <Button
-                    android:id="@+id/choose_log_in_btn"
+                    android:id="@+id/opening_login_btn"
                     style="@style/SocialButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/log_in"
+                    android:text="@string/login"
                     android:textSize="20sp"
                     app:backgroundTint="@null" />
 
@@ -89,7 +93,7 @@
 
                 <!-- TODO: Delete -->
                 <Button
-                    android:id="@+id/choose_no_log_in_btn"
+                    android:id="@+id/opening_no_login_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="NO LOGIN"
@@ -98,7 +102,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="50dp" />
+                android:layout_height="30dp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

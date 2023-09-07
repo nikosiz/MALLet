@@ -4,11 +4,18 @@
 
 package com.example.mallet;
 
+import static com.example.mallet.utils.Utils.createDialog;
+import static com.example.mallet.utils.Utils.openActivity;
+
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,61 +25,60 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.mallet.databinding.ActivityMainBinding;
+import com.example.mallet.databinding.DialogCreateFolderBinding;
+import com.example.mallet.databinding.DialogCreateGroupBinding;
+import com.example.mallet.databinding.DialogCreateNewBinding;
+import com.example.mallet.databinding.DialogCreateSetBinding;
 import com.example.mallet.utils.Utils;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class ActivityMain extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+    private int clickCount = 0;
     private static final String SELECTED_FRAGMENT_KEY = "selected_fragment";
     private int selectedFragmentId = R.id.bottom_nav_home;
-    private final boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState); // Call the superclass onCreate method
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main); // Use your layout file here
 
-        initView(); // Initialize the view components
+        initView();
 
-        // Restore selected fragment state
         if (savedInstanceState != null) {
-            selectedFragmentId = savedInstanceState.getInt(SELECTED_FRAGMENT_KEY, R.id.bottom_nav_home); // Get the selected fragment ID from saved state
-            setSelectedFragment(selectedFragmentId); // Set the selected fragment based on saved state
+            selectedFragmentId = savedInstanceState.getInt(SELECTED_FRAGMENT_KEY, R.id.bottom_nav_home);
+            setSelectedFragment(selectedFragmentId);
         } else {
-            replaceFragment(new FragmentHome()); // Replace the fragment with FragmentHome if there's no saved state
+            replaceFragment(new FragmentHome());
         }
 
-        int exceptionItemIndex = 2; // Specify the index for the exception item
-        setExceptionItemColor(exceptionItemIndex); // Set the color for an exception item
-
-        setBottomNavigationViewListener(); // Set a listener for bottom navigation view item selection
+        int exceptionItemIndex = 2;
+        setExceptionItemColor(exceptionItemIndex);
+        setBottomNavigationViewListener();
     }
 
-    // Initialize the view components
     private void initView() {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
     }
 
-    // Set the selected fragment based on the given fragment ID
     private void setSelectedFragment(int fragmentId) {
         binding.bottomNavigationView.setSelectedItemId(fragmentId);
     }
 
-    // Set a listener for bottom navigation view item selection
     private void setBottomNavigationViewListener() {
         binding.bottomNavigationView.setOnItemSelectedListener(this::onNavigationItemSelected);
     }
 
-    // Save the selected fragment ID in the savedInstanceState bundle
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putInt(SELECTED_FRAGMENT_KEY, selectedFragmentId);
         super.onSaveInstanceState(outState);
     }
 
-    // Replace the current fragment with the given fragment
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -80,12 +86,6 @@ public class ActivityMain extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    // Show a dialog to create a new item
-    private void showCreateNewDialog() {
-        // Implementation for showing the create new dialog
-    }
-
-    // Set the color of the exception item in the bottom navigation view
     @SuppressLint("RestrictedApi")
     private void setExceptionItemColor(int exceptionItemIndex) {
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) binding.bottomNavigationView.getChildAt(0);
@@ -94,17 +94,15 @@ public class ActivityMain extends AppCompatActivity {
         exceptionItem.setIconTintList(ColorStateList.valueOf(color));
     }
 
-    // Handle bottom navigation view item selection
     private boolean onNavigationItemSelected(MenuItem item) {
-        selectedFragmentId = item.getItemId(); // Update the selected fragment ID
+        selectedFragmentId = item.getItemId();
 
-        // Check which menu item was selected and replace the fragment accordingly
         if (selectedFragmentId == R.id.bottom_nav_home) {
             replaceFragment(new FragmentHome());
         } else if (selectedFragmentId == R.id.bottom_nav_library) {
             replaceFragment(new FragmentSetsDatabase());
         } else if (selectedFragmentId == R.id.bottom_nav_add_new) {
-            showCreateNewDialog();
+            createNewDialog();
         } else if (selectedFragmentId == R.id.bottom_nav_your_library) {
             replaceFragment(new FragmentUserLibrary());
         } else if (selectedFragmentId == R.id.bottom_nav_profile) {
@@ -114,40 +112,102 @@ public class ActivityMain extends AppCompatActivity {
         return true;
     }
 
-    // TODO
-    // Implementation for creating a new set via a dialog
-    private void dialogCreateNewSet() {
-        // Implementation for creating a new set
-    }
-
-    // Implementation for opening the edit set activity
-    private void openEditSetActivity(Dialog dialog) {
-        // Implementation for opening the edit set activity
-    }
-
-    // Implementation for creating a new folder via a dialog
-    private void dialogCreateNewFolder() {
-        // Implementation for creating a new folder
-    }
-
-    // Implementation for opening the view folder activity
-    private void openViewFolderActivity(Dialog dialog) {
-        // Implementation for opening the view folder activity
-    }
-
-    // Implementation for creating a new group via a dialog
-    private void dialogCreateNewGroup() {
-        // Implementation for creating a new group
-    }
-
-    // Implementation for opening the view group activity
-    private void openViewGroupActivity(Dialog dialog) {
-        // Implementation for opening the view group activity
-    }
+    // You can add your dialog creation and activity opening methods here as needed.
 
     @Override
     public void onBackPressed() {
         Utils.terminateApp(this);
     }
 
+    private void createNewDialog() {
+        final Dialog dialog = Utils.createDialog(this, R.layout.dialog_create_new);
+        DialogCreateNewBinding dialogBinding = DialogCreateNewBinding.inflate(getLayoutInflater());
+        dialog.setContentView(dialogBinding.getRoot());
+        //dialog.show();;
+
+        TextView createSet = dialogBinding.createNewCreateSet;
+        TextView createFolder = dialogBinding.createNewCreateFolder;
+        TextView createGroup = dialogBinding.createNewCreateGroup;
+
+        createSet.setOnClickListener(v -> {
+            dialog.dismiss();
+            createSetDialog().show();
+        });
+        createFolder.setOnClickListener(v -> {
+            dialog.dismiss();
+            createFolderDialog();
+
+        });
+        createGroup.setOnClickListener(v -> {
+            dialog.dismiss();
+            createGroupDialog();
+        });
+
+        dialog.show();
+    }
+
+    private Dialog createSetDialog() {
+        final Dialog dialog = createDialog(this, R.layout.dialog_create_set);
+
+        DialogCreateSetBinding dialogBinding = DialogCreateSetBinding.inflate(LayoutInflater.from(this));
+        dialog.setContentView(dialogBinding.getRoot());
+
+        EditText nameEt = dialogBinding.createSetNameEt;
+
+        TextView addDescriptionBtn = dialogBinding.createSetAddDescription;
+
+        View aboveDescription = dialogBinding.createSetAboveDescriptionV;
+
+        TextInputLayout descriptionTil = dialogBinding.createSetDescriptionTil;
+
+        EditText descriptionEt = dialogBinding.createSetDescriptionEt;
+
+        TextView cancelBtn = dialogBinding.createSetCancelBtn;
+        cancelBtn.setVisibility(View.VISIBLE);
+
+        TextView confirmBtn = dialogBinding.createSetConfirmBtn;
+        confirmBtn.setVisibility(View.VISIBLE);
+
+        Utils.showItems(nameEt, addDescriptionBtn, cancelBtn, confirmBtn);
+        Utils.hideItems(aboveDescription, descriptionTil);
+
+        addDescriptionBtn.setOnClickListener(v -> {
+            clickCount++; // Increment the click count on each click
+
+            if (clickCount == 1) {
+                Utils.showItems(addDescriptionBtn, aboveDescription, descriptionTil);
+            } else if (clickCount == 2) {
+                Utils.hideItems(aboveDescription, descriptionTil);
+                clickCount = 0; // Reset the click count after the second click
+            }
+        });
+
+        cancelBtn.setOnClickListener(v -> dialog.dismiss());
+
+        confirmBtn.setOnClickListener(v -> createNewSet());
+
+        return dialog;
+    }
+
+    private void createNewSet() {
+        Utils.showToast(this, "The set will be created in the future with backend. Now we will just open the \"ActivityEditLearningSet\"");
+        openActivity(this, ActivityEditLearningSet.class);
+    }
+
+    private void createFolderDialog() {
+        final Dialog dialog = createDialog(this, R.layout.dialog_create_folder);
+
+        DialogCreateFolderBinding dialogBinding = DialogCreateFolderBinding.inflate(LayoutInflater.from(this));
+
+        dialog.show();
+
+    }
+
+    private void createGroupDialog() {
+        final Dialog dialog = createDialog(this, R.layout.dialog_create_group);
+
+        DialogCreateGroupBinding dialogBinding = DialogCreateGroupBinding.inflate(LayoutInflater.from(this));
+
+        dialog.show();
+    }
 }

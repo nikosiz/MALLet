@@ -1,62 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_main_ll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/splash_bg"
-    tools:context=".ActivityLogIn">
+    android:orientation="vertical"
+    tools:context=".ActivityLogin">
 
-
-    <LinearLayout
+    <TextView
+        android:id="@+id/login_logo"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:animation="@anim/pulse_anim"
+        android:autoSizeMaxTextSize="250sp"
+        android:autoSizeMinTextSize="2sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="@font/russo_one_regular"
         android:gravity="center"
-        android:padding="20dp"
-        app:layout_constraintBottom_toTopOf="@id/log_in_cv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/log_in_logo"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:animation="@anim/pulse_anim"
-            android:autoSizeMaxTextSize="600sp"
-            android:autoSizeMinTextSize="12sp"
-            android:autoSizeStepGranularity="2sp"
-            android:autoSizeTextType="uniform"
-            android:fontFamily="@font/russo_one_regular"
-            android:gravity="center"
-            android:text="@string/app_logo"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </LinearLayout>
+        android:text="@string/app_logo"
+        android:textColor="@color/white" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/log_in_cv"
+        android:id="@+id/login_cv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        app:cardCornerRadius="30dp"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:cardCornerRadius="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="30dp">
 
             <TextView
-                android:id="@+id/log_in_email_title"
+                android:id="@+id/login_email_title"
                 style="@style/BasicBoldTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -66,7 +50,7 @@
                 android:autoSizeStepGranularity="1sp"
                 android:autoSizeTextType="uniform"
                 android:maxLines="1"
-                android:text="@string/log_in_with_email_address"
+                android:text="@string/login_with_email_address"
                 android:textColor="@color/danube_blue_900"
                 android:textSize="22sp" />
 
@@ -75,13 +59,13 @@
                 android:layout_height="10dp" />
 
             <LinearLayout
-                android:id="@+id/log_in_ll"
+                android:id="@+id/login_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/log_in_email_title">
+                app:layout_constraintTop_toBottomOf="@id/login_email_title">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -95,7 +79,7 @@
                     app:boxStrokeWidth="2dp">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/log_in_email_et"
+                        android:id="@+id/login_email_et"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:autofillHints="emailAddress"
@@ -105,7 +89,7 @@
                         android:textSize="20sp" />
 
                     <TextView
-                        android:id="@+id/log_in_email_error_tv"
+                        android:id="@+id/login_email_error_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
@@ -115,7 +99,7 @@
                         android:visibility="gone" />
 
                     <TextView
-                        android:id="@+id/log_in_email_empty_email_tv"
+                        android:id="@+id/login_email_empty_email_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
@@ -142,7 +126,7 @@
                     app:passwordToggleEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/log_in_password_et"
+                        android:id="@+id/login_password_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:autofillHints="password"
@@ -152,7 +136,7 @@
                         android:textSize="20sp" />
 
                     <TextView
-                        android:id="@+id/log_in_email_empty_password_tv"
+                        android:id="@+id/login_email_empty_password_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
@@ -162,7 +146,7 @@
                         android:visibility="gone" />
 
                     <TextView
-                        android:id="@+id/log_in_password_error_tv"
+                        android:id="@+id/login_password_error_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
@@ -172,7 +156,7 @@
                         android:visibility="gone" />
 
                     <TextView
-                        android:id="@+id/log_in_password_space_error_tv"
+                        android:id="@+id/login_password_space_error_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
@@ -182,15 +166,19 @@
                         android:visibility="gone" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <CheckBox
-                        android:id="@+id/log_in_remember_cb"
+                        android:id="@+id/login_remember_cb"
                         style="@style/BasicTextStyle"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:layout_weight="1"
@@ -201,16 +189,15 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/log_in_forgot_password_tv"
+                        android:id="@+id/login_forgot_password_tv"
                         style="@style/BasicTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="top"
+                        android:layout_gravity="end"
                         android:layout_marginTop="3dp"
                         android:background="@drawable/bg_ripple"
                         android:clickable="true"
                         android:focusable="true"
-                        android:gravity="center"
                         android:padding="5dp"
                         android:text="@string/forgot_password"
                         android:textSize="20sp"
@@ -223,11 +210,11 @@
                     android:layout_height="10dp" />
 
                 <Button
-                    android:id="@+id/log_in_confirm_btn"
+                    android:id="@+id/login_confirm_btn"
                     style="@style/BasicButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/log_in"
+                    android:text="@string/login"
                     android:textSize="15sp"
                     app:backgroundTint="@null" />
 
@@ -239,13 +226,13 @@
                 android:layout_height="10dp" />
 
             <LinearLayout
-                android:id="@+id/log_in_other_options_ll"
+                android:id="@+id/login_other_options_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/log_in_ll">
+                app:layout_constraintTop_toBottomOf="@id/login_ll">
 
                 <TextView
                     style="@style/BasicTextStyle"
@@ -255,7 +242,7 @@
                     android:text="@string/or_quickly"
                     android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/log_in_ll" />
+                    app:layout_constraintTop_toBottomOf="@id/login_ll" />
 
                 <View
                     android:layout_width="match_parent"
@@ -271,7 +258,7 @@
                     <!-- Google Sign-In Button -->
                     <!-- TODO: <com.google.android.gms.common.SignInButton -->
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/log_in_google_btn"
+                        android:id="@+id/login_google_btn"
                         style="@style/SocialButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -281,12 +268,12 @@
                         app:iconGravity="textStart"
                         app:iconTint="@null"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/log_in_facebook_btn"
+                        app:layout_constraintEnd_toStartOf="@id/login_facebook_btn"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/log_in_facebook_btn"
+                        android:id="@+id/login_facebook_btn"
                         style="@style/SocialButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -298,7 +285,7 @@
                         app:iconTint="@null"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/log_in_google_btn"
+                        app:layout_constraintStart_toEndOf="@id/login_google_btn"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
@@ -314,7 +301,7 @@
                 android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/log_in_other_options_ll">
+                app:layout_constraintTop_toBottomOf="@id/login_other_options_ll">
 
                 <TextView
                     style="@style/BasicTextStyle"
@@ -325,7 +312,7 @@
                     android:text="@string/no_account" />
 
                 <TextView
-                    android:id="@+id/sign_up_btn"
+                    android:id="@+id/signup_btn"
                     style="@style/BasicBoldTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -333,7 +320,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:padding="5dp"
-                    android:text="@string/sign_up_here"
+                    android:text="@string/signup_here"
                     android:textColor="@color/danube_blue_900"
                     android:textSize="20sp" />
 
@@ -341,7 +328,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="50dp" />
+                android:layout_height="30dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -359,10 +346,6 @@
                     android:text="@string/by_logging_in_you_accept"
                     android:textSize="10sp" />
             </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

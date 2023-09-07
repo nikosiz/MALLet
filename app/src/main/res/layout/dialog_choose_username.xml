@@ -6,11 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_corners_rounded"
     android:orientation="vertical"
-    android:padding="20dp">
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="30dp" />
+    android:padding="30dp">
 
     <TextView
         style="@style/BasicBoldTextStyle"
@@ -18,11 +14,21 @@
         android:layout_height="wrap_content"
         android:text="Choose username"
         android:textColor="@color/danube_blue_900"
-        android:textSize="30sp" />
+        android:textSize="20sp" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="15dp" />
+        android:layout_height="5dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Choose a unique username to continue"
+        android:textSize="20sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/choose_username_name_til"
@@ -61,18 +67,19 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="20dp" />
+        android:layout_height="30dp" />
 
-    <Button
+    <TextView
         android:id="@+id/choose_username_create_acc_btn"
-        style="@style/BasicButtonStyle"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="end"
+        android:background="@drawable/bg_ripple"
+        android:clickable="true"
+        android:focusable="true"
         android:text="Create account"
-        android:textColor="@color/white"
+        android:textColor="@color/danube_blue_800"
         android:textSize="20sp" />
-
 
     <View
         android:layout_width="match_parent"

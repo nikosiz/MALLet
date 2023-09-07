@@ -6,11 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_corners_rounded"
     android:orientation="vertical"
-    android:padding="20dp">
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="30dp" />
+    android:padding="30dp">
 
     <TextView
         style="@style/BasicBoldTextStyle"
@@ -18,11 +14,22 @@
         android:layout_height="wrap_content"
         android:text="Create new set"
         android:textColor="@color/danube_blue_900"
-        android:textSize="30sp" />
+        android:textSize="20sp" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="15dp" />
+        android:layout_height="5dp" />
+
+    <TextView
+        style="@style/BasicTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Choose a name for your new learning set. You can also add description if you want"
+        android:textSize="20sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/create_set_name_til"
@@ -69,9 +76,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
+        android:background="@drawable/bg_ripple"
         android:clickable="true"
         android:focusable="true"
         android:gravity="center_vertical"
+        android:paddingHorizontal="5dp"
         android:text="Description"
         android:textColor="@color/danube_blue_800"
         android:textSize="15sp"
@@ -88,7 +97,6 @@
         android:id="@+id/create_set_description_til"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         app:boxBackgroundMode="outline"
         app:boxCornerRadiusBottomEnd="5dp"
         app:boxCornerRadiusBottomStart="5dp"
@@ -112,7 +120,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="10dp" />
+        android:layout_height="30dp" />
 
     <LinearLayout
         android:id="@+id/create_set_cancel_confirm_btn"
@@ -127,6 +135,9 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:background="@drawable/bg_ripple"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingHorizontal="5dp"
             android:text="@string/cancel"
             android:textColor="@color/danube_blue_800"
             android:textSize="20sp" />
@@ -137,6 +148,9 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:background="@drawable/bg_ripple"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingHorizontal="5dp"
             android:text="@string/ok"
             android:textColor="@color/danube_blue_800"
             android:textSize="20sp" />
@@ -144,6 +158,6 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="30dp" />
+        android:layout_height="10dp" />
 
 </LinearLayout>

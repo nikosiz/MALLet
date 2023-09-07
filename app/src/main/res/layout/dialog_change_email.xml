@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_corners_rounded"
     android:orientation="vertical"
-    android:paddingHorizontal="20dp"
-    android:paddingTop="20dp">
+    android:paddingHorizontal="30dp"
+    android:paddingTop="30dp">
 
     <TextView
         android:id="@+id/change_email_enter_email_title_tv"
@@ -124,6 +124,6 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="30dp" />
 
 </LinearLayout>

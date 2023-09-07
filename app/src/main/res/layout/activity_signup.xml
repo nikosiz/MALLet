@@ -1,62 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/signup_parent_ll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/splash_bg"
-    tools:context=".ActivityLogIn">
+    android:orientation="vertical"
+    tools:context=".ActivitySignup">
 
-
-    <LinearLayout
+    <TextView
+        android:id="@+id/signup_logo"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:animation="@anim/pulse_anim"
+        android:autoSizeMaxTextSize="250sp"
+        android:autoSizeMinTextSize="2sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="@font/russo_one_regular"
         android:gravity="center"
-        android:padding="10dp"
-        app:layout_constraintBottom_toTopOf="@id/sign_up_cv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/sign_up_logo"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:animation="@anim/pulse_anim"
-            android:autoSizeMaxTextSize="600sp"
-            android:autoSizeMinTextSize="12sp"
-            android:autoSizeStepGranularity="2sp"
-            android:autoSizeTextType="uniform"
-            android:fontFamily="@font/russo_one_regular"
-            android:gravity="center"
-            android:text="@string/app_logo"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </LinearLayout>
+        android:text="@string/app_logo"
+        android:textColor="@color/white" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/sign_up_cv"
+        android:id="@+id/signup_cv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        app:cardCornerRadius="30dp"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:cardCornerRadius="10dp">
 
         <LinearLayout
+            android:id="@+id/signup_cv_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="30dp">
 
             <TextView
-                android:id="@+id/sign_up_email_title"
+                android:id="@+id/signup_title_tv"
                 style="@style/BasicBoldTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -66,7 +51,7 @@
                 android:autoSizeStepGranularity="1sp"
                 android:autoSizeTextType="uniform"
                 android:maxLines="1"
-                android:text="@string/sign_up_with_email_address"
+                android:text="@string/signup_with_email_address"
                 android:textColor="@color/danube_blue_900"
                 android:textSize="22sp" />
 
@@ -75,6 +60,7 @@
                 android:layout_height="10dp" />
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/signup_email_til"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:boxBackgroundMode="outline"
@@ -85,7 +71,7 @@
                 app:boxStrokeWidth="2dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/sign_up_email_et"
+                    android:id="@+id/signup_email_et"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:autofillHints="emailAddress"
@@ -95,17 +81,7 @@
                     android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/sign_up_email_error_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginBottom="5dp"
-                    android:text="@string/email_incorrect"
-                    android:textColor="@color/carnation_red_600"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/sign_up_email_empty_email_tv"
+                    android:id="@+id/signup_email_empty_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
@@ -113,9 +89,20 @@
                     android:text="@string/field_cannot_be_empty"
                     android:textColor="@color/carnation_red_600"
                     android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/signup_email_incorrect_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/email_incorrect"
+                    android:textColor="@color/carnation_red_600"
+                    android:visibility="gone" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/signup_password_til"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:boxBackgroundMode="outline"
@@ -127,7 +114,7 @@
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/sign_up_password_et"
+                    android:id="@+id/signup_password_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:autofillHints="password"
@@ -137,7 +124,7 @@
                     android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/sign_up_email_empty_password_tv"
+                    android:id="@+id/signup_password_empty_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
@@ -147,7 +134,7 @@
                     android:visibility="gone" />
 
                 <TextView
-                    android:id="@+id/sign_up_password_error_tv"
+                    android:id="@+id/signup_password_incorrect_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
@@ -157,7 +144,7 @@
                     android:visibility="gone" />
 
                 <TextView
-                    android:id="@+id/sign_up_password_space_error_tv"
+                    android:id="@+id/signup_password_space_error_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
@@ -172,7 +159,7 @@
                 android:layout_height="10dp" />
 
             <TextView
-                android:id="@+id/sign_up_continue"
+                android:id="@+id/signup_continue_tv"
                 style="@style/BasicTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -194,6 +181,7 @@
                 android:layout_height="10dp" />
 
             <TextView
+                android:id="@+id/signup_socials_title_tv"
                 style="@style/BasicTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -207,6 +195,7 @@
                 android:layout_height="10dp" />
 
             <LinearLayout
+                android:id="@+id/signup_socials_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -214,8 +203,9 @@
 
                 <!-- Google Sign-In Button -->
                 <!-- TODO: <com.google.android.gms.common.SignInButton -->
+
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/sign_up_google_btn"
+                    android:id="@+id/signup_google_matbtn"
                     style="@style/SocialButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -227,7 +217,7 @@
                     app:iconTint="@null" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/sign_up_facebook_btn"
+                    android:id="@+id/signup_facebook_matbtn"
                     style="@style/SocialButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -236,11 +226,7 @@
                     android:text="@string/facebook"
                     app:icon="@drawable/ic_facebook"
                     app:iconGravity="textStart"
-                    app:iconTint="@null"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/sign_up_google_btn"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:iconTint="@null" />
             </LinearLayout>
 
             <View
@@ -248,12 +234,14 @@
                 android:layout_height="10dp" />
 
             <LinearLayout
+                android:id="@+id/signup_login_title_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/signup_login_title_tv"
                     style="@style/BasicTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -263,7 +251,7 @@
                     android:textColor="@color/danube_blue_900" />
 
                 <TextView
-                    android:id="@+id/log_in_btn"
+                    android:id="@+id/signup_login_btn_tv"
                     style="@style/BasicBoldTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -272,7 +260,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:padding="5dp"
-                    android:text="@string/log_in_here"
+                    android:text="@string/login_here"
                     android:textColor="@color/danube_blue_900"
                     android:textSize="20sp" />
 
@@ -280,9 +268,10 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="50dp" />
+                android:layout_height="30dp" />
 
             <TextView
+                android:id="@+id/signup_terms_title_tv"
                 style="@style/BasicTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -291,10 +280,6 @@
                 android:text="@string/by_signing_up_you_accept"
                 android:textColor="@color/danube_blue_900"
                 android:textSize="10sp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -4,8 +4,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_corners_rounded"
     android:orientation="vertical"
-    android:paddingHorizontal="20dp"
-    android:paddingTop="20dp"
+    android:paddingHorizontal="30dp"
+    android:paddingTop="30dp"
     android:theme="@style/Base.Theme.MALLet">
 
     <TextView
@@ -107,6 +107,6 @@
     <View
         android:id="@+id/change_theme_view_3"
         android:layout_width="match_parent"
-        android:layout_height="50dp"/>
+        android:layout_height="30dp"/>
 
 </LinearLayout>

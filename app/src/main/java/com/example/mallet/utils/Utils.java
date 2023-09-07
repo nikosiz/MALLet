@@ -1,6 +1,5 @@
 package com.example.mallet.utils;
 
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -186,6 +185,18 @@ public class Utils {
         }
 
         return flashcards;
+    }
+
+    public static void hideItems(View... elements) {
+        for (View element : elements) {
+            element.setVisibility(View.GONE);
+        }
+    }
+
+    public static void showItems(View... elements) {
+        for (View element : elements) {
+            element.setVisibility(View.VISIBLE);
+        }
     }
 
 

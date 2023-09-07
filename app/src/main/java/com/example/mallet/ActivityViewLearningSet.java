@@ -87,7 +87,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         // Add more click listeners for other options as needed
 
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        Utils.showDialog(dialog);
+        dialog.show();;
     }
 
     // Create a list of flashcards

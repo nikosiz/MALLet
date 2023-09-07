@@ -1,110 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_corners_rounded"
     android:orientation="vertical"
-    android:paddingHorizontal="30dp">
+    android:padding="30dp">
 
-    <View
-        android:id="@+id/add_new_view_0"
-        android:layout_width="match_parent"
-        android:layout_height="30dp" />
-
-    <LinearLayout
-        android:id="@+id/add_new_create_set"
+    <TextView
+        android:id="@+id/create_new_create_set"
+        style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        tools:ignore="UseCompoundDrawables">
+        android:autoSizeMaxTextSize="20sp"
+        android:autoSizeMinTextSize="15sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
+        android:background="@drawable/bg_ripple"
+        android:clickable="true"
+        android:drawablePadding="35dp"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:padding="20dp"
+        android:text="@string/create_new_set"
+        android:textColor="@color/danube_blue_800"
+        android:textSize="20sp"
+        app:drawableStartCompat="@drawable/ic_create_set"
+        app:drawableTint="@color/danube_blue_800" />
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:contentDescription="@+string/create_new_set_icon"
-            android:src="@drawable/ic_create_set"
-            app:tint="@color/danube_blue_800" />
-
-        <TextView
-            style="@style/BasicTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:text="@string/create_new_set"
-            android:textColor="@color/danube_blue_800"
-            android:textSize="20sp" />
-
-    </LinearLayout>
-
-    <View
-        android:id="@+id/add_new_view_1"
+    <TextView
+        android:id="@+id/create_new_create_folder"
+        style="@style/BasicTextStyle"
         android:layout_width="match_parent"
-        android:layout_height="10dp" />
 
-    <LinearLayout
-        android:id="@+id/add_new_create_folder"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        tools:ignore="UseCompoundDrawables">
+        android:autoSizeMaxTextSize="20sp"
+        android:autoSizeMinTextSize="15sp"
+        android:autoSizeStepGranularity="2sp"
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:contentDescription="@+string/create_new_folder_icon"
-            android:src="@drawable/ic_create_folder"
-            app:tint="@color/danube_blue_800" />
+        android:autoSizeTextType="uniform"
+        android:background="@drawable/bg_ripple"
+        android:clickable="true"
+        android:drawablePadding="35dp"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:padding="20dp"
+        android:text="@string/create_new_folder"
+        android:textColor="@color/danube_blue_800"
+        android:textSize="20sp"
+        app:drawableStartCompat="@drawable/ic_create_folder"
+        app:drawableTint="@color/danube_blue_800" />
 
-        <TextView
-            style="@style/BasicTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:text="@string/create_new_folder"
-            android:textColor="@color/danube_blue_800"
-            android:textSize="20sp" />
-
-    </LinearLayout>
-
-    <View
-        android:id="@+id/add_new_view_2"
+    <TextView
+        android:id="@+id/create_new_create_group"
+        style="@style/BasicTextStyle"
         android:layout_width="match_parent"
-        android:layout_height="10dp" />
 
-    <LinearLayout
-        android:id="@+id/add_new_create_group"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        tools:ignore="UseCompoundDrawables">
+        android:autoSizeMaxTextSize="20sp"
+        android:autoSizeMinTextSize="15sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
+        android:background="@drawable/bg_ripple"
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:contentDescription="@+string/create_new_group_icon"
-            android:src="@drawable/ic_create_group"
-            app:tint="@color/danube_blue_800" />
-
-        <TextView
-            style="@style/BasicTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:text="@string/create_new_group"
-            android:textColor="@color/danube_blue_800"
-            android:textSize="20sp" />
-
-    </LinearLayout>
+        android:clickable="true"
+        android:drawablePadding="35dp"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:padding="20dp"
+        android:text="@string/create_new_group"
+        android:textColor="@color/danube_blue_800"
+        android:textSize="20sp"
+        app:drawableStartCompat="@drawable/ic_create_group"
+        app:drawableTint="@color/danube_blue_800" />
 
     <View
-        android:id="@+id/add_new_view_3"
+        android:id="@+id/create_new_view_3"
         android:layout_width="match_parent"
         android:layout_height="30dp" />
 

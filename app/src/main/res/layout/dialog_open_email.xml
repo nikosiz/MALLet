@@ -46,7 +46,9 @@
         android:background="@drawable/bg_ripple"
         android:text="Open email"
         android:textColor="@color/danube_blue_800"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        app:drawableEndCompat="@drawable/ic_arrow_forward"
+        app:drawableTint="@color/danube_blue_800" />
 
     <View
         android:layout_width="match_parent"
