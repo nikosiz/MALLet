@@ -37,99 +37,74 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         binding = ActivityViewLearningSetBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Setup the toolbar
         setupToolbar();
 
-        // Setup click listeners for buttons
         setupClickListeners(binding);
 
-        // Display flashcards in ViewPager
-        displayFlashcardsInViewPager(createFlashcardList(), binding.viewSetViewpager);
+        getLearningSetData();
 
-        // Display flashcards in a LinearLayout
-        displayFlashcardsInLinearLayout(createFlashcardList(), binding.viewSetAllFlashcardsLl, getLayoutInflater());
+        ModelLearningSet learningSet = getIntent().getParcelableExtra("learningSet");
+
+        displayFlashcardsInViewPager(Utils.createFlashcardList(learningSet), binding.viewSetViewpager);
+        displayFlashcardsInLinearLayout(Utils.createFlashcardList(learningSet), binding.viewSetAllFlashcardsLl, getLayoutInflater());
     }
 
-    // Setup the toolbar
     private void setupToolbar() {
         Toolbar toolbar = binding.viewSetToolbar;
         setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle(""); // Set the title to an empty string
+        Objects.requireNonNull(getSupportActionBar()).setTitle("");
 
-        // Enable the home/up button
+
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        // Set a click listener for the options button
         binding.viewSetOptionsBtn.setOnClickListener(v -> dialogSetOptions());
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle clicks on the home/up button in the toolbar
-        if (item.getItemId() == android.R.id.home) {
-            // Handle the navigation back action here, e.g., finish the activity or navigate up
-            onBackPressed(); // This will simulate the back button press
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    // Show the options dialog
     private void dialogSetOptions() {
         final Dialog dialog = createDialog(R.layout.dialog_set_options);
         DialogSetOptionsBinding binding = DialogSetOptionsBinding.inflate(LayoutInflater.from(this));
 
-        // Set click listeners for options in the dialog
         binding.setToolbarOptionsEdit.setOnClickListener(v -> Utils.openActivity(this, ActivityEditLearningSet.class));
-        // Add more click listeners for other options as needed
 
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        dialog.show();;
+        dialog.show();
     }
 
-    // Create a list of flashcards
-    private List<ModelFlashcard> createFlashcardList() {
-        return Utils.readFlashcardsFromFile(this, "vocab.txt");
-    }
-
-    // Setup click listeners for buttons
-    private void setupClickListeners(ActivityViewLearningSetBinding binding) {
-        binding.viewSetViewpager.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentFlashcards.class, ActivityLearn.class));
-        binding.viewSetFlashcards.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentFlashcards.class, ActivityLearn.class));
-        binding.viewSetLearn.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentLearn.class, ActivityLearn.class));
-        binding.viewSetTest.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentTest.class, ActivityLearn.class));
-        binding.viewSetMatch.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentMatch.class, ActivityLearn.class));
-    }
-
-    // Get learning set data from the intent
     private void getLearningSetData() {
         Intent intent = getIntent();
         if (intent != null) {
-            String setName = intent.getStringExtra("set_name");
-            String setCreator = intent.getStringExtra("set_creator");
-            String setTerms = intent.getStringExtra("set_terms");
+            ModelLearningSet learningSet = intent.getParcelableExtra("learningSet");
+            if (learningSet != null) {
+                String setName = learningSet.getLearningSetName();
+                String setCreator = learningSet.getLearningSetCreator();
+                String setTerms = String.valueOf(learningSet.getNumberOfTerms());
+                List<ModelFlashcard> flashcards = learningSet.getLearningSetTerms();
 
-            TextView setNameTV = binding.viewSetNameTv;
-            TextView setCreatorTV = binding.viewSetCreatorTv;
-            TextView setTermsTV = binding.viewSetTermsTv;
+                TextView setNameTV = binding.viewSetNameTv;
+                TextView setCreatorTV = binding.viewSetCreatorTv;
+                TextView setTermsTV = binding.viewSetTermsTv;
 
-            if (setName != null) {
-                setNameTV.setText(setName);
-                setCreatorTV.setText(setCreator);
-                setTermsTV.setText(setTerms + " terms");
+                if (setName != null) {
+                    setNameTV.setText(setName);
+                }
+
+                if (setCreator != null) {
+                    setCreatorTV.setText(setCreator);
+                }
+
+                if (setTerms != null) {
+                    setTermsTV.setText(setTerms + " terms");
+                }
             }
         }
     }
 
-    // Display flashcards in a ViewPager
     private void displayFlashcardsInViewPager(List<ModelFlashcard> flashcards, ViewPager2 viewPager) {
         List<ModelFlashcard> simplifiedFlashcards = new ArrayList<>();
 
         for (ModelFlashcard flashcard : flashcards) {
-            // Create simplified flashcards with only TERM and TRANSLATION
             ModelFlashcard simplifiedFlashcard = new ModelFlashcard(flashcard.getTerm(), "", flashcard.getTranslation());
             simplifiedFlashcards.add(simplifiedFlashcard);
         }
@@ -139,7 +114,14 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         viewPager.setPageTransformer(Utils::applySwipeTransformer);
     }
 
-    // Display flashcards in a LinearLayout
+    private void setupClickListeners(ActivityViewLearningSetBinding binding) {
+        binding.viewSetViewpager.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentFlashcards.class, ActivityLearn.class));
+        binding.viewSetFlashcards.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentFlashcards.class, ActivityLearn.class));
+        binding.viewSetLearn.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentLearn.class, ActivityLearn.class));
+        binding.viewSetTest.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentTest.class, ActivityLearn.class));
+        binding.viewSetMatch.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentMatch.class, ActivityLearn.class));
+    }
+
     private void displayFlashcardsInLinearLayout(List<ModelFlashcard> flashcards, LinearLayout linearLayout, LayoutInflater inflater) {
         linearLayout.removeAllViews();
 
@@ -153,7 +135,6 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             flashcardTermTV.setVisibility(View.VISIBLE);
             flashcardTermTV.setText(flashcard.getTerm());
 
-            // Hide unused views
             View viewDefinition = flashcardItemView.findViewById(R.id.flashcard_view_definition);
             viewDefinition.setVisibility(View.GONE);
 
@@ -172,7 +153,6 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         }
     }
 
-    // Create a dialog with the specified layout
     private Dialog createDialog(int layoutResId) {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -181,5 +161,14 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().setGravity(Gravity.BOTTOM);
         return dialog;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

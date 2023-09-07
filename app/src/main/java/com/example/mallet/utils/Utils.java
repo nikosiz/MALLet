@@ -15,10 +15,12 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.fragment.app.Fragment;
 
 import com.example.mallet.ModelFlashcard;
+import com.example.mallet.ModelLearningSet;
 import com.example.mallet.R;
 
 import java.io.BufferedReader;
@@ -106,36 +108,6 @@ public class Utils {
         }
     }
 
-    public static void showProgressBar(Activity activity) {
-        // Inflate the layout containing the progress bar
-        View progressBarView = LayoutInflater.from(activity).inflate(R.layout.progress_bar, null);
-
-        // Add the progress bar to the activity's layout
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT,
-                FrameLayout.LayoutParams.MATCH_PARENT
-        );
-        activity.addContentView(progressBarView, layoutParams);
-
-        // Set the progress bar visibility to VISIBLE
-        progressBarView.setVisibility(View.VISIBLE);
-    }
-
-    public static void hideProgressBar(Activity activity) {
-        // Inflate the layout containing the progress bar
-        View progressBarView = LayoutInflater.from(activity).inflate(R.layout.progress_bar, null);
-
-        // Add the progress bar to the activity's layout
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT,
-                FrameLayout.LayoutParams.MATCH_PARENT
-        );
-        activity.addContentView(progressBarView, layoutParams);
-
-        // Set the progress bar visibility to VISIBLE
-        progressBarView.setVisibility(View.GONE);
-    }
-
     public static void openActivity(Context context, Class<?> activityClass) {
         Intent intent = new Intent(context, activityClass);
         context.startActivity(intent);
@@ -199,7 +171,10 @@ public class Utils {
         }
     }
 
-
-
-
+    public static List<ModelFlashcard> createFlashcardList(ModelLearningSet learningSet) {
+        if (learningSet != null) {
+            return learningSet.getLearningSetTerms(); // Return the flashcards from the learning set
+        }
+        return new ArrayList<>(); // Return an empty list if learningSet is null
+    }
 }

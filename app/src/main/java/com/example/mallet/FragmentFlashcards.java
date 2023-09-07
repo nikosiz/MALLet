@@ -178,6 +178,6 @@ public class FragmentFlashcards extends Fragment {
     }
 
     private List<ModelFlashcard> addList() {
-        return Utils.readFlashcardsFromFile(getContext(), "vocab.txt");
+        return Utils.readFlashcardsFromFile(getContext(), "animals.txt");
     }
 }

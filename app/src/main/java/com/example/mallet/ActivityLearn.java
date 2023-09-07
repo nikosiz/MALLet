@@ -31,12 +31,10 @@ public class ActivityLearn extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        // Start ActivityOpening and clear the back stack
         Intent intent = new Intent(this, ActivityViewLearningSet.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
-        finish(); // Finish the SignupActivity
+        finish();
     }
-
     
 }

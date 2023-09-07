@@ -53,7 +53,15 @@ public class FragmentHome extends Fragment {
             Object item = itemList.get(0);
             if (item instanceof ModelLearningSet) {
                 viewPager = binding.homeSetsViewpager;
-                AdapterLearningSet adapterSets = new AdapterLearningSet(getContext(), createSetList(), v -> Utils.openActivity(getContext(), ActivityViewLearningSet.class));
+                AdapterLearningSet adapterSets = new AdapterLearningSet(getContext(), createSetList(), learningSet -> {
+                    Intent intent = new Intent(getContext(), ActivityViewLearningSet.class);
+
+                    // Pass the entire learning set object
+                    intent.putExtra("learningSet", learningSet);
+
+                    startActivity(intent);
+                });
+
                 viewPager.setAdapter(adapterSets);
 
                 viewPager.setPageTransformer(Utils::applySwipeTransformer);
@@ -80,30 +88,20 @@ public class FragmentHome extends Fragment {
     // Create a list of learning sets
     private List<ModelLearningSet> createSetList() {
         List<ModelLearningSet> sets = new ArrayList<>();
-        sets.add(new ModelLearningSet("Set #1", testFlashcards(), "user123", 566));
-        sets.add(new ModelLearningSet("Set #2", testFlashcards(), "user123", 915));
-        sets.add(new ModelLearningSet("Set #3", testFlashcards(), "user123", 684));
-        sets.add(new ModelLearningSet("Set #4", testFlashcards(), "user123", 694));
-        sets.add(new ModelLearningSet("Set #5", testFlashcards(), "user123", 354));
+
+        ModelLearningSet set1 = FlashcardManager.readFlashcards(getContext(), "fruit.txt");
+        ModelLearningSet set2 = FlashcardManager.readFlashcards(getContext(), "animals.txt");
+        ModelLearningSet set3 = FlashcardManager.readFlashcards(getContext(), "numbers.txt");
+        ModelLearningSet set4 = FlashcardManager.readFlashcards(getContext(), "countries.txt");
+        ModelLearningSet set5 = FlashcardManager.readFlashcards(getContext(), "colors.txt");
+
+        sets.add(set1);
+        sets.add(set2);
+        sets.add(set3);
+        sets.add(set4);
+        sets.add(set5);
+
         return sets;
-    }
-
-    private List<ModelFlashcard> testFlashcards() {
-        return Utils.readFlashcardsFromFile(getContext(), "vocab.txt");
-    }
-
-    private void displayFlashcardsInViewPager(List<ModelFlashcard> flashcards, ViewPager2 viewPager) {
-        List<ModelFlashcard> simplifiedFlashcards = new ArrayList<>();
-
-        for (ModelFlashcard flashcard : flashcards) {
-            // Create simplified flashcards with only TERM and TRANSLATION
-            ModelFlashcard simplifiedFlashcard = new ModelFlashcard(flashcard.getTerm(), "", flashcard.getTranslation());
-            simplifiedFlashcards.add(simplifiedFlashcard);
-        }
-
-        AdapterFlashcard adapter = new AdapterFlashcard(simplifiedFlashcards, v -> Utils.openActivity(getContext(), ActivityViewLearningSet.class));
-        viewPager.setAdapter(adapter);
-        viewPager.setPageTransformer(Utils::applySwipeTransformer);
     }
 
 

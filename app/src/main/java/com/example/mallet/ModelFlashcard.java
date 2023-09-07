@@ -1,15 +1,13 @@
 package com.example.mallet;
 
-import com.example.mallet.databinding.ModelFlashcardBinding;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-// Define a class named ItemModel
-public class ModelFlashcard {
-    private ModelFlashcardBinding binding;
-
+public class ModelFlashcard implements Parcelable {
     // Private fields to hold term, definition, and translation data
     private String term, definition, translation;
 
-    // Default constructor for the ItemModel class
+    // Default constructor for the ModelFlashcard class
     public ModelFlashcard() {
         // Empty constructor
     }
@@ -33,7 +31,37 @@ public class ModelFlashcard {
 
     // Getter method to retrieve the translation data
     public String getTranslation() {
-
         return translation;
+    }
+
+    // Implement the Parcelable interface methods
+    protected ModelFlashcard(Parcel in) {
+        term = in.readString();
+        definition = in.readString();
+        translation = in.readString();
+    }
+
+    public static final Creator<ModelFlashcard> CREATOR = new Creator<ModelFlashcard>() {
+        @Override
+        public ModelFlashcard createFromParcel(Parcel in) {
+            return new ModelFlashcard(in);
+        }
+
+        @Override
+        public ModelFlashcard[] newArray(int size) {
+            return new ModelFlashcard[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(term);
+        dest.writeString(definition);
+        dest.writeString(translation);
     }
 }
