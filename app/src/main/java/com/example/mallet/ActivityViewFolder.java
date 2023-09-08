@@ -80,7 +80,7 @@ public class ActivityViewFolder extends AppCompatActivity {
 
         });
 
-        dialog.show();;
+        dialog.show();
 
     }
 

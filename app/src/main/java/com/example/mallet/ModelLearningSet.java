@@ -8,7 +8,7 @@ import android.os.Parcelable;
 public class ModelLearningSet implements Parcelable {
     private String learningSetName;
     private String learningSetCreator;
-    private List<ModelFlashcard> learningSetTerms;
+    private final List<ModelFlashcard> learningSetTerms;
     private int numberOfTerms;
 
     public ModelLearningSet(String learningSetName,

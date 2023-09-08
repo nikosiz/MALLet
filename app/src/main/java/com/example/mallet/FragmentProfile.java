@@ -126,7 +126,7 @@ public class FragmentProfile extends Fragment {
         });
 
         //dialog.show();
-        dialog.show();;
+        dialog.show();
     }
 
     // Show a dialog to verify the password before certain actions
@@ -211,7 +211,7 @@ public class FragmentProfile extends Fragment {
             dialog.show();
         });
 
-        dialog.show();;
+        dialog.show();
     }
 
     private void changePasswordDialog() {

@@ -21,9 +21,8 @@ public class AuthenticationManager {
         // TODO: Implement sign-up logic here
         //  Return true if registration is successful, false otherwise
         //  Firebase Authentication or backend API for registration can be used
-        boolean registrationSuccessful = true;
         /** Sign-up logic here*/
-        return registrationSuccessful;
+        return true;
     }
 
     // Add your authentication logic for user login here
@@ -32,8 +31,7 @@ public class AuthenticationManager {
         // Return true if login is successful, false otherwise
         // You can use Firebase Authentication or your own backend API for login
         // Replace this with your actual implementation
-        boolean loginSuccessful = false;
         // Your login logic here
-        return loginSuccessful;
+        return false;
     }
 }

@@ -77,7 +77,7 @@ public class ActivityViewGroup extends AppCompatActivity {
             // TODO: ActivityReport
         });
 
-        dialog.show();;
+        dialog.show();
 
     }
 
