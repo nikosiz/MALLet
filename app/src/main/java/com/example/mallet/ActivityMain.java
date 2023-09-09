@@ -27,7 +27,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.mallet.databinding.ActivityMainBinding;
 import com.example.mallet.databinding.DialogCreateFolderBinding;
 import com.example.mallet.databinding.DialogCreateGroupBinding;
-import com.example.mallet.databinding.DialogCreateNewBinding;
+import com.example.mallet.databinding.DialogCreateBinding;
 import com.example.mallet.databinding.DialogCreateSetBinding;
 import com.example.mallet.utils.Utils;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
@@ -120,8 +120,8 @@ public class ActivityMain extends AppCompatActivity {
     }
 
     private void createNewDialog() {
-        final Dialog dialog = Utils.createDialog(this, R.layout.dialog_create_new);
-        DialogCreateNewBinding dialogBinding = DialogCreateNewBinding.inflate(getLayoutInflater());
+        final Dialog dialog = Utils.createDialog(this, R.layout.dialog_create);
+        DialogCreateBinding dialogBinding = DialogCreateBinding.inflate(getLayoutInflater());
         dialog.setContentView(dialogBinding.getRoot());
         //dialog.show();;
 

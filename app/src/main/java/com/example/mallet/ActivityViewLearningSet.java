@@ -77,10 +77,10 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         if (intent != null) {
             ModelLearningSet learningSet = intent.getParcelableExtra("learningSet");
             if (learningSet != null) {
-                String setName = learningSet.getLearningSetName();
-                String setCreator = learningSet.getLearningSetCreator();
+                String setName = learningSet.getName();
+                String setCreator = learningSet.getCreator();
                 String setTerms = String.valueOf(learningSet.getNumberOfTerms());
-                List<ModelFlashcard> flashcards = learningSet.getLearningSetTerms();
+                List<ModelFlashcard> flashcards = learningSet.getTerms();
 
                 TextView setNameTV = binding.viewSetNameTv;
                 TextView setCreatorTV = binding.viewSetCreatorTv;

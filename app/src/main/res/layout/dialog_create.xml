@@ -74,9 +74,4 @@
         app:drawableStartCompat="@drawable/ic_create_group"
         app:drawableTint="@color/danube_blue_800" />
 
-    <View
-        android:id="@+id/create_new_view_3"
-        android:layout_width="match_parent"
-        android:layout_height="30dp" />
-
 </LinearLayout>

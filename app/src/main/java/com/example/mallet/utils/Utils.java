@@ -8,14 +8,19 @@ import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Patterns;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.FrameLayout;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.fragment.app.Fragment;
 
@@ -29,6 +34,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 public class Utils {
 
@@ -51,22 +57,17 @@ public class Utils {
     }
 
     public static Dialog createDialog(Context context, int layoutResourceId) {
-        // Check if the layout resource ID is valid
         if (layoutResourceId == 0) {
-            // Handle the case where the layout does not exist
             return null;
         }
 
         Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        // Inflate the layout using the obtained layout resource ID
         View dialogView = LayoutInflater.from(context).inflate(layoutResourceId, null);
 
-        // Set the content view of the dialog
         dialog.setContentView(dialogView);
 
-        // Customize the dialog's appearance
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().setGravity(Gravity.BOTTOM);
@@ -119,18 +120,6 @@ public class Utils {
         context.startActivity(intent);
     }
 
-    public static void terminateApp(Activity activity) {
-        if (backClickCounter) {
-            activity.finishAffinity();
-            System.exit(0);
-            return;
-        }
-
-        backClickCounter = true;
-        Toast.makeText(activity, "Press back again to exit", Toast.LENGTH_SHORT).show();
-
-        new Handler().postDelayed(() -> backClickCounter = false, 2000); // Reset the flag after 2 seconds
-    }
 
     public static List<ModelFlashcard> readFlashcardsFromFile(Context context, String filePath) {
         List<ModelFlashcard> flashcards = new ArrayList<>();
@@ -159,6 +148,87 @@ public class Utils {
         return flashcards;
     }
 
+
+    public static List<ModelFlashcard> createFlashcardList(ModelLearningSet learningSet) {
+        if (learningSet != null) {
+            return learningSet.getTerms(); // Return the flashcards from the learning set
+        }
+        return new ArrayList<>(); // Return an empty list if learningSet is null
+    }
+
+
+    public static boolean validateEmail(String email, TextView errorTv) {
+
+        boolean isValid = true;
+
+        // Reset error messages initially
+        Utils.hideItem(errorTv);
+
+        if (email.isEmpty()) {
+            errorTv.setText("Email is required");
+            Utils.showItem(errorTv);
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            errorTv.setText("Invalid email address");
+            Utils.showItem(errorTv);
+        } else {
+            Utils.hideItem(errorTv);
+        }
+
+        return isValid;
+    }
+
+
+    // This stays, what is up, needs to be reviewed
+
+    public static void setupAnimation(Context context, TextView logo) {
+        Animation pulseAnimation = AnimationUtils.loadAnimation(context, R.anim.pulse_anim);
+        logo.startAnimation(pulseAnimation);
+    }
+
+    public static void setupTextWatcher(EditText et, TextView err, Pattern p, String errorMsg) {
+        et.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String input = s.toString().trim(); // Get the current input text
+                validateInput(et, err, p, errorMsg);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+    }
+
+    public static void validateInput(EditText et, TextView errorTv, Pattern pattern, String invalidInputMsg) {
+        String input = et.getText().toString().trim();
+
+        if (input.isEmpty()) {
+            Utils.showItem(errorTv);
+            errorTv.setText("This field cannot be empty");
+        } else if (input.contains(" ")) {
+            Utils.showItem(errorTv);
+            errorTv.setText("Check your input for spaces");
+        } else if (!pattern.matcher(input).matches()) {
+            Utils.showItem(errorTv);
+            errorTv.setText(invalidInputMsg);
+        } else {
+            Utils.hideItem(errorTv); // Hide the error when input is valid
+        }
+    }
+
+    public static boolean isErrorVisible(TextView errorTv) {
+        return errorTv.getVisibility() == View.VISIBLE;
+    }
+
+
+    public static void clearField(EditText et) {
+        et.setText("");
+    }
+
     public static void hideItems(View... elements) {
         for (View element : elements) {
             element.setVisibility(View.GONE);
@@ -171,10 +241,27 @@ public class Utils {
         }
     }
 
-    public static List<ModelFlashcard> createFlashcardList(ModelLearningSet learningSet) {
-        if (learningSet != null) {
-            return learningSet.getLearningSetTerms(); // Return the flashcards from the learning set
+    public static void openEmailClient(Context context) {
+        try {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_APP_EMAIL);
+            context.startActivity(intent);
+        } catch (android.content.ActivityNotFoundException e) {
+            showToast(context, "There is no email client installed.");
         }
-        return new ArrayList<>(); // Return an empty list if learningSet is null
     }
+
+    public static void terminateApp(Activity activity) {
+        if (backClickCounter) {
+            activity.finishAffinity();
+            System.exit(0);
+            return;
+        }
+
+        backClickCounter = true;
+        Toast.makeText(activity, "Press back again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(() -> backClickCounter = false, 2000); // Reset the flag after 2 seconds
+    }
+
 }

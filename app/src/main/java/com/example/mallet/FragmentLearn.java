@@ -28,7 +28,7 @@ public class FragmentLearn extends Fragment {
     private Dialog resultDialog; // Declare the Dialog as a class member
     private TextView questionTv, questionNumberTV;
     private Button answerABtn, answerBBtn, answerCBtn, answerDBtn;
-    private ArrayList<ModelLearn> modelLearnArrayList;
+    private ArrayList<ModelLearnFragment> modelLearnArrayList;
     Random random;
     int currentScore = 0, questionAttempted = 1, currentPos;
 
@@ -106,11 +106,11 @@ public class FragmentLearn extends Fragment {
         }
     }
 
-    private void getQuizQuestion(ArrayList<ModelLearn> modelLearnArrayList) {
-        modelLearnArrayList.add(new ModelLearn("Dog", "Pies", "Kot", "Sikiratka", "Gil", "Pies"));
-        modelLearnArrayList.add(new ModelLearn("Cat", "Rosomak", "Kot", "Małpa", "Żyrafa", "Kot"));
-        modelLearnArrayList.add(new ModelLearn("Butterfly", "Karp", "Ślimak", "Rak", "Motyl", "Motyl"));
-        modelLearnArrayList.add(new ModelLearn("Boar", "Gąsienica", "Świnia", "Dzik", "Krab", "Dzik"));
+    private void getQuizQuestion(ArrayList<ModelLearnFragment> modelLearnArrayList) {
+        modelLearnArrayList.add(new ModelLearnFragment("Dog", "Pies", "Kot", "Sikiratka", "Gil", "Pies"));
+        modelLearnArrayList.add(new ModelLearnFragment("Cat", "Rosomak", "Kot", "Małpa", "Żyrafa", "Kot"));
+        modelLearnArrayList.add(new ModelLearnFragment("Butterfly", "Karp", "Ślimak", "Rak", "Motyl", "Motyl"));
+        modelLearnArrayList.add(new ModelLearnFragment("Boar", "Gąsienica", "Świnia", "Dzik", "Krab", "Dzik"));
     }
 
     private void resultDialog() {

@@ -4,37 +4,41 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class ModelFlashcard implements Parcelable {
-    // Private fields to hold term, definition, and translation data
     private String term, definition, translation;
 
-    // Default constructor for the ModelFlashcard class
     public ModelFlashcard() {
-        // Empty constructor
     }
 
-    // Parameterized constructor to initialize the fields with data
     public ModelFlashcard(String term, String definition, String translation) {
         this.term = term;
         this.definition = definition;
         this.translation = translation;
     }
 
-    // Getter method to retrieve the word data
     public String getTerm() {
         return term;
     }
 
-    // Getter method to retrieve the definition data
+    public void setTerm(String term) {
+        this.term = term;
+    }
+
     public String getDefinition() {
         return definition;
     }
 
-    // Getter method to retrieve the translation data
+    public void setDefinition(String definition) {
+        this.definition = definition;
+    }
+
     public String getTranslation() {
         return translation;
     }
 
-    // Implement the Parcelable interface methods
+    public void setTranslation(String translation) {
+        this.translation = translation;
+    }
+
     protected ModelFlashcard(Parcel in) {
         term = in.readString();
         definition = in.readString();

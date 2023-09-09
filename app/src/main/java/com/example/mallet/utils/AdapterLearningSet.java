@@ -38,8 +38,8 @@ public class AdapterLearningSet extends RecyclerView.Adapter<AdapterLearningSet.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ModelLearningSet learningSet = learningSetList.get(position);
 
-        holder.learningSetNameTV.setText(learningSet.getLearningSetName());
-        holder.learningSetCreatorTV.setText(learningSet.getLearningSetCreator());
+        holder.learningSetNameTV.setText(learningSet.getName());
+        holder.learningSetCreatorTV.setText(learningSet.getCreator());
         holder.learningSetTermsTV.setText(learningSet.getNumberOfTerms() + " terms");
 
         // Set a click listener for the group item

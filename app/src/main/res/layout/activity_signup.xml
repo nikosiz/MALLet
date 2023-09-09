@@ -81,22 +81,12 @@
                     android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/signup_email_empty_tv"
+                    android:id="@+id/signup_email_error_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:layout_marginBottom="5dp"
                     android:text="@string/field_cannot_be_empty"
-                    android:textColor="@color/carnation_red_600"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/signup_email_incorrect_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginBottom="5dp"
-                    android:text="@string/email_incorrect"
                     android:textColor="@color/carnation_red_600"
                     android:visibility="gone" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -124,32 +114,12 @@
                     android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/signup_password_empty_tv"
+                    android:id="@+id/signup_password_error_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:layout_marginBottom="5dp"
                     android:text="@string/field_cannot_be_empty"
-                    android:textColor="@color/carnation_red_600"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/signup_password_incorrect_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginBottom="5dp"
-                    android:text="The password must contain at least 8 characters: one letter, one number and one special character"
-                    android:textColor="@color/carnation_red_600"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/signup_password_space_error_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginBottom="5dp"
-                    android:text="The password cannot contain spaces"
                     android:textColor="@color/carnation_red_600"
                     android:visibility="gone" />
             </com.google.android.material.textfield.TextInputLayout>

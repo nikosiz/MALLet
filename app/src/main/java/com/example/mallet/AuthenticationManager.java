@@ -1,5 +1,8 @@
 package com.example.mallet;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class AuthenticationManager {
 
     private static AuthenticationManager instance;
@@ -32,6 +35,26 @@ public class AuthenticationManager {
         // You can use Firebase Authentication or your own backend API for login
         // Replace this with your actual implementation
         // Your login logic here
+
         return false;
+    }
+
+    public static String md5(String s) {
+        try {
+            // Create MD5 Hash
+            MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
+            digest.update(s.getBytes());
+            byte messageDigest[] = digest.digest();
+
+            // Create Hex String
+            StringBuffer hexString = new StringBuffer();
+            for (int i = 0; i < messageDigest.length; i++)
+                hexString.append(Integer.toHexString(0xFF & messageDigest[i]));
+            return hexString.toString();
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

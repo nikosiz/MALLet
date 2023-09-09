@@ -1,26 +1,58 @@
 package com.example.mallet;
 
-import java.util.List;
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class ModelLearningSet implements Parcelable {
-    private String learningSetName;
-    private String learningSetCreator;
-    private final List<ModelFlashcard> learningSetTerms;
-    private int numberOfTerms;
+import java.util.List;
 
-    public ModelLearningSet(String learningSetName,
-                            List<ModelFlashcard> learningSetTerms,
-                            String learningSetCreator, int id) {
-        this.learningSetName = learningSetName;
-        this.learningSetCreator = learningSetCreator;
-        this.learningSetTerms = learningSetTerms;
-        this.numberOfTerms = learningSetTerms.size();
+public class ModelLearningSet implements Parcelable {
+    private String name, creator;
+    private int id, numberOfTerms;
+    private List<ModelFlashcard> terms;
+
+    public ModelLearningSet(String name,
+                            List<ModelFlashcard> terms,
+                            String creator, int id) {
+        this.name = name;
+        this.creator = creator;
+        this.id = id;
+        this.terms = terms;
+        this.numberOfTerms = terms.size();
     }
 
-    // Getter and setter for the number of terms
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public List<ModelFlashcard> getTerms() {
+        return terms;
+    }
+
+    public void setFlashcards(List<ModelFlashcard> terms) {
+        this.terms = terms;
+        this.numberOfTerms = terms.size();
+    }
+
     public int getNumberOfTerms() {
         return numberOfTerms;
     }
@@ -29,35 +61,11 @@ public class ModelLearningSet implements Parcelable {
         this.numberOfTerms = numberOfTerms;
     }
 
-    public String getLearningSetName() {
-        return learningSetName;
-    }
-
-    public void setLearningSetName(String learningSetName) {
-        this.learningSetName = learningSetName;
-    }
-
-    public List<ModelFlashcard> getLearningSetTerms() {
-        return learningSetTerms;
-    }
-
-    public List<ModelFlashcard> setLearningSetTerms() {
-        return learningSetTerms;
-    }
-
-    public String getLearningSetCreator() {
-        return learningSetCreator;
-    }
-
-    public void setLearningSetCreator(String learningSetCreator) {
-        this.learningSetCreator = learningSetCreator;
-    }
-
     // Implement the Parcelable interface methods
     protected ModelLearningSet(Parcel in) {
-        learningSetName = in.readString();
-        learningSetCreator = in.readString();
-        learningSetTerms = in.createTypedArrayList(ModelFlashcard.CREATOR);
+        name = in.readString();
+        creator = in.readString();
+        terms = in.createTypedArrayList(ModelFlashcard.CREATOR);
         numberOfTerms = in.readInt();
     }
 
@@ -80,9 +88,9 @@ public class ModelLearningSet implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(learningSetName);
-        dest.writeString(learningSetCreator);
-        dest.writeTypedList(learningSetTerms);
+        dest.writeString(name);
+        dest.writeString(creator);
+        dest.writeTypedList(terms);
         dest.writeInt(numberOfTerms);
     }
 }

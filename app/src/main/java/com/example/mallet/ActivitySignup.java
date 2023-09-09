@@ -17,17 +17,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mallet.databinding.ActivitySignupBinding;
 import com.example.mallet.databinding.DialogChooseUsernameBinding;
+import com.example.mallet.databinding.DialogConfirmEmailBinding;
 import com.example.mallet.utils.Utils;
 
-import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class ActivitySignup extends AppCompatActivity {
 
-    // Binding for the activity layout
     ActivitySignupBinding binding;
     private final Handler handler = new Handler(Looper.getMainLooper());
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,17 +35,15 @@ public class ActivitySignup extends AppCompatActivity {
 
         setupAnimation();
         setupClickListeners();
-        setupViews();
+        setupTextWatchers();
     }
 
-    // Set up animation for the pulsating logo
     private void setupAnimation() {
         TextView pulsatingLogoTV = binding.signupLogo;
         Animation pulseAnimation = AnimationUtils.loadAnimation(this, R.anim.pulse_anim);
         pulsatingLogoTV.startAnimation(pulseAnimation);
     }
 
-    // Set up click listeners for buttons
     private void setupClickListeners() {
         binding.signupContinueTv.setOnClickListener(v -> chooseUsernameDialog());
         binding.signupGoogleMatbtn.setOnClickListener(v -> signupWithGoogle());
@@ -55,194 +51,147 @@ public class ActivitySignup extends AppCompatActivity {
         binding.signupLoginBtnTv.setOnClickListener(v -> Utils.openActivity(this, ActivityLogin.class));
     }
 
-    private void signupWithGoogle() {
-        // TODO
-        Utils.showToast(this, "Login with Google");
+    private void setupTextWatchers() {
+        EditText emailEditText = binding.signupEmailEt;
+        EditText passwordEditText = binding.signupPasswordEt;
 
+        initializeTextWatcher(emailEditText, binding.signupEmailErrorTv);
+        initializeTextWatcher(passwordEditText, binding.signupPasswordErrorTv);
     }
 
-    private void signupWithFacebook() {
-        // TODO
-        Utils.showToast(this, "Login with Facebook");
+    private void initializeTextWatcher(EditText editText, TextView... errorViews) {
+        Pattern passwordPattern = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$");
+
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                for (TextView errorView : errorViews) {
+                    Utils.hideItem(errorView);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.toString().contains(" ")) {
+                    Utils.showItem(binding.signupPasswordErrorTv);
+                }
+            }
+        });
     }
 
-    // Validate signup data including email and password
+    private void chooseUsernameDialog() {
+        String email = binding.signupEmailEt.getText().toString();
+        String password = binding.signupPasswordEt.getText().toString();
+
+        boolean isValid = validateSignupData(email, password);
+
+        if (isValid) {
+            Dialog dialog = Utils.createDialog(this, R.layout.dialog_choose_username);
+            DialogChooseUsernameBinding dialogBinding = DialogChooseUsernameBinding.inflate(getLayoutInflater());
+
+            EditText usernameEt = dialogBinding.chooseUsernameNameEt;
+
+            dialog.setContentView(dialogBinding.getRoot());
+            dialog.show();
+
+            dialogBinding.chooseUsernameCreateAccBtn.setOnClickListener(v -> {
+                dialog.dismiss();
+                handleCreateAccount(usernameEt, email, password);
+            });
+        } else {
+            Utils.showToast(this, "Invalid email or password");
+        }
+    }
+
     private boolean validateSignupData(String email, String password) {
-        TextView emailEmptyTV = binding.signupEmailEmptyTv;
-        TextView emailErrorTV = binding.signupEmailIncorrectTv;
-        TextView passwordErrorTV = binding.signupPasswordIncorrectTv;
-        TextView passwordEmptyTV = binding.signupPasswordEmptyTv;
-        TextView passwordSpaceErrorTV = binding.signupPasswordSpaceErrorTv;
+        TextView emailErrorTv = binding.signupEmailErrorTv;
+        TextView passwordErrorTv = binding.signupPasswordErrorTv;
 
-        Pattern passwordPattern = Pattern.compile("^" +
-                "(?=.*[0-9])" +         // at least 1 digit
-                "(?=.*[a-z])" +         // at least 1 lowercase letter
-                "(?=.*[A-Z])" +         // at least 1 uppercase letter
-                "(?=.*[@#$%^&+=])" +    // at least 1 special character
-                "(?=\\S+$)" +           // no white spaces
-                ".{8,}" +               // at least 8 characters
-                "$");
-
-        // Reset error messages initially
-        Utils.hideItem(emailErrorTV);
-        Utils.hideItem(emailEmptyTV);
-        Utils.hideItem(passwordErrorTV);
-        Utils.hideItem(passwordEmptyTV);
-        Utils.hideItem(passwordSpaceErrorTV);
+        Pattern passwordPattern = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$");
 
         boolean isValid = true;
 
+        Utils.hideItem(emailErrorTv);
+        Utils.hideItem(passwordErrorTv);
+
         if (email.isEmpty()) {
-            Utils.showItem(emailEmptyTV);
+            Utils.showItem(emailErrorTv);
+            emailErrorTv.setText("Email is required");
             isValid = false;
         } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            Utils.showItem(emailErrorTV);
+            Utils.showItem(emailErrorTv);
+            emailErrorTv.setText("Invalid email format");
             isValid = false;
         }
 
         if (password.isEmpty()) {
-            Utils.showItem(passwordEmptyTV);
+            Utils.showItem(passwordErrorTv);
+            passwordErrorTv.setText("Password is required");
             isValid = false;
         } else if (!passwordPattern.matcher(password).matches()) {
-            Utils.showItem(passwordErrorTV);
-            isValid = false;
-        } else if (password.contains(" ")) {
-            Utils.showItem(passwordSpaceErrorTV);
+            Utils.showItem(passwordErrorTv);
+            passwordErrorTv.setText("Invalid password format");
             isValid = false;
         }
 
         return isValid;
     }
 
-    private void setupViews() {
-        EditText emailEditText = binding.signupEmailEt;
-        TextView emailErrorTV = binding.signupEmailIncorrectTv;
-        TextView emailEmptyTV = binding.signupEmailEmptyTv;
+    private void handleCreateAccount(EditText usernameEt, String email, String password) {
+        String username = usernameEt.getText().toString();
+        AuthenticationManager authManager = AuthenticationManager.getInstance();
 
-        EditText passwordEditText = binding.signupPasswordEt;
-        TextView passwordErrorTV = binding.signupPasswordIncorrectTv;
-        TextView passwordEmptyTV = binding.signupPasswordEmptyTv;
-        TextView passwordSpaceErrorTV = binding.signupPasswordSpaceErrorTv;
-
-        Pattern passwordPattern = Pattern.compile("^" +
-                "(?=.*[0-9])" +         // at least 1 digit
-                "(?=.*[a-z])" +         // at least 1 lowercase letter
-                "(?=.*[A-Z])" +         // at least 1 uppercase letter
-                "(?=.*[@#$%^&+=])" +    // at least 1 special character
-                "(?=\\S+$)" +           // no white spaces
-                ".{8,}" +               // at least 8 characters
-                "$");
-
-        // Initialize text change listeners for email and password fields
-        initializeTextWatchers(emailEditText, emailErrorTV, emailEmptyTV, passwordEditText, passwordErrorTV, passwordEmptyTV, passwordSpaceErrorTV, passwordPattern);
-    }
-
-    // Initialize text change listeners for email and password fields
-    private void initializeTextWatchers(
-            EditText emailEditText,
-            TextView emailErrorTV,
-            TextView emailEmptyTV,
-            EditText passwordEditText,
-            TextView passwordErrorTV,
-            TextView passwordEmptyTV,
-            TextView passwordSpaceErrorTV,
-            Pattern passwordPattern) {
-
-        emailEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // This method is not used here, but can be implemented if needed
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String email = s.toString().trim();
-                Utils.hideItem(emailErrorTV);
-                Utils.hideItem(emailEmptyTV);
-
-                if (email.isEmpty()) {
-                    Utils.showItem(emailEmptyTV);
-                } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    Utils.showItem(emailErrorTV);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                // This method is not used here, but can be implemented if needed
-            }
-        });
-
-        passwordEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // This method is not used here, but can be implemented if needed
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String password = s.toString().trim();
-                Utils.hideItem(passwordErrorTV);
-                Utils.hideItem(passwordEmptyTV);
-                Utils.hideItem(passwordSpaceErrorTV);
-
-                if (password.isEmpty()) {
-                    Utils.showItem(passwordEmptyTV);
-                } else if (!passwordPattern.matcher(password).matches()) {
-                    Utils.showItem(passwordErrorTV);
-                } else if (password.contains(" ")) {
-                    Utils.showItem(passwordSpaceErrorTV);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                // This method is not used here, but can be implemented if needed
-            }
-        });
-    }
-
-    private void chooseUsernameDialog() {
-        String email = Objects.requireNonNull(binding.signupEmailEt.getText()).toString();
-        String password = Objects.requireNonNull(binding.signupPasswordEt.getText()).toString();
-
-        boolean isValid = validateSignupData(email, password);
-
-        if (isValid) {
-            // Create a dialog for choosing a username
-            Dialog dialog = Utils.createDialog(this, R.layout.dialog_choose_username);
-            DialogChooseUsernameBinding dialogBinding = DialogChooseUsernameBinding.inflate(getLayoutInflater());
-            assert dialog != null;
-            dialog.setContentView(dialogBinding.getRoot());
-            dialog.show();
-
-            dialogBinding.chooseUsernameCreateAccBtn.setOnClickListener(v -> {
-                // Handle the "Create Account" button click within the username dialog
-                AuthenticationManager authManager = AuthenticationManager.getInstance();
-
-                if (authManager.signUp(email, password)) {
-                    // Registration successful, you can now proceed
-                    dialog.dismiss(); // Dismiss the username dialog
-                    handler.postDelayed(() -> Utils.openActivity(this, ActivityMain.class), 3000);
-                    Utils.showToast(this, "Account created successfully");
-                    // You can perform additional actions after successful registration here
-                } else {
-                    Utils.showToast(this, "Registration failed. Please try again.");
-                }
-            });
-
+        if (authManager.signUp(email, password)) {
+            confirmAccountDialog();
+            System.out.println(email + "\n" + AuthenticationManager.md5(password) + "\n" + username);
+            clearFields();
         } else {
-            Utils.showToast(this, "Invalid email or password");
+            Utils.showToast(this, "Registration failed. Please try again.");
         }
     }
 
+    private void clearFields() {
+        Utils.clearField(binding.signupEmailEt);
+        Utils.clearField(binding.signupPasswordEt);
+    }
+
+    private void confirmAccountDialog() {
+        Dialog dialog = Utils.createDialog(this, R.layout.dialog_confirm_email);
+        DialogConfirmEmailBinding dialogBinding = DialogConfirmEmailBinding.inflate(getLayoutInflater());
+        dialog.setContentView(dialogBinding.getRoot());
+        dialog.show();
+
+        dialogBinding.confirmEmailOpenTv.setOnClickListener(v -> Utils.openEmailClient(this));
+        dialogBinding.confirmEmailLaterTv.setOnClickListener(v -> {
+            dialog.dismiss();
+            Utils.openActivity(this, ActivityOpening.class);
+        });
+        dialog.setOnDismissListener(v -> {
+            // Trigger the "Maybe Later" action
+            Utils.openActivity(this, ActivityOpening.class);
+        });
+    }
 
     @Override
     public void onBackPressed() {
-        // Start ActivityOpening and clear the back stack
         Intent intent = new Intent(ActivitySignup.this, ActivityOpening.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
-        finish(); // Finish the SignupActivity
+        finish();
+    }
+
+    // TODO - optional stuff
+    private void signupWithGoogle() {
+        // TODO
+        Utils.showToast(this, "Login with Google");
+    }
+
+    private void signupWithFacebook() {
+        // TODO
+        Utils.showToast(this, "Login with Facebook");
     }
 }

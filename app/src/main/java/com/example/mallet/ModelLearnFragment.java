@@ -1,6 +1,6 @@
 package com.example.mallet;
 
-public class ModelLearn {
+public class ModelLearnFragment {
     private String question;
     private String answerA;
     private String answerB;
@@ -8,7 +8,7 @@ public class ModelLearn {
     private String answerD;
     private String rightAnswer;
 
-    public ModelLearn(String question, String answerA, String answerB, String answerC, String answerD, String rightAnswer) {
+    public ModelLearnFragment(String question, String answerA, String answerB, String answerC, String answerD, String rightAnswer) {
         this.question = question;
         this.answerA = answerA;
         this.answerB = answerB;
