@@ -264,4 +264,9 @@ public class Utils {
         new Handler().postDelayed(() -> backClickCounter = false, 2000); // Reset the flag after 2 seconds
     }
 
+    public static void resetEditText(EditText et, TextView err) {
+        et.setText("");
+        hideItem(err);
+    }
+
 }

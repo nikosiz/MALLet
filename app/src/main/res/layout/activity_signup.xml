@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/signup_parent_ll"
+    android:id="@+id/signup_main_ll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/splash_bg"
@@ -10,7 +10,7 @@
     tools:context=".ActivitySignup">
 
     <TextView
-        android:id="@+id/signup_logo"
+        android:id="@+id/signup_logo_tv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center_vertical"
@@ -171,9 +171,6 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <!-- Google Sign-In Button -->
-                <!-- TODO: <com.google.android.gms.common.SignInButton -->
-
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/signup_google_matbtn"
                     style="@style/SocialButtonStyle"
@@ -192,6 +189,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
+                    android:background="@drawable/bg_social_btn"
                     android:minWidth="140dp"
                     android:text="@string/facebook"
                     app:icon="@drawable/ic_facebook"
@@ -221,7 +219,7 @@
                     android:textColor="@color/danube_blue_900" />
 
                 <TextView
-                    android:id="@+id/signup_login_btn_tv"
+                    android:id="@+id/signup_loginHere_tv"
                     style="@style/BasicBoldTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -241,14 +239,12 @@
                 android:layout_height="30dp" />
 
             <TextView
-                android:id="@+id/signup_terms_title_tv"
+                android:id="@+id/login_terms_tv"
                 style="@style/BasicTextStyle"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:gravity="center"
-                android:text="@string/by_signing_up_you_accept"
-                android:textColor="@color/danube_blue_900"
+                android:text="@string/by_logging_in_you_accept"
                 android:textSize="10sp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>

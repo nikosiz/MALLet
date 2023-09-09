@@ -22,7 +22,6 @@ public class ActivityLogin extends AppCompatActivity {
     private EditText emailEt, passwordEt, dialogEmailEt;
     private TextView emailErrorTv, passwordErrorTv, dialogEmailErrorTv;
     private ActivityLoginBinding binding;
-    //private DialogForgotPasswordBinding dialogBinding;
     private Pattern passwordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^*()<>?/|}{~:]).{8,}$");
     private String emailIncorrectMsg = "Email incorrect", passwordIncorrect = "The password must be at least 8 characters long and contain at least one digit, one small letter, one big letter and one special character.";
     private final Handler handler = new Handler(Looper.getMainLooper());
@@ -33,33 +32,30 @@ public class ActivityLogin extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Initialize views
         emailEt = binding.loginEmailEt;
         emailErrorTv = binding.loginEmailErrorTv;
         passwordEt = binding.loginPasswordEt;
         passwordErrorTv = binding.loginPasswordErrorTv;
 
-        DialogForgotPasswordBinding dialogBinding = DialogForgotPasswordBinding.inflate(getLayoutInflater());
-
-        dialogEmailEt = dialogBinding.forgotPasswordEmailEt;
-        dialogEmailErrorTv = dialogBinding.forgotPasswordErrorTv;
-
+        // Setup UI elements and listeners
         setupContents();
-
     }
 
     private void setupContents() {
+        // Setup animation for logo
         setupAnimation();
 
+        // Set up TextWatchers for email and password fields
         Utils.setupTextWatcher(emailEt, emailErrorTv, Patterns.EMAIL_ADDRESS, emailIncorrectMsg);
         Utils.setupTextWatcher(passwordEt, passwordErrorTv, passwordPattern, passwordIncorrect);
 
+        // Set up click listeners
         binding.loginForgotPasswordTv.setOnClickListener(v -> forgotPasswordDialog());
-
         binding.loginBtn.setOnClickListener(v -> handleLogin());
         binding.loginGoogleMatbtn.setOnClickListener(v -> handleLogin());
+        binding.loginFacebookMatbtn.setOnClickListener(v -> handleLogin());
         binding.loginSignupHereTv.setOnClickListener(v -> signupActivity());
-
-        System.out.println("Listeners setup");
     }
 
     private void setupAnimation() {
@@ -81,13 +77,10 @@ public class ActivityLogin extends AppCompatActivity {
 
         cancel.setOnClickListener(v -> dialog.dismiss());
         confirm.setOnClickListener(v -> {
-            String email = emailEt.getText().toString().trim(); // Get the trimmed email input
+            String email = emailEt.getText().toString().trim();
             Utils.validateInput(emailEt, errorTv, Patterns.EMAIL_ADDRESS, emailIncorrectMsg);
 
-            if (Utils.isErrorVisible(errorTv)) {
-                System.out.println("Forgot password error is visible");
-            } else {
-
+            if (!Utils.isErrorVisible(errorTv)) {
                 // TODO: Implement sending an email with password-resetting link
                 dialog.dismiss();
                 Utils.showToast(this, "Email sent");
@@ -96,16 +89,16 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
     private void handleLogin() {
-        String email = binding.loginEmailEt.getText().toString();
-        TextView emailErrorTv = binding.loginEmailErrorTv;
-        String password = binding.loginPasswordEt.getText().toString();
-        TextView passwordErrorTv = binding.loginPasswordErrorTv;
+        // Get email and password inputs
+        String email = emailEt.getText().toString();
+        String password = passwordEt.getText().toString();
 
+        // Validate email and password inputs
         Utils.validateInput(emailEt, emailErrorTv, Patterns.EMAIL_ADDRESS, emailIncorrectMsg);
         Utils.validateInput(passwordEt, passwordErrorTv, passwordPattern, passwordIncorrect);
 
+        // Check if there are no visible errors
         if (!Utils.isErrorVisible(emailErrorTv) && !Utils.isErrorVisible(passwordErrorTv)) {
-
             // TODO: Handle login through AuthenticationManager
             Utils.openActivity(this, ActivityMain.class);
         } else {

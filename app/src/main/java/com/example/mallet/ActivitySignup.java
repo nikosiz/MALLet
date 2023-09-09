@@ -5,11 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Patterns;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -24,7 +20,11 @@ import java.util.regex.Pattern;
 
 public class ActivitySignup extends AppCompatActivity {
 
-    ActivitySignupBinding binding;
+    private EditText emailEt, passwordEt;
+    private TextView emailErrorTv, passwordErrorTv;
+    private ActivitySignupBinding binding;
+    private Pattern passwordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^*()<>?/|}{~:]).{8,}$");
+    private String emailIncorrectMsg = "Email incorrect", passwordIncorrect = "The password must be at least 8 characters long and contain at least one digit, one small letter, one big letter and one special character.";
     private final Handler handler = new Handler(Looper.getMainLooper());
 
     @Override
@@ -33,130 +33,79 @@ public class ActivitySignup extends AppCompatActivity {
         binding = ActivitySignupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Initialize views
+        emailEt = binding.signupEmailEt;
+        emailErrorTv = binding.signupEmailErrorTv;
+        passwordEt = binding.signupPasswordEt;
+        passwordErrorTv = binding.signupPasswordErrorTv;
+
+        // Setup UI elements and listeners
+        setupContents();
+    }
+
+    private void setupContents() {
         setupAnimation();
-        setupClickListeners();
-        setupTextWatchers();
+
+        Utils.setupTextWatcher(emailEt, emailErrorTv, Patterns.EMAIL_ADDRESS, emailIncorrectMsg);
+        Utils.setupTextWatcher(passwordEt, passwordErrorTv, passwordPattern, passwordIncorrect);
+
+        binding.signupContinueTv.setOnClickListener(v -> {
+            if (!emailEt.getText().toString().isEmpty() && !passwordEt.getText().toString().isEmpty()) {
+                chooseUsernameDialog();
+            } else {
+                System.out.println("Error is visible");
+            }
+        });
+        binding.signupGoogleMatbtn.setOnClickListener(v -> handleSignup());
+        binding.signupFacebookMatbtn.setOnClickListener(v -> handleSignup());
+        binding.signupLoginHereTv.setOnClickListener(v -> loginActivity());
     }
 
     private void setupAnimation() {
-        TextView pulsatingLogoTV = binding.signupLogo;
-        Animation pulseAnimation = AnimationUtils.loadAnimation(this, R.anim.pulse_anim);
-        pulsatingLogoTV.startAnimation(pulseAnimation);
-    }
-
-    private void setupClickListeners() {
-        binding.signupContinueTv.setOnClickListener(v -> chooseUsernameDialog());
-        binding.signupGoogleMatbtn.setOnClickListener(v -> signupWithGoogle());
-        binding.signupFacebookMatbtn.setOnClickListener(v -> signupWithFacebook());
-        binding.signupLoginBtnTv.setOnClickListener(v -> Utils.openActivity(this, ActivityLogin.class));
-    }
-
-    private void setupTextWatchers() {
-        EditText emailEditText = binding.signupEmailEt;
-        EditText passwordEditText = binding.signupPasswordEt;
-
-        initializeTextWatcher(emailEditText, binding.signupEmailErrorTv);
-        initializeTextWatcher(passwordEditText, binding.signupPasswordErrorTv);
-    }
-
-    private void initializeTextWatcher(EditText editText, TextView... errorViews) {
-        Pattern passwordPattern = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$");
-
-        editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                for (TextView errorView : errorViews) {
-                    Utils.hideItem(errorView);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.toString().contains(" ")) {
-                    Utils.showItem(binding.signupPasswordErrorTv);
-                }
-            }
-        });
+        TextView logo = binding.signupLogoTv;
+        Utils.setupAnimation(this, logo);
     }
 
     private void chooseUsernameDialog() {
-        String email = binding.signupEmailEt.getText().toString();
-        String password = binding.signupPasswordEt.getText().toString();
+        Dialog dialog = Utils.createDialog(this, R.layout.dialog_choose_username);
+        DialogChooseUsernameBinding dialogBinding = DialogChooseUsernameBinding.inflate(getLayoutInflater());
+        dialog.setContentView(dialogBinding.getRoot());
 
-        boolean isValid = validateSignupData(email, password);
 
-        if (isValid) {
-            Dialog dialog = Utils.createDialog(this, R.layout.dialog_choose_username);
-            DialogChooseUsernameBinding dialogBinding = DialogChooseUsernameBinding.inflate(getLayoutInflater());
 
-            EditText usernameEt = dialogBinding.chooseUsernameNameEt;
 
-            dialog.setContentView(dialogBinding.getRoot());
-            dialog.show();
 
-            dialogBinding.chooseUsernameCreateAccBtn.setOnClickListener(v -> {
-                dialog.dismiss();
-                handleCreateAccount(usernameEt, email, password);
-            });
+        dialog.show();
+
+        EditText usernameEt = dialogBinding.chooseUsernameEt;
+        TextView errorTv = dialogBinding.chooseUsernameErrorTv;
+
+        TextView cancel = dialogBinding.chooseUsernameCancelTv;
+        TextView confirm = dialogBinding.chooseUsernameCreateAccTv;
+
+        cancel.setOnClickListener(v -> {
+            Utils.resetEditText(usernameEt, errorTv);
+            dialog.dismiss();
+        });
+
+        confirm.setOnClickListener(v -> handleSignup());
+    }
+
+    private void handleSignup() {
+        String email = emailEt.getText().toString();
+        String password = passwordEt.getText().toString();
+
+        // Validate email and password inputs
+        Utils.validateInput(emailEt, emailErrorTv, Patterns.EMAIL_ADDRESS, emailIncorrectMsg);
+        Utils.validateInput(passwordEt, passwordErrorTv, passwordPattern, passwordIncorrect);
+
+        // Check if there are no visible errors
+        if (!Utils.isErrorVisible(emailErrorTv) && !Utils.isErrorVisible(passwordErrorTv)) {
+            // TODO: Handle login through AuthenticationManager
+            Utils.openActivity(this, ActivityMain.class);
         } else {
-            Utils.showToast(this, "Invalid email or password");
+            System.out.println("Error is visible");
         }
-    }
-
-    private boolean validateSignupData(String email, String password) {
-        TextView emailErrorTv = binding.signupEmailErrorTv;
-        TextView passwordErrorTv = binding.signupPasswordErrorTv;
-
-        Pattern passwordPattern = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$");
-
-        boolean isValid = true;
-
-        Utils.hideItem(emailErrorTv);
-        Utils.hideItem(passwordErrorTv);
-
-        if (email.isEmpty()) {
-            Utils.showItem(emailErrorTv);
-            emailErrorTv.setText("Email is required");
-            isValid = false;
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            Utils.showItem(emailErrorTv);
-            emailErrorTv.setText("Invalid email format");
-            isValid = false;
-        }
-
-        if (password.isEmpty()) {
-            Utils.showItem(passwordErrorTv);
-            passwordErrorTv.setText("Password is required");
-            isValid = false;
-        } else if (!passwordPattern.matcher(password).matches()) {
-            Utils.showItem(passwordErrorTv);
-            passwordErrorTv.setText("Invalid password format");
-            isValid = false;
-        }
-
-        return isValid;
-    }
-
-    private void handleCreateAccount(EditText usernameEt, String email, String password) {
-        String username = usernameEt.getText().toString();
-        AuthenticationManager authManager = AuthenticationManager.getInstance();
-
-        if (authManager.signUp(email, password)) {
-            confirmAccountDialog();
-            System.out.println(email + "\n" + AuthenticationManager.md5(password) + "\n" + username);
-            clearFields();
-        } else {
-            Utils.showToast(this, "Registration failed. Please try again.");
-        }
-    }
-
-    private void clearFields() {
-        Utils.clearField(binding.signupEmailEt);
-        Utils.clearField(binding.signupPasswordEt);
     }
 
     private void confirmAccountDialog() {
@@ -165,15 +114,19 @@ public class ActivitySignup extends AppCompatActivity {
         dialog.setContentView(dialogBinding.getRoot());
         dialog.show();
 
-        dialogBinding.confirmEmailOpenTv.setOnClickListener(v -> Utils.openEmailClient(this));
-        dialogBinding.confirmEmailLaterTv.setOnClickListener(v -> {
+        dialogBinding.confirmEmailCancelTv.setOnClickListener(v -> {
             dialog.dismiss();
             Utils.openActivity(this, ActivityOpening.class);
         });
+        dialogBinding.confirmEmailOpenTv.setOnClickListener(v -> Utils.openEmailClient(this));
+
         dialog.setOnDismissListener(v -> {
-            // Trigger the "Maybe Later" action
             Utils.openActivity(this, ActivityOpening.class);
         });
+    }
+
+    private void loginActivity() {
+        Utils.openActivity(this, ActivityLogin.class);
     }
 
     @Override
@@ -194,4 +147,8 @@ public class ActivitySignup extends AppCompatActivity {
         // TODO
         Utils.showToast(this, "Login with Facebook");
     }
+
+
+    //delete
+
 }

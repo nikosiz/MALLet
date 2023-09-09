@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/choose_username_fl_ll"
+    android:id="@+id/choose_username_main_ll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_corners_rounded"
@@ -9,6 +9,7 @@
     android:padding="30dp">
 
     <TextView
+        android:id="@+id/choose_username_title_tv"
         style="@style/BasicBoldTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,9 +22,12 @@
         android:layout_height="5dp" />
 
     <TextView
+        android:id="@+id/choose_username_tv"
+        style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Choose a unique username to continue"
+        android:textColor="@color/danube_blue_800"
         android:textSize="20sp" />
 
     <View
@@ -31,7 +35,7 @@
         android:layout_height="10dp" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/choose_username_name_til"
+        android:id="@+id/choose_username_til"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:boxBackgroundMode="outline"
@@ -44,7 +48,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/choose_username_name_et"
+            android:id="@+id/choose_username_et"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -54,7 +58,7 @@
             app:boxStrokeColor="@color/colorSecondaryDark" />
 
         <TextView
-            android:id="@+id/choose_username_error"
+            android:id="@+id/choose_username_error_tv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -69,17 +73,38 @@
         android:layout_width="match_parent"
         android:layout_height="30dp" />
 
-    <TextView
-        android:id="@+id/choose_username_create_acc_btn"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/choose_username_cancel_confirm_ll"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:background="@drawable/bg_ripple"
-        android:clickable="true"
-        android:focusable="true"
-        android:text="Create account"
-        android:textColor="@color/danube_blue_800"
-        android:textSize="20sp" />
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/choose_username_cancel_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:background="@drawable/bg_ripple"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="Cancel"
+            android:textColor="@color/danube_blue_800"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/choose_username_create_acc_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/bg_ripple"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="Create account"
+            android:textColor="@color/danube_blue_800"
+            android:textSize="20sp" />
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
