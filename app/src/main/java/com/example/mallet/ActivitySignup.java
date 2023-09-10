@@ -70,11 +70,11 @@ public class ActivitySignup extends AppCompatActivity {
         Utils.setupTextWatcher(passwordEt, passwordErrorTv, passwordPattern, passwordIncorrect);
 
         // Set up click listener for continue button
-        binding.signupContinueTv.setOnClickListener(v -> handleSignup());
+        binding.signupContinueTv.setOnClickListener(v -> validateSignupData());
         // Set up click listener for Google button
-        binding.signupGoogleMatbtn.setOnClickListener(v -> handleSignup());
+        binding.signupGoogleMatbtn.setOnClickListener(v -> validateSignupData());
         // Set up click listener for Facebook button
-        binding.signupFacebookMatbtn.setOnClickListener(v -> handleSignup());
+        binding.signupFacebookMatbtn.setOnClickListener(v -> validateSignupData());
         // Set up click listener for "Login here" text
         binding.signupLoginHereTv.setOnClickListener(v -> loginActivity());
     }
@@ -114,8 +114,8 @@ public class ActivitySignup extends AppCompatActivity {
         confirm.setOnClickListener(v -> {
             username = Objects.requireNonNull(dialogUsernameEt.getText()).toString().trim(); // Assign the entered username to the class variable
 
-            // TODO: Here email, username, and password hash need to
-            //  be passed to AuthenticationManager
+            // TODO: Handla signup through AuthenticationManager
+            Utils.showToast(this,email + "\n" + AuthenticationManager.md5(password) + "\n" + username);
             System.out.println(email + "\n" + password + "\n" + username); // Print email, password, and username
 
             // Validate the username input
@@ -130,7 +130,7 @@ public class ActivitySignup extends AppCompatActivity {
         });
     }
 
-    private void handleSignup() {
+    private void validateSignupData() {
         String enteredEmail = emailEt.getText().toString().trim(); // Get entered email
         String enteredPassword = passwordEt.getText().toString(); // Get entered password
 
@@ -140,8 +140,10 @@ public class ActivitySignup extends AppCompatActivity {
         Utils.validateInput(passwordEt, passwordErrorTv, passwordPattern, passwordIncorrect);
 
         if (!Utils.isErrorVisible(emailErrorTv) && !Utils.isErrorVisible(passwordErrorTv)) {
-            email = enteredEmail; // Assign entered email to the class variable
-            password = enteredPassword; // Assign entered password to the class variable
+            // Assign entered email to the class variable
+            email = enteredEmail;
+            // Assign entered password to the class variable
+            password = enteredPassword;
 
             chooseUsernameDialog(); // Call a method to show the username dialog
         } else {
