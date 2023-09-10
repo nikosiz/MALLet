@@ -50,8 +50,6 @@ dependencies {
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation 'com.android.volley:volley:1.2.1'
     implementation 'com.opencsv:opencsv:5.5.1'
-    //implementation 'androidx.core:core-ktx:1.10.1'
-    //implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
 
 }
