@@ -12,6 +12,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.mallet.databinding.DialogLearnResultBinding;
@@ -33,7 +34,7 @@ public class FragmentLearn extends Fragment {
     int currentScore = 0, questionAttempted = 1, currentPos;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentLearnBinding.inflate(inflater, container, false);
@@ -52,7 +53,7 @@ public class FragmentLearn extends Fragment {
         setDataToViews(currentPos);
 
         answerABtn.setOnClickListener(v -> {
-            if (modelLearnArrayList.get(currentPos).getRightAnswer().trim().toLowerCase().equals(answerABtn.getText().toString().trim().toLowerCase())) {
+            if (modelLearnArrayList.get(currentPos).getRightAnswer().trim().equalsIgnoreCase(answerABtn.getText().toString().trim())) {
                 currentScore++;
             }
             questionAttempted++;
@@ -61,7 +62,7 @@ public class FragmentLearn extends Fragment {
         });
 
         answerBBtn.setOnClickListener(v -> {
-            if (modelLearnArrayList.get(currentPos).getRightAnswer().trim().toLowerCase().equals(answerBBtn.getText().toString().trim().toLowerCase())) {
+            if (modelLearnArrayList.get(currentPos).getRightAnswer().trim().equalsIgnoreCase(answerBBtn.getText().toString().trim())) {
                 currentScore++;
             }
             questionAttempted++;
@@ -70,7 +71,7 @@ public class FragmentLearn extends Fragment {
         });
 
         answerCBtn.setOnClickListener(v -> {
-            if (modelLearnArrayList.get(currentPos).getRightAnswer().trim().toLowerCase().equals(answerCBtn.getText().toString().trim().toLowerCase())) {
+            if (modelLearnArrayList.get(currentPos).getRightAnswer().trim().equalsIgnoreCase(answerCBtn.getText().toString().trim())) {
                 currentScore++;
             }
             questionAttempted++;
@@ -79,7 +80,7 @@ public class FragmentLearn extends Fragment {
         });
 
         answerDBtn.setOnClickListener(v -> {
-            if (modelLearnArrayList.get(currentPos).getRightAnswer().trim().toLowerCase().equals(answerDBtn.getText().toString().trim().toLowerCase())) {
+            if (modelLearnArrayList.get(currentPos).getRightAnswer().trim().equalsIgnoreCase(answerDBtn.getText().toString().trim())) {
                 currentScore++;
             }
             questionAttempted++;
@@ -139,7 +140,7 @@ public class FragmentLearn extends Fragment {
 
 
     private Dialog createDialog(int layoutResId) {
-        final Dialog dialog = new Dialog(getContext());
+        final Dialog dialog = new Dialog(Objects.requireNonNull(getContext()));
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(layoutResId);
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);

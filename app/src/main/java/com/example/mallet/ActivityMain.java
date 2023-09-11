@@ -34,6 +34,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.Objects;
+
 public class ActivityMain extends AppCompatActivity {
 
     private ActivityMainBinding binding;
@@ -122,7 +124,7 @@ public class ActivityMain extends AppCompatActivity {
     private void createNewDialog() {
         final Dialog dialog = Utils.createDialog(this, R.layout.dialog_create);
         DialogCreateBinding dialogBinding = DialogCreateBinding.inflate(getLayoutInflater());
-        dialog.setContentView(dialogBinding.getRoot());
+        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
         //dialog.show();;
 
         TextView createSet = dialogBinding.createNewCreateSet;
@@ -150,7 +152,7 @@ public class ActivityMain extends AppCompatActivity {
         final Dialog dialog = createDialog(this, R.layout.dialog_create_set);
 
         DialogCreateSetBinding dialogBinding = DialogCreateSetBinding.inflate(LayoutInflater.from(this));
-        dialog.setContentView(dialogBinding.getRoot());
+        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
 
         EditText nameEt = dialogBinding.createSetNameEt;
 
@@ -185,8 +187,8 @@ public class ActivityMain extends AppCompatActivity {
         cancelBtn.setOnClickListener(v -> dialog.dismiss());
 
         confirmBtn.setOnClickListener(v -> {
-            String setName = nameEt.getText().toString().trim();
-            String setDescription = descriptionEt.getText().toString().trim();
+            String setName = Objects.requireNonNull(nameEt.getText()).toString().trim();
+            String setDescription = Objects.requireNonNull(descriptionEt.getText()).toString().trim();
             if (!setName.isEmpty()) {
                 createNewSet(setName, setDescription);
                 dialog.dismiss();
@@ -222,7 +224,7 @@ public class ActivityMain extends AppCompatActivity {
 
         DialogCreateFolderBinding dialogBinding = DialogCreateFolderBinding.inflate(LayoutInflater.from(this));
 
-        dialog.show();
+        Objects.requireNonNull(dialog).show();
 
     }
 
@@ -231,6 +233,6 @@ public class ActivityMain extends AppCompatActivity {
 
         DialogCreateGroupBinding dialogBinding = DialogCreateGroupBinding.inflate(LayoutInflater.from(this));
 
-        dialog.show();
+        Objects.requireNonNull(dialog).show();
     }
 }

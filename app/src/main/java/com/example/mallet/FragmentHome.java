@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.mallet.databinding.FragmentHomeBinding;
-import com.example.mallet.utils.AdapterFlashcard;
 import com.example.mallet.utils.AdapterFolder;
 import com.example.mallet.utils.AdapterGroup;
 import com.example.mallet.utils.AdapterLearningSet;
@@ -21,6 +20,7 @@ import com.example.mallet.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class FragmentHome extends Fragment {
 
@@ -89,7 +89,7 @@ public class FragmentHome extends Fragment {
     private List<ModelLearningSet> createSetList() {
         List<ModelLearningSet> sets = new ArrayList<>();
 
-        ModelLearningSet set1 = FlashcardManager.readFlashcards(getContext(), "fruit.txt");
+        ModelLearningSet set1 = FlashcardManager.readFlashcards(Objects.requireNonNull(getContext()), "fruit.txt");
         ModelLearningSet set2 = FlashcardManager.readFlashcards(getContext(), "animals.txt");
         ModelLearningSet set3 = FlashcardManager.readFlashcards(getContext(), "numbers.txt");
         ModelLearningSet set4 = FlashcardManager.readFlashcards(getContext(), "countries.txt");

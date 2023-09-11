@@ -13,8 +13,8 @@ public class FlashcardManager {
     public static ModelLearningSet readFlashcards(Context context, String filePath) {
         ModelLearningSet learningSet = null;
         List<ModelFlashcard> flashcards = new ArrayList<>();
-        String setName = "";
-        String setCreator = "";
+        String setName;
+        String setCreator;
 
         try {
             AssetManager assetManager = context.getAssets();

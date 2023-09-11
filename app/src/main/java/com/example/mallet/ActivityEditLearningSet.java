@@ -128,7 +128,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         TextView termErrTv = flashcardItemView.findViewById(R.id.editSet_term_err_tv);
         EditText flashcardDefinitionEt = flashcardItemView.findViewById(R.id.editSet_definition_et);
         EditText flashcardTranslationEt = flashcardItemView.findViewById(R.id.editSet_translation_et);
-        TextView translationErrTv = flashcardItemView.findViewById(R.id.editSet_term_err_tv);
+        TextView translationErrTv = flashcardItemView.findViewById(R.id.editSet_translation_err_tv);
 
         flashcardTermEt.clearFocus();
         flashcardDefinitionEt.clearFocus();
