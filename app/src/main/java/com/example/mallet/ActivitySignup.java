@@ -19,19 +19,17 @@ import java.util.regex.Pattern;
 
 public class ActivitySignup extends AppCompatActivity {
     // Initialize email, password, and username variables
-    private String email, password, username = "";
+    private String email, password, username;
     // Declare EditText fields
-    private EditText emailEt;
-    private EditText passwordEt;
+    private EditText emailEt, passwordEt;
     // Declare TextViews for error messages
-    private TextView emailErrorTv;
-    private TextView passwordErrorTv;
+    private TextView emailErrorTv, passwordErrorTv;
     // Binding for the activity's layout
     private ActivitySignupBinding binding;
     // Define password pattern using regex
     private final Pattern passwordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^*()<>?/|}{~:]).{8,}$");
     // Define username pattern using regex
-    private final Pattern usernamePattern = Pattern.compile("^[a-zA-Z0-9_]{1,20}$");
+    private final Pattern usernamePattern = Pattern.compile("^[a-zA-Z0-9_]{1,}$");
     // Define error message for incorrect email
     private final String emailIncorrectMsg = "Email incorrect";
     // Define error message for incorrect password
@@ -115,7 +113,7 @@ public class ActivitySignup extends AppCompatActivity {
             username = Objects.requireNonNull(dialogUsernameEt.getText()).toString().trim(); // Assign the entered username to the class variable
 
             // TODO: Handla signup through AuthenticationManager
-            Utils.showToast(this,email + "\n" + AuthenticationManager.md5(password) + "\n" + username);
+            Utils.showToast(this, email + "\n" + AuthenticationManager.md5(password) + "\n" + username);
             System.out.println(email + "\n" + password + "\n" + username); // Print email, password, and username
 
             // Validate the username input
@@ -172,7 +170,7 @@ public class ActivitySignup extends AppCompatActivity {
             Utils.resetEditText(passwordEt, passwordErrorTv); // Reset password EditText and error TextView
             dialog.dismiss(); // Dismiss the dialog
             System.out.println("Email and password ETs reset"); // Print a message
-            Utils.openActivity(this, ActivitySignup.class); // Open the signup activity
+            Utils.hideItems(emailErrorTv, passwordErrorTv);
         });
 
         confirm.setOnClickListener(v -> {

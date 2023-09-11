@@ -5,10 +5,10 @@
 package com.example.mallet;
 
 import static com.example.mallet.utils.Utils.createDialog;
-import static com.example.mallet.utils.Utils.openActivity;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -25,9 +25,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.mallet.databinding.ActivityMainBinding;
+import com.example.mallet.databinding.DialogCreateBinding;
 import com.example.mallet.databinding.DialogCreateFolderBinding;
 import com.example.mallet.databinding.DialogCreateGroupBinding;
-import com.example.mallet.databinding.DialogCreateBinding;
 import com.example.mallet.databinding.DialogCreateSetBinding;
 import com.example.mallet.utils.Utils;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
@@ -184,14 +184,37 @@ public class ActivityMain extends AppCompatActivity {
 
         cancelBtn.setOnClickListener(v -> dialog.dismiss());
 
-        confirmBtn.setOnClickListener(v -> createNewSet());
-
+        confirmBtn.setOnClickListener(v -> {
+            String setName = nameEt.getText().toString().trim();
+            String setDescription = descriptionEt.getText().toString().trim();
+            if (!setName.isEmpty()) {
+                createNewSet(setName, setDescription);
+                dialog.dismiss();
+            } else {
+                Utils.showToast(this, "Please, enter a valid set name");
+            }
+        });
         return dialog;
     }
 
-    private void createNewSet() {
+    private void createNewSet(String setName, String setDescription) {
         Utils.showToast(this, "The set will be created in the future with backend. Now we will just open the \"ActivityEditLearningSet\"");
-        openActivity(this, ActivityEditLearningSet.class);
+        Intent intent = new Intent(this, ActivityEditLearningSet.class);
+
+        String enteredSetDescription;
+
+        intent.putExtra("learningSetName", setName);
+
+        if (setDescription == null) {
+            setDescription = "";
+            intent.putExtra("learningSetDescription", setDescription);
+        } else {
+            enteredSetDescription = setDescription;
+            intent.putExtra("learningSetDescription", enteredSetDescription);
+        }
+
+        startActivity(intent);
+
     }
 
     private void createFolderDialog() {

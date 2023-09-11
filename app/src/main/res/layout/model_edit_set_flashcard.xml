@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/editSet_flashcard_cv"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:layout_marginHorizontal="10dp"
-    android:background="@drawable/bg_social_btn"
+    android:layout_height="match_parent"
+    android:layout_marginHorizontal="5dp"
+    android:layout_marginVertical="5dp"
     android:clickable="true"
     android:focusable="true"
+    app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="10dp"
-    app:cardElevation="3dp">
+    app:cardPreventCornerOverlap="false"
+    app:cardUseCompatPadding="true">
 
     <LinearLayout
+        android:id="@+id/editSet_cv_ll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="30dp">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/model_edit_set_term_til"
+            android:id="@+id/editSet_term_til"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:boxBackgroundMode="outline"
@@ -30,12 +33,24 @@
             app:boxStrokeWidth="2dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/model_edit_set_term_et"
+                android:id="@+id/editSet_term_et"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:autofillHints="emailAddress"
                 android:hint="Term"
+                android:inputType="textEmailAddress"
                 android:textColorHint="@color/downriver_blue_300"
                 android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/editSet_term_err_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginBottom="5dp"
+                android:text="Error"
+                android:textColor="@color/carnation_red_600"
+                android:visibility="gone" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <View
@@ -43,7 +58,7 @@
             android:layout_height="10dp" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/model_edit_set_definition_til"
+            android:id="@+id/editSet_definition_til"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:boxBackgroundMode="outline"
@@ -55,12 +70,24 @@
             app:boxStrokeWidth="2dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/model_edit_set_definition_et"
+                android:id="@+id/editSet_definition_et"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:autofillHints="emailAddress"
                 android:hint="Definition (optional)"
+                android:inputType="textEmailAddress"
                 android:textColorHint="@color/downriver_blue_300"
                 android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/editSet_definition_err_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginBottom="5dp"
+                android:text="Error"
+                android:textColor="@color/carnation_red_600"
+                android:visibility="gone" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <View
@@ -68,7 +95,7 @@
             android:layout_height="10dp" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/model_edit_set_translation_til"
+            android:id="@+id/editSet_translation_til"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:boxBackgroundMode="outline"
@@ -80,12 +107,24 @@
             app:boxStrokeWidth="2dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/model_edit_set_translation_et"
+                android:id="@+id/editSet_translation_et"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:autofillHints="emailAddress"
                 android:hint="Translation"
+                android:inputType="textEmailAddress"
                 android:textColorHint="@color/downriver_blue_300"
                 android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/editSet_translation_err_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginBottom="5dp"
+                android:text="Error"
+                android:textColor="@color/carnation_red_600"
+                android:visibility="gone" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

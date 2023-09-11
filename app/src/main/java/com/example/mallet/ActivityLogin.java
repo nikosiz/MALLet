@@ -19,11 +19,9 @@ import java.util.regex.Pattern;
 public class ActivityLogin extends AppCompatActivity {
 
     // Declare EditText fields for email and password
-    private EditText emailEt;
-    private EditText passwordEt;
+    private EditText emailEt, passwordEt;
     // Declare TextViews for email and password error messages
-    private TextView emailErrorTv;
-    private TextView passwordErrorTv;
+    private TextView emailErrorTv, passwordErrorTv;
     // Binding for the activity's layout
     private ActivityLoginBinding binding;
     // Define password pattern using regex

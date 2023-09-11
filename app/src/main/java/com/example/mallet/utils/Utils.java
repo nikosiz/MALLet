@@ -157,27 +157,6 @@ public class Utils {
     }
 
 
-    public static boolean validateEmail(String email, TextView errorTv) {
-
-        boolean isValid = true;
-
-        // Reset error messages initially
-        Utils.hideItem(errorTv);
-
-        if (email.isEmpty()) {
-            errorTv.setText("Email is required");
-            Utils.showItem(errorTv);
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            errorTv.setText("Invalid email address");
-            Utils.showItem(errorTv);
-        } else {
-            Utils.hideItem(errorTv);
-        }
-
-        return isValid;
-    }
-
-
     // This stays, what is up, needs to be reviewed
 
     public static void setupAnimation(Context context, TextView logo) {
@@ -224,11 +203,6 @@ public class Utils {
         return errorTv.getVisibility() == View.VISIBLE;
     }
 
-
-    public static void clearField(EditText et) {
-        et.setText("");
-    }
-
     public static void hideItems(View... elements) {
         for (View element : elements) {
             element.setVisibility(View.GONE);
@@ -266,6 +240,7 @@ public class Utils {
 
     public static void resetEditText(EditText et, TextView err) {
         et.setText("");
+        et.clearFocus();
         hideItem(err);
     }
 

@@ -1,18 +1,29 @@
 package com.example.mallet;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 
 import com.example.mallet.databinding.ActivityEditLearningSetBinding;
 import com.example.mallet.utils.Utils;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
 
 public class ActivityEditLearningSet extends AppCompatActivity {
     private ActivityEditLearningSetBinding binding;
+    TextInputLayout setDescriptionTil;
+    EditText setNameEt, setDescriptionEt;
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +33,8 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
         // Initialize and set up the toolbar
         setupToolbar();
-        setupClickListeners();
+        setupListeners();
+        createSet();
     }
 
     // Initialize and set up the toolbar with back arrow functionality.
@@ -38,8 +50,17 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         }
     }
 
-    private void setupClickListeners() {
+    private void setupListeners() {
         binding.editSetOptionsIv.setOnClickListener(v -> setOptionsDialog());
+
+        setNameEt = binding.editSetNameEt;
+        setDescriptionTil = binding.editSetDescriptionTil;
+        Utils.hideItem(setDescriptionTil);
+        setDescriptionEt = binding.editSetDescriptionEt;
+
+        LinearLayout flashcardsLl = binding.editSetCardsLl;
+        fab = binding.floatingActionButton;
+        fab.setOnClickListener(v -> addFlashcard(flashcardsLl, getLayoutInflater()));
 
     }
 
@@ -54,12 +75,45 @@ public class ActivityEditLearningSet extends AppCompatActivity {
             // Finish this activity and return to the previous activity (if any)
             finish();
         }
-
         return super.onOptionsItemSelected(item);
     }
 
     public void createSet() {
-        // TODO
-        Utils.showToast(this, "Set created");
+        String learningSetName = getIntent().getStringExtra("learningSetName");
+        String learningSetDescription = getIntent().getStringExtra("learningSetDescription");
+
+        if (learningSetName != null) {
+            setNameEt.setText(learningSetName);
+            Utils.showToast(this, learningSetName);
+        }
+
+        if (learningSetDescription != null) {
+            setDescriptionEt.setText(learningSetDescription);
+
+            if (learningSetDescription.isEmpty()) {
+                Utils.hideItem(setDescriptionTil);
+            } else {
+                Utils.showItem(setDescriptionTil);
+            }
+        }
     }
+
+    private void addFlashcard(LinearLayout linearLayout, LayoutInflater inflater) {
+        View flashcardItemView = inflater.inflate(R.layout.model_edit_set_flashcard, linearLayout, false);
+
+        CardView flashcardCv = flashcardItemView.findViewById(R.id.editSet_flashcard_cv);
+        LinearLayout flashcardCvLl = flashcardItemView.findViewById(R.id.editSet_cv_ll);
+        flashcardCvLl.setPadding(100, 75, 100, 75);
+
+        EditText flashcardTermEt = flashcardItemView.findViewById(R.id.editSet_term_et);
+        EditText flashcardDefinitionEt = flashcardItemView.findViewById(R.id.editSet_definition_et);
+        EditText flashcardTranslationEt = flashcardItemView.findViewById(R.id.editSet_translation_et);
+
+
+
+
+        linearLayout.addView(flashcardItemView);
+    }
+
+
 }
