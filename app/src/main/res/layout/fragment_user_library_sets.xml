@@ -38,23 +38,13 @@
             android:layout_width="match_parent"
             android:layout_height="20dp" />
 
-        <TextView
-            style="@style/BasicBoldTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="In progress"
-            android:textSize="20sp" />
-
-        <View
+        <LinearLayout
+            android:id="@+id/userLibrarySets_cardsLl"
             android:layout_width="match_parent"
-            android:layout_height="10dp" />
-
-        <TextView
-            style="@style/BasicTextStyle"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Here a list of started sets is going to be displayed (looking like those in the HomeFragment). The text entered in the search field will limit the pop-ups displayed to only those matching the search."
-            android:textSize="20sp" />
+            android:orientation="vertical">
+
+        </LinearLayout>
 
 
     </LinearLayout>

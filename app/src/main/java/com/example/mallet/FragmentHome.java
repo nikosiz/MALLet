@@ -17,34 +17,41 @@ import com.example.mallet.utils.AdapterGroup;
 import com.example.mallet.utils.AdapterLearningSet;
 import com.example.mallet.utils.Utils;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 public class FragmentHome extends Fragment {
 
     private FragmentHomeBinding binding;
+    private ActivityMain activityMain;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
 
+        setupContents();
+
+        activityMain = (ActivityMain) getActivity();
+
+        List<ModelLearningSet> learningSets = activityMain.createSetList();
+        setupViewPager(binding.homeSetsViewpager, learningSets);
+
+        List<ModelFolder> folders = activityMain.createFolderList();
+        setupViewPager(binding.homeSetsViewpager, folders);
+
+        List<ModelGroup> groups = activityMain.createGroupList();
+        setupViewPager(binding.homeSetsViewpager, groups);
+
         // Set up click listeners for "View All" buttons
-        setupClickListeners(binding);
-
-        // Set up ViewPager for Learning Sets
-        setupViewPager(binding.homeSetsViewpager, createSetList());
-
-        // Set up ViewPager for Folders
-        setupViewPager(binding.homeFoldersViewpager, createFolderList());
-
-        // Set up ViewPager for Groups
-        setupViewPager(binding.homeGroupsViewpager, createGroupList());
+        setupContents();
 
         return binding.getRoot();
+    }
 
+    private void setupContents() {
+        binding.homeLearningSetViewAllTv.setOnClickListener(v -> showAllItems("Learning Sets"));
+        binding.homeFolderViewAllTv.setOnClickListener(v -> showAllItems("Folders"));
+        binding.homeGroupViewAllTv.setOnClickListener(v -> showAllItems("Groups"));
     }
 
     private void setupViewPager(ViewPager2 viewPager, List<?> itemList) {
@@ -53,7 +60,7 @@ public class FragmentHome extends Fragment {
             Object item = itemList.get(0);
             if (item instanceof ModelLearningSet) {
                 viewPager = binding.homeSetsViewpager;
-                AdapterLearningSet adapterSets = new AdapterLearningSet(getContext(), createSetList(), learningSet -> {
+                AdapterLearningSet adapterSets = new AdapterLearningSet(getContext(), activityMain.createSetList(), learningSet -> {
                     Intent intent = new Intent(getContext(), ActivityViewLearningSet.class);
 
                     // Pass the entire learning set object
@@ -67,14 +74,14 @@ public class FragmentHome extends Fragment {
                 viewPager.setPageTransformer(Utils::applySwipeTransformer);
             } else if (item instanceof ModelFolder) {
                 viewPager = binding.homeFoldersViewpager;
-                AdapterFolder adapterFolders = new AdapterFolder(getContext(), createFolderList(), v -> Utils.openActivity(getContext(), ActivityViewFolder.class));
+                AdapterFolder adapterFolders = new AdapterFolder(getContext(), activityMain.createFolderList(), v -> Utils.openActivity(getContext(), ActivityViewFolder.class));
 
                 viewPager.setAdapter(adapterFolders);
 
                 viewPager.setPageTransformer(Utils::applySwipeTransformer);
             } else if (item instanceof ModelGroup) {
                 viewPager = binding.homeGroupsViewpager;
-                AdapterGroup adapterGroups = new AdapterGroup(getContext(), createGroupList(), v -> Utils.openActivity(getContext(), ActivityViewGroup.class));
+                AdapterGroup adapterGroups = new AdapterGroup(getContext(), activityMain.createGroupList(), v -> Utils.openActivity(getContext(), ActivityViewGroup.class));
                 viewPager.setAdapter(adapterGroups);
 
                 viewPager.setPageTransformer(Utils::applySwipeTransformer);
@@ -85,76 +92,10 @@ public class FragmentHome extends Fragment {
         viewPager.setPageTransformer(Utils::applySwipeTransformer);
     }
 
-    // Create a list of learning sets
-    private List<ModelLearningSet> createSetList() {
-        List<ModelLearningSet> sets = new ArrayList<>();
-
-        ModelLearningSet set1 = FlashcardManager.readFlashcards(requireContext(), "fruit.txt");
-        ModelLearningSet set2 = FlashcardManager.readFlashcards(requireContext(), "animals.txt");
-        ModelLearningSet set3 = FlashcardManager.readFlashcards(requireContext(), "numbers.txt");
-        ModelLearningSet set4 = FlashcardManager.readFlashcards(requireContext(), "countries.txt");
-        ModelLearningSet set5 = FlashcardManager.readFlashcards(requireContext(), "colors.txt");
-
-        sets.add(set1);
-        sets.add(set2);
-        sets.add(set3);
-        sets.add(set4);
-        sets.add(set5);
-
-        return sets;
-    }
-
-    // Create a list of folders
-    private List<ModelFolder> createFolderList() {
-        List<ModelFolder> folders = new ArrayList<>();
-        folders.add(new ModelFolder("Folder #1", "user123", "3"));
-        folders.add(new ModelFolder("Folder #2", "user123", "7"));
-        folders.add(new ModelFolder("Folder #3", "user123", "2"));
-        folders.add(new ModelFolder("Folder #4", "user123", "8"));
-        folders.add(new ModelFolder("Folder #5", "user123", "1"));
-        return folders;
-    }
-
-    // Create a list of groups
-    private List<ModelGroup> createGroupList() {
-        List<ModelGroup> groups = new ArrayList<>();
-        groups.add(new ModelGroup("Group #1", "2"));
-        groups.add(new ModelGroup("Group #2", "5"));
-        groups.add(new ModelGroup("Group #3", "2"));
-        groups.add(new ModelGroup("Group #4", "8"));
-        groups.add(new ModelGroup("Group #5", "5"));
-        return groups;
-    }
-
-    // Set up click listeners for "View All" buttons
-    private void setupClickListeners(FragmentHomeBinding binding) {
-        binding.homeLearningSetViewAllTv.setOnClickListener(v -> showAllItems("Learning Sets"));
-        binding.homeFolderViewAllTv.setOnClickListener(v -> showAllItems("Folders"));
-        binding.homeGroupViewAllTv.setOnClickListener(v -> showAllItems("Groups"));
-    }
-
     // Show all items (e.g., open a list view with all items of a specific type)
     private void showAllItems(String itemType) {
-
         // TODO: Implement this method to display all items of a specific type
         Utils.showToast(getContext(), "Here should open a list of " + itemType);
     }
 
-    // Utility method to pass data to an activity via an intent
-    public static void passDataToActivity(Intent intent, Map<String, Object> dataMap) {
-        for (Map.Entry<String, Object> entry : dataMap.entrySet()) {
-            String key = entry.getKey();
-            Object value = entry.getValue();
-
-            if (value instanceof String) {
-                intent.putExtra(key, (String) value);
-            } else if (value instanceof Integer) {
-                intent.putExtra(key, (int) value);
-            } else if (value instanceof Boolean) {
-                intent.putExtra(key, (boolean) value);
-            } else if (value instanceof Float) {
-                intent.putExtra(key, (float) value);
-            } // Add more data types as needed
-        }
-    }
 }

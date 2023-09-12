@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
 
 import com.example.mallet.databinding.ActivityEditLearningSetBinding;
 import com.example.mallet.databinding.DialogAddSetToFolderBinding;
@@ -61,6 +60,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
         // Get the "learningSetName" and "learningSetTerms" from the intent extras
         String learningSetName = getIntent().getStringExtra("learningSetName");
+        String learningSetDescription = getIntent().getStringExtra("learningSetDescription");
         ArrayList<ModelFlashcard> learningSetTerms = getIntent().getParcelableArrayListExtra("learningSetTerms");
 
         // Set the learningSetName to the EditText
@@ -82,9 +82,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         binding.editSetSaveIv.setOnClickListener(v -> createSet());
         binding.editSetAddDescriptionTv.setOnClickListener(v -> addSetDescription());
 
-        //addTermFab.setOnClickListener(v -> addFlashcard(flashcardsLl, getLayoutInflater()));
-        //addFlashcard(flashcardsLl, getLayoutInflater());
-        //addFlashcard(flashcardsLl, getLayoutInflater());
+        addTermFab.setOnClickListener(v -> addFlashcard(flashcardsLl, getLayoutInflater(), "", "", ""));
 
     }
 

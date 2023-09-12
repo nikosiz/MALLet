@@ -15,6 +15,7 @@ public class FlashcardManager {
         List<ModelFlashcard> flashcards = new ArrayList<>();
         String setName;
         String setCreator;
+        String setDescription;
 
         try {
             AssetManager assetManager = context.getAssets();
@@ -24,6 +25,7 @@ public class FlashcardManager {
             // Read the first two lines as set name and set creator
             setName = reader.readLine();
             setCreator = reader.readLine();
+            setDescription = reader.readLine();
 
             String line;
 
@@ -40,14 +42,13 @@ public class FlashcardManager {
             reader.close();
 
             // Create the ModelLearningSet object with the extracted information
-            learningSet = new ModelLearningSet(setName, flashcards, setCreator, 0);
+            learningSet = new ModelLearningSet(setName, setCreator, setDescription, flashcards, 0);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         return learningSet;
     }
-
 
 
 }

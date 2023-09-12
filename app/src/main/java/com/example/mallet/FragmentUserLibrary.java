@@ -16,19 +16,42 @@ import com.example.mallet.databinding.FragmentUserLibraryBinding;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import java.util.List;
 import java.util.Objects;
 
 public class FragmentUserLibrary extends Fragment {
-
+    FragmentUserLibraryBinding binding;
     private TabLayout tabLayout;
+    private ActivityMain activityMain;
+    private ViewPager2 viewPager;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        com.example.mallet.databinding.FragmentUserLibraryBinding binding = FragmentUserLibraryBinding.inflate(inflater, container, false);
+        binding = FragmentUserLibraryBinding.inflate(inflater, container, false);
+        activityMain = (ActivityMain) getActivity();
 
-        ViewPager2 viewPager = binding.userLibraryViewPager;
-        TabLayout tabLayout = binding.userLibraryTabLayout;
+        viewPager = binding.userLibraryViewPager;
+        tabLayout = binding.userLibraryTabLayout;
 
+        List<ModelLearningSet> learningSets = activityMain.createSetList();
+        //setupViewPager(binding.homeSetsViewpager, learningSets);
+
+        List<ModelFolder> folders = activityMain.createFolderList();
+        //setupViewPager(binding.homeSetsViewpager, folders);
+
+        List<ModelGroup> groups = activityMain.createGroupList();
+        //setupViewPager(binding.homeSetsViewpager, groups);
+
+        setupContents(); // Call the setupTabLayout method
+
+        return binding.getRoot();
+    }
+
+    private void setupContents() {
+        setupTabLayout();
+    }
+
+    private void setupTabLayout() {
         FragmentStateAdapter adapter = new FragmentStateAdapter(getChildFragmentManager(), getLifecycle()) {
             @Override
             public int getItemCount() {
@@ -71,7 +94,6 @@ public class FragmentUserLibrary extends Fragment {
                 layoutParams.width = 200;
                 tabTV.setLayoutParams(layoutParams);
             }
-
         });
 
         // Connect the TabLayout with the ViewPager
@@ -80,7 +102,5 @@ public class FragmentUserLibrary extends Fragment {
                     // Nothing needed here since tab titles are set beforehand
                 }
         ).attach();
-
-        return binding.getRoot();
     }
 }

@@ -42,7 +42,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
         setupToolbar();
 
-        setupClickListeners(binding);
+        setupContents();
 
         getLearningSetData();
 
@@ -52,11 +52,27 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         displayFlashcardsInLinearLayout(Utils.createFlashcardList(learningSet), binding.viewSetAllFlashcardsLl, getLayoutInflater());
     }
 
+    private void setupContents() {
+        binding.viewSetViewpager.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ActivityLearn.class);
+            intent.putExtra("fragment_class", "FragmentFlashcards");
+            //intent.putExtra("learningSetName", learningSet.getName()); // Pass set name
+            //intent.putExtra("learningSetDescription", learningSet.getDescription());
+            intent.putParcelableArrayListExtra("learningSetTerms", new ArrayList<>(learningSet.getTerms())); // Pass terms
+            startActivity(intent);
+
+            Utils.openActivityWithFragment(this, FragmentFlashcards.class, ActivityLearn.class);
+        });
+        binding.viewSetFlashcards.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentFlashcards.class, ActivityLearn.class));
+        binding.viewSetLearn.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentLearn.class, ActivityLearn.class));
+        binding.viewSetTest.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentTest.class, ActivityLearn.class));
+        binding.viewSetMatch.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentMatch.class, ActivityLearn.class));
+    }
+
     private void setupToolbar() {
         Toolbar toolbar = binding.viewSetToolbar;
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle("");
-
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -73,9 +89,18 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         dialogBinding.viewSetOptionsEdit.setOnClickListener(v -> {
             dialog.dismiss();
 
-            Intent intent = new Intent(this, ActivityEditLearningSet.class);
-            intent.putExtra("learningSetName", learningSet.getName()); // Pass set name
-            intent.putParcelableArrayListExtra("learningSetTerms", new ArrayList<>(learningSet.getTerms())); // Pass terms
+            // Create an Intent to open ActivityLearn
+            Intent intent = new Intent(this, ActivityLearn.class);
+
+// Specify the fragment to open within ActivityLearn (e.g., FragmentFlashcards)
+            intent.putExtra("fragment_class", FragmentFlashcards.class.getName());
+
+// Pass the learningSetName, learningSetDescription, and learningSetTerms to ActivityLearn
+            intent.putExtra("learningSetName", learningSet.getName());
+            intent.putExtra("learningSetDescription", learningSet.getDescription());
+            intent.putParcelableArrayListExtra("learningSetTerms", new ArrayList<>(learningSet.getTerms()));
+
+// Start ActivityLearn
             startActivity(intent);
         });
         dialogBinding.viewSetOptionsAddToFolder.setOnClickListener(v -> {
@@ -124,9 +149,9 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             if (learningSet != null) {
                 String setName = learningSet.getName();
                 String setCreator = learningSet.getCreator();
+                String setDescription = learningSet.getDescription();
                 String setTerms = String.valueOf(learningSet.getNumberOfTerms());
                 List<ModelFlashcard> flashcards = learningSet.getTerms();
-
                 TextView setNameTV = binding.viewSetNameTv;
                 TextView setCreatorTV = binding.viewSetCreatorTv;
                 TextView setTermsTV = binding.viewSetTermsTv;
@@ -139,14 +164,19 @@ public class ActivityViewLearningSet extends AppCompatActivity {
                     setCreatorTV.setText(setCreator);
                 }
 
-                if (setTerms != null) {
-                    setTermsTV.setText(setTerms + " terms");
+                if (setDescription != null) {
+                    setTermsTV.setText(setDescription);
+
+                    if (setTerms != null) {
+                        setTermsTV.setText(setTerms + " terms");
+                    }
                 }
             }
         }
     }
 
-    private void displayFlashcardsInViewPager(List<ModelFlashcard> flashcards, ViewPager2 viewPager) {
+    private void displayFlashcardsInViewPager(List<ModelFlashcard> flashcards, ViewPager2
+            viewPager) {
         List<ModelFlashcard> simplifiedFlashcards = new ArrayList<>();
 
         for (ModelFlashcard flashcard : flashcards) {
@@ -159,15 +189,9 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         viewPager.setPageTransformer(Utils::applySwipeTransformer);
     }
 
-    private void setupClickListeners(ActivityViewLearningSetBinding binding) {
-        binding.viewSetViewpager.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentFlashcards.class, ActivityLearn.class));
-        binding.viewSetFlashcards.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentFlashcards.class, ActivityLearn.class));
-        binding.viewSetLearn.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentLearn.class, ActivityLearn.class));
-        binding.viewSetTest.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentTest.class, ActivityLearn.class));
-        binding.viewSetMatch.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentMatch.class, ActivityLearn.class));
-    }
 
-    private void displayFlashcardsInLinearLayout(List<ModelFlashcard> flashcards, LinearLayout linearLayout, LayoutInflater inflater) {
+    private void displayFlashcardsInLinearLayout
+            (List<ModelFlashcard> flashcards, LinearLayout linearLayout, LayoutInflater inflater) {
         linearLayout.removeAllViews();
 
         for (ModelFlashcard flashcard : flashcards) {
@@ -230,7 +254,8 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         return folders;
     }
 
-    private void displayFoldersInLinearLayout(List<ModelFolder> folders, LinearLayout linearLayout, LayoutInflater inflater) {
+    private void displayFoldersInLinearLayout(List<ModelFolder> folders, LinearLayout
+            linearLayout, LayoutInflater inflater) {
         linearLayout.removeAllViews();
 
         for (ModelFolder folder : folders) {

@@ -28,6 +28,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
@@ -213,6 +215,44 @@ public class ActivityMain extends AppCompatActivity {
         DialogCreateGroupBinding dialogBinding = DialogCreateGroupBinding.inflate(LayoutInflater.from(this));
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
         dialog.show();
+    }
+
+    public List<ModelLearningSet> createSetList() {
+        List<ModelLearningSet> sets = new ArrayList<>();
+
+        ModelLearningSet set1 = FlashcardManager.readFlashcards(getApplicationContext(), "fruit.txt");
+        ModelLearningSet set2 = FlashcardManager.readFlashcards(getApplicationContext(), "animals.txt");
+        ModelLearningSet set3 = FlashcardManager.readFlashcards(getApplicationContext(), "numbers.txt");
+        ModelLearningSet set4 = FlashcardManager.readFlashcards(getApplicationContext(), "countries.txt");
+        ModelLearningSet set5 = FlashcardManager.readFlashcards(getApplicationContext(), "colors.txt");
+
+        sets.add(set1);
+        sets.add(set2);
+        sets.add(set3);
+        sets.add(set4);
+        sets.add(set5);
+
+        return sets;
+    }
+
+    public List<ModelFolder> createFolderList() {
+        List<ModelFolder> folders = new ArrayList<>();
+        folders.add(new ModelFolder("Folder #1", "user123", "3"));
+        folders.add(new ModelFolder("Folder #2", "user123", "7"));
+        folders.add(new ModelFolder("Folder #3", "user123", "2"));
+        folders.add(new ModelFolder("Folder #4", "user123", "8"));
+        folders.add(new ModelFolder("Folder #5", "user123", "1"));
+        return folders;
+    }
+
+    public List<ModelGroup> createGroupList() {
+        List<ModelGroup> groups = new ArrayList<>();
+        groups.add(new ModelGroup("Group #1", "2"));
+        groups.add(new ModelGroup("Group #2", "5"));
+        groups.add(new ModelGroup("Group #3", "2"));
+        groups.add(new ModelGroup("Group #4", "8"));
+        groups.add(new ModelGroup("Group #5", "5"));
+        return groups;
     }
 
     @Override

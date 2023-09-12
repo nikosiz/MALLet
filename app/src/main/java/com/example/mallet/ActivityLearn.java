@@ -21,7 +21,7 @@ public class ActivityLearn extends AppCompatActivity {
             try {
                 Fragment fragment = (Fragment) Class.forName(fragmentClassName).newInstance();
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, fragment)
+                        .replace(R.id.learn_mainLl, fragment)
                         .commit();
             } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
                 e.printStackTrace();
@@ -36,5 +36,4 @@ public class ActivityLearn extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-    
 }

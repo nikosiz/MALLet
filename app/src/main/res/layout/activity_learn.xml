@@ -1,9 +1,10 @@
 <!-- res/layout/activity_main.xml -->
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/fragment_container"
-    tools:context=".ActivityLearn">
+    android:id="@+id/learn_mainLl"
+    tools:context=".ActivityLearn"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
