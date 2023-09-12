@@ -174,6 +174,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
         for (ModelFlashcard flashcard : flashcards) {
             ModelFlashcard simplifiedFlashcard = new ModelFlashcard(flashcard.getTerm(), "", flashcard.getTranslation());
+
             simplifiedFlashcards.add(simplifiedFlashcard);
         }
 
@@ -190,26 +191,36 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         for (ModelFlashcard flashcard : flashcards) {
             View flashcardItemView = inflater.inflate(R.layout.model_flashcard, linearLayout, false);
 
-            LinearLayout flashcardCvLL = flashcardItemView.findViewById(R.id.flashcard_cv_ll);
-            flashcardCvLL.setPadding(100, 75, 100, 75);
 
-            TextView flashcardTermTV = flashcardItemView.findViewById(R.id.flashcard_term);
+            // Convert dp to pixels
+            int paddingInDp = 30;
+            float scale = getResources().getDisplayMetrics().density;
+            int paddingInPixels = (int) (paddingInDp * scale + 0.5f);
+
+            LinearLayout flashcardCvLL = flashcardItemView.findViewById(R.id.flashcard_cvLl);
+            flashcardCvLL.setGravity(View.TEXT_ALIGNMENT_TEXT_START);
+            flashcardCvLL.setPadding(paddingInPixels, paddingInPixels, paddingInPixels, paddingInPixels);
+
+            TextView flashcardTermTV = flashcardItemView.findViewById(R.id.flashcard_termTv);
             flashcardTermTV.setVisibility(View.VISIBLE);
             flashcardTermTV.setText(flashcard.getTerm());
+            flashcardTermTV.setTextSize(20.0f);
 
-            View viewDefinition = flashcardItemView.findViewById(R.id.flashcard_view_definition);
-            viewDefinition.setVisibility(View.GONE);
+            View definitionV = flashcardItemView.findViewById(R.id.flashcard_definitionV);
+            definitionV.setVisibility(View.GONE);
 
-            TextView flashcardDefinitionTV = flashcardItemView.findViewById(R.id.flashcard_definition);
+
+            TextView flashcardDefinitionTV = flashcardItemView.findViewById(R.id.flashcard_definitionTv);
             flashcardDefinitionTV.setVisibility(View.GONE);
-            flashcardDefinitionTV.setText("");
+            flashcardDefinitionTV.setText(flashcard.getDefinition());
 
-            View viewTranslation = flashcardItemView.findViewById(R.id.flashcard_view_translation);
-            viewTranslation.setVisibility(View.GONE);
+            View translationV = flashcardItemView.findViewById(R.id.flashcard_translationV);
+            translationV.setVisibility(View.GONE);
 
-            TextView flashcardTranslationTV = flashcardItemView.findViewById(R.id.flashcard_translation);
+            TextView flashcardTranslationTV = flashcardItemView.findViewById(R.id.flashcard_translationTv);
             flashcardTranslationTV.setVisibility(View.VISIBLE);
             flashcardTranslationTV.setText(flashcard.getTranslation());
+            flashcardTermTV.setTextSize(15.0f);
 
             linearLayout.addView(flashcardItemView);
         }

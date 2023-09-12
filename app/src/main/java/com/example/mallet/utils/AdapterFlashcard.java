@@ -57,9 +57,9 @@ public class AdapterFlashcard extends RecyclerView.Adapter<AdapterFlashcard.Flas
 
         FlashcardViewHolder(View itemView) {
             super(itemView);
-            termTV = itemView.findViewById(R.id.flashcard_term);
-            definitionTV = itemView.findViewById(R.id.flashcard_definition);
-            translationTV = itemView.findViewById(R.id.flashcard_translation);
+            termTV = itemView.findViewById(R.id.flashcard_termTv);
+            definitionTV = itemView.findViewById(R.id.flashcard_definitionTv);
+            translationTV = itemView.findViewById(R.id.flashcard_translationTv);
         }
     }
 

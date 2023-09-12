@@ -53,9 +53,9 @@ public class AdapterFlashcardStack extends RecyclerView.Adapter<AdapterFlashcard
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             // Initialize the TextViews with their corresponding views from the layout
-            term = itemView.findViewById(R.id.flashcard_term);
-            definition = itemView.findViewById(R.id.flashcard_definition);
-            translation = itemView.findViewById(R.id.flashcard_translation);
+            term = itemView.findViewById(R.id.flashcard_termTv);
+            definition = itemView.findViewById(R.id.flashcard_definitionTv);
+            translation = itemView.findViewById(R.id.flashcard_translationTv);
         }
 
         // Method to set data from the data model to the views

@@ -108,13 +108,13 @@ public class FragmentFlashcards extends Fragment {
 
             @Override
             public void onCardAppeared(View view, int position) {
-                TextView wordTV = view.findViewById(R.id.flashcard_term);
+                TextView wordTV = view.findViewById(R.id.flashcard_termTv);
                 // Log.d(TAG, "onCardAppeared: " + position + ", word: " + wordTV.getText());
             }
 
             @Override
             public void onCardDisappeared(View view, int position) {
-                TextView wordTV = view.findViewById(R.id.flashcard_term);
+                TextView wordTV = view.findViewById(R.id.flashcard_termTv);
                 // Log.d(TAG, "onCardDisappeared: " + position + ", word: " + wordTV.getText());
             }
         });

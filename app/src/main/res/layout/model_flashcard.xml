@@ -1,106 +1,79 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!-- res/layout/card_group.xml -->
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/flashcard_cv"
+    android:id="@+id/flashcard_mainCv"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginHorizontal="5dp"
-    android:layout_marginVertical="5dp"
+    android:layout_margin="5dp"
+    android:layout_marginHorizontal="10dp"
+    android:background="@drawable/bg_social_btn"
     android:clickable="true"
     android:focusable="true"
-    app:cardBackgroundColor="@color/white"
+    android:maxHeight="150dp"
     app:cardCornerRadius="10dp"
-    app:cardPreventCornerOverlap="false"
-    app:cardUseCompatPadding="true">
+    app:cardElevation="3dp">
 
     <LinearLayout
-        android:id="@+id/flashcard_cv_ll"
+        android:id="@+id/flashcard_cvLl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="100dp">
+        android:padding="75dp">
 
         <TextView
-            android:id="@+id/flashcard_term"
+            android:id="@+id/flashcard_termTv"
             style="@style/BasicTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:autoSizeMaxTextSize="25sp"
+            android:autoSizeMinTextSize="15sp"
+            android:autoSizeStepGranularity="2sp"
+            android:autoSizeTextType="uniform"
             android:gravity="center"
+            android:singleLine="true"
             android:text="term"
-            android:textColor="@color/danube_blue_600"
+            android:textColor="@color/danube_blue_800"
             android:textSize="30sp" />
 
         <View
-            android:id="@+id/flashcard_view_definition"
+            android:id="@+id/flashcard_definitionV"
             android:layout_width="match_parent"
             android:layout_height="10dp"
             android:visibility="gone" />
 
         <TextView
-            android:id="@+id/flashcard_definition"
+            android:id="@+id/flashcard_definitionTv"
             style="@style/BasicTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
+            android:autoSizeMaxTextSize="25sp"
+            android:autoSizeMinTextSize="15sp"
+            android:autoSizeStepGranularity="2sp"
+            android:singleLine="true"
             android:text="definition"
-            android:textColor="@color/danube_blue_600"
+            android:textColor="@color/danube_blue_800"
             android:textSize="20sp"
             android:visibility="gone" />
 
         <View
-            android:id="@+id/flashcard_view_translation"
+            android:id="@+id/flashcard_translationV"
             android:layout_width="match_parent"
             android:layout_height="10dp"
             android:visibility="gone" />
 
         <TextView
-            android:id="@+id/flashcard_translation"
+            android:id="@+id/flashcard_translationTv"
             style="@style/BasicTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:autoSizeMaxTextSize="25sp"
+            android:autoSizeMinTextSize="15sp"
+            android:autoSizeStepGranularity="2sp"
             android:gravity="center"
-            android:text="translation_pl"
-            android:textColor="@color/danube_blue_600"
-            android:textSize="25sp" />
-
+            android:singleLine="true"
+            android:text="translation"
+            android:textColor="@color/danube_blue_800"
+            android:textSize="20sp" />
     </LinearLayout>
-
-    <!--<FrameLayout
-        android:id="@+id/left_overlay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/overlay_swipe_review">
-
-        <TextView
-            style="@style/BasicBoldTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="To review"
-            android:textColor="@color/strawberry_pink_50"
-            android:textSize="50sp" />
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/right_overlay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/overlay_swipe_know">
-
-        <TextView
-            style="@style/BasicBoldTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Know"
-            android:textColor="@color/screamin_green_50"
-            android:textSize="50sp" />
-
-    </FrameLayout>-->
-
 </androidx.cardview.widget.CardView>
