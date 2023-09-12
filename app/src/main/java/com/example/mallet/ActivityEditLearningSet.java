@@ -69,6 +69,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         }
 
         // Use learningSetTerms to populate your flashcards or terms UI elements
+        assert learningSetTerms != null;
         populateFlashcardsUI(learningSetTerms);
     }
 
@@ -153,10 +154,9 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         dialog.show();
     }
 
-    private String addSetDescription() {
+    private void addSetDescription() {
         String setDescription = setDescriptionEt.getText().toString().trim();
 
-        return setDescription;
     }
 
     @Override

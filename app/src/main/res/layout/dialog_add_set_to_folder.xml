@@ -10,21 +10,36 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="20dp">
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/addToFolder_closeIv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginHorizontal="30dp"
-
-            android:src="@drawable/ic_check_x" />
-
-        <View
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="10dp" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="20dp">
+
+            <TextView
+                style="@style/BasicBoldTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_weight="1"
+                android:text="Add set to folder"
+                android:textColor="@color/danube_blue_900"
+                android:textSize="25sp" />
+
+            <ImageView
+                android:id="@+id/addToFolder_closeIv"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/bg_ripple"
+                android:clickable="true"
+                android:contentDescription="close addToFolder dialog"
+                android:focusable="true"
+                android:src="@drawable/ic_check_x"
+                app:tint="@color/danube_blue_900" />
+        </LinearLayout>
 
         <ScrollView
             android:layout_width="match_parent"
@@ -32,14 +47,14 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/addToFolder_searchTil"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="30dp"
                     app:endIconDrawable="@drawable/ic_search"
                     app:endIconMode="custom"
                     app:endIconTint="@color/danube_blue_800">
@@ -60,7 +75,6 @@
                     android:id="@+id/addToFolder_folders_ll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="30dp"
                     android:orientation="vertical" />
 
                 <View

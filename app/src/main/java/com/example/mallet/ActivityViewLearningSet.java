@@ -88,24 +88,17 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
         dialogBinding.viewSetOptionsEdit.setOnClickListener(v -> {
             dialog.dismiss();
+            Intent intent = new Intent(this, ActivityEditLearningSet.class);
 
-            // Create an Intent to open ActivityLearn
-            Intent intent = new Intent(this, ActivityLearn.class);
-
-// Specify the fragment to open within ActivityLearn (e.g., FragmentFlashcards)
-            intent.putExtra("fragment_class", FragmentFlashcards.class.getName());
-
-// Pass the learningSetName, learningSetDescription, and learningSetTerms to ActivityLearn
             intent.putExtra("learningSetName", learningSet.getName());
             intent.putExtra("learningSetDescription", learningSet.getDescription());
             intent.putParcelableArrayListExtra("learningSetTerms", new ArrayList<>(learningSet.getTerms()));
 
-// Start ActivityLearn
             startActivity(intent);
         });
         dialogBinding.viewSetOptionsAddToFolder.setOnClickListener(v -> {
-            //dialog.dismiss();
-            dialogSetOptions();
+            dialog.dismiss();
+            addSetToFolderDialog();
         });
         dialogBinding.viewSetOptionsAddToGropu.setOnClickListener(v -> {
             //dialog.dismiss();
@@ -133,6 +126,8 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         final Dialog dialog = Utils.createDialog(this, R.layout.dialog_add_set_to_folder);
         DialogAddSetToFolderBinding dialogBinding = DialogAddSetToFolderBinding.inflate(LayoutInflater.from(this));
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
+
+        dialogBinding.addToFolderCloseIv.setOnClickListener(v -> dialog.dismiss());
 
         List<ModelFolder> folders = createFolderList();
 
@@ -167,9 +162,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
                 if (setDescription != null) {
                     setTermsTV.setText(setDescription);
 
-                    if (setTerms != null) {
-                        setTermsTV.setText(setTerms + " terms");
-                    }
+                    setTermsTV.setText(setTerms + " terms");
                 }
             }
         }

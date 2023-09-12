@@ -33,14 +33,10 @@ public class FragmentUserLibrary extends Fragment {
         viewPager = binding.userLibraryViewPager;
         tabLayout = binding.userLibraryTabLayout;
 
+        assert activityMain != null;
         List<ModelLearningSet> learningSets = activityMain.createSetList();
-        //setupViewPager(binding.homeSetsViewpager, learningSets);
-
         List<ModelFolder> folders = activityMain.createFolderList();
-        //setupViewPager(binding.homeSetsViewpager, folders);
-
         List<ModelGroup> groups = activityMain.createGroupList();
-        //setupViewPager(binding.homeSetsViewpager, groups);
 
         setupContents(); // Call the setupTabLayout method
 

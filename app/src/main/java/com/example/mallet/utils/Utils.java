@@ -156,12 +156,7 @@ public class Utils {
         return new ArrayList<>(); // Return an empty list if learningSet is null
     }
 
-    public void createFolder(ModelFolder folder) {
-        if (folder != null) {
-            folder.getFolderName();
-            folder.getFolderCreator();
-        }
-    }
+
 
 
     // This stays, what is up, needs to be reviewed

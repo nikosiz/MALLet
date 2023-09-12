@@ -47,7 +47,7 @@ public class ActivityMain extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         initializeSelectedFragment(savedInstanceState);
-        setExceptionItemColor(2);
+        setExceptionItemColor();
         setupContents();
     }
 
@@ -82,9 +82,9 @@ public class ActivityMain extends AppCompatActivity {
     }
 
     @SuppressLint("RestrictedApi")
-    private void setExceptionItemColor(int exceptionItemIndex) {
+    private void setExceptionItemColor() {
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) binding.bottomNavigationView.getChildAt(0);
-        BottomNavigationItemView exceptionItem = (BottomNavigationItemView) menuView.getChildAt(exceptionItemIndex);
+        BottomNavigationItemView exceptionItem = (BottomNavigationItemView) menuView.getChildAt(2);
         int color = ContextCompat.getColor(this, R.color.downriver_blue_300);
         exceptionItem.setIconTintList(ColorStateList.valueOf(color));
     }

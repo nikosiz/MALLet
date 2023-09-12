@@ -33,6 +33,7 @@ public class FragmentHome extends Fragment {
 
         activityMain = (ActivityMain) getActivity();
 
+        assert activityMain != null;
         List<ModelLearningSet> learningSets = activityMain.createSetList();
         setupViewPager(binding.homeSetsViewpager, learningSets);
 
