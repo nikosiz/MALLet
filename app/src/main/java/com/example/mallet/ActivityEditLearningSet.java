@@ -1,5 +1,6 @@
 package com.example.mallet;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -14,10 +15,16 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
 import com.example.mallet.databinding.ActivityEditLearningSetBinding;
+import com.example.mallet.databinding.DialogAddSetToFolderBinding;
+import com.example.mallet.databinding.DialogAddSetToGroupBinding;
+import com.example.mallet.databinding.DialogDeleteSetBinding;
+import com.example.mallet.databinding.DialogEditSetToolbarOptionsBinding;
 import com.example.mallet.utils.Utils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
@@ -28,8 +35,10 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     EditText setNameEt, setDescriptionEt;
     TextView setNameErrorTv;
     private final Pattern namePattern = Pattern.compile(".*");
+    private int termCounter = 0;
     EditText setTermEt, setDefinitionEt, setTranslationEt;
-    FloatingActionButton fab;
+    LinearLayout flashcardsLl;
+    FloatingActionButton addTermFab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,50 +49,116 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         // Initialize views for email and password fields
         setNameEt = binding.editSetNameEt;
         setNameErrorTv = binding.editSetErrorTv;
+        setDescriptionTil = binding.editSetDescriptionTil;
+        Utils.hideItem(setDescriptionTil);
         setDescriptionEt = binding.editSetDescriptionEt;
+        scrollView = binding.editSetFlashcardsSv;
+        flashcardsLl = binding.editSetCardsLl;
+        addTermFab = binding.floatingActionButton;
 
         // Initialize and set up the toolbar
-        setupToolbar();
         setupContents();
-        createSet();
+
+        // Get the "learningSetName" and "learningSetTerms" from the intent extras
+        String learningSetName = getIntent().getStringExtra("learningSetName");
+        ArrayList<ModelFlashcard> learningSetTerms = getIntent().getParcelableArrayListExtra("learningSetTerms");
+
+        // Set the learningSetName to the EditText
+        if (learningSetName != null) {
+            setNameEt.setText(learningSetName);
+        }
+
+        // Use learningSetTerms to populate your flashcards or terms UI elements
+        populateFlashcardsUI(learningSetTerms);
     }
 
+
     private void setupContents() {
+        setupToolbar();
+
         Utils.setupTextWatcher(setNameEt, setNameErrorTv, namePattern, "Set name incorrect");
 
         binding.editSetOptionsIv.setOnClickListener(v -> setOptionsDialog());
+        binding.editSetSaveIv.setOnClickListener(v -> createSet());
+        binding.editSetAddDescriptionTv.setOnClickListener(v -> addSetDescription());
 
-        scrollView = binding.editSetFlashcardsSv;
-
-        setNameEt = binding.editSetNameEt;
-        setDescriptionTil = binding.editSetDescriptionTil;
-        setDescriptionEt = binding.editSetDescriptionEt;
-        Utils.hideItem(setDescriptionTil);
-
-        LinearLayout flashcardsLl = binding.editSetCardsLl;
-        fab = binding.floatingActionButton;
-        fab.setOnClickListener(v -> addFlashcard(flashcardsLl, getLayoutInflater()));
-
-        addFlashcard(flashcardsLl, getLayoutInflater());
-        addFlashcard(flashcardsLl, getLayoutInflater());
+        //addTermFab.setOnClickListener(v -> addFlashcard(flashcardsLl, getLayoutInflater()));
+        //addFlashcard(flashcardsLl, getLayoutInflater());
+        //addFlashcard(flashcardsLl, getLayoutInflater());
 
     }
 
-    // Initialize and set up the toolbar with back arrow functionality.
     private void setupToolbar() {
         Toolbar toolbar = binding.editSetToolbar;
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle("");
 
-        // Display back arrow on the toolbar
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         }
+
+        binding.editSetOptionsIv.setOnClickListener(v -> setOptionsDialog());
     }
 
     private void setOptionsDialog() {
+        final Dialog dialog = Utils.createDialog(this, R.layout.dialog_edit_set_toolbar_options);
+        DialogEditSetToolbarOptionsBinding dialogBinding = DialogEditSetToolbarOptionsBinding.inflate(LayoutInflater.from(this));
+        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
+        dialog.show();
 
+        dialogBinding.editSetToolbarOptionsAddToFolder.setOnClickListener(v -> {
+            dialog.dismiss();
+            addSetToFolderDialog();
+        });
+        dialogBinding.editSetToolbarOptionsAddToGroup.setOnClickListener(v -> {
+            dialog.dismiss();
+            addSetToGroupDialog();
+        });
+        dialogBinding.editSetToolbarOptionsDelete.setOnClickListener(v -> {
+            dialog.dismiss();
+            deleteSetDialog();
+        });
+    }
+
+    private void addSetToFolderDialog() {
+        final Dialog dialog = Utils.createDialog(this, R.layout.dialog_add_set_to_folder);
+        DialogAddSetToFolderBinding dialogBinding = DialogAddSetToFolderBinding.inflate(LayoutInflater.from(this));
+        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
+
+        List<ModelFolder> folders = createFolderList();
+
+        dialogBinding.addToFolderCloseIv.setOnClickListener(v -> dialog.dismiss());
+
+        displayFolders(folders, dialogBinding.addToFolderFoldersLl, getLayoutInflater());
+
+        dialog.show();
+    }
+
+    private void addSetToGroupDialog() {
+        final Dialog dialog = Utils.createDialog(this, R.layout.dialog_add_set_to_group);
+        DialogAddSetToGroupBinding dialogBinding = DialogAddSetToGroupBinding.inflate(LayoutInflater.from(this));
+        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
+
+        List<ModelGroup> groups = createGroupList();
+
+        displayGroups(groups, dialogBinding.addSetToGroupGroupsLl, getLayoutInflater());
+
+        dialog.show();
+
+    }
+
+    private void deleteSetDialog() {
+        final Dialog dialog = Utils.createDialog(this, R.layout.dialog_delete_set);
+        DialogDeleteSetBinding dialogBinding = DialogDeleteSetBinding.inflate(LayoutInflater.from(this));
+        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
+
+        dialog.show();
+    }
+
+    private String addSetDescription() {
+        String setDescription = setDescriptionEt.getText().toString().trim();
+
+        return setDescription;
     }
 
     @Override
@@ -98,47 +173,110 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
     public void createSet() {
         String learningSetName = getIntent().getStringExtra("learningSetName");
-        String learningSetDescription = getIntent().getStringExtra("learningSetDescription");
 
         if (learningSetName != null) {
-            setNameEt.setText(learningSetName);
             setNameEt.clearFocus();
+            setNameEt.setText(learningSetName);
             Utils.showToast(this, learningSetName);
         }
 
+        String learningSetDescription = getIntent().getStringExtra("learningSetDescription");
         if (learningSetDescription != null) {
-            setDescriptionEt.setText(learningSetDescription);
             setDescriptionEt.clearFocus();
+            setDescriptionEt.setText(learningSetDescription);
+
             if (learningSetDescription.isEmpty()) {
                 Utils.hideItem(setDescriptionTil);
             } else {
                 Utils.showItem(setDescriptionTil);
             }
         }
+
+        // TODO: Implement functionality creating set
+        Utils.showToast(this, "Set with the name " + learningSetName + " was created");
     }
 
-    private void addFlashcard(LinearLayout linearLayout, LayoutInflater inflater) {
+    private void populateFlashcardsUI(List<ModelFlashcard> flashcards) {
+        for (ModelFlashcard flashcard : flashcards) {
+            // Create and populate UI elements for each flashcard
+            addFlashcard(flashcardsLl, getLayoutInflater(), flashcard.getTerm(), flashcard.getDefinition(), flashcard.getTranslation());
+        }
+    }
+
+    private void addFlashcard(LinearLayout linearLayout, LayoutInflater inflater, String term, String definition, String translation) {
+        // Create and populate UI elements for a flashcard
         View flashcardItemView = inflater.inflate(R.layout.model_edit_set_flashcard, linearLayout, false);
 
-        CardView flashcardCv = flashcardItemView.findViewById(R.id.editSet_flashcard_cv);
-        LinearLayout flashcardCvLl = flashcardItemView.findViewById(R.id.editSet_cv_ll);
-        flashcardCvLl.setPadding(100, 75, 100, 75);
-
+        // Find the relevant UI elements in flashcardItemView and set their values
         EditText flashcardTermEt = flashcardItemView.findViewById(R.id.editSet_term_et);
-        TextView termErrTv = flashcardItemView.findViewById(R.id.editSet_term_err_tv);
         EditText flashcardDefinitionEt = flashcardItemView.findViewById(R.id.editSet_definition_et);
         EditText flashcardTranslationEt = flashcardItemView.findViewById(R.id.editSet_translation_et);
-        TextView translationErrTv = flashcardItemView.findViewById(R.id.editSet_translation_err_tv);
 
-        flashcardTermEt.clearFocus();
-        flashcardDefinitionEt.clearFocus();
-        flashcardTranslationEt.clearFocus();
+        TextView counter = flashcardItemView.findViewById(R.id.editSet_counter_tv);
 
-        Utils.resetEditText(flashcardTermEt, termErrTv);
-        Utils.resetEditText(flashcardDefinitionEt, null);
-        Utils.resetEditText(flashcardTranslationEt, translationErrTv);
+        flashcardTermEt.setText(term);
+        flashcardDefinitionEt.setText(definition);
+        flashcardTranslationEt.setText(translation);
 
+        // Add the flashcard to the layout
         linearLayout.addView(flashcardItemView);
         scrollView.post(() -> scrollView.fullScroll(View.FOCUS_DOWN));
+        termCounter++;
+        counter.setText("Term #" + termCounter);
+    }
+
+    private void displayFolders(List<ModelFolder> folders, LinearLayout linearLayout, LayoutInflater inflater) {
+        linearLayout.removeAllViews();
+
+        for (ModelFolder folder : folders) {
+            View folderItemView = inflater.inflate(R.layout.model_folder, linearLayout, false);
+
+            // Find views in the folderItemView based on your layout
+            TextView folderNameTextView = folderItemView.findViewById(R.id.folder_model_name_tv);
+            TextView folderCreatorTextView = folderItemView.findViewById(R.id.folder_model_creator_tv);
+
+            // Set folder data to the views
+            folderNameTextView.setText(folder.getFolderName());
+            folderCreatorTextView.setText(folder.getFolderCreator());
+
+            linearLayout.addView(folderItemView);
+        }
+    }
+
+    private void displayGroups(List<ModelGroup> groups, LinearLayout linearLayout, LayoutInflater inflater) {
+        linearLayout.removeAllViews();
+
+        for (ModelGroup folder : groups) {
+            View folderItemView = inflater.inflate(R.layout.model_group, linearLayout, false);
+
+            // Find views in the folderItemView based on your layout
+            TextView folderNameTextView = folderItemView.findViewById(R.id.group_model_name_tv);
+
+            // Set folder data to the views
+            folderNameTextView.setText(folder.getGroupName());
+
+            linearLayout.addView(folderItemView);
+        }
+    }
+
+    // TODO: Replace with actual data containing account's folders and groups
+    private List<ModelFolder> createFolderList() {
+        List<ModelFolder> folders = new ArrayList<>();
+        folders.add(new ModelFolder("Folder #1", "user123", "3"));
+        folders.add(new ModelFolder("Folder #2", "user123", "7"));
+        folders.add(new ModelFolder("Folder #3", "user123", "2"));
+        folders.add(new ModelFolder("Folder #4", "user123", "8"));
+        folders.add(new ModelFolder("Folder #5", "user123", "1"));
+        return folders;
+    }
+
+    private List<ModelGroup> createGroupList() {
+        List<ModelGroup> groups = new ArrayList<>();
+        groups.add(new ModelGroup("Group #1", "3"));
+        groups.add(new ModelGroup("Group #2", "7"));
+        groups.add(new ModelGroup("Group #3", "2"));
+        groups.add(new ModelGroup("Group #4", "8"));
+        groups.add(new ModelGroup("Group #5", "1"));
+        return groups;
     }
 }

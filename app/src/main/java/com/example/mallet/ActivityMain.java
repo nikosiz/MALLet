@@ -1,10 +1,4 @@
-// TODO:
-//  1. After clicking "add new", the selection of the previous item disappears
-//  2. Fix all @SuppressLint("RestrictedApi")s
-
 package com.example.mallet;
-
-import static com.example.mallet.utils.Utils.createDialog;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -35,6 +29,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 public class ActivityMain extends AppCompatActivity {
 
@@ -46,33 +41,29 @@ public class ActivityMain extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main); // Use your layout file here
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        initView();
+        initializeSelectedFragment(savedInstanceState);
+        setExceptionItemColor(2);
+        setupContents();
+    }
 
+    private void setupContents() {
+        binding.bottomNavigationView.setOnItemSelectedListener(this::onNavigationItemSelected);
+    }
+
+    private void initializeSelectedFragment(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             selectedFragmentId = savedInstanceState.getInt(SELECTED_FRAGMENT_KEY, R.id.bottom_nav_home);
             setSelectedFragment(selectedFragmentId);
         } else {
             replaceFragment(new FragmentHome());
         }
-
-        int exceptionItemIndex = 2;
-        setExceptionItemColor(exceptionItemIndex);
-        setBottomNavigationViewListener();
-    }
-
-    private void initView() {
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
     }
 
     private void setSelectedFragment(int fragmentId) {
         binding.bottomNavigationView.setSelectedItemId(fragmentId);
-    }
-
-    private void setBottomNavigationViewListener() {
-        binding.bottomNavigationView.setOnItemSelectedListener(this::onNavigationItemSelected);
     }
 
     @Override
@@ -110,22 +101,13 @@ public class ActivityMain extends AppCompatActivity {
         } else if (selectedFragmentId == R.id.bottom_nav_profile) {
             replaceFragment(new FragmentProfile());
         }
-
         return true;
-    }
-
-    // You can add your dialog creation and activity opening methods here as needed.
-
-    @Override
-    public void onBackPressed() {
-        Utils.terminateApp(this);
     }
 
     private void createNewDialog() {
         final Dialog dialog = Utils.createDialog(this, R.layout.dialog_create);
         DialogCreateBinding dialogBinding = DialogCreateBinding.inflate(getLayoutInflater());
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
-        //dialog.show();;
 
         TextView createSet = dialogBinding.createNewCreateSet;
         TextView createFolder = dialogBinding.createNewCreateFolder;
@@ -138,7 +120,6 @@ public class ActivityMain extends AppCompatActivity {
         createFolder.setOnClickListener(v -> {
             dialog.dismiss();
             createFolderDialog();
-
         });
         createGroup.setOnClickListener(v -> {
             dialog.dismiss();
@@ -149,19 +130,16 @@ public class ActivityMain extends AppCompatActivity {
     }
 
     private Dialog createSetDialog() {
-        final Dialog dialog = createDialog(this, R.layout.dialog_create_set);
-
+        final Dialog dialog = Utils.createDialog(this, R.layout.dialog_create_set);
         DialogCreateSetBinding dialogBinding = DialogCreateSetBinding.inflate(LayoutInflater.from(this));
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
 
         EditText nameEt = dialogBinding.createSetNameEt;
+        TextView nameErrorTv = dialogBinding.createSetErrorTv;
 
         TextView addDescriptionBtn = dialogBinding.createSetAddDescription;
-
         View aboveDescription = dialogBinding.createSetAboveDescriptionV;
-
         TextInputLayout descriptionTil = dialogBinding.createSetDescriptionTil;
-
         EditText descriptionEt = dialogBinding.createSetDescriptionEt;
 
         TextView cancelBtn = dialogBinding.createSetCancelBtn;
@@ -173,14 +151,15 @@ public class ActivityMain extends AppCompatActivity {
         Utils.showItems(nameEt, addDescriptionBtn, cancelBtn, confirmBtn);
         Utils.hideItems(aboveDescription, descriptionTil);
 
-        addDescriptionBtn.setOnClickListener(v -> {
-            clickCount++; // Increment the click count on each click
+        Utils.setupTextWatcher(nameEt, nameErrorTv, Pattern.compile("^.*$"), "Please, enter a valid set name");
 
+        addDescriptionBtn.setOnClickListener(v -> {
+            clickCount++;
             if (clickCount == 1) {
                 Utils.showItems(addDescriptionBtn, aboveDescription, descriptionTil);
             } else if (clickCount == 2) {
                 Utils.hideItems(aboveDescription, descriptionTil);
-                clickCount = 0; // Reset the click count after the second click
+                clickCount = 0;
             }
         });
 
@@ -189,13 +168,17 @@ public class ActivityMain extends AppCompatActivity {
         confirmBtn.setOnClickListener(v -> {
             String setName = Objects.requireNonNull(nameEt.getText()).toString().trim();
             String setDescription = Objects.requireNonNull(descriptionEt.getText()).toString().trim();
-            if (!setName.isEmpty()) {
-                createNewSet(setName, setDescription);
-                dialog.dismiss();
-            } else {
-                Utils.showToast(this, "Please, enter a valid set name");
+
+            if (setName.isEmpty()) {
+                Utils.showItem(nameErrorTv);
+                nameErrorTv.setText("This field cannot be empty");
+                return;
             }
+
+            createNewSet(setName, setDescription);
+            dialog.dismiss();
         });
+
         return dialog;
     }
 
@@ -216,23 +199,24 @@ public class ActivityMain extends AppCompatActivity {
         }
 
         startActivity(intent);
-
     }
 
     private void createFolderDialog() {
-        final Dialog dialog = createDialog(this, R.layout.dialog_create_folder);
-
+        final Dialog dialog = Utils.createDialog(this, R.layout.dialog_create_folder);
         DialogCreateFolderBinding dialogBinding = DialogCreateFolderBinding.inflate(LayoutInflater.from(this));
-
-        Objects.requireNonNull(dialog).show();
-
+        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
+        dialog.show();
     }
 
     private void createGroupDialog() {
-        final Dialog dialog = createDialog(this, R.layout.dialog_create_group);
-
+        final Dialog dialog = Utils.createDialog(this, R.layout.dialog_create_group);
         DialogCreateGroupBinding dialogBinding = DialogCreateGroupBinding.inflate(LayoutInflater.from(this));
+        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
+        dialog.show();
+    }
 
-        Objects.requireNonNull(dialog).show();
+    @Override
+    public void onBackPressed() {
+        Utils.terminateApp(this);
     }
 }

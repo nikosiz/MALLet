@@ -20,6 +20,18 @@
         android:orientation="vertical"
         android:padding="30dp">
 
+        <TextView
+            android:id="@+id/editSet_counter_tv"
+            style="@style/BasicBoldTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Term #1"
+            android:textSize="20sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/editSet_term_til"
             android:layout_width="match_parent"

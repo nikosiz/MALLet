@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/editSetToolbarOptions_mainLl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:padding="30dp"
+    tools:ignore="Overdraw">
+
+    <TextView
+        android:id="@+id/editSetToolbarOptions_addToFolder"
+        style="@style/BasicTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoSizeMaxTextSize="20sp"
+        android:autoSizeMinTextSize="15sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
+        android:background="@drawable/bg_ripple"
+        android:drawablePadding="35dp"
+        android:gravity="center_vertical"
+        android:padding="20dp"
+        android:text="Add to folder"
+        android:textSize="20sp"
+        app:drawableStartCompat="@drawable/ic_folder"
+        app:drawableTint="@color/danube_blue_800" />
+
+    <TextView
+        android:id="@+id/editSetToolbarOptions_addToGroup"
+        style="@style/BasicTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoSizeMaxTextSize="20sp"
+        android:autoSizeMinTextSize="15sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
+        android:background="@drawable/bg_ripple"
+        android:drawablePadding="35dp"
+        android:gravity="center_vertical"
+        android:padding="20dp"
+        android:text="Add to group"
+        android:textSize="20sp"
+        app:drawableStartCompat="@drawable/ic_create_group"
+        app:drawableTint="@color/danube_blue_800" />
+
+    <TextView
+        android:id="@+id/editSetToolbarOptions_delete"
+        style="@style/BasicTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoSizeMaxTextSize="20sp"
+        android:autoSizeMinTextSize="15sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
+        android:background="@drawable/bg_ripple"
+        android:drawablePadding="35dp"
+        android:gravity="center_vertical"
+        android:padding="20dp"
+        android:text="Delete"
+        android:textColor="@color/carnation_red_400"
+        android:textSize="20sp"
+        app:drawableStartCompat="@drawable/ic_delete"
+        app:drawableTint="@color/carnation_red_400" />
+
+</LinearLayout>

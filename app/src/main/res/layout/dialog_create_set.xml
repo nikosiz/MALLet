@@ -55,7 +55,7 @@
             app:boxStrokeColor="@color/colorSecondaryDark" />
 
         <TextView
-            android:id="@+id/create_set_empty_name_error"
+            android:id="@+id/create_set_error_tv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

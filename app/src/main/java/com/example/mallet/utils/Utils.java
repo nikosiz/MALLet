@@ -24,6 +24,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.example.mallet.ModelFlashcard;
+import com.example.mallet.ModelFolder;
 import com.example.mallet.ModelLearningSet;
 import com.example.mallet.R;
 
@@ -155,6 +156,13 @@ public class Utils {
         return new ArrayList<>(); // Return an empty list if learningSet is null
     }
 
+    public void createFolder(ModelFolder folder) {
+        if (folder != null) {
+            folder.getFolderName();
+            folder.getFolderCreator();
+        }
+    }
+
 
     // This stays, what is up, needs to be reviewed
 
@@ -172,7 +180,18 @@ public class Utils {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String input = s.toString().trim(); // Get the current input text
-                validateInput(et, err, p, errorMsg);
+                if (input.isEmpty()) {
+                    Utils.showItem(err);
+                    err.setText("This field cannot be empty");
+                } else if (input.contains(" ")) {
+                    Utils.showItem(err);
+                    err.setText("Check your input for spaces");
+                } else if (!p.matcher(input).matches()) {
+                    Utils.showItem(err);
+                    err.setText(errorMsg);
+                } else {
+                    Utils.hideItem(err); // Hide the error when input is valid
+                }
             }
 
             @Override

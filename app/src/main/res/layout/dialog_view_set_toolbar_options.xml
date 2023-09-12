@@ -7,12 +7,11 @@
     android:background="@color/white"
     android:gravity="bottom"
     android:orientation="vertical"
-    android:paddingHorizontal="30dp"
-    android:paddingTop="30dp"
+    android:padding="30dp"
     tools:ignore="Overdraw">
 
     <TextView
-        android:id="@+id/set_toolbar_options_edit"
+        android:id="@+id/viewSet_options_edit"
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,7 +20,9 @@
         android:autoSizeStepGranularity="2sp"
         android:autoSizeTextType="uniform"
         android:background="@drawable/bg_ripple"
+        android:clickable="true"
         android:drawablePadding="35dp"
+        android:focusable="true"
         android:gravity="center_vertical"
         android:padding="20dp"
         android:text="Edit"
@@ -30,7 +31,7 @@
         app:drawableTint="@color/danube_blue_800" />
 
     <TextView
-        android:id="@+id/set_toolbar_options_add_folder"
+        android:id="@+id/viewSet_options_addToFolder"
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,7 +40,9 @@
         android:autoSizeStepGranularity="2sp"
         android:autoSizeTextType="uniform"
         android:background="@drawable/bg_ripple"
+        android:clickable="true"
         android:drawablePadding="35dp"
+        android:focusable="true"
         android:gravity="center_vertical"
         android:padding="20dp"
         android:text="Add to folder"
@@ -48,7 +51,7 @@
         app:drawableTint="@color/danube_blue_800" />
 
     <TextView
-        android:id="@+id/set_toolbar_options_add_group"
+        android:id="@+id/viewSet_options_addToGropu"
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -57,7 +60,9 @@
         android:autoSizeStepGranularity="2sp"
         android:autoSizeTextType="uniform"
         android:background="@drawable/bg_ripple"
+        android:clickable="true"
         android:drawablePadding="35dp"
+        android:focusable="true"
         android:gravity="center_vertical"
         android:padding="20dp"
         android:text="Add to group"
@@ -66,7 +71,7 @@
         app:drawableTint="@color/danube_blue_800" />
 
     <TextView
-        android:id="@+id/set_toolbar_options_delete"
+        android:id="@+id/viewSet_options_delete"
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -75,16 +80,14 @@
         android:autoSizeStepGranularity="2sp"
         android:autoSizeTextType="uniform"
         android:background="@drawable/bg_ripple"
+        android:clickable="true"
         android:drawablePadding="35dp"
+        android:focusable="true"
         android:gravity="center_vertical"
         android:padding="20dp"
         android:text="Delete"
         android:textSize="20sp"
         app:drawableStartCompat="@drawable/ic_delete"
         app:drawableTint="@color/danube_blue_800" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="50dp" />
 
 </LinearLayout>

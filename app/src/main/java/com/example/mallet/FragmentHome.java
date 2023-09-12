@@ -89,11 +89,11 @@ public class FragmentHome extends Fragment {
     private List<ModelLearningSet> createSetList() {
         List<ModelLearningSet> sets = new ArrayList<>();
 
-        ModelLearningSet set1 = FlashcardManager.readFlashcards(Objects.requireNonNull(getContext()), "fruit.txt");
-        ModelLearningSet set2 = FlashcardManager.readFlashcards(getContext(), "animals.txt");
-        ModelLearningSet set3 = FlashcardManager.readFlashcards(getContext(), "numbers.txt");
-        ModelLearningSet set4 = FlashcardManager.readFlashcards(getContext(), "countries.txt");
-        ModelLearningSet set5 = FlashcardManager.readFlashcards(getContext(), "colors.txt");
+        ModelLearningSet set1 = FlashcardManager.readFlashcards(requireContext(), "fruit.txt");
+        ModelLearningSet set2 = FlashcardManager.readFlashcards(requireContext(), "animals.txt");
+        ModelLearningSet set3 = FlashcardManager.readFlashcards(requireContext(), "numbers.txt");
+        ModelLearningSet set4 = FlashcardManager.readFlashcards(requireContext(), "countries.txt");
+        ModelLearningSet set5 = FlashcardManager.readFlashcards(requireContext(), "colors.txt");
 
         sets.add(set1);
         sets.add(set2);
@@ -103,7 +103,6 @@ public class FragmentHome extends Fragment {
 
         return sets;
     }
-
 
     // Create a list of folders
     private List<ModelFolder> createFolderList() {

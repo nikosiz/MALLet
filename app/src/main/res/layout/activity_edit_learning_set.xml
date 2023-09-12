@@ -2,20 +2,23 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/editSet_mainCl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ActivityEditLearningSet">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/edit_set_toolbar"
+        android:id="@+id/editSet_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/danube_blue_600"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/editSet_toolbarTitleTv"
             style="@style/BasicBoldTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -25,37 +28,54 @@
             android:textSize="30sp" />
 
         <ImageView
-            android:id="@+id/edit_set_options_iv"
+            android:id="@+id/editSet_saveIv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginHorizontal="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="20dp"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
-            android:contentDescription="folder options"
+            android:contentDescription="set options"
             android:focusable="true"
-            android:src="@drawable/ic_toolbar_options"
+            android:src="@drawable/ic_check"
+            app:tint="@color/white" />
+
+        <ImageView
+            android:id="@+id/editSet_optionsIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginHorizontal="5dp"
+            android:background="@drawable/bg_ripple"
+            android:clickable="true"
+            android:contentDescription="set options"
+            android:focusable="true"
+            android:src="@drawable/ic_settings"
             app:tint="@color/white" />
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/editSet_contentCl"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_set_toolbar">
+        app:layout_constraintTop_toBottomOf="@id/editSet_toolbar">
 
         <ScrollView
-            android:id="@+id/editSet_flashcards_sv"
+            android:id="@+id/editSet_flashcardsSv"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <LinearLayout
+                android:id="@+id/editSet_flashcardsLl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="20dp">
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/editSet_nameTil"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:boxBackgroundMode="outline"
@@ -67,7 +87,7 @@
                     app:boxStrokeWidth="2dp">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edit_set_name_et"
+                        android:id="@+id/editSet_nameEt"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:autofillHints="emailAddress"
@@ -76,7 +96,7 @@
                         android:textSize="20sp" />
 
                     <TextView
-                        android:id="@+id/edit_set_error_tv"
+                        android:id="@+id/editSet_errorTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
@@ -87,7 +107,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
-                    android:id="@+id/edit_set_add_description_tv"
+                    android:id="@+id/editSet_addDescriptionTv"
                     style="@style/BasicTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -102,7 +122,7 @@
                     app:drawableTint="@color/danube_blue_800" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/edit_set_description_til"
+                    android:id="@+id/editSet_descriptionTil"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
@@ -115,7 +135,7 @@
                     app:boxStrokeWidth="2dp">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edit_set_description_et"
+                        android:id="@+id/editSet_descriptionEt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="top"
@@ -127,7 +147,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <LinearLayout
-                    android:id="@+id/edit_set_cards_ll"
+                    android:id="@+id/editSet_cardsLl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical" />
