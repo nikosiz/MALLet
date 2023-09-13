@@ -105,108 +105,68 @@
                     android:textSize="15sp" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/profile_change_password_ll"
+            <TextView
+                android:id="@+id/profile_changePasswordTv"
+                style="@style/BasicBoldTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_ripple_white_rect"
-
                 android:gravity="center_vertical"
                 android:minHeight="65dp"
-
-                android:orientation="vertical"
-                android:paddingHorizontal="30dp">
-
-                <TextView
-                    style="@style/BasicBoldTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="@string/change_password"
-                    android:textColor="@color/danube_blue_900"
-
-                    android:textSize="16sp" />
-            </LinearLayout>
+                android:paddingHorizontal="30dp"
+                android:text="@string/change_password"
+                android:textColor="@color/danube_blue_900"
+                android:textSize="16sp" />
 
             <View
                 android:id="@+id/profile_view_2"
                 android:layout_width="match_parent"
                 android:layout_height="5dp" />
 
-            <LinearLayout
-                android:id="@+id/profile_notifications_ll"
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/profile_notifications_switch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
                 android:background="@color/white"
-
+                android:contentDescription="@string/notifications_switch"
+                android:drawableTint="@color/downriver_blue_500"
+                android:fontFamily="@font/rem_bold"
                 android:minHeight="65dp"
-                android:orientation="horizontal"
-                android:paddingHorizontal="30dp">
-
-                <TextView
-                    android:id="@+id/profile_notifications_switch_tv"
-                    style="@style/BasicBoldTextStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="@string/notifications"
-                    android:textColor="@color/danube_blue_900"
-
-                    android:textSize="16sp" />
-
-                <com.google.android.material.materialswitch.MaterialSwitch
-                    android:id="@+id/profile_notifications_switch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:contentDescription="@string/notifications_switch"
-                    android:drawableTint="@color/downriver_blue_500"
-                    app:thumbTint="@drawable/switch_thumb_color"
-                    app:trackDecorationTint="@drawable/switch_track_decoration_color"
-                    app:trackTint="@drawable/switch_track_color" />
-            </LinearLayout>
+                android:paddingHorizontal="30dp"
+                android:text="@string/notifications"
+                android:textColor="@color/danube_blue_900"
+                android:textSize="16sp"
+                app:thumbTint="@drawable/switch_thumb_color"
+                app:trackDecorationTint="@drawable/switch_track_decoration_color"
+                app:trackTint="@drawable/switch_track_color" />
 
             <View
                 android:id="@+id/profile_view_3"
                 android:layout_width="match_parent"
                 android:layout_height="5dp" />
 
-            <LinearLayout
-                android:id="@+id/profile_save_offline_switch_ll"
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/profile_save_offline_switch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
                 android:background="@color/white"
-
+                android:contentDescription="@string/save_sets_offline"
+                android:drawableTint="@color/downriver_blue_500"
+                android:fontFamily="@font/rem_bold"
                 android:minHeight="65dp"
-                android:orientation="horizontal"
-                android:paddingHorizontal="30dp">
+                android:paddingHorizontal="30dp"
+                android:text="@string/save_sets_offline"
+                android:textColor="@color/danube_blue_900"
+                android:textSize="16sp"
+                app:thumbTint="@drawable/switch_thumb_color"
+                app:trackDecorationTint="@drawable/switch_track_decoration_color"
+                app:trackTint="@drawable/switch_track_color" />
 
-                <TextView
-                    android:id="@+id/profile_save_offline_switch_tv"
-                    style="@style/BasicBoldTextStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-
-                    android:text="@string/save_sets_offline"
-                    android:textColor="@color/danube_blue_900"
-                    android:textSize="16sp" />
-
-                <com.google.android.material.materialswitch.MaterialSwitch
-                    android:id="@+id/profile_save_offline_switch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:checked="false"
-                    android:drawableTint="@color/downriver_blue_500"
-                    app:thumbTint="@drawable/switch_thumb_color"
-                    app:trackDecorationTint="@drawable/switch_track_decoration_color"
-                    app:trackTint="@drawable/switch_track_color" />
-            </LinearLayout>
 
             <View
                 android:id="@+id/profile_view_4"
@@ -217,8 +177,8 @@
                 android:id="@+id/profile_theme_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:background="@drawable/bg_ripple_white_rect"
-
                 android:clickable="true"
                 android:focusable="true"
                 android:minHeight="65dp"
@@ -235,7 +195,6 @@
                     android:gravity="center_vertical"
                     android:text="@string/color_theme"
                     android:textColor="@color/danube_blue_900"
-
                     android:textSize="16sp" />
 
                 <TextView
@@ -247,7 +206,7 @@
                     android:gravity="end"
                     android:text="System default"
                     android:textColor="@color/danube_blue_700"
-                    android:textSize="15sp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/profile_theme_light_tv"
@@ -275,27 +234,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="5dp" />
 
-            <LinearLayout
-                android:id="@+id/profile_about_ll"
+
+            <TextView
+                android:id="@+id/profile_aboutTv"
+                style="@style/BasicBoldTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_ripple_white_rect"
-
                 android:gravity="center_vertical"
                 android:minHeight="65dp"
-                android:orientation="vertical"
-                android:paddingHorizontal="30dp">
-
-                <TextView
-                    style="@style/BasicBoldTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/about"
-                    android:textColor="@color/danube_blue_900"
-
-                    android:textSize="16sp" />
-            </LinearLayout>
+                android:paddingHorizontal="30dp"
+                android:text="@string/about"
+                android:textColor="@color/danube_blue_900"
+                android:textSize="16sp" />
 
             <LinearLayout
                 android:id="@+id/profile_version_ll"
@@ -332,53 +283,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="5dp" />
 
-            <LinearLayout
-                android:id="@+id/profile_log_out_ll"
+            <TextView
+                android:id="@+id/profile_log_out_tv"
+                style="@style/BasicBoldTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_ripple_white_rect"
-                android:gravity="center"
+                android:gravity="center_vertical"
                 android:minHeight="65dp"
-                android:orientation="vertical"
-                android:paddingHorizontal="30dp">
-
-                <TextView
-                    android:id="@+id/profile_log_out_tv"
-                    style="@style/BasicBoldTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/log_out"
-                    android:textColor="@color/danube_blue_900"
-
-                    android:textSize="16sp" />
-            </LinearLayout>
+                android:paddingHorizontal="30dp"
+                android:text="@string/log_out"
+                android:textColor="@color/danube_blue_900"
+                android:textSize="16sp" />
 
             <View
                 android:id="@+id/profile_view_6"
                 android:layout_width="match_parent"
                 android:layout_height="5dp" />
 
-            <LinearLayout
-                android:id="@+id/profile_delete_account_ll"
+            <TextView
+                android:id="@+id/profile_delete_account_tv"
+                style="@style/BasicBoldTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_ripple_red_rect"
                 android:gravity="center"
                 android:minHeight="65dp"
-                android:orientation="vertical"
-                android:paddingHorizontal="30dp">
-
-                <TextView
-                    android:id="@+id/profile_delete_account_tv"
-                    style="@style/BasicBoldTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/delete_account"
-                    android:textColor="@color/carnation_red_700"
-                    android:textSize="16sp" />
-            </LinearLayout>
+                android:paddingHorizontal="30dp"
+                android:text="@string/delete_account"
+                android:textColor="@color/carnation_red_400"
+                android:textSize="16sp" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -117,6 +117,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="10dp" />
 
+                <TextView
+                    android:id="@+id/viewSet_descriptionTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Set description"
+                    android:textColor="@color/danube_blue_800"
+                    android:visibility="gone" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+                <Button
+                    android:id="@+id/testBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="test" />
+
                 <androidx.cardview.widget.CardView
                     android:id="@+id/view_set_flashcards"
                     android:layout_width="match_parent"
@@ -129,6 +147,7 @@
                     android:minWidth="300dp"
                     app:cardCornerRadius="10dp"
                     app:cardElevation="3dp">
+
 
                     <LinearLayout
                         android:layout_width="match_parent"

@@ -41,12 +41,10 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.Objects;
 
 public class FragmentProfile extends Fragment {
-
     private FragmentProfileBinding binding;
 
     @Nullable
     @Override
-
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         return binding.getRoot();
@@ -55,21 +53,21 @@ public class FragmentProfile extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setupListeners();
+        setupContents();
     }
 
     // Initialize click listeners for various UI elements
-    private void setupListeners() {
+    private void setupContents() {
         binding.profileUserPhotoIv.setOnClickListener(v -> changePicture());
         binding.profileEmailLl.setOnClickListener(v -> verifyPasswordDialog(VerifyPasswordAction.CHANGE_EMAIL));
         binding.profileUsernameLl.setOnClickListener(v -> verifyPasswordDialog(VerifyPasswordAction.CHANGE_USERNAME));
-        binding.profileChangePasswordLl.setOnClickListener(v -> changePasswordDialog());
+        binding.profileChangePasswordTv.setOnClickListener(v -> changePasswordDialog());
         binding.profileNotificationsSwitch.setOnClickListener(v -> notificationSettings());
         binding.profileSaveOfflineSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> saveSetsOffline());
         binding.profileThemeLl.setOnClickListener(v -> changeThemeDialog());
-        binding.profileAboutLl.setOnClickListener(v -> showAboutSection());
-        binding.profileLogOutLl.setOnClickListener(v -> logOut());
-        binding.profileDeleteAccountLl.setOnClickListener(v -> showDeleteAccountDialog());
+        binding.profileAboutTv.setOnClickListener(v -> showAboutSection());
+        binding.profileLogOutTv.setOnClickListener(v -> logOut());
+        binding.profileDeleteAccountTv.setOnClickListener(v -> showDeleteAccountDialog());
     }
 
     private void changePicture() {
@@ -86,7 +84,6 @@ public class FragmentProfile extends Fragment {
 
     private void changeEmailDialog() {
         final Dialog dialog = createDialog(R.layout.dialog_change_email);
-
         DialogChangeEmailBinding dialogBinding = DialogChangeEmailBinding.inflate(LayoutInflater.from(requireContext()));
 
         TextView cancelBtn = dialogBinding.changeEmailCancelBtn;

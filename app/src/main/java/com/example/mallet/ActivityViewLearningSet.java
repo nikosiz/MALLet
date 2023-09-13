@@ -53,20 +53,25 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     }
 
     private void setupContents() {
-        binding.viewSetViewpager.setOnClickListener(v -> {
-            Intent intent = new Intent(this, ActivityLearn.class);
-            intent.putExtra("fragment_class", "FragmentFlashcards");
-            //intent.putExtra("learningSetName", learningSet.getName()); // Pass set name
-            //intent.putExtra("learningSetDescription", learningSet.getDescription());
-            intent.putParcelableArrayListExtra("learningSetTerms", new ArrayList<>(learningSet.getTerms())); // Pass terms
-            startActivity(intent);
-
-            Utils.openActivityWithFragment(this, FragmentFlashcards.class, ActivityLearn.class);
-        });
+        binding.viewSetViewpager.setOnClickListener(v -> flipCard());
         binding.viewSetFlashcards.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentFlashcards.class, ActivityLearn.class));
         binding.viewSetLearn.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentLearn.class, ActivityLearn.class));
         binding.viewSetTest.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentTest.class, ActivityLearn.class));
         binding.viewSetMatch.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentMatch.class, ActivityLearn.class));
+        binding.testBtn.setOnClickListener(v ->
+
+        {
+            Intent intent = new Intent(this, ActivityLearn.class);
+
+            // Pass the learning set data to ActivityLearn
+            intent.putExtra("learningSet", learningSet);
+
+            startActivity(intent);
+        });
+
+    }
+
+    private void flipCard() {
     }
 
     private void setupToolbar() {
@@ -144,25 +149,32 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             if (learningSet != null) {
                 String setName = learningSet.getName();
                 String setCreator = learningSet.getCreator();
+                String numberOfTerms = String.valueOf(learningSet.getNumberOfTerms());
+
                 String setDescription = learningSet.getDescription();
-                String setTerms = String.valueOf(learningSet.getNumberOfTerms());
+
+                TextView setNameTv = binding.viewSetNameTv;
+                TextView setCreatorTv = binding.viewSetCreatorTv;
+                TextView setDescriptionTv = binding.viewSetDescriptionTv;
+                TextView setTermsTv = binding.viewSetTermsTv;
+
                 List<ModelFlashcard> flashcards = learningSet.getTerms();
-                TextView setNameTV = binding.viewSetNameTv;
-                TextView setCreatorTV = binding.viewSetCreatorTv;
-                TextView setTermsTV = binding.viewSetTermsTv;
 
                 if (setName != null) {
-                    setNameTV.setText(setName);
+                    setNameTv.setText(setName);
                 }
 
                 if (setCreator != null) {
-                    setCreatorTV.setText(setCreator);
+                    setCreatorTv.setText(setCreator);
                 }
 
                 if (setDescription != null) {
-                    setTermsTV.setText(setDescription);
+                    Utils.showItem(setDescriptionTv);
+                    setDescriptionTv.setText(setDescription);
+                }
 
-                    setTermsTV.setText(setTerms + " terms");
+                if (numberOfTerms != null) {
+                    setTermsTv.setText(numberOfTerms + " terms");
                 }
             }
         }
@@ -201,26 +213,26 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             flashcardCvLL.setGravity(View.TEXT_ALIGNMENT_TEXT_START);
             flashcardCvLL.setPadding(paddingInPixels, paddingInPixels, paddingInPixels, paddingInPixels);
 
-            TextView flashcardTermTV = flashcardItemView.findViewById(R.id.flashcard_termTv);
-            flashcardTermTV.setVisibility(View.VISIBLE);
-            flashcardTermTV.setText(flashcard.getTerm());
-            flashcardTermTV.setTextSize(20.0f);
+            TextView flashcardTermTv = flashcardItemView.findViewById(R.id.flashcard_termTv);
+            flashcardTermTv.setVisibility(View.VISIBLE);
+            flashcardTermTv.setText(flashcard.getTerm());
+            flashcardTermTv.setTextSize(20.0f);
 
             View definitionV = flashcardItemView.findViewById(R.id.flashcard_definitionV);
             definitionV.setVisibility(View.GONE);
 
 
-            TextView flashcardDefinitionTV = flashcardItemView.findViewById(R.id.flashcard_definitionTv);
-            flashcardDefinitionTV.setVisibility(View.GONE);
-            flashcardDefinitionTV.setText(flashcard.getDefinition());
+            TextView flashcardDefinitionTv = flashcardItemView.findViewById(R.id.flashcard_definitionTv);
+            flashcardDefinitionTv.setVisibility(View.GONE);
+            flashcardDefinitionTv.setText(flashcard.getDefinition());
 
             View translationV = flashcardItemView.findViewById(R.id.flashcard_translationV);
             translationV.setVisibility(View.GONE);
 
-            TextView flashcardTranslationTV = flashcardItemView.findViewById(R.id.flashcard_translationTv);
-            flashcardTranslationTV.setVisibility(View.VISIBLE);
-            flashcardTranslationTV.setText(flashcard.getTranslation());
-            flashcardTermTV.setTextSize(15.0f);
+            TextView flashcardTranslationTv = flashcardItemView.findViewById(R.id.flashcard_translationTv);
+            flashcardTranslationTv.setVisibility(View.VISIBLE);
+            flashcardTranslationTv.setText(flashcard.getTranslation());
+            flashcardTermTv.setTextSize(15.0f);
 
             linearLayout.addView(flashcardItemView);
         }

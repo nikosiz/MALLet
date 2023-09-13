@@ -28,119 +28,103 @@ public class FragmentLearn extends Fragment {
     FragmentLearnBinding binding;
     private Dialog resultDialog; // Declare the Dialog as a class member
     private TextView questionTv, questionNumberTV;
-    private Button answerABtn, answerBBtn, answerCBtn, answerDBtn;
-    private ArrayList<ModelLearnFragment> modelLearnArrayList;
+    private Button answerOneBtn, answerTwoBtn, answerThreeBtn, answerFourBtn;
+    private ArrayList<ModelQuizABCD> modelLearnArrayList;
     Random random;
     int currentScore = 0, questionAttempted = 1, currentPos;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding = FragmentLearnBinding.inflate(inflater, container, false);
 
-        questionTv = binding.idTVQuestion;
-        questionNumberTV = binding.idTVQuestionAttempted;
-        answerABtn = binding.idBtnOption1;
-        answerBBtn = binding.idBtnOption2;
-        answerCBtn = binding.idBtnOption3;
-        answerDBtn = binding.idBtnOption4;
+        questionTv = binding.learnQuestionTv;
+
+        answerOneBtn = binding.learnAnswerOneBtn;
+        answerTwoBtn = binding.learnAnswerTwoBtn;
+        answerThreeBtn = binding.learnAnswerThreeBtn;
+        answerFourBtn = binding.learnAnswerFourBtn;
+
         modelLearnArrayList = new ArrayList<>();
         random = new Random();
-        getQuizQuestion(modelLearnArrayList);
+        questionNumberTV = binding.learnQuestionCounterTv;
+
+        setupContents();
 
         currentPos = random.nextInt(modelLearnArrayList.size());
         setDataToViews(currentPos);
 
-        answerABtn.setOnClickListener(v -> {
-            if (modelLearnArrayList.get(currentPos).getRightAnswer().trim().equalsIgnoreCase(answerABtn.getText().toString().trim())) {
-                currentScore++;
-            }
-            questionAttempted++;
-            currentPos = random.nextInt(modelLearnArrayList.size());
-            setDataToViews(currentPos);
-        });
-
-        answerBBtn.setOnClickListener(v -> {
-            if (modelLearnArrayList.get(currentPos).getRightAnswer().trim().equalsIgnoreCase(answerBBtn.getText().toString().trim())) {
-                currentScore++;
-            }
-            questionAttempted++;
-            currentPos = random.nextInt(modelLearnArrayList.size());
-            setDataToViews(currentPos);
-        });
-
-        answerCBtn.setOnClickListener(v -> {
-            if (modelLearnArrayList.get(currentPos).getRightAnswer().trim().equalsIgnoreCase(answerCBtn.getText().toString().trim())) {
-                currentScore++;
-            }
-            questionAttempted++;
-            currentPos = random.nextInt(modelLearnArrayList.size());
-            setDataToViews(currentPos);
-        });
-
-        answerDBtn.setOnClickListener(v -> {
-            if (modelLearnArrayList.get(currentPos).getRightAnswer().trim().equalsIgnoreCase(answerDBtn.getText().toString().trim())) {
-                currentScore++;
-            }
-            questionAttempted++;
-            currentPos = random.nextInt(modelLearnArrayList.size());
-            setDataToViews(currentPos);
-        });
-
         return binding.getRoot();
     }
 
+    private void setupContents() {
+        getQuizQuestion(modelLearnArrayList);
+        setQuizButtonListeners();
+    }
+
+    // Separate method to set data to views
     private void setDataToViews(int currentPos) {
-        questionNumberTV.setText("Questions Attempted: " + questionAttempted + "/10");
+        questionNumberTV.setText(questionAttempted + "/10");
         if (questionAttempted > 10) {
-            questionNumberTV.setText("Questions Attempted: 10/10");
+            questionNumberTV.setText("10/10");
             resultDialog();
-
-
         } else {
             questionTv.setText(modelLearnArrayList.get(currentPos).getQuestion());
-            answerABtn.setText(modelLearnArrayList.get(currentPos).getAnswerA());
-            answerBBtn.setText(modelLearnArrayList.get(currentPos).getAnswerB());
-            answerCBtn.setText(modelLearnArrayList.get(currentPos).getAnswerC());
-            answerDBtn.setText(modelLearnArrayList.get(currentPos).getAnswerD());
+            answerOneBtn.setText(modelLearnArrayList.get(currentPos).getAnswerA());
+            answerTwoBtn.setText(modelLearnArrayList.get(currentPos).getAnswerB());
+            answerThreeBtn.setText(modelLearnArrayList.get(currentPos).getAnswerC());
+            answerFourBtn.setText(modelLearnArrayList.get(currentPos).getAnswerD());
         }
     }
 
-    private void getQuizQuestion(ArrayList<ModelLearnFragment> modelLearnArrayList) {
-        modelLearnArrayList.add(new ModelLearnFragment("Dog", "Pies", "Kot", "Sikiratka", "Gil", "Pies"));
-        modelLearnArrayList.add(new ModelLearnFragment("Cat", "Rosomak", "Kot", "Małpa", "Żyrafa", "Kot"));
-        modelLearnArrayList.add(new ModelLearnFragment("Butterfly", "Karp", "Ślimak", "Rak", "Motyl", "Motyl"));
-        modelLearnArrayList.add(new ModelLearnFragment("Boar", "Gąsienica", "Świnia", "Dzik", "Krab", "Dzik"));
+    private void getQuizQuestion(ArrayList<ModelQuizABCD> modelLearnArrayList) {
+        modelLearnArrayList.add(new ModelQuizABCD("Dog", "Pies", "Kot", "Sikiratka", "Gil", "Pies"));
+        modelLearnArrayList.add(new ModelQuizABCD("Cat", "Rosomak", "Kot", "Małpa", "Żyrafa", "Kot"));
+        modelLearnArrayList.add(new ModelQuizABCD("Butterfly", "Karp", "Ślimak", "Rak", "Motyl", "Motyl"));
+        modelLearnArrayList.add(new ModelQuizABCD("Boar", "Gąsienica", "Świnia", "Dzik", "Krab", "Dzik"));
+    }
+
+    private void setQuizButtonListeners() {
+        answerOneBtn.setOnClickListener(v -> handleAnswerClick(answerOneBtn));
+        answerTwoBtn.setOnClickListener(v -> handleAnswerClick(answerTwoBtn));
+        answerThreeBtn.setOnClickListener(v -> handleAnswerClick(answerThreeBtn));
+        answerFourBtn.setOnClickListener(v -> handleAnswerClick(answerFourBtn));
+    }
+
+    // Handle button click logic
+
+    private void handleAnswerClick(Button button) {
+        if (modelLearnArrayList.get(currentPos).getCorrectAnswer().trim().equalsIgnoreCase(button.getText().toString().trim())) {
+            currentScore++;
+        }
+        questionAttempted++;
+        currentPos = random.nextInt(modelLearnArrayList.size());
+        setDataToViews(currentPos);
     }
 
     private void resultDialog() {
-        if (resultDialog == null) { // Create the dialog only once
-            resultDialog = createDialog(R.layout.dialog_learn_result);
-            DialogLearnResultBinding dialogBinding = DialogLearnResultBinding.inflate(LayoutInflater.from(requireContext()));
+        resultDialog = createDialog(R.layout.dialog_learn_result);
+        DialogLearnResultBinding dialogBinding = DialogLearnResultBinding.inflate(LayoutInflater.from(requireContext()));
+        assert resultDialog != null;
+        resultDialog.setContentView(dialogBinding.getRoot());
+        resultDialog.show();
 
-            TextView scoreTv = dialogBinding.idScore;
-            Button restartQuizBtn = dialogBinding.idBtnRestart;
+        TextView scoreTv = dialogBinding.learnScoreScoreTv;
+        Button restartQuizBtn = dialogBinding.learnScoreRestartBtn;
 
-            scoreTv.setText(currentScore + "/10");
+        scoreTv.setText(currentScore + "/10");
 
-            resultDialog.setContentView(dialogBinding.getRoot());
-
-            restartQuizBtn.setOnClickListener(v -> {
-                currentPos = random.nextInt(modelLearnArrayList.size());
-                setDataToViews(currentPos);
-                questionAttempted = 1;
-                resultDialog.dismiss();
-                currentScore = 0;
-            });
-        }
-
-        resultDialog.show(); // Show the dialog when needed
+        restartQuizBtn.setOnClickListener(v -> {
+            resultDialog.dismiss();
+            questionAttempted = 1;
+            currentScore = 0;
+            currentPos = random.nextInt(modelLearnArrayList.size());
+            setDataToViews(currentPos);
+        });
     }
 
-
     private Dialog createDialog(int layoutResId) {
-        final Dialog dialog = new Dialog(Objects.requireNonNull(getContext()));
+        final Dialog dialog = new Dialog(requireContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(layoutResId);
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);

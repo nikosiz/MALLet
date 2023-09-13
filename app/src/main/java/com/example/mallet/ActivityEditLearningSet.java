@@ -80,7 +80,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         Utils.setupTextWatcher(setNameEt, setNameErrorTv, namePattern, "Set name incorrect");
 
         binding.editSetOptionsIv.setOnClickListener(v -> setOptionsDialog());
-        binding.editSetSaveIv.setOnClickListener(v -> createSet());
+        binding.editSetSaveIv.setOnClickListener(v -> saveSet());
         binding.editSetAddDescriptionTv.setOnClickListener(v -> addSetDescription());
 
         addTermFab.setOnClickListener(v -> addFlashcard(flashcardsLl, getLayoutInflater(), "", "", ""));
@@ -140,7 +140,9 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
         List<ModelGroup> groups = createGroupList();
 
-        displayGroups(groups, dialogBinding.addSetToGroupGroupsLl, getLayoutInflater());
+        dialogBinding.addToGroupCloseIv.setOnClickListener(v -> dialog.dismiss());
+
+        displayGroups(groups, dialogBinding.addToGroupGroupsLl, getLayoutInflater());
 
         dialog.show();
 
@@ -169,13 +171,12 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void createSet() {
+    public void saveSet() {
         String learningSetName = getIntent().getStringExtra("learningSetName");
 
         if (learningSetName != null) {
             setNameEt.clearFocus();
             setNameEt.setText(learningSetName);
-            Utils.showToast(this, learningSetName);
         }
 
         String learningSetDescription = getIntent().getStringExtra("learningSetDescription");
@@ -192,6 +193,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
         // TODO: Implement functionality creating set
         Utils.showToast(this, "Set with the name " + learningSetName + " was created");
+        finish();
     }
 
     private void populateFlashcardsUI(List<ModelFlashcard> flashcards) {
@@ -209,6 +211,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         EditText flashcardTermEt = flashcardItemView.findViewById(R.id.editSet_term_et);
         EditText flashcardDefinitionEt = flashcardItemView.findViewById(R.id.editSet_definition_et);
         EditText flashcardTranslationEt = flashcardItemView.findViewById(R.id.editSet_translation_et);
+
 
         TextView counter = flashcardItemView.findViewById(R.id.editSet_counter_tv);
 
@@ -265,6 +268,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         folders.add(new ModelFolder("Folder #3", "user123", "2"));
         folders.add(new ModelFolder("Folder #4", "user123", "8"));
         folders.add(new ModelFolder("Folder #5", "user123", "1"));
+        folders.add(new ModelFolder("Folder #6", "user123", "1"));
         return folders;
     }
 

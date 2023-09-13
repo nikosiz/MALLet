@@ -1,10 +1,71 @@
 <!-- res/layout/activity_main.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/learn_mainLl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/learn_mainLl"
-    tools:context=".ActivityLearn"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".ActivityLearn">
 
+    <LinearLayout
+        android:id="@+id/learn_dataCheckLl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/learn_setNameTv"
+            style="@style/BasicBoldTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginVertical="10dp"
+            android:gravity="center"
+            android:text="setName"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/learn_setCreatorTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginVertical="10dp"
+            android:gravity="center"
+            android:text="setCreator"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/learn_setDescriptionTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginVertical="10dp"
+            android:gravity="center"
+            android:text="setDescription"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/learn_setNumberOfTermsTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginVertical="10dp"
+            android:gravity="center"
+            android:text="setNumberOfTerms"
+            android:textSize="15sp" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/learn_setTermsLl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginVertical="15dp"
+                android:orientation="vertical"
+                android:paddingBottom="30dp" />
+        </ScrollView>
+    </LinearLayout>
 </LinearLayout>

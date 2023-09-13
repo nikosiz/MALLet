@@ -1,20 +1,17 @@
 package com.example.mallet;
 
-public class ModelLearnFragment {
+public class ModelQuizABCD {
     private String question;
-    private String answerA;
-    private String answerB;
-    private String answerC;
-    private String answerD;
-    private String rightAnswer;
+    private String answerA, answerB, answerC, answerD;
+    private String correctAnswer;
 
-    public ModelLearnFragment(String question, String answerA, String answerB, String answerC, String answerD, String rightAnswer) {
+    public ModelQuizABCD(String question, String answerA, String answerB, String answerC, String answerD, String correctAnswer) {
         this.question = question;
         this.answerA = answerA;
         this.answerB = answerB;
         this.answerC = answerC;
         this.answerD = answerD;
-        this.rightAnswer = rightAnswer;
+        this.correctAnswer = correctAnswer;
     }
 
     public String getQuestion() {
@@ -57,11 +54,11 @@ public class ModelLearnFragment {
         this.answerD = answerD;
     }
 
-    public String getRightAnswer() {
-        return rightAnswer;
+    public String getCorrectAnswer() {
+        return correctAnswer;
     }
 
-    public void setRightAnswer(String rightAnswer) {
-        this.rightAnswer = rightAnswer;
+    public void setCorrectAnswer(String correctAnswer) {
+        this.correctAnswer = correctAnswer;
     }
 }

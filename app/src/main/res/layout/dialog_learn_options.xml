@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:padding="30dp"
+    tools:ignore="Overdraw">
+
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/learnOptions_flashcardsMs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        android:contentDescription="Flashcards"
+        android:drawableTint="@color/downriver_blue_500"
+        android:fontFamily="@font/rem_bold"
+        android:minHeight="65dp"
+        android:paddingHorizontal="30dp"
+        android:text="Flashcards"
+        android:textColor="@color/danube_blue_900"
+        android:textSize="16sp"
+        app:thumbTint="@drawable/switch_thumb_color"
+        app:trackDecorationTint="@drawable/switch_track_decoration_color"
+        app:trackTint="@drawable/switch_track_color" />
+
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/learnOptions_abcdMs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        android:contentDescription="Multiple-choice questions"
+        android:drawableTint="@color/downriver_blue_500"
+        android:fontFamily="@font/rem_bold"
+        android:minHeight="65dp"
+        android:paddingHorizontal="30dp"
+        android:text="Multiple-choice questions"
+        android:textColor="@color/danube_blue_900"
+        android:textSize="16sp"
+        app:thumbTint="@drawable/switch_thumb_color"
+        app:trackDecorationTint="@drawable/switch_track_decoration_color"
+        app:trackTint="@drawable/switch_track_color" />
+
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/learnOptions_writingMs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        android:contentDescription="Written questions"
+        android:drawableTint="@color/downriver_blue_500"
+        android:fontFamily="@font/rem_bold"
+        android:minHeight="65dp"
+        android:paddingHorizontal="30dp"
+        android:text="Written questions"
+        android:textColor="@color/danube_blue_900"
+        android:textSize="16sp"
+        app:thumbTint="@drawable/switch_thumb_color"
+        app:trackDecorationTint="@drawable/switch_track_decoration_color"
+        app:trackTint="@drawable/switch_track_color" />
+
+</LinearLayout>

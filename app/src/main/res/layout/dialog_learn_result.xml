@@ -1,36 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/idLLScore"
+    android:id="@+id/learnScore_mainLl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="30dp">
 
-    <TextView
-        android:id="@+id/idTVScore"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:gravity="center"
-        android:padding="3dp"
-        android:text="Your Score is"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="@color/danube_blue_400"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/idScore"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/learnScore_titleTv"
+            style="@style/BasicBoldTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:text="Your Score: "
+            android:textAllCaps="false"
+            android:textColor="@color/danube_blue_800"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/learnScore_scoreTv"
+            style="@style/BasicBoldTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="X/Y"
+            android:textAllCaps="false"
+            android:textColor="@color/danube_blue_800"
+            android:textSize="20sp" />
+    </LinearLayout>
 
     <Button
-        android:id="@+id/idBtnRestart"
+        android:id="@+id/learnScore_restartBtn"
+        style="@style/SocialButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="Restart Quiz"
+        android:layout_gravity="center"
+        android:layout_marginVertical="10dp"
+        android:drawableLeft="@drawable/ic_undo"
+        android:drawablePadding="10dp"
+        android:drawableTint="@color/colorPrimary"
+        android:gravity="start|center"
+        android:text="Restart"
         android:textAllCaps="false" />
 
 </LinearLayout>
