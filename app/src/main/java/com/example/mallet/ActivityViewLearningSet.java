@@ -58,9 +58,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         binding.viewSetLearn.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentLearn.class, ActivityLearn.class));
         binding.viewSetTest.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentTest.class, ActivityLearn.class));
         binding.viewSetMatch.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentMatch.class, ActivityLearn.class));
-        binding.testBtn.setOnClickListener(v ->
-
-        {
+        binding.testBtn.setOnClickListener(v -> {
             Intent intent = new Intent(this, ActivityLearn.class);
 
             // Pass the learning set data to ActivityLearn
