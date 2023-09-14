@@ -30,7 +30,8 @@
             android:layout_gravity="end"
             android:layout_marginHorizontal="20dp"
             android:src="@drawable/ic_settings"
-            android:tint="@color/white" />
+            app:tint="@color/white"
+            android:contentDescription="settings icon" />
     </androidx.appcompat.widget.Toolbar>
 
 

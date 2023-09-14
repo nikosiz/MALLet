@@ -51,7 +51,7 @@ public class FragmentFlashcards extends Fragment {
     private void setupToolbar() {
         Toolbar toolbar = binding.flashcardsToolbar;
         ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
-        Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).setTitle(""); // Set the title to an empty string
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle(""); // Set the title to an empty string
 
         // Display back arrow on the toolbar
         if (((AppCompatActivity) getActivity()).getSupportActionBar() != null) {
@@ -178,6 +178,6 @@ public class FragmentFlashcards extends Fragment {
     }
 
     private List<ModelFlashcard> addList() {
-        return Utils.readFlashcardsFromFile(Objects.requireNonNull(getContext()), "animals.txt");
+        return Utils.readFlashcardsFromFile(requireContext(), "animals.txt");
     }
 }

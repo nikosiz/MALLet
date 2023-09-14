@@ -42,7 +42,7 @@ public class ActivityLearn extends AppCompatActivity {
                 fragment.setArguments(args);
 
                 // TODO: Delete these two lines when data sharing is done well
-                LinearLayout dataCheckLl = binding.learnDataCheckLl;
+                LinearLayout dataCheckLl = binding.learnDataLl;
                 dataCheckLl.setVisibility(View.GONE);
 
                 getSupportFragmentManager().beginTransaction()
@@ -94,9 +94,7 @@ public class ActivityLearn extends AppCompatActivity {
                     setDescriptionTv.setText(setDescription);
                 }
 
-                if (numberOfTerms != null) {
-                    setTermsTv.setText(numberOfTerms + " terms");
-                }
+                setTermsTv.setText(numberOfTerms + " terms");
             }
         }
 //        System.out.println("Data received from ActivityViewLearningSet: "+learningSet.getName());

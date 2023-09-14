@@ -22,13 +22,12 @@ import java.util.Objects;
 public class FragmentUserLibrary extends Fragment {
     FragmentUserLibraryBinding binding;
     private TabLayout tabLayout;
-    private ActivityMain activityMain;
     private ViewPager2 viewPager;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentUserLibraryBinding.inflate(inflater, container, false);
-        activityMain = (ActivityMain) getActivity();
+        ActivityMain activityMain = (ActivityMain) getActivity();
 
         viewPager = binding.userLibraryViewPager;
         tabLayout = binding.userLibraryTabLayout;

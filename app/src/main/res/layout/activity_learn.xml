@@ -8,10 +8,11 @@
     tools:context=".ActivityLearn">
 
     <LinearLayout
-        android:id="@+id/learn_dataCheckLl"
+        android:id="@+id/learn_dataLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
 
         <TextView
             android:id="@+id/learn_setNameTv"

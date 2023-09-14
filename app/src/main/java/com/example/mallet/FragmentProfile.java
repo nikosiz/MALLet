@@ -88,7 +88,6 @@ public class FragmentProfile extends Fragment {
         // TODO: Dialog with pictures to choose from and apply
         Dialog dialog = createDialog(R.layout.dialog_change_picture);
         DialogChangePictureBinding dialogBinding = DialogChangePictureBinding.inflate(getLayoutInflater());
-        assert dialog != null;
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.show();
 
@@ -479,11 +478,11 @@ public class FragmentProfile extends Fragment {
     }
 
     private Dialog createDialog(int layoutResId) {
-        final Dialog dialog = new Dialog(getContext());
+        final Dialog dialog = new Dialog(requireContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(layoutResId);
 
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().setGravity(Gravity.BOTTOM);
         return dialog;
     }

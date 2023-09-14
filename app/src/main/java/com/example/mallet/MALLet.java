@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import androidx.appcompat.app.AppCompatDelegate;
 
 public class MALLet extends Application {
-    private String selectedTheme;
     private MALLet mallet;
 
     @Override
@@ -23,7 +22,7 @@ public class MALLet extends Application {
     }
 
     private void initializeTheme() {
-        selectedTheme = getSavedTheme();
+        String selectedTheme = getSavedTheme();
         applyTheme(selectedTheme);
     }
 

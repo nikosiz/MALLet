@@ -171,9 +171,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
                     setDescriptionTv.setText(setDescription);
                 }
 
-                if (numberOfTerms != null) {
-                    setTermsTv.setText(numberOfTerms + " terms");
-                }
+                setTermsTv.setText(numberOfTerms + " terms");
             }
         }
     }
@@ -241,7 +239,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(layoutResId);
 
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().setGravity(Gravity.BOTTOM);
         return dialog;
     }
