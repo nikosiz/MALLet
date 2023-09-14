@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:text="Delete account"
 
-        android:textColor="@color/danube_blue_900"
+        android:textColor="@color/primaryTextColor"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -34,7 +34,7 @@
 
         android:layout_height="wrap_content"
         android:text="You are about to delete your account permanently. If you want to continue, please input your password."
-        android:textColor="@color/danube_blue_800"
+        android:textColor="@color/secondaryTextColor"
         android:textSize="19sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/delete_acc_view_0" />
@@ -57,7 +57,7 @@
         app:boxCornerRadiusTopStart="5dp"
         app:boxStrokeColor="@color/danube_blue_800"
         app:boxStrokeWidth="2dp"
-        app:hintTextColor="@color/danube_blue_800"
+        app:hintTextColor="@color/secondaryTextColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/delete_acc_view_1"
         app:passwordToggleEnabled="true">
@@ -101,7 +101,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_ripple"
         android:text="I am aware that this action is irreversible"
-        android:textColor="@color/danube_blue_800"
+        android:textColor="@color/secondaryTextColor"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/delete_acc_password_til" />
@@ -140,7 +140,7 @@
             android:background="@drawable/bg_ripple"
 
             android:text="@string/cancel"
-            android:textColor="@color/danube_blue_800"
+            android:textColor="@color/secondaryTextColor"
             android:textSize="20sp" />
 
         <TextView

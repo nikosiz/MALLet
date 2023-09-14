@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/danube_blue_500"
+        android:paddingHorizontal="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -22,6 +23,14 @@
             android:text="@string/app_name"
             android:textColor="@color/white"
             android:textSize="30sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginHorizontal="20dp"
+            android:src="@drawable/ic_settings"
+            android:tint="@color/white" />
     </androidx.appcompat.widget.Toolbar>
 
 
@@ -63,7 +72,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Recent sets"
-                        android:textColor="@color/danube_blue_900"
+                        android:textColor="@color/primaryTextColor"
                         android:textSize="20sp" />
 
                     <TextView
@@ -106,7 +115,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Folders"
-                        android:textColor="@color/danube_blue_900"
+                        android:textColor="@color/primaryTextColor"
                         android:textSize="20sp" />
 
                     <TextView
@@ -149,7 +158,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Groups"
-                        android:textColor="@color/danube_blue_900"
+                        android:textColor="@color/primaryTextColor"
                         android:textSize="20sp" />
 
                     <TextView

@@ -7,4 +7,4 @@
     android:gravity="center"
     android:singleLine="true"
     android:textAllCaps="false"
-    android:textColor="@color/danube_blue_800" />
+    android:textColor="@color/secondaryTextColor" />

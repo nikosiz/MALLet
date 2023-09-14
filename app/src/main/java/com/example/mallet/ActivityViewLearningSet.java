@@ -103,7 +103,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             dialog.dismiss();
             addSetToFolderDialog();
         });
-        dialogBinding.viewSetOptionsAddToGropu.setOnClickListener(v -> {
+        dialogBinding.viewSetOptionsAddToGroup.setOnClickListener(v -> {
             //dialog.dismiss();
             Utils.openActivity(this, ActivityEditLearningSet.class);
         });
@@ -240,7 +240,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(layoutResId);
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().setGravity(Gravity.BOTTOM);
         return dialog;

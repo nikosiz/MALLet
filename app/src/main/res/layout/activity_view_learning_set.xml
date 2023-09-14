@@ -69,7 +69,7 @@
                     android:layout_gravity="start"
                     android:gravity="center"
                     android:text="set_name"
-                    android:textColor="@color/danube_blue_900"
+                    android:textColor="@color/primaryTextColor"
                     android:textSize="20sp" />
 
                 <View
@@ -96,7 +96,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:text="user_name"
-                        android:textColor="@color/danube_blue_800" />
+                        android:textColor="@color/secondaryTextColor" />
 
                     <View
                         android:layout_width="2dp"
@@ -122,7 +122,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Set description"
-                    android:textColor="@color/danube_blue_800"
+                    android:textColor="@color/secondaryTextColor"
                     android:visibility="gone" />
 
                 <View
@@ -174,7 +174,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Flashcards"
-                                android:textColor="@color/danube_blue_800"
+                                android:textColor="@color/secondaryTextColor"
                                 android:textSize="15sp" />
 
                             <TextView
@@ -182,7 +182,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Review terms and definitions"
-                                android:textColor="@color/danube_blue_800"
+                                android:textColor="@color/secondaryTextColor"
                                 android:textSize="15sp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -227,7 +227,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Learn"
-                                android:textColor="@color/danube_blue_800"
+                                android:textColor="@color/secondaryTextColor"
                                 android:textSize="15sp" />
 
                             <TextView
@@ -235,7 +235,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Study in your own pace"
-                                android:textColor="@color/danube_blue_800"
+                                android:textColor="@color/secondaryTextColor"
                                 android:textSize="15sp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -278,7 +278,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Test"
-                                android:textColor="@color/danube_blue_800"
+                                android:textColor="@color/secondaryTextColor"
                                 android:textSize="15sp" />
 
                             <TextView
@@ -286,7 +286,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Take a test to check your knowledge"
-                                android:textColor="@color/danube_blue_800"
+                                android:textColor="@color/secondaryTextColor"
                                 android:textSize="15sp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -330,7 +330,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Match"
-                                android:textColor="@color/danube_blue_800"
+                                android:textColor="@color/secondaryTextColor"
                                 android:textSize="15sp" />
 
                             <TextView
@@ -338,7 +338,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Match terms and definitions"
-                                android:textColor="@color/danube_blue_800"
+                                android:textColor="@color/secondaryTextColor"
                                 android:textSize="15sp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -353,7 +353,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Cards in this set"
-                    android:textColor="@color/danube_blue_900"
+                    android:textColor="@color/primaryTextColor"
                     android:textSize="20sp" />
 
                 <View

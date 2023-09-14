@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -30,6 +31,7 @@ import androidx.fragment.app.Fragment;
 import com.example.mallet.databinding.DialogAboutBinding;
 import com.example.mallet.databinding.DialogChangeEmailBinding;
 import com.example.mallet.databinding.DialogChangePasswordBinding;
+import com.example.mallet.databinding.DialogChangePictureBinding;
 import com.example.mallet.databinding.DialogChangeThemeBinding;
 import com.example.mallet.databinding.DialogChangeUsernameBinding;
 import com.example.mallet.databinding.DialogDeleteAccountBinding;
@@ -37,54 +39,117 @@ import com.example.mallet.databinding.DialogVerifyPasswordBinding;
 import com.example.mallet.databinding.FragmentProfileBinding;
 import com.example.mallet.utils.Utils;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 public class FragmentProfile extends Fragment {
     private FragmentProfileBinding binding;
+    private final Pattern passwordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^*()<>?/|}{~:]).{8,}$");
+    TextView themeTv;
+    String selectedTheme;
+    MALLet mallet;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
-        return binding.getRoot();
-    }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
         setupContents();
+
+        return binding.getRoot();
+
     }
 
-    // Initialize click listeners for various UI elements
     private void setupContents() {
-        binding.profileUserPhotoIv.setOnClickListener(v -> changePicture());
+        binding.profileUserPhotoIv.setOnClickListener(v -> changePictureDialog());
+
         binding.profileEmailLl.setOnClickListener(v -> verifyPasswordDialog(VerifyPasswordAction.CHANGE_EMAIL));
-        binding.profileUsernameLl.setOnClickListener(v -> verifyPasswordDialog(VerifyPasswordAction.CHANGE_USERNAME));
+        binding.profileUsernameLll.setOnClickListener(v -> verifyPasswordDialog(VerifyPasswordAction.CHANGE_USERNAME));
         binding.profileChangePasswordTv.setOnClickListener(v -> changePasswordDialog());
-        binding.profileNotificationsSwitch.setOnClickListener(v -> notificationSettings());
-        binding.profileSaveOfflineSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> saveSetsOffline());
+
+        binding.profileNotificationsMs.setOnClickListener(v -> notificationSettings());
+
+        binding.profileSaveOfflineMs.setOnCheckedChangeListener((buttonView, isChecked) -> saveSetsOffline());
+
         binding.profileThemeLl.setOnClickListener(v -> changeThemeDialog());
+        themeTv = binding.profileThemeTv;
+        selectedTheme=getSavedTheme();
+        themeTv.setText(selectedTheme);
+
         binding.profileAboutTv.setOnClickListener(v -> showAboutSection());
-        binding.profileLogOutTv.setOnClickListener(v -> logOut());
-        binding.profileDeleteAccountTv.setOnClickListener(v -> showDeleteAccountDialog());
+        binding.profileLogoutTv.setOnClickListener(v -> logOut());
+
+        binding.profileDeleteAccTv.setOnClickListener(v -> showDeleteAccountDialog());
     }
 
-    private void changePicture() {
-        // TODO: Dialog with pictures to choose from and apply for user
-        Utils.showToast(getContext(), "Here a dialog will appear and you will have the possibility to choose a new picture.");
+    private void changePictureDialog() {
+        // TODO: Dialog with pictures to choose from and apply
+        Dialog dialog = createDialog(R.layout.dialog_change_picture);
+        DialogChangePictureBinding dialogBinding = DialogChangePictureBinding.inflate(getLayoutInflater());
+        assert dialog != null;
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.show();
+
     }
 
-
-    // Enum to represent password verification actions
     public enum VerifyPasswordAction {
         CHANGE_EMAIL, CHANGE_USERNAME
     }
-    // Show a dialog to change email address
+
+    private void verifyPasswordDialog(VerifyPasswordAction action) {
+        final Dialog dialog = createDialog(R.layout.dialog_change_password);
+        DialogVerifyPasswordBinding dialogBinding = DialogVerifyPasswordBinding.inflate(LayoutInflater.from(requireContext()));
+        dialog.setContentView(dialogBinding.getRoot());
+
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.show();
+
+        TextInputLayout passwordTil = dialogBinding.verifyPasswordTil;
+        EditText passwordEt = dialogBinding.verifyPasswordEt;
+        TextView passwordErrorTv = dialogBinding.verifyPasswordErrorTv;
+        Utils.hideItem(passwordErrorTv);
+        Utils.setupTextWatcher(passwordEt, passwordErrorTv, passwordPattern, "Password does not match valid pattern");
+
+        TextView cancelTv = dialogBinding.verifyPasswordCancelTv;
+        TextView confirmTv = dialogBinding.verifyPasswordConfirmTv;
+
+        cancelTv.setOnClickListener(v -> {
+            Utils.resetEditText(passwordEt, passwordErrorTv);
+            dialog.dismiss();
+        });
+
+        confirmTv.setOnClickListener(v -> {
+            String email = Objects.requireNonNull(passwordEt.getText()).toString().trim();
+
+            // Validate the email input in the dialog
+            Utils.validateInput(passwordEt, passwordErrorTv, passwordPattern, "ASDF");
+
+            if (!Utils.isErrorVisible(passwordErrorTv)) {
+                dialog.dismiss();
+                if (action == VerifyPasswordAction.CHANGE_EMAIL) {
+                    // TODO: Implement password verification through AuthenticationManager
+                    changeEmailDialog();
+                    System.out.println("changeEmailDialog()");
+                }
+
+                if (action == VerifyPasswordAction.CHANGE_USERNAME) {
+                    // TODO: Implement password verification through AuthenticationManager
+                    changeUsernameDialog();
+                    System.out.println("changeUsernameDialog()");
+                }
+            }
+        });
+    }
 
     private void changeEmailDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_change_email);
+        final Dialog dialog = createDialog(R.layout.dialog_change_password);
         DialogChangeEmailBinding dialogBinding = DialogChangeEmailBinding.inflate(LayoutInflater.from(requireContext()));
+        dialog.setContentView(dialogBinding.getRoot());
+
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.show();
 
         TextView cancelBtn = dialogBinding.changeEmailCancelBtn;
         TextView confirmBtn = dialogBinding.changeEmailConfirmBtn;
@@ -122,57 +187,17 @@ public class FragmentProfile extends Fragment {
             dialog.show();
         });
 
-        //dialog.show();
-        dialog.show();
-    }
-
-    // Show a dialog to verify the password before certain actions
-    private void verifyPasswordDialog(VerifyPasswordAction action) {
-        final Dialog dialog = createDialog(R.layout.dialog_verify_password);
-
-        DialogVerifyPasswordBinding binding = DialogVerifyPasswordBinding.inflate(LayoutInflater.from(requireContext()));
-
-        // Find views inside the dialog layout
-        TextView cancelBtn = binding.verifyCancelBtn;
-        TextView confirmBtn = binding.verifyConfirmBtn;
-
-        // Cancel button click listener
-        cancelBtn.setOnClickListener(v -> dialog.dismiss());
-
-        // Confirm button click listener
-        confirmBtn.setOnClickListener(v -> {
-            // TODO
-            // Process password verification
-            TextView passwordError = binding.verifyPasswordError;
-            TextInputEditText passwordEditText = binding.verifyPasswordEt;
-            String password = Objects.requireNonNull(passwordEditText.getText()).toString();
-
-            // Perform action based on verification and action type
-            if (TextUtils.isEmpty(password)) {
-                passwordError.setVisibility(View.VISIBLE);
-            } else {
-                // TODO
-                // Add functionality verifying password
-                passwordError.setVisibility(View.GONE);
-                Utils.showToast(getContext(), "OK button was clicked. The password should be verified but there is no backend yet.");
-                dialog.dismiss();
-
-                if (action == VerifyPasswordAction.CHANGE_EMAIL) {
-                    changeEmailDialog();
-                } else if (action == VerifyPasswordAction.CHANGE_USERNAME) {
-                    changeUsernameDialog();
-                }
-            }
-        });
-
-        // Show the dialog
         dialog.show();
     }
 
     private void changeUsernameDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_change_username);
-
+        final Dialog dialog = createDialog(R.layout.dialog_change_password);
         DialogChangeUsernameBinding dialogBinding = DialogChangeUsernameBinding.inflate(LayoutInflater.from(requireContext()));
+        dialog.setContentView(dialogBinding.getRoot());
+
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.show();
+
 
         // Find views inside the dialog layout
         TextView cancelBtn = dialogBinding.changeUsernameCancelBtn;
@@ -213,22 +238,23 @@ public class FragmentProfile extends Fragment {
 
     private void changePasswordDialog() {
         final Dialog dialog = createDialog(R.layout.dialog_change_password);
+        DialogChangePasswordBinding dialogBinding = DialogChangePasswordBinding.inflate(LayoutInflater.from(requireContext()));
+        dialog.setContentView(dialogBinding.getRoot());
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.show();
 
-        DialogChangePasswordBinding binding = DialogChangePasswordBinding.inflate(LayoutInflater.from(requireContext()));
-        dialog.setContentView(binding.getRoot());
-
-        TextView cancelBtn = binding.changePasswordCancelBtn;
-        TextView confirmBtn = binding.changePasswordConfirmBtn;
+        TextView cancelBtn = dialogBinding.changePasswordCancelBtn;
+        TextView confirmBtn = dialogBinding.changePasswordConfirmBtn;
 
         cancelBtn.setOnClickListener(v -> dialog.dismiss());
 
         confirmBtn.setOnClickListener(v -> {
-            TextView oldPasswordError = binding.changePasswordOldErrorTv;
-            TextView newPasswordError = binding.changePasswordNewErrorTv;
-            TextView confirmNewPasswordError = binding.changePasswordConfirmNewErrorTv;
-            TextInputEditText oldPasswordEditText = binding.changePasswordOldEt;
-            TextInputEditText newPasswordEditText = binding.changePasswordNewEt;
-            TextInputEditText confirmNewPasswordEditText = binding.changePasswordConfirmNewEt;
+            TextView oldPasswordError = dialogBinding.changePasswordOldErrorTv;
+            TextView newPasswordError = dialogBinding.changePasswordNewErrorTv;
+            TextView confirmNewPasswordError = dialogBinding.changePasswordConfirmNewErrorTv;
+            TextInputEditText oldPasswordEditText = dialogBinding.changePasswordOldEt;
+            TextInputEditText newPasswordEditText = dialogBinding.changePasswordNewEt;
+            TextInputEditText confirmNewPasswordEditText = dialogBinding.changePasswordConfirmNewEt;
 
             String oldPassword = Objects.requireNonNull(oldPasswordEditText.getText()).toString();
             String newPassword = Objects.requireNonNull(newPasswordEditText.getText()).toString();
@@ -263,13 +289,11 @@ public class FragmentProfile extends Fragment {
                 dialog.dismiss();
             }
         });
-
-        dialog.show();
     }
 
     // Handle notification settings
     private void notificationSettings() {
-        SwitchCompat showNotificationsSwitch = binding.profileNotificationsSwitch;
+        SwitchCompat showNotificationsSwitch = binding.profileNotificationsMs;
 
         Utils.showToast(getContext(), "You will get notifications when the back end exists.");
 
@@ -279,19 +303,19 @@ public class FragmentProfile extends Fragment {
                 // TODO
                 // Enable notifications
                 Utils.showToast(getContext(), "You will get notifications when the back end exists.");
-                binding.profileNotificationsSwitch.setChecked(true);
+                binding.profileNotificationsMs.setChecked(true);
             } else {
                 // TODO
                 // Disable notifications
                 Utils.showToast(getContext(), "You WILL NOT get notifications when the back end exists.");
-                binding.profileNotificationsSwitch.setChecked(false);
+                binding.profileNotificationsMs.setChecked(false);
             }
         });
     }
 
     // Save sets offline or delete them
     private void saveSetsOffline() {
-        SwitchCompat saveOfflineSwitch = binding.profileSaveOfflineSwitch;
+        SwitchCompat saveOfflineSwitch = binding.profileSaveOfflineMs;
 
         Utils.showToast(getContext(), "The sets will not be saved for offline use.");
 
@@ -310,9 +334,12 @@ public class FragmentProfile extends Fragment {
 
     // Change the app's theme
     private void changeThemeDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_change_theme);
-
+        final Dialog dialog = createDialog(R.layout.dialog_change_password);
         DialogChangeThemeBinding dialogBinding = DialogChangeThemeBinding.inflate(LayoutInflater.from(requireContext()));
+        dialog.setContentView(dialogBinding.getRoot());
+
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.show();
 
         // Find views inside the dialog layout
         TextView cancelBtn = dialogBinding.changeThemeCancelBtn;
@@ -321,35 +348,39 @@ public class FragmentProfile extends Fragment {
 
         String savedTheme = getSavedTheme();
 
-        if (savedTheme.equals("Light Theme")) {
+        if (savedTheme.equals("Light")) {
             themeRadioGroup.check(R.id.light_theme_rb);
-
-        } else if (savedTheme.equals("Dark Theme")) {
+        } else if (savedTheme.equals("Dark")) {
             themeRadioGroup.check(R.id.dark_theme_rb);
         } else {
             themeRadioGroup.check(R.id.system_default_rb);
         }
-        // Set click listeners and perform actions
+
         cancelBtn.setOnClickListener(v -> dialog.dismiss());
 
         confirmBtn.setOnClickListener(v -> {
             int checkedId = themeRadioGroup.getCheckedRadioButtonId();
 
-            String selectedThemeName;
             if (checkedId == R.id.light_theme_rb) {
-                selectedThemeName = "Light Theme";
+                selectedTheme = "Light";
+
             } else if (checkedId == R.id.dark_theme_rb) {
-                selectedThemeName = "Dark Theme";
+                selectedTheme = "Dark";
             } else {
-                selectedThemeName = "System Default Theme";
+                selectedTheme = "System default";
             }
 
-            saveSelectedTheme(selectedThemeName);
-            Utils.showToast(getContext(), selectedThemeName);
-            applyTheme(selectedThemeName);
+            // Save the selected theme
+            saveSelectedTheme(selectedTheme);
+
+            // Apply the selected theme immediately
+            applyTheme(selectedTheme);
+
+            // Update the displayed theme in your UI
+            themeTv.setText(selectedTheme);
+
             dialog.dismiss();
         });
-        dialog.show();
     }
 
     private void saveSelectedTheme(String themeName) {
@@ -361,18 +392,20 @@ public class FragmentProfile extends Fragment {
 
     private String getSavedTheme() {
         SharedPreferences preferences = requireContext().getSharedPreferences("theme_prefs", Context.MODE_PRIVATE);
-        return preferences.getString("selectedTheme", "System Default Theme");
+        return preferences.getString("selectedTheme", "System default");
     }
 
     private void applyTheme(String themeName) {
         int themeMode;
-        if (themeName.equals("Light Theme")) {
+        if (themeName.equals("Light")) {
             themeMode = AppCompatDelegate.MODE_NIGHT_NO;
-        } else if (themeName.equals("Dark Theme")) {
+        } else if (themeName.equals("Dark")) {
             themeMode = AppCompatDelegate.MODE_NIGHT_YES;
         } else {
             themeMode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
         }
+
+
 
         AppCompatDelegate.setDefaultNightMode(themeMode);
 
@@ -380,12 +413,14 @@ public class FragmentProfile extends Fragment {
     }
 
     private void showAboutSection() {
-        final Dialog dialog = createDialog(R.layout.dialog_about);
-
+        final Dialog dialog = createDialog(R.layout.dialog_change_password);
         DialogAboutBinding dialogBinding = DialogAboutBinding.inflate(LayoutInflater.from(requireContext()));
+        dialog.setContentView(dialogBinding.getRoot());
 
-
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.show();
+
+
     }
 
     private void logOut() {
@@ -396,9 +431,12 @@ public class FragmentProfile extends Fragment {
     }
 
     private void showDeleteAccountDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_delete_account);
-
+        final Dialog dialog = createDialog(R.layout.dialog_change_password);
         DialogDeleteAccountBinding dialogBinding = DialogDeleteAccountBinding.inflate(LayoutInflater.from(requireContext()));
+        dialog.setContentView(dialogBinding.getRoot());
+
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.show();
 
         TextView cancelBtn = dialogBinding.deleteAccCancelBtn;
         TextView confirmBtn = dialogBinding.deleteAccConfirmBtn;
@@ -441,10 +479,10 @@ public class FragmentProfile extends Fragment {
     }
 
     private Dialog createDialog(int layoutResId) {
-        final Dialog dialog = new Dialog(Objects.requireNonNull(getContext()));
+        final Dialog dialog = new Dialog(getContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(layoutResId);
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().setGravity(Gravity.BOTTOM);
         return dialog;

@@ -52,7 +52,7 @@
                 android:autoSizeTextType="uniform"
                 android:maxLines="1"
                 android:text="@string/login_with_email_address"
-                android:textColor="@color/danube_blue_900"
+                android:textColor="@color/primaryTextColor"
                 android:textSize="22sp" />
 
             <View
@@ -260,7 +260,7 @@
                     android:focusable="true"
                     android:padding="5dp"
                     android:text="@string/signup_here"
-                    android:textColor="@color/danube_blue_900"
+                    android:textColor="@color/primaryTextColor"
                     android:textSize="20sp" />
 
             </LinearLayout>

@@ -20,7 +20,7 @@
             android:gravity="start"
             android:text="Your Score: "
             android:textAllCaps="false"
-            android:textColor="@color/danube_blue_800"
+            android:textColor="@color/secondaryTextColor"
             android:textSize="20sp" />
 
         <TextView
@@ -31,7 +31,7 @@
             android:gravity="end"
             android:text="X/Y"
             android:textAllCaps="false"
-            android:textColor="@color/danube_blue_800"
+            android:textColor="@color/secondaryTextColor"
             android:textSize="20sp" />
     </LinearLayout>
 

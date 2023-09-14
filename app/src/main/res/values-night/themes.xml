@@ -1,15 +1,15 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="MALLet.Theme" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.MALLet" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="android:fontFamily">@font/rem_regular</item>
-        <item name="android:statusBarColor">@color/colorPrimary</item>
         <item name="colorControlNormal">@color/white</item>
     </style>
 
     <style name="Theme.MALLet" parent="Base.Theme.MALLet">
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
     </style>
 
 </resources>

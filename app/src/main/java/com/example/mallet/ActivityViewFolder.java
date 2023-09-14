@@ -2,8 +2,11 @@ package com.example.mallet;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -15,7 +18,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.mallet.databinding.ActivityViewFolderBinding;
 import com.example.mallet.databinding.DialogDeleteFolderBinding;
-import com.example.mallet.databinding.DialogFolderToolbarOptionsBinding;
+import com.example.mallet.databinding.DialogViewFolderToolbarOptionsBinding;
 import com.example.mallet.utils.Utils;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -54,34 +57,35 @@ public class ActivityViewFolder extends AppCompatActivity {
     }
 
     private void showOptions() {
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        DialogFolderToolbarOptionsBinding binding = DialogFolderToolbarOptionsBinding.inflate(LayoutInflater.from(this));
-        dialog.setContentView(binding.getRoot());
+        final Dialog dialog = createDialog(R.layout.dialog_view_folder_toolbar_options);
+        DialogViewFolderToolbarOptionsBinding dialogBinding = DialogViewFolderToolbarOptionsBinding.inflate(LayoutInflater.from(this));
+        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
 
-        TextView folderEditBtn = binding.folderToolbarOptionsEdit;
-        TextView folderAddBtn = binding.folderToolbarOptionsAdd;
-        TextView folderShareBtn = binding.folderToolbarOptionsShare;
-        TextView folderDeleteBtn = binding.folderToolbarOptionsDelete;
+        TextView editTv = dialogBinding.viewFolderEditTv;
+        TextView addSetsTv = dialogBinding.viewFolderAddSetsTv;
+        TextView shareWGroupTv = dialogBinding.viewFolderAddToGroupTv;
+        TextView deleteTv = dialogBinding.viewFolderDeleteTv;
 
 
-        folderEditBtn.setOnClickListener(v -> editFolderName());
+        editTv.setOnClickListener(v -> editFolderDialog());
 
-        folderAddBtn.setOnClickListener(v -> addSets());
+        addSetsTv.setOnClickListener(v -> addSetsDialog());
 
-        folderShareBtn.setOnClickListener(v -> {
-            // TODO: Maybe share folder via link of some kind ?
-
+        shareWGroupTv.setOnClickListener(v -> {
+            // TODO: Share folder via link of some kind / share all sets in a folder with a group 
+            shareFolderDialog();
         });
 
-        folderDeleteBtn.setOnClickListener(v -> {
+        deleteTv.setOnClickListener(v -> {
             dialog.dismiss();
             deleteFolderDialog();
-
         });
 
         dialog.show();
 
+    }
+
+    private void shareFolderDialog() {
     }
 
     private void deleteFolderDialog() {
@@ -129,10 +133,20 @@ public class ActivityViewFolder extends AppCompatActivity {
         //dialog.show();;
     }
 
-    private void addSets() {
+    private void addSetsDialog() {
     }
 
-    private void editFolderName() {
+    private void editFolderDialog() {
+    }
+
+    private Dialog createDialog(int layoutResId) {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(layoutResId);
+
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+        return dialog;
     }
 
     private void getFolderData() {

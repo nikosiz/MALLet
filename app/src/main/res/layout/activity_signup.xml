@@ -52,7 +52,7 @@
                 android:autoSizeTextType="uniform"
                 android:maxLines="1"
                 android:text="@string/signup_with_email_address"
-                android:textColor="@color/danube_blue_900"
+                android:textColor="@color/primaryTextColor"
                 android:textSize="22sp" />
 
             <View
@@ -141,7 +141,7 @@
                 android:gravity="center_vertical"
                 android:paddingHorizontal="5dp"
                 android:text="Continue"
-                android:textColor="@color/danube_blue_800"
+                android:textColor="@color/secondaryTextColor"
                 android:textSize="20sp"
                 app:drawableEndCompat="@drawable/ic_arrow_forward"
                 app:drawableTint="@color/danube_blue_800" />
@@ -157,7 +157,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/or_quickly"
-                android:textColor="@color/danube_blue_900"
+                android:textColor="@color/primaryTextColor"
                 android:textSize="20sp" />
 
             <View
@@ -216,7 +216,7 @@
                     android:layout_gravity="center_vertical"
                     android:paddingTop="6dp"
                     android:text="@string/already_have_account"
-                    android:textColor="@color/danube_blue_900" />
+                    android:textColor="@color/primaryTextColor" />
 
                 <TextView
                     android:id="@+id/signup_loginHere_tv"
@@ -229,7 +229,7 @@
                     android:focusable="true"
                     android:padding="5dp"
                     android:text="@string/login_here"
-                    android:textColor="@color/danube_blue_900"
+                    android:textColor="@color/primaryTextColor"
                     android:textSize="20sp" />
 
             </LinearLayout>

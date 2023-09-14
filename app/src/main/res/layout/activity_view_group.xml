@@ -65,7 +65,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="group_name"
-                    android:textColor="@color/danube_blue_900"
+                    android:textColor="@color/primaryTextColor"
                     android:textSize="20sp" />
 
                 <View

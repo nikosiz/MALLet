@@ -48,7 +48,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:text="Choose what you want to do "
-                android:textColor="@color/danube_blue_900"
+                android:textColor="@color/primaryTextColor"
                 android:textSize="21sp" />
 
             <View

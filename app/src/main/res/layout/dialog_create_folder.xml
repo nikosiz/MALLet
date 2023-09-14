@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Create new folder"
-        android:textColor="@color/danube_blue_900"
+        android:textColor="@color/primaryTextColor"
         android:textSize="20sp" />
 
     <View
@@ -80,7 +80,7 @@
         android:focusable="true"
         android:gravity="center_vertical"
         android:text="Description"
-        android:textColor="@color/danube_blue_800"
+        android:textColor="@color/secondaryTextColor"
         android:textSize="15sp"
         app:drawableStartCompat="@drawable/ic_plus"
         app:drawableTint="@color/danube_blue_800" />
@@ -135,7 +135,7 @@
             android:layout_marginHorizontal="10dp"
             android:background="@drawable/bg_ripple"
             android:text="@string/cancel"
-            android:textColor="@color/danube_blue_800"
+            android:textColor="@color/secondaryTextColor"
             android:textSize="20sp" />
 
         <TextView
@@ -145,7 +145,7 @@
             android:layout_marginHorizontal="10dp"
             android:background="@drawable/bg_ripple"
             android:text="@string/ok"
-            android:textColor="@color/danube_blue_800"
+            android:textColor="@color/secondaryTextColor"
             android:textSize="20sp" />
     </LinearLayout>
 

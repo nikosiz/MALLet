@@ -148,22 +148,4 @@
     </style>
 
 
-</resources><!--
-<item name=""></item>
-<item name=""></item>
-<item name=""></item>
-<item name=""></item>
-<item name=""></item>
-
-    android:id="@+id/signup_confirm_btn"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/background_basic_btn"
-    android:maxWidth="10dp"
-    android:textSize="20sp"
-    app:backgroundTint="@null"
-    app:cornerRadius="20dp"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/signup_password_et"
-    app:rippleColor="@color/black" />-->
+</resources>

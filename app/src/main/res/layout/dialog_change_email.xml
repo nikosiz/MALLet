@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Change email"
-        android:textColor="@color/danube_blue_900"
+        android:textColor="@color/primaryTextColor"
         android:textSize="20sp" />
 
     <View
@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Enter new email you want to be assigned to your account"
-        android:textColor="@color/danube_blue_800"
+        android:textColor="@color/secondaryTextColor"
         android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@id/change_email_view_0" />
 
@@ -108,7 +108,7 @@
             android:layout_marginHorizontal="10dp"
             android:background="@drawable/bg_ripple"
             android:text="@string/cancel"
-            android:textColor="@color/danube_blue_800"
+            android:textColor="@color/secondaryTextColor"
             android:textSize="20sp" />
 
         <TextView
@@ -118,7 +118,7 @@
             android:layout_marginHorizontal="10dp"
             android:background="@drawable/bg_ripple"
             android:text="@string/ok"
-            android:textColor="@color/danube_blue_800"
+            android:textColor="@color/secondaryTextColor"
             android:textSize="20sp" />
     </LinearLayout>
 

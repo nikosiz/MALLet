@@ -116,7 +116,7 @@
                     android:focusable="true"
                     android:gravity="center_vertical"
                     android:text="Description"
-                    android:textColor="@color/danube_blue_800"
+                    android:textColor="@color/secondaryTextColor"
                     android:textSize="15sp"
                     app:drawableStartCompat="@drawable/ic_plus"
                     app:drawableTint="@color/danube_blue_800" />

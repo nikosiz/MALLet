@@ -77,13 +77,6 @@ public class Utils {
     }
 
 
-    public static void showDialog(Dialog dialog) {
-        if (dialog != null) {
-            dialog.show();
-        }
-    }
-
-
     public static void applySwipeTransformer(View page, float position) {
         float absPosition = Math.abs(position);
         float MIN_Y_SCALE = 0.9f;

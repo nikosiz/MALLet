@@ -33,7 +33,7 @@
             android:autoSizeTextType="uniform"
             android:singleLine="true"
             android:text="set_name"
-            android:textColor="@color/danube_blue_900"
+            android:textColor="@color/primaryTextColor"
             android:textSize="20sp" />
 
         <TextView
@@ -67,7 +67,7 @@
             android:gravity="center_vertical"
             android:singleLine="true"
             android:text="creator_name"
-            android:textColor="@color/danube_blue_800"
+            android:textColor="@color/secondaryTextColor"
             android:textSize="20sp"
             app:drawableStartCompat="@drawable/ic_profile"
             app:drawableTint="@color/danube_blue_800" />
