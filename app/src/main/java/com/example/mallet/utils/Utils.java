@@ -149,8 +149,6 @@ public class Utils {
     }
 
 
-
-
     // This stays, what is up, needs to be reviewed
 
     public static void setupAnimation(Context context, TextView logo) {
@@ -177,7 +175,7 @@ public class Utils {
                     Utils.showItem(err);
                     err.setText(errorMsg);
                 } else {
-                    Utils.hideItem(err); // Hide the error when input is valid
+                    Utils.hideItem(err);
                 }
             }
 
@@ -186,6 +184,40 @@ public class Utils {
             }
         });
     }
+
+    public static void setupConfirmPasswordTextWatcher(EditText newPassEt, EditText confirmNewPassEt, TextView confirmErrTv, Pattern p, String errMsg) {
+        confirmNewPassEt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String newPassword = newPassEt.getText().toString();
+                String confirmPassword = confirmNewPassEt.getText().toString();
+                if (confirmPassword.isEmpty()) {
+                    Utils.showItem(confirmErrTv);
+                    confirmErrTv.setText("This field cannot be empty");
+                } else if (confirmPassword.contains(" ")) {
+                    Utils.showItem(confirmErrTv);
+                    confirmErrTv.setText("Check your input for spaces");
+                } else if (!p.matcher(confirmPassword).matches()) {
+                    Utils.showItem(confirmErrTv);
+                    confirmErrTv.setText(errMsg);
+                } else if (!confirmPassword.equals(newPassword)) { // Use .equals() to compare string content
+                    Utils.showItem(confirmErrTv);
+                    confirmErrTv.setText("Passwords do not match");
+                } else {
+                    Utils.hideItem(confirmErrTv);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+    }
+
 
     public static void validateInput(EditText et, TextView errorTv, Pattern pattern, String invalidInputMsg) {
         String input = et.getText().toString().trim();
@@ -204,7 +236,7 @@ public class Utils {
         }
     }
 
-    public static boolean isErrorVisible(TextView errorTv) {
+    public static boolean isErrVisible(TextView errorTv) {
         return errorTv.getVisibility() == View.VISIBLE;
     }
 

@@ -32,7 +32,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     TextInputLayout setDescriptionTil;
     ScrollView scrollView;
     EditText setNameEt, setDescriptionEt;
-    TextView setNameErrorTv;
+    TextView setNameErrTv;
     private final Pattern namePattern = Pattern.compile(".*");
     private int termCounter = 0;
     EditText setTermEt, setDefinitionEt, setTranslationEt;
@@ -47,7 +47,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
         // Initialize views for email and password fields
         setNameEt = binding.editSetNameEt;
-        setNameErrorTv = binding.editSetErrorTv;
+        setNameErrTv = binding.editSetErrorTv;
         setDescriptionTil = binding.editSetDescriptionTil;
         Utils.hideItem(setDescriptionTil);
         setDescriptionEt = binding.editSetDescriptionEt;
@@ -77,7 +77,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     private void setupContents() {
         setupToolbar();
 
-        Utils.setupTextWatcher(setNameEt, setNameErrorTv, namePattern, "Set name incorrect");
+        Utils.setupTextWatcher(setNameEt, setNameErrTv, namePattern, "Set name incorrect");
 
         binding.editSetOptionsIv.setOnClickListener(v -> setOptionsDialog());
         binding.editSetSaveIv.setOnClickListener(v -> saveSet());

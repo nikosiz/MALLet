@@ -228,37 +228,6 @@
                 android:textColor="@color/primaryTextColor"
                 android:textSize="16sp" />
 
-            <LinearLayout
-                android:id="@+id/profile_versionLll"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:gravity="center_vertical"
-                android:minHeight="65dp"
-                android:orientation="vertical"
-                android:paddingHorizontal="30dp">
-
-                <TextView
-                    android:id="@+id/profile_versionTitleTv"
-                    style="@style/BasicBoldTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="bottom"
-                    android:text="@string/version"
-                    android:textColor="@color/primaryTextColor"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/profile_versionTv"
-                    style="@style/BasicSubTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="top"
-                    android:text="@string/app_version"
-                    android:textColor="@color/danube_blue_700"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="5dp" />

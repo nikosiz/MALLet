@@ -101,29 +101,29 @@ public class ActivityViewFolder extends AppCompatActivity {
         cancelBtn.setOnClickListener(v -> dialog.dismiss());
 
         confirmBtn.setOnClickListener(v -> {
-            TextView emptyNameError = binding.deleteFolderEmptyError;
-            TextView wrongNameError = binding.deleteFolderWrongPassError;
-            TextView checkboxError = binding.deleteFolderCheckboxError;
+            TextView emptyNameErr = binding.deleteFolderEmptyError;
+            TextView wrongNameErr = binding.deleteFolderWrongPassError;
+            TextView checkboxErr = binding.deleteFolderCheckboxError;
             TextInputEditText nameEditText = binding.deleteFolderNameEt;
 
             String password = Objects.requireNonNull(nameEditText.getText()).toString();
 
             if (TextUtils.isEmpty(password) && !deleteFolderCheckBox.isChecked()) {
-                emptyNameError.setVisibility(View.VISIBLE);
-                checkboxError.setVisibility(View.VISIBLE);
-                wrongNameError.setVisibility(View.GONE);
+                emptyNameErr.setVisibility(View.VISIBLE);
+                checkboxErr.setVisibility(View.VISIBLE);
+                wrongNameErr.setVisibility(View.GONE);
             } else if (!TextUtils.isEmpty(password) && !deleteFolderCheckBox.isChecked()) {
-                emptyNameError.setVisibility(View.GONE);
-                checkboxError.setVisibility(View.VISIBLE);
-                wrongNameError.setVisibility(View.GONE);
+                emptyNameErr.setVisibility(View.GONE);
+                checkboxErr.setVisibility(View.VISIBLE);
+                wrongNameErr.setVisibility(View.GONE);
             } else if (TextUtils.isEmpty(password) && deleteFolderCheckBox.isChecked()) {
-                emptyNameError.setVisibility(View.VISIBLE);
-                checkboxError.setVisibility(View.GONE);
-                wrongNameError.setVisibility(View.GONE);
+                emptyNameErr.setVisibility(View.VISIBLE);
+                checkboxErr.setVisibility(View.GONE);
+                wrongNameErr.setVisibility(View.GONE);
             } else {
                 // TODO: Add functionality for checking if the password is correct
-                emptyNameError.setVisibility(View.GONE);
-                checkboxError.setVisibility(View.GONE);
+                emptyNameErr.setVisibility(View.GONE);
+                checkboxErr.setVisibility(View.GONE);
                 Utils.showToast(this, "When we have backend, we will check if the name is correct. For now we just close this dialog");
                 dialog.dismiss();
             }

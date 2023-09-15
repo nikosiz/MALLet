@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/changeUsername_mainLl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_corners_rounded"
@@ -9,7 +10,7 @@
     android:paddingTop="30dp">
 
     <TextView
-        android:id="@+id/change_username_enter_email_title_tv"
+        android:id="@+id/changeUsername_titleTv"
         style="@style/BasicBoldTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,12 +19,11 @@
         android:textSize="20sp" />
 
     <View
-        android:id="@+id/change_username_view_0"
         android:layout_width="match_parent"
         android:layout_height="5dp" />
 
     <TextView
-        android:id="@+id/change_username_enter_email_tv"
+        android:id="@+id/changeUsernameTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Enter new username."
@@ -31,12 +31,11 @@
         android:textSize="20sp" />
 
     <View
-        android:id="@+id/change_username_view_1"
         android:layout_width="match_parent"
         android:layout_height="10dp" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/change_username_old_til"
+        android:id="@+id/changeUsernameTil"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:boxBackgroundMode="outline"
@@ -49,7 +48,7 @@
         app:hintTextColor="@color/danube_blue_700">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/change_username_new_et"
+            android:id="@+id/changeUsername_newEt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:autofillHints="emailAddress"
@@ -58,7 +57,7 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/change_username_already_exists_error_tv"
+            android:id="@+id/changeUsername_errorTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
@@ -66,27 +65,17 @@
             android:text="This username already exists."
             android:textColor="@color/carnation_red_600"
             android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/change_username_empty_error_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginBottom="5dp"
-            android:text="This field cannot be empty."
-            android:textColor="@color/carnation_red_600"
-            android:visibility="gone" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
-        android:id="@+id/change_username_cancel_confirm_btn"
+        android:id="@+id/changeUsername_cancelConfirmLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="end"
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/change_username_cancel_btn"
+            android:id="@+id/changeUsername_cancelTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
@@ -96,7 +85,7 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/change_username_confirm_btn"
+            android:id="@+id/changeUsername_confirmTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"

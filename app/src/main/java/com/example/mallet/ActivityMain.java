@@ -137,7 +137,7 @@ public class ActivityMain extends AppCompatActivity {
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
 
         EditText nameEt = dialogBinding.createSetNameEt;
-        TextView nameErrorTv = dialogBinding.createSetErrorTv;
+        TextView nameErrTv = dialogBinding.createSetErrorTv;
 
         TextView addDescriptionBtn = dialogBinding.createSetAddDescription;
         View aboveDescription = dialogBinding.createSetAboveDescriptionV;
@@ -153,7 +153,7 @@ public class ActivityMain extends AppCompatActivity {
         Utils.showItems(nameEt, addDescriptionBtn, cancelBtn, confirmBtn);
         Utils.hideItems(aboveDescription, descriptionTil);
 
-        Utils.setupTextWatcher(nameEt, nameErrorTv, Pattern.compile("^.*$"), "Please, enter a valid set name");
+        Utils.setupTextWatcher(nameEt, nameErrTv, Pattern.compile("^.*$"), "Please, enter a valid set name");
 
         addDescriptionBtn.setOnClickListener(v -> {
             clickCount++;
@@ -172,8 +172,8 @@ public class ActivityMain extends AppCompatActivity {
             String setDescription = Objects.requireNonNull(descriptionEt.getText()).toString().trim();
 
             if (setName.isEmpty()) {
-                Utils.showItem(nameErrorTv);
-                nameErrorTv.setText("This field cannot be empty");
+                Utils.showItem(nameErrTv);
+                nameErrTv.setText("This field cannot be empty");
                 return;
             }
 

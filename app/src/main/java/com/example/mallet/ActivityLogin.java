@@ -21,7 +21,7 @@ public class ActivityLogin extends AppCompatActivity {
     // Declare EditText fields for email and password
     private EditText emailEt, passwordEt;
     // Declare TextViews for email and password error messages
-    private TextView emailErrorTv, passwordErrorTv;
+    private TextView emailErrTv, passwordErrTv;
     // Binding for the activity's layout
     private ActivityLoginBinding binding;
     // Define password pattern using regex
@@ -40,9 +40,9 @@ public class ActivityLogin extends AppCompatActivity {
 
         // Initialize views for email and password fields
         emailEt = binding.loginEmailEt;
-        emailErrorTv = binding.loginEmailErrorTv;
+        emailErrTv = binding.loginEmailErrorTv;
         passwordEt = binding.loginPasswordEt;
-        passwordErrorTv = binding.loginPasswordErrorTv;
+        passwordErrTv = binding.loginPasswordErrorTv;
 
         // Call a method to set up UI elements and listeners
         setupContents();
@@ -53,8 +53,8 @@ public class ActivityLogin extends AppCompatActivity {
         setupAnimation();
 
         // Set up TextWatchers for email and password fields
-        Utils.setupTextWatcher(emailEt, emailErrorTv, Patterns.EMAIL_ADDRESS, emailIncorrectMsg);
-        Utils.setupTextWatcher(passwordEt, passwordErrorTv, passwordPattern, passwordIncorrect);
+        Utils.setupTextWatcher(emailEt, emailErrTv, Patterns.EMAIL_ADDRESS, emailIncorrectMsg);
+        Utils.setupTextWatcher(passwordEt, passwordErrTv, passwordPattern, passwordIncorrect);
 
         // Set up click listeners for various buttons and text views
         binding.loginForgotPasswordTv.setOnClickListener(v -> forgotPasswordDialog());
@@ -85,10 +85,10 @@ public class ActivityLogin extends AppCompatActivity {
         // Get the email EditText from the dialog
         EditText dialogEmailEt = dialogBinding.forgotPasswordEmailEt;
         // Get the error TextView from the dialog
-        TextView dialogErrorTv = dialogBinding.forgotPasswordErrorTv;
+        TextView dialogErrTv = dialogBinding.forgotPasswordErrorTv;
 
         // Set up a TextWatcher for the email field in the dialog
-        Utils.setupTextWatcher(dialogEmailEt, dialogErrorTv, Patterns.EMAIL_ADDRESS, emailIncorrectMsg);
+        Utils.setupTextWatcher(dialogEmailEt, dialogErrTv, Patterns.EMAIL_ADDRESS, emailIncorrectMsg);
 
         // Get the cancel TextView from the dialog
         TextView cancel = dialogBinding.forgotPasswordCancelTv;
@@ -102,9 +102,9 @@ public class ActivityLogin extends AppCompatActivity {
             String email = Objects.requireNonNull(dialogEmailEt.getText()).toString().trim();
 
             // Validate the email input in the dialog
-            Utils.validateInput(dialogEmailEt, dialogErrorTv, Patterns.EMAIL_ADDRESS, emailIncorrectMsg);
+            Utils.validateInput(dialogEmailEt, dialogErrTv, Patterns.EMAIL_ADDRESS, emailIncorrectMsg);
 
-            if (!Utils.isErrorVisible(dialogErrorTv)) {
+            if (!Utils.isErrVisible(dialogErrTv)) {
                 // TODO: Implement sending an email with a password-resetting link
                 dialog.dismiss();
                 Utils.showToast(this, "Email sent"); // Show a toast message
@@ -118,11 +118,11 @@ public class ActivityLogin extends AppCompatActivity {
         String password = passwordEt.getText().toString();
 
         // Validate email and password inputs
-        Utils.validateInput(emailEt, emailErrorTv, Patterns.EMAIL_ADDRESS, emailIncorrectMsg);
-        Utils.validateInput(passwordEt, passwordErrorTv, passwordPattern, passwordIncorrect);
+        Utils.validateInput(emailEt, emailErrTv, Patterns.EMAIL_ADDRESS, emailIncorrectMsg);
+        Utils.validateInput(passwordEt, passwordErrTv, passwordPattern, passwordIncorrect);
 
         // Check if there are no visible errors
-        if (!Utils.isErrorVisible(emailErrorTv) && !Utils.isErrorVisible(passwordErrorTv)) {
+        if (!Utils.isErrVisible(emailErrTv) && !Utils.isErrVisible(passwordErrTv)) {
             // TODO: Handle login through AuthenticationManager
             Utils.openActivity(this, ActivityMain.class); // Open the main activity
         } else {

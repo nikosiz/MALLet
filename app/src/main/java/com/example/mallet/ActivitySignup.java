@@ -23,7 +23,7 @@ public class ActivitySignup extends AppCompatActivity {
     // Declare EditText fields
     private EditText emailEt, passwordEt;
     // Declare TextViews for error messages
-    private TextView emailErrorTv, passwordErrorTv;
+    private TextView emailErrTv, passwordErrTv;
     // Binding for the activity's layout
     private ActivitySignupBinding binding;
     // Define password pattern using regex
@@ -47,12 +47,12 @@ public class ActivitySignup extends AppCompatActivity {
         // Initialize email EditText
         emailEt = binding.signupEmailEt;
         // Initialize email error TextView
-        emailErrorTv = binding.signupEmailErrorTv;
+        emailErrTv = binding.signupEmailErrorTv;
 
         // Initialize password EditText
         passwordEt = binding.signupPasswordEt;
         // Initialize password error TextView
-        passwordErrorTv = binding.signupPasswordErrorTv;
+        passwordErrTv = binding.signupPasswordErrorTv;
 
         // Call a method to set up UI elements and listeners
         setupContents();
@@ -63,9 +63,9 @@ public class ActivitySignup extends AppCompatActivity {
         setupAnimation();
 
         // Set up TextWatcher for email field
-        Utils.setupTextWatcher(emailEt, emailErrorTv, Patterns.EMAIL_ADDRESS, emailIncorrectMsg);
+        Utils.setupTextWatcher(emailEt, emailErrTv, Patterns.EMAIL_ADDRESS, emailIncorrectMsg);
         // Set up TextWatcher for password field
-        Utils.setupTextWatcher(passwordEt, passwordErrorTv, passwordPattern, passwordIncorrect);
+        Utils.setupTextWatcher(passwordEt, passwordErrTv, passwordPattern, passwordIncorrect);
 
         // Set up click listener for continue button
         binding.signupContinueTv.setOnClickListener(v -> validateSignupData());
@@ -98,10 +98,10 @@ public class ActivitySignup extends AppCompatActivity {
         // Get the username EditText from the dialog
         EditText dialogUsernameEt = dialogBinding.chooseUsernameEt;
         // Get the error TextView from the dialog
-        TextView dialogErrorTv = dialogBinding.chooseUsernameErrorTv;
+        TextView dialogErrTv = dialogBinding.chooseUsernameErrorTv;
 
         // Set up TextWatcher for the username field in the dialog
-        Utils.setupTextWatcher(dialogUsernameEt, dialogErrorTv, usernamePattern, usernameIncorrect);
+        Utils.setupTextWatcher(dialogUsernameEt, dialogErrTv, usernamePattern, usernameIncorrect);
 
         // Get the cancel TextView from the dialog
         TextView cancel = dialogBinding.chooseUsernameCancelTv;
@@ -117,9 +117,9 @@ public class ActivitySignup extends AppCompatActivity {
             System.out.println(email + "\n" + password + "\n" + username); // Print email, password, and username
 
             // Validate the username input
-            Utils.validateInput(dialogUsernameEt, dialogErrorTv, usernamePattern, usernameIncorrect);
+            Utils.validateInput(dialogUsernameEt, dialogErrTv, usernamePattern, usernameIncorrect);
 
-            if (!Utils.isErrorVisible(dialogErrorTv)) {
+            if (!Utils.isErrVisible(dialogErrTv)) {
                 // TODO: Implement sending an email with a password-resetting link
                 dialog.dismiss(); // Dismiss the dialog
                 confirmAccountDialog(); // Call a method to show the confirmation dialog
@@ -133,11 +133,11 @@ public class ActivitySignup extends AppCompatActivity {
         String enteredPassword = passwordEt.getText().toString(); // Get entered password
 
         // Validate email input
-        Utils.validateInput(emailEt, emailErrorTv, Patterns.EMAIL_ADDRESS, emailIncorrectMsg);
+        Utils.validateInput(emailEt, emailErrTv, Patterns.EMAIL_ADDRESS, emailIncorrectMsg);
         // Validate password input
-        Utils.validateInput(passwordEt, passwordErrorTv, passwordPattern, passwordIncorrect);
+        Utils.validateInput(passwordEt, passwordErrTv, passwordPattern, passwordIncorrect);
 
-        if (!Utils.isErrorVisible(emailErrorTv) && !Utils.isErrorVisible(passwordErrorTv)) {
+        if (!Utils.isErrVisible(emailErrTv) && !Utils.isErrVisible(passwordErrTv)) {
             // Assign entered email to the class variable
             email = enteredEmail;
             // Assign entered password to the class variable
@@ -166,11 +166,11 @@ public class ActivitySignup extends AppCompatActivity {
         TextView confirm = dialogBinding.confirmAccountOpenTv;
 
         cancel.setOnClickListener(v -> {
-            Utils.resetEditText(emailEt, emailErrorTv); // Reset email EditText and error TextView
-            Utils.resetEditText(passwordEt, passwordErrorTv); // Reset password EditText and error TextView
+            Utils.resetEditText(emailEt, emailErrTv); // Reset email EditText and error TextView
+            Utils.resetEditText(passwordEt, passwordErrTv); // Reset password EditText and error TextView
             dialog.dismiss(); // Dismiss the dialog
             System.out.println("Email and password ETs reset"); // Print a message
-            Utils.hideItems(emailErrorTv, passwordErrorTv);
+            Utils.hideItems(emailErrTv, passwordErrTv);
         });
 
         confirm.setOnClickListener(v -> {
