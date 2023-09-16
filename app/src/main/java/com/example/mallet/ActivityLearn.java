@@ -69,17 +69,32 @@ public class ActivityLearn extends AppCompatActivity {
             ModelLearningSet learningSet = intent.getParcelableExtra("learningSet");
             if (learningSet != null) {
                 String setName = learningSet.getName();
+                String setDescription = learningSet.getDescription();
                 String setCreator = learningSet.getCreator();
                 String numberOfTerms = String.valueOf(learningSet.getNumberOfTerms());
 
-                String setDescription = learningSet.getDescription();
+                List<ModelFlashcard> flashcards = learningSet.getTerms();
+
+                /*Bundle bundle = new Bundle();
+                bundle.putString("setName", setName);
+                bundle.putString("setCreator", setCreator);
+                bundle.putString("numberOfTerms", numberOfTerms);
+                bundle.putString("setDescription", setDescription);
+
+                // Pass the bundle as arguments to your Fragment
+                FragmentFlashcards fragment = new FragmentFlashcards();
+                fragment.setArguments(bundle);
+
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.flashcardsCsv, fragment)
+                        .commit();*/
 
                 TextView setNameTv = binding.learnSetNameTv;
                 TextView setCreatorTv = binding.learnSetCreatorTv;
                 TextView setDescriptionTv = binding.learnSetDescriptionTv;
                 TextView setTermsTv = binding.learnSetNumberOfTermsTv;
 
-                List<ModelFlashcard> flashcards = learningSet.getTerms();
 
                 if (setName != null) {
                     setNameTv.setText(setName);
@@ -97,7 +112,7 @@ public class ActivityLearn extends AppCompatActivity {
                 setTermsTv.setText(numberOfTerms + " terms");
             }
         }
-//        System.out.println("Data received from ActivityViewLearningSet: "+learningSet.getName());
+        //System.out.println("Data received from ActivityViewLearningSet: "+learningSet.getName());
     }
 
     private void displayData

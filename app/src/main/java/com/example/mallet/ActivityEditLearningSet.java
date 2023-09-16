@@ -69,8 +69,11 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         }
 
         // Use learningSetTerms to populate your flashcards or terms UI elements
-        assert learningSetTerms != null;
-        populateFlashcardsUI(learningSetTerms);
+        if (learningSetTerms != null) {
+            populateFlashcardsUI(learningSetTerms);
+        }
+
+        setDescriptionEt.setText(learningSetDescription);
     }
 
 

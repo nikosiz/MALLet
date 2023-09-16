@@ -1,5 +1,6 @@
 package com.example.mallet;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
 
+import com.example.mallet.databinding.DialogEditSetToolbarOptionsBinding;
 import com.example.mallet.databinding.FragmentFlashcardsBinding;
 import com.example.mallet.utils.AdapterFlashcardStack;
 import com.example.mallet.utils.Utils;
@@ -42,7 +44,7 @@ public class FragmentFlashcards extends Fragment {
         binding = FragmentFlashcardsBinding.inflate(inflater, container, false);
 
         setupCardStackView();
-        setupSwipeButtons();
+        setuoContents();
         setupToolbar();
 
         return binding.getRoot();
@@ -132,17 +134,23 @@ public class FragmentFlashcards extends Fragment {
         manager.setCanScrollVertical(false);
 
         adapter = new AdapterFlashcardStack(addList());
-        binding.cardStackView.setLayoutManager(manager);
-        binding.cardStackView.setAdapter(adapter);
-        binding.cardStackView.setItemAnimator(new DefaultItemAnimator());
+        binding.flashcardsCsv.setLayoutManager(manager);
+        binding.flashcardsCsv.setAdapter(adapter);
+        binding.flashcardsCsv.setItemAnimator(new DefaultItemAnimator());
     }
 
-    private void setupSwipeButtons() {
+    private void setuoContents() {
+        binding.flashcardsOptionsIv.setOnClickListener(v->flashcardsOptionsDialog());
         binding.learnSwipeLeftBtn.setOnClickListener(v -> performSwipe(Direction.Left));
-
         binding.learnSwipeRightBtn.setOnClickListener(v -> performSwipe(Direction.Right));
-
         binding.learnUndoBtn.setOnClickListener(v -> undoSwipe());
+    }
+
+    private void flashcardsOptionsDialog() {
+        final Dialog dialog = Utils.createDialog(getContext(), R.layout.dialog_flashcard_options);
+        DialogEditSetToolbarOptionsBinding dialogBinding = DialogEditSetToolbarOptionsBinding.inflate(LayoutInflater.from(getContext()));
+        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
+        dialog.show();
     }
 
     private void performSwipe(Direction direction) {
@@ -162,7 +170,7 @@ public class FragmentFlashcards extends Fragment {
                         .build());
             }
 
-            binding.cardStackView.swipe();
+            binding.flashcardsCsv.swipe();
         } else {
             Toast.makeText(requireContext(), "No more cards to swipe", Toast.LENGTH_SHORT).show();
         }
@@ -171,13 +179,18 @@ public class FragmentFlashcards extends Fragment {
     private void undoSwipe() {
         int currentPosition = manager.getTopPosition();
         if (currentPosition > 0) { // Check if there are cards to rewind
-            binding.cardStackView.rewind();
+            binding.flashcardsCsv.rewind();
         } else {
             Toast.makeText(requireContext(), "No more cards to undo", Toast.LENGTH_SHORT).show();
         }
     }
 
     private List<ModelFlashcard> addList() {
+
+
+
+
+
         return Utils.readFlashcardsFromFile(requireContext(), "animals.txt");
     }
 }
