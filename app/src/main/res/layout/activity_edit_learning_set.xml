@@ -5,17 +5,36 @@
     android:id="@+id/editSet_mainCl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityEditLearningSet">
+
+    android:background="@color/colorPrimaryLight"
+    tools:context=".ActivityEditLearningSet"
+    tools:ignore="Overdraw">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/editSet_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/danube_blue_600"
+        android:layout_gravity="center_vertical"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/editSet_toolbarBackIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/bg_ripple"
+            android:clickable="true"
+            android:contentDescription="toolbar options"
+            android:focusable="true"
+            android:src="@drawable/ic_arrow_back"
+            app:tint="@color/colorPrimaryDark" />
 
         <TextView
             android:id="@+id/editSet_toolbarTitleTv"
@@ -24,7 +43,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:text="Edit set"
-            android:textColor="@color/white"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="30sp" />
 
         <ImageView
@@ -39,7 +58,7 @@
             android:contentDescription="set options"
             android:focusable="true"
             android:src="@drawable/ic_check"
-            app:tint="@color/white" />
+            app:tint="@color/colorPrimaryDark" />
 
         <ImageView
             android:id="@+id/editSet_optionsIv"
@@ -52,7 +71,7 @@
             android:contentDescription="set options"
             android:focusable="true"
             android:src="@drawable/ic_settings"
-            app:tint="@color/white" />
+            app:tint="@color/colorPrimaryDark" />
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -160,13 +179,16 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floating_action_button"
+        android:id="@+id/editSet_addFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="16dp"
+        android:layout_margin="25dp"
         android:contentDescription="add term btn"
+        android:elevation="5dp"
+        app:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_plus" />
+        app:srcCompat="@drawable/ic_plus"
+        app:tint="@color/white" />
 </androidx.constraintlayout.widget.ConstraintLayout>

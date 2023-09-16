@@ -1,11 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/test_mainLl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryLight"
     android:gravity="center"
     tools:context=".FragmentTest">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/test_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/test_toolbarBackIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/bg_ripple"
+            android:clickable="true"
+            android:contentDescription="toolbar options"
+            android:focusable="true"
+            android:src="@drawable/ic_arrow_back"
+            app:tint="@color/colorPrimaryDark" />
+
+        <ImageView
+            android:id="@+id/test_toolbarOptionsIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginHorizontal="20dp"
+            android:background="@drawable/bg_ripple"
+            android:clickable="true"
+            android:contentDescription="toolbar options"
+            android:focusable="true"
+            android:src="@drawable/ic_toolbar_options"
+            app:tint="@color/colorPrimaryDark" />
+    </androidx.appcompat.widget.Toolbar>
 
     <TextView
         android:layout_width="wrap_content"
@@ -18,4 +59,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

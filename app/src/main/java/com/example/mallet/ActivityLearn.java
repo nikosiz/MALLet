@@ -2,7 +2,6 @@ package com.example.mallet;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,37 +13,39 @@ import com.example.mallet.databinding.ActivityLearnBinding;
 import com.example.mallet.utils.Utils;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ActivityLearn extends AppCompatActivity {
 
     private ActivityLearnBinding binding;
-    ModelLearningSet learningSet;
 
-    // In ActivityLearn, read the flashcards and pass them to FragmentLearn
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Inflate the layout using data binding
         binding = ActivityLearnBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Retrieve the fragment class name from the intent
         String fragmentClassName = getIntent().getStringExtra("fragment_class");
 
+        // Check if a fragment class is specified
         if (fragmentClassName != null) {
             try {
-                // Load the specified fragment
+                // Load the specified fragment dynamically
                 Fragment fragment = (Fragment) Class.forName(fragmentClassName).newInstance();
 
-                // Pass the flashcards to the fragment
+                // Pass the flashcards to the fragment via arguments
                 Bundle args = new Bundle();
                 ArrayList<ModelFlashcard> flashcards = getIntent().getParcelableArrayListExtra("learningSetFlashcards");
                 args.putParcelableArrayList("learningSetFlashcards", flashcards);
                 fragment.setArguments(args);
 
-                // TODO: Delete these two lines when data sharing is done well
+                // TODO: Remove these lines when data sharing is handled correctly
                 LinearLayout dataCheckLl = binding.learnDataLl;
                 dataCheckLl.setVisibility(View.GONE);
 
+                // Replace the fragment container with the loaded fragment
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.learn_mainLl, fragment)
                         .commit();
@@ -52,53 +53,46 @@ public class ActivityLearn extends AppCompatActivity {
                 e.printStackTrace();
             }
         } else {
-            // No fragment specified, load a layout (for example, activity_learn.xml)
+            // If no fragment class is specified, load a default layout
             setContentView(R.layout.activity_learn); // Replace with your layout resource ID
         }
 
-        learningSet = getIntent().getParcelableExtra("learningSet");
-        displayData(Utils.createFlashcardList(learningSet), binding.learnSetTermsLl, getLayoutInflater());
-
-        getLearningSetData();
+        // Retrieve and display learning set data
+        getAndDisplayLearningSetData();
     }
 
-
-    private void getLearningSetData() {
+    private void getAndDisplayLearningSetData() {
+        // Retrieve the intent associated with this activity
         Intent intent = getIntent();
-        if (intent != null) {
+
+        // Check if the intent exists and contains the "learningSet" extra
+        if (intent != null && intent.hasExtra("learningSet")) {
+            // Get the learning set data from the intent
             ModelLearningSet learningSet = intent.getParcelableExtra("learningSet");
+
+            // Check if the learning set data is not null
             if (learningSet != null) {
+                // Retrieve various attributes of the learning set
                 String setName = learningSet.getName();
                 String setDescription = learningSet.getDescription();
                 String setCreator = learningSet.getCreator();
                 String numberOfTerms = String.valueOf(learningSet.getNumberOfTerms());
 
-                List<ModelFlashcard> flashcards = learningSet.getTerms();
+                // Print the received data to the console
+                System.out.println("Received Data:");
+                System.out.println("setName: " + setName);
+                System.out.println("setDescription: " + setDescription);
+                System.out.println("setCreator: " + setCreator);
+                System.out.println("numberOfTerms: " + numberOfTerms);
 
-                /*Bundle bundle = new Bundle();
-                bundle.putString("setName", setName);
-                bundle.putString("setCreator", setCreator);
-                bundle.putString("numberOfTerms", numberOfTerms);
-                bundle.putString("setDescription", setDescription);
-
-                // Pass the bundle as arguments to your Fragment
-                FragmentFlashcards fragment = new FragmentFlashcards();
-                fragment.setArguments(bundle);
-
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.flashcardsCsv, fragment)
-                        .commit();*/
-
+                // Update TextViews with the retrieved data
                 TextView setNameTv = binding.learnSetNameTv;
                 TextView setCreatorTv = binding.learnSetCreatorTv;
                 TextView setDescriptionTv = binding.learnSetDescriptionTv;
                 TextView setTermsTv = binding.learnSetNumberOfTermsTv;
 
+                setNameTv.setText(setName);
 
-                if (setName != null) {
-                    setNameTv.setText(setName);
-                }
 
                 if (setCreator != null) {
                     setCreatorTv.setText(setCreator);
@@ -109,29 +103,10 @@ public class ActivityLearn extends AppCompatActivity {
                     setDescriptionTv.setText(setDescription);
                 }
 
-                setTermsTv.setText(numberOfTerms + " terms");
+                if (numberOfTerms != null) {
+                    setTermsTv.setText(numberOfTerms + " terms");
+                }
             }
-        }
-        //System.out.println("Data received from ActivityViewLearningSet: "+learningSet.getName());
-    }
-
-    private void displayData
-            (List<ModelFlashcard> flashcards, LinearLayout linearLayout, LayoutInflater inflater) {
-        linearLayout.removeAllViews();
-
-        for (ModelFlashcard flashcard : flashcards) {
-            View flashcardItemView = inflater.inflate(R.layout.model_flashcard, linearLayout, false);
-
-            TextView flashcardTermTv = flashcardItemView.findViewById(R.id.flashcard_termTv);
-            flashcardTermTv.setText(flashcard.getTerm());
-
-            TextView flashcardDefinitionTv = flashcardItemView.findViewById(R.id.flashcard_definitionTv);
-            flashcardDefinitionTv.setText(flashcard.getDefinition());
-
-            TextView flashcardTranslationTv = flashcardItemView.findViewById(R.id.flashcard_translationTv);
-            flashcardTranslationTv.setText(flashcard.getTranslation());
-
-            linearLayout.addView(flashcardItemView);
         }
     }
 

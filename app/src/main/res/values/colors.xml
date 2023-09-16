@@ -5,7 +5,7 @@
     <color name="white">#FFFFFF</color>
 
     <!-- Light theme values -->
-    <color name="colorPrimaryLight">@color/danube_blue_100</color>
+    <color name="colorPrimaryLight">@color/danube_blue_50</color>
     <color name="colorPrimary">@color/danube_blue_500</color>
     <color name="colorPrimaryDark">@color/danube_blue_900</color>
 

@@ -25,18 +25,17 @@ import java.util.Random;
 
 public class FragmentLearn extends Fragment {
 
-    FragmentLearnBinding binding;
     private Dialog resultDialog; // Declare the Dialog as a class member
     private TextView questionTv, questionNumberTV;
     private Button answerOneBtn, answerTwoBtn, answerThreeBtn, answerFourBtn;
     private ArrayList<ModelQuizABCD> modelLearnArrayList;
-    Random random;
+    private Random random;
     int currentScore = 0, questionAttempted = 1, currentPos;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentLearnBinding.inflate(inflater, container, false);
+        com.example.mallet.databinding.FragmentLearnBinding binding = FragmentLearnBinding.inflate(inflater, container, false);
 
         questionTv = binding.learnQuestionTv;
 

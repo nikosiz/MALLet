@@ -35,13 +35,13 @@ public class FragmentHome extends Fragment {
 
         assert activityMain != null;
         List<ModelLearningSet> learningSets = activityMain.createSetList();
-        setupViewPager(binding.homeSetsViewpager, learningSets);
+        setupViewPager(binding.homeSetsViewPager, learningSets);
 
         List<ModelFolder> folders = activityMain.createFolderList();
-        setupViewPager(binding.homeSetsViewpager, folders);
+        setupViewPager(binding.homeSetsViewPager, folders);
 
         List<ModelGroup> groups = activityMain.createGroupList();
-        setupViewPager(binding.homeSetsViewpager, groups);
+        setupViewPager(binding.homeSetsViewPager, groups);
 
         // Set up click listeners for "View All" buttons
         setupContents();
@@ -50,7 +50,7 @@ public class FragmentHome extends Fragment {
     }
 
     private void setupContents() {
-        binding.homeLearningSetViewAllTv.setOnClickListener(v -> showAllItems("Learning Sets"));
+        binding.homeSetViewAllTv.setOnClickListener(v -> showAllItems("Learning Sets"));
         binding.homeFolderViewAllTv.setOnClickListener(v -> showAllItems("Folders"));
         binding.homeGroupViewAllTv.setOnClickListener(v -> showAllItems("Groups"));
     }
@@ -60,7 +60,7 @@ public class FragmentHome extends Fragment {
         if (!itemList.isEmpty()) {
             Object item = itemList.get(0);
             if (item instanceof ModelLearningSet) {
-                viewPager = binding.homeSetsViewpager;
+                viewPager = binding.homeSetsViewPager;
                 AdapterLearningSet adapterSets = new AdapterLearningSet(getContext(), activityMain.createSetList(), learningSet -> {
                     Intent intent = new Intent(getContext(), ActivityViewLearningSet.class);
 
@@ -74,14 +74,14 @@ public class FragmentHome extends Fragment {
 
                 viewPager.setPageTransformer(Utils::applySwipeTransformer);
             } else if (item instanceof ModelFolder) {
-                viewPager = binding.homeFoldersViewpager;
+                viewPager = binding.homeFoldersViewPager;
                 AdapterFolder adapterFolders = new AdapterFolder(getContext(), activityMain.createFolderList(), v -> Utils.openActivity(getContext(), ActivityViewFolder.class));
 
                 viewPager.setAdapter(adapterFolders);
 
                 viewPager.setPageTransformer(Utils::applySwipeTransformer);
             } else if (item instanceof ModelGroup) {
-                viewPager = binding.homeGroupsViewpager;
+                viewPager = binding.homeGroupsViewPager;
                 AdapterGroup adapterGroups = new AdapterGroup(getContext(), activityMain.createGroupList(), v -> Utils.openActivity(getContext(), ActivityViewGroup.class));
                 viewPager.setAdapter(adapterGroups);
 

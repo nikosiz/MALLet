@@ -1,10 +1,14 @@
 package com.example.mallet;
 
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,7 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
 
-import com.example.mallet.databinding.DialogEditSetToolbarOptionsBinding;
+import com.example.mallet.databinding.DialogFlashcardOptionsBinding;
 import com.example.mallet.databinding.FragmentFlashcardsBinding;
 import com.example.mallet.utils.AdapterFlashcardStack;
 import com.example.mallet.utils.Utils;
@@ -44,7 +48,7 @@ public class FragmentFlashcards extends Fragment {
         binding = FragmentFlashcardsBinding.inflate(inflater, container, false);
 
         setupCardStackView();
-        setuoContents();
+        setupContents();
         setupToolbar();
 
         return binding.getRoot();
@@ -57,7 +61,7 @@ public class FragmentFlashcards extends Fragment {
 
         // Display back arrow on the toolbar
         if (((AppCompatActivity) requireActivity()).getSupportActionBar() != null) {
-            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
             ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
     }
@@ -139,8 +143,8 @@ public class FragmentFlashcards extends Fragment {
         binding.flashcardsCsv.setItemAnimator(new DefaultItemAnimator());
     }
 
-    private void setuoContents() {
-        binding.flashcardsOptionsIv.setOnClickListener(v->flashcardsOptionsDialog());
+    private void setupContents() {
+        binding.flashcardsToolbarOptionsIv.setOnClickListener(v -> flashcardsOptionsDialog());
         binding.learnSwipeLeftBtn.setOnClickListener(v -> performSwipe(Direction.Left));
         binding.learnSwipeRightBtn.setOnClickListener(v -> performSwipe(Direction.Right));
         binding.learnUndoBtn.setOnClickListener(v -> undoSwipe());
@@ -148,7 +152,10 @@ public class FragmentFlashcards extends Fragment {
 
     private void flashcardsOptionsDialog() {
         final Dialog dialog = Utils.createDialog(getContext(), R.layout.dialog_flashcard_options);
-        DialogEditSetToolbarOptionsBinding dialogBinding = DialogEditSetToolbarOptionsBinding.inflate(LayoutInflater.from(getContext()));
+        DialogFlashcardOptionsBinding dialogBinding = DialogFlashcardOptionsBinding.inflate(LayoutInflater.from(getContext()));
+        if (dialog != null) {
+            Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        }
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
         dialog.show();
     }
@@ -188,9 +195,15 @@ public class FragmentFlashcards extends Fragment {
     private List<ModelFlashcard> addList() {
 
 
-
-
-
         return Utils.readFlashcardsFromFile(requireContext(), "animals.txt");
+    }
+
+    private Dialog createDialog(int layoutResId) {
+        final Dialog dialog = new Dialog(requireContext());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(layoutResId);
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+        return dialog;
     }
 }

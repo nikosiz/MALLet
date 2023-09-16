@@ -12,10 +12,7 @@
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:autoSizeMaxTextSize="20sp"
-        android:autoSizeMinTextSize="15sp"
-        android:autoSizeStepGranularity="2sp"
-        android:autoSizeTextType="uniform"
+
         android:background="@drawable/bg_ripple"
         android:clickable="true"
         android:drawablePadding="35dp"
@@ -57,10 +54,7 @@
         android:layout_width="match_parent"
 
         android:layout_height="wrap_content"
-        android:autoSizeMaxTextSize="20sp"
-        android:autoSizeMinTextSize="15sp"
-        android:autoSizeStepGranularity="2sp"
-        android:autoSizeTextType="uniform"
+
         android:background="@drawable/bg_ripple"
 
         android:clickable="true"

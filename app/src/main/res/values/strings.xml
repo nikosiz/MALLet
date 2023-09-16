@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">MALLet</string>
     <string name="app_logo">M</string>
+
     <string name="create_new_set">Create new set</string>
     <string name="create_new_folder">Create new folder</string>
     <string name="create_new_group">Create new group</string>
+
     <string name="delete_account">Delete account</string>
     <string name="version">Version</string>
     <string name="about">About</string>

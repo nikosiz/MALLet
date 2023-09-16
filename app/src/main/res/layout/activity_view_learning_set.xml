@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/danube_blue_100"
+    android:background="@color/colorPrimaryLight"
     android:fitsSystemWindows="true"
     tools:context=".ActivityViewLearningSet"
     tools:ignore="Overdraw">
@@ -14,9 +14,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/flashcards_backIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/bg_ripple"
+            android:clickable="true"
+            android:contentDescription="toolbar options"
+            android:focusable="true"
+            android:src="@drawable/ic_arrow_back"
+            app:tint="@color/colorPrimaryDark" />
 
         <ImageView
             android:id="@+id/view_set_options_btn"
@@ -29,9 +45,8 @@
             android:contentDescription="toolbar options"
             android:focusable="true"
             android:src="@drawable/ic_toolbar_options"
-            app:tint="@color/white" />
+            app:tint="@color/colorPrimaryDark" />
     </androidx.appcompat.widget.Toolbar>
-
 
     <ScrollView
         android:layout_width="match_parent"
@@ -45,6 +60,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingHorizontal="20dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/view_set_viewpager"

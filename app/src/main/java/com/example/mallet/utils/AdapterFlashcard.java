@@ -14,13 +14,14 @@ import com.example.mallet.R;
 import java.util.List;
 
 public class AdapterFlashcard extends RecyclerView.Adapter<AdapterFlashcard.FlashcardViewHolder> {
+
     private final List<ModelFlashcard> flashcards;
-    private final AdapterFlashcard.OnFlashcardClickListener flashcardClickListener;
+    private boolean isFlipped = false;
+    private final View.OnClickListener clickListener;
 
-
-    public AdapterFlashcard(List<ModelFlashcard> flashcards, AdapterFlashcard.OnFlashcardClickListener flashcardClickListener) {
+    public AdapterFlashcard(List<ModelFlashcard> flashcards, View.OnClickListener clickListener) {
         this.flashcards = flashcards;
-        this.flashcardClickListener = flashcardClickListener;
+        this.clickListener = clickListener;
     }
 
     @NonNull
@@ -33,14 +34,24 @@ public class AdapterFlashcard extends RecyclerView.Adapter<AdapterFlashcard.Flas
     @Override
     public void onBindViewHolder(@NonNull FlashcardViewHolder holder, int position) {
         ModelFlashcard flashcard = flashcards.get(position);
-        holder.termTV.setText(flashcard.getTerm());
-        holder.definitionTV.setText(flashcard.getDefinition());
-        holder.translationTV.setText(flashcard.getTranslation());
 
-        // Set a click listener for the group item
-        holder.itemView.setOnClickListener(view -> {
-            if (flashcardClickListener != null) {
-                flashcardClickListener.onFlashcardClick(flashcard);
+        if (isFlipped) {
+            holder.termTv.setVisibility(View.GONE);
+
+            holder.translationTv.setVisibility(View.VISIBLE);
+            holder.translationTv.setText(flashcard.getTranslation());
+        } else {
+            holder.termTv.setVisibility(View.VISIBLE);
+            holder.termTv.setText(flashcard.getTerm());
+
+            holder.translationTv.setVisibility(View.GONE);
+        }
+
+        holder.itemView.setOnClickListener(v -> {
+            isFlipped = !isFlipped;
+            notifyDataSetChanged();
+            if (clickListener != null) {
+                clickListener.onClick(v);
             }
         });
     }
@@ -51,19 +62,19 @@ public class AdapterFlashcard extends RecyclerView.Adapter<AdapterFlashcard.Flas
     }
 
     static class FlashcardViewHolder extends RecyclerView.ViewHolder {
-        final TextView termTV;
-        final TextView translationTV;
-        final TextView definitionTV;
+        final TextView termTv;
+        final View definitionView;
+        final TextView definitionTv;
+        final View translationView;
+        final TextView translationTv;
 
         FlashcardViewHolder(View itemView) {
             super(itemView);
-            termTV = itemView.findViewById(R.id.flashcard_termTv);
-            definitionTV = itemView.findViewById(R.id.flashcard_definitionTv);
-            translationTV = itemView.findViewById(R.id.flashcard_translationTv);
+            termTv = itemView.findViewById(R.id.flashcard_termTv);
+            definitionView = itemView.findViewById(R.id.flashcard_definitionV);
+            definitionTv = itemView.findViewById(R.id.flashcard_definitionTv);
+            translationView = itemView.findViewById(R.id.flashcard_translationV);
+            translationTv = itemView.findViewById(R.id.flashcard_translationTv);
         }
-    }
-
-    public interface OnFlashcardClickListener {
-        void onFlashcardClick(ModelFlashcard flashcard);
     }
 }

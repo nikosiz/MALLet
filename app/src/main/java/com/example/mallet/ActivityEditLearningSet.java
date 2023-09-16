@@ -29,15 +29,15 @@ import java.util.regex.Pattern;
 
 public class ActivityEditLearningSet extends AppCompatActivity {
     private ActivityEditLearningSetBinding binding;
-    TextInputLayout setDescriptionTil;
-    ScrollView scrollView;
-    EditText setNameEt, setDescriptionEt;
-    TextView setNameErrTv;
+    private TextInputLayout setDescriptionTil;
+    private ScrollView scrollView;
+    private EditText setNameEt, setDescriptionEt;
+    private TextView setNameErrTv;
     private final Pattern namePattern = Pattern.compile(".*");
     private int termCounter = 0;
-    EditText setTermEt, setDefinitionEt, setTranslationEt;
-    LinearLayout flashcardsLl;
-    FloatingActionButton addTermFab;
+    private EditText setTermEt, setDefinitionEt, setTranslationEt;
+    private LinearLayout flashcardsLl;
+    private FloatingActionButton addTermFab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +53,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         setDescriptionEt = binding.editSetDescriptionEt;
         scrollView = binding.editSetFlashcardsSv;
         flashcardsLl = binding.editSetCardsLl;
-        addTermFab = binding.floatingActionButton;
+        addTermFab = binding.editSetAddFab;
 
         // Initialize and set up the toolbar
         setupContents();
@@ -94,10 +94,6 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         Toolbar toolbar = binding.editSetToolbar;
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle("");
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
 
         binding.editSetOptionsIv.setOnClickListener(v -> setOptionsDialog());
     }
@@ -261,6 +257,12 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
             linearLayout.addView(folderItemView);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        System.out.println(getClass().getSimpleName() + " was closed");
+        finish();
     }
 
     // TODO: Replace with actual data containing account's folders and groups

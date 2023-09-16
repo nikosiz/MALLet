@@ -26,7 +26,7 @@ public class AdapterFlashcardStack extends RecyclerView.Adapter<AdapterFlashcard
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Inflate the flashcardcard.xml layout for each item view
+        // Inflate the flashcard.xml layout for each item view
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.model_flashcard, parent, false);
         return new ViewHolder(view);
@@ -36,6 +36,15 @@ public class AdapterFlashcardStack extends RecyclerView.Adapter<AdapterFlashcard
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // Bind data to the views within the ViewHolder
         holder.setData(items.get(position));
+
+        // Set an OnClickListener to toggle the visibility of the translation
+        holder.itemView.setOnClickListener(v -> {
+            if (holder.translation.getVisibility() == View.VISIBLE) {
+                holder.translation.setVisibility(View.GONE);
+            } else {
+                holder.translation.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     @Override
@@ -63,6 +72,9 @@ public class AdapterFlashcardStack extends RecyclerView.Adapter<AdapterFlashcard
             term.setText(data.getTerm());
             definition.setText(data.getDefinition());
             translation.setText(data.getTranslation());
+
+            // Initially, set the translation view to GONE
+            translation.setVisibility(View.GONE);
         }
     }
 

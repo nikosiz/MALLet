@@ -44,16 +44,10 @@ public class ActivityViewFolder extends AppCompatActivity {
         Toolbar toolbar = binding.viewFolderToolbar;
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle(""); // Set the title to an empty string
-
-        // Display back arrow on the toolbar
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        }
     }
 
     private void setupListeners() {
-        binding.viewFolderOptionsBtn.setOnClickListener(v -> showOptions());
+        binding.viewFolderToolbarOptionsIv.setOnClickListener(v -> showOptions());
     }
 
     private void showOptions() {
@@ -158,9 +152,9 @@ public class ActivityViewFolder extends AppCompatActivity {
             String folderCreator = intent.getStringExtra("folder_creator");
             String folderSets = intent.getStringExtra("folder_sets");
 
-            TextView folderNameTV = binding.viewFolderName;
-            TextView folderCreatorTV = binding.viewFolderCreator;
-            TextView folderSetsTV = binding.viewFolderSets;
+            TextView folderNameTV = binding.viewFolderNameTv;
+            TextView folderCreatorTV = binding.viewFolderCreatorTv;
+            TextView folderSetsTV = binding.viewFolderNumberOfSetsTv;
 
             if (folderName != null) {
                 folderNameTV.setText(folderName);

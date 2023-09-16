@@ -112,7 +112,7 @@ public class ActivitySignup extends AppCompatActivity {
         confirm.setOnClickListener(v -> {
             username = Objects.requireNonNull(dialogUsernameEt.getText()).toString().trim(); // Assign the entered username to the class variable
 
-            // TODO: Handla signup through AuthenticationManager
+            // TODO: Handle signup through AuthenticationManager
             Utils.showToast(this, email + "\n" + AuthenticationManager.md5(password) + "\n" + username);
             System.out.println(email + "\n" + password + "\n" + username); // Print email, password, and username
 

@@ -32,19 +32,13 @@ public class ActivityViewGroup extends AppCompatActivity {
     }
 
     private void setupToolbar() {
-        Toolbar toolbar = binding.groupManagementToolbar;
+        Toolbar toolbar = binding.viewGroupToolbar;
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle(""); // Set the title to an empty string
-
-        // Display back arrow on the toolbar
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        }
     }
 
     private void setupListeners() {
-        binding.groupManagementOptionsBtn.setOnClickListener(v -> showOptions());
+        binding.viewGroupToolbarOptionsIv.setOnClickListener(v -> showOptions());
     }
 
     private void showOptions() {

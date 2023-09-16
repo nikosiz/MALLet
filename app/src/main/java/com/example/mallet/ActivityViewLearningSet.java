@@ -30,7 +30,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class ActivityViewLearningSet extends AppCompatActivity {
-
     ActivityViewLearningSetBinding binding;
     ModelLearningSet learningSet;
 
@@ -70,16 +69,13 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     }
 
     private void flipCard() {
+
     }
 
     private void setupToolbar() {
         Toolbar toolbar = binding.viewSetToolbar;
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle("");
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
 
         binding.viewSetOptionsBtn.setOnClickListener(v -> dialogSetOptions());
     }
@@ -186,7 +182,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             simplifiedFlashcards.add(simplifiedFlashcard);
         }
 
-        AdapterFlashcard adapter = new AdapterFlashcard(simplifiedFlashcards, v -> Utils.openActivityWithFragment(this, FragmentFlashcards.class, ActivityLearn.class));
+        AdapterFlashcard adapter = new AdapterFlashcard(simplifiedFlashcards, v -> flipCard());
         viewPager.setAdapter(adapter);
         viewPager.setPageTransformer(Utils::applySwipeTransformer);
     }
@@ -212,11 +208,10 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             TextView flashcardTermTv = flashcardItemView.findViewById(R.id.flashcard_termTv);
             flashcardTermTv.setVisibility(View.VISIBLE);
             flashcardTermTv.setText(flashcard.getTerm());
-            flashcardTermTv.setTextSize(20.0f);
+            flashcardTermTv.setTextSize(25.0f);
 
             View definitionV = flashcardItemView.findViewById(R.id.flashcard_definitionV);
-            definitionV.setVisibility(View.GONE);
-
+            definitionV.setVisibility(View.VISIBLE);
 
             TextView flashcardDefinitionTv = flashcardItemView.findViewById(R.id.flashcard_definitionTv);
             flashcardDefinitionTv.setVisibility(View.GONE);
@@ -228,7 +223,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             TextView flashcardTranslationTv = flashcardItemView.findViewById(R.id.flashcard_translationTv);
             flashcardTranslationTv.setVisibility(View.VISIBLE);
             flashcardTranslationTv.setText(flashcard.getTranslation());
-            flashcardTermTv.setTextSize(15.0f);
+            flashcardTranslationTv.setTextSize(20.0f);
 
             linearLayout.addView(flashcardItemView);
         }

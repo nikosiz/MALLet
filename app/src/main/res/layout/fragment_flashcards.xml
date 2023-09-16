@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/flashcards_mainCl"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/danube_blue_50"
+    android:background="@color/colorPrimaryLight"
     tools:context=".FragmentFlashcards"
     tools:ignore="Overdraw">
 
@@ -13,13 +13,29 @@
         android:id="@+id/flashcards_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/danube_blue_100"
+        android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/flashcards_optionsIv"
+            android:id="@+id/flashcards_toolbarBackIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/bg_ripple"
+            android:clickable="true"
+            android:contentDescription="toolbar options"
+            android:focusable="true"
+            android:src="@drawable/ic_arrow_back"
+            app:tint="@color/colorPrimaryDark" />
+
+        <ImageView
+            android:id="@+id/flashcards_toolbarOptionsIv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -29,7 +45,7 @@
             android:contentDescription="toolbar options"
             android:focusable="true"
             android:src="@drawable/ic_toolbar_options"
-            app:tint="@color/white" />
+            app:tint="@color/colorPrimaryDark" />
     </androidx.appcompat.widget.Toolbar>
 
     <com.yuyakaido.android.cardstackview.CardStackView

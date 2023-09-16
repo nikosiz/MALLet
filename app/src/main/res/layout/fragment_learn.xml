@@ -3,17 +3,37 @@
     android:id="@+id/learn_mainLl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:layout_gravity="center"
+    android:background="@color/colorPrimaryLight"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/learn_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/danube_blue_500"
+        android:layout_gravity="center_vertical"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/learn_toolbarBackIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/bg_ripple"
+            android:clickable="true"
+            android:contentDescription="toolbar options"
+            android:focusable="true"
+            android:src="@drawable/ic_arrow_back"
+            app:tint="@color/colorPrimaryDark" />
 
         <TextView
             android:id="@+id/learn_toolbarTitleTv"
@@ -21,35 +41,21 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/russo_one_regular"
             android:text="Learn"
-            android:textColor="@color/white"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="30sp" />
-
-        <ImageView
-            android:id="@+id/learn_saveIv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/bg_ripple"
-            android:clickable="true"
-            android:contentDescription="set options"
-            android:focusable="true"
-            android:src="@drawable/ic_check"
-            app:tint="@color/white" />
 
         <ImageView
             android:id="@+id/learn_optionsIv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginHorizontal="5dp"
+            android:layout_marginHorizontal="20dp"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
             android:contentDescription="set options"
             android:focusable="true"
             android:src="@drawable/ic_settings"
-            app:tint="@color/white" />
+            app:tint="@color/colorPrimaryDark" />
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout

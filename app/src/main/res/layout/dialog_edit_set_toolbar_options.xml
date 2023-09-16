@@ -16,10 +16,6 @@
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:autoSizeMaxTextSize="20sp"
-        android:autoSizeMinTextSize="15sp"
-        android:autoSizeStepGranularity="2sp"
-        android:autoSizeTextType="uniform"
         android:background="@drawable/bg_ripple"
         android:drawablePadding="35dp"
         android:gravity="center_vertical"
@@ -34,10 +30,6 @@
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:autoSizeMaxTextSize="20sp"
-        android:autoSizeMinTextSize="15sp"
-        android:autoSizeStepGranularity="2sp"
-        android:autoSizeTextType="uniform"
         android:background="@drawable/bg_ripple"
         android:drawablePadding="35dp"
         android:gravity="center_vertical"
@@ -52,10 +44,7 @@
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:autoSizeMaxTextSize="20sp"
-        android:autoSizeMinTextSize="15sp"
-        android:autoSizeStepGranularity="2sp"
-        android:autoSizeTextType="uniform"
+
         android:background="@drawable/bg_ripple"
         android:drawablePadding="35dp"
         android:gravity="center_vertical"
@@ -65,5 +54,4 @@
         android:textSize="20sp"
         app:drawableStartCompat="@drawable/ic_delete"
         app:drawableTint="@color/carnation_red_400" />
-
 </LinearLayout>

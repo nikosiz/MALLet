@@ -2,56 +2,81 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/viewGroup_mainCl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityViewFolder">
+    android:background="@color/colorPrimaryLight"
+
+    tools:context=".ActivityViewFolder"
+    tools:ignore="Overdraw">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/group_management_toolbar"
+        android:id="@+id/viewGroup_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/danube_blue_600"
+        android:layout_gravity="center_vertical"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/viewGroup_toolbarBackIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/bg_ripple"
+            android:clickable="true"
+            android:contentDescription="toolbar options"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:src="@drawable/ic_arrow_back"
+            app:tint="@color/colorPrimaryDark" />
+
         <TextView
+            android:id="@+id/viewGroup_toolbar_titleTv"
             style="@style/BasicBoldTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
-            android:text="Manage group"
-            android:textColor="@color/white"
+            android:text="Group"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="30sp" />
 
         <ImageView
-            android:id="@+id/group_management_options_btn"
+            android:id="@+id/viewGroup_toolbarOptionsIv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginHorizontal="20dp"
             android:background="@drawable/bg_ripple"
+
             android:clickable="true"
             android:contentDescription="@string/save_btn"
             android:focusable="true"
+            android:gravity="center_vertical"
             android:src="@drawable/ic_toolbar_options"
-            app:tint="@color/white" />
+            app:tint="@color/colorPrimaryDark" />
     </androidx.appcompat.widget.Toolbar>
 
-    <FrameLayout
-        android:id="@+id/group_management_fl"
+    <LinearLayout
+        android:id="@+id/viewGroupLl"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/group_management_toolbar">
+        app:layout_constraintTop_toBottomOf="@id/viewGroup_toolbar">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardElevation="1dp">
+            app:cardElevation="3dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -82,6 +107,6 @@
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
-    </FrameLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.example.mallet;
+package com.example.mallet.utils;
 
 public class AccountManager {
     private static AccountManager instance;

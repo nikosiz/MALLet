@@ -147,5 +147,12 @@
         <!-- Add more attributes to customize the appearance if desired -->
     </style>
 
+    <style name="RectangularRadioButtonStyle" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <!-- Text color for the default state -->
+        <item name="android:textColor">@drawable/radio_text_color</item>
+    </style>
+
+
+
 
 </resources>
