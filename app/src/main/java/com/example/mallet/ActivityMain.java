@@ -23,6 +23,10 @@ import com.example.mallet.databinding.DialogCreateBinding;
 import com.example.mallet.databinding.DialogCreateFolderBinding;
 import com.example.mallet.databinding.DialogCreateGroupBinding;
 import com.example.mallet.databinding.DialogCreateSetBinding;
+import com.example.mallet.utils.FlashcardManager;
+import com.example.mallet.utils.ModelFolder;
+import com.example.mallet.utils.ModelGroup;
+import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.Utils;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
@@ -60,7 +64,7 @@ public class ActivityMain extends AppCompatActivity {
             selectedFragmentId = savedInstanceState.getInt(SELECTED_FRAGMENT_KEY, R.id.bottom_nav_home);
             setSelectedFragment(selectedFragmentId);
         } else {
-            replaceFragment(new FragmentHome());
+            replaceFragment(new ActivityMain_FragmentHome());
         }
     }
 
@@ -93,15 +97,15 @@ public class ActivityMain extends AppCompatActivity {
         selectedFragmentId = item.getItemId();
 
         if (selectedFragmentId == R.id.bottom_nav_home) {
-            replaceFragment(new FragmentHome());
+            replaceFragment(new ActivityMain_FragmentHome());
         } else if (selectedFragmentId == R.id.bottom_nav_library) {
-            replaceFragment(new FragmentSetsDatabase());
+            replaceFragment(new ActivityMain_FragmentSetsDatabase());
         } else if (selectedFragmentId == R.id.bottom_nav_add_new) {
             createNewDialog();
         } else if (selectedFragmentId == R.id.bottom_nav_your_library) {
-            replaceFragment(new FragmentUserLibrary());
+            replaceFragment(new ActivityMain_FragmentUserLibrary());
         } else if (selectedFragmentId == R.id.bottom_nav_profile) {
-            replaceFragment(new FragmentProfile());
+            replaceFragment(new ActivityMain_FragmentProfile());
         }
         return true;
     }

@@ -23,8 +23,6 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.mallet.ModelFlashcard;
-import com.example.mallet.ModelLearningSet;
 import com.example.mallet.R;
 
 import java.io.BufferedReader;
@@ -149,8 +147,9 @@ public class Utils {
     }
 
 
-    // This stays, what is up, needs to be reviewed
 
+
+    // This stays, what is up, needs to be reviewed
     public static void setupAnimation(Context context, TextView logo) {
         Animation pulseAnimation = AnimationUtils.loadAnimation(context, R.anim.pulse_anim);
         logo.startAnimation(pulseAnimation);
