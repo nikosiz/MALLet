@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="white">#000000</color>
+    <color name="black">#FFFFFF</color>
+
+    <!-- Dark theme values -->
+    <color name="colorPrimaryLight">@color/danube_blue_900</color>
+    <color name="colorPrimary">@color/danube_blue_500</color>
+    <color name="colorPrimaryDark">@color/danube_blue_100</color>
+
+    <color name="primaryTextColor">@color/danube_blue_100</color>
+    <color name="secondaryTextColor">@color/danube_blue_300</color>
+
+    <color name="colorSecondaryLight">@color/supernova_yellow_900</color>
+    <color name="colorSecondary">@color/supernova_yellow_400</color>
+    <color name="colorSecondaryDark">@color/supernova_yellow_50</color>
+
+
+
+    <!-- MATERIAL DESIGN COLOR PALETTE -->
+
+    <!-- 1ST COLOR -->
+    <!-- Primary -->
+    <color name="downriver_blue_50">#e5e9ee</color>
+    <color name="downriver_blue_100">#bcc7d7</color>
+    <color name="downriver_blue_200">#92a4bc</color>
+    <color name="downriver_blue_300">#6981a1</color>
+    <color name="downriver_blue_400">#48678f</color>
+    <color name="downriver_blue_500">#234e80</color>
+    <color name="downriver_blue_600">#1c4777</color>
+    <color name="downriver_blue_700">#133e6c</color>
+    <color name="downriver_blue_800">#0c3460</color>
+    <color name="downriver_blue_900">#072448</color>
+
+    <!-- Complementary -->
+    <color name="calamander_brown_50">#f9e8cb</color>
+    <color name="calamander_brown_100">#e0c7a7</color>
+    <color name="calamander_brown_200">#bfa381</color>
+    <color name="calamander_brown_300">#9e8059</color>
+    <color name="calamander_brown_400">#85663b</color>
+    <color name="calamander_brown_500">#6c4d1d</color>
+    <color name="calamander_brown_600">#624418</color>
+    <color name="calamander_brown_700">#543810</color>
+    <color name="calamander_brown_800">#482b07</color>
+    <color name="calamander_brown_900">#3a1d00</color>
+
+    <!-- Analogous -->
+    <color name="tarawera_blue_50">#e1f0f4</color>
+    <color name="tarawera_blue_100">#b2dbe4</color>
+    <color name="tarawera_blue_200">#80c4d2</color>
+    <color name="tarawera_blue_300">#4baebd</color>
+    <color name="tarawera_blue_400">#219dac</color>
+    <color name="tarawera_blue_500">#008c99</color>
+    <color name="tarawera_blue_600">#007f8b</color>
+    <color name="tarawera_blue_700">#007079</color>
+    <color name="tarawera_blue_800">#026067</color>
+    <color name="tarawera_blue_900">#074548</color>
+
+    <color name="cove_blue_50">#e4e5ee</color>
+    <color name="cove_blue_100">#bcbdd6</color>
+    <color name="cove_blue_200">#9093bb</color>
+    <color name="cove_blue_300">#676aa0</color>
+    <color name="cove_blue_400">#4a4c8d</color>
+    <color name="cove_blue_500">#2d307c</color>
+    <color name="cove_blue_600">#282a73</color>
+    <color name="cove_blue_700">#202169</color>
+    <color name="cove_blue_800">#18185d</color>
+    <color name="cove_blue_900">#0a0748</color>
+
+    <!-- Triadic -->
+    <color name="violet_50">#ece1ec</color>
+    <color name="violet_100">#d0b4d2</color>
+    <color name="violet_200">#b284b5</color>
+    <color name="violet_300">#945798</color>
+    <color name="violet_400">#803784</color>
+    <color name="violet_500">#6b1971</color>
+    <color name="violet_600">#61166b</color>
+    <color name="violet_700">#521163</color>
+    <color name="violet_800">#440d5a</color>
+    <color name="violet_900">#2b0748</color>
+
+    <color name="wine_red_50">#f3dfe4</color>
+    <color name="wine_red_100">#e2afbd</color>
+    <color name="wine_red_200">#cf7d93</color>
+    <color name="wine_red_300">#bb4d6b</color>
+    <color name="wine_red_400">#ad2c51</color>
+    <color name="wine_red_500">#a00939</color>
+    <color name="wine_red_600">#920836</color>
+    <color name="wine_red_700">#7f0832</color>
+    <color name="wine_red_800">#6b072e</color>
+    <color name="wine_red_900">#480724</color>
+
+
+    <!-- 2ND COLOR -->
+    <!-- Secondary -->
+    <color name="viking_blue_50">#daf4f5</color>
+    <color name="viking_blue_100">#a1e3e4</color>
+    <color name="viking_blue_200">#54d2d2</color>
+    <color name="viking_blue_300">#00bebd</color>
+    <color name="viking_blue_400">#00aeab</color>
+    <color name="viking_blue_500">#009f99</color>
+    <color name="viking_blue_600">#00918b</color>
+    <color name="viking_blue_700">#008179</color>
+    <color name="viking_blue_800">#007169</color>
+    <color name="viking_blue_900">#00544a</color>
+
+    <!-- Complementary -->
+    <color name="chestnut_rose_50">#f9eaed</color>
+    <color name="chestnut_rose_100">#f2cbd0</color>
+    <color name="chestnut_rose_200">#db9799</color>
+    <color name="chestnut_rose_300">#cb7173</color>
+    <color name="chestnut_rose_400">#d25454</color>
+    <color name="chestnut_rose_500">#d4463e</color>
+    <color name="chestnut_rose_600">#c63e3c</color>
+    <color name="chestnut_rose_700">#b43536</color>
+    <color name="chestnut_rose_800">#a7302f</color>
+    <color name="chestnut_rose_900">#992624</color>
+
+    <!-- Analogous -->
+    <color name="emerald_green_50">#e3f7ec</color>
+    <color name="emerald_green_100">#bbebd0</color>
+    <color name="emerald_green_200">#8ddeb2</color>
+    <color name="emerald_green_300">#54d293</color>
+    <color name="emerald_green_400">#00c77b</color>
+    <color name="emerald_green_500">#00bc65</color>
+    <color name="emerald_green_600">#00ac5a</color>
+    <color name="emerald_green_700">#009a4d</color>
+    <color name="emerald_green_800">#008841</color>
+    <color name="emerald_green_900">#00682c</color>
+
+    <color name="danube_blue_50">#e5f1f9</color>
+    <color name="danube_blue_100">#c0ddf2</color>
+    <color name="danube_blue_200">#9bc8e9</color>
+    <color name="danube_blue_300">#7ab2df</color>
+    <color name="danube_blue_400">#64a2d8</color>
+    <color name="danube_blue_500">#5493d2</color>
+    <color name="danube_blue_600">#4c86c5</color>
+    <color name="danube_blue_700">#4374b3</color>
+    <color name="danube_blue_800">#3b64a1</color>
+    <color name="danube_blue_900">#2e4780</color>
+
+    <!-- Triadic -->
+    <color name="indigo_50">#eaebfa</color>
+    <color name="indigo_100">#cbccf3</color>
+    <color name="indigo_200">#a8acea</color>
+    <color name="indigo_300">#868be2</color>
+    <color name="indigo_400">#6c6fda</color>
+    <color name="indigo_500">#5454d2</color>
+    <color name="indigo_600">#4e4bc7</color>
+    <color name="indigo_700">#4540ba</color>
+    <color name="indigo_800">#3e35af</color>
+    <color name="indigo_900">#31209b</color>
+
+    <color name="orchid_pink_50">#f8e3f7</color>
+    <color name="orchid_pink_100">#ecb9eb</color>
+    <color name="orchid_pink_200">#e089df</color>
+    <color name="orchid_pink_300">#d254d2</color>
+    <color name="orchid_pink_400">#c718c8</color>
+    <color name="orchid_pink_500">#b800bb</color>
+    <color name="orchid_pink_600">#a900b6</color>
+    <color name="orchid_pink_700">#9400b0</color>
+    <color name="orchid_pink_800">#8100aa</color>
+    <color name="orchid_pink_900">#5e009e</color>
+
+    <!-- 3RD COLOR -->
+    <!-- Tertiary -->
+    <color name="supernova_yellow_50">#fff8e0</color>
+    <color name="supernova_yellow_100">#ffedb0</color>
+    <color name="supernova_yellow_200">#ffe17c</color>
+    <color name="supernova_yellow_300">#ffd743</color>
+    <color name="supernova_yellow_400">#ffcc00</color>
+    <color name="supernova_yellow_500">#ffc300</color>
+    <color name="supernova_yellow_600">#ffb500</color>
+    <color name="supernova_yellow_700">#ffa100</color>
+    <color name="supernova_yellow_800">#ff8f00</color>
+    <color name="supernova_yellow_900">#ff6d00</color>
+
+    <!-- Complementary -->
+    <color name="blue_ribbon_50">#ede7ff</color>
+    <color name="blue_ribbon_100">#d0c5ff</color>
+    <color name="blue_ribbon_200">#af9eff</color>
+    <color name="blue_ribbon_300">#8976ff</color>
+    <color name="blue_ribbon_400">#6556ff</color>
+    <color name="blue_ribbon_500">#2f37ff</color>
+    <color name="blue_ribbon_600">#0033ff</color>
+    <color name="blue_ribbon_700">#002cf7</color>
+    <color name="blue_ribbon_800">#0027f1</color>
+    <color name="blue_ribbon_900">#001bed</color>
+
+    <!-- Analogous -->
+    <color name="vermilion_orange_50">#fce8e5</color>
+    <color name="vermilion_orange_100">#ffcab7</color>
+    <color name="vermilion_orange_200">#ffa788</color>
+    <color name="vermilion_orange_300">#ff8458</color>
+    <color name="vermilion_orange_400">#ff6832</color>
+    <color name="vermilion_orange_500">#ff4d00</color>
+    <color name="vermilion_orange_600">#f44600</color>
+    <color name="vermilion_orange_700">#e63f00</color>
+    <color name="vermilion_orange_800">#d93700</color>
+    <color name="vermilion_orange_900">#c12700</color>
+
+    <color name="lime_50">#f6ffe7</color>
+    <color name="lime_100">#e9ffc3</color>
+    <color name="lime_200">#d8ff9a</color>
+    <color name="lime_300">#c8ff6c</color>
+    <color name="lime_400">#bbfd43</color>
+    <color name="lime_500">#b3ff00</color>
+    <color name="lime_600">#a9eb00</color>
+    <color name="lime_700">#9bd400</color>
+    <color name="lime_800">#8fbb00</color>
+    <color name="lime_900">#7b9300</color>
+
+    <!-- Triadic -->
+    <color name="harlequin_green_50">#ecffe5</color>
+    <color name="harlequin_green_100">#ceffbe</color>
+    <color name="harlequin_green_200">#a9ff91</color>
+    <color name="harlequin_green_300">#76ff58</color>
+    <color name="harlequin_green_400">#33ff00</color>
+    <color name="harlequin_green_500">#00fc00</color>
+    <color name="harlequin_green_600">#00ea00</color>
+    <color name="harlequin_green_700">#00d400</color>
+    <color name="harlequin_green_800">#00bf00</color>
+    <color name="harlequin_green_900">#009900</color>
+
+    <color name="bright_turquoise_50">#d8fff3</color>
+    <color name="bright_turquoise_100">#9bffe0</color>
+    <color name="bright_turquoise_200">#00ffcc</color>
+    <color name="bright_turquoise_300">#00fbb8</color>
+    <color name="bright_turquoise_400">#00f4a8</color>
+    <color name="bright_turquoise_500">#00ec97</color>
+    <color name="bright_turquoise_600">#00db8a</color>
+    <color name="bright_turquoise_700">#00c67a</color>
+    <color name="bright_turquoise_800">#00b36b</color>
+    <color name="bright_turquoise_900">#009152</color>
+
+    <!-- 4TH COLOR -->
+    <!-- Quaternary -->
+    <color name="casablanca_orange_50">#fef3e4</color>
+    <color name="casablanca_orange_100">#fce1ba</color>
+    <color name="casablanca_orange_200">#fbcd8f</color>
+    <color name="casablanca_orange_300">#f9b965</color>
+    <color name="casablanca_orange_400">#f8aa4b</color>
+    <color name="casablanca_orange_500">#f69d3d</color>
+    <color name="casablanca_orange_600">#f1923a</color>
+    <color name="casablanca_orange_700">#ea8336</color>
+    <color name="casablanca_orange_800">#e27633</color>
+    <color name="casablanca_orange_900">#d85f2b</color>
+
+    <!-- Complementary -->
+    <color name="cornflower_blue_50">#e5f2fe</color>
+    <color name="cornflower_blue_100">#c0dffe</color>
+    <color name="cornflower_blue_200">#99ccfd</color>
+    <color name="cornflower_blue_300">#74b8fb</color>
+    <color name="cornflower_blue_400">#5ba8fa</color>
+    <color name="cornflower_blue_500">#4b99f8</color>
+    <color name="cornflower_blue_600">#478be9</color>
+    <color name="cornflower_blue_700">#4278d6</color>
+    <color name="cornflower_blue_800">#3d67c3</color>
+    <color name="cornflower_blue_900">#3548a3</color>
+
+    <!-- Analogous -->
+    <color name="carnation_red_50">#ffebee</color>
+    <color name="carnation_red_100">#ffced1</color>
+    <color name="carnation_red_200">#f69b98</color>
+    <color name="carnation_red_300">#ee7470</color>
+    <color name="carnation_red_400">#f8544b</color>
+    <color name="carnation_red_500">#fc432e</color>
+    <color name="carnation_red_600">#ee392e</color>
+    <color name="carnation_red_700">#dc2e28</color>
+    <color name="carnation_red_800">#d02621</color>
+    <color name="carnation_red_900">#c01a14</color>
+
+    <color name="golden_fizz_50">#fcffe7</color>
+    <color name="golden_fizz_100">#f8fcc2</color>
+    <color name="golden_fizz_200">#f3f998</color>
+    <color name="golden_fizz_300">#eef66c</color>
+    <color name="golden_fizz_400">#eff84b</color>
+    <color name="golden_fizz_500">#ebf41b</color>
+    <color name="golden_fizz_600">#efe30e</color>
+    <color name="golden_fizz_700">#f1ca00</color>
+    <color name="golden_fizz_800">#f3b100</color>
+    <color name="golden_fizz_900">#f38700</color>
+
+    <!-- Triadic -->
+    <color name="green_yellow_50">#f3ffe8</color>
+    <color name="green_yellow_100">#e0fec6</color>
+    <color name="green_yellow_200">#cafda0</color>
+    <color name="green_yellow_300">#b1fb74</color>
+    <color name="green_yellow_400">#99f84b</color>
+    <color name="green_yellow_500">#82f50b</color>
+    <color name="green_yellow_600">#6fe300</color>
+    <color name="green_yellow_700">#53cd00</color>
+    <color name="green_yellow_800">#33b900</color>
+    <color name="green_yellow_900">#009500</color>
+
+    <color name="aquamarine_50">#e5fef1</color>
+    <color name="aquamarine_100">#c0fcdb</color>
+    <color name="aquamarine_200">#91fac4</color>
+    <color name="aquamarine_300">#4bf8aa</color>
+    <color name="aquamarine_400">#00f394</color>
+    <color name="aquamarine_500">#00ed81</color>
+    <color name="aquamarine_600">#00db75</color>
+    <color name="aquamarine_700">#00c766</color>
+    <color name="aquamarine_800">#00b45a</color>
+    <color name="aquamarine_900">#009243</color>
+
+    <!-- 5TH COLOR -->
+    <!-- Quinary -->
+    <color name="persimmon_red_50">#ffedef</color>
+    <color name="persimmon_red_100">#ffd2d4</color>
+    <color name="persimmon_red_200">#faa29c</color>
+    <color name="persimmon_red_300">#f47e75</color>
+    <color name="persimmon_red_400">#ff6250</color>
+    <color name="persimmon_red_500">#ff5432</color>
+    <color name="persimmon_red_600">#f64c34</color>
+    <color name="persimmon_red_700">#e4412e</color>
+    <color name="persimmon_red_800">#d73a26</color>
+    <color name="persimmon_red_900">#c73019</color>
+
+    <!-- Complementary -->
+    <color name="aqua_blue_50">#dbfbff</color>
+    <color name="aqua_blue_100">#a3f4fe</color>
+    <color name="aqua_blue_200">#50edff</color>
+    <color name="aqua_blue_300">#00e4fd</color>
+    <color name="aqua_blue_400">#00dcf9</color>
+    <color name="aqua_blue_500">#00d4f6</color>
+    <color name="aqua_blue_600">#00c3e2</color>
+    <color name="aqua_blue_700">#00adc6</color>
+    <color name="aqua_blue_800">#0099ac</color>
+    <color name="aqua_blue_900">#00757c</color>
+
+    <!-- Analogous -->
+    <color name="strawberry_pink_50">#ffe3ed</color>
+    <color name="strawberry_pink_100">#feb8d3</color>
+    <color name="strawberry_pink_200">#ff87b5</color>
+    <color name="strawberry_pink_300">#ff5096</color>
+    <color name="strawberry_pink_400">#fe077d</color>
+    <color name="strawberry_pink_500">#fb0064</color>
+    <color name="strawberry_pink_600">#ea0062</color>
+    <color name="strawberry_pink_700">#d3005d</color>
+    <color name="strawberry_pink_800">#be005b</color>
+    <color name="strawberry_pink_900">#970055</color>
+
+    <color name="sunshade_orange_50">#fff3e1</color>
+    <color name="sunshade_orange_100">#ffe1b3</color>
+    <color name="sunshade_orange_200">#ffcd82</color>
+    <color name="sunshade_orange_300">#ffb950</color>
+    <color name="sunshade_orange_400">#ffa92b</color>
+    <color name="sunshade_orange_500">#ff9b0a</color>
+    <color name="sunshade_orange_600">#fb8f09</color>
+    <color name="sunshade_orange_700">#f57f07</color>
+    <color name="sunshade_orange_800">#ef6f05</color>
+    <color name="sunshade_orange_900">#e65503</color>
+
+    <!-- Triadic -->
+    <color name="gorse_yellow_50">#fdffe8</color>
+    <color name="gorse_yellow_100">#f8fdc3</color>
+    <color name="gorse_yellow_200">#f1fb99</color>
+    <color name="gorse_yellow_300">#eaf96c</color>
+    <color name="gorse_yellow_400">#edff50</color>
+    <color name="gorse_yellow_500">#e7fb1e</color>
+    <color name="gorse_yellow_600">#dceb1b</color>
+    <color name="gorse_yellow_700">#cbd30a</color>
+    <color name="gorse_yellow_800">#babb00</color>
+    <color name="gorse_yellow_900">#a09300</color>
+
+    <color name="screamin_green_50">#ecffeb</color>
+    <color name="screamin_green_100">#cfffcd</color>
+    <color name="screamin_green_200">#acffab</color>
+    <color name="screamin_green_300">#81ff84</color>
+    <color name="screamin_green_400">#50ff62</color>
+    <color name="screamin_green_500">#00fc3d</color>
+    <color name="screamin_green_600">#00ea34</color>
+    <color name="screamin_green_700">#00d429</color>
+    <color name="screamin_green_800">#00be1c</color>
+    <color name="screamin_green_900">#00990e</color>
+
+</resources>
