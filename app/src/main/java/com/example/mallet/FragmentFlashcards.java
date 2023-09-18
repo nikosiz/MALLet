@@ -20,8 +20,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
 
-import com.example.mallet.databinding.FragmentFlashcardsBinding;
+import com.example.mallet.databinding.DialogConfirmExitBinding;
 import com.example.mallet.databinding.DialogFlashcardOptionsBinding;
+import com.example.mallet.databinding.FragmentFlashcardsBinding;
 import com.example.mallet.utils.AdapterFlashcardStack;
 import com.example.mallet.utils.CallbackFlashcardStack;
 import com.example.mallet.utils.ModelFlashcard;
@@ -110,14 +111,14 @@ public class FragmentFlashcards extends Fragment {
 
             @Override
             public void onCardAppeared(View view, int position) {
-                TextView wordTV = view.findViewById(R.id.flashcard_termTv);
-                // Log.d(TAG, "onCardAppeared: " + position + ", word: " + wordTV.getText());
+                TextView wordTv = view.findViewById(R.id.flashcard_termTv);
+                // Log.d(TAG, "onCardAppeared: " + position + ", word: " + wordTv.getText());
             }
 
             @Override
             public void onCardDisappeared(View view, int position) {
-                TextView wordTV = view.findViewById(R.id.flashcard_termTv);
-                // Log.d(TAG, "onCardDisappeared: " + position + ", word: " + wordTV.getText());
+                TextView wordTv = view.findViewById(R.id.flashcard_termTv);
+                // Log.d(TAG, "onCardDisappeared: " + position + ", word: " + wordTv.getText());
             }
         });
 
@@ -140,20 +141,45 @@ public class FragmentFlashcards extends Fragment {
     }
 
     private void setupContents() {
+        binding.flashcardsToolbarBackIv.setOnClickListener(v -> confirmExitDialog());
         binding.flashcardsToolbarOptionsIv.setOnClickListener(v -> flashcardsOptionsDialog());
         binding.learnSwipeLeftBtn.setOnClickListener(v -> performSwipe(Direction.Left));
         binding.learnSwipeRightBtn.setOnClickListener(v -> performSwipe(Direction.Right));
         binding.learnUndoBtn.setOnClickListener(v -> undoSwipe());
     }
 
-    private void flashcardsOptionsDialog() {
-        final Dialog dialog = Utils.createDialog(getContext(), R.layout.dialog_flashcard_options);
-        DialogFlashcardOptionsBinding dialogBinding = DialogFlashcardOptionsBinding.inflate(LayoutInflater.from(getContext()));
-        if (dialog != null) {
-            Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        }
+    private void confirmExitDialog() {
+        final Dialog dialog = createDialog(R.layout.dialog_confirm_exit);
+        DialogConfirmExitBinding dialogBinding = DialogConfirmExitBinding.inflate(LayoutInflater.from(getContext()));
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
         dialog.show();
+
+        dialogBinding.confirmExitCancelTv.setOnClickListener(v -> dialog.dismiss());
+        dialogBinding.confirmExitConfirmTv.setOnClickListener(v -> {
+            requireActivity().finish();
+            dialog.dismiss();
+        });
+
+
+    }
+
+    private void flashcardsOptionsDialog() {
+        final Dialog dialog = createDialog(R.layout.dialog_flashcard_options);
+        DialogFlashcardOptionsBinding dialogBinding = DialogFlashcardOptionsBinding.inflate(LayoutInflater.from(getContext()));
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
+        dialog.show();
+    }
+
+    private Dialog createDialog(int layoutResId) {
+        final Dialog dialog = new Dialog(getContext());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(layoutResId);
+
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+        return dialog;
     }
 
     private void performSwipe(Direction direction) {
@@ -192,14 +218,5 @@ public class FragmentFlashcards extends Fragment {
 
 
         return Utils.readFlashcardsFromFile(requireContext(), "animals.txt");
-    }
-
-    private Dialog createDialog(int layoutResId) {
-        final Dialog dialog = new Dialog(requireContext());
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(layoutResId);
-        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
-        return dialog;
     }
 }

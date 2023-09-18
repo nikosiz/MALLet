@@ -67,6 +67,10 @@
             android:visibility="gone" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
     <LinearLayout
         android:id="@+id/changeUsername_cancelConfirmLl"
         android:layout_width="match_parent"

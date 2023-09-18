@@ -40,8 +40,8 @@ public class AdapterFolder extends RecyclerView.Adapter<AdapterFolder.ViewHolder
         ModelFolder folder = folderList.get(position);
 
         // Bind folder data to the views within the ViewHolder
-        holder.folderOwnerTV.setText(folder.getFolderCreator());
-        holder.folderNameTV.setText(folder.getFolderName());
+        holder.folderOwnerTv.setText(folder.getFolderCreator());
+        holder.folderNameTv.setText(folder.getFolderName());
 
         // Set a click listener for the group item
         holder.itemView.setOnClickListener(view -> {
@@ -59,14 +59,14 @@ public class AdapterFolder extends RecyclerView.Adapter<AdapterFolder.ViewHolder
 
     // ViewHolder class that holds references to the views within each item view
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        final TextView folderOwnerTV;
-        final TextView folderNameTV;
+        final TextView folderOwnerTv;
+        final TextView folderNameTv;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             // Initialize the TextViews with their corresponding views from the layout
-            folderOwnerTV = itemView.findViewById(R.id.folder_model_creator_tv);
-            folderNameTV = itemView.findViewById(R.id.folder_model_name_tv);
+            folderOwnerTv = itemView.findViewById(R.id.folder_model_creator_tv);
+            folderNameTv = itemView.findViewById(R.id.folder_model_name_tv);
         }
     }
 

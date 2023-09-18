@@ -2,8 +2,13 @@ package com.example.mallet;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Patterns;
+import android.view.Gravity;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -12,31 +17,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.mallet.databinding.ActivitySignupBinding;
 import com.example.mallet.databinding.DialogChooseUsernameBinding;
 import com.example.mallet.databinding.DialogConfirmAccountBinding;
+import com.example.mallet.utils.AuthenticationManager;
 import com.example.mallet.utils.Utils;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class ActivitySignup extends AppCompatActivity {
-    // Initialize email, password, and username variables
-    private String email, password, username;
-    // Declare EditText fields
-    private EditText emailEt, passwordEt;
-    // Declare TextViews for error messages
-    private TextView emailErrTv, passwordErrTv;
-    // Binding for the activity's layout
     private ActivitySignupBinding binding;
-    // Define password pattern using regex
+    private EditText emailEt, passwordEt;
+    private String email, password, username;
+    private TextView emailErrTv, passwordErrTv;
+    private String emailIncorrect, passwordIncorrect, usernameIncorrect;
     private final Pattern passwordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^*()<>?/|}{~:]).{8,}$");
-    // Define username pattern using regex
-    private final Pattern usernamePattern = Pattern.compile("^[a-zA-Z0-9_]{1,}$");
-    // Define error message for incorrect email
-    private final String emailIncorrectMsg = "Email incorrect";
-    // Define error message for incorrect password
-    private final String passwordIncorrect = "The password must be at least 8 characters long and contain at least one digit, one small letter, one big letter and one special character";
-    // Define error message for incorrect username
-    private final String usernameIncorrect = "The username can only consist of letters, numbers, and underscores";
-    // Create a handler for main thread operations
+    private final Pattern usernamePattern = Pattern.compile("^[a-zA-Z0-9_]+$");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,125 +38,93 @@ public class ActivitySignup extends AppCompatActivity {
         binding = ActivitySignupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Initialize email EditText
         emailEt = binding.signupEmailEt;
-        // Initialize email error TextView
         emailErrTv = binding.signupEmailErrorTv;
+        emailIncorrect = getString(R.string.email_incorrect);
 
-        // Initialize password EditText
         passwordEt = binding.signupPasswordEt;
-        // Initialize password error TextView
         passwordErrTv = binding.signupPasswordErrorTv;
+        passwordIncorrect = getString(R.string.password_incorrect);
 
-        // Call a method to set up UI elements and listeners
         setupContents();
     }
 
     private void setupContents() {
-        // Call a method to set up animation for the logo
         setupAnimation();
 
-        // Set up TextWatcher for email field
-        Utils.setupTextWatcher(emailEt, emailErrTv, Patterns.EMAIL_ADDRESS, emailIncorrectMsg);
-        // Set up TextWatcher for password field
+        Utils.setupTextWatcher(emailEt, emailErrTv, Patterns.EMAIL_ADDRESS, emailIncorrect);
         Utils.setupTextWatcher(passwordEt, passwordErrTv, passwordPattern, passwordIncorrect);
 
-        // Set up click listener for continue button
         binding.signupContinueTv.setOnClickListener(v -> validateSignupData());
-        // Set up click listener for Google button
         binding.signupGoogleMatbtn.setOnClickListener(v -> validateSignupData());
-        // Set up click listener for Facebook button
         binding.signupFacebookMatbtn.setOnClickListener(v -> validateSignupData());
-        // Set up click listener for "Login here" text
         binding.signupLoginHereTv.setOnClickListener(v -> loginActivity());
     }
 
     private void setupAnimation() {
-        // Get the logo TextView
         TextView logo = binding.signupLogoTv;
-        // Set up animation for the logo
         Utils.setupAnimation(this, logo);
     }
 
     private void chooseUsernameDialog() {
-        // Create a custom dialog
-        Dialog dialog = Utils.createDialog(this, R.layout.dialog_forgot_password);
-        // Inflate the dialog's layout
+        Dialog dialog = createDialog(R.layout.dialog_forgot_password);
         DialogChooseUsernameBinding dialogBinding = DialogChooseUsernameBinding.inflate(getLayoutInflater());
-        // Set the dialog's content view
-        assert dialog != null;
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.setContentView(dialogBinding.getRoot());
-        // Show the dialog
         dialog.show();
 
-        // Get the username EditText from the dialog
         EditText dialogUsernameEt = dialogBinding.chooseUsernameEt;
-        // Get the error TextView from the dialog
         TextView dialogErrTv = dialogBinding.chooseUsernameErrorTv;
+        usernameIncorrect = getString(R.string.username_incorrect);
 
-        // Set up TextWatcher for the username field in the dialog
         Utils.setupTextWatcher(dialogUsernameEt, dialogErrTv, usernamePattern, usernameIncorrect);
 
-        // Get the cancel TextView from the dialog
         TextView cancel = dialogBinding.chooseUsernameCancelTv;
-        // Get the confirm TextView from the dialog
         TextView confirm = dialogBinding.chooseUsernameCreateAccTv;
 
-        cancel.setOnClickListener(v -> dialog.dismiss()); // Set up click listener to dismiss the dialog when canceled
+        cancel.setOnClickListener(v -> dialog.dismiss());
         confirm.setOnClickListener(v -> {
-            username = Objects.requireNonNull(dialogUsernameEt.getText()).toString().trim(); // Assign the entered username to the class variable
+            username = Objects.requireNonNull(dialogUsernameEt.getText()).toString().trim();
 
             // TODO: Handle signup through AuthenticationManager
             Utils.showToast(this, email + "\n" + AuthenticationManager.md5(password) + "\n" + username);
-            System.out.println(email + "\n" + password + "\n" + username); // Print email, password, and username
+            System.out.println(email + "\n" + password + "\n" + username);
 
-            // Validate the username input
             Utils.validateInput(dialogUsernameEt, dialogErrTv, usernamePattern, usernameIncorrect);
 
             if (!Utils.isErrVisible(dialogErrTv)) {
                 // TODO: Implement sending an email with a password-resetting link
-                dialog.dismiss(); // Dismiss the dialog
-                confirmAccountDialog(); // Call a method to show the confirmation dialog
-                //Utils.openActivity(this, ActivityMain.class);
+                dialog.dismiss();
+                confirmAccountDialog();
             }
         });
     }
 
     private void validateSignupData() {
-        String enteredEmail = emailEt.getText().toString().trim(); // Get entered email
-        String enteredPassword = passwordEt.getText().toString(); // Get entered password
+        String enteredEmail = emailEt.getText().toString().trim();
+        String enteredPassword = passwordEt.getText().toString();
 
-        // Validate email input
-        Utils.validateInput(emailEt, emailErrTv, Patterns.EMAIL_ADDRESS, emailIncorrectMsg);
-        // Validate password input
+        Utils.validateInput(emailEt, emailErrTv, Patterns.EMAIL_ADDRESS, emailIncorrect);
         Utils.validateInput(passwordEt, passwordErrTv, passwordPattern, passwordIncorrect);
 
         if (!Utils.isErrVisible(emailErrTv) && !Utils.isErrVisible(passwordErrTv)) {
-            // Assign entered email to the class variable
             email = enteredEmail;
-            // Assign entered password to the class variable
             password = enteredPassword;
 
-            chooseUsernameDialog(); // Call a method to show the username dialog
+            chooseUsernameDialog();
         } else {
-            System.out.println("Error is visible"); // Print a message if errors are visible
+            System.out.println("Error is visible");
         }
     }
 
     private void confirmAccountDialog() {
-        // Create a custom dialog for confirmation
-        Dialog dialog = Utils.createDialog(this, R.layout.dialog_confirm_account);
-        // Inflate the dialog's layout
+        Dialog dialog = createDialog(R.layout.dialog_confirm_account);
         DialogConfirmAccountBinding dialogBinding = DialogConfirmAccountBinding.inflate(getLayoutInflater());
-        // Set the dialog's content view
-        assert dialog != null;
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.setContentView(dialogBinding.getRoot());
-        // Show the dialog
         dialog.show();
 
-        // Get the cancel TextView from the dialog
         TextView cancel = dialogBinding.confirmAccountCancelTv;
-        // Get the confirm TextView from the dialog
         TextView confirm = dialogBinding.confirmAccountOpenTv;
 
         cancel.setOnClickListener(v -> {
@@ -174,8 +136,8 @@ public class ActivitySignup extends AppCompatActivity {
         });
 
         confirm.setOnClickListener(v -> {
-            dialog.dismiss(); // Dismiss the dialog
-            Utils.openEmailClient(this); // Open the email client
+            dialog.dismiss();
+            Utils.openEmailClient(this);
         });
     }
 
@@ -193,5 +155,16 @@ public class ActivitySignup extends AppCompatActivity {
         startActivity(intent);
         // Finish the current activity
         finish();
+        System.out.println(getClass().getSimpleName() + " was closed");
+    }
+
+    private Dialog createDialog(int layoutResId) {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(layoutResId);
+
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+        return dialog;
     }
 }

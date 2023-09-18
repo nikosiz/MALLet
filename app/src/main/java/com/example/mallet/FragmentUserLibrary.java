@@ -90,15 +90,15 @@ public class FragmentUserLibrary extends Fragment {
 
             // Customize the text size for each tab
             for (int i = 0; i < tabLayout.getTabCount(); i++) {
-                TextView tabTV = (TextView) LayoutInflater.from(requireContext())
+                TextView tabTv = (TextView) LayoutInflater.from(requireContext())
                         .inflate(R.layout.tab_text, tabLayout, false); // Provide tabLayout as the root view
-                tabTV.setText(Objects.requireNonNull(tabLayout.getTabAt(i)).getText());
-                tabTV.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15); // Adjust the size as needed
-                Objects.requireNonNull(tabLayout.getTabAt(i)).setCustomView(tabTV);
+                tabTv.setText(Objects.requireNonNull(tabLayout.getTabAt(i)).getText());
+                tabTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15); // Adjust the size as needed
+                Objects.requireNonNull(tabLayout.getTabAt(i)).setCustomView(tabTv);
 
-                ViewGroup.LayoutParams layoutParams = tabTV.getLayoutParams();
+                ViewGroup.LayoutParams layoutParams = tabTv.getLayoutParams();
                 layoutParams.width = 200;
-                tabTV.setLayoutParams(layoutParams);
+                tabTv.setLayoutParams(layoutParams);
             }
         });
 

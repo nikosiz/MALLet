@@ -78,7 +78,7 @@ public class FragmentProfile extends Fragment {
         selectedTheme = getSavedTheme();
         themeTv.setText(selectedTheme);
 
-        binding.profileAboutTv.setOnClickListener(v -> showAboutSection());
+        binding.profileAboutTv.setOnClickListener(v -> aboutDialog());
         binding.profileLogoutTv.setOnClickListener(v -> logOut());
 
         binding.profileDeleteAccTv.setOnClickListener(v -> showDeleteAccountDialog());
@@ -366,7 +366,7 @@ public class FragmentProfile extends Fragment {
     }
 
 
-    private void showAboutSection() {
+    private void aboutDialog() {
         final Dialog dialog = createDialog(R.layout.dialog_change_password);
         DialogAboutBinding dialogBinding = DialogAboutBinding.inflate(LayoutInflater.from(requireContext()));
         dialog.setContentView(dialogBinding.getRoot());

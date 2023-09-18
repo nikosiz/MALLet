@@ -20,18 +20,26 @@
         android:orientation="vertical"
         android:padding="20dp">
 
+        <ImageView
+            android:id="@+id/group_iconIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Folder icon"
+            android:src="@drawable/ic_learning_set"
+            app:tint="@color/colorPrimary" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
         <TextView
             android:id="@+id/learningSet_nameTv"
             style="@style/BasicBoldTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:autoSizeMaxTextSize="25sp"
-            android:autoSizeMinTextSize="15sp"
-            android:autoSizeStepGranularity="2sp"
-            android:autoSizeTextType="uniform"
             android:singleLine="true"
             android:text="set_name"
-            android:textColor="@color/primaryTextColor"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp" />
 
         <TextView
@@ -39,35 +47,28 @@
             style="@style/BasicTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:autoSizeMaxTextSize="25sp"
-            android:autoSizeMinTextSize="15sp"
-            android:autoSizeStepGranularity="2sp"
-            android:autoSizeTextType="uniform"
+
             android:singleLine="true"
             android:text="number_of_terms"
-            android:textColor="@color/danube_blue_500"
+            android:textColor="@color/colorPrimary"
             android:textSize="15sp" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="30dp" />
+            android:layout_height="20dp" />
 
         <TextView
             android:id="@+id/learningSet_creatorTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autoSizeMaxTextSize="20sp"
-            android:autoSizeMinTextSize="15sp"
-            android:autoSizeStepGranularity="2sp"
-            android:autoSizeTextType="uniform"
             android:drawablePadding="5dp"
             android:gravity="center_vertical"
             android:singleLine="true"
             android:text="creator_name"
-            android:textColor="@color/secondaryTextColor"
-            android:textSize="20sp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp"
             app:drawableStartCompat="@drawable/ic_profile"
-            app:drawableTint="@color/danube_blue_800" />
+            app:drawableTint="@color/colorPrimary" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

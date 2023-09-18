@@ -49,7 +49,6 @@ public class FragmentHome extends Fragment {
         List<ModelGroup> groups = activityMain.createGroupList();
         setupViewPager(binding.homeSetsViewPager, groups);
 
-        // Set up click listeners for "View All" buttons
         setupContents();
 
         return binding.getRoot();
@@ -62,7 +61,6 @@ public class FragmentHome extends Fragment {
     }
 
     private void setupViewPager(ViewPager2 viewPager, List<?> itemList) {
-        // Determine the appropriate adapter based on the item type
         if (!itemList.isEmpty()) {
             Object item = itemList.get(0);
             if (item instanceof ModelLearningSet) {
@@ -70,7 +68,6 @@ public class FragmentHome extends Fragment {
                 AdapterLearningSet adapterSets = new AdapterLearningSet(getContext(), activityMain.createSetList(), learningSet -> {
                     Intent intent = new Intent(getContext(), ActivityViewLearningSet.class);
 
-                    // Pass the entire learning set object
                     intent.putExtra("learningSet", learningSet);
 
                     startActivity(intent);
@@ -95,11 +92,9 @@ public class FragmentHome extends Fragment {
             }
         }
 
-        // Apply a swipe transformer
         viewPager.setPageTransformer(Utils::applySwipeTransformer);
     }
 
-    // Show all items (e.g., open a list view with all items of a specific type)
     private void showAllItems(String itemType) {
         // TODO: Implement this method to display all items of a specific type
         Utils.showToast(getContext(), "Here should open a list of " + itemType);

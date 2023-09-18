@@ -165,6 +165,10 @@
                         android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp" />
+
                 <LinearLayout
                     android:id="@+id/editSet_cardsLl"
                     android:layout_width="match_parent"

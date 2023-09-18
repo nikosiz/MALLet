@@ -27,9 +27,9 @@ public class ActivityOpening extends AppCompatActivity {
     }
 
     private void setupAnimatedLogo() {
-        TextView logoTV = binding.openingLogoTv;
+        TextView logoTv = binding.openingLogoTv;
         Animation pulseAnimation = AnimationUtils.loadAnimation(this, R.anim.pulse_anim);
-        logoTV.startAnimation(pulseAnimation);
+        logoTv.startAnimation(pulseAnimation);
     }
 
     private void setupClickListeners() {

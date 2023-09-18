@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -53,7 +54,8 @@ public class ActivityViewFolder extends AppCompatActivity {
     private void showOptions() {
         final Dialog dialog = createDialog(R.layout.dialog_view_folder_toolbar_options);
         DialogViewFolderToolbarOptionsBinding dialogBinding = DialogViewFolderToolbarOptionsBinding.inflate(LayoutInflater.from(this));
-        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        dialog.show();
 
         TextView editTv = dialogBinding.viewFolderEditTv;
         TextView addSetsTv = dialogBinding.viewFolderAddSetsTv;
@@ -74,9 +76,6 @@ public class ActivityViewFolder extends AppCompatActivity {
             dialog.dismiss();
             deleteFolderDialog();
         });
-
-        dialog.show();
-
     }
 
     private void shareFolderDialog() {
@@ -84,9 +83,10 @@ public class ActivityViewFolder extends AppCompatActivity {
 
     private void deleteFolderDialog() {
         // TODO: Fix because it does not show the dialog
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        Dialog dialog = createDialog(R.layout.dialog_delete_folder);
         DialogDeleteFolderBinding binding = DialogDeleteFolderBinding.inflate(LayoutInflater.from(this));
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.show();
 
         TextView cancelBtn = binding.deleteFolderCancelBtn;
         TextView confirmBtn = binding.deleteFolderConfirmBtn;
@@ -122,9 +122,6 @@ public class ActivityViewFolder extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-
-        dialog.show();
-        //dialog.show();;
     }
 
     private void addSetsDialog() {
@@ -152,14 +149,14 @@ public class ActivityViewFolder extends AppCompatActivity {
             String folderCreator = intent.getStringExtra("folder_creator");
             String folderSets = intent.getStringExtra("folder_sets");
 
-            TextView folderNameTV = binding.viewFolderNameTv;
-            TextView folderCreatorTV = binding.viewFolderCreatorTv;
-            TextView folderSetsTV = binding.viewFolderNumberOfSetsTv;
+            TextView folderNameTv = binding.viewFolderNameTv;
+            TextView folderCreatorTv = binding.viewFolderCreatorTv;
+            TextView folderSetsTv = binding.viewFolderNumberOfSetsTv;
 
             if (folderName != null) {
-                folderNameTV.setText(folderName);
-                folderCreatorTV.setText(folderCreator);
-                folderSetsTV.setText(folderSets + " sets");
+                folderNameTv.setText(folderName);
+                folderCreatorTv.setText(folderCreator);
+                folderSetsTv.setText(folderSets + " sets");
             }
         }
     }

@@ -1,8 +1,15 @@
 package com.example.mallet;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -10,15 +17,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.mallet.databinding.ActivityLearnBinding;
+import com.example.mallet.databinding.DialogConfirmExitBinding;
 import com.example.mallet.utils.ModelFlashcard;
 import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ActivityLearn extends AppCompatActivity {
 
     private ActivityLearnBinding binding;
+    private int clickCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,11 +122,34 @@ public class ActivityLearn extends AppCompatActivity {
         }
     }
 
+    public void confirmExitDialog() {
+        final Dialog dialog = createDialog(R.layout.dialog_confirm_exit);
+        DialogConfirmExitBinding dialogBinding = DialogConfirmExitBinding.inflate(LayoutInflater.from(this));
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
+        dialog.show();
+
+        dialogBinding.confirmExitCancelTv.setOnClickListener(v -> dialog.dismiss());
+        dialogBinding.confirmExitConfirmTv.setOnClickListener(v -> {
+            this.finish();
+            dialog.dismiss();
+        });
+
+
+    }
+
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, ActivityViewLearningSet.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        startActivity(intent);
-        finish();
+        confirmExitDialog();
+    }
+
+    private Dialog createDialog(int layoutResId) {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(layoutResId);
+
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+        return dialog;
     }
 }

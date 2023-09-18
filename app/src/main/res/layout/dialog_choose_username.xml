@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/choose_username_main_ll"
+    android:id="@+id/chooseUsername_main_ll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_corners_rounded"
@@ -9,7 +9,7 @@
     android:padding="30dp">
 
     <TextView
-        android:id="@+id/choose_username_title_tv"
+        android:id="@+id/chooseUsername_titleTv"
         style="@style/BasicBoldTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,10 +19,10 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="5dp" />
+        android:layout_height="10dp" />
 
     <TextView
-        android:id="@+id/choose_username_tv"
+        android:id="@+id/chooseUsernameTv"
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
         android:layout_height="10dp" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/choose_username_til"
+        android:id="@+id/chooseUsernameTil"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:boxBackgroundMode="outline"
@@ -48,7 +48,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/choose_username_et"
+            android:id="@+id/chooseUsernameEt"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -58,7 +58,7 @@
             app:boxStrokeColor="@color/colorSecondaryDark" />
 
         <TextView
-            android:id="@+id/choose_username_error_tv"
+            android:id="@+id/chooseUsername_errorTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -71,17 +71,17 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="30dp" />
+        android:layout_height="10dp" />
 
     <LinearLayout
-        android:id="@+id/choose_username_cancel_confirm_ll"
+        android:id="@+id/chooseUsername_cancelConfirmLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="end"
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/choose_username_cancel_tv"
+            android:id="@+id/chooseUsername_cancelTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -93,7 +93,7 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/choose_username_create_acc_tv"
+            android:id="@+id/chooseUsername_createAccTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"

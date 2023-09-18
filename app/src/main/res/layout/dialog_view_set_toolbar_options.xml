@@ -61,21 +61,4 @@
         app:drawableStartCompat="@drawable/ic_create_group"
         app:drawableTint="@color/danube_blue_800" />
 
-    <TextView
-        android:id="@+id/viewSet_options_delete"
-        style="@style/BasicTextStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:background="@drawable/bg_ripple"
-        android:clickable="true"
-        android:drawablePadding="35dp"
-        android:focusable="true"
-        android:gravity="center_vertical"
-        android:padding="20dp"
-        android:text="Delete"
-        android:textSize="20sp"
-        app:drawableStartCompat="@drawable/ic_delete"
-        app:drawableTint="@color/danube_blue_800" />
-
 </LinearLayout>

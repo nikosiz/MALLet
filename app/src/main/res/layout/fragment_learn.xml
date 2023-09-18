@@ -62,6 +62,7 @@
         android:id="@+id/learn_contentsLl"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:gravity="center"
         android:orientation="vertical"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -98,13 +99,13 @@
                     style="@style/BasicTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Choose the correct term"
+                    android:text="Choose the correct answer"
                     android:textColor="@color/secondaryTextColor"
                     android:textSize="20sp" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="20dp" />
+                    android:layout_height="10dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -118,23 +119,18 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginVertical="10dp"
-                        android:drawableLeft="@drawable/ic_one"
-                        android:drawablePadding="10dp"
-                        android:drawableTint="@color/colorPrimary"
-                        android:gravity="start|center"
+                        android:gravity="center_vertical"
                         android:text="Option 1"
-
                         android:textAllCaps="false" />
 
                     <Button
                         android:id="@+id/learn_answerTwoBtn"
                         style="@style/SocialButtonStyle"
                         android:layout_width="match_parent"
+
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="10dp"
-                        android:drawableLeft="@drawable/ic_two"
-                        android:drawableTint="@color/colorPrimary"
-                        android:gravity="start|center"
+                        android:gravity="center_vertical"
                         android:text="Option 2"
                         android:textAllCaps="false" />
 
@@ -144,9 +140,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="10dp"
-                        android:drawableLeft="@drawable/ic_three"
-                        android:drawableTint="@color/colorPrimary"
-                        android:gravity="start|center"
+                        android:gravity="center_vertical"
                         android:text="Option 3"
                         android:textAllCaps="false" />
 
@@ -156,19 +150,16 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="10dp"
-                        android:drawableLeft="@drawable/ic_four"
-                        android:drawableTint="@color/colorPrimary"
-                        android:gravity="start|center"
+                        android:gravity="center_vertical"
                         android:text="Option 4"
                         android:textAllCaps="false" />
-
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="10dp" />
+            android:layout_height="60dp" />
 
         <TextView
             android:id="@+id/learn_questionCounterTv"
@@ -181,5 +172,6 @@
             android:textAllCaps="false"
             android:textColor="@color/secondaryTextColor"
             android:textSize="15sp" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

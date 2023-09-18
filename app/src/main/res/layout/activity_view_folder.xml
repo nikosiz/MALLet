@@ -15,8 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:gravity="center_vertical"
         android:background="@android:color/transparent"
+        android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -27,13 +27,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginEnd="50dp"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
-            android:contentDescription="toolbar options"
+            android:contentDescription="@string/back_arrow"
             android:focusable="true"
             android:src="@drawable/ic_arrow_back"
-            app:tint="@color/colorPrimaryDark" />
+            app:tint="@color/colorPrimaryDark"
+            tools:ignore="TouchTargetSizeCheck"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="17dp" />
 
         <TextView
             android:id="@+id/viewFolder_toolbarTitleTv"
@@ -41,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:text="Folder"
+            android:text="@string/folder"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="30sp" />
 
@@ -53,10 +55,13 @@
             android:layout_marginHorizontal="20dp"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
-            android:contentDescription="folder options"
+            android:contentDescription="@string/toolbar_options"
             android:focusable="true"
             android:src="@drawable/ic_toolbar_options"
-            app:tint="@color/colorPrimaryDark" />
+            app:tint="@color/colorPrimaryDark"
+            tools:ignore="TouchTargetSizeCheck"
+            tools:layout_editor_absoluteX="361dp"
+            tools:layout_editor_absoluteY="17dp" />
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
@@ -73,7 +78,7 @@
             android:id="@+id/viewFolder_infoCv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardElevation="5dp">
+            app:cardElevation="0dp">
 
             <LinearLayout
                 android:id="@+id/viewFolder_infoCvLl"
@@ -87,7 +92,7 @@
                     style="@style/BasicBoldTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="folder_name"
+                    android:text="@string/folder_name"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="20sp" />
 
@@ -106,7 +111,7 @@
                         android:id="@+id/viewFolder_userIconIv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:contentDescription="user icon"
+                        android:contentDescription="@string/user_icon"
                         android:src="@drawable/ic_profile"
                         app:tint="@color/danube_blue_800" />
 
@@ -116,7 +121,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:text="user_name"
+                        android:text="@string/username"
                         android:textColor="@color/secondaryTextColor" />
 
                     <View
@@ -130,8 +135,9 @@
                         style="@style/BasicTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="sets"
-                        android:textColor="@color/danube_blue_400" />
+                        android:text="@string/number_of_sets"
+                        android:textColor="@color/danube_blue_400"
+                        tools:ignore="TextContrastCheck" />
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -145,7 +151,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
-            app:cardElevation="3dp">
+            app:cardCornerRadius="10dp"
+            app:cardElevation="1dp">
 
             <LinearLayout
                 android:id="@+id/viewFolder_addSetsCvLl"
@@ -153,14 +160,15 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:padding="20dp"
+                android:visibility="visible">
 
                 <TextView
                     android:id="@+id/viewFolder_addSetsTitleTv"
                     style="@style/BasicBoldTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="There are no sets in this folder."
+                    android:text="@string/no_sets_in_this_folder"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="20sp" />
 
@@ -173,7 +181,7 @@
                     style="@style/BasicTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Organise your sets by sorting them into folders."
+                    android:text="@string/organise_sets_sort_into_folders"
                     android:textColor="@color/secondaryTextColor"
                     android:textSize="15sp" />
 
@@ -186,15 +194,12 @@
                     style="@style/BasicButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="10dp"
                     android:drawableLeft="@drawable/ic_plus"
                     android:drawableTint="@color/white"
-                    android:gravity="center"
-                    android:text="Add sets"
-                    android:textColor="@color/white"
+                    android:text="@string/add_sets"
                     android:textSize="20sp"
-                    app:backgroundTint="@null" />
+                    app:backgroundTint="@null"
+                    tools:ignore="RtlHardcoded" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

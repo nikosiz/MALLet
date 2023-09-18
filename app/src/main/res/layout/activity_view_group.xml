@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryLight"
 
-    tools:context=".ActivityViewFolder"
+    tools:context=".ActivityViewGroup"
     tools:ignore="Overdraw">
 
     <androidx.appcompat.widget.Toolbar
@@ -17,6 +17,7 @@
         android:layout_gravity="center_vertical"
         android:background="@android:color/transparent"
         android:gravity="center_vertical"
+        android:paddingHorizontal="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -25,25 +26,22 @@
             android:id="@+id/viewGroup_toolbarBackIv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start|center_vertical"
-            android:layout_marginHorizontal="20dp"
+            android:layout_gravity="start"
             android:layout_marginEnd="50dp"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
-            android:contentDescription="toolbar options"
+            android:contentDescription="@string/back_arrow"
             android:focusable="true"
-            android:gravity="center_vertical"
             android:src="@drawable/ic_arrow_back"
             app:tint="@color/colorPrimaryDark" />
 
         <TextView
-            android:id="@+id/viewGroup_toolbar_titleTv"
+            android:id="@+id/viewGroup_toolbarTitleTv"
             style="@style/BasicBoldTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
-            android:text="Group"
+            android:text="@string/group"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="30sp" />
 
@@ -52,13 +50,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginHorizontal="20dp"
+            android:layout_marginEnd="20dp"
             android:background="@drawable/bg_ripple"
-
             android:clickable="true"
-            android:contentDescription="@string/save_btn"
+            android:contentDescription="@string/toolbar_options"
             android:focusable="true"
-            android:gravity="center_vertical"
             android:src="@drawable/ic_toolbar_options"
             app:tint="@color/colorPrimaryDark" />
     </androidx.appcompat.widget.Toolbar>
@@ -74,22 +70,76 @@
         app:layout_constraintTop_toBottomOf="@id/viewGroup_toolbar">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/viewGroup_infoCv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardElevation="3dp">
+            app:cardElevation="0dp">
 
             <LinearLayout
+                android:id="@+id/viewGroup_infoCvLl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="20dp">
 
                 <TextView
-                    android:id="@+id/group_management_name"
+                    android:id="@+id/viewGroup_nameTv"
                     style="@style/BasicBoldTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="group_name"
+                    android:text="@string/group_name"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="20sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp" />
+
+                <LinearLayout
+                    android:id="@+id/viewGroup_infoCvLlLl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|start"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/viewGroup_numberOfSetsTv"
+                        style="@style/BasicTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/number_of_sets"
+                        android:textColor="@color/danube_blue_400" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/viewGroup_addSetsCv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="1dp">
+
+            <LinearLayout
+                android:id="@+id/viewGroup_addSetsCvLl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/viewGroup_addSetsTitleTv"
+                    style="@style/BasicBoldTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_sets_in_this_group"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="20sp" />
 
@@ -98,15 +148,31 @@
                     android:layout_height="5dp" />
 
                 <TextView
-                    android:id="@+id/group_management_sets"
+                    android:id="@+id/viewGroup_addSetsTv"
                     style="@style/BasicTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_sets_share_with_friends"
+                    android:textColor="@color/secondaryTextColor"
+                    android:textSize="15sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+                <Button
+                    android:id="@+id/viewGroup_addSetsBtn"
+                    style="@style/BasicButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="sets"
-                    android:textColor="@color/danube_blue_400" />
+                    android:drawableLeft="@drawable/ic_plus"
+                    android:drawableTint="@color/white"
+                    android:text="Add contents"
+                    android:textSize="20sp"
+                    app:backgroundTint="@null"
+                    tools:ignore="RtlHardcoded" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

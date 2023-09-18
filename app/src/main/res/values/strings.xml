@@ -29,7 +29,6 @@
     <string name="email_address">Email address</string>
     <string name="password">Password</string>
     <string name="forgot_password">Forgot password?</string>
-    <string name="email_incorrect">Provided email is incorrect</string>
     <string name="login">Log in</string>
     <string name="sign_up">Sign up</string>
     <string name="or_quickly">or quickly with</string>
@@ -70,4 +69,20 @@
     <string name="groups">Groups</string>
     <string name="recent_sets">Recent sets</string>
     <string name="settings_icon">settings icon</string>
+    <string name="email_incorrect">Email incorrect</string>
+    <string name="password_incorrect">"The password must be at least 8 characters long and contain at least one digit, one small letter, one big letter and one special character."</string>
+    <string name="username_incorrect">The username can only consist of letters, numbers, and underscores</string>
+    <string name="members">members</string>
+    <string name="theme_name">theme_name</string>
+    <string name="add_sets">Add sets</string>
+    <string name="no_sets_in_this_group">There are no sets in this group</string>
+    <string name="add_sets_share_with_friends">Add learning sets to share them with your friends</string>
+    <string name="toolbar_options">toolbar options</string>
+    <string name="group">Group</string>
+    <string name="back_arrow">back arrow</string>
+    <string name="number_of_sets">Number of sets</string>
+    <string name="no_sets_in_this_folder">There are no sets in this folder.</string>
+    <string name="organise_sets_sort_into_folders">Organise your sets by sorting them into folders.</string>
+    <string name="user_icon">User icon</string>
+    <string name="folder">Folder</string>
 </resources>

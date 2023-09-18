@@ -30,7 +30,16 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="10dp" />
+            android:layout_height="30dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorPrimaryLight" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
 
         <TextView
             android:id="@+id/trueFalse_definitionTv"
@@ -43,7 +52,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="10dp" />
+            android:layout_height="30dp" />
 
         <LinearLayout
             android:layout_width="match_parent"

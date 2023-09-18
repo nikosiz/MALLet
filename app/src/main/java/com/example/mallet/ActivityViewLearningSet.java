@@ -19,12 +19,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.mallet.databinding.ActivityViewLearningSetBinding;
-import com.example.mallet.databinding.DialogAddSetToFolderBinding;
+import com.example.mallet.databinding.DialogAddSetBinding;
 import com.example.mallet.databinding.DialogDeleteSetBinding;
 import com.example.mallet.databinding.DialogViewSetToolbarOptionsBinding;
 import com.example.mallet.utils.AdapterFlashcardViewPager;
 import com.example.mallet.utils.ModelFlashcard;
 import com.example.mallet.utils.ModelFolder;
+import com.example.mallet.utils.ModelGroup;
 import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.Utils;
 
@@ -80,12 +81,15 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle("");
 
+        binding.flashcardsBackIv.setOnClickListener(v -> finish());
+
         binding.viewSetOptionsBtn.setOnClickListener(v -> dialogSetOptions());
     }
 
     private void dialogSetOptions() {
         final Dialog dialog = createDialog(R.layout.dialog_view_set_toolbar_options);
         DialogViewSetToolbarOptionsBinding dialogBinding = DialogViewSetToolbarOptionsBinding.inflate(LayoutInflater.from(this));
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
 
         dialogBinding.viewSetOptionsEdit.setOnClickListener(v -> {
@@ -103,38 +107,42 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             addSetToFolderDialog();
         });
         dialogBinding.viewSetOptionsAddToGroup.setOnClickListener(v -> {
-            //dialog.dismiss();
-            Utils.openActivity(this, ActivityEditLearningSet.class);
-        });
-        dialogBinding.viewSetOptionsDelete.setOnClickListener(v -> {
             dialog.dismiss();
-            deleteSetDialog();
+            addSetToGroupDialog();
         });
 
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         dialog.show();
     }
 
-    private void deleteSetDialog() {
-        final Dialog dialog = Utils.createDialog(this, R.layout.dialog_delete_set);
-        DialogDeleteSetBinding dialogBinding = DialogDeleteSetBinding.inflate(LayoutInflater.from(this));
-        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
-
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.show();
-    }
-
     private void addSetToFolderDialog() {
-        final Dialog dialog = Utils.createDialog(this, R.layout.dialog_add_set_to_folder);
-        DialogAddSetToFolderBinding dialogBinding = DialogAddSetToFolderBinding.inflate(LayoutInflater.from(this));
+        final Dialog dialog = createDialog(R.layout.dialog_add_set);
+        DialogAddSetBinding dialogBinding = DialogAddSetBinding.inflate(LayoutInflater.from(this));
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
 
-        dialogBinding.addToFolderCloseIv.setOnClickListener(v -> dialog.dismiss());
+        dialogBinding.addSetToolbarBackIv.setOnClickListener(v -> dialog.dismiss());
 
         List<ModelFolder> folders = createFolderList();
 
         // Assume you have a List<ModelFolder> folders = createFolderList(); defined
-        displayFoldersInLinearLayout(folders, dialogBinding.addToFolderFoldersLl, getLayoutInflater());
+        displayFolders(folders, dialogBinding.addSetListLl, getLayoutInflater());
+
+        dialog.show();
+    }
+
+    private void addSetToGroupDialog() {
+        final Dialog dialog = createDialog(R.layout.dialog_add_set);
+        DialogAddSetBinding dialogBinding = DialogAddSetBinding.inflate(LayoutInflater.from(this));
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
+
+        dialogBinding.addSetToolbarBackIv.setOnClickListener(v -> dialog.dismiss());
+
+        List<ModelGroup> groups = createGroupList();
+
+        // Assume you have a List<ModelFolder> folders = createFolderList(); defined
+        displayGroups(groups, dialogBinding.addSetListLl, getLayoutInflater());
 
         dialog.show();
     }
@@ -263,7 +271,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         return folders;
     }
 
-    private void displayFoldersInLinearLayout(List<ModelFolder> folders, LinearLayout
+    private void displayFolders(List<ModelFolder> folders, LinearLayout
             linearLayout, LayoutInflater inflater) {
         linearLayout.removeAllViews();
 
@@ -279,6 +287,37 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             folderCreatorTextView.setText(folder.getFolderCreator());
 
             linearLayout.addView(folderItemView);
+        }
+    }
+
+    private List<ModelGroup> createGroupList() {
+        List<ModelGroup> groups = new ArrayList<>();
+        groups.add(new ModelGroup("Group #1", "user123", "3"));
+        groups.add(new ModelGroup("Group #2", "user123", "7"));
+        groups.add(new ModelGroup("Group #3", "user123", "2"));
+        groups.add(new ModelGroup("Group #4", "user123", "8"));
+        groups.add(new ModelGroup("Group #5", "user123", "1"));
+        return groups;
+    }
+
+    private void displayGroups(List<ModelGroup> groups, LinearLayout
+            linearLayout, LayoutInflater inflater) {
+        linearLayout.removeAllViews();
+
+        for (ModelGroup group : groups) {
+            View groupItemView = inflater.inflate(R.layout.model_group, linearLayout, false);
+
+            // Find views in the folderItemView based on your layout
+            TextView groupNameTv = groupItemView.findViewById(R.id.group_nameTv);
+            TextView groupNrOfMembersTv = groupItemView.findViewById(R.id.group_nrOfMembersTv);
+            TextView groupNrOfSetsTv = groupItemView.findViewById(R.id.group_nrOfSetsTv);
+
+            // Set folder data to the views
+            groupNameTv.setText(group.getGroupName());
+            groupNrOfMembersTv.setText(group.getNumberOfMembers() + " members");
+            groupNrOfSetsTv.setText(group.getNumberOfSets() + " sets");
+
+            linearLayout.addView(groupItemView);
         }
     }
 }

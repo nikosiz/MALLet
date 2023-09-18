@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/tools"
-    android:id="@+id/model_group_card_view"
+    android:id="@+id/groupCv"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_marginHorizontal="10dp"
@@ -14,9 +14,9 @@
     app:cardCornerRadius="10dp"
     app:cardElevation="3dp"
     card_view:strokeColor="@color/danube_blue_800">
-    <!-- TODO: MAKE THIS CLICKABLE -->
+
     <LinearLayout
-        android:id="@+id/group_model_cv_ll"
+        android:id="@+id/groupCvLl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -24,47 +24,62 @@
         android:padding="20dp">
 
         <ImageView
-            android:id="@+id/group_model_icon_iv"
+            android:id="@+id/group_iconIv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="Folder icon"
             android:src="@drawable/ic_create_group"
-            app:tint="@color/danube_blue_500" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="15dp" />
-
-        <TextView
-            android:id="@+id/group_model_name_tv"
-            style="@style/BasicBoldTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:autoSizeMaxTextSize="25sp"
-            android:autoSizeMinTextSize="15sp"
-            android:autoSizeStepGranularity="2sp"
-            android:autoSizeTextType="uniform"
-            android:singleLine="true"
-            android:text="group_name"
-            android:textColor="@color/primaryTextColor"
-            android:textSize="20sp" />
+            app:tint="@color/colorPrimary" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="10dp" />
 
         <TextView
-            android:id="@+id/group_model_sets_tv"
-            style="@style/BasicTextStyle"
+            android:id="@+id/group_nameTv"
+            style="@style/BasicBoldTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:autoSizeMaxTextSize="25sp"
-            android:autoSizeMinTextSize="15sp"
-            android:autoSizeStepGranularity="2sp"
-            android:autoSizeTextType="uniform"
+
             android:singleLine="true"
             android:text="group_name"
-            android:textColor="@color/secondaryTextColor"
-            android:textSize="15sp" />
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/group_nrOfMembersTv"
+                style="@style/BasicTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="nrOfMembers"
+                android:textColor="@color/colorPrimary"
+                android:textSize="15sp" />
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="10dp"
+                android:background="@color/colorPrimaryLight" />
+
+            <TextView
+                android:id="@+id/group_nrOfSetsTv"
+                style="@style/BasicTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="nrOfSets"
+                android:textColor="@color/colorPrimary"
+                android:textSize="15sp" />
+        </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -280,6 +280,17 @@ public class Utils {
         new Handler().postDelayed(() -> backClickCounter = false, 2000); // Reset the flag after 2 seconds
     }
 
+    public static void finishActivityOnDoubleTap(Activity activity) {
+        if (backClickCounter) {
+            activity.finish();
+        }
+
+        backClickCounter = true;
+        Toast.makeText(activity, "Press back again to leave", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(() -> backClickCounter = false, 2000); // Reset the flag after 2 seconds
+    }
+
     public static void resetEditText(EditText et, TextView err) {
         et.setText("");
         et.clearFocus();

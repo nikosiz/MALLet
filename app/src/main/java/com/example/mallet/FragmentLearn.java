@@ -27,7 +27,7 @@ import java.util.Random;
 public class FragmentLearn extends Fragment {
 
     private Dialog resultDialog; // Declare the Dialog as a class member
-    private TextView questionTv, questionNumberTV;
+    private TextView questionTv, questionNumberTv;
     private Button answerOneBtn, answerTwoBtn, answerThreeBtn, answerFourBtn;
     private ArrayList<ModelMultipleChoiceQuestion> modelLearnArrayList;
     private Random random;
@@ -47,7 +47,7 @@ public class FragmentLearn extends Fragment {
 
         modelLearnArrayList = new ArrayList<>();
         random = new Random();
-        questionNumberTV = binding.learnQuestionCounterTv;
+        questionNumberTv = binding.learnQuestionCounterTv;
 
         setupContents();
 
@@ -64,9 +64,9 @@ public class FragmentLearn extends Fragment {
 
     // Separate method to set data to views
     private void setDataToViews(int currentPos) {
-        questionNumberTV.setText(questionAttempted + "/10");
+        questionNumberTv.setText(questionAttempted + "/10");
         if (questionAttempted > 10) {
-            questionNumberTV.setText("10/10");
+            questionNumberTv.setText("10/10");
             resultDialog();
         } else {
             questionTv.setText(modelLearnArrayList.get(currentPos).getQuestion());

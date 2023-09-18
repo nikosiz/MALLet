@@ -40,9 +40,9 @@ public class AdapterLearningSet extends RecyclerView.Adapter<AdapterLearningSet.
         ModelLearningSet learningSet = learningSetList.get(position);
 
         // Bind learning set data to the views within the ViewHolder
-        holder.learningSetNameTV.setText(learningSet.getName());
-        holder.learningSetCreatorTV.setText(learningSet.getCreator());
-        holder.learningSetTermsTV.setText(learningSet.getNumberOfTerms() + " terms");
+        holder.learningSetNameTv.setText(learningSet.getName());
+        holder.learningSetCreatorTv.setText(learningSet.getCreator());
+        holder.learningSetTermsTv.setText(learningSet.getNumberOfTerms() + " terms");
 
         // Set a click listener for the learning set item
         holder.itemView.setOnClickListener(view -> {
@@ -60,14 +60,14 @@ public class AdapterLearningSet extends RecyclerView.Adapter<AdapterLearningSet.
 
     // ViewHolder class that holds references to the views within each item view
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        final TextView learningSetNameTV, learningSetCreatorTV, learningSetTermsTV;
+        final TextView learningSetNameTv, learningSetCreatorTv, learningSetTermsTv;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             // Initialize the TextViews with their corresponding views from the layout
-            learningSetNameTV = itemView.findViewById(R.id.learningSet_nameTv);
-            learningSetTermsTV = itemView.findViewById(R.id.learningSet_numberOfTermsTv);
-            learningSetCreatorTV = itemView.findViewById(R.id.learningSet_creatorTv);
+            learningSetNameTv = itemView.findViewById(R.id.learningSet_nameTv);
+            learningSetTermsTv = itemView.findViewById(R.id.learningSet_numberOfTermsTv);
+            learningSetCreatorTv = itemView.findViewById(R.id.learningSet_creatorTv);
         }
     }
 

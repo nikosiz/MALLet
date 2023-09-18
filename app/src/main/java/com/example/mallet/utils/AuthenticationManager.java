@@ -1,4 +1,4 @@
-package com.example.mallet;
+package com.example.mallet.utils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

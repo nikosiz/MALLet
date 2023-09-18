@@ -2,8 +2,12 @@ package com.example.mallet;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
 
@@ -11,7 +15,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.mallet.databinding.ActivityViewGroupBinding;
-import com.example.mallet.databinding.DialogGroupToolbarOptionsBinding;
+import com.example.mallet.databinding.DialogAddFolderBinding;
+import com.example.mallet.databinding.DialogAddMembersBinding;
+import com.example.mallet.databinding.DialogAddSetBinding;
+import com.example.mallet.databinding.DialogReportBinding;
+import com.example.mallet.databinding.DialogViewGroupToolbarOptionsBinding;
 import com.example.mallet.utils.Utils;
 
 import java.util.Objects;
@@ -34,51 +42,95 @@ public class ActivityViewGroup extends AppCompatActivity {
     private void setupToolbar() {
         Toolbar toolbar = binding.viewGroupToolbar;
         setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle(""); // Set the title to an empty string
+        Objects.requireNonNull(getSupportActionBar()).setTitle("");
     }
 
     private void setupListeners() {
-        binding.viewGroupToolbarOptionsIv.setOnClickListener(v -> showOptions());
+        binding.viewGroupToolbarOptionsIv.setOnClickListener(v -> groupOptionsDialog());
     }
 
-    private void showOptions() {
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        DialogGroupToolbarOptionsBinding binding = DialogGroupToolbarOptionsBinding.inflate(LayoutInflater.from(this));
-        dialog.setContentView(binding.getRoot());
+    private void groupOptionsDialog() {
+        final Dialog dialog = createDialog(R.layout.dialog_view_group_toolbar_options);
+        DialogViewGroupToolbarOptionsBinding dialogBinding = DialogViewGroupToolbarOptionsBinding.inflate(LayoutInflater.from(this));
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        dialog.show();
 
-        TextView inviteMembersBtn = binding.groupToolbarOptionsInvite;
-        TextView manageGroupBtn = binding.groupToolbarOptionsManage;
-        TextView leaveGroupBtn = binding.groupToolbarOptionsLeave;
-        TextView reportGroupBtn = binding.groupToolbarOptionsReport;
+        TextView addMembersTv = dialogBinding.groupOptionsInviteTv;
+        TextView addSetsTv = dialogBinding.groupOptionsAddSetsTv;
+        TextView addFoldersTv = dialogBinding.groupOptionsAddFoldersTv;
+        TextView leaveTv = dialogBinding.groupOptionsLeaveTv;
+        TextView reportTv = dialogBinding.groupOptionsReportTv;
 
-
-        inviteMembersBtn.setOnClickListener(v -> {
-            // TODO: Maybe invite members via link of some kind ?
+        addMembersTv.setOnClickListener(v -> {
+            dialog.dismiss();
+            addMembersDialog();
         });
 
-        manageGroupBtn.setOnClickListener(v -> {
-            // TODO: ActivityManageGroup
+        addSetsTv.setOnClickListener(v -> {
+            dialog.dismiss();
+            addSetsDialog();
         });
 
-        leaveGroupBtn.setOnClickListener(v -> {
+        addFoldersTv.setOnClickListener(v -> {
+            dialog.dismiss();
+            addFoldersDialog();
+        });
+
+        leaveTv.setOnClickListener(v -> {
             // TODO: leaveGroup()
             dialog.dismiss();
             leaveGroup();
         });
 
-        reportGroupBtn.setOnClickListener(v -> {
+        reportTv.setOnClickListener(v -> {
             // TODO: ActivityReport
         });
 
-        dialog.show();
 
+    }
+
+    private void addMembersDialog() {
+        final Dialog dialog = createDialog(R.layout.dialog_add_members);
+        DialogAddMembersBinding dialogBinding = DialogAddMembersBinding.inflate(LayoutInflater.from(this));
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.show();
+    }
+
+    private void addSetsDialog() {
+        final Dialog dialog = createDialog(R.layout.dialog_add_set);
+        DialogAddSetBinding dialogBinding = DialogAddSetBinding.inflate(LayoutInflater.from(this));
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.show();
+    }
+
+    private void addFoldersDialog() {
+        final Dialog dialog = createDialog(R.layout.dialog_add_folder);
+        DialogAddFolderBinding dialogBinding = DialogAddFolderBinding.inflate(LayoutInflater.from(this));
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.show();
+    }
+
+    private void reportDialog() {
+        final Dialog dialog = createDialog(R.layout.dialog_report);
+        DialogReportBinding dialogBinding = DialogReportBinding.inflate(LayoutInflater.from(this));
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.show();
+    }
+
+    private Dialog createDialog(int layoutResId) {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(layoutResId);
+
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+        return dialog;
     }
 
     private void leaveGroup() {
         // TODO
         Utils.showToast(this, "You left the group");
-
+        finish();
     }
 
     private void getGroupData() {
@@ -89,12 +141,12 @@ public class ActivityViewGroup extends AppCompatActivity {
             String groupName = intent.getStringExtra("group_name");
             String groupSets = intent.getStringExtra("group_sets");
 
-            TextView groupNameTV = binding.groupManagementName;
-            TextView groupSetsTV = binding.groupManagementSets;
+            TextView groupNameTv = binding.viewGroupNameTv;
+            TextView groupSetsTv = binding.viewGroupNumberOfSetsTv;
 
             if (groupName != null) {
-                groupNameTV.setText(groupName);
-                groupSetsTV.setText(groupSets + " sets");
+                groupNameTv.setText(groupName);
+                groupSetsTv.setText(groupSets + " sets");
             }
         }
     }

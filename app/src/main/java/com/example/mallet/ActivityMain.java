@@ -4,10 +4,15 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -111,7 +116,7 @@ public class ActivityMain extends AppCompatActivity {
     }
 
     private void createNewDialog() {
-        final Dialog dialog = Utils.createDialog(this, R.layout.dialog_create);
+        final Dialog dialog = createDialog(R.layout.dialog_create);
         DialogCreateBinding dialogBinding = DialogCreateBinding.inflate(getLayoutInflater());
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
 
@@ -135,9 +140,20 @@ public class ActivityMain extends AppCompatActivity {
         dialog.show();
     }
 
+    private Dialog createDialog(int layoutResId) {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(layoutResId);
+
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+        return dialog;
+    }
+
     private Dialog createSetDialog() {
-        final Dialog dialog = Utils.createDialog(this, R.layout.dialog_create_set);
+        final Dialog dialog = createDialog(R.layout.dialog_create_set);
         DialogCreateSetBinding dialogBinding = DialogCreateSetBinding.inflate(LayoutInflater.from(this));
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
 
         EditText nameEt = dialogBinding.createSetNameEt;
@@ -208,15 +224,18 @@ public class ActivityMain extends AppCompatActivity {
     }
 
     private void createFolderDialog() {
-        final Dialog dialog = Utils.createDialog(this, R.layout.dialog_create_folder);
+        final Dialog dialog = createDialog(R.layout.dialog_create_folder);
         DialogCreateFolderBinding dialogBinding = DialogCreateFolderBinding.inflate(LayoutInflater.from(this));
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
         dialog.show();
     }
 
     private void createGroupDialog() {
-        final Dialog dialog = Utils.createDialog(this, R.layout.dialog_create_group);
+        final Dialog dialog = createDialog(R.layout.dialog_create_group);
         DialogCreateGroupBinding dialogBinding = DialogCreateGroupBinding.inflate(LayoutInflater.from(this));
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
         dialog.show();
     }
@@ -251,11 +270,11 @@ public class ActivityMain extends AppCompatActivity {
 
     public List<ModelGroup> createGroupList() {
         List<ModelGroup> groups = new ArrayList<>();
-        groups.add(new ModelGroup("Group #1", "2"));
-        groups.add(new ModelGroup("Group #2", "5"));
-        groups.add(new ModelGroup("Group #3", "2"));
-        groups.add(new ModelGroup("Group #4", "8"));
-        groups.add(new ModelGroup("Group #5", "5"));
+        groups.add(new ModelGroup("Group #1", "2","3"));
+        groups.add(new ModelGroup("Group #2", "5","3"));
+        groups.add(new ModelGroup("Group #3", "2","3"));
+        groups.add(new ModelGroup("Group #4", "8","3"));
+        groups.add(new ModelGroup("Group #5", "5","3"));
         return groups;
     }
 

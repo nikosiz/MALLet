@@ -13,7 +13,7 @@
     app:cardCornerRadius="10dp"
     app:cardElevation="3dp"
     card_view:strokeColor="@color/danube_blue_800">
-    <!-- TODO: MAKE THIS CLICKABLE -->
+
     <LinearLayout
         android:id="@+id/folder_model_cv_ll"
         android:layout_width="match_parent"
@@ -28,46 +28,37 @@
             android:layout_height="wrap_content"
             android:contentDescription="Folder icon"
             android:src="@drawable/ic_folder"
-            app:tint="@color/danube_blue_500" />
+            app:tint="@color/colorPrimary" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="15dp" />
+            android:layout_height="10dp" />
 
         <TextView
             android:id="@+id/folder_model_name_tv"
             style="@style/BasicBoldTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:autoSizeMaxTextSize="25sp"
-            android:autoSizeMinTextSize="15sp"
-            android:autoSizeStepGranularity="2sp"
-            android:autoSizeTextType="uniform"
-            android:singleLine="true"
             android:text="folder_name"
-            android:textColor="@color/primaryTextColor"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="15dp" />
+            android:layout_height="20dp" />
 
         <TextView
             android:id="@+id/folder_model_creator_tv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autoSizeMaxTextSize="20sp"
-            android:autoSizeMinTextSize="15sp"
-            android:autoSizeStepGranularity="2sp"
-            android:autoSizeTextType="uniform"
             android:drawablePadding="5dp"
             android:gravity="center_vertical"
             android:singleLine="true"
             android:text="creator_name"
-            android:textColor="@color/secondaryTextColor"
-            android:textSize="20sp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp"
             app:drawableStartCompat="@drawable/ic_profile"
-            app:drawableTint="@color/danube_blue_800" />
+            app:drawableTint="@color/colorPrimary" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -37,11 +37,11 @@ public class FragmentUserLibrary_Groups extends Fragment {
         for (ModelGroup group : userLibraryGroupsList) {
             View groupItemView = inflater.inflate(R.layout.model_group, userLibraryGroupsLl, false);
 
-            TextView groupNameTV = groupItemView.findViewById(R.id.group_model_name_tv);
-            groupNameTV.setText(group.getGroupName());
+            TextView groupNameTv = groupItemView.findViewById(R.id.group_nameTv);
+            groupNameTv.setText(group.getGroupName());
 
-            TextView groupSetsTV = groupItemView.findViewById(R.id.group_model_sets_tv);
-            groupSetsTV.setText(group.getNumberOfSets() + " sets");
+            TextView groupSetsTv = groupItemView.findViewById(R.id.group_nrOfSetsTv);
+            groupSetsTv.setText(group.getNumberOfSets() + " sets");
 
             // Add groupItemView to the linearLayout
             userLibraryGroupsLl.addView(groupItemView);
@@ -53,11 +53,11 @@ public class FragmentUserLibrary_Groups extends Fragment {
 
     private List<ModelGroup> getGroupList() {
         List<ModelGroup> groupList = new ArrayList<>();
-        groupList.add(new ModelGroup("Group #1", "3"));
-        groupList.add(new ModelGroup("Group #2", "7"));
-        groupList.add(new ModelGroup("Group #3", "2"));
-        groupList.add(new ModelGroup("Group #4", "8"));
-        groupList.add(new ModelGroup("Group #5", "1"));
+        groupList.add(new ModelGroup("Group #1", "3","3"));
+        groupList.add(new ModelGroup("Group #2", "7","3"));
+        groupList.add(new ModelGroup("Group #3", "2","3"));
+        groupList.add(new ModelGroup("Group #4", "8","3"));
+        groupList.add(new ModelGroup("Group #5", "1","3"));
         return groupList;
     }
 
