@@ -64,7 +64,7 @@ public class ActivityMain extends AppCompatActivity {
             selectedFragmentId = savedInstanceState.getInt(SELECTED_FRAGMENT_KEY, R.id.bottom_nav_home);
             setSelectedFragment(selectedFragmentId);
         } else {
-            replaceFragment(new ActivityMain_FragmentHome());
+            replaceFragment(new FragmentHome());
         }
     }
 
@@ -97,15 +97,15 @@ public class ActivityMain extends AppCompatActivity {
         selectedFragmentId = item.getItemId();
 
         if (selectedFragmentId == R.id.bottom_nav_home) {
-            replaceFragment(new ActivityMain_FragmentHome());
+            replaceFragment(new FragmentHome());
         } else if (selectedFragmentId == R.id.bottom_nav_library) {
-            replaceFragment(new ActivityMain_FragmentSetsDatabase());
+            replaceFragment(new FragmentSetsDatabase());
         } else if (selectedFragmentId == R.id.bottom_nav_add_new) {
             createNewDialog();
         } else if (selectedFragmentId == R.id.bottom_nav_your_library) {
-            replaceFragment(new ActivityMain_FragmentUserLibrary());
+            replaceFragment(new FragmentUserLibrary());
         } else if (selectedFragmentId == R.id.bottom_nav_profile) {
-            replaceFragment(new ActivityMain_FragmentProfile());
+            replaceFragment(new FragmentProfile());
         }
         return true;
     }

@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.mallet.databinding.ActivityMainFragmentHomeBinding;
+import com.example.mallet.databinding.FragmentHomeBinding;
 import com.example.mallet.utils.AdapterFolder;
 import com.example.mallet.utils.AdapterGroup;
 import com.example.mallet.utils.AdapterLearningSet;
@@ -21,23 +21,26 @@ import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.Utils;
 
 import java.util.List;
+import java.util.Objects;
 
-public class ActivityMain_FragmentHome extends Fragment {
+public class FragmentHome extends Fragment {
 
-    private ActivityMainFragmentHomeBinding binding;
+    private FragmentHomeBinding binding;
     private ActivityMain activityMain;
+    private List<ModelLearningSet> learningSets;
+    private List<ModelFolder> folders;
+    private List<ModelGroup> groups;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = ActivityMainFragmentHomeBinding.inflate(inflater, container, false);
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
 
         setupContents();
 
         activityMain = (ActivityMain) getActivity();
 
-        assert activityMain != null;
-        List<ModelLearningSet> learningSets = activityMain.createSetList();
+        learningSets = Objects.requireNonNull(activityMain).createSetList();
         setupViewPager(binding.homeSetsViewPager, learningSets);
 
         List<ModelFolder> folders = activityMain.createFolderList();

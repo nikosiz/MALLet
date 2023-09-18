@@ -32,17 +32,18 @@ import com.example.mallet.databinding.DialogChangeThemeBinding;
 import com.example.mallet.databinding.DialogChangeUsernameBinding;
 import com.example.mallet.databinding.DialogDeleteAccountBinding;
 import com.example.mallet.databinding.DialogVerifyPasswordBinding;
-import com.example.mallet.databinding.ActivityMainFragmentProfileBinding;
+import com.example.mallet.databinding.FragmentProfileBinding;
 import com.example.mallet.utils.Utils;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-public class ActivityMain_FragmentProfile extends Fragment {
-    private ActivityMainFragmentProfileBinding binding;
-    TextView themeTv;
-    String selectedTheme;
+public class FragmentProfile extends Fragment {
+    private FragmentProfileBinding binding;
+    private int clickCount = 0;
+    private TextView themeTv;
+    private String selectedTheme;
     // Define username pattern using regex
     private final Pattern usernamePattern = Pattern.compile("^[a-zA-Z0-9_]+$");
     private final String usernameIncorrect = "The username can only consist of letters, numbers, and underscores";
@@ -53,7 +54,7 @@ public class ActivityMain_FragmentProfile extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = ActivityMainFragmentProfileBinding.inflate(inflater, container, false);
+        binding = FragmentProfileBinding.inflate(inflater, container, false);
 
         setupContents();
 
@@ -378,8 +379,13 @@ public class ActivityMain_FragmentProfile extends Fragment {
     private void logOut() {
         // TODO: Implement logic for logging out
 
-        Utils.showToast(getContext(), "You were logged out. For now, as we do not have any backend, we are just going to move you to the ActivityOpening");
-        requireActivity().finish();
+        clickCount++;
+        if (clickCount == 1) {
+            Utils.showToast(getContext(), "Click once again to log out");
+        } else if (clickCount == 2) {
+            requireActivity().finish();
+            clickCount = 0;
+        }
     }
 
     private void showDeleteAccountDialog() {

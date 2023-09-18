@@ -146,7 +146,13 @@ public class Utils {
         return new ArrayList<>(); // Return an empty list if learningSet is null
     }
 
+    public static String createSetList(ModelLearningSet learningSet) {
+        if (learningSet != null) {
 
+            return learningSet.getName();
+        }
+        return null; // Return null if learningSet is null
+    }
 
 
     // This stays, what is up, needs to be reviewed

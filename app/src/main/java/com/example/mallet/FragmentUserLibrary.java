@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.mallet.databinding.ActivityMainFragmentUserLibraryBinding;
+import com.example.mallet.databinding.FragmentUserLibraryBinding;
 import com.example.mallet.utils.ModelFolder;
 import com.example.mallet.utils.ModelGroup;
 import com.example.mallet.utils.ModelLearningSet;
@@ -22,14 +22,22 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import java.util.List;
 import java.util.Objects;
 
-public class ActivityMain_FragmentUserLibrary extends Fragment {
-    ActivityMainFragmentUserLibraryBinding binding;
+public class FragmentUserLibrary extends Fragment {
+    FragmentUserLibraryBinding binding;
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
 
+    public static FragmentUserLibrary newInstance(int selectedTabIndex) {
+        FragmentUserLibrary fragment = new FragmentUserLibrary();
+        Bundle args = new Bundle();
+        args.putInt("selectedTabIndex", selectedTabIndex);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = ActivityMainFragmentUserLibraryBinding.inflate(inflater, container, false);
+        binding = FragmentUserLibraryBinding.inflate(inflater, container, false);
         ActivityMain activityMain = (ActivityMain) getActivity();
 
         viewPager = binding.userLibraryViewPager;
@@ -62,11 +70,11 @@ public class ActivityMain_FragmentUserLibrary extends Fragment {
                 Fragment result = null;
                 // Return the appropriate fragment for each tab
                 if (position == 0) {
-                    result = new ActivityMain_FragmentUserLibrary_Sets();
+                    result = new FragmentUserLibrary_Sets();
                 } else if (position == 1) {
-                    result = new ActivityMain_FragmentUserLibrary_Folders();
+                    result = new FragmentUserLibrary_Folders();
                 } else if (position == 2) {
-                    result = new ActivityMain_FragmentUserLibrary_Groups();
+                    result = new FragmentUserLibrary_Groups();
                 }
                 return Objects.requireNonNull(result);
             }

@@ -1,10 +1,11 @@
 package com.example.mallet.utils;
 
+import com.google.android.material.materialswitch.MaterialSwitch;
+
 public class AccountManager {
     private static AccountManager instance;
 
     private AccountManager() {
-        // Private constructor to enforce singleton pattern
     }
 
     public static AccountManager getInstance() {
@@ -15,22 +16,39 @@ public class AccountManager {
     }
 
     public boolean signup(String email, String password) {
-        // Implement user signup logic here
-        // Return true if signup is successful, false otherwise
-        return true; // Placeholder for success
+
+        return true;
     }
 
     public boolean login(String email, String password) {
-        // Implement user login logic here
-        // Return true if login is successful, false otherwise
-        return true; // Placeholder for success
+        return true;
+    }
+
+    public boolean changeEmail(String newEmail) {
+        return true;
+    }
+
+    public boolean changeUsername(String newUsername) {
+        return true;
+    }
+
+    public boolean changePassword(String oldPassword, String newPassword) {
+        return true;
+    }
+
+    public boolean notifications(MaterialSwitch notificationsSwitch) {
+        return true;
+    }
+
+    public boolean setsOffline(MaterialSwitch saveOfflineSwitch) {
+        return true;
     }
 
     public boolean logout() {
-        // Implement user logout logic here
-        // Return true if logout is successful, false otherwise
-        return true; // Placeholder for success
+        return true;
     }
 
-    // Other user-related methods (e.g., change password, reset password)
+    public boolean deleteAccount(String password) {
+        return true;
+    }
 }

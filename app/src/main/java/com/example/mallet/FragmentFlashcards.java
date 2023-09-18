@@ -20,7 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
 
-import com.example.mallet.databinding.ActivityLearnFragmentFlashcardsBinding;
+import com.example.mallet.databinding.FragmentFlashcardsBinding;
 import com.example.mallet.databinding.DialogFlashcardOptionsBinding;
 import com.example.mallet.utils.AdapterFlashcardStack;
 import com.example.mallet.utils.CallbackFlashcardStack;
@@ -38,16 +38,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ActivityLearn_FragmentFlashcards extends Fragment {
+public class FragmentFlashcards extends Fragment {
 
-    private ActivityLearnFragmentFlashcardsBinding binding;
+    private FragmentFlashcardsBinding binding;
     private static final String TAG = "LearnFragment";
     private CardStackLayoutManager manager;
     private AdapterFlashcardStack adapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = ActivityLearnFragmentFlashcardsBinding.inflate(inflater, container, false);
+        binding = FragmentFlashcardsBinding.inflate(inflater, container, false);
 
         setupCardStackView();
         setupContents();

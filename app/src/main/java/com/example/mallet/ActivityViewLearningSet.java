@@ -22,7 +22,7 @@ import com.example.mallet.databinding.ActivityViewLearningSetBinding;
 import com.example.mallet.databinding.DialogAddSetToFolderBinding;
 import com.example.mallet.databinding.DialogDeleteSetBinding;
 import com.example.mallet.databinding.DialogViewSetToolbarOptionsBinding;
-import com.example.mallet.utils.AdapterFlashcard;
+import com.example.mallet.utils.AdapterFlashcardViewPager;
 import com.example.mallet.utils.ModelFlashcard;
 import com.example.mallet.utils.ModelFolder;
 import com.example.mallet.utils.ModelLearningSet;
@@ -56,10 +56,10 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
     private void setupContents() {
         binding.viewSetViewpager.setOnClickListener(v -> flipCard());
-        binding.viewSetFlashcards.setOnClickListener(v -> Utils.openActivityWithFragment(this, ActivityLearn_FragmentFlashcards.class, ActivityLearn.class));
-        binding.viewSetLearn.setOnClickListener(v -> Utils.openActivityWithFragment(this, ActivityLearn_FragmentLearn.class, ActivityLearn.class));
-        binding.viewSetTest.setOnClickListener(v -> Utils.openActivityWithFragment(this, ActivityLearn_FragmentTest.class, ActivityLearn.class));
-        binding.viewSetMatch.setOnClickListener(v -> Utils.openActivityWithFragment(this, ActivityLearn_FragmentMatch.class, ActivityLearn.class));
+        binding.viewSetFlashcards.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentFlashcards.class, ActivityLearn.class));
+        binding.viewSetLearn.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentLearn.class, ActivityLearn.class));
+        binding.viewSetTest.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentTest.class, ActivityLearn.class));
+        binding.viewSetMatch.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentMatch.class, ActivityLearn.class));
         binding.testBtn.setOnClickListener(v -> {
             Intent intent = new Intent(this, ActivityLearn.class);
 
@@ -185,7 +185,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             simplifiedFlashcards.add(simplifiedFlashcard);
         }
 
-        AdapterFlashcard adapter = new AdapterFlashcard(simplifiedFlashcards, v -> flipCard());
+        AdapterFlashcardViewPager adapter = new AdapterFlashcardViewPager(simplifiedFlashcards, v -> flipCard());
         viewPager.setAdapter(adapter);
         viewPager.setPageTransformer(Utils::applySwipeTransformer);
     }
@@ -197,7 +197,6 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
         for (ModelFlashcard flashcard : flashcards) {
             View flashcardItemView = inflater.inflate(R.layout.model_flashcard, linearLayout, false);
-
 
             // Convert dp to pixels
             int paddingInDp = 30;

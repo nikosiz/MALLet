@@ -2,15 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/test_mainLl"
+    android:id="@+id/userLibrary_mainCl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryLight"
-    android:gravity="center"
-    tools:context=".ActivityLearn_FragmentTest">
+    tools:context=".FragmentUserLibrary">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/test_toolbar"
+        android:id="@+id/userLibrary_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
@@ -20,31 +19,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/test_toolbarBackIv"
+        <TextView
+            android:id="@+id/userLibrary_toolbarTitleTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginEnd="50dp"
-            android:background="@drawable/bg_ripple"
-            android:clickable="true"
-            android:contentDescription="toolbar options"
-            android:focusable="true"
-            android:src="@drawable/ic_arrow_back"
-            app:tint="@color/colorPrimaryDark" />
+            android:fontFamily="@font/rem_bold"
+            android:text="Your library"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="30sp" />
     </androidx.appcompat.widget.Toolbar>
 
-    <LinearLayout
-        android:id="@+id/test_questionLl"
-        android:layout_width="0dp"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/userLibrary_tabLayout"
+        style="@style/TabTitleStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/userLibrary_toolbar"
+        app:tabIndicatorColor="@color/danube_blue_800"
+        app:tabIndicatorFullWidth="true" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/userLibrary_viewPager"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/test_toolbar">
-
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@id/userLibrary_tabLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

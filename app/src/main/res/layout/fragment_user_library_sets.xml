@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityMain_FragmentUserLibrary_Sets">
+    tools:context=".FragmentUserLibrary_Sets">
 
 
     <LinearLayout
@@ -12,11 +12,8 @@
         android:layout_height="wrap_content"
         android:gravity=""
         android:orientation="vertical"
-        android:paddingHorizontal="20dp">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="30dp" />
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="20dp">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/user_library_search_til"
@@ -39,13 +36,11 @@
             android:layout_height="20dp" />
 
         <LinearLayout
-            android:id="@+id/userLibrarySets_cardsLl"
+            android:id="@+id/userLibrarySets_allSetsLl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
         </LinearLayout>
-
-
     </LinearLayout>
 </ScrollView>

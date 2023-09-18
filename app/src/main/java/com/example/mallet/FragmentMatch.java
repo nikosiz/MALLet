@@ -8,14 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ActivityLearn_FragmentMatch extends Fragment {
+public class FragmentMatch extends Fragment {
 
-    public ActivityLearn_FragmentMatch() {
+    public FragmentMatch() {
         // Required empty public constructor
     }
 
-    public static ActivityLearn_FragmentMatch newInstance(String param1, String param2) {
-        ActivityLearn_FragmentMatch fragment = new ActivityLearn_FragmentMatch();
+    public static FragmentMatch newInstance(String param1, String param2) {
+        FragmentMatch fragment = new FragmentMatch();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -30,6 +30,6 @@ public class ActivityLearn_FragmentMatch extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.activity_learn_fragment_match, container, false);
+        return inflater.inflate(R.layout.fragment_match, container, false);
     }
 }

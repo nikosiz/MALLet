@@ -16,7 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.mallet.databinding.DialogLearnResultBinding;
-import com.example.mallet.databinding.ActivityLearnFragmentLearnBinding;
+import com.example.mallet.databinding.FragmentLearnBinding;
 import com.example.mallet.utils.ModelMultipleChoiceQuestion;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import java.util.Objects;
 import java.util.Random;
 
 
-public class ActivityLearn_FragmentLearn extends Fragment {
+public class FragmentLearn extends Fragment {
 
     private Dialog resultDialog; // Declare the Dialog as a class member
     private TextView questionTv, questionNumberTV;
@@ -36,7 +36,7 @@ public class ActivityLearn_FragmentLearn extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        com.example.mallet.databinding.ActivityLearnFragmentLearnBinding binding = ActivityLearnFragmentLearnBinding.inflate(inflater, container, false);
+        com.example.mallet.databinding.FragmentLearnBinding binding = FragmentLearnBinding.inflate(inflater, container, false);
 
         questionTv = binding.learnQuestionTv;
 

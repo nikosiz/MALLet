@@ -65,4 +65,9 @@
     <string name="notifications_switch">Notifications switch</string>
     <string name="profile_photo">Profile photo</string>
     <string name="save_btn">Save button</string>
+    <string name="folders">Folders</string>
+    <string name="view_all">View all</string>
+    <string name="groups">Groups</string>
+    <string name="recent_sets">Recent sets</string>
+    <string name="settings_icon">settings icon</string>
 </resources>

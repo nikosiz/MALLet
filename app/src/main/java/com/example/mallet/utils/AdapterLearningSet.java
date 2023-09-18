@@ -60,16 +60,14 @@ public class AdapterLearningSet extends RecyclerView.Adapter<AdapterLearningSet.
 
     // ViewHolder class that holds references to the views within each item view
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        final TextView learningSetNameTV;
-        final TextView learningSetCreatorTV;
-        final TextView learningSetTermsTV;
+        final TextView learningSetNameTV, learningSetCreatorTV, learningSetTermsTV;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             // Initialize the TextViews with their corresponding views from the layout
-            learningSetNameTV = itemView.findViewById(R.id.learning_set_model_name_tv);
-            learningSetCreatorTV = itemView.findViewById(R.id.learning_set_model_creator_tv);
-            learningSetTermsTV = itemView.findViewById(R.id.learning_set_model_terms_tv);
+            learningSetNameTV = itemView.findViewById(R.id.learningSet_nameTv);
+            learningSetTermsTV = itemView.findViewById(R.id.learningSet_numberOfTermsTv);
+            learningSetCreatorTV = itemView.findViewById(R.id.learningSet_creatorTv);
         }
     }
 

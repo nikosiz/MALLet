@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryLight"
-    tools:context=".ActivityMain_FragmentHome">
+    tools:context=".FragmentHome">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/home_toolbar"
@@ -35,7 +35,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginHorizontal="20dp"
-            android:contentDescription="settings icon"
+            android:background="@drawable/bg_ripple"
+            android:contentDescription="@string/settings_icon"
             android:src="@drawable/ic_settings"
             app:tint="@color/colorPrimaryDark" />
     </androidx.appcompat.widget.Toolbar>
@@ -63,10 +64,6 @@
                 android:orientation="vertical"
                 android:padding="20dp">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp" />
-
                 <LinearLayout
                     android:id="@+id/home_setLl"
                     android:layout_width="match_parent"
@@ -79,7 +76,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Recent sets"
+                        android:text="@string/recent_sets"
                         android:textColor="@color/primaryTextColor"
                         android:textSize="20sp" />
 
@@ -94,7 +91,7 @@
                         android:focusable="true"
                         android:gravity="end"
                         android:paddingHorizontal="5dp"
-                        android:text="View all" />
+                        android:text="@string/view_all" />
                 </LinearLayout>
 
                 <View
@@ -122,7 +119,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Folders"
+                        android:text="@string/folders"
                         android:textColor="@color/primaryTextColor"
                         android:textSize="20sp" />
 
@@ -137,7 +134,7 @@
                         android:focusable="true"
                         android:gravity="end"
                         android:paddingHorizontal="5dp"
-                        android:text="View all" />
+                        android:text="@string/view_all" />
                 </LinearLayout>
 
                 <View
@@ -165,7 +162,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Groups"
+                        android:text="@string/groups"
                         android:textColor="@color/primaryTextColor"
                         android:textSize="20sp" />
 
@@ -180,7 +177,7 @@
                         android:focusable="true"
                         android:gravity="end"
                         android:paddingHorizontal="5dp"
-                        android:text="View all" />
+                        android:text="@string/view_all" />
                 </LinearLayout>
 
                 <View
@@ -194,7 +191,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="30dp" />
+                    android:layout_height="60dp" />
             </LinearLayout>
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>

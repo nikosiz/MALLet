@@ -11,19 +11,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.mallet.databinding.ActivityMainFragmentUserLibraryGroupsBinding;
+import com.example.mallet.databinding.FragmentUserLibraryGroupsBinding;
 import com.example.mallet.utils.ModelGroup;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActivityMain_FragmentUserLibrary_Groups extends Fragment {
-    private ActivityMainFragmentUserLibraryGroupsBinding binding;
+public class FragmentUserLibrary_Groups extends Fragment {
+    private FragmentUserLibraryGroupsBinding binding;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = ActivityMainFragmentUserLibraryGroupsBinding.inflate(inflater, container, false);
+        binding = FragmentUserLibraryGroupsBinding.inflate(inflater, container, false);
 
         fillText(inflater);
 

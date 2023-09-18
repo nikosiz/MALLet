@@ -2,50 +2,42 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/userLibrary_mainCl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryLight"
-    tools:context=".ActivityMain_FragmentUserLibrary">
+    tools:context=".FragmentSetsDatabase">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/userLibrary_toolbar"
+        android:id="@+id/home_fragment_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
         android:background="@android:color/transparent"
+        android:layout_gravity="center_vertical"
         android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/userLibrary_toolbarTitleTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/rem_bold"
-            android:text="Your library"
+            android:text="Set database"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="30sp" />
     </androidx.appcompat.widget.Toolbar>
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/userLibrary_tabLayout"
-        style="@style/TabTitleStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/userLibrary_toolbar"
-        app:tabIndicatorColor="@color/danube_blue_800"
-        app:tabIndicatorFullWidth="true" />
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/userLibrary_viewPager"
+    <FrameLayout
+        android:id="@+id/home_fl"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/userLibrary_tabLayout" />
+        app:layout_constraintTop_toBottomOf="@id/home_fragment_toolbar">
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
