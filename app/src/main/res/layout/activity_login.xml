@@ -78,15 +78,14 @@
                     app:boxStrokeColor="@color/colorPrimary"
                     app:boxStrokeWidth="2dp">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <com.google.android.material.textfield.TextInputEditText android:textSize="15sp"
                         android:id="@+id/login_email_et"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:autofillHints="emailAddress"
                         android:hint="@string/email_address"
                         android:inputType="textEmailAddress"
-                        android:textColorHint="@color/downriver_blue_300"
-                        android:textSize="20sp" />
+                        android:textColorHint="@color/downriver_blue_300"/>
 
                     <TextView
                         android:id="@+id/login_email_error_tv"
@@ -116,15 +115,14 @@
                     app:boxStrokeWidth="2dp"
                     app:passwordToggleEnabled="true">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <com.google.android.material.textfield.TextInputEditText android:textSize="15sp"
                         android:id="@+id/login_password_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:autofillHints="password"
                         android:hint="@string/password"
                         android:inputType="textPassword"
-                        android:textColorHint="@color/downriver_blue_300"
-                        android:textSize="20sp" />
+                        android:textColorHint="@color/downriver_blue_300"/>
 
                     <TextView
                         android:id="@+id/login_password_error_tv"

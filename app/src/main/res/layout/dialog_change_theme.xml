@@ -20,7 +20,7 @@
     <View
         android:id="@+id/change_theme_view_0"
         android:layout_width="match_parent"
-        android:layout_height="5dp"/>
+        android:layout_height="10dp"/>
 
     <TextView
         android:id="@+id/change_theme_enter_password_tv"

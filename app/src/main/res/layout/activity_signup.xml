@@ -78,7 +78,7 @@
                     android:hint="@string/email_address"
                     android:inputType="textEmailAddress"
                     android:textColorHint="@color/downriver_blue_300"
-                    android:textSize="20sp" />
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/signup_email_error_tv"
@@ -111,7 +111,7 @@
                     android:hint="@string/password"
                     android:inputType="textPassword"
                     android:textColorHint="@color/downriver_blue_300"
-                    android:textSize="20sp" />
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/signup_password_error_tv"

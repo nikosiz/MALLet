@@ -120,9 +120,9 @@ public class ActivityMain extends AppCompatActivity {
         DialogCreateBinding dialogBinding = DialogCreateBinding.inflate(getLayoutInflater());
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
 
-        TextView createSet = dialogBinding.createNewCreateSet;
-        TextView createFolder = dialogBinding.createNewCreateFolder;
-        TextView createGroup = dialogBinding.createNewCreateGroup;
+        TextView createSet = dialogBinding.createSetTv;
+        TextView createFolder = dialogBinding.createFolderTv;
+        TextView createGroup = dialogBinding.createGroupTv;
 
         createSet.setOnClickListener(v -> {
             dialog.dismiss();

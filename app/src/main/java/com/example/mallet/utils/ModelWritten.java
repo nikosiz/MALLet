@@ -1,4 +1,4 @@
 package com.example.mallet.utils;
 
-public class ModelWrittenQuestion {
+public class ModelWritten {
 }

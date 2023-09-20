@@ -49,7 +49,7 @@ public class FragmentProfile extends Fragment {
     private final String usernameIncorrect = "The username can only consist of letters, numbers, and underscores";
     private final String emailIncorrectMsg = "Email incorrect";
     private final Pattern passwordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^*()<>?/|}{~:]).{8,}$");
-    private final String passwordIncorrect = "The password must be at least 8 characters long and contain at least one digit, one small letter, one big letter and one special character.";
+    private final String passwordIncorrect = "The password must be at least 8 characters long and contain at least one digit, one small letter, one big letter and one special character";
 
     @Nullable
     @Override
@@ -262,19 +262,19 @@ public class FragmentProfile extends Fragment {
     private void notificationSettings() {
         SwitchCompat showNotificationsSwitch = binding.profileNotificationsMs;
 
-        Utils.showToast(getContext(), "You will get notifications when the back end exists.");
+        Utils.showToast(getContext(), "You will get notifications when the back end exists");
 
         // Handle switch state change
         showNotificationsSwitch.setOnCheckedChangeListener((compoundButton, isChecked) -> {
             if (isChecked) {
                 // TODO: Implement notifications
                 // Enable notifications
-                Utils.showToast(getContext(), "You will get notifications when the back end exists.");
+                Utils.showToast(getContext(), "You will get notifications when the back end exists");
                 binding.profileNotificationsMs.setChecked(true);
             } else {
                 // TODO: Implement
                 // Disable notifications
-                Utils.showToast(getContext(), "You WILL NOT get notifications when the back end exists.");
+                Utils.showToast(getContext(), "You WILL NOT get notifications when the back end exists");
                 binding.profileNotificationsMs.setChecked(false);
             }
         });
@@ -283,17 +283,17 @@ public class FragmentProfile extends Fragment {
     private void saveSetsOffline() {
         SwitchCompat saveOfflineSwitch = binding.profileSaveOfflineMs;
 
-        Utils.showToast(getContext(), "Sets will not be saved for offline use. The downloaded ones will be deleted (when the back end exists).");
+        Utils.showToast(getContext(), "Sets will not be saved for offline use. The downloaded ones will be deleted (when the back end exists)");
 
         saveOfflineSwitch.setOnCheckedChangeListener((compoundButton, isChecked) -> {
             if (isChecked) {
                 // TODO
                 // Download sets
-                Utils.showToast(getContext(), "Sets downloaded (when the back end exists).");
+                Utils.showToast(getContext(), "Sets downloaded (when the back end exists)");
             } else {
                 // TODO
                 // Delete downloaded sets
-                Utils.showToast(getContext(), "Sets will not be saved for offline use. The downloaded ones will be deleted (when the back end exists).");
+                Utils.showToast(getContext(), "Sets will not be saved for offline use. The downloaded ones will be deleted (when the back end exists)");
             }
         });
     }
@@ -425,7 +425,7 @@ public class FragmentProfile extends Fragment {
                     Utils.hideItem(passwordErrTv);
                     Utils.hideItem(cbErrTv);
 
-                    Utils.showToast(getContext(), "When we have backend, we will check if the password is correct. For now we just jump to ChooseLogInSignup.java.");
+                    Utils.showToast(getContext(), "When we have backend, we will check if the password is correct. For now we just jump to ChooseLogInSignup.java");
 
                     Intent intent = new Intent(getContext(), ActivityOpening.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);

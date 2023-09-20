@@ -70,7 +70,7 @@
     <string name="recent_sets">Recent sets</string>
     <string name="settings_icon">settings icon</string>
     <string name="email_incorrect">Email incorrect</string>
-    <string name="password_incorrect">"The password must be at least 8 characters long and contain at least one digit, one small letter, one big letter and one special character."</string>
+    <string name="password_incorrect">"The password must be at least 8 characters long and contain at least one digit, one small letter, one big letter and one special character"</string>
     <string name="username_incorrect">The username can only consist of letters, numbers, and underscores</string>
     <string name="members">members</string>
     <string name="theme_name">theme_name</string>

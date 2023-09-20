@@ -2,66 +2,173 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/learnOptions_mainLl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:gravity="bottom"
     android:orientation="vertical"
-    android:padding="30dp"
     tools:ignore="Overdraw">
 
-    <com.google.android.material.materialswitch.MaterialSwitch
-        android:id="@+id/learnOptions_flashcardsMs"
+    <LinearLayout
+        android:id="@+id/learnOptions_toolbarLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@color/white"
-        android:contentDescription="Flashcards"
-        android:drawableTint="@color/downriver_blue_500"
-        android:fontFamily="@font/rem_bold"
-        android:minHeight="65dp"
-        android:paddingHorizontal="30dp"
-        android:text="Flashcards"
-        android:textColor="@color/primaryTextColor"
-        android:textSize="16sp"
-        app:thumbTint="@drawable/switch_thumb_color"
-        app:trackDecorationTint="@drawable/switch_track_decoration_color"
-        app:trackTint="@drawable/switch_track_color" />
+        android:layout_gravity="center_vertical"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical"
+        android:padding="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <com.google.android.material.materialswitch.MaterialSwitch
-        android:id="@+id/learnOptions_abcdMs"
+        <ImageView
+            android:id="@+id/learnOptions_backIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/bg_ripple"
+            android:clickable="true"
+            android:contentDescription="toolbar options"
+            android:focusable="true"
+            android:src="@drawable/ic_arrow_back"
+            app:tint="@color/colorPrimaryDark" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/learnOptionsLl"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@color/white"
-        android:contentDescription="Multiple-choice questions"
-        android:drawableTint="@color/downriver_blue_500"
-        android:fontFamily="@font/rem_bold"
-        android:minHeight="65dp"
-        android:paddingHorizontal="30dp"
-        android:text="Multiple-choice questions"
-        android:textColor="@color/primaryTextColor"
-        android:textSize="16sp"
-        app:thumbTint="@drawable/switch_thumb_color"
-        app:trackDecorationTint="@drawable/switch_track_decoration_color"
-        app:trackTint="@drawable/switch_track_color" />
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:padding="30dp">
 
-    <com.google.android.material.materialswitch.MaterialSwitch
-        android:id="@+id/learnOptions_writingMs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@color/white"
-        android:contentDescription="Written questions"
-        android:drawableTint="@color/downriver_blue_500"
-        android:fontFamily="@font/rem_bold"
-        android:minHeight="65dp"
-        android:paddingHorizontal="30dp"
-        android:text="Written questions"
-        android:textColor="@color/primaryTextColor"
-        android:textSize="16sp"
-        app:thumbTint="@drawable/switch_thumb_color"
-        app:trackDecorationTint="@drawable/switch_track_decoration_color"
-        app:trackTint="@drawable/switch_track_color" />
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/learnOptions_multipleChoiceMs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:contentDescription="Multiple-choice questions"
+            android:fontFamily="@font/rem_regular"
+            android:minHeight="65dp"
+            android:padding="20dp"
+            android:text="Multiple-choice questions"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="19sp"
+            app:thumbTint="@drawable/switch_thumb_color"
+            app:trackDecorationTint="@drawable/switch_track_decoration_color"
+            app:trackTint="@drawable/switch_track_color" />
 
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/learnOptions_writingMs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:contentDescription="Written questions"
+            android:fontFamily="@font/rem_regular"
+            android:minHeight="65dp"
+            android:padding="20dp"
+            android:text="Written questions"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp"
+            app:thumbTint="@drawable/switch_thumb_color"
+            app:trackDecorationTint="@drawable/switch_track_decoration_color"
+            app:trackTint="@drawable/switch_track_color" />
+
+        <TextView
+            android:id="@+id/learnOptions_configurationTv"
+            style="@style/BasicTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_ripple"
+            android:drawablePadding="35dp"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="10dp"
+            android:text="Question format"
+            android:textSize="20sp" />
+
+        <RadioGroup
+            android:id="@+id/learnOptionsRg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="20dp">
+
+            <RadioButton
+                android:id="@+id/learnOptions_termRb"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_radio_btn"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:text="Term"
+                android:textColor="@drawable/radio_text_color" />
+
+            <RadioButton
+                android:id="@+id/learnOptions_definitionRb"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_radio_btn"
+                android:button="@null"
+                android:gravity="center"
+                android:text="Definition"
+                android:textColor="@drawable/radio_text_color" />
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/learnOptions_restartTv"
+            style="@style/BasicTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoSizeMaxTextSize="20sp"
+            android:autoSizeMinTextSize="15sp"
+            android:autoSizeStepGranularity="2sp"
+            android:autoSizeTextType="uniform"
+            android:background="@drawable/bg_ripple"
+            android:clickable="true"
+            android:drawablePadding="35dp"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:padding="20dp"
+            android:text="Restart"
+            android:textSize="20sp"
+            app:drawableEndCompat="@drawable/ic_restart"
+            app:drawableTint="@color/danube_blue_800" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+
+        <TextView
+            android:id="@+id/learnOptions_startTv"
+            style="@style/BasicTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:background="@drawable/bg_ripple"
+            android:clickable="true"
+            android:drawablePadding="30dp"
+            android:focusable="true"
+            android:gravity="end"
+            android:padding="20dp"
+            android:text="Apply changes"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            app:drawableEndCompat="@drawable/ic_arrow_forward"
+            app:drawableTint="@color/colorPrimary" />
+    </LinearLayout>
 </LinearLayout>

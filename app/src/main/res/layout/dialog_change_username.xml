@@ -26,7 +26,7 @@
         android:id="@+id/changeUsernameTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enter new username."
+        android:text="Enter new username"
         android:textColor="@color/secondaryTextColor"
         android:textSize="20sp" />
 
@@ -54,7 +54,7 @@
             android:autofillHints="emailAddress"
             android:hint="New username"
             android:textColorHint="@color/downriver_blue_300"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/changeUsername_errorTv"
@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginBottom="5dp"
-            android:text="This username already exists."
+            android:text="This username already exists"
             android:textColor="@color/carnation_red_600"
             android:visibility="gone" />
     </com.google.android.material.textfield.TextInputLayout>

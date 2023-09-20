@@ -55,11 +55,11 @@ public class ActivityViewGroup extends AppCompatActivity {
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         dialog.show();
 
-        TextView addMembersTv = dialogBinding.groupOptionsInviteTv;
-        TextView addSetsTv = dialogBinding.groupOptionsAddSetsTv;
-        TextView addFoldersTv = dialogBinding.groupOptionsAddFoldersTv;
-        TextView leaveTv = dialogBinding.groupOptionsLeaveTv;
-        TextView reportTv = dialogBinding.groupOptionsReportTv;
+        TextView addMembersTv = dialogBinding.viewGroupOptionsAddMembersTv;
+        TextView addSetsTv = dialogBinding.viewGroupOptionsAddSetsTv;
+        TextView addFoldersTv = dialogBinding.viewGroupOptionsAddFoldersTv;
+        TextView leaveTv = dialogBinding.viewGroupOptionsLeaveTv;
+        TextView reportTv = dialogBinding.viewGroupOptionsReportTv;
 
         addMembersTv.setOnClickListener(v -> {
             dialog.dismiss();

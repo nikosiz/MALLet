@@ -57,7 +57,7 @@
                 app:endIconMode="custom"
                 app:endIconTint="@color/danube_blue_800">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.google.android.material.textfield.TextInputEditText android:textSize="15sp"
                     android:id="@+id/addFolder_searchEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

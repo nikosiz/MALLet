@@ -58,7 +58,7 @@
             android:text="creator_name"
             android:textColor="@color/colorPrimary"
             android:textSize="15sp"
-            app:drawableStartCompat="@drawable/ic_profile"
+            app:drawableEndCompat="@drawable/ic_profile"
             app:drawableTint="@color/colorPrimary" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

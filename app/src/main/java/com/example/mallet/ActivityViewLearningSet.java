@@ -20,7 +20,6 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.mallet.databinding.ActivityViewLearningSetBinding;
 import com.example.mallet.databinding.DialogAddSetBinding;
-import com.example.mallet.databinding.DialogDeleteSetBinding;
 import com.example.mallet.databinding.DialogViewSetToolbarOptionsBinding;
 import com.example.mallet.utils.AdapterFlashcardViewPager;
 import com.example.mallet.utils.ModelFlashcard;
@@ -43,19 +42,18 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         binding = ActivityViewLearningSetBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        setupToolbar();
+        learningSet = getIntent().getParcelableExtra("learningSet");
 
         setupContents();
 
         getLearningSetData();
-
-        learningSet = getIntent().getParcelableExtra("learningSet");
 
         displayFlashcardsInViewPager(Utils.createFlashcardList(learningSet), binding.viewSetViewpager);
         displayFlashcardsInLinearLayout(Utils.createFlashcardList(learningSet), binding.viewSetAllFlashcardsLl, getLayoutInflater());
     }
 
     private void setupContents() {
+        setupToolbar();
         binding.viewSetViewpager.setOnClickListener(v -> flipCard());
         binding.viewSetFlashcards.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentFlashcards.class, ActivityLearn.class));
         binding.viewSetLearn.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentLearn.class, ActivityLearn.class));
@@ -69,11 +67,6 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
             startActivity(intent);
         });
-
-    }
-
-    private void flipCard() {
-
     }
 
     private void setupToolbar() {
@@ -83,16 +76,21 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
         binding.flashcardsBackIv.setOnClickListener(v -> finish());
 
-        binding.viewSetOptionsBtn.setOnClickListener(v -> dialogSetOptions());
+        binding.viewSetOptionsBtn.setOnClickListener(v -> dialogViewSetOptions());
     }
 
-    private void dialogSetOptions() {
+    private void flipCard() {
+
+    }
+
+    private void dialogViewSetOptions() {
         final Dialog dialog = createDialog(R.layout.dialog_view_set_toolbar_options);
         DialogViewSetToolbarOptionsBinding dialogBinding = DialogViewSetToolbarOptionsBinding.inflate(LayoutInflater.from(this));
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
+        dialog.show();
 
-        dialogBinding.viewSetOptionsEdit.setOnClickListener(v -> {
+        dialogBinding.viewSetOptionsEditTv.setOnClickListener(v -> {
             dialog.dismiss();
             Intent intent = new Intent(this, ActivityEditLearningSet.class);
 
@@ -102,17 +100,17 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
             startActivity(intent);
         });
-        dialogBinding.viewSetOptionsAddToFolder.setOnClickListener(v -> {
+
+        dialogBinding.viewSetOptionsAddToFolderTv.setOnClickListener(v -> {
             dialog.dismiss();
             addSetToFolderDialog();
         });
-        dialogBinding.viewSetOptionsAddToGroup.setOnClickListener(v -> {
+
+        dialogBinding.viewSetOptionsAddToGroupTv.setOnClickListener(v -> {
             dialog.dismiss();
             addSetToGroupDialog();
         });
 
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        dialog.show();
     }
 
     private void addSetToFolderDialog() {
@@ -120,15 +118,14 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         DialogAddSetBinding dialogBinding = DialogAddSetBinding.inflate(LayoutInflater.from(this));
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
+        dialog.show();
 
         dialogBinding.addSetToolbarBackIv.setOnClickListener(v -> dialog.dismiss());
 
         List<ModelFolder> folders = createFolderList();
 
-        // Assume you have a List<ModelFolder> folders = createFolderList(); defined
         displayFolders(folders, dialogBinding.addSetListLl, getLayoutInflater());
 
-        dialog.show();
     }
 
     private void addSetToGroupDialog() {
@@ -136,15 +133,14 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         DialogAddSetBinding dialogBinding = DialogAddSetBinding.inflate(LayoutInflater.from(this));
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
+        dialog.show();
 
         dialogBinding.addSetToolbarBackIv.setOnClickListener(v -> dialog.dismiss());
 
         List<ModelGroup> groups = createGroupList();
 
-        // Assume you have a List<ModelFolder> folders = createFolderList(); defined
         displayGroups(groups, dialogBinding.addSetListLl, getLayoutInflater());
 
-        dialog.show();
     }
 
     private void getLearningSetData() {
@@ -249,18 +245,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         return dialog;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    // TODO: DELETE
-
-    // Create a list of folders
+    // TODO: Replace with appropriate functionality
     private List<ModelFolder> createFolderList() {
         List<ModelFolder> folders = new ArrayList<>();
         folders.add(new ModelFolder("Folder #1", "user123", "3"));
@@ -278,11 +263,9 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         for (ModelFolder folder : folders) {
             View folderItemView = inflater.inflate(R.layout.model_folder, linearLayout, false);
 
-            // Find views in the folderItemView based on your layout
             TextView folderNameTextView = folderItemView.findViewById(R.id.folder_model_name_tv);
             TextView folderCreatorTextView = folderItemView.findViewById(R.id.folder_model_creator_tv);
 
-            // Set folder data to the views
             folderNameTextView.setText(folder.getFolderName());
             folderCreatorTextView.setText(folder.getFolderCreator());
 
@@ -307,12 +290,10 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         for (ModelGroup group : groups) {
             View groupItemView = inflater.inflate(R.layout.model_group, linearLayout, false);
 
-            // Find views in the folderItemView based on your layout
             TextView groupNameTv = groupItemView.findViewById(R.id.group_nameTv);
             TextView groupNrOfMembersTv = groupItemView.findViewById(R.id.group_nrOfMembersTv);
             TextView groupNrOfSetsTv = groupItemView.findViewById(R.id.group_nrOfSetsTv);
 
-            // Set folder data to the views
             groupNameTv.setText(group.getGroupName());
             groupNrOfMembersTv.setText(group.getNumberOfMembers() + " members");
             groupNrOfSetsTv.setText(group.getNumberOfSets() + " sets");

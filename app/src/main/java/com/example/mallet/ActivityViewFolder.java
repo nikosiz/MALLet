@@ -57,10 +57,10 @@ public class ActivityViewFolder extends AppCompatActivity {
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         dialog.show();
 
-        TextView editTv = dialogBinding.viewFolderEditTv;
-        TextView addSetsTv = dialogBinding.viewFolderAddSetsTv;
-        TextView shareWGroupTv = dialogBinding.viewFolderAddToGroupTv;
-        TextView deleteTv = dialogBinding.viewFolderDeleteTv;
+        TextView editTv = dialogBinding.viewFolderOptionsEditTv;
+        TextView addSetsTv = dialogBinding.viewFolderOptionsAddSetsTv;
+        TextView shareWGroupTv = dialogBinding.viewFolderOptionsAddToGroupTv;
+        TextView deleteTv = dialogBinding.viewFolderOptionsDeleteTv;
 
 
         editTv.setOnClickListener(v -> editFolderDialog());

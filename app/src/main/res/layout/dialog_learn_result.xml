@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/learnScore_mainLl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,10 +18,11 @@
             style="@style/BasicBoldTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="start"
             android:text="Your Score: "
             android:textAllCaps="false"
-            android:textColor="@color/secondaryTextColor"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp" />
 
         <TextView
@@ -31,22 +33,42 @@
             android:gravity="end"
             android:text="X/Y"
             android:textAllCaps="false"
-            android:textColor="@color/secondaryTextColor"
+            android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/learnScore_restartBtn"
-        style="@style/SocialButtonStyle"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+    <LinearLayout
+        android:id="@+id/learnScore_answersLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginVertical="10dp"
-        android:drawableLeft="@drawable/ic_undo"
-        android:drawablePadding="10dp"
-        android:drawableTint="@color/colorPrimary"
-        android:gravity="start|center"
-        android:text="Restart"
-        android:textAllCaps="false" />
+        android:orientation="vertical" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+    <TextView
+        android:id="@+id/learnScore_restartTv"
+        style="@style/BasicTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoSizeMaxTextSize="20sp"
+        android:autoSizeMinTextSize="15sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
+        android:background="@drawable/bg_ripple"
+        android:clickable="true"
+        android:drawablePadding="35dp"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:padding="20dp"
+        android:text="Restart quiz"
+        android:textSize="20sp"
+        app:drawableEndCompat="@drawable/ic_restart"
+        app:drawableTint="@color/danube_blue_800" />
 
 </LinearLayout>

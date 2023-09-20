@@ -129,15 +129,15 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
         dialog.show();
 
-        dialogBinding.editSetToolbarOptionsAddToFolder.setOnClickListener(v -> {
+        dialogBinding.editSetToolbarOptionsAddToFolderTv.setOnClickListener(v -> {
             dialog.dismiss();
             addSetToFolderDialog();
         });
-        dialogBinding.editSetToolbarOptionsAddToGroup.setOnClickListener(v -> {
+        dialogBinding.editSetToolbarOptionsAddToGroupTv.setOnClickListener(v -> {
             dialog.dismiss();
             addSetToGroupDialog();
         });
-        dialogBinding.editSetToolbarOptionsDelete.setOnClickListener(v -> {
+        dialogBinding.editSetToolbarOptionsDeleteTv.setOnClickListener(v -> {
             dialog.dismiss();
             deleteSetDialog();
         });

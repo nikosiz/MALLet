@@ -21,9 +21,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.example.mallet.R;
+import com.example.mallet.databinding.DialogConfirmExitBinding;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -58,17 +61,12 @@ public class Utils {
             return null;
         }
 
-        Dialog dialog = new Dialog(context);
+        final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(layoutResourceId);
 
-        View dialogView = LayoutInflater.from(context).inflate(layoutResourceId, null);
-
-        dialog.setContentView(dialogView);
-
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().setGravity(Gravity.BOTTOM);
-
         return dialog;
     }
 
@@ -263,7 +261,7 @@ public class Utils {
             intent.addCategory(Intent.CATEGORY_APP_EMAIL);
             context.startActivity(intent);
         } catch (android.content.ActivityNotFoundException e) {
-            showToast(context, "There is no email client installed.");
+            showToast(context, "There is no email client installed");
         }
     }
 
@@ -297,4 +295,17 @@ public class Utils {
         hideItem(err);
     }
 
+    public static void confirmExitDialog(Context context, Activity activity) {
+        final Dialog dialog = createDialog(context, R.layout.dialog_confirm_exit);
+        DialogConfirmExitBinding dialogBinding = DialogConfirmExitBinding.inflate(LayoutInflater.from(context));
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
+        dialog.show();
+
+        dialogBinding.confirmExitCancelTv.setOnClickListener(v -> dialog.dismiss());
+        dialogBinding.confirmExitConfirmTv.setOnClickListener(v -> {
+            activity.finish();
+            dialog.dismiss();
+        });
+    }
 }

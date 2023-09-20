@@ -27,7 +27,7 @@
         android:id="@+id/confirmAccount_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Open email application and click the link we sent you to confirm registration."
+        android:text="Open email application and click the link we sent you to confirm registration"
         android:textColor="@color/secondaryTextColor"
         android:textSize="18sp" />
 

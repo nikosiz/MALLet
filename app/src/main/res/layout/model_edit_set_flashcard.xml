@@ -52,7 +52,7 @@
                 android:hint="Term"
                 android:inputType="textEmailAddress"
                 android:textColorHint="@color/downriver_blue_300"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/editSet_term_err_tv"
@@ -89,7 +89,7 @@
                 android:hint="Definition (optional)"
                 android:inputType="textEmailAddress"
                 android:textColorHint="@color/downriver_blue_300"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/editSet_definition_err_tv"
@@ -126,7 +126,7 @@
                 android:hint="Translation"
                 android:inputType="textEmailAddress"
                 android:textColorHint="@color/downriver_blue_300"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/editSet_translation_err_tv"

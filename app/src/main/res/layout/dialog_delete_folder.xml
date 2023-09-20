@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:hint="Folder name"
             android:textColorHint="@color/downriver_blue_300"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/delete_folder_empty_error"
@@ -75,7 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginBottom="5dp"
-            android:text="This field cannot be empty."
+            android:text="This field cannot be empty"
             android:textColor="@color/carnation_red_600"
             android:visibility="gone" />
 
@@ -85,7 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginBottom="5dp"
-            android:text="The name you provided is incorrect."
+            android:text="The name you provided is incorrect"
             android:textColor="@color/carnation_red_600"
             android:visibility="gone" />
 
@@ -108,7 +108,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:text="You need to check this box in order to continue."
+        android:text="You need to check this box in order to continue"
         android:textColor="@color/carnation_red_600"
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/delete_folder_cb" />

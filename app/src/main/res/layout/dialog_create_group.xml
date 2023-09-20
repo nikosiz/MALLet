@@ -50,7 +50,7 @@
             android:layout_height="match_parent"
             android:hint="@string/group_name"
             android:textColorHint="@color/downriver_blue_300"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/create_group_empty_name_error"
@@ -81,7 +81,7 @@
         android:text="Description"
         android:textColor="@color/secondaryTextColor"
         android:textSize="15sp"
-        app:drawableStartCompat="@drawable/ic_plus"
+        app:drawableEndCompat="@drawable/ic_plus"
         app:drawableTint="@color/danube_blue_800" />
 
     <View
@@ -111,7 +111,7 @@
             android:inputType="textMultiLine"
             android:minHeight="100dp"
             android:textColorHint="@color/downriver_blue_300"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <View

@@ -44,14 +44,13 @@
         app:boxStrokeWidth="2dp"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText android:textSize="15sp"
             android:id="@+id/create_folder_name_et"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Folder name"
             android:maxLength="45"
-            android:textSize="20sp"
             app:boxStrokeColor="@color/colorSecondaryDark" />
 
         <TextView
@@ -82,7 +81,7 @@
         android:text="Description"
         android:textColor="@color/secondaryTextColor"
         android:textSize="15sp"
-        app:drawableStartCompat="@drawable/ic_plus"
+        app:drawableEndCompat="@drawable/ic_plus"
         app:drawableTint="@color/danube_blue_800" />
 
     <View
@@ -104,7 +103,7 @@
         app:boxStrokeColor="@color/colorSecondaryDark"
         app:boxStrokeWidth="2dp">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText android:textSize="15sp"
             android:id="@+id/create_folder_description_et"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
@@ -113,7 +112,6 @@
             android:hint="@string/description"
             android:inputType="textMultiLine"
             android:minHeight="100dp"
-            android:textSize="20sp"
             app:boxStrokeColor="@color/colorSecondaryDark" />
     </com.google.android.material.textfield.TextInputLayout>
 

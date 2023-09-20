@@ -1,135 +1,140 @@
 package com.example.mallet;
 
 import android.app.Dialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.mallet.databinding.DialogLearnResultBinding;
+import com.example.mallet.databinding.DialogLearnOptionsBinding;
 import com.example.mallet.databinding.FragmentLearnBinding;
-import com.example.mallet.utils.ModelMultipleChoiceQuestion;
+import com.example.mallet.databinding.ModelWrittenBinding;
+import com.example.mallet.utils.LearnPagerAdapter;
+import com.example.mallet.utils.ModelMultipleChoice;
+import com.example.mallet.utils.ModelWritten;
+import com.example.mallet.utils.Utils;
 
-import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Random;
-
 
 public class FragmentLearn extends Fragment {
-
-    private Dialog resultDialog; // Declare the Dialog as a class member
-    private TextView questionTv, questionNumberTv;
-    private Button answerOneBtn, answerTwoBtn, answerThreeBtn, answerFourBtn;
-    private ArrayList<ModelMultipleChoiceQuestion> modelLearnArrayList;
-    private Random random;
-    int currentScore = 0, questionAttempted = 1, currentPos;
+    FragmentLearnBinding binding;
+    private ViewPager2 questionVp2;
+    private TextView nextQuestionTv;
+    private LearnPagerAdapter pagerAdapter;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        com.example.mallet.databinding.FragmentLearnBinding binding = FragmentLearnBinding.inflate(inflater, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentLearnBinding.inflate(inflater, container, false);
 
-        questionTv = binding.learnQuestionTv;
-
-        answerOneBtn = binding.learnAnswerOneBtn;
-        answerTwoBtn = binding.learnAnswerTwoBtn;
-        answerThreeBtn = binding.learnAnswerThreeBtn;
-        answerFourBtn = binding.learnAnswerFourBtn;
-
-        modelLearnArrayList = new ArrayList<>();
-        random = new Random();
-        questionNumberTv = binding.learnQuestionCounterTv;
+        learnOptionsDialog();
 
         setupContents();
+        questionVp2 = binding.learnQuestionVp2;
+        nextQuestionTv = binding.learnNextTv;
 
-        currentPos = random.nextInt(modelLearnArrayList.size());
-        setDataToViews(currentPos);
+        pagerAdapter = new LearnPagerAdapter();
+        questionVp2.setAdapter(pagerAdapter);
+        questionVp2.setUserInputEnabled(false);
+        nextQuestionTv.setOnClickListener(v -> {
+            int currentItem = questionVp2.getCurrentItem();
+            if (currentItem < pagerAdapter.getItemCount() - 1) {
+                questionVp2.setCurrentItem(currentItem + 1, true);
+            }
+        });
 
         return binding.getRoot();
     }
 
     private void setupContents() {
-        getQuizQuestion(modelLearnArrayList);
-        setQuizButtonListeners();
+        setupToolbar();
     }
 
-    // Separate method to set data to views
-    private void setDataToViews(int currentPos) {
-        questionNumberTv.setText(questionAttempted + "/10");
-        if (questionAttempted > 10) {
-            questionNumberTv.setText("10/10");
-            resultDialog();
+    private void setupToolbar() {
+        Toolbar toolbar = binding.learnToolbar;
+        ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle(""); // Set the title to an empty string
+
+        binding.learnToolbarBackIv.setOnClickListener(v -> getActivity().finish());
+        binding.learnOptionsIv.setOnClickListener(v -> learnOptionsDialog());
+    }
+
+    private boolean isFirstTimeLearnOptionsDialog = true;
+    private boolean isVisible = false;
+
+    private void learnOptionsDialog() {
+        final Dialog dialog = Utils.createDialog(getContext(), R.layout.dialog_learn_options);
+        DialogLearnOptionsBinding dialogBinding = DialogLearnOptionsBinding.inflate(getLayoutInflater());
+        dialog.setContentView(dialogBinding.getRoot());
+        dialog.show();
+
+        LinearLayout mainLl = dialogBinding.learnOptionsMainLl;
+
+        // Check if it's the first time the dialog is opened
+        if (isFirstTimeLearnOptionsDialog) {
+            Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+            dialogBinding.learnOptionsBackIv.setOnClickListener(v -> requireActivity().finish());
+            dialogBinding.learnOptionsStartTv.setOnClickListener(v -> {
+                updateLearnSettings();
+                dialog.dismiss();
+            });
+
+            isFirstTimeLearnOptionsDialog = false;
+
         } else {
-            questionTv.setText(modelLearnArrayList.get(currentPos).getQuestion());
-            answerOneBtn.setText(modelLearnArrayList.get(currentPos).getAnswerA());
-            answerTwoBtn.setText(modelLearnArrayList.get(currentPos).getAnswerB());
-            answerThreeBtn.setText(modelLearnArrayList.get(currentPos).getAnswerC());
-            answerFourBtn.setText(modelLearnArrayList.get(currentPos).getAnswerD());
+            Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            mainLl.setBackgroundResource(R.drawable.bg_corners_rounded);
+
+            Utils.hideItem(dialogBinding.learnOptionsBackIv);
+            dialogBinding.learnOptionsStartTv.setOnClickListener(v -> {
+                updateLearnSettings();
+                dialog.dismiss();
+            });
+
         }
     }
 
-    private void getQuizQuestion(ArrayList<ModelMultipleChoiceQuestion> modelLearnArrayList) {
-        modelLearnArrayList.add(new ModelMultipleChoiceQuestion("Dog", "Pies", "Kot", "Sikiratka", "Gil", "Pies"));
-        modelLearnArrayList.add(new ModelMultipleChoiceQuestion("Cat", "Rosomak", "Kot", "Małpa", "Żyrafa", "Kot"));
-        modelLearnArrayList.add(new ModelMultipleChoiceQuestion("Butterfly", "Karp", "Ślimak", "Rak", "Motyl", "Motyl"));
-        modelLearnArrayList.add(new ModelMultipleChoiceQuestion("Boar", "Gąsienica", "Świnia", "Dzik", "Krab", "Dzik"));
+    private void updateLearnSettings() {
+        // TODO
     }
 
-    private void setQuizButtonListeners() {
-        answerOneBtn.setOnClickListener(v -> handleAnswerClick(answerOneBtn));
-        answerTwoBtn.setOnClickListener(v -> handleAnswerClick(answerTwoBtn));
-        answerThreeBtn.setOnClickListener(v -> handleAnswerClick(answerThreeBtn));
-        answerFourBtn.setOnClickListener(v -> handleAnswerClick(answerFourBtn));
+    private void displayMultipleChoice(ModelMultipleChoice question, LinearLayout linearLayout, LayoutInflater inflater) {
+        linearLayout.removeAllViews();
+        View questionView = inflater.inflate(R.layout.model_multiple_choice, linearLayout, false);
+
+        CardView mainCv = questionView.findViewById(R.id.multipleChoice_mainCv);
+
+        TextView questionTv = questionView.findViewById(R.id.multipleChoice_questionTv);
+
+        // Now you can work with questionTv and answerEt as needed
+
+        linearLayout.addView(questionView);
     }
 
-    // Handle button click logic
+    private void displayWritten(ModelWritten question, LinearLayout linearLayout, LayoutInflater inflater) {
+        linearLayout.removeAllViews();
+        View questionView = inflater.inflate(R.layout.model_written, linearLayout, false);
+        ModelWrittenBinding questionBinding = ModelWrittenBinding.inflate(LayoutInflater.from(getContext()));
 
-    private void handleAnswerClick(Button button) {
-        if (modelLearnArrayList.get(currentPos).getCorrectAnswer().trim().equalsIgnoreCase(button.getText().toString().trim())) {
-            currentScore++;
-        }
-        questionAttempted++;
-        currentPos = random.nextInt(modelLearnArrayList.size());
-        setDataToViews(currentPos);
-    }
+        CardView mainCv = questionView.findViewById(R.id.written_mainCv);
 
-    private void resultDialog() {
-        resultDialog = createDialog(R.layout.dialog_learn_result);
-        DialogLearnResultBinding dialogBinding = DialogLearnResultBinding.inflate(LayoutInflater.from(requireContext()));
-        assert resultDialog != null;
-        resultDialog.setContentView(dialogBinding.getRoot());
-        resultDialog.show();
+        TextView questionTv = questionBinding.writtenQuestionTv;
+        EditText answerEt = questionBinding.writtenAnswerEt;
 
-        TextView scoreTv = dialogBinding.learnScoreScoreTv;
-        Button restartQuizBtn = dialogBinding.learnScoreRestartBtn;
+        String answer = answerEt.getText().toString().trim();
+        System.out.println(answer);
 
-        scoreTv.setText(currentScore + "/10");
-
-        restartQuizBtn.setOnClickListener(v -> {
-            resultDialog.dismiss();
-            questionAttempted = 1;
-            currentScore = 0;
-            currentPos = random.nextInt(modelLearnArrayList.size());
-            setDataToViews(currentPos);
-        });
-    }
-
-    private Dialog createDialog(int layoutResId) {
-        final Dialog dialog = new Dialog(requireContext());
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(layoutResId);
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
-        return dialog;
+        linearLayout.addView(questionView);
     }
 }

@@ -1,10 +1,10 @@
 package com.example.mallet.utils;
 
-public class ModelTrueFalseQuestion {
+public class ModelTrueFalse {
     private String question, answer;
     private String term, translation, definition;
 
-    public ModelTrueFalseQuestion(String question, String answer) {
+    public ModelTrueFalse(String question, String answer) {
         this.question = question;
         this.answer = answer;
     }

@@ -1,13 +1,13 @@
 package com.example.mallet.utils;
 
-public class ModelMultipleChoiceQuestion {
+public class ModelMultipleChoice {
     // Attributes to define a multiple-choice quiz question
     private String question;
     private String answerA, answerB, answerC, answerD;
     private String correctAnswer;
 
     // Constructor to initialize a multiple-choice quiz question
-    public ModelMultipleChoiceQuestion(String question, String answerA, String answerB, String answerC, String answerD, String correctAnswer) {
+    public ModelMultipleChoice(String question, String answerA, String answerB, String answerC, String answerD, String correctAnswer) {
         this.question = question;
         this.answerA = answerA;
         this.answerB = answerB;

@@ -160,8 +160,6 @@ public class FragmentFlashcards extends Fragment {
             requireActivity().finish();
             dialog.dismiss();
         });
-
-
     }
 
     private void flashcardsOptionsDialog() {
