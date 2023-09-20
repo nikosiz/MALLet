@@ -2,15 +2,15 @@ package com.example.mallet;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.example.mallet.utils.Utils;
@@ -19,17 +19,15 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class FragmentMatch extends Fragment {
-    private CardView card1, card2, card3, card4, card5, card6, card7, card8, card9, card10;
-
-    Integer[] cardsArray = {101, 102, 201, 202, 301, 302, 401, 402, 501, 502};
-    int text101, text102, text201, text202, text301, text302, text401, text402, text501, text502;
+    TextView tv_p1, tv_p2;
+    ImageView iv_11, iv_12, iv_21, iv_22, iv_31, iv_32, iv_41, iv_42, iv_51, iv_52;
+    Integer[] cardsArray = {101, 102, 103, 104, 105, 201, 202, 203, 204, 205};
+    int image101, image102, image103, image104, image105, image201, image202, image203, image204, image205;
     int firstCard, secondCard;
     int clickedFirst, clickedSecond;
     int cardNumber = 1;
-
     int turn = 1;
-    int playerPts = 0, cpuPts = 0;
-    TextView pointsTv;
+    int playerPoints = 0, cpuPoints = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,190 +40,152 @@ public class FragmentMatch extends Fragment {
         // Inflate the fragment's layout
         View rootView = inflater.inflate(R.layout.fragment_match, container, false);
 
-        pointsTv = rootView.findViewById(R.id.match_pointsTv);
+        tv_p1 = rootView.findViewById(R.id.tv_p1);
+        tv_p2 = rootView.findViewById(R.id.tv_p2);
 
-        // Find the CardView within the inflated layout
-        card1 = rootView.findViewById(R.id.matchM_card1);
-        TextView cardTv1 = rootView.findViewById(R.id.matchM_cardTv1);
-        card2 = rootView.findViewById(R.id.matchM_card2);
-        TextView cardTv2 = rootView.findViewById(R.id.matchM_cardTv2);
-        card3 = rootView.findViewById(R.id.matchM_card3);
-        TextView cardTv3 = rootView.findViewById(R.id.matchM_cardTv3);
-        card4 = rootView.findViewById(R.id.matchM_card4);
-        TextView cardTv4 = rootView.findViewById(R.id.matchM_cardTv4);
-        card5 = rootView.findViewById(R.id.matchM_card5);
-        TextView cardTv5 = rootView.findViewById(R.id.matchM_cardTv5);
-        card6 = rootView.findViewById(R.id.matchM_card6);
-        TextView cardTv6 = rootView.findViewById(R.id.matchM_cardTv6);
-        card7 = rootView.findViewById(R.id.matchM_card7);
-        TextView cardTv7 = rootView.findViewById(R.id.matchM_cardTv7);
-        card8 = rootView.findViewById(R.id.matchM_card8);
-        TextView cardTv8 = rootView.findViewById(R.id.matchM_cardTv8);
-        card9 = rootView.findViewById(R.id.matchM_card9);
-        TextView cardTv9 = rootView.findViewById(R.id.matchM_cardTv9);
-        card10 = rootView.findViewById(R.id.matchM_card10);
-        TextView cardTv10 = rootView.findViewById(R.id.matchM_cardTv10);
+        iv_11 = rootView.findViewById(R.id.iv_11);
+        iv_12 = rootView.findViewById(R.id.iv_12);
+        iv_21 = rootView.findViewById(R.id.iv_21);
+        iv_22 = rootView.findViewById(R.id.iv_22);
+        iv_31 = rootView.findViewById(R.id.iv_31);
+        iv_32 = rootView.findViewById(R.id.iv_32);
+        iv_41 = rootView.findViewById(R.id.iv_41);
+        iv_42 = rootView.findViewById(R.id.iv_42);
+        iv_51 = rootView.findViewById(R.id.iv_51);
+        iv_52 = rootView.findViewById(R.id.iv_52);
 
-        cardTv1.setTag("0");
-        cardTv2.setTag("1");
-        cardTv3.setTag("2");
-        cardTv4.setTag("3");
-        cardTv5.setTag("4");
-        cardTv6.setTag("5");
-        cardTv7.setTag("6");
-        cardTv8.setTag("7");
-        cardTv9.setTag("8");
-        cardTv10.setTag("9");
+        iv_11.setTag("0");
+        iv_12.setTag("1");
+        iv_21.setTag("2");
+        iv_22.setTag("3");
+        iv_31.setTag("4");
+        iv_32.setTag("5");
+        iv_41.setTag("6");
+        iv_42.setTag("7");
+        iv_51.setTag("8");
+        iv_52.setTag("9");
 
-        cardsFront();
+        frontOfCardResources();
 
         Collections.shuffle(Arrays.asList(cardsArray));
 
-        card1.setOnClickListener(new View.OnClickListener() {
+        tv_p2.setTextColor(Color.GRAY);
+
+        iv_11.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int theCard = Integer.parseInt((String) view.getTag());
-
-                doStuff(cardTv1, theCard);
-                Utils.showToast(
-
-                        getContext(), "card1");
+                doStuff(iv_11, theCard);
             }
         });
-        card2.setOnClickListener(new View.OnClickListener() {
+
+        iv_12.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int theCard = Integer.parseInt((String) view.getTag());
-
-                doStuff(cardTv1, theCard);
-                Utils.showToast(
-
-                        getContext(), "card2");
+                doStuff(iv_12, theCard);
             }
         });
-        card3.setOnClickListener(new View.OnClickListener() {
+
+        iv_21.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int theCard = Integer.parseInt((String) view.getTag());
-
-                doStuff(cardTv1, theCard);
-                Utils.showToast(
-
-                        getContext(), "card3");
+                doStuff(iv_21, theCard);
             }
         });
-        card4.setOnClickListener(new View.OnClickListener() {
+
+        iv_22.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int theCard = Integer.parseInt((String) view.getTag());
-
-                doStuff(cardTv1, theCard);
-                Utils.showToast(
-
-                        getContext(), "card4");
+                doStuff(iv_22, theCard);
             }
         });
-        card5.setOnClickListener(new View.OnClickListener() {
+
+        iv_31.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int theCard = Integer.parseInt((String) view.getTag());
-
-                doStuff(cardTv1, theCard);
-                Utils.showToast(
-
-                        getContext(), "card5");
+                doStuff(iv_31, theCard);
             }
         });
-        card6.setOnClickListener(new View.OnClickListener() {
+
+        iv_32.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int theCard = Integer.parseInt((String) view.getTag());
-
-                doStuff(cardTv1, theCard);
-                Utils.showToast(
-
-                        getContext(), "card6");
+                doStuff(iv_32, theCard);
             }
         });
-        card7.setOnClickListener(new View.OnClickListener() {
+
+        iv_41.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int theCard = Integer.parseInt((String) view.getTag());
-
-                doStuff(cardTv1, theCard);
-                Utils.showToast(
-
-                        getContext(), "card7");
+                doStuff(iv_41, theCard);
             }
         });
-        card8.setOnClickListener(new View.OnClickListener() {
+
+        iv_42.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int theCard = Integer.parseInt((String) view.getTag());
-
-                doStuff(cardTv1, theCard);
-                Utils.showToast(
-
-                        getContext(), "card8");
+                doStuff(iv_42, theCard);
             }
         });
-        card9.setOnClickListener(new View.OnClickListener() {
+
+        iv_51.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int theCard = Integer.parseInt((String) view.getTag());
-
-                doStuff(cardTv1, theCard);
-                Utils.showToast(
-
-                        getContext(), "card9");
+                doStuff(iv_51, theCard);
             }
         });
-        card10.setOnClickListener(new View.OnClickListener() {
+
+        iv_52.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int theCard = Integer.parseInt((String) view.getTag());
-
-                doStuff(cardTv1, theCard);
-                Utils.showToast(
-
-                        getContext(), "card10");
+                doStuff(iv_52, theCard);
             }
         });
+
         return rootView;
     }
 
-    private void doStuff(TextView cvTv, int card) {
+    private void doStuff(ImageView iv, int card) {
         if (cardsArray[card] == 101) {
-            cvTv.setText(text101);
+            iv.setImageResource(image101);
         } else if (cardsArray[card] == 102) {
-            cvTv.setText(text102);
+            iv.setImageResource(image102);
+        } else if (cardsArray[card] == 103) {
+            iv.setImageResource(image103);
+        } else if (cardsArray[card] == 104) {
+            iv.setImageResource(image104);
+        } else if (cardsArray[card] == 105) {
+            iv.setImageResource(image105);
         } else if (cardsArray[card] == 201) {
-            cvTv.setText(text201);
+            iv.setImageResource(image201);
         } else if (cardsArray[card] == 202) {
-            cvTv.setText(text202);
-        } else if (cardsArray[card] == 301) {
-            cvTv.setText(text301);
-        } else if (cardsArray[card] == 302) {
-            cvTv.setText(text302);
-        } else if (cardsArray[card] == 401) {
-            cvTv.setText(text401);
-        } else if (cardsArray[card] == 402) {
-            cvTv.setText(text402);
-        } else if (cardsArray[card] == 501) {
-            cvTv.setText(text501);
-        } else if (cardsArray[card] == 502) {
-            cvTv.setText(text502);
+            iv.setImageResource(image202);
+        } else if (cardsArray[card] == 203) {
+            iv.setImageResource(image203);
+        } else if (cardsArray[card] == 204) {
+            iv.setImageResource(image204);
+        } else if (cardsArray[card] == 205) {
+            iv.setImageResource(image205);
         }
 
         if (cardNumber == 1) {
             firstCard = cardsArray[card];
             if (firstCard > 200) {
-                firstCard = secondCard - 100;
+                firstCard = firstCard - 100;
             }
             cardNumber = 2;
             clickedFirst = card;
 
-            cvTv.setEnabled(false);
+            iv.setEnabled(false);
         } else if (cardNumber == 2) {
             secondCard = cardsArray[card];
             if (secondCard > 200) {
@@ -234,152 +194,163 @@ public class FragmentMatch extends Fragment {
             cardNumber = 1;
             clickedSecond = card;
 
-            cvTv.setEnabled(false);
+            iv_11.setEnabled(false);
+            iv_12.setEnabled(false);
+            iv_21.setEnabled(false);
+            iv_22.setEnabled(false);
+            iv_31.setEnabled(false);
+            iv_32.setEnabled(false);
+            iv_41.setEnabled(false);
+            iv_42.setEnabled(false);
+            iv_51.setEnabled(false);
+            iv_52.setEnabled(false);
+
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    calculate();
+                }
+            }, 1000); // Specify the delay in milliseconds
         }
-
-        card1.setEnabled(false);
-        card2.setEnabled(false);
-        card3.setEnabled(false);
-        card4.setEnabled(false);
-        card5.setEnabled(false);
-        card6.setEnabled(false);
-        card7.setEnabled(false);
-        card8.setEnabled(false);
-        card9.setEnabled(false);
-        card10.setEnabled(false);
-
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // Your code to be executed after the delay
-                calculate();
-            }
-        }, 2000); // Specify the delay in milliseconds
     }
 
     private void calculate() {
         if (firstCard == secondCard) {
-            if (clickedFirst == 1) {
-                card1.setVisibility(View.INVISIBLE);
+            if (clickedFirst == 0) {
+                iv_11.setVisibility(View.INVISIBLE);
+            } else if (clickedFirst == 1) {
+                iv_12.setVisibility(View.INVISIBLE);
             } else if (clickedFirst == 2) {
-                card2.setVisibility(View.INVISIBLE);
+                iv_21.setVisibility(View.INVISIBLE);
             } else if (clickedFirst == 3) {
-                card3.setVisibility(View.INVISIBLE);
+                iv_22.setVisibility(View.INVISIBLE);
             } else if (clickedFirst == 4) {
-                card4.setVisibility(View.INVISIBLE);
+                iv_31.setVisibility(View.INVISIBLE);
             } else if (clickedFirst == 5) {
-                card5.setVisibility(View.INVISIBLE);
+                iv_32.setVisibility(View.INVISIBLE);
             } else if (clickedFirst == 6) {
-                card6.setVisibility(View.INVISIBLE);
+                iv_41.setVisibility(View.INVISIBLE);
             } else if (clickedFirst == 7) {
-                card7.setVisibility(View.INVISIBLE);
+                iv_42.setVisibility(View.INVISIBLE);
             } else if (clickedFirst == 8) {
-                card8.setVisibility(View.INVISIBLE);
+                iv_51.setVisibility(View.INVISIBLE);
             } else if (clickedFirst == 9) {
-                card9.setVisibility(View.INVISIBLE);
-            } else if (clickedFirst == 10) {
-                card10.setVisibility(View.INVISIBLE);
+                iv_52.setVisibility(View.INVISIBLE);
             }
 
-            if (clickedSecond == 1) {
-                card1.setVisibility(View.INVISIBLE);
+            if (clickedSecond == 0) {
+                iv_11.setVisibility(View.INVISIBLE);
+            } else if (clickedSecond == 1) {
+                iv_12.setVisibility(View.INVISIBLE);
             } else if (clickedSecond == 2) {
-                card2.setVisibility(View.INVISIBLE);
+                iv_21.setVisibility(View.INVISIBLE);
             } else if (clickedSecond == 3) {
-                card3.setVisibility(View.INVISIBLE);
+                iv_22.setVisibility(View.INVISIBLE);
             } else if (clickedSecond == 4) {
-                card4.setVisibility(View.INVISIBLE);
+                iv_31.setVisibility(View.INVISIBLE);
             } else if (clickedSecond == 5) {
-                card5.setVisibility(View.INVISIBLE);
+                iv_32.setVisibility(View.INVISIBLE);
             } else if (clickedSecond == 6) {
-                card6.setVisibility(View.INVISIBLE);
+                iv_41.setVisibility(View.INVISIBLE);
             } else if (clickedSecond == 7) {
-                card7.setVisibility(View.INVISIBLE);
+                iv_42.setVisibility(View.INVISIBLE);
             } else if (clickedSecond == 8) {
-                card8.setVisibility(View.INVISIBLE);
+                iv_51.setVisibility(View.INVISIBLE);
             } else if (clickedSecond == 9) {
-                card9.setVisibility(View.INVISIBLE);
-            } else if (clickedSecond == 10) {
-                card10.setVisibility(View.INVISIBLE);
+                iv_52.setVisibility(View.INVISIBLE);
             }
 
             if (turn == 1) {
-                playerPts++;
-                pointsTv.setText("Points: " + playerPts);
+                playerPoints++;
+                tv_p1.setText("P1: " + playerPoints);
+            } else if (turn == 2) {
+                cpuPoints++;
+                tv_p2.setText("P2: " + cpuPoints);
             }
         } else {
-            card1.setVisibility(View.GONE);
-            card2.setVisibility(View.GONE);
-            card3.setVisibility(View.GONE);
-            card4.setVisibility(View.GONE);
-            card5.setVisibility(View.GONE);
-            card6.setVisibility(View.GONE);
-            card7.setVisibility(View.GONE);
-            card8.setVisibility(View.GONE);
-            card9.setVisibility(View.GONE);
-            card10.setVisibility(View.GONE);
+            iv_11.setImageResource(R.drawable.img_test);
+            iv_12.setImageResource(R.drawable.img_test);
+            iv_21.setImageResource(R.drawable.img_test);
+            iv_22.setImageResource(R.drawable.img_test);
+            iv_31.setImageResource(R.drawable.img_test);
+            iv_32.setImageResource(R.drawable.img_test);
+            iv_41.setImageResource(R.drawable.img_test);
+            iv_42.setImageResource(R.drawable.img_test);
+            iv_51.setImageResource(R.drawable.img_test);
+            iv_52.setImageResource(R.drawable.img_test);
 
             if (turn == 1) {
                 turn = 2;
-                Utils.showToast(getContext(), "Turn 2");
+                tv_p1.setTextColor(Color.GRAY);
+                tv_p2.setTextColor(Color.BLACK);
             } else if (turn == 2) {
                 turn = 1;
-                Utils.showToast(getContext(), "Turn 2");
+                tv_p1.setTextColor(Color.BLACK);
+                tv_p2.setTextColor(Color.GRAY);
             }
         }
 
-        card1.setEnabled(true);
-        card2.setEnabled(true);
-        card3.setEnabled(true);
-        card4.setEnabled(true);
-        card5.setEnabled(true);
-        card6.setEnabled(true);
-        card7.setEnabled(true);
-        card8.setEnabled(true);
-        card9.setEnabled(true);
-        card10.setEnabled(true);
+        iv_11.setEnabled(true);
+        iv_12.setEnabled(true);
+        iv_21.setEnabled(true);
+        iv_22.setEnabled(true);
+        iv_31.setEnabled(true);
+        iv_32.setEnabled(true);
+        iv_41.setEnabled(true);
+        iv_42.setEnabled(true);
+        iv_51.setEnabled(true);
+        iv_52.setEnabled(true);
 
         checkEnd();
     }
 
     private void checkEnd() {
-        if (card1.getVisibility() == View.INVISIBLE && card2.getVisibility() == View.INVISIBLE &&
-                card3.getVisibility() == View.INVISIBLE && card4.getVisibility() == View.INVISIBLE &&
-                card5.getVisibility() == View.INVISIBLE && card6.getVisibility() == View.INVISIBLE &&
-                card7.getVisibility() == View.INVISIBLE && card8.getVisibility() == View.INVISIBLE &&
-                card9.getVisibility() == View.INVISIBLE && card10.getVisibility() == View.INVISIBLE) {
+        if (iv_11.getVisibility() == View.INVISIBLE &&
+                iv_12.getVisibility() == View.INVISIBLE &&
+                iv_21.getVisibility() == View.INVISIBLE &&
+                iv_22.getVisibility() == View.INVISIBLE &&
+                iv_31.getVisibility() == View.INVISIBLE &&
+                iv_32.getVisibility() == View.INVISIBLE &&
+                iv_41.getVisibility() == View.INVISIBLE &&
+                iv_42.getVisibility() == View.INVISIBLE &&
+                iv_51.getVisibility() == View.INVISIBLE &&
+                iv_52.getVisibility() == View.INVISIBLE) {
 
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
-            alertDialogBuilder.setMessage("GAME OVER\nPOINTS: " + playerPts + "\nCPU:" + cpuPts).setCancelable(false).setPositiveButton("NEW", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    Intent intent = new Intent(getContext(), ActivityLearn.class);
-                    startActivity(intent);
-                    requireActivity().finish();
-                }
-            }).setNegativeButton("EXIT", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    requireActivity().finish();
-                }
-            });
+            alertDialogBuilder
+                    .setMessage("GAME OVER!\nP1: " + playerPoints + "\nP2: " + cpuPoints)
+                    .setCancelable(false)
+                    .setPositiveButton("NEW", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Utils.openActivityWithFragment(getContext(), FragmentMatch.class, ActivityLearn.class);
+                            requireActivity().finish();
+                        }
+                    })
+                    .setNegativeButton("EXIT", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            requireActivity().finish();
+                        }
+                    });
 
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
         }
     }
 
-    private void cardsFront() {
-        text101 = R.string.about;
-        text102 = R.string.back_arrow;
-        text201 = R.string.cancel;
-        text202 = R.string.dark_mode;
-        text301 = R.string.email;
-        text302 = R.string.facebook;
-        text401 = R.string.google;
-        text402 = R.string.home;
-        text501 = R.string.input_new_password_error;
-        text502 = R.string.library;
+    private void frontOfCardResources() {
+        image101 = R.drawable.image_1;
+        image102 = R.drawable.image_2;
+        image103 = R.drawable.image_3;
+        image104 = R.drawable.image_4;
+        image105 = R.drawable.image_5;
+        image201 = R.drawable.image_1;
+        image202 = R.drawable.image_2;
+        image203 = R.drawable.image_3;
+        image204 = R.drawable.image_4;
+        image205 = R.drawable.image_5;
     }
 }

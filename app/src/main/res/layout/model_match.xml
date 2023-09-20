@@ -9,6 +9,190 @@
     android:orientation="horizontal"
     android:rowCount="5">
 
+    <ImageView
+        android:id="@+id/iv_11"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
+        android:layout_margin="7dp"
+        android:background="@color/white"
+        android:clickable="true"
+        android:elevation="1dp"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:src="@drawable/img_transparent"
+        android:text="card #1"
+        app:cardCornerRadius="10dp" />
+
+    <ImageView
+        android:id="@+id/iv_12"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
+        android:layout_margin="7dp"
+        android:background="@color/white"
+        android:clickable="true"
+        android:elevation="1dp"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:src="@drawable/img_transparent"
+        android:text="card #1"
+        app:cardCornerRadius="10dp" />
+
+    <ImageView
+        android:id="@+id/iv_21"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
+        android:layout_margin="7dp"
+        android:background="@color/white"
+        android:clickable="true"
+        android:elevation="1dp"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:src="@drawable/img_transparent"
+        android:text="card #1"
+        app:cardCornerRadius="10dp" />
+
+    <ImageView
+        android:id="@+id/iv_22"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
+        android:layout_margin="7dp"
+        android:background="@color/white"
+        android:clickable="true"
+        android:elevation="1dp"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:src="@drawable/img_transparent"
+        android:text="card #1"
+        app:cardCornerRadius="10dp" />
+
+    <ImageView
+        android:id="@+id/iv_31"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
+        android:layout_margin="7dp"
+        android:background="@color/white"
+        android:clickable="true"
+        android:elevation="1dp"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:src="@drawable/img_transparent"
+        android:text="card #1"
+        app:cardCornerRadius="10dp" />
+
+    <ImageView
+        android:id="@+id/iv_32"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
+        android:layout_margin="7dp"
+        android:background="@color/white"
+        android:clickable="true"
+        android:elevation="1dp"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:src="@drawable/img_transparent"
+        android:text="card #1"
+        app:cardCornerRadius="10dp" />
+
+    <ImageView
+        android:id="@+id/iv_41"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
+        android:layout_margin="7dp"
+        android:background="@color/white"
+        android:clickable="true"
+        android:elevation="1dp"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:src="@drawable/img_transparent"
+        android:text="card #1"
+        app:cardCornerRadius="10dp" />
+
+    <ImageView
+        android:id="@+id/iv_42"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
+        android:layout_margin="7dp"
+        android:background="@color/white"
+        android:clickable="true"
+        android:elevation="1dp"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:src="@drawable/img_transparent"
+        android:text="card #1"
+        app:cardCornerRadius="10dp" />
+
+    <ImageView
+        android:id="@+id/iv_51"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
+        android:layout_margin="7dp"
+        android:background="@color/white"
+        android:clickable="true"
+        android:elevation="1dp"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:src="@drawable/img_transparent"
+        android:text="card #1"
+        app:cardCornerRadius="10dp" />
+
+    <ImageView
+        android:id="@+id/iv_52"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
+        android:layout_margin="7dp"
+        android:background="@color/white"
+        android:clickable="true"
+        android:elevation="1dp"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:src="@drawable/img_transparent"
+        android:text="card #1"
+        app:cardCornerRadius="10dp" />
+</GridLayout>
+
+<!--
+
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/matchM_mainGl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:columnCount="2"
+    android:orientation="horizontal"
+    android:rowCount="5">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/matchM_card1"
         android:layout_width="0dp"
@@ -305,4 +489,4 @@
                 android:text="card #10" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-</GridLayout>
+</GridLayout>-->
