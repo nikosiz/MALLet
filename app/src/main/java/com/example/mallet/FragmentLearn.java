@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,7 +19,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.mallet.databinding.DialogLearnOptionsBinding;
 import com.example.mallet.databinding.FragmentLearnBinding;
 import com.example.mallet.databinding.ModelWrittenBinding;
-import com.example.mallet.utils.LearnPagerAdapter;
+import com.example.mallet.utils.AdapterLearnPager;
 import com.example.mallet.utils.ModelMultipleChoice;
 import com.example.mallet.utils.ModelWritten;
 import com.example.mallet.utils.Utils;
@@ -31,7 +30,7 @@ public class FragmentLearn extends Fragment {
     FragmentLearnBinding binding;
     private ViewPager2 questionVp2;
     private TextView nextQuestionTv;
-    private LearnPagerAdapter pagerAdapter;
+    private AdapterLearnPager pagerAdapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,7 +42,7 @@ public class FragmentLearn extends Fragment {
         questionVp2 = binding.learnQuestionVp2;
         nextQuestionTv = binding.learnNextTv;
 
-        pagerAdapter = new LearnPagerAdapter();
+        pagerAdapter = new AdapterLearnPager();
         questionVp2.setAdapter(pagerAdapter);
         questionVp2.setUserInputEnabled(false);
         nextQuestionTv.setOnClickListener(v -> {
@@ -69,8 +68,7 @@ public class FragmentLearn extends Fragment {
         binding.learnOptionsIv.setOnClickListener(v -> learnOptionsDialog());
     }
 
-    private boolean isFirstTimeLearnOptionsDialog = true;
-    private boolean isVisible = false;
+    private boolean learnOptionsDialogFirstTime = true;
 
     private void learnOptionsDialog() {
         final Dialog dialog = Utils.createDialog(getContext(), R.layout.dialog_learn_options);
@@ -81,7 +79,7 @@ public class FragmentLearn extends Fragment {
         LinearLayout mainLl = dialogBinding.learnOptionsMainLl;
 
         // Check if it's the first time the dialog is opened
-        if (isFirstTimeLearnOptionsDialog) {
+        if (learnOptionsDialogFirstTime) {
             Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
             dialogBinding.learnOptionsBackIv.setOnClickListener(v -> requireActivity().finish());
@@ -90,7 +88,7 @@ public class FragmentLearn extends Fragment {
                 dialog.dismiss();
             });
 
-            isFirstTimeLearnOptionsDialog = false;
+            learnOptionsDialogFirstTime = false;
 
         } else {
             Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -116,8 +114,6 @@ public class FragmentLearn extends Fragment {
         CardView mainCv = questionView.findViewById(R.id.multipleChoice_mainCv);
 
         TextView questionTv = questionView.findViewById(R.id.multipleChoice_questionTv);
-
-        // Now you can work with questionTv and answerEt as needed
 
         linearLayout.addView(questionView);
     }

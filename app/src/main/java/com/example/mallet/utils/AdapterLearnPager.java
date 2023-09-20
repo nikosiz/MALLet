@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mallet.R;
 
-public class LearnPagerAdapter extends RecyclerView.Adapter<LearnPagerAdapter.ViewHolder> {
+public class AdapterLearnPager extends RecyclerView.Adapter<AdapterLearnPager.ViewHolder> {
 
     private static final int LAYOUT_MODEL_MULTIPLE = R.layout.model_multiple_choice;
     private static final int LAYOUT_MODEL_WRITTEN = R.layout.model_written;
