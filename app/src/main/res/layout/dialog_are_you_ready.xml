@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ready_mainLl"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="30dp">
+
+
+    <TextView
+        style="@style/BasicBoldTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Are you ready?"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="25sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+    <TextView
+        style="@style/BasicTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Match all terms to definitions and translations as quickly as you can. Extra time is awarded for incorrect matches"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/ready_startTv"
+        style="@style/BasicTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:background="@drawable/bg_ripple"
+        android:clickable="true"
+        android:drawablePadding="30dp"
+        android:focusable="true"
+        android:gravity="end"
+        android:padding="20dp"
+        android:text="Start playing"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp"
+        app:drawableEndCompat="@drawable/ic_arrow_forward"
+        app:drawableTint="@color/colorPrimary" />
+
+</LinearLayout>

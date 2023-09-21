@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:background="@android:color/transparent"
+        android:background="@color/colorPrimaryLight"
         android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,16 +34,19 @@
             app:tint="@color/colorPrimaryDark" />
 
         <Chronometer
+            android:id="@+id/matchChronometer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp" />
+
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@color/colorPrimaryLight"
         android:orientation="vertical"
         android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -59,19 +62,8 @@
                 style="@style/BasicBoldTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="P1: 0"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="20dp" />
 
-            <TextView
-                android:id="@+id/tv_p2"
-                style="@style/BasicBoldTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:text="P2: 0"
+                android:text="P1: 0"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="20dp" />
         </LinearLayout>

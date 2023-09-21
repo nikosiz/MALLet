@@ -1,24 +1,29 @@
 package com.example.mallet;
 
 import android.app.AlertDialog;
-import android.graphics.Color;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Chronometer;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import com.example.mallet.databinding.DialogAreYouReadyBinding;
 import com.example.mallet.utils.Utils;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Objects;
 
 public class FragmentMatch extends Fragment {
-    TextView tv_p1, tv_p2;
+    private Chronometer chronometer;
+    TextView tv_p1;
     CardView cv_11, cv_12, cv_21, cv_22, cv_31, cv_32, cv_41, cv_42, cv_51, cv_52;
     TextView cv_11Tv, cv_12Tv, cv_21Tv, cv_22Tv, cv_31Tv, cv_32Tv, cv_41Tv, cv_42Tv, cv_51Tv, cv_52Tv;
     Integer[] cardsArray = {101, 102, 103, 104, 105, 201, 202, 203, 204, 205};
@@ -27,7 +32,7 @@ public class FragmentMatch extends Fragment {
     int clickedFirst, clickedSecond;
     int cardNumber = 1;
     int turn = 1;
-    int playerPoints = 0, cpuPoints = 0;
+    int playerPoints = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,11 +42,14 @@ public class FragmentMatch extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the fragment's layout
+
         View rootView = inflater.inflate(R.layout.fragment_match, container, false);
 
+        chronometer = rootView.findViewById(R.id.matchChronometer);
+
+        areYouReadyDialog();
+
         tv_p1 = rootView.findViewById(R.id.tv_p1);
-        tv_p2 = rootView.findViewById(R.id.tv_p2);
 
         cv_11 = rootView.findViewById(R.id.cv_11);
         cv_11Tv = rootView.findViewById(R.id.cv_11Tv);
@@ -79,53 +87,70 @@ public class FragmentMatch extends Fragment {
 
         Collections.shuffle(Arrays.asList(cardsArray));
 
-        tv_p2.setTextColor(Color.GRAY);
-
         cv_11.setOnClickListener(view -> {
             int theCard = Integer.parseInt((String) view.getTag());
-            doStuff2(cv_11, cv_11Tv, theCard);
+            handleMatching(cv_11, cv_11Tv, theCard);
         });
         cv_12.setOnClickListener(view -> {
             int theCard = Integer.parseInt((String) view.getTag());
-            doStuff2(cv_12, cv_12Tv, theCard);
+            handleMatching(cv_12, cv_12Tv, theCard);
         });
         cv_21.setOnClickListener(view -> {
             int theCard = Integer.parseInt((String) view.getTag());
-            doStuff2(cv_21, cv_21Tv, theCard);
+            handleMatching(cv_21, cv_21Tv, theCard);
         });
         cv_22.setOnClickListener(view -> {
             int theCard = Integer.parseInt((String) view.getTag());
-            doStuff2(cv_22, cv_22Tv, theCard);
+            handleMatching(cv_22, cv_22Tv, theCard);
         });
         cv_31.setOnClickListener(view -> {
             int theCard = Integer.parseInt((String) view.getTag());
-            doStuff2(cv_31, cv_31Tv, theCard);
+            handleMatching(cv_31, cv_31Tv, theCard);
         });
         cv_32.setOnClickListener(view -> {
             int theCard = Integer.parseInt((String) view.getTag());
-            doStuff2(cv_32, cv_32Tv, theCard);
+            handleMatching(cv_32, cv_32Tv, theCard);
         });
         cv_41.setOnClickListener(view -> {
             int theCard = Integer.parseInt((String) view.getTag());
-            doStuff2(cv_41, cv_41Tv, theCard);
+            handleMatching(cv_41, cv_41Tv, theCard);
         });
         cv_42.setOnClickListener(view -> {
             int theCard = Integer.parseInt((String) view.getTag());
-            doStuff2(cv_42, cv_42Tv, theCard);
+            handleMatching(cv_42, cv_42Tv, theCard);
         });
         cv_51.setOnClickListener(view -> {
             int theCard = Integer.parseInt((String) view.getTag());
-            doStuff2(cv_51, cv_51Tv, theCard);
+            handleMatching(cv_51, cv_51Tv, theCard);
         });
         cv_52.setOnClickListener(view -> {
             int theCard = Integer.parseInt((String) view.getTag());
-            doStuff2(cv_52, cv_52Tv, theCard);
+            handleMatching(cv_52, cv_52Tv, theCard);
         });
 
         return rootView;
     }
 
-    private void doStuff2(CardView cv, TextView tv, int card) {
+    private void areYouReadyDialog() {
+        final Dialog dialog = Utils.createDialog(getContext(), R.layout.dialog_are_you_ready);
+        DialogAreYouReadyBinding dialogBinding = DialogAreYouReadyBinding.inflate(LayoutInflater.from(getContext()));
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
+        dialog.show();
+
+        TextView readyStartTv = dialogBinding.readyStartTv;
+
+        readyStartTv.setOnClickListener(v -> {
+            dialog.dismiss();
+            // Start the chronometer here
+            chronometer.setBase(SystemClock.elapsedRealtime());
+            chronometer.start();
+        });
+    }
+
+
+    private void handleMatching(CardView cv, TextView tv, int card) {
+
         if (cardsArray[card] == 101) {
             tv.setText(text101);
         } else if (cardsArray[card] == 102) {
@@ -228,15 +253,11 @@ public class FragmentMatch extends Fragment {
                 cv_52.setVisibility(View.INVISIBLE);
             }
 
-            if (turn == 1) {
-                playerPoints++;
-                tv_p1.setText("P1: " + playerPoints);
-            } else if (turn == 2) {
-                cpuPoints++;
-                tv_p2.setText("P2: " + cpuPoints);
-            }
+            playerPoints++;
+            tv_p1.setText("P1: " + playerPoints);
+
         } else {
-            cv_11Tv.setText("");
+            /*cv_11Tv.setText("");
             cv_12Tv.setText("");
             cv_21Tv.setText("");
             cv_22Tv.setText("");
@@ -245,17 +266,8 @@ public class FragmentMatch extends Fragment {
             cv_41Tv.setText("");
             cv_42Tv.setText("");
             cv_51Tv.setText("");
-            cv_52Tv.setText("");
+            cv_52Tv.setText("");*/
 
-            if (turn == 1) {
-                turn = 2;
-                tv_p1.setTextColor(Color.GRAY);
-                tv_p2.setTextColor(Color.BLACK);
-            } else if (turn == 2) {
-                turn = 1;
-                tv_p1.setTextColor(Color.BLACK);
-                tv_p2.setTextColor(Color.GRAY);
-            }
         }
 
         cv_11.setEnabled(true);
@@ -284,9 +296,11 @@ public class FragmentMatch extends Fragment {
                 cv_51.getVisibility() == View.INVISIBLE &&
                 cv_52.getVisibility() == View.INVISIBLE) {
 
+            chronometer.stop();
+
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
             alertDialogBuilder
-                    .setMessage("GAME OVER!\nP1: " + playerPoints + "\nP2: " + cpuPoints)
+                    .setMessage("GAME OVER!\nP1: " + playerPoints)
                     .setCancelable(false)
                     .setPositiveButton("NEW", (dialogInterface, i) -> {
                         Utils.openActivityWithFragment(getContext(), FragmentMatch.class, ActivityLearn.class);
