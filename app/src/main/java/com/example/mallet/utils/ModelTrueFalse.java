@@ -1,12 +1,9 @@
 package com.example.mallet.utils;
 
 public class ModelTrueFalse {
-    private String question, answer;
     private String term, translation, definition;
 
     public ModelTrueFalse(String question, String answer) {
-        this.question = question;
-        this.answer = answer;
     }
 
     public boolean isTrue() {

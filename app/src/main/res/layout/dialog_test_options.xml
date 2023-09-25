@@ -70,7 +70,8 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/ic_remove"
-                app:tint="@color/secondaryTextColor" />
+                app:tint="@color/secondaryTextColor"
+                android:contentDescription="less questions" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/testOptions_numberOfQuestionsTil"
@@ -111,7 +112,8 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/ic_plus"
-                app:tint="@color/secondaryTextColor" />
+                app:tint="@color/secondaryTextColor"
+                android:contentDescription="more questions" />
 
         </LinearLayout>
 

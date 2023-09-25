@@ -25,9 +25,9 @@ import java.util.Objects;
 
 public class FragmentTest extends Fragment {
     FragmentTestBinding binding;
-    private int minNrOfQuestions = 1;
+    private final int minNrOfQuestions = 1;
     private int nrOfQuestions = minNrOfQuestions;
-    private int maxNrOfQuestions = 50;
+    private final int maxNrOfQuestions = 50;
     private MaterialSwitch trueFalseMs, multipleChoiceMs, matchMs, writtenMs;
     private int checkedSwitches = 0;
 

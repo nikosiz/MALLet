@@ -43,7 +43,7 @@
             android:layout_marginHorizontal="20dp"
             android:text="Your answer"
             android:textColor="@color/colorPrimary"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
 
         <View
             android:layout_width="match_parent"

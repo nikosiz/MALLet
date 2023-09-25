@@ -42,7 +42,7 @@ public class AdapterLearnPager extends RecyclerView.Adapter<AdapterLearnPager.Vi
         return 2;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         ViewHolder(View itemView) {
             super(itemView);
         }

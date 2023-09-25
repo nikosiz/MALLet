@@ -29,7 +29,6 @@ import java.util.Objects;
 public class FragmentLearn extends Fragment {
     FragmentLearnBinding binding;
     private ViewPager2 questionVp2;
-    private TextView nextQuestionTv;
     private AdapterLearnPager pagerAdapter;
 
     @Override
@@ -40,7 +39,7 @@ public class FragmentLearn extends Fragment {
 
         setupContents();
         questionVp2 = binding.learnQuestionVp2;
-        nextQuestionTv = binding.learnNextTv;
+        TextView nextQuestionTv = binding.learnNextTv;
 
         pagerAdapter = new AdapterLearnPager();
         questionVp2.setAdapter(pagerAdapter);

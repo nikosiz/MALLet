@@ -10,18 +10,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.mallet.databinding.FragmentProfileBinding;
 import com.example.mallet.databinding.FragmentUserLibrarySetsBinding;
 import com.example.mallet.utils.ModelFlashcard;
-import com.example.mallet.utils.ModelFolder;
 import com.example.mallet.utils.ModelLearningSet;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentUserLibrary_Sets extends Fragment {
-
-    private FragmentUserLibrarySetsBinding binding;
 
     public static FragmentUserLibrary_Sets newInstance(String param1, String param2) {
 
@@ -37,7 +33,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentUserLibrarySetsBinding.inflate(inflater, container, false);
+        com.example.mallet.databinding.FragmentUserLibrarySetsBinding binding = FragmentUserLibrarySetsBinding.inflate(inflater, container, false);
 
         LinearLayout userLibrarySetsLl= binding.userLibrarySetsAllSetsLl;
         List<ModelLearningSet> userLibraryFoldersList = getUserLibrarySetList();

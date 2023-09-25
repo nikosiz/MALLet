@@ -27,7 +27,6 @@ public class FragmentHome extends Fragment {
 
     private FragmentHomeBinding binding;
     private ActivityMain activityMain;
-    private List<ModelLearningSet> learningSets;
     private List<ModelFolder> folders;
     private List<ModelGroup> groups;
 
@@ -40,7 +39,7 @@ public class FragmentHome extends Fragment {
 
         activityMain = (ActivityMain) getActivity();
 
-        learningSets = Objects.requireNonNull(activityMain).createSetList();
+        List<ModelLearningSet> learningSets = Objects.requireNonNull(activityMain).createSetList();
         setupViewPager(binding.homeSetsViewPager, learningSets);
 
         List<ModelFolder> folders = activityMain.createFolderList();
