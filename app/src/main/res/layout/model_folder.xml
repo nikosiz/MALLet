@@ -35,7 +35,7 @@
             android:layout_height="10dp" />
 
         <TextView
-            android:id="@+id/folder_model_name_tv"
+            android:id="@+id/folder_model_nameTv"
             style="@style/BasicBoldTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
             android:layout_height="20dp" />
 
         <TextView
-            android:id="@+id/folder_model_creator_tv"
+            android:id="@+id/folder_model_creatorTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

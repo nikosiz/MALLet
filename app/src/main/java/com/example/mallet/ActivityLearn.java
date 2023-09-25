@@ -115,9 +115,7 @@ public class ActivityLearn extends AppCompatActivity {
                     setDescriptionTv.setText(setDescription);
                 }
 
-                if (numberOfTerms != null) {
-                    setTermsTv.setText(numberOfTerms + " terms");
-                }
+                setTermsTv.setText(numberOfTerms + " terms");
             }
         }
     }

@@ -9,7 +9,7 @@
     android:theme="@style/Base.Theme.MALLet">
 
     <TextView
-        android:id="@+id/change_theme_enter_password_title_tv"
+        android:id="@+id/change_theme_enter_password_titleTv"
         style="@style/BasicBoldTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
         android:layout_height="10dp"/>
 
     <TextView
-        android:id="@+id/change_theme_enter_password_tv"
+        android:id="@+id/change_theme_enter_passwordTv"
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

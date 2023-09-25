@@ -81,7 +81,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/view_set_name_tv"
+                    android:id="@+id/view_set_nameTv"
                     style="@style/BasicBoldTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -109,7 +109,7 @@
                         app:tint="@color/danube_blue_800" />
 
                     <TextView
-                        android:id="@+id/view_set_creator_tv"
+                        android:id="@+id/view_set_creatorTv"
                         style="@style/BasicTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -124,7 +124,7 @@
                         android:background="@color/danube_blue_200" />
 
                     <TextView
-                        android:id="@+id/view_set_terms_tv"
+                        android:id="@+id/view_set_termsTv"
                         style="@style/BasicTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

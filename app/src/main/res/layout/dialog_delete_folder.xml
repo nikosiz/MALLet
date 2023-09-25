@@ -9,7 +9,7 @@
     android:paddingTop="20dp">
 
     <TextView
-        android:id="@+id/delete_folder_enter_name_title_tv"
+        android:id="@+id/delete_folder_enter_name_titleTv"
         style="@style/BasicBoldTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,10 +25,10 @@
 
         android:layout_height="5dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/delete_folder_enter_name_title_tv" />
+        app:layout_constraintTop_toBottomOf="@id/delete_folder_enter_name_titleTv" />
 
     <TextView
-        android:id="@+id/delete_folder_enter_name_tv"
+        android:id="@+id/delete_folder_enter_nameTv"
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
 
@@ -44,7 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/delete_folder_enter_name_tv" />
+        app:layout_constraintTop_toBottomOf="@id/delete_folder_enter_nameTv" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/delete_folder_name_til"

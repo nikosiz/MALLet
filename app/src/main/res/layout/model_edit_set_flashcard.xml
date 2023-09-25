@@ -21,7 +21,7 @@
         android:padding="30dp">
 
         <TextView
-            android:id="@+id/editSet_counter_tv"
+            android:id="@+id/editSet_counterTv"
             style="@style/BasicBoldTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/editSet_term_err_tv"
+                android:id="@+id/editSet_term_errTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
@@ -92,7 +92,7 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/editSet_definition_err_tv"
+                android:id="@+id/editSet_definition_errTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
@@ -129,7 +129,7 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/editSet_translation_err_tv"
+                android:id="@+id/editSet_translation_errTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"

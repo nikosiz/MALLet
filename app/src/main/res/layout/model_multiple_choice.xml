@@ -13,36 +13,44 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="30dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/multipleChoice_questionTv"
             style="@style/BasicBoldTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="30dp"
             android:gravity="start"
-            android:text="content of the question"
+            android:paddingHorizontal="10dp"
+            android:text="content of the question: term OR definition/translation"
             android:textColor="@color/primaryTextColor"
             android:textSize="25sp" />
+    </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="60dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        android:paddingVertical="30dp">
 
         <TextView
             android:id="@+id/multipleChoiceTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
             android:text="Choose the correct answer"
             android:textColor="@color/secondaryTextColor"
             android:textSize="20sp" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="10dp" />
+            android:layout_height="10dp"
+            android:layout_marginHorizontal="30dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,6 +62,7 @@
                 style="@style/SocialButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
                 android:layout_marginVertical="10dp"
                 android:gravity="center_vertical"
                 android:text="Option 1"
@@ -65,6 +74,7 @@
                 style="@style/SocialButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
                 android:layout_marginVertical="10dp"
                 android:gravity="center_vertical"
                 android:text="Option 2"
@@ -76,6 +86,7 @@
                 style="@style/SocialButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
                 android:layout_marginVertical="10dp"
                 android:gravity="center_vertical"
                 android:text="Option 3"
@@ -87,6 +98,7 @@
                 style="@style/SocialButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
                 android:layout_marginVertical="10dp"
                 android:gravity="center_vertical"
                 android:text="Option 4"
@@ -94,21 +106,5 @@
                 android:textSize="20sp" />
 
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp" />
-
-        <TextView
-            android:id="@+id/multipleChoice_questionCounterTv"
-            style="@style/BasicTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="number of questions"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textColor="@color/secondaryTextColor"
-            android:textSize="15sp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

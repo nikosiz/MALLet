@@ -16,7 +16,9 @@
         android:layout_gravity="center_vertical"
         android:background="@android:color/transparent"
         android:gravity="center_vertical"
+        android:paddingHorizontal="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -33,12 +35,35 @@
             android:focusable="true"
             android:src="@drawable/ic_arrow_back"
             app:tint="@color/colorPrimaryDark" />
+
+        <TextView
+            android:id="@+id/test_toolbarTitleTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/russo_one_regular"
+            android:text="Test"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="30sp" />
+
+        <ImageView
+            android:id="@+id/test_optionsIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginHorizontal="20dp"
+            android:background="@drawable/bg_ripple"
+            android:clickable="true"
+            android:contentDescription="set options"
+            android:focusable="true"
+            android:src="@drawable/ic_toolbar_options"
+            app:tint="@color/colorPrimaryDark" />
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
         android:id="@+id/test_questionLl"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

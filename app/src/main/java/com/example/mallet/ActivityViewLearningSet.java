@@ -263,8 +263,8 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         for (ModelFolder folder : folders) {
             View folderItemView = inflater.inflate(R.layout.model_folder, linearLayout, false);
 
-            TextView folderNameTextView = folderItemView.findViewById(R.id.folder_model_name_tv);
-            TextView folderCreatorTextView = folderItemView.findViewById(R.id.folder_model_creator_tv);
+            TextView folderNameTextView = folderItemView.findViewById(R.id.folder_model_nameTv);
+            TextView folderCreatorTextView = folderItemView.findViewById(R.id.folder_model_creatorTv);
 
             folderNameTextView.setText(folder.getFolderName());
             folderCreatorTextView.setText(folder.getFolderCreator());

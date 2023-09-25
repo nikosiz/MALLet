@@ -243,7 +243,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         EditText flashcardDefinitionEt = flashcardItemView.findViewById(R.id.editSet_definition_et);
         EditText flashcardTranslationEt = flashcardItemView.findViewById(R.id.editSet_translation_et);
 
-        TextView counter = flashcardItemView.findViewById(R.id.editSet_counter_tv);
+        TextView counter = flashcardItemView.findViewById(R.id.editSet_counterTv);
 
         flashcardTermEt.setText(term);
         flashcardDefinitionEt.setText(definition);
@@ -288,8 +288,8 @@ public class ActivityEditLearningSet extends AppCompatActivity {
             View folderItemView = inflater.inflate(R.layout.model_folder, linearLayout, false);
 
             // Find views in the folderItemView based on your layout
-            TextView folderNameTextView = folderItemView.findViewById(R.id.folder_model_name_tv);
-            TextView folderCreatorTextView = folderItemView.findViewById(R.id.folder_model_creator_tv);
+            TextView folderNameTextView = folderItemView.findViewById(R.id.folder_model_nameTv);
+            TextView folderCreatorTextView = folderItemView.findViewById(R.id.folder_model_creatorTv);
 
             // Set folder data to the views
             folderNameTextView.setText(folder.getFolderName());

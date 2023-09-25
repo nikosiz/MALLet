@@ -31,7 +31,7 @@ public class FragmentUserLibrary_Folders extends Fragment implements AdapterFold
         for (ModelFolder folder : userLibraryFoldersList) {
             View folderItemView = inflater.inflate(R.layout.model_folder, userLibraryFoldersLl, false);
 
-            TextView folderNameTv = folderItemView.findViewById(R.id.folder_model_name_tv);
+            TextView folderNameTv = folderItemView.findViewById(R.id.folder_model_nameTv);
             folderNameTv.setText(folder.getFolderName());
 
             // Add folderItemView to the linearLayout

@@ -65,8 +65,8 @@ public class AdapterFolder extends RecyclerView.Adapter<AdapterFolder.ViewHolder
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             // Initialize the TextViews with their corresponding views from the layout
-            folderOwnerTv = itemView.findViewById(R.id.folder_model_creator_tv);
-            folderNameTv = itemView.findViewById(R.id.folder_model_name_tv);
+            folderOwnerTv = itemView.findViewById(R.id.folder_model_creatorTv);
+            folderNameTv = itemView.findViewById(R.id.folder_model_nameTv);
         }
     }
 

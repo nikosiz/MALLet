@@ -146,6 +146,7 @@ public class FragmentMatch extends Fragment {
         DialogAreYouReadyBinding dialogBinding = DialogAreYouReadyBinding.inflate(LayoutInflater.from(getContext()));
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
+        dialog.setCanceledOnTouchOutside(false);
         dialog.show();
 
         TextView readyStartTv = dialogBinding.readyStartTv;
