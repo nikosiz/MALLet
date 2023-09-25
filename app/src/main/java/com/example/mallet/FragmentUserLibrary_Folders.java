@@ -1,5 +1,6 @@
 package com.example.mallet;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +36,9 @@ public class FragmentUserLibrary_Folders extends Fragment implements AdapterFold
 
             // Add folderItemView to the linearLayout
             userLibraryFoldersLl.addView(folderItemView);
+
+            folderItemView.setOnClickListener(v -> startViewFolderActivity());
+
         }
 
         return binding.getRoot();
@@ -48,6 +52,11 @@ public class FragmentUserLibrary_Folders extends Fragment implements AdapterFold
         folderList.add(new ModelFolder("Folder #4", "user123", "8"));
         folderList.add(new ModelFolder("Folder #5", "user123", "1"));
         return folderList;
+    }
+
+    private void startViewFolderActivity() {
+        Intent intent = new Intent(getContext(), ActivityViewFolder.class);
+        startActivity(intent);
     }
 
     public void onFolderClick(ModelFolder folder) {

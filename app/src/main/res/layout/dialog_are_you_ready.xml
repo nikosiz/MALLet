@@ -25,7 +25,7 @@
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Match all terms to definitions and translations as quickly as you can. Extra time is awarded for incorrect matches"
+        android:text="Match all terms to definitions and translations as quickly as you can. \n\nFor each incorrect match, 5 extra seconds will be awarded to your time"
         android:textColor="@color/colorPrimary"
         android:textSize="20sp"/>
 

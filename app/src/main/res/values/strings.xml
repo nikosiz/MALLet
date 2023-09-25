@@ -85,4 +85,18 @@
     <string name="organise_sets_sort_into_folders">Organise your sets by sorting them into folders.</string>
     <string name="user_icon">User icon</string>
     <string name="folder">Folder</string>
+
+    <!-- TEST DATA -->
+    <string name="dog">Dog</string>
+    <string name="dog_def">A loyal domesticated pet</string>
+    <string name="whale">Whale</string>
+    <string name="whale_def">Gigantic marine mammal</string>
+    <string name="worm">Worm</string>
+    <string name="worm_def">Legless soil-dweller</string>
+    <string name="eagle">Eagle</string>
+    <string name="eagle_def">Majestic bird of prey</string>
+    <string name="fish">Fish</string>
+    <string name="fish_def">Aquatic, gilled vertebrate</string>
+
+
 </resources>

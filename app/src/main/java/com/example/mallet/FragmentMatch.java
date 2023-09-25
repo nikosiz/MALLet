@@ -1,6 +1,5 @@
 package com.example.mallet;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,24 +14,23 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.example.mallet.databinding.DialogAreYouReadyBinding;
+import com.example.mallet.databinding.DialogGameOverBinding;
 import com.example.mallet.utils.Utils;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Objects;
 
 public class FragmentMatch extends Fragment {
     private Chronometer chronometer;
-    TextView tv_p1;
-    CardView cv_11, cv_12, cv_21, cv_22, cv_31, cv_32, cv_41, cv_42, cv_51, cv_52;
-    TextView cv_11Tv, cv_12Tv, cv_21Tv, cv_22Tv, cv_31Tv, cv_32Tv, cv_41Tv, cv_42Tv, cv_51Tv, cv_52Tv;
-    Integer[] cardsArray = {101, 102, 103, 104, 105, 201, 202, 203, 204, 205};
-    int text101, text102, text103, text104, text105, text201, text202, text203, text204, text205;
-    int firstCard, secondCard;
-    int clickedFirst, clickedSecond;
-    int cardNumber = 1;
-    int turn = 1;
-    int playerPoints = 0;
+    private TextView tv_p1;
+    private CardView cv_11, cv_12, cv_21, cv_22, cv_31, cv_32, cv_41, cv_42, cv_51, cv_52;
+    private TextView cv_11Tv, cv_12Tv, cv_21Tv, cv_22Tv, cv_31Tv, cv_32Tv, cv_41Tv, cv_42Tv, cv_51Tv, cv_52Tv;
+    private TextView pointsTv;
+    private Integer[] cardsArray = {101, 102, 103, 104, 105, 201, 202, 203, 204, 205};
+    private int text101, text102, text103, text104, text105, text201, text202, text203, text204, text205;
+    private int firstCard, secondCard;
+    private int clickedFirst, clickedSecond;
+    private int cardNumber = 1;
+    private int playerPoints = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,11 +43,12 @@ public class FragmentMatch extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_match, container, false);
 
-        chronometer = rootView.findViewById(R.id.matchChronometer);
+        chronometer = rootView.findViewById(R.id.matchF_chronometer);
+        pointsTv = rootView.findViewById(R.id.matchF_pointsTv);
 
         areYouReadyDialog();
 
-        tv_p1 = rootView.findViewById(R.id.tv_p1);
+        //tv_p1 = rootView.findViewById(R.id.tv_p1);
 
         cv_11 = rootView.findViewById(R.id.cv_11);
         cv_11Tv = rootView.findViewById(R.id.cv_11Tv);
@@ -85,7 +84,18 @@ public class FragmentMatch extends Fragment {
 
         cardResources();
 
-        Collections.shuffle(Arrays.asList(cardsArray));
+        //Collections.shuffle(Arrays.asList(cardsArray));
+
+        cv_11Tv.setText(text101);
+        cv_12Tv.setText(text102);
+        cv_21Tv.setText(text103);
+        cv_22Tv.setText(text104);
+        cv_31Tv.setText(text105);
+        cv_32Tv.setText(text201);
+        cv_41Tv.setText(text202);
+        cv_42Tv.setText(text203);
+        cv_51Tv.setText(text204);
+        cv_52Tv.setText(text205);
 
         cv_11.setOnClickListener(view -> {
             int theCard = Integer.parseInt((String) view.getTag());
@@ -142,7 +152,7 @@ public class FragmentMatch extends Fragment {
 
         readyStartTv.setOnClickListener(v -> {
             dialog.dismiss();
-            // Start the chronometer here
+
             chronometer.setBase(SystemClock.elapsedRealtime());
             chronometer.start();
         });
@@ -150,28 +160,6 @@ public class FragmentMatch extends Fragment {
 
 
     private void handleMatching(CardView cv, TextView tv, int card) {
-
-        if (cardsArray[card] == 101) {
-            tv.setText(text101);
-        } else if (cardsArray[card] == 102) {
-            tv.setText(text102);
-        } else if (cardsArray[card] == 103) {
-            tv.setText(text103);
-        } else if (cardsArray[card] == 104) {
-            tv.setText(text104);
-        } else if (cardsArray[card] == 105) {
-            tv.setText(text105);
-        } else if (cardsArray[card] == 201) {
-            tv.setText(text201);
-        } else if (cardsArray[card] == 202) {
-            tv.setText(text202);
-        } else if (cardsArray[card] == 203) {
-            tv.setText(text203);
-        } else if (cardsArray[card] == 204) {
-            tv.setText(text204);
-        } else if (cardsArray[card] == 205) {
-            tv.setText(text205);
-        }
 
         if (cardNumber == 1) {
             firstCard = cardsArray[card];
@@ -203,7 +191,7 @@ public class FragmentMatch extends Fragment {
 
 
             Handler handler = new Handler();
-            handler.postDelayed(this::calculate, 1000);
+            handler.postDelayed(this::calculate, 200);
         }
     }
 
@@ -254,19 +242,12 @@ public class FragmentMatch extends Fragment {
             }
 
             playerPoints++;
-            tv_p1.setText("P1: " + playerPoints);
+            pointsTv.setText(Integer.toString(playerPoints));
+            //tv_p1.setText("P1: " + playerPoints);
 
         } else {
-            /*cv_11Tv.setText("");
-            cv_12Tv.setText("");
-            cv_21Tv.setText("");
-            cv_22Tv.setText("");
-            cv_31Tv.setText("");
-            cv_32Tv.setText("");
-            cv_41Tv.setText("");
-            cv_42Tv.setText("");
-            cv_51Tv.setText("");
-            cv_52Tv.setText("");*/
+            //playerPoints--;
+            chronometer.setBase(chronometer.getBase() - 5 * 1000);
 
         }
 
@@ -298,31 +279,47 @@ public class FragmentMatch extends Fragment {
 
             chronometer.stop();
 
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
-            alertDialogBuilder
-                    .setMessage("GAME OVER!\nP1: " + playerPoints)
-                    .setCancelable(false)
-                    .setPositiveButton("NEW", (dialogInterface, i) -> {
-                        Utils.openActivityWithFragment(getContext(), FragmentMatch.class, ActivityLearn.class);
-                        requireActivity().finish();
-                    })
-                    .setNegativeButton("EXIT", (dialogInterface, i) -> requireActivity().finish());
-
-            AlertDialog alertDialog = alertDialogBuilder.create();
-            alertDialog.show();
+            gameOverDialog();
         }
     }
 
     private void cardResources() {
-        text101 = R.string.about;
-        text102 = R.string.back_arrow;
-        text103 = R.string.cancel;
-        text104 = R.string.dark_mode;
-        text105 = R.string.email;
-        text201 = R.string.about;
-        text202 = R.string.back_arrow;
-        text203 = R.string.cancel;
-        text204 = R.string.dark_mode;
-        text205 = R.string.email;
+        text101 = R.string.dog;
+        text102 = R.string.whale;
+        text103 = R.string.worm;
+        text104 = R.string.eagle;
+        text105 = R.string.fish;
+        text201 = R.string.dog_def;
+        text202 = R.string.whale_def;
+        text203 = R.string.worm_def;
+        text204 = R.string.eagle_def;
+        text205 = R.string.fish_def;
     }
+
+    private void gameOverDialog() {
+        Dialog dialog = Utils.createDialog(getContext(), R.layout.dialog_game_over);
+        DialogGameOverBinding dialogBinding = DialogGameOverBinding.inflate(getLayoutInflater());
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setContentView(dialogBinding.getRoot());
+        dialog.show();
+
+        /*TextView scoreTv = dialogBinding.gameOverScoreTv;
+        scoreTv.setText("Your score: " + playerPoints);*/
+
+        TextView timeTv = dialogBinding.gameOverTimeTv;
+        timeTv.setText("Your time: " + chronometer.getText());
+
+        TextView finish = dialogBinding.gameOverFinishTv;
+        TextView restart = dialogBinding.gameOverRestartTv;
+
+        restart.setOnClickListener(v -> {
+            dialog.dismiss();
+            Utils.openActivityWithFragment(getContext(), FragmentMatch.class, ActivityLearn.class);
+            requireActivity().finish();
+        });
+
+        finish.setOnClickListener(v -> requireActivity().finish());
+    }
+
+
 }

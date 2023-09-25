@@ -205,7 +205,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         String learningSetName = getIntent().getStringExtra("learningSetName");
 
         if (learningSetName != null) {
-            setNameEt.clearFocus();
+            setNameEt.requestFocus();
             setNameEt.setText(learningSetName);
         }
 
@@ -222,7 +222,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         }
 
         // TODO: Implement functionality creating set
-        Utils.showToast(this, "Set with the name " + learningSetName + " was created");
+        Utils.showToast(this, "Set with the name " + learningSetName + " was saved");
         finish();
     }
 
