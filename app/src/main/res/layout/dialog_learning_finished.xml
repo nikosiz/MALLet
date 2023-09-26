@@ -1,54 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/learningFinished_mainLl"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/bg_corners_rounded"
     android:orientation="vertical"
     android:padding="30dp">
 
     <TextView android:justificationMode="inter_word"
-        android:id="@+id/confirmExit_titleTv"
-        style="@style/BasicTextStyle"
+        style="@style/BasicBoldTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Are you sure you want to leave?"
+        android:text="Congratulations!"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="23sp" />
+        android:textSize="25sp" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="30dp" />
+        android:layout_height="10dp" />
+
+    <TextView
+        android:justificationMode="inter_word"
+        android:id="@+id/learningFinished_resultsTv"
+        style="@style/BasicTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You have learned everything. You can study again to practice or try different mode of study"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
 
     <LinearLayout
-        android:id="@+id/confirmExit_cancelConfirmLl"
+        android:id="@+id/learningFinished_finishRestartLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="end"
         android:orientation="horizontal">
 
         <TextView android:justificationMode="inter_word"
-            android:id="@+id/confirmExit_cancelTv"
+            android:id="@+id/learningFinished_finishTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
             android:focusable="true"
-            android:text="@string/cancel"
+            android:padding="10dp"
+            android:text="Finish"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
 
         <TextView android:justificationMode="inter_word"
-            android:id="@+id/confirmExit_confirmTv"
+            android:id="@+id/learningFinished_restartTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
+            android:drawableEnd="@drawable/ic_restart"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/colorPrimary"
             android:focusable="true"
-            android:text="Leave"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="Restart"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
     </LinearLayout>
-
 </LinearLayout>

@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:padding="30dp">
 
-    <TextView
+    <TextView android:justificationMode="inter_word"
         android:id="@+id/chooseUsername_titleTv"
         style="@style/BasicBoldTextStyle"
         android:layout_width="match_parent"
@@ -21,13 +21,13 @@
         android:layout_width="match_parent"
         android:layout_height="10dp" />
 
-    <TextView
+    <TextView android:justificationMode="inter_word"
         android:id="@+id/chooseUsernameTv"
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Choose a unique username to continue"
-        android:textColor="@color/secondaryTextColor"
+        android:textColor="@color/colorPrimary"
         android:textSize="20sp" />
 
     <View
@@ -56,7 +56,7 @@
             android:maxLength="45"
             app:boxStrokeColor="@color/colorSecondaryDark" />
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/chooseUsername_errorTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
@@ -79,7 +79,7 @@
         android:gravity="end"
         android:orientation="horizontal">
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/chooseUsername_cancelTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -88,10 +88,10 @@
             android:clickable="true"
             android:focusable="true"
             android:text="Cancel"
-            android:textColor="@color/secondaryTextColor"
+            android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/chooseUsername_createAccTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -101,7 +101,7 @@
             android:clickable="true"
             android:focusable="true"
             android:text="Create account"
-            android:textColor="@color/secondaryTextColor"
+            android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
     </LinearLayout>
 

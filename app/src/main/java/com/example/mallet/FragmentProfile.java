@@ -27,7 +27,6 @@ import androidx.fragment.app.Fragment;
 import com.example.mallet.databinding.DialogAboutBinding;
 import com.example.mallet.databinding.DialogChangeEmailBinding;
 import com.example.mallet.databinding.DialogChangePasswordBinding;
-import com.example.mallet.databinding.DialogChangePictureBinding;
 import com.example.mallet.databinding.DialogChangeThemeBinding;
 import com.example.mallet.databinding.DialogChangeUsernameBinding;
 import com.example.mallet.databinding.DialogDeleteAccountBinding;
@@ -63,7 +62,7 @@ public class FragmentProfile extends Fragment {
     }
 
     private void setupContents() {
-        binding.profileUserPhotoIv.setOnClickListener(v -> changePictureDialog());
+        binding.profileUserPhotoIv.setOnClickListener(v -> Utils.openActivity(getContext(), ActivityViewProfile.class));
 
         binding.profileEmailLl.setOnClickListener(v -> verifyPasswordDialog(VerifyPasswordAction.CHANGE_EMAIL));
         binding.profileUsernameLll.setOnClickListener(v -> verifyPasswordDialog(VerifyPasswordAction.CHANGE_USERNAME));
@@ -82,15 +81,6 @@ public class FragmentProfile extends Fragment {
         binding.profileLogoutTv.setOnClickListener(v -> logOut());
 
         binding.profileDeleteAccTv.setOnClickListener(v -> showDeleteAccountDialog());
-    }
-
-    private void changePictureDialog() {
-        // TODO: Dialog with pictures to choose from and apply
-        Dialog dialog = createDialog(R.layout.dialog_change_picture);
-        DialogChangePictureBinding dialogBinding = DialogChangePictureBinding.inflate(getLayoutInflater());
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.show();
-
     }
 
     public enum VerifyPasswordAction {

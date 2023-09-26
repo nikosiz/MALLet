@@ -14,7 +14,7 @@
         android:orientation="vertical"
         tools:ignore="UselessParent">
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/learn_setNameTv"
             style="@style/BasicBoldTextStyle"
             android:layout_width="match_parent"
@@ -25,7 +25,7 @@
             android:text="setName"
             android:textSize="20sp" />
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/learn_setCreatorTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
             android:text="setCreator"
             android:textSize="15sp" />
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/learn_setDescriptionTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
             android:text="setDescription"
             android:textSize="15sp" />
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/learn_setNumberOfTermsTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

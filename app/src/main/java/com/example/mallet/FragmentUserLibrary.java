@@ -43,7 +43,6 @@ public class FragmentUserLibrary extends Fragment {
         viewPager = binding.userLibraryViewPager;
         tabLayout = binding.userLibraryTabLayout;
 
-        assert activityMain != null;
         List<ModelLearningSet> learningSets = activityMain.createSetList();
         List<ModelFolder> folders = activityMain.createFolderList();
         List<ModelGroup> groups = activityMain.createGroupList();

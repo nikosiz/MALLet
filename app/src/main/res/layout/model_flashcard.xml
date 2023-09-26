@@ -20,7 +20,7 @@
         android:orientation="vertical"
         android:padding="75dp">
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/flashcard_termTv"
             style="@style/BasicTextStyle"
             android:layout_width="wrap_content"
@@ -28,7 +28,7 @@
             android:gravity="center"
             android:singleLine="true"
             android:text="term"
-            android:textColor="@color/secondaryTextColor"
+            android:textColor="@color/colorPrimary"
             android:textSize="30sp" />
 
         <View
@@ -37,7 +37,7 @@
             android:layout_height="10dp"
             android:visibility="gone" />
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/flashcard_definitionTv"
             style="@style/BasicTextStyle"
             android:layout_width="wrap_content"
@@ -45,7 +45,7 @@
             android:gravity="center"
             android:singleLine="true"
             android:text="definition"
-            android:textColor="@color/secondaryTextColor"
+            android:textColor="@color/colorPrimary"
             android:textSize="30sp"
             android:visibility="gone" />
 
@@ -55,7 +55,7 @@
             android:layout_height="10dp"
             android:visibility="gone" />
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/flashcard_translationTv"
             style="@style/BasicTextStyle"
             android:layout_width="wrap_content"
@@ -63,7 +63,7 @@
             android:gravity="center"
             android:singleLine="true"
             android:text="translation"
-            android:textColor="@color/secondaryTextColor"
+            android:textColor="@color/colorPrimary"
             android:textSize="30sp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

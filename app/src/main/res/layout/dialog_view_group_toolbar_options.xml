@@ -42,7 +42,7 @@
         android:orientation="vertical"
         android:padding="30dp">
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/viewGroupOptions_addMembersTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
@@ -55,7 +55,7 @@
             app:drawableEndCompat="@drawable/ic_invite_members"
             app:drawableTint="@color/danube_blue_800" />
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/viewGroupOptions_addSetsTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
@@ -68,7 +68,7 @@
             app:drawableEndCompat="@drawable/ic_create_set"
             app:drawableTint="@color/danube_blue_800" />
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/viewGroupOptions_addFoldersTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
@@ -81,7 +81,7 @@
             app:drawableEndCompat="@drawable/ic_create_folder"
             app:drawableTint="@color/danube_blue_800" />
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/viewGroupOptions_leaveTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
@@ -94,7 +94,7 @@
             app:drawableEndCompat="@drawable/ic_logout"
             app:drawableTint="@color/danube_blue_800" />
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/viewGroupOptions_reportTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"

@@ -61,7 +61,7 @@
                     android:orientation="vertical"
                     android:paddingHorizontal="30dp">
 
-                    <TextView
+                    <TextView android:justificationMode="inter_word"
                         android:id="@+id/profile_emailTitleTv"
                         style="@style/BasicBoldTextStyle"
                         android:layout_width="wrap_content"
@@ -71,14 +71,14 @@
                         android:textColor="@color/primaryTextColor"
                         android:textSize="16sp" />
 
-                    <TextView
+                    <TextView android:justificationMode="inter_word"
                         android:id="@+id/profile_emailTv"
                         style="@style/BasicSubTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="top"
                         android:text="@string/email"
-                        android:textColor="@color/secondaryTextColor"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="15sp" />
                 </LinearLayout>
 
@@ -92,7 +92,7 @@
                     android:orientation="vertical"
                     android:paddingHorizontal="30dp">
 
-                    <TextView
+                    <TextView android:justificationMode="inter_word"
                         android:id="@+id/profile_usernameTitleTv"
                         style="@style/BasicBoldTextStyle"
                         android:layout_width="wrap_content"
@@ -102,18 +102,18 @@
                         android:textColor="@color/primaryTextColor"
                         android:textSize="16sp" />
 
-                    <TextView
+                    <TextView android:justificationMode="inter_word"
                         android:id="@+id/profile_usernameTv"
                         style="@style/BasicSubTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="top"
                         android:text="@string/username"
-                        android:textColor="@color/secondaryTextColor"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="15sp" />
                 </LinearLayout>
 
-                <TextView
+                <TextView android:justificationMode="inter_word"
                     android:id="@+id/profile_changePasswordTv"
                     style="@style/BasicBoldTextStyle"
                     android:layout_width="match_parent"
@@ -201,7 +201,7 @@
                         android:paddingHorizontal="30dp"
                         android:weightSum="3">
 
-                        <TextView
+                        <TextView android:justificationMode="inter_word"
                             android:id="@+id/profile_themeTitleTv"
                             style="@style/BasicBoldTextStyle"
                             android:layout_width="0dp"
@@ -213,7 +213,7 @@
                             android:textColor="@color/primaryTextColor"
                             android:textSize="16sp" />
 
-                        <TextView
+                        <TextView android:justificationMode="inter_word"
                             android:id="@+id/profile_themeTv"
                             style="@style/BasicSubTextStyle"
                             android:layout_width="wrap_content"
@@ -225,7 +225,7 @@
                             android:textSize="16sp" />
                     </LinearLayout>
 
-                    <TextView
+                    <TextView android:justificationMode="inter_word"
                         android:id="@+id/profile_aboutTv"
                         style="@style/BasicBoldTextStyle"
                         android:layout_width="match_parent"
@@ -253,7 +253,7 @@
             android:elevation="1dp"
             app:cardCornerRadius="10dp">
 
-            <TextView
+            <TextView android:justificationMode="inter_word"
                 android:id="@+id/profile_logoutTv"
                 style="@style/BasicBoldTextStyle"
                 android:layout_width="match_parent"
@@ -278,7 +278,7 @@
             android:elevation="1dp"
             app:cardCornerRadius="10dp">
 
-            <TextView
+            <TextView android:justificationMode="inter_word"
                 android:id="@+id/profile_deleteAccTv"
                 style="@style/BasicBoldTextStyle"
                 android:layout_width="match_parent"

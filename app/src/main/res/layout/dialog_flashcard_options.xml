@@ -42,7 +42,7 @@
         android:orientation="vertical"
         android:padding="30dp">
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/flashcardsOptions_shuffleTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
@@ -58,7 +58,7 @@
             app:drawableEndCompat="@drawable/ic_shuffle"
             app:drawableTint="@color/danube_blue_800" />
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/flashcardsOptions_configurationTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
@@ -113,7 +113,7 @@
 
         </RadioGroup>
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/flashcardsOptions_restartTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"

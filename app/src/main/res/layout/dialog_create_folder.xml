@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:padding="30dp">
 
-    <TextView
+    <TextView android:justificationMode="inter_word"
         style="@style/BasicBoldTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="5dp" />
 
-    <TextView
+    <TextView android:justificationMode="inter_word"
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
             android:maxLength="45"
             app:boxStrokeColor="@color/colorSecondaryDark" />
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/create_folder_empty_name_error"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
@@ -69,7 +69,7 @@
         android:layout_width="match_parent"
         android:layout_height="10dp" />
 
-    <TextView
+    <TextView android:justificationMode="inter_word"
         android:id="@+id/create_folder_add_description"
         style="@style/BasicTextStyle"
         android:layout_width="wrap_content"
@@ -79,7 +79,7 @@
         android:focusable="true"
         android:gravity="center_vertical"
         android:text="Description"
-        android:textColor="@color/secondaryTextColor"
+        android:textColor="@color/colorPrimary"
         android:textSize="15sp"
         app:drawableEndCompat="@drawable/ic_plus"
         app:drawableTint="@color/danube_blue_800" />
@@ -126,24 +126,24 @@
         android:gravity="end"
         android:orientation="horizontal">
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/create_folder_cancel_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:background="@drawable/bg_ripple"
             android:text="@string/cancel"
-            android:textColor="@color/secondaryTextColor"
+            android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/create_folder_confirm_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:background="@drawable/bg_ripple"
             android:text="@string/ok"
-            android:textColor="@color/secondaryTextColor"
+            android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
     </LinearLayout>
 

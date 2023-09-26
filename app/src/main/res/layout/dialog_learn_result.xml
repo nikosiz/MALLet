@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/learnScore_titleTv"
             style="@style/BasicBoldTextStyle"
             android:layout_width="0dp"
@@ -25,7 +25,7 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp" />
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/learnScore_scoreTv"
             style="@style/BasicBoldTextStyle"
             android:layout_width="wrap_content"
@@ -51,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="10dp" />
 
-    <TextView
+    <TextView android:justificationMode="inter_word"
         android:id="@+id/learnScore_restartTv"
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"

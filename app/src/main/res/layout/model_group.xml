@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="10dp" />
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/group_nameTv"
             style="@style/BasicBoldTextStyle"
             android:layout_width="wrap_content"
@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
+            <TextView android:justificationMode="inter_word"
                 android:id="@+id/group_nrOfMembersTv"
                 style="@style/BasicTextStyle"
                 android:layout_width="wrap_content"
@@ -71,7 +71,7 @@
                 android:layout_marginHorizontal="10dp"
                 android:background="@color/colorPrimaryLight" />
 
-            <TextView
+            <TextView android:justificationMode="inter_word"
                 android:id="@+id/group_nrOfSetsTv"
                 style="@style/BasicTextStyle"
                 android:layout_width="wrap_content"

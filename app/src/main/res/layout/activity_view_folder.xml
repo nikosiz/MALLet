@@ -33,11 +33,9 @@
             android:focusable="true"
             android:src="@drawable/ic_arrow_back"
             app:tint="@color/colorPrimaryDark"
-            tools:ignore="TouchTargetSizeCheck"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="17dp" />
+            tools:ignore="TouchTargetSizeCheck" />
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/viewFolder_toolbarTitleTv"
             style="@style/BasicBoldTextStyle"
             android:layout_width="wrap_content"
@@ -87,7 +85,7 @@
                 android:orientation="vertical"
                 android:padding="20dp">
 
-                <TextView
+                <TextView android:justificationMode="inter_word"
                     android:id="@+id/viewFolder_nameTv"
                     style="@style/BasicBoldTextStyle"
                     android:layout_width="match_parent"
@@ -115,14 +113,14 @@
                         android:src="@drawable/ic_profile"
                         app:tint="@color/danube_blue_800" />
 
-                    <TextView
+                    <TextView android:justificationMode="inter_word"
                         android:id="@+id/viewFolder_creatorTv"
                         style="@style/BasicTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:text="@string/username"
-                        android:textColor="@color/secondaryTextColor" />
+                        android:textColor="@color/colorPrimary" />
 
                     <View
                         android:layout_width="2dp"
@@ -130,7 +128,7 @@
                         android:layout_marginHorizontal="10dp"
                         android:background="@color/danube_blue_200" />
 
-                    <TextView
+                    <TextView android:justificationMode="inter_word"
                         android:id="@+id/viewFolder_numberOfSetsTv"
                         style="@style/BasicTextStyle"
                         android:layout_width="wrap_content"
@@ -163,7 +161,7 @@
                 android:padding="20dp"
                 android:visibility="visible">
 
-                <TextView
+                <TextView android:justificationMode="inter_word"
                     android:id="@+id/viewFolder_addSetsTitleTv"
                     style="@style/BasicBoldTextStyle"
                     android:layout_width="match_parent"
@@ -176,13 +174,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="5dp" />
 
-                <TextView
+                <TextView android:justificationMode="inter_word"
                     android:id="@+id/viewFolder_addSetsTv"
                     style="@style/BasicTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/organise_sets_sort_into_folders"
-                    android:textColor="@color/secondaryTextColor"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="15sp" />
 
                 <View

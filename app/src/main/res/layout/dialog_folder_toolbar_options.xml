@@ -41,7 +41,7 @@
         android:orientation="vertical"
         android:padding="30dp">
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/folderToolbarOptions_editTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
@@ -55,7 +55,7 @@
             app:drawableEndCompat="@drawable/ic_edit"
             app:drawableTint="@color/danube_blue_800" />
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/folderToolbarOptions_addTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
@@ -69,7 +69,7 @@
             app:drawableEndCompat="@drawable/ic_delete"
             app:drawableTint="@color/danube_blue_800" />
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/folderToolbarOptions_shareTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
@@ -83,7 +83,7 @@
             app:drawableEndCompat="@drawable/ic_share"
             app:drawableTint="@color/danube_blue_800" />
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/folderToolbarOptions_deleteTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"

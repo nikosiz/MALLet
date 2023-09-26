@@ -27,7 +27,7 @@
             android:src="@drawable/ic_arrow_back"
             app:tint="@color/colorPrimaryDark" />
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/addMembers_titleTv"
             style="@style/BasicBoldTextStyle"
             android:layout_width="wrap_content"

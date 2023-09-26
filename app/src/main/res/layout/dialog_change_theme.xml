@@ -13,23 +13,25 @@
         style="@style/BasicBoldTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:justificationMode="inter_word"
         android:text="Choose theme"
         android:textColor="@color/primaryTextColor"
-        android:textSize="20sp"/>
+        android:textSize="20sp" />
 
     <View
         android:id="@+id/change_theme_view_0"
         android:layout_width="match_parent"
-        android:layout_height="10dp"/>
+        android:layout_height="10dp" />
 
     <TextView
         android:id="@+id/change_theme_enter_passwordTv"
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:justificationMode="inter_word"
         android:text="Choose the application theme"
-        android:textColor="@color/secondaryTextColor"
-        android:textSize="20sp"/>
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp" />
 
     <View
         android:id="@+id/change_theme_view_1"
@@ -48,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="System default"
-            android:textColor="@color/secondaryTextColor"
+            android:textColor="@color/colorPrimary"
             android:textSize="15sp" />
 
         <RadioButton
@@ -57,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Light theme"
-            android:textColor="@color/secondaryTextColor"
+            android:textColor="@color/colorPrimary"
             android:textSize="15sp" />
 
         <RadioButton
@@ -66,13 +68,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Dark theme"
-            android:textColor="@color/secondaryTextColor"
+            android:textColor="@color/colorPrimary"
             android:textSize="15sp" />
     </RadioGroup>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="10dp"/>
+        android:layout_height="30dp" />
 
     <LinearLayout
         android:id="@+id/change_theme_cancel_confirm_btn"
@@ -88,8 +90,10 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:background="@drawable/bg_ripple"
+            android:justificationMode="inter_word"
+            android:padding="10dp"
             android:text="@string/cancel"
-            android:textColor="@color/secondaryTextColor"
+            android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
 
         <TextView
@@ -97,16 +101,12 @@
             style="@style/BasicTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
+            android:layout_marginStart="10dp"
             android:background="@drawable/bg_ripple"
+            android:justificationMode="inter_word"
+            android:padding="10dp"
             android:text="@string/ok"
-            android:textColor="@color/secondaryTextColor"
+            android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
     </LinearLayout>
-
-    <View
-        android:id="@+id/change_theme_view_3"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"/>
-
 </LinearLayout>

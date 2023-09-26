@@ -30,7 +30,6 @@ public class FragmentTest extends Fragment {
     private final int maxNrOfQuestions = 50;
     private MaterialSwitch trueFalseMs, multipleChoiceMs, matchMs, writtenMs;
     private int checkedSwitches = 0;
-
     private static final String PREFS_NAME = "TestSettings";
     private static final String KEY_NR_OF_QUESTIONS = "nrOfQuestions";
     private static final String KEY_TRUE_FALSE = "trueFalse";
@@ -81,6 +80,7 @@ public class FragmentTest extends Fragment {
         dialog.setContentView(dialogBinding.getRoot());
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.show();
+        dialog.setCanceledOnTouchOutside(false);
 
         TextView setNameTv = dialogBinding.testOptionsSetNameTv;
 

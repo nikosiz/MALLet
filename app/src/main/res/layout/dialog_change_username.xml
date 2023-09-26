@@ -14,20 +14,22 @@
         style="@style/BasicBoldTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:justificationMode="inter_word"
         android:text="Change username"
-        android:textColor="@color/secondaryTextColor"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="20sp" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="5dp" />
+        android:layout_height="10dp" />
 
     <TextView
         android:id="@+id/changeUsernameTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:justificationMode="inter_word"
         android:text="Enter new username"
-        android:textColor="@color/secondaryTextColor"
+        android:textColor="@color/colorPrimary"
         android:textSize="20sp" />
 
     <View
@@ -50,7 +52,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/changeUsername_newEt"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="59dp"
             android:autofillHints="emailAddress"
             android:hint="New username"
             android:textColorHint="@color/downriver_blue_300"
@@ -62,6 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginBottom="5dp"
+            android:justificationMode="inter_word"
             android:text="This username already exists"
             android:textColor="@color/carnation_red_600"
             android:visibility="gone" />
@@ -69,7 +72,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="10dp" />
+        android:layout_height="30dp" />
 
     <LinearLayout
         android:id="@+id/changeUsername_cancelConfirmLl"
@@ -84,23 +87,22 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:background="@drawable/bg_ripple"
+            android:justificationMode="inter_word"
+            android:padding="10dp"
             android:text="@string/cancel"
-            android:textColor="@color/secondaryTextColor"
+            android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
 
         <TextView
             android:id="@+id/changeUsername_confirmTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
+            android:layout_marginStart="10dp"
             android:background="@drawable/bg_ripple"
+            android:justificationMode="inter_word"
+            android:padding="10dp"
             android:text="@string/ok"
-            android:textColor="@color/secondaryTextColor"
+            android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="30dp" />
-
 </LinearLayout>

@@ -32,7 +32,7 @@
             android:gravity="center"
             android:padding="20dp">
 
-            <TextView
+            <TextView android:justificationMode="inter_word"
                 android:id="@+id/cv_11Tv"
                 style="@style/BasicTextStyle"
                 android:layout_width="wrap_content"
@@ -67,7 +67,7 @@
             android:gravity="center"
             android:padding="10dp">
 
-            <TextView
+            <TextView android:justificationMode="inter_word"
                 android:id="@+id/cv_12Tv"
                 style="@style/BasicTextStyle"
                 android:layout_width="wrap_content"
@@ -102,7 +102,7 @@
             android:gravity="center"
             android:padding="10dp">
 
-            <TextView
+            <TextView android:justificationMode="inter_word"
                 android:id="@+id/cv_21Tv"
                 style="@style/BasicTextStyle"
                 android:layout_width="wrap_content"
@@ -137,7 +137,7 @@
             android:gravity="center"
             android:padding="10dp">
 
-            <TextView
+            <TextView android:justificationMode="inter_word"
                 android:id="@+id/cv_22Tv"
                 style="@style/BasicTextStyle"
                 android:layout_width="wrap_content"
@@ -172,7 +172,7 @@
             android:gravity="center"
             android:padding="10dp">
 
-            <TextView
+            <TextView android:justificationMode="inter_word"
                 android:id="@+id/cv_31Tv"
                 style="@style/BasicTextStyle"
                 android:layout_width="wrap_content"
@@ -207,7 +207,7 @@
             android:gravity="center"
             android:padding="10dp">
 
-            <TextView
+            <TextView android:justificationMode="inter_word"
                 android:id="@+id/cv_32Tv"
                 style="@style/BasicTextStyle"
                 android:layout_width="wrap_content"
@@ -242,7 +242,7 @@
             android:gravity="center"
             android:padding="10dp">
 
-            <TextView
+            <TextView android:justificationMode="inter_word"
                 android:id="@+id/cv_41Tv"
                 style="@style/BasicTextStyle"
                 android:layout_width="wrap_content"
@@ -277,7 +277,7 @@
             android:gravity="center"
             android:padding="10dp">
 
-            <TextView
+            <TextView android:justificationMode="inter_word"
                 android:id="@+id/cv_42Tv"
                 style="@style/BasicTextStyle"
                 android:layout_width="wrap_content"
@@ -312,7 +312,7 @@
             android:gravity="center"
             android:padding="10dp">
 
-            <TextView
+            <TextView android:justificationMode="inter_word"
                 android:id="@+id/cv_51Tv"
                 style="@style/BasicTextStyle"
                 android:layout_width="wrap_content"
@@ -347,7 +347,7 @@
             android:gravity="center"
             android:padding="10dp">
 
-            <TextView
+            <TextView android:justificationMode="inter_word"
                 android:id="@+id/cv_52Tv"
                 style="@style/BasicTextStyle"
                 android:layout_width="wrap_content"

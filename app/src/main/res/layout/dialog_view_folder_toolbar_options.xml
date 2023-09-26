@@ -42,7 +42,7 @@
         android:orientation="vertical"
         android:padding="30dp">
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/viewFolderOptions_editTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
@@ -58,7 +58,7 @@
             app:drawableEndCompat="@drawable/ic_edit"
             app:drawableTint="@color/danube_blue_800" />
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/viewFolderOptions_addSetsTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
@@ -74,7 +74,7 @@
             app:drawableEndCompat="@drawable/ic_flashcards"
             app:drawableTint="@color/danube_blue_800" />
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/viewFolderOptions_addToGroupTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
@@ -90,7 +90,7 @@
             app:drawableEndCompat="@drawable/ic_create_group"
             app:drawableTint="@color/danube_blue_800" />
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/viewFolderOptions_deleteTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"

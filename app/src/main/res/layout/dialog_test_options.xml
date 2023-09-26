@@ -15,7 +15,7 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/testOptions_setNameTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="10dp" />
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/testOptions_titleTv"
             style="@style/BasicBoldTextStyle"
             android:layout_width="match_parent"
@@ -52,14 +52,14 @@
             android:orientation="horizontal"
             android:paddingHorizontal="10dp">
 
-            <TextView
+            <TextView android:justificationMode="inter_word"
                 android:id="@+id/testOptions_numberOfQuestionsTitleTv"
                 style="@style/BasicBoldTextStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Questions (max X)"
-                android:textColor="@color/secondaryTextColor"
+                android:textColor="@color/colorPrimary"
                 android:textSize="15sp" />
 
             <ImageView
@@ -70,7 +70,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/ic_remove"
-                app:tint="@color/secondaryTextColor"
+                app:tint="@color/colorPrimary"
                 android:contentDescription="less questions" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -112,7 +112,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/ic_plus"
-                app:tint="@color/secondaryTextColor"
+                app:tint="@color/colorPrimary"
                 android:contentDescription="more questions" />
 
         </LinearLayout>
@@ -129,17 +129,17 @@
             android:orientation="horizontal"
             android:paddingHorizontal="10dp">
 
-            <TextView
+            <TextView android:justificationMode="inter_word"
                 android:id="@+id/testOptions_answersTitleTv"
                 style="@style/BasicBoldTextStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Answers"
-                android:textColor="@color/secondaryTextColor"
+                android:textColor="@color/colorPrimary"
                 android:textSize="15sp" />
 
-            <TextView
+            <TextView android:justificationMode="inter_word"
                 android:id="@+id/testOptions_answersTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -154,12 +154,11 @@
             android:layout_gravity="center"
             android:background="@color/white"
             android:contentDescription="True/False switch"
-            android:drawableTint="@color/downriver_blue_500"
             android:minHeight="65dp"
             android:paddingHorizontal="10dp"
             android:paddingVertical="20dp"
             android:text="True/False"
-            android:textColor="@color/secondaryTextColor"
+            android:textColor="@color/colorPrimary"
             android:textSize="15sp"
             app:thumbTint="@drawable/switch_thumb_color"
             app:trackDecorationTint="@drawable/switch_track_decoration_color"
@@ -173,13 +172,12 @@
             android:layout_gravity="center"
             android:background="@color/white"
             android:contentDescription="True/False switch"
-            android:drawableTint="@color/downriver_blue_500"
             android:fontFamily="@font/rem_bold"
             android:minHeight="65dp"
             android:paddingHorizontal="10dp"
             android:paddingVertical="20dp"
             android:text="Multiple choice questions"
-            android:textColor="@color/secondaryTextColor"
+            android:textColor="@color/colorPrimary"
             android:textSize="15sp"
             app:thumbTint="@drawable/switch_thumb_color"
             app:trackDecorationTint="@drawable/switch_track_decoration_color"
@@ -193,13 +191,12 @@
             android:layout_gravity="center"
             android:background="@color/white"
             android:contentDescription="True/False switch"
-            android:drawableTint="@color/downriver_blue_500"
             android:fontFamily="@font/rem_bold"
             android:minHeight="65dp"
             android:paddingHorizontal="10dp"
             android:paddingVertical="20dp"
             android:text="Match questions to answers"
-            android:textColor="@color/secondaryTextColor"
+            android:textColor="@color/colorPrimary"
             android:textSize="15sp"
             app:thumbTint="@drawable/switch_thumb_color"
             app:trackDecorationTint="@drawable/switch_track_decoration_color"
@@ -213,19 +210,18 @@
             android:layout_gravity="center"
             android:background="@color/white"
             android:contentDescription="True/False switch"
-            android:drawableTint="@color/downriver_blue_500"
             android:fontFamily="@font/rem_bold"
             android:minHeight="65dp"
             android:paddingHorizontal="10dp"
             android:paddingVertical="20dp"
             android:text="Written questions"
-            android:textColor="@color/secondaryTextColor"
+            android:textColor="@color/colorPrimary"
             android:textSize="15sp"
             app:thumbTint="@drawable/switch_thumb_color"
             app:trackDecorationTint="@drawable/switch_track_decoration_color"
             app:trackTint="@drawable/switch_track_color" />
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/testOptions_errorTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -234,8 +230,9 @@
             android:textColor="@color/carnation_red_600"
             android:visibility="gone" />
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/testOptions_startTestTv"
+            android:text="Start test"
             style="@style/BasicTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -246,7 +243,6 @@
             android:focusable="true"
             android:gravity="end"
             android:padding="10dp"
-            android:text="Start test"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp"
             app:drawableEndCompat="@drawable/ic_arrow_forward"

@@ -9,7 +9,7 @@
     android:orientation="vertical"
     tools:context=".ActivitySignup">
 
-    <TextView
+    <TextView android:justificationMode="inter_word"
         android:id="@+id/signup_logoTv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -40,7 +40,7 @@
             android:paddingHorizontal="20dp"
             android:paddingVertical="30dp">
 
-            <TextView
+            <TextView android:justificationMode="inter_word"
                 android:id="@+id/signup_titleTv"
                 style="@style/BasicBoldTextStyle"
                 android:layout_width="match_parent"
@@ -80,7 +80,7 @@
                     android:textColorHint="@color/downriver_blue_300"
                     android:textSize="15sp" />
 
-                <TextView
+                <TextView android:justificationMode="inter_word"
                     android:id="@+id/signup_email_errorTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -113,7 +113,7 @@
                     android:textColorHint="@color/downriver_blue_300"
                     android:textSize="15sp" />
 
-                <TextView
+                <TextView android:justificationMode="inter_word"
                     android:id="@+id/signup_password_errorTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -128,7 +128,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="10dp" />
 
-            <TextView
+            <TextView android:justificationMode="inter_word"
                 android:id="@+id/signup_continueTv"
                 style="@style/BasicTextStyle"
                 android:layout_width="wrap_content"
@@ -141,7 +141,7 @@
                 android:gravity="center_vertical"
                 android:paddingHorizontal="5dp"
                 android:text="Continue"
-                android:textColor="@color/secondaryTextColor"
+                android:textColor="@color/colorPrimary"
                 android:textSize="20sp"
                 app:drawableEndCompat="@drawable/ic_arrow_forward"
                 app:drawableTint="@color/danube_blue_800" />
@@ -150,7 +150,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="10dp" />
 
-            <TextView
+            <TextView android:justificationMode="inter_word"
                 android:id="@+id/signup_socials_titleTv"
                 style="@style/BasicTextStyle"
                 android:layout_width="match_parent"
@@ -208,7 +208,7 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <TextView
+                <TextView android:justificationMode="inter_word"
                     android:id="@+id/signup_login_titleTv"
                     style="@style/BasicTextStyle"
                     android:layout_width="wrap_content"
@@ -218,7 +218,7 @@
                     android:text="@string/already_have_account"
                     android:textColor="@color/primaryTextColor" />
 
-                <TextView
+                <TextView android:justificationMode="inter_word"
                     android:id="@+id/signup_loginHereTv"
                     style="@style/BasicBoldTextStyle"
                     android:layout_width="wrap_content"
@@ -238,7 +238,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp" />
 
-            <TextView
+            <TextView android:justificationMode="inter_word"
                 android:id="@+id/login_termsTv"
                 style="@style/BasicTextStyle"
                 android:layout_width="wrap_content"

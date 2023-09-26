@@ -36,7 +36,7 @@
             android:src="@drawable/ic_arrow_back"
             app:tint="@color/colorPrimaryDark" />
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/editSet_toolbarTitleTv"
             style="@style/BasicBoldTextStyle"
             android:layout_width="wrap_content"
@@ -114,7 +114,7 @@
                         android:textColorHint="@color/downriver_blue_300"
                         android:textSize="15sp" />
 
-                    <TextView
+                    <TextView android:justificationMode="inter_word"
                         android:id="@+id/editSet_errorTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -125,7 +125,7 @@
                         android:visibility="gone" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
+                <TextView android:justificationMode="inter_word"
                     android:id="@+id/editSet_addDescriptionTv"
                     style="@style/BasicTextStyle"
                     android:layout_width="wrap_content"
@@ -135,7 +135,7 @@
                     android:focusable="true"
                     android:gravity="center_vertical"
                     android:text="Description"
-                    android:textColor="@color/secondaryTextColor"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="15sp"
                     app:drawableEndCompat="@drawable/ic_plus"
                     app:drawableTint="@color/danube_blue_800" />

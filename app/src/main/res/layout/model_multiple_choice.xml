@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/multipleChoice_questionTv"
             style="@style/BasicBoldTextStyle"
             android:layout_width="match_parent"
@@ -37,14 +37,14 @@
         android:orientation="vertical"
         android:paddingVertical="30dp">
 
-        <TextView
+        <TextView android:justificationMode="inter_word"
             android:id="@+id/multipleChoiceTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:text="Choose the correct answer"
-            android:textColor="@color/secondaryTextColor"
+            android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
 
         <View
