@@ -32,7 +32,7 @@ public class ActivityViewProfile extends AppCompatActivity {
         viewPager = findViewById(R.id.viewProfile_viewPager);
         tabLayout = findViewById(R.id.viewProfile_tabLayout);
 
-        setupTabLayout(;
+        setupTabLayout();
     }
 
     private void setupTabLayout() {
