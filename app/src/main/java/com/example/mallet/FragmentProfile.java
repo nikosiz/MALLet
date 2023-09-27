@@ -43,7 +43,7 @@ public class FragmentProfile extends Fragment {
     private String selectedTheme;
     // Define username pattern using regex
     private final Pattern usernamePattern = Pattern.compile("^[a-zA-Z0-9_]+$");
-    private final String usernameIncorrect = "The username can only consist of letters, numbers, and underscores";
+    private final String usernameIncorrect = "The username can only consist of letters, nrs, and underscores";
     private final String emailIncorrectMsg = "Email incorrect";
     private final Pattern passwordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^*()<>?/|}{~:]).{8,}$");
     private final String passwordIncorrect = "The password must be at least 8 characters long and contain at least one digit, one small letter, one big letter and one special character";

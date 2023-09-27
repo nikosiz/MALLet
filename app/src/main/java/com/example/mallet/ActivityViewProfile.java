@@ -39,7 +39,7 @@ public class ActivityViewProfile extends AppCompatActivity {
         FragmentStateAdapter adapter = new FragmentStateAdapter(getSupportFragmentManager(), getLifecycle()) {
             @Override
             public int getItemCount() {
-                return 2; // Number of tabs
+                return 2; // Nr of tabs
             }
 
             @NonNull

@@ -44,14 +44,14 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/learningSet_numberOfTermsTv"
+            android:id="@+id/learningSet_nrOfTermsTv"
             style="@style/BasicTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:justificationMode="inter_word"
 
             android:singleLine="true"
-            android:text="number_of_terms"
+            android:text="nr_of_terms"
             android:textColor="@color/colorPrimary"
             android:textSize="15sp" />
 

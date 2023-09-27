@@ -66,7 +66,7 @@ public class AdapterLearn extends RecyclerView.Adapter<AdapterLearn.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        // Return the number of layouts you want to display (up to a maximum of 10)
+        // Return the nr of layouts you want to display (up to a maximum of 10)
         if (isMultipleChoiceEnabled && isWrittenEnabled) {
             // If both switches are checked, display 5 of each type
             return 10;

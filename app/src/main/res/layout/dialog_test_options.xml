@@ -47,7 +47,7 @@
             android:layout_height="10dp" />
 
         <LinearLayout
-            android:id="@+id/testOptions_numberOfQuestionsLl"
+            android:id="@+id/testOptions_nrOfQuestionsLl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -56,7 +56,7 @@
             android:paddingHorizontal="20dp">
 
             <TextView
-                android:id="@+id/testOptions_numberOfQuestionsTitleTv"
+                android:id="@+id/testOptions_nrOfQuestionsTitleTv"
                 style="@style/BasicTextStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
                 android:textSize="15sp" />
 
             <ImageView
-                android:id="@+id/testOptions_numberOfQuestionsLessIv"
+                android:id="@+id/testOptions_nrOfQuestionsLessIv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_ripple"
@@ -78,7 +78,7 @@
                 app:tint="@color/colorPrimary" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/testOptions_numberOfQuestionsTil"
+                android:id="@+id/testOptions_nrOfQuestionsTil"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -94,7 +94,7 @@
                 app:hintTextColor="@color/danube_blue_700">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/testOptions_numberOfQuestionsEt"
+                    android:id="@+id/testOptions_nrOfQuestionsEt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:autofillHints="password"
@@ -109,7 +109,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageView
-                android:id="@+id/testOptions_numberOfQuestionsMoreIv"
+                android:id="@+id/testOptions_nrOfQuestionsMoreIv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_ripple"

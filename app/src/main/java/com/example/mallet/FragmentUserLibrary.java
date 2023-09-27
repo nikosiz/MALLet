@@ -60,7 +60,7 @@ public class FragmentUserLibrary extends Fragment {
         FragmentStateAdapter adapter = new FragmentStateAdapter(getChildFragmentManager(), getLifecycle()) {
             @Override
             public int getItemCount() {
-                return 3; // Number of tabs
+                return 3; // Nr of tabs
             }
 
             @NonNull

@@ -42,7 +42,7 @@ public class AdapterLearningSet extends RecyclerView.Adapter<AdapterLearningSet.
         // Bind learning set data to the views within the ViewHolder
         holder.learningSetNameTv.setText(learningSet.getName());
         holder.learningSetCreatorTv.setText(learningSet.getCreator());
-        holder.learningSetTermsTv.setText(learningSet.getNumberOfTerms() + " terms");
+        holder.learningSetTermsTv.setText(learningSet.getNrOfTerms() + " terms");
 
         // Set a click listener for the learning set item
         holder.itemView.setOnClickListener(view -> {
@@ -54,7 +54,7 @@ public class AdapterLearningSet extends RecyclerView.Adapter<AdapterLearningSet.
 
     @Override
     public int getItemCount() {
-        // Return the number of learning sets in the list
+        // Return the nr of learning sets in the list
         return learningSetList.size();
     }
 
@@ -66,7 +66,7 @@ public class AdapterLearningSet extends RecyclerView.Adapter<AdapterLearningSet.
             super(itemView);
             // Initialize the TextViews with their corresponding views from the layout
             learningSetNameTv = itemView.findViewById(R.id.learningSet_nameTv);
-            learningSetTermsTv = itemView.findViewById(R.id.learningSet_numberOfTermsTv);
+            learningSetTermsTv = itemView.findViewById(R.id.learningSet_nrOfTermsTv);
             learningSetCreatorTv = itemView.findViewById(R.id.learningSet_creatorTv);
         }
     }

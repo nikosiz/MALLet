@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryLight"
-
     tools:context=".ActivityViewFolder"
     tools:ignore="Overdraw">
 
@@ -129,11 +128,11 @@
                         android:background="@color/danube_blue_200" />
 
                     <TextView android:justificationMode="inter_word"
-                        android:id="@+id/viewFolder_numberOfSetsTv"
+                        android:id="@+id/viewFolder_nrOfSetsTv"
                         style="@style/BasicTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/number_of_sets"
+                        android:text="@string/nr_of_sets"
                         android:textColor="@color/danube_blue_400"
                         tools:ignore="TextContrastCheck" />
                 </LinearLayout>

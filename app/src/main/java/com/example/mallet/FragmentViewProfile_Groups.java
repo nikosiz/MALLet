@@ -1,12 +1,11 @@
 package com.example.mallet;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,7 +35,7 @@ public class FragmentViewProfile_Groups extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment FragmentViewProfile_Groups.
      */
-    // TODO: Rename and change types and number of parameters
+    // TODO: Rename and change types and nr of parameters
     public static FragmentViewProfile_Groups newInstance(String param1, String param2) {
         FragmentViewProfile_Groups fragment = new FragmentViewProfile_Groups();
         Bundle args = new Bundle();

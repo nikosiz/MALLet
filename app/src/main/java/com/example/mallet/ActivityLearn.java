@@ -88,20 +88,20 @@ public class ActivityLearn extends AppCompatActivity {
                 String setName = learningSet.getName();
                 String setDescription = learningSet.getDescription();
                 String setCreator = learningSet.getCreator();
-                String numberOfTerms = String.valueOf(learningSet.getNumberOfTerms());
+                String nrOfTerms = String.valueOf(learningSet.getNrOfTerms());
 
                 // Print the received data to the console
                 System.out.println("Received Data:");
                 System.out.println("setName: " + setName);
                 System.out.println("setDescription: " + setDescription);
                 System.out.println("setCreator: " + setCreator);
-                System.out.println("numberOfTerms: " + numberOfTerms);
+                System.out.println("nrOfTerms: " + nrOfTerms);
 
                 // Update TextViews with the retrieved data
                 TextView setNameTv = binding.learnSetNameTv;
                 TextView setCreatorTv = binding.learnSetCreatorTv;
                 TextView setDescriptionTv = binding.learnSetDescriptionTv;
-                TextView setTermsTv = binding.learnSetNumberOfTermsTv;
+                TextView setTermsTv = binding.learnSetNrOfTermsTv;
 
                 setNameTv.setText(setName);
 
@@ -115,7 +115,7 @@ public class ActivityLearn extends AppCompatActivity {
                     setDescriptionTv.setText(setDescription);
                 }
 
-                setTermsTv.setText(numberOfTerms + " terms");
+                setTermsTv.setText(nrOfTerms + " terms");
             }
         }
     }

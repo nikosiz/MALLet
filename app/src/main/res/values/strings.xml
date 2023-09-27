@@ -80,7 +80,7 @@
     <string name="toolbar_options">toolbar options</string>
     <string name="group">Group</string>
     <string name="back_arrow">back arrow</string>
-    <string name="number_of_sets">Number of sets</string>
+    <string name="nr_of_sets">Number of sets</string>
     <string name="no_sets_in_this_folder">There are no sets in this folder.</string>
     <string name="organise_sets_sort_into_folders">Organise your sets by sorting them into folders.</string>
     <string name="user_icon">User icon</string>

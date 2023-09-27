@@ -322,8 +322,8 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
             // Set folder data to the views
             groupNameTv.setText(group.getGroupName());
-            groupNrOfMembersTv.setText(group.getNumberOfMembers() + " members");
-            groupNrOfSetsTv.setText(group.getNumberOfSets() + " sets");
+            groupNrOfMembersTv.setText(group.getNrOfMembers() + " members");
+            groupNrOfSetsTv.setText(group.getNrOfSets() + " sets");
 
             linearLayout.addView(groupItemView);
         }

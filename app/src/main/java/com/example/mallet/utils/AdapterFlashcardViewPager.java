@@ -58,7 +58,7 @@ public class AdapterFlashcardViewPager extends RecyclerView.Adapter<AdapterFlash
 
     @Override
     public int getItemCount() {
-        return flashcards.size(); // Return the number of flashcards in the list
+        return flashcards.size(); // Return the nr of flashcards in the list
     }
 
     // ViewHolder class for holding the views of a flashcard item

@@ -142,7 +142,7 @@ public class ActivityViewGroup extends AppCompatActivity {
             String groupSets = intent.getStringExtra("group_sets");
 
             TextView groupNameTv = binding.viewGroupNameTv;
-            TextView groupSetsTv = binding.viewGroupNumberOfSetsTv;
+            TextView groupSetsTv = binding.viewGroupNrOfSetsTv;
 
             if (groupName != null) {
                 groupNameTv.setText(groupName);

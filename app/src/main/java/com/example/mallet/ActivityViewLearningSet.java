@@ -149,7 +149,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             if (learningSet != null) {
                 String setName = learningSet.getName();
                 String setCreator = learningSet.getCreator();
-                String numberOfTerms = String.valueOf(learningSet.getNumberOfTerms());
+                String nrOfTerms = String.valueOf(learningSet.getNrOfTerms());
 
                 String setDescription = learningSet.getDescription();
 
@@ -173,7 +173,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
                     setDescriptionTv.setText(setDescription);
                 }
 
-                setTermsTv.setText(numberOfTerms + " terms");
+                setTermsTv.setText(nrOfTerms + " terms");
             }
         }
     }
@@ -294,8 +294,8 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             TextView groupNrOfSetsTv = groupItemView.findViewById(R.id.group_nrOfSetsTv);
 
             groupNameTv.setText(group.getGroupName());
-            groupNrOfMembersTv.setText(group.getNumberOfMembers() + " members");
-            groupNrOfSetsTv.setText(group.getNumberOfSets() + " sets");
+            groupNrOfMembersTv.setText(group.getNrOfMembers() + " members");
+            groupNrOfSetsTv.setText(group.getNrOfSets() + " sets");
 
             linearLayout.addView(groupItemView);
         }

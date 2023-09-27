@@ -29,7 +29,7 @@ public class FragmentMatch extends Fragment {
     private int text101, text102, text103, text104, text105, text201, text202, text203, text204, text205;
     private int firstCard, secondCard;
     private int clickedFirst, clickedSecond;
-    private int cardNumber = 1;
+    private int cardNr = 1;
     private int playerPoints = 0;
 
     @Override
@@ -162,21 +162,21 @@ public class FragmentMatch extends Fragment {
 
     private void handleMatching(CardView cv, TextView tv, int card) {
 
-        if (cardNumber == 1) {
+        if (cardNr == 1) {
             firstCard = cardsArray[card];
             if (firstCard > 200) {
                 firstCard = firstCard - 100;
             }
-            cardNumber = 2;
+            cardNr = 2;
             clickedFirst = card;
 
             cv.setEnabled(false);
-        } else if (cardNumber == 2) {
+        } else if (cardNr == 2) {
             secondCard = cardsArray[card];
             if (secondCard > 200) {
                 secondCard = secondCard - 100;
             }
-            cardNumber = 1;
+            cardNr = 1;
             clickedSecond = card;
 
             cv_11.setEnabled(false);

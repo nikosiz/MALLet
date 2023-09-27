@@ -118,13 +118,13 @@ public class FragmentTest extends Fragment {
 
         TextView setNameTv = dialogBinding.testOptionsSetNameTv;
 
-        TextView nrOfQuestionsTv = dialogBinding.testOptionsNumberOfQuestionsTitleTv;
+        TextView nrOfQuestionsTv = dialogBinding.testOptionsNrOfQuestionsTitleTv;
         nrOfQuestionsTv.setText("Questions (max"/*"+learningSet.getNrOfTerms()+*/ + ")");
-        EditText nrOfQuestionsEt = dialogBinding.testOptionsNumberOfQuestionsEt;
+        EditText nrOfQuestionsEt = dialogBinding.testOptionsNrOfQuestionsEt;
 
         nrOfQuestionsEt.setText(Integer.toString(nrOfQuestions));
 
-        ImageView lessQuestionsIv = dialogBinding.testOptionsNumberOfQuestionsLessIv;
+        ImageView lessQuestionsIv = dialogBinding.testOptionsNrOfQuestionsLessIv;
         lessQuestionsIv.setOnClickListener(v -> {
             if (nrOfQuestions > minNrOfQuestions) {
                 nrOfQuestions--;
@@ -132,7 +132,7 @@ public class FragmentTest extends Fragment {
             }
         });
 
-        ImageView moreQuestionsIv = dialogBinding.testOptionsNumberOfQuestionsMoreIv;
+        ImageView moreQuestionsIv = dialogBinding.testOptionsNrOfQuestionsMoreIv;
         moreQuestionsIv.setOnClickListener(v -> {
             if (nrOfQuestions < maxNrOfQuestions) {
                 nrOfQuestions++;
@@ -225,8 +225,8 @@ public class FragmentTest extends Fragment {
             if (checkedSwitches > 0) {
                 dialog.dismiss();
 
-                // Update the number of questions in your pagerAdapter
-                pagerAdapter.setNumberOfQuestions(nrOfQuestions);
+                // Update the nr of questions in your pagerAdapter
+                pagerAdapter.setNrOfQuestions(nrOfQuestions);
 
                 applyTestSettings();
             } else {

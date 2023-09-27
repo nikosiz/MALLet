@@ -7,14 +7,14 @@ public class ModelGroup {
     private String groupName;
     private final List<String> members;
     private final List<String> sets; // TODO: Change to IDs or some other identification method
-    private String numberOfSets, numberOfMembers;
+    private String nrOfSets, nrOfMembers;
 
-    public ModelGroup(String groupName, String numberOfSets, String numberOfMembers) {
+    public ModelGroup(String groupName, String nrOfSets, String nrOfMembers) {
         this.groupName = groupName;
         this.members = new ArrayList<>(); // Initialize the list of members
         this.sets = new ArrayList<>(); // Initialize the list of sets
-        this.numberOfSets = numberOfSets;
-        this.numberOfMembers = numberOfMembers;
+        this.nrOfSets = nrOfSets;
+        this.nrOfMembers = nrOfMembers;
     }
 
     public String getGroupName() {
@@ -41,19 +41,19 @@ public class ModelGroup {
         sets.add(setNameOrId);
     }
 
-    public String getNumberOfSets() {
-        return numberOfSets;
+    public String getNrOfSets() {
+        return nrOfSets;
     }
 
-    public void setNumberOfSets(String numberOfSets) {
-        this.numberOfSets = numberOfSets;
+    public void setNrOfSets(String nrOfSets) {
+        this.nrOfSets = nrOfSets;
     }
 
-    public String getNumberOfMembers() {
-        return numberOfMembers;
+    public String getNrOfMembers() {
+        return nrOfMembers;
     }
 
-    public void setNumberOfMembers(String numberOfMembers) {
-        this.numberOfMembers = numberOfMembers;
+    public void setNrOfMembers(String nrOfMembers) {
+        this.nrOfMembers = nrOfMembers;
     }
 }

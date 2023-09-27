@@ -16,10 +16,10 @@ public class AdapterTest extends RecyclerView.Adapter<AdapterTest.ViewHolder> {
     private static final int LAYOUT_MODEL_TRUE_FALSE = R.layout.model_true_false;
     private static final int LAYOUT_MODEL_MATCH = R.layout.model_match;
     private boolean isMultipleChoiceEnabled, isWrittenEnabled, isTrueFalseEnabled, isMatchEnabled;
-    private int numberOfQuestions;
+    private int nrOfQuestions;
 
-    public AdapterTest(int numberOfQuestions, boolean isMultipleChoiceEnabled, boolean isWrittenEnabled, boolean isTrueFalseEnabled, boolean isMatchEnabled) {
-        this.numberOfQuestions = numberOfQuestions;
+    public AdapterTest(int nrOfQuestions, boolean isMultipleChoiceEnabled, boolean isWrittenEnabled, boolean isTrueFalseEnabled, boolean isMatchEnabled) {
+        this.nrOfQuestions = nrOfQuestions;
         this.isMultipleChoiceEnabled = isMultipleChoiceEnabled;
         this.isWrittenEnabled = isWrittenEnabled;
         this.isTrueFalseEnabled = isTrueFalseEnabled;
@@ -120,15 +120,15 @@ public class AdapterTest extends RecyclerView.Adapter<AdapterTest.ViewHolder> {
         notifyDataSetChanged();
     }
 
-    public void setNumberOfQuestions(int numberOfQuestions) {
-        this.numberOfQuestions = numberOfQuestions;
+    public void setNrOfQuestions(int nrOfQuestions) {
+        this.nrOfQuestions = nrOfQuestions;
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
 
-        return numberOfQuestions;
+        return nrOfQuestions;
     }
 
 

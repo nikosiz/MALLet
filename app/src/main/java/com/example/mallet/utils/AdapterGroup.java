@@ -37,8 +37,8 @@ public class AdapterGroup extends RecyclerView.Adapter<AdapterGroup.ViewHolder> 
         ModelGroup group = groupList.get(position);
 
         holder.groupNameTv.setText(group.getGroupName());
-        holder.groupNrOfSetsTv.setText(group.getNumberOfSets() + " sets");
-        holder.groupNrOfMembersTv.setText(group.getNumberOfMembers() + " members");
+        holder.groupNrOfSetsTv.setText(group.getNrOfSets() + " sets");
+        holder.groupNrOfMembersTv.setText(group.getNrOfMembers() + " members");
 
         holder.itemView.setOnClickListener(view -> {
             if (groupClickListener != null) {
@@ -49,7 +49,7 @@ public class AdapterGroup extends RecyclerView.Adapter<AdapterGroup.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        // Return the number of items in the group list
+        // Return the nr of items in the group list
         return groupList.size();
     }
 

@@ -246,7 +246,7 @@ public class ActivityMain extends AppCompatActivity {
 
         ModelLearningSet set1 = FlashcardManager.readFlashcards(getApplicationContext(), "fruit.txt");
         ModelLearningSet set2 = FlashcardManager.readFlashcards(getApplicationContext(), "animals.txt");
-        ModelLearningSet set3 = FlashcardManager.readFlashcards(getApplicationContext(), "numbers.txt");
+        ModelLearningSet set3 = FlashcardManager.readFlashcards(getApplicationContext(), "nrs.txt");
         ModelLearningSet set4 = FlashcardManager.readFlashcards(getApplicationContext(), "countries.txt");
         ModelLearningSet set5 = FlashcardManager.readFlashcards(getApplicationContext(), "colors.txt");
 

@@ -151,7 +151,7 @@ public class ActivityViewFolder extends AppCompatActivity {
 
             TextView folderNameTv = binding.viewFolderNameTv;
             TextView folderCreatorTv = binding.viewFolderCreatorTv;
-            TextView folderSetsTv = binding.viewFolderNumberOfSetsTv;
+            TextView folderSetsTv = binding.viewFolderNrOfSetsTv;
 
             if (folderName != null) {
                 folderNameTv.setText(folderName);

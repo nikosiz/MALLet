@@ -48,7 +48,7 @@ public class AdapterFlashcardStack extends RecyclerView.Adapter<AdapterFlashcard
 
     @Override
     public int getItemCount() {
-        // Return the number of items in the list
+        // Return the nr of items in the list
         return items.size();
     }
 

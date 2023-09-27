@@ -53,7 +53,7 @@ public class AdapterFolder extends RecyclerView.Adapter<AdapterFolder.ViewHolder
 
     @Override
     public int getItemCount() {
-        // Return the number of items in the folder list
+        // Return the nr of items in the folder list
         return folderList.size();
     }
 

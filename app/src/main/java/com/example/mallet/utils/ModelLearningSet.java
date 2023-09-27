@@ -8,7 +8,7 @@ import java.util.List;
 public class ModelLearningSet implements Parcelable {
     // Attributes to define a learning set
     private String name, creator, description;
-    private int id, numberOfTerms;
+    private int id, nrOfTerms;
     private List<ModelFlashcard> terms;
 
     // Constructor to initialize a learning set
@@ -21,7 +21,7 @@ public class ModelLearningSet implements Parcelable {
         this.creator = creator;
         this.id = id;
         this.terms = terms;
-        this.numberOfTerms = terms.size();
+        this.nrOfTerms = terms.size();
         this.description = description;
     }
 
@@ -73,17 +73,17 @@ public class ModelLearningSet implements Parcelable {
     // Setter for the list of flashcards (terms) in the learning set
     public void setFlashcards(List<ModelFlashcard> terms) {
         this.terms = terms;
-        this.numberOfTerms = terms.size();
+        this.nrOfTerms = terms.size();
     }
 
-    // Getter for the number of terms in the learning set
-    public int getNumberOfTerms() {
-        return numberOfTerms;
+    // Getter for the nr of terms in the learning set
+    public int getNrOfTerms() {
+        return nrOfTerms;
     }
 
-    // Setter for the number of terms in the learning set
-    public void setNumberOfTerms(int numberOfTerms) {
-        this.numberOfTerms = numberOfTerms;
+    // Setter for the nr of terms in the learning set
+    public void setNrOfTerms(int nrOfTerms) {
+        this.nrOfTerms = nrOfTerms;
     }
 
     // Implement the Parcelable interface methods
@@ -91,7 +91,7 @@ public class ModelLearningSet implements Parcelable {
         name = in.readString();
         creator = in.readString();
         terms = in.createTypedArrayList(ModelFlashcard.CREATOR);
-        numberOfTerms = in.readInt();
+        nrOfTerms = in.readInt();
     }
 
     public static final Creator<ModelLearningSet> CREATOR = new Creator<ModelLearningSet>() {
@@ -116,6 +116,6 @@ public class ModelLearningSet implements Parcelable {
         dest.writeString(name);
         dest.writeString(creator);
         dest.writeTypedList(terms);
-        dest.writeInt(numberOfTerms);
+        dest.writeInt(nrOfTerms);
     }
 }

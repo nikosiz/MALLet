@@ -44,8 +44,8 @@ public class FragmentUserLibrary_Sets extends Fragment {
             TextView setNameTv = setItemView.findViewById(R.id.learningSet_nameTv);
             setNameTv.setText(set.getName());
 
-            TextView setNumberOfTermsTv = setItemView.findViewById(R.id.learningSet_numberOfTermsTv);
-            setNumberOfTermsTv.setText(String.valueOf(set.getNumberOfTerms()));
+            TextView setNrOfTermsTv = setItemView.findViewById(R.id.learningSet_nrOfTermsTv);
+            setNrOfTermsTv.setText(String.valueOf(set.getNrOfTerms()));
 
             TextView setCreatorTv = setItemView.findViewById(R.id.learningSet_creatorTv);
             setCreatorTv.setText(set.getCreator());
@@ -61,9 +61,9 @@ public class FragmentUserLibrary_Sets extends Fragment {
         List<ModelLearningSet> setList = new ArrayList<>();
         List<ModelFlashcard> flashcardList = new ArrayList<>();
         setList.add(new ModelLearningSet("Fruits", "user123", null,flashcardList,1));
-        setList.add(new ModelLearningSet("Animals", "user123", null,flashcardList,2));
-        setList.add(new ModelLearningSet("Numbers", "user123", null,flashcardList,3));
-        setList.add(new ModelLearningSet("Countries", "user123", null,flashcardList,4));
+        setList.add(new ModelLearningSet("Animals", "user123", null, flashcardList, 2));
+        setList.add(new ModelLearningSet("Nrs", "user123", null, flashcardList, 3));
+        setList.add(new ModelLearningSet("Countries", "user123", null, flashcardList, 4));
         setList.add(new ModelLearningSet("Colors", "user123", null,flashcardList,5));
         return setList;
     }

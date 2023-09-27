@@ -41,7 +41,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
             groupNameTv.setText(group.getGroupName());
 
             TextView groupSetsTv = groupItemView.findViewById(R.id.group_nrOfSetsTv);
-            groupSetsTv.setText(group.getNumberOfSets() + " sets");
+            groupSetsTv.setText(group.getNrOfSets() + " sets");
 
             // Add groupItemView to the linearLayout
             userLibraryGroupsLl.addView(groupItemView);

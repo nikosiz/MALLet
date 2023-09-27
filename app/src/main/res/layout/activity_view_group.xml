@@ -103,11 +103,11 @@
                     android:orientation="horizontal">
 
                     <TextView android:justificationMode="inter_word"
-                        android:id="@+id/viewGroup_numberOfSetsTv"
+                        android:id="@+id/viewGroup_nrOfSetsTv"
                         style="@style/BasicTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/number_of_sets"
+                        android:text="@string/nr_of_sets"
                         android:textColor="@color/danube_blue_400" />
                 </LinearLayout>
             </LinearLayout>
