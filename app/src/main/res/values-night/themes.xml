@@ -4,7 +4,7 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="android:fontFamily">@font/rem_regular</item>
-        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlNormal">@color/colorLight</item>
     </style>
 
     <style name="Theme.MALLet" parent="Base.Theme.MALLet">

@@ -194,5 +194,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_plus"
-        app:tint="@color/white" />
+        app:tint="@color/colorLight" />
 </androidx.constraintlayout.widget.ConstraintLayout>

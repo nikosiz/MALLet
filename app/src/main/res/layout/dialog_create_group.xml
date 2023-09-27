@@ -4,26 +4,28 @@
     android:id="@+id/create_group_fl_ll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_corners_rounded"
+    android:background="@drawable/bg_top_corners_rounded"
     android:orientation="vertical"
     android:padding="30dp">
 
-    <TextView android:justificationMode="inter_word"
+    <TextView
         style="@style/BasicBoldTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:justificationMode="inter_word"
         android:text="Create new group"
         android:textColor="@color/primaryTextColor"
         android:textSize="20sp" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="5dp" />
+        android:layout_height="10dp" />
 
-    <TextView android:justificationMode="inter_word"
+    <TextView
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:justificationMode="inter_word"
         android:text="Choose a name for your group. You can also add description if you want"
         android:textSize="20sp" />
 
@@ -52,13 +54,14 @@
             android:textColorHint="@color/downriver_blue_300"
             android:textSize="15sp" />
 
-        <TextView android:justificationMode="inter_word"
+        <TextView
             android:id="@+id/create_group_empty_name_error"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginBottom="5dp"
+            android:justificationMode="inter_word"
             android:text="@string/field_cannot_be_empty"
             android:textColor="@color/carnation_red_600"
             android:visibility="gone" />
@@ -69,7 +72,7 @@
         android:layout_height="10dp"
         app:layout_constraintTop_toBottomOf="@id/create_group_name_til" />
 
-    <TextView android:justificationMode="inter_word"
+    <TextView
         android:id="@+id/create_group_add_description"
         style="@style/BasicTextStyle"
         android:layout_width="wrap_content"
@@ -78,6 +81,7 @@
         android:clickable="true"
         android:focusable="true"
         android:gravity="center_vertical"
+        android:justificationMode="inter_word"
         android:text="Description"
         android:textColor="@color/colorPrimary"
         android:textSize="15sp"
@@ -116,7 +120,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="5dp"
+        android:layout_height="10dp"
         app:layout_constraintTop_toBottomOf="@id/create_group_description_til" />
 
     <com.google.android.material.materialswitch.MaterialSwitch
@@ -144,22 +148,26 @@
         android:gravity="end"
         android:orientation="horizontal">
 
-        <TextView android:justificationMode="inter_word"
+        <TextView
             android:id="@+id/create_group_cancel_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:background="@drawable/bg_ripple"
+            android:justificationMode="inter_word"
+            android:padding="10dp"
             android:text="@string/cancel"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
 
-        <TextView android:justificationMode="inter_word"
+        <TextView
             android:id="@+id/create_group_confirm_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
+            android:layout_marginStart="10dp"
             android:background="@drawable/bg_ripple"
+            android:justificationMode="inter_word"
+            android:padding="10dp"
             android:text="@string/ok"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp" />

@@ -2,15 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_corners_rounded"
+    android:background="@drawable/bg_top_corners_rounded"
     android:orientation="vertical"
     android:padding="30dp">
 
-    <TextView android:justificationMode="inter_word"
+    <TextView
         android:id="@+id/confirmExit_titleTv"
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:justificationMode="inter_word"
         android:text="Are you sure you want to leave?"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="23sp" />
@@ -26,7 +27,7 @@
         android:gravity="end"
         android:orientation="horizontal">
 
-        <TextView android:justificationMode="inter_word"
+        <TextView
             android:id="@+id/confirmExit_cancelTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,11 +35,13 @@
             android:background="@drawable/bg_ripple"
             android:clickable="true"
             android:focusable="true"
+            android:justificationMode="inter_word"
+            android:padding="10dp"
             android:text="@string/cancel"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
 
-        <TextView android:justificationMode="inter_word"
+        <TextView
             android:id="@+id/confirmExit_confirmTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,6 +49,8 @@
             android:background="@drawable/bg_ripple"
             android:clickable="true"
             android:focusable="true"
+            android:justificationMode="inter_word"
+            android:padding="10dp"
             android:text="Leave"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp" />

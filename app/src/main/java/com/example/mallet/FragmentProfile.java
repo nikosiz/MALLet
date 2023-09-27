@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,7 +26,6 @@ import androidx.fragment.app.Fragment;
 import com.example.mallet.databinding.DialogAboutBinding;
 import com.example.mallet.databinding.DialogChangeEmailBinding;
 import com.example.mallet.databinding.DialogChangePasswordBinding;
-import com.example.mallet.databinding.DialogChangeThemeBinding;
 import com.example.mallet.databinding.DialogChangeUsernameBinding;
 import com.example.mallet.databinding.DialogDeleteAccountBinding;
 import com.example.mallet.databinding.DialogVerifyPasswordBinding;
@@ -72,7 +70,7 @@ public class FragmentProfile extends Fragment {
 
         binding.profileSaveOfflineMs.setOnCheckedChangeListener((buttonView, isChecked) -> saveSetsOffline());
 
-        binding.profileThemeLl.setOnClickListener(v -> changeThemeDialog());
+        binding.profileThemeLl.setOnClickListener(v -> changeTheme());
         themeTv = binding.profileThemeTv;
         selectedTheme = getSavedTheme();
         themeTv.setText(selectedTheme);
@@ -288,47 +286,32 @@ public class FragmentProfile extends Fragment {
         });
     }
 
-    private void changeThemeDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_change_password);
-        DialogChangeThemeBinding dialogBinding = DialogChangeThemeBinding.inflate(LayoutInflater.from(requireContext()));
-        dialog.setContentView(dialogBinding.getRoot());
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.show();
+    private int themeCounter = 0;
 
-        RadioGroup themeRadioGroup = dialogBinding.changeThemeRg;
-        TextView cancelBtn = dialogBinding.changeThemeCancelBtn;
-        TextView confirmBtn = dialogBinding.changeThemeConfirmBtn;
-
-        String savedTheme = getSavedTheme();
-
-        if (savedTheme.equals("Light")) {
-            themeRadioGroup.check(R.id.light_theme_rb);
-        } else if (savedTheme.equals("Dark")) {
-            themeRadioGroup.check(R.id.dark_theme_rb);
-        } else {
-            themeRadioGroup.check(R.id.system_default_rb);
+    private void changeTheme() {
+        if (themeCounter > 2) {
+            themeCounter = 0;
         }
 
-        cancelBtn.setOnClickListener(v -> dialog.dismiss());
-
-        confirmBtn.setOnClickListener(v -> {
-            int checkedId = themeRadioGroup.getCheckedRadioButtonId();
-
-            if (checkedId == R.id.light_theme_rb) {
-                selectedTheme = "Light";
-            } else if (checkedId == R.id.dark_theme_rb) {
-                selectedTheme = "Dark";
-            } else {
+        // Apply the selected theme based on themeCounter
+        switch (themeCounter) {
+            case 0:
                 selectedTheme = "System default";
-            }
+                break;
+            case 1:
+                selectedTheme = "Light";
+                break;
+            case 2:
+                selectedTheme = "Dark";
+                break;
+        }
 
-            saveSelectedTheme(selectedTheme);
-            applyTheme(selectedTheme);
-            themeTv.setText(selectedTheme);
-
-            dialog.dismiss();
-        });
+        // Save the selected theme and apply it
+        saveSelectedTheme(selectedTheme);
+        applyTheme(selectedTheme);
+        themeTv.setText(selectedTheme);
     }
+
 
     private void saveSelectedTheme(String themeName) {
         SharedPreferences preferences = requireContext().getSharedPreferences("theme_prefs", Context.MODE_PRIVATE);

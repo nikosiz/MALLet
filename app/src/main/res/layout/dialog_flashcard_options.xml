@@ -4,7 +4,7 @@
     android:id="@+id/flashcardsOptions_mainLl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/colorLight"
     android:orientation="vertical">
 
     <LinearLayout
@@ -42,95 +42,70 @@
         android:orientation="vertical"
         android:padding="30dp">
 
-        <TextView android:justificationMode="inter_word"
+        <TextView
             android:id="@+id/flashcardsOptions_shuffleTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
-            android:drawablePadding="35dp"
             android:focusable="true"
             android:gravity="center_vertical"
+            android:justificationMode="inter_word"
             android:padding="20dp"
             android:text="Shuffle flashcards"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             app:drawableEndCompat="@drawable/ic_shuffle"
-            app:drawableTint="@color/danube_blue_800" />
+            app:drawableTint="@color/colorPrimaryDark" />
 
-        <TextView android:justificationMode="inter_word"
-            android:id="@+id/flashcardsOptions_configurationTv"
-            style="@style/BasicTextStyle"
+        <LinearLayout
+            android:id="@+id/testOptions_answersLl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autoSizeMaxTextSize="20sp"
-            android:autoSizeMinTextSize="15sp"
-            android:autoSizeStepGranularity="2sp"
-            android:autoSizeTextType="uniform"
             android:background="@drawable/bg_ripple"
-            android:drawablePadding="35dp"
+            android:clickable="true"
+            android:focusable="true"
             android:gravity="center_vertical"
-            android:paddingHorizontal="20dp"
-            android:paddingTop="20dp"
-            android:paddingBottom="10dp"
-            android:text="Flashcard configuration (front)"
-            android:textSize="20sp" />
-
-        <RadioGroup
-            android:id="@+id/flashcardsOptionsRg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:minHeight="65dp"
             android:orientation="horizontal"
-            android:paddingHorizontal="20dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="20dp">
+            android:padding="20dp">
 
-            <RadioButton
-                android:id="@+id/flashcardsOptions_termRb"
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/testOptions_answersTitleTv"
+                style="@style/BasicTextStyle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/bg_radio_btn"
-                android:button="@null"
-                android:checked="true"
-                android:gravity="center"
-                android:text="Term"
-                android:textColor="@drawable/radio_text_color" />
+                android:justificationMode="inter_word"
+                android:text="Flashcard front"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20sp" />
 
-            <RadioButton
-                android:id="@+id/flashcardsOptions_definitionRb"
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/testOptions_answersTv"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_radio_btn"
-                android:button="@null"
-                android:gravity="center"
-                android:text="Definition"
-                android:textColor="@drawable/radio_text_color" />
+                android:justificationMode="inter_word"
+                android:text="term/def/tra"
+                android:textSize="20sp" />
+        </LinearLayout>
 
-        </RadioGroup>
-
-        <TextView android:justificationMode="inter_word"
+        <TextView
             android:id="@+id/flashcardsOptions_restartTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autoSizeMaxTextSize="20sp"
-            android:autoSizeMinTextSize="15sp"
-            android:autoSizeStepGranularity="2sp"
-            android:autoSizeTextType="uniform"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
-            android:drawablePadding="35dp"
             android:focusable="true"
             android:gravity="center_vertical"
+            android:justificationMode="inter_word"
             android:padding="20dp"
             android:text="Restart flashcards"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             app:drawableEndCompat="@drawable/ic_restart"
-            app:drawableTint="@color/danube_blue_800" />
+            app:drawableTint="@color/colorPrimaryDark" />
     </LinearLayout>
 </LinearLayout>

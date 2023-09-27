@@ -2,10 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_corners_rounded"
+    android:background="@drawable/bg_top_corners_rounded"
     android:orientation="vertical"
     android:paddingHorizontal="30dp"
-    android:paddingTop="30dp"
+    android:padding="30dp"
     android:theme="@style/Base.Theme.MALLet">
 
     <TextView
@@ -14,23 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:justificationMode="inter_word"
-        android:text="Choose theme"
+        android:text="App theme"
         android:textColor="@color/primaryTextColor"
-        android:textSize="20sp" />
-
-    <View
-        android:id="@+id/change_theme_view_0"
-        android:layout_width="match_parent"
-        android:layout_height="10dp" />
-
-    <TextView
-        android:id="@+id/change_theme_enter_passwordTv"
-        style="@style/BasicTextStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:justificationMode="inter_word"
-        android:text="Choose the application theme"
-        android:textColor="@color/colorPrimary"
         android:textSize="20sp" />
 
     <View

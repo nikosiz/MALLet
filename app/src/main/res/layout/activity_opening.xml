@@ -24,7 +24,7 @@
         android:fontFamily="@font/russo_one_regular"
         android:gravity="center"
         android:text="@string/app_logo"
-        android:textColor="@color/white" />
+        android:textColor="@color/colorLight" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/opening_cv"

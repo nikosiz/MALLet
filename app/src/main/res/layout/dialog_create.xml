@@ -4,7 +4,7 @@
     android:id="@+id/create_mainLl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_corners_rounded"
+    android:background="@drawable/bg_top_corners_rounded"
     android:orientation="vertical">
 
     <LinearLayout
@@ -15,59 +15,56 @@
         android:orientation="vertical"
         android:padding="30dp">
 
-        <TextView android:justificationMode="inter_word"
+        <TextView
             android:id="@+id/create_setTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
-            android:drawablePadding="35dp"
             android:focusable="true"
             android:gravity="center_vertical"
+            android:justificationMode="inter_word"
             android:padding="20dp"
             android:text="@string/create_new_set"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             app:drawableEndCompat="@drawable/ic_create_set"
-            app:drawableTint="@color/danube_blue_800" />
+            app:drawableTint="@color/colorPrimaryDark" />
 
-        <TextView android:justificationMode="inter_word"
+        <TextView
             android:id="@+id/create_folderTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autoSizeMaxTextSize="20sp"
-            android:autoSizeMinTextSize="15sp"
-            android:autoSizeStepGranularity="2sp"
-            android:autoSizeTextType="uniform"
+
             android:background="@drawable/bg_ripple"
             android:clickable="true"
-            android:drawablePadding="35dp"
             android:focusable="true"
             android:gravity="center_vertical"
+            android:justificationMode="inter_word"
             android:padding="20dp"
             android:text="@string/create_new_folder"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             app:drawableEndCompat="@drawable/ic_create_folder"
-            app:drawableTint="@color/danube_blue_800" />
+            app:drawableTint="@color/colorPrimaryDark" />
 
-        <TextView android:justificationMode="inter_word"
+        <TextView
             android:id="@+id/create_groupTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
-            android:drawablePadding="35dp"
             android:focusable="true"
             android:gravity="center_vertical"
+            android:justificationMode="inter_word"
             android:padding="20dp"
             android:text="@string/create_new_group"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             app:drawableEndCompat="@drawable/ic_create_group"
-            app:drawableTint="@color/danube_blue_800" />
+            app:drawableTint="@color/colorPrimaryDark" />
     </LinearLayout>
 </LinearLayout>

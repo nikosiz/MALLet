@@ -3,7 +3,7 @@
     android:id="@+id/learningFinished_mainLl"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_corners_rounded"
+    android:background="@drawable/bg_top_corners_rounded"
     android:orientation="vertical"
     android:padding="30dp">
 
@@ -31,13 +31,13 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="10dp" />
+        android:layout_height="30dp" />
 
     <LinearLayout
         android:id="@+id/learningFinished_finishRestartLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="end"
+        android:gravity="center_vertical|end"
         android:orientation="horizontal">
 
         <TextView android:justificationMode="inter_word"

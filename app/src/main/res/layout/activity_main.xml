@@ -19,7 +19,7 @@
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/white"
+        android:background="@color/colorLight"
         app:itemActiveIndicatorStyle="@android:color/transparent"
         app:itemIconSize="30dp"
         app:itemIconTint="@color/bottom_nav_icons"

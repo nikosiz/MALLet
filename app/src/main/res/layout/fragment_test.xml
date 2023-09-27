@@ -59,17 +59,101 @@
             app:tint="@color/colorPrimaryDark" />
     </androidx.appcompat.widget.Toolbar>
 
-    <LinearLayout
-        android:id="@+id/test_questionLl"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/test_toolbar">
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/test_contentsLl"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp"
+            app:layout_constraintBottom_toTopOf="@id/test_bottomTvsLl"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/test_questionVp2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/test_bottomTvsLl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/test_prevTv"
+                style="@style/BasicTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_ripple"
+                android:clickable="true"
+                android:drawablePadding="10dp"
+                android:focusable="true"
+                android:gravity="center"
+                android:justificationMode="inter_word"
+                android:padding="20dp"
+                android:text="Previous"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp"
+                app:drawableStartCompat="@drawable/ic_arrow_back"
+                app:drawableTint="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/test_nextTv"
+                style="@style/BasicTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_ripple"
+                android:clickable="true"
+                android:drawablePadding="10dp"
+                android:focusable="true"
+                android:gravity="center"
+                android:justificationMode="inter_word"
+                android:padding="20dp"
+                android:text="Next"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp"
+                app:drawableEndCompat="@drawable/ic_arrow_forward"
+                app:drawableTint="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/test_restartTv"
+                style="@style/BasicTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_ripple"
+                android:clickable="true"
+                android:drawablePadding="10dp"
+                android:focusable="true"
+                android:gravity="center"
+                android:justificationMode="inter_word"
+                android:padding="20dp"
+                android:text="Restart"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp"
+                android:visibility="gone"
+                app:drawableEndCompat="@drawable/ic_restart"
+                app:drawableTint="@color/colorPrimary" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,7 +5,7 @@
     android:id="@+id/editSetToolbarOptions_mainLl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/colorLight"
     android:orientation="vertical"
     tools:ignore="Overdraw">
 
@@ -44,47 +44,52 @@
         android:orientation="vertical"
         android:padding="30dp">
 
-        <TextView android:justificationMode="inter_word"
+        <TextView
             android:id="@+id/editSetToolbarOptions_addToFolderTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_ripple"
-            android:drawablePadding="35dp"
+
             android:gravity="center_vertical"
+            android:justificationMode="inter_word"
             android:padding="20dp"
             android:text="Add to folder"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             app:drawableEndCompat="@drawable/ic_folder"
-            app:drawableTint="@color/danube_blue_800" />
+            app:drawableTint="@color/colorPrimaryDark" />
 
-        <TextView android:justificationMode="inter_word"
+        <TextView
             android:id="@+id/editSetToolbarOptions_addToGroupTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_ripple"
-            android:drawablePadding="35dp"
+
             android:gravity="center_vertical"
+            android:justificationMode="inter_word"
             android:padding="20dp"
             android:text="Add to group"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             app:drawableEndCompat="@drawable/ic_create_group"
-            app:drawableTint="@color/danube_blue_800" />
+            app:drawableTint="@color/colorPrimaryDark" />
 
-        <TextView android:justificationMode="inter_word"
+        <TextView
             android:id="@+id/editSetToolbarOptions_deleteTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_ripple"
-            android:drawablePadding="35dp"
+
             android:gravity="center_vertical"
+            android:justificationMode="inter_word"
             android:padding="20dp"
             android:text="Delete"
-            android:textColor="@color/carnation_red_400"
+            android:textColor="@color/accentPrimary"
             android:textSize="20sp"
             app:drawableEndCompat="@drawable/ic_delete"
-            app:drawableTint="@color/carnation_red_400" />
+            app:drawableTint="@color/accentPrimary" />
     </LinearLayout>
 </LinearLayout>

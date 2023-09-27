@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="white">@color/danube_blue_700</color>
+    <color name="colorLight">@color/danube_blue_900</color>
     <color name="black">#FFFFFF</color>
 
     <!-- Dark theme values -->

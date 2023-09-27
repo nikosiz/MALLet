@@ -173,11 +173,11 @@ public class FragmentLearn extends Fragment {
 
         questionFormatLl.setOnClickListener(v -> {
             clickCount++;
-            if (clickCount == 1) {
+            if (clickCount % 3 == 0) {
                 questionFormatTv.setText("Term");
                 saveQuestionFormat(KEY_FORMAT, 0);
                 // TODO
-            } else if (clickCount == 2) {
+            } else if (clickCount % 3 == 1) {
                 questionFormatTv.setText("Definition");
                 saveQuestionFormat(KEY_FORMAT, 1);
                 // TODO

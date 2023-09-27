@@ -2,7 +2,7 @@
 <resources>
 
     <color name="black">#000000</color>
-    <color name="white">#FFFFFF</color>
+    <color name="colorLight">#FFFFFF</color>
 
     <!-- Light theme values -->
     <color name="colorPrimaryLight">@color/danube_blue_50</color>
@@ -16,6 +16,9 @@
     <color name="colorSecondary">@color/supernova_yellow_500</color>
     <color name="colorSecondaryDark">@color/supernova_yellow_900</color>
 
+    <color name="accentPrimaryLight">@color/carnation_red_50</color>
+    <color name="accentPrimary">@color/carnation_red_500</color>
+    <color name="accentPrimaryDark">@color/carnation_red_900</color>
 
 
     <!-- MATERIAL DESIGN COLOR PALETTE -->

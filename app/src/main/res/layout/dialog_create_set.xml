@@ -4,7 +4,7 @@
     android:id="@+id/create_set_fl_ll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_corners_rounded"
+    android:background="@drawable/bg_top_corners_rounded"
     android:orientation="vertical"
     android:padding="30dp">
 

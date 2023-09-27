@@ -61,22 +61,24 @@
                     android:orientation="vertical"
                     android:paddingHorizontal="30dp">
 
-                    <TextView android:justificationMode="inter_word"
+                    <TextView
                         android:id="@+id/profile_emailTitleTv"
                         style="@style/BasicBoldTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="bottom"
+                        android:justificationMode="inter_word"
                         android:text="@string/email"
-                        android:textColor="@color/primaryTextColor"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="16sp" />
 
-                    <TextView android:justificationMode="inter_word"
+                    <TextView
                         android:id="@+id/profile_emailTv"
                         style="@style/BasicSubTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="top"
+                        android:justificationMode="inter_word"
                         android:text="@string/email"
                         android:textColor="@color/colorPrimary"
                         android:textSize="15sp" />
@@ -92,38 +94,41 @@
                     android:orientation="vertical"
                     android:paddingHorizontal="30dp">
 
-                    <TextView android:justificationMode="inter_word"
+                    <TextView
                         android:id="@+id/profile_usernameTitleTv"
                         style="@style/BasicBoldTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="bottom"
+                        android:justificationMode="inter_word"
                         android:text="@string/username"
-                        android:textColor="@color/primaryTextColor"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="16sp" />
 
-                    <TextView android:justificationMode="inter_word"
+                    <TextView
                         android:id="@+id/profile_usernameTv"
                         style="@style/BasicSubTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="top"
+                        android:justificationMode="inter_word"
                         android:text="@string/username"
                         android:textColor="@color/colorPrimary"
                         android:textSize="15sp" />
                 </LinearLayout>
 
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     android:id="@+id/profile_changePasswordTv"
                     style="@style/BasicBoldTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_ripple_white_rect"
                     android:gravity="center_vertical"
+                    android:justificationMode="inter_word"
                     android:minHeight="65dp"
                     android:paddingHorizontal="30dp"
                     android:text="@string/change_password"
-                    android:textColor="@color/primaryTextColor"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="16sp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -151,14 +156,14 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:background="@color/white"
+                    android:background="@color/colorLight"
                     android:contentDescription="@string/notifications_switch"
                     android:drawableTint="@color/downriver_blue_500"
                     android:fontFamily="@font/rem_bold"
                     android:minHeight="65dp"
                     android:paddingHorizontal="30dp"
                     android:text="@string/notifications"
-                    android:textColor="@color/primaryTextColor"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="16sp"
                     app:thumbTint="@drawable/switch_thumb_color"
                     app:trackDecorationTint="@drawable/switch_track_decoration_color"
@@ -170,14 +175,14 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:background="@color/white"
+                    android:background="@color/colorLight"
                     android:contentDescription="@string/save_sets_offline"
                     android:drawableTint="@color/downriver_blue_500"
                     android:fontFamily="@font/rem_bold"
                     android:minHeight="65dp"
                     android:paddingHorizontal="30dp"
                     android:text="@string/save_sets_offline"
-                    android:textColor="@color/primaryTextColor"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="16sp"
                     app:thumbTint="@drawable/switch_thumb_color"
                     app:trackDecorationTint="@drawable/switch_track_decoration_color"
@@ -201,7 +206,7 @@
                         android:paddingHorizontal="30dp"
                         android:weightSum="3">
 
-                        <TextView android:justificationMode="inter_word"
+                        <TextView
                             android:id="@+id/profile_themeTitleTv"
                             style="@style/BasicBoldTextStyle"
                             android:layout_width="0dp"
@@ -209,33 +214,36 @@
                             android:layout_gravity="center"
                             android:layout_weight="3"
                             android:gravity="center_vertical"
+                            android:justificationMode="inter_word"
                             android:text="@string/color_theme"
-                            android:textColor="@color/primaryTextColor"
+                            android:textColor="@color/colorPrimaryDark"
                             android:textSize="16sp" />
 
-                        <TextView android:justificationMode="inter_word"
+                        <TextView
                             android:id="@+id/profile_themeTv"
                             style="@style/BasicSubTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end|center"
                             android:gravity="end"
+                            android:justificationMode="inter_word"
                             android:text="@string/theme_name"
-                            android:textColor="@color/danube_blue_700"
+                            android:textColor="@color/colorPrimary"
                             android:textSize="16sp" />
                     </LinearLayout>
 
-                    <TextView android:justificationMode="inter_word"
+                    <TextView
                         android:id="@+id/profile_aboutTv"
                         style="@style/BasicBoldTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_ripple_white_rect"
                         android:gravity="center_vertical"
+                        android:justificationMode="inter_word"
                         android:minHeight="65dp"
                         android:paddingHorizontal="30dp"
                         android:text="@string/about"
-                        android:textColor="@color/primaryTextColor"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="16sp" />
                 </LinearLayout>
             </LinearLayout>
@@ -253,17 +261,18 @@
             android:elevation="1dp"
             app:cardCornerRadius="10dp">
 
-            <TextView android:justificationMode="inter_word"
+            <TextView
                 android:id="@+id/profile_logoutTv"
                 style="@style/BasicBoldTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_ripple_white_rect"
                 android:gravity="center_vertical"
+                android:justificationMode="inter_word"
                 android:minHeight="65dp"
                 android:paddingHorizontal="30dp"
                 android:text="@string/log_out"
-                android:textColor="@color/primaryTextColor"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="16sp" />
         </androidx.cardview.widget.CardView>
 
@@ -278,13 +287,14 @@
             android:elevation="1dp"
             app:cardCornerRadius="10dp">
 
-            <TextView android:justificationMode="inter_word"
+            <TextView
                 android:id="@+id/profile_deleteAccTv"
                 style="@style/BasicBoldTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_ripple_red_rect"
                 android:gravity="center"
+                android:justificationMode="inter_word"
                 android:minHeight="65dp"
                 android:text="@string/delete_account"
                 android:textColor="@color/carnation_red_700"

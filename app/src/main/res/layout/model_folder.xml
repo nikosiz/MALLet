@@ -1,18 +1,16 @@
 <!-- res/layout/card_folder.xml -->
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/tools"
     android:id="@+id/model_folder_card_view"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_margin="10dp"
-    android:background="@drawable/bg_social_btn"
+    android:background="@color/colorLight"
     android:clickable="true"
     android:focusable="true"
     android:minWidth="300dp"
     app:cardCornerRadius="10dp"
-    app:cardElevation="3dp"
-    card_view:strokeColor="@color/danube_blue_800">
+    app:cardElevation="1dp">
 
     <LinearLayout
         android:id="@+id/folder_model_cv_ll"

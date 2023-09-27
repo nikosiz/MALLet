@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:layout_margin="10dp"
+    android:background="@color/colorLight"
     android:elevation="0dp"
     android:padding="10dp"
     app:cardCornerRadius="10dp">
@@ -17,12 +18,13 @@
         android:orientation="vertical"
         android:padding="30dp">
 
-        <TextView android:justificationMode="inter_word"
+        <TextView
             android:id="@+id/written_questionTv"
             style="@style/BasicBoldTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="start"
+            android:justificationMode="inter_word"
             android:text="content of the question (definition/translation)"
             android:textColor="@color/primaryTextColor"
             android:textSize="25sp" />
@@ -36,11 +38,12 @@
         android:paddingHorizontal="10dp"
         android:paddingVertical="30dp">
 
-        <TextView android:justificationMode="inter_word"
+        <TextView
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
+            android:justificationMode="inter_word"
             android:text="Your answer"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
@@ -70,12 +73,13 @@
                 android:textColorHint="@color/downriver_blue_300"
                 android:textSize="15sp" />
 
-            <TextView android:justificationMode="inter_word"
+            <TextView
                 android:id="@+id/written_answerErrorTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:layout_marginBottom="5dp"
+                android:justificationMode="inter_word"
                 android:text="@string/field_cannot_be_empty"
                 android:textColor="@color/carnation_red_600"
                 android:visibility="gone" />

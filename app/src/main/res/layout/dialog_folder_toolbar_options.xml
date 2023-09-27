@@ -41,60 +41,67 @@
         android:orientation="vertical"
         android:padding="30dp">
 
-        <TextView android:justificationMode="inter_word"
+        <TextView
             android:id="@+id/folderToolbarOptions_editTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_ripple"
-            android:drawablePadding="35dp"
             android:gravity="center_vertical"
+            android:justificationMode="inter_word"
             android:padding="20dp"
             android:text="Edit"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             app:drawableEndCompat="@drawable/ic_edit"
-            app:drawableTint="@color/danube_blue_800" />
+            app:drawableTint="@color/colorPrimaryDark" />
 
-        <TextView android:justificationMode="inter_word"
+        <TextView
             android:id="@+id/folderToolbarOptions_addTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_ripple"
-            android:drawablePadding="35dp"
+
             android:gravity="center_vertical"
+            android:justificationMode="inter_word"
             android:padding="20dp"
             android:text="Delete"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             app:drawableEndCompat="@drawable/ic_delete"
-            app:drawableTint="@color/danube_blue_800" />
+            app:drawableTint="@color/colorPrimaryDark" />
 
-        <TextView android:justificationMode="inter_word"
+        <TextView
             android:id="@+id/folderToolbarOptions_shareTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_ripple"
-            android:drawablePadding="35dp"
+
             android:gravity="center_vertical"
+            android:justificationMode="inter_word"
             android:padding="20dp"
             android:text="Share"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             app:drawableEndCompat="@drawable/ic_share"
-            app:drawableTint="@color/danube_blue_800" />
+            app:drawableTint="@color/colorPrimaryDark" />
 
-        <TextView android:justificationMode="inter_word"
+        <TextView
             android:id="@+id/folderToolbarOptions_deleteTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_ripple"
-            android:drawablePadding="35dp"
+
             android:gravity="center_vertical"
+            android:justificationMode="inter_word"
             android:padding="20dp"
             android:text="Delete"
+            android:textColor="@color/accentPrimary"
             android:textSize="20sp"
             app:drawableEndCompat="@drawable/ic_delete"
-            app:drawableTint="@color/danube_blue_800" />
+            app:drawableTint="@color/accentPrimary" />
     </LinearLayout>
 </LinearLayout>

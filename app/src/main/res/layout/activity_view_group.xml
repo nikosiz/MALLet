@@ -166,7 +166,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_plus"
-                    android:drawableTint="@color/white"
+                    android:drawableTint="@color/colorLight"
                     android:text="Add contents"
                     android:textSize="20sp"
                     app:backgroundTint="@null"
