@@ -31,7 +31,7 @@ import com.google.android.material.materialswitch.MaterialSwitch;
 import java.util.Objects;
 
 public class FragmentLearn extends Fragment {
-    FragmentLearnBinding binding;
+    private FragmentLearnBinding binding;
     private ViewPager2 questionVp2;
     private AdapterLearn pagerAdapter;
     private MaterialSwitch multipleChoiceMs, writtenMs;

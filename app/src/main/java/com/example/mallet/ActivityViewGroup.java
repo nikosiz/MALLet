@@ -139,14 +139,14 @@ public class ActivityViewGroup extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null) {
             String groupName = intent.getStringExtra("group_name");
-            String groupSets = intent.getStringExtra("group_sets");
+            String nrOfSets = intent.getStringExtra("group_sets");
 
             TextView groupNameTv = binding.viewGroupNameTv;
             TextView groupSetsTv = binding.viewGroupNrOfSetsTv;
 
             if (groupName != null) {
                 groupNameTv.setText(groupName);
-                groupSetsTv.setText(groupSets + " sets");
+                groupSetsTv.setText(getString(R.string.string_sets, nrOfSets));
             }
         }
     }

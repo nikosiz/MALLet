@@ -35,7 +35,7 @@
         <TextView
             android:id="@+id/folder_model_nameTv"
             style="@style/BasicBoldTextStyle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:justificationMode="inter_word"
             android:text="folder_name"
@@ -52,15 +52,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:focusable="true"
             android:drawablePadding="5dp"
+            android:focusable="true"
             android:gravity="center_vertical"
             android:justificationMode="inter_word"
             android:singleLine="true"
             android:text="creator_name"
             android:textColor="@color/colorPrimary"
             android:textSize="15sp"
-            app:drawableEndCompat="@drawable/ic_profile"
+            app:drawableStartCompat="@drawable/ic_profile"
             app:drawableTint="@color/colorPrimary" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

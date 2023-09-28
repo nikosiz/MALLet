@@ -74,7 +74,7 @@
             <TextView
                 android:id="@+id/testOptions_answersTitleTv"
                 style="@style/BasicTextStyle"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:justificationMode="inter_word"

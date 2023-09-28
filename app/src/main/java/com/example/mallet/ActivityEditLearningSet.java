@@ -67,22 +67,18 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         flashcardsLl = binding.editSetCardsLl;
         addTermFab = binding.editSetAddFab;
 
-        // Initialize and set up the toolbar
         setupContents();
 
-        // Get the "learningSetName" and "learningSetTerms" from the intent extras
         learningSetName = getIntent().getStringExtra("learningSetName");
         String learningSetDescription = getIntent().getStringExtra("learningSetDescription");
 
         ArrayList<ModelFlashcard> learningSetTerms = getIntent().getParcelableArrayListExtra("learningSetTerms");
 
-        // Set the learningSetName to the EditText
         if (learningSetName != null) {
             setNameEt.requestFocus();
             setNameEt.setText(learningSetName);
         }
 
-        // Use learningSetTerms to populate your flashcards or terms UI elements
         if (learningSetTerms != null) {
             populateFlashcardsUI(learningSetTerms);
         }
@@ -182,7 +178,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
         TextView deleteMessageTv = dialogBinding.deleteSetTv;
 
-        deleteMessageTv.setText("To delete this set, write " + learningSetName.toUpperCase());
+        deleteMessageTv.append(learningSetName.toUpperCase());
     }
 
     private void addSetDescription() {
@@ -235,7 +231,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     private void addFlashcard(LinearLayout linearLayout, LayoutInflater inflater, String
             term, String definition, String translation) {
         // Create and populate UI elements for a flashcard
-        View flashcardItemView = inflater.inflate(R.layout.model_edit_set_flashcard, linearLayout, false);
+        View flashcardItemView = inflater.inflate(R.layout.model_add_flashcard, linearLayout, false);
 
         // Find the relevant UI elements in flashcardItemView and set their values
         EditText flashcardTermEt = flashcardItemView.findViewById(R.id.editSet_term_et);
@@ -252,7 +248,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         linearLayout.addView(flashcardItemView);
         scrollView.post(() -> scrollView.fullScroll(View.FOCUS_DOWN));
         termCounter++;
-        counter.setText("Term #" + termCounter);
+        counter.append(String.valueOf(termCounter));
 
         if (termCounter == 1) {
             flashcardTermEt.requestFocus();
@@ -315,15 +311,15 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         for (ModelGroup group : groups) {
             View groupItemView = inflater.inflate(R.layout.model_group, linearLayout, false);
 
-            // Find views in the folderItemView based on your layout
             TextView groupNameTv = groupItemView.findViewById(R.id.group_nameTv);
             TextView groupNrOfMembersTv = groupItemView.findViewById(R.id.group_nrOfMembersTv);
+            String nrOfMembers = String.valueOf(group.getNrOfMembers());
             TextView groupNrOfSetsTv = groupItemView.findViewById(R.id.group_nrOfSetsTv);
+            String nrOfSets = String.valueOf(group.getNrOfSets());
 
-            // Set folder data to the views
             groupNameTv.setText(group.getGroupName());
-            groupNrOfMembersTv.setText(group.getNrOfMembers() + " members");
-            groupNrOfSetsTv.setText(group.getNrOfSets() + " sets");
+            groupNrOfMembersTv.setText(getString(R.string.string_members, nrOfMembers));
+            groupNrOfSetsTv.setText(getString(R.string.string_sets, nrOfSets));
 
             linearLayout.addView(groupItemView);
         }

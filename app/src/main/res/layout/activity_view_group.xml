@@ -148,7 +148,7 @@
                     android:layout_height="5dp" />
 
                 <TextView android:justificationMode="inter_word"
-                    android:id="@+id/viewGroup_addSetsTv"
+                    android:id="@+id/viewGroup_addSetsSubtitleTv"
                     style="@style/BasicTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -160,17 +160,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="10dp" />
 
-                <Button
-                    android:id="@+id/viewGroup_addSetsBtn"
-                    style="@style/BasicButtonStyle"
+                <TextView
+                    android:id="@+id/viewGroup_addSetsTv"
+                    style="@style/BasicTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_plus"
-                    android:drawableTint="@color/colorLight"
-                    android:text="Add contents"
+                    android:background="@drawable/bg_ripple"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:justificationMode="inter_word"
+                    android:padding="10dp"
+                    android:text="Add sets"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="20sp"
-                    app:backgroundTint="@null"
-                    tools:ignore="RtlHardcoded" />
+                    app:drawableEndCompat="@drawable/ic_plus"
+                    app:drawableTint="@color/colorPrimary" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

@@ -34,12 +34,13 @@
             app:tint="@color/colorPrimaryDark"
             tools:ignore="TouchTargetSizeCheck" />
 
-        <TextView android:justificationMode="inter_word"
+        <TextView
             android:id="@+id/viewFolder_toolbarTitleTv"
             style="@style/BasicBoldTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
+            android:justificationMode="inter_word"
             android:text="@string/folder"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="30sp" />
@@ -75,20 +76,21 @@
             android:id="@+id/viewFolder_infoCv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardElevation="0dp">
+            app:cardElevation="1dp">
 
             <LinearLayout
                 android:id="@+id/viewFolder_infoCvLl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:padding="30dp">
 
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     android:id="@+id/viewFolder_nameTv"
                     style="@style/BasicBoldTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:justificationMode="inter_word"
                     android:text="@string/folder_name"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="20sp" />
@@ -112,12 +114,13 @@
                         android:src="@drawable/ic_profile"
                         app:tint="@color/danube_blue_800" />
 
-                    <TextView android:justificationMode="inter_word"
+                    <TextView
                         android:id="@+id/viewFolder_creatorTv"
                         style="@style/BasicTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
+                        android:justificationMode="inter_word"
                         android:text="@string/username"
                         android:textColor="@color/colorPrimary" />
 
@@ -127,15 +130,28 @@
                         android:layout_marginHorizontal="10dp"
                         android:background="@color/danube_blue_200" />
 
-                    <TextView android:justificationMode="inter_word"
+                    <TextView
                         android:id="@+id/viewFolder_nrOfSetsTv"
                         style="@style/BasicTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:justificationMode="inter_word"
                         android:text="@string/nr_of_sets"
                         android:textColor="@color/danube_blue_400"
                         tools:ignore="TextContrastCheck" />
                 </LinearLayout>
+
+                <View
+                    android:id="@+id/viewFolder_aboveDescriptionV"
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/viewFolder_descriptionTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -160,11 +176,12 @@
                 android:padding="20dp"
                 android:visibility="visible">
 
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     android:id="@+id/viewFolder_addSetsTitleTv"
                     style="@style/BasicBoldTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:justificationMode="inter_word"
                     android:text="@string/no_sets_in_this_folder"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="20sp" />
@@ -173,30 +190,35 @@
                     android:layout_width="match_parent"
                     android:layout_height="5dp" />
 
-                <TextView android:justificationMode="inter_word"
-                    android:id="@+id/viewFolder_addSetsTv"
+                <TextView
+                    android:id="@+id/viewFolder_addSetsSubtitleTv"
                     style="@style/BasicTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:justificationMode="inter_word"
                     android:text="@string/organise_sets_sort_into_folders"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="15sp" />
+                    android:textSize="20sp" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="10dp" />
+                    android:layout_height="30dp" />
 
-                <Button
-                    android:id="@+id/viewFolder_addSetsBtn"
-                    style="@style/BasicButtonStyle"
+                <TextView
+                    android:id="@+id/viewFolder_addSetsTv"
+                    style="@style/BasicTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_plus"
-                    android:drawableTint="@color/colorLight"
-                    android:text="@string/add_sets"
+                    android:background="@drawable/bg_ripple"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:justificationMode="inter_word"
+                    android:padding="10dp"
+                    android:text="Add sets"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="20sp"
-                    app:backgroundTint="@null"
-                    tools:ignore="RtlHardcoded" />
+                    app:drawableEndCompat="@drawable/ic_plus"
+                    app:drawableTint="@color/colorPrimary" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

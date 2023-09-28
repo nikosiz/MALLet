@@ -25,7 +25,7 @@
             style="@style/BasicBoldTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Term #1"
+            android:text="Term #"
             android:textSize="20sp" />
 
         <View

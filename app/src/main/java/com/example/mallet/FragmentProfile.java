@@ -20,7 +20,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.mallet.databinding.DialogAboutBinding;
@@ -31,6 +30,7 @@ import com.example.mallet.databinding.DialogDeleteAccountBinding;
 import com.example.mallet.databinding.DialogVerifyPasswordBinding;
 import com.example.mallet.databinding.FragmentProfileBinding;
 import com.example.mallet.utils.Utils;
+import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;
@@ -38,15 +38,18 @@ import java.util.regex.Pattern;
 
 public class FragmentProfile extends Fragment {
     private FragmentProfileBinding binding;
-    private int clickCount = 0;
+    private int clickCount = 0, themeCounter;
     private TextView themeTv;
     private String selectedTheme;
-    // Define username pattern using regex
     private final Pattern usernamePattern = Pattern.compile("^[a-zA-Z0-9_]+$");
     private final String usernameIncorrect = "The username can only consist of letters, nrs, and underscores";
     private final String emailIncorrectMsg = "Email incorrect";
     private final Pattern passwordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^*()<>?/|}{~:]).{8,}$");
     private final String passwordIncorrect = "The password must be at least 8 characters long and contain at least one digit, one small letter, one big letter and one special character";
+    private MaterialSwitch notificationsMs, setsOfflineMs;
+    private static final String PREFS_NAME = "ProfileAppSettings";
+    private static final String KEY_NOTIFICATIONS = "notifications";
+    private static final String KET_SETS_OFFLINE = "setsOffline";
 
     @Nullable
     @Override
@@ -54,6 +57,19 @@ public class FragmentProfile extends Fragment {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
 
         setupContents();
+
+        selectedTheme = getSavedTheme();
+        switch (selectedTheme) {
+            case "System default":
+                themeCounter = 0;
+                break;
+            case "Light":
+                themeCounter = 1;
+                break;
+            case "Dark":
+                themeCounter = 2;
+                break;
+        }
 
         return binding.getRoot();
 
@@ -66,14 +82,64 @@ public class FragmentProfile extends Fragment {
         binding.profileUsernameLll.setOnClickListener(v -> verifyPasswordDialog(VerifyPasswordAction.CHANGE_USERNAME));
         binding.profileChangePasswordTv.setOnClickListener(v -> changePasswordDialog());
 
-        binding.profileNotificationsMs.setOnClickListener(v -> notificationSettings());
+        notificationsMs = binding.profileNotificationsMs;
+        notificationsMs.setChecked(getSwitchState(KEY_NOTIFICATIONS));
 
-        binding.profileSaveOfflineMs.setOnCheckedChangeListener((buttonView, isChecked) -> saveSetsOffline());
+        notificationsMs.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                // TODO: Implement notifications
+                // Enable notifications
+                Utils.showToast(getContext(), "You will get notifications when the back end exists");
+                binding.profileNotificationsMs.setChecked(true);
+            } else {
+                // TODO: Implement
+                // Disable notifications
+                Utils.showToast(getContext(), "You will NOT get notifications when the back end exists");
+                binding.profileNotificationsMs.setChecked(false);
+            }
+            saveSwitchState(KEY_NOTIFICATIONS, isChecked);
+        });
 
-        binding.profileThemeLl.setOnClickListener(v -> changeTheme());
-        themeTv = binding.profileThemeTv;
+        setsOfflineMs = binding.profileSaveOfflineMs;
+        setsOfflineMs.setChecked(getSwitchState(KEY_NOTIFICATIONS));
+
+        setsOfflineMs.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                // TODO
+                // Download sets
+                Utils.showToast(getContext(), "Sets downloaded (when the back end exists)");
+            } else {
+                // TODO
+                // Delete downloaded sets
+                Utils.showToast(getContext(), "Sets will not be saved for offline use. The downloaded ones will be deleted (when the back end exists)");
+            }
+            saveSwitchState(KET_SETS_OFFLINE, isChecked);
+        });
+
         selectedTheme = getSavedTheme();
+        themeTv = binding.profileThemeTv;
         themeTv.setText(selectedTheme);
+
+        binding.profileThemeLl.setOnClickListener(v -> {
+            themeCounter++;
+            System.out.println(themeCounter);
+            if (themeCounter % 3 == 0) {
+                selectedTheme = "System default";
+            } else if (themeCounter % 3 == 1) {
+                selectedTheme = "Light";
+            } else if (themeCounter % 3 == 2) {
+                selectedTheme = "Dark";
+            }
+
+            // Save the selected theme and apply it
+            saveSelectedTheme(selectedTheme);
+            applyTheme(selectedTheme);
+
+            // Update the themeTv text
+            themeTv.setText(selectedTheme);
+
+
+        });
 
         binding.profileAboutTv.setOnClickListener(v -> aboutDialog());
         binding.profileLogoutTv.setOnClickListener(v -> logOut());
@@ -109,7 +175,6 @@ public class FragmentProfile extends Fragment {
         confirmTv.setOnClickListener(v -> {
             String email = Objects.requireNonNull(passwordEt.getText()).toString().trim();
 
-            // Validate the email input in the dialog
             Utils.validateInput(passwordEt, passwordErrTv, passwordPattern, "Invalid password");
 
             if (!Utils.isErrVisible(passwordErrTv)) {
@@ -246,72 +311,17 @@ public class FragmentProfile extends Fragment {
         });
     }
 
-
-    private void notificationSettings() {
-        SwitchCompat showNotificationsSwitch = binding.profileNotificationsMs;
-
-        Utils.showToast(getContext(), "You will get notifications when the back end exists");
-
-        // Handle switch state change
-        showNotificationsSwitch.setOnCheckedChangeListener((compoundButton, isChecked) -> {
-            if (isChecked) {
-                // TODO: Implement notifications
-                // Enable notifications
-                Utils.showToast(getContext(), "You will get notifications when the back end exists");
-                binding.profileNotificationsMs.setChecked(true);
-            } else {
-                // TODO: Implement
-                // Disable notifications
-                Utils.showToast(getContext(), "You WILL NOT get notifications when the back end exists");
-                binding.profileNotificationsMs.setChecked(false);
-            }
-        });
+    private void saveSwitchState(String switchKey, boolean isChecked) {
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(switchKey, isChecked);
+        editor.apply();
     }
 
-    private void saveSetsOffline() {
-        SwitchCompat saveOfflineSwitch = binding.profileSaveOfflineMs;
-
-        Utils.showToast(getContext(), "Sets will not be saved for offline use. The downloaded ones will be deleted (when the back end exists)");
-
-        saveOfflineSwitch.setOnCheckedChangeListener((compoundButton, isChecked) -> {
-            if (isChecked) {
-                // TODO
-                // Download sets
-                Utils.showToast(getContext(), "Sets downloaded (when the back end exists)");
-            } else {
-                // TODO
-                // Delete downloaded sets
-                Utils.showToast(getContext(), "Sets will not be saved for offline use. The downloaded ones will be deleted (when the back end exists)");
-            }
-        });
+    private boolean getSwitchState(String switchKey) {
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(switchKey, false); // Default value (false) if key not found
     }
-
-    private int themeCounter = 0;
-
-    private void changeTheme() {
-        if (themeCounter > 2) {
-            themeCounter = 0;
-        }
-
-        // Apply the selected theme based on themeCounter
-        switch (themeCounter) {
-            case 0:
-                selectedTheme = "System default";
-                break;
-            case 1:
-                selectedTheme = "Light";
-                break;
-            case 2:
-                selectedTheme = "Dark";
-                break;
-        }
-
-        // Save the selected theme and apply it
-        saveSelectedTheme(selectedTheme);
-        applyTheme(selectedTheme);
-        themeTv.setText(selectedTheme);
-    }
-
 
     private void saveSelectedTheme(String themeName) {
         SharedPreferences preferences = requireContext().getSharedPreferences("theme_prefs", Context.MODE_PRIVATE);

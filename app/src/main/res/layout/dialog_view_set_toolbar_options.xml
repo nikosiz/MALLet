@@ -45,7 +45,7 @@
         <TextView
             android:justificationMode="inter_word"
             android:id="@+id/viewSetOptions_editTv"
-            style="@style/BasicBoldTextStyle"
+            style="@style/BasicTextStyle"
             app:drawableTint="@color/colorPrimary"
             android:textColor="@color/colorPrimary"
             android:layout_width="match_parent"
@@ -62,7 +62,7 @@
         <TextView
             android:justificationMode="inter_word"
             android:id="@+id/viewSetOptions_addToFolderTv"
-            style="@style/BasicBoldTextStyle"
+            style="@style/BasicTextStyle"
             app:drawableTint="@color/colorPrimary"
             android:textColor="@color/colorPrimary"
             android:layout_width="match_parent"
@@ -79,7 +79,7 @@
         <TextView
             android:justificationMode="inter_word"
             android:id="@+id/viewSetOptions_addToGroupTv"
-            style="@style/BasicBoldTextStyle"
+            style="@style/BasicTextStyle"
             app:drawableTint="@color/colorPrimary"
             android:textColor="@color/colorPrimary"
             android:layout_width="match_parent"

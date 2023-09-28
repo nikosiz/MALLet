@@ -48,6 +48,7 @@ public class ActivityMain extends AppCompatActivity {
     private int clickCount = 0;
     private static final String SELECTED_FRAGMENT_KEY = "selected_fragment";
     private int selectedFragmentId = R.id.bottom_nav_home;
+    private EditText folderNameEt, folderDescriptionEt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +107,7 @@ public class ActivityMain extends AppCompatActivity {
         } else if (selectedFragmentId == R.id.bottom_nav_library) {
             replaceFragment(new FragmentSetsDatabase());
         } else if (selectedFragmentId == R.id.bottom_nav_add_new) {
-            createNewDialog();
+            createNewSetFolderGroupDialog();
         } else if (selectedFragmentId == R.id.bottom_nav_your_library) {
             replaceFragment(new FragmentUserLibrary());
         } else if (selectedFragmentId == R.id.bottom_nav_profile) {
@@ -115,10 +116,11 @@ public class ActivityMain extends AppCompatActivity {
         return true;
     }
 
-    private void createNewDialog() {
+    private void createNewSetFolderGroupDialog() {
         final Dialog dialog = createDialog(R.layout.dialog_create);
         DialogCreateBinding dialogBinding = DialogCreateBinding.inflate(getLayoutInflater());
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
+        dialog.show();
 
         TextView createSet = dialogBinding.createSetTv;
         TextView createFolder = dialogBinding.createFolderTv;
@@ -126,7 +128,7 @@ public class ActivityMain extends AppCompatActivity {
 
         createSet.setOnClickListener(v -> {
             dialog.dismiss();
-            createSetDialog().show();
+            createSetDialog();
         });
         createFolder.setOnClickListener(v -> {
             dialog.dismiss();
@@ -136,26 +138,14 @@ public class ActivityMain extends AppCompatActivity {
             dialog.dismiss();
             createGroupDialog();
         });
-
-        dialog.show();
     }
 
-    private Dialog createDialog(int layoutResId) {
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(layoutResId);
-
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
-        return dialog;
-    }
-
-    private Dialog createSetDialog() {
+    private void createSetDialog() {
         final Dialog dialog = createDialog(R.layout.dialog_create_set);
         DialogCreateSetBinding dialogBinding = DialogCreateSetBinding.inflate(LayoutInflater.from(this));
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
+        dialog.show();
 
         EditText nameEt = dialogBinding.createSetNameEt;
         TextView nameErrTv = dialogBinding.createSetErrorTv;
@@ -194,15 +184,13 @@ public class ActivityMain extends AppCompatActivity {
 
             if (setName.isEmpty()) {
                 Utils.showItem(nameErrTv);
-                nameErrTv.setText("This field cannot be empty");
+                nameErrTv.setText(getString(R.string.field_cannot_be_empty));
                 return;
             }
 
             createNewSet(setName, setDescription);
             dialog.dismiss();
         });
-
-        return dialog;
     }
 
     private void createNewSet(String setName, String setDescription) {
@@ -228,9 +216,78 @@ public class ActivityMain extends AppCompatActivity {
         final Dialog dialog = createDialog(R.layout.dialog_create_folder);
         DialogCreateFolderBinding dialogBinding = DialogCreateFolderBinding.inflate(LayoutInflater.from(this));
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
         dialog.show();
+
+        folderNameEt = dialogBinding.createFolderNameEt;
+        TextView nameErrTv = dialogBinding.createFolderEmptyNameError;
+
+        TextView addDescriptionTv = dialogBinding.createFolderAddDescription;
+        View aboveDescription = dialogBinding.createFolderAboveDescriptionV;
+        TextInputLayout descriptionTil = dialogBinding.createFolderDescriptionTil;
+        folderDescriptionEt = dialogBinding.createFolderDescriptionEt;
+
+        TextView cancelBtn = dialogBinding.createFolderCancelBtn;
+        cancelBtn.setVisibility(View.VISIBLE);
+
+        TextView confirmBtn = dialogBinding.createFolderConfirmBtn;
+        confirmBtn.setVisibility(View.VISIBLE);
+
+        Utils.showItems(folderNameEt, addDescriptionTv, cancelBtn, confirmBtn);
+        Utils.hideItems(aboveDescription, descriptionTil);
+
+        Utils.setupTextWatcher(folderNameEt, nameErrTv, Pattern.compile("^.*$"), "Please, enter a valid set name");
+
+        addDescriptionTv.setOnClickListener(v -> {
+            clickCount++;
+            if (clickCount == 1) {
+                Utils.showItems(addDescriptionTv, aboveDescription, descriptionTil);
+            } else if (clickCount == 2) {
+                Utils.hideItems(aboveDescription, descriptionTil);
+                clickCount = 0;
+            }
+        });
+
+        cancelBtn.setOnClickListener(v -> dialog.dismiss());
+
+        confirmBtn.setOnClickListener(v -> {
+            String folderName = Objects.requireNonNull(folderNameEt.getText()).toString().trim();
+            String folderDescription = Objects.requireNonNull(folderDescriptionEt.getText()).toString().trim();
+            // TODO: fix
+            String folderCreator = "";
+            String folderSets = "";
+            ModelFolder folder = new ModelFolder(folderName, folderCreator, folderSets);
+
+
+            if (folderName.isEmpty()) {
+                Utils.showItem(nameErrTv);
+                nameErrTv.setText(getString(R.string.field_cannot_be_empty));
+                return;
+            }
+
+
+            createNewFolder(folder, folderDescription);
+            dialog.dismiss();
+        });
+    }
+
+    private void createNewFolder(ModelFolder folder, String folderDescription) {
+        Utils.showToast(this, "The folder will be created in the future with backend. Now we will just open the \"ActivityViewFolder\"");
+        Intent intent = new Intent(this, ActivityViewFolder.class);
+
+        String enteredFolderDescription;
+
+        intent.putExtra("folder", folder);
+
+        if (folderDescription == null) {
+            folderDescription = "";
+            intent.putExtra("folderDescription", folderDescription);
+        } else {
+            enteredFolderDescription = folderDescription;
+            intent.putExtra("folderDescription", enteredFolderDescription);
+        }
+
+        startActivity(intent);
     }
 
     private void createGroupDialog() {
@@ -271,12 +328,24 @@ public class ActivityMain extends AppCompatActivity {
 
     public List<ModelGroup> createGroupList() {
         List<ModelGroup> groups = new ArrayList<>();
-        groups.add(new ModelGroup("Group #1", "2","3"));
-        groups.add(new ModelGroup("Group #2", "5","3"));
-        groups.add(new ModelGroup("Group #3", "2","3"));
-        groups.add(new ModelGroup("Group #4", "8","3"));
-        groups.add(new ModelGroup("Group #5", "5","3"));
+        groups.add(new ModelGroup("Group #1", "2", "3"));
+        groups.add(new ModelGroup("Group #2", "5", "3"));
+        groups.add(new ModelGroup("Group #3", "2", "3"));
+        groups.add(new ModelGroup("Group #4", "8", "3"));
+        groups.add(new ModelGroup("Group #5", "5", "3"));
         return groups;
+    }
+
+    private Dialog createDialog(int layoutResId) {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(layoutResId);
+
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+        dialog.show();
+        return dialog;
     }
 
     @Override

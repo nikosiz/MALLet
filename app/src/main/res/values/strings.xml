@@ -55,7 +55,8 @@
     <string name="login_with_email_address">Log in with your email address</string>
     <string name="folder_name">Folder name</string>
     <string name="field_cannot_be_empty">This field cannot be empty</string>
-    <string name="description">Description (optional)</string>
+    <string name="description_optional">Description (optional)</string>
+    <string name="description">Description</string>
     <string name="group_name">Group name</string>
     <string name="allow_group_members">Allow group members to edit sets and add new members</string>
     <!-- TODO: Remove or change this placeholder text -->
@@ -72,7 +73,6 @@
     <string name="email_incorrect">Email incorrect</string>
     <string name="password_incorrect">"The password must be at least 8 characters long and contain at least one digit, one small letter, one big letter and one special character"</string>
     <string name="username_incorrect">The username can only consist of letters, numbers, and underscores</string>
-    <string name="members">members</string>
     <string name="theme_name">theme_name</string>
     <string name="add_sets">Add sets</string>
     <string name="no_sets_in_this_group">There are no sets in this group</string>
@@ -85,6 +85,9 @@
     <string name="organise_sets_sort_into_folders">Organise your sets by sorting them into folders.</string>
     <string name="user_icon">User icon</string>
     <string name="folder">Folder</string>
+    <string name="string_members">%s members</string>
+    <string name="string_sets">%s sets</string>
+    <string name="string_terms">%s terms</string>
 
     <!-- TEST DATA -->
     <string name="dog">Dog</string>
@@ -97,6 +100,16 @@
     <string name="eagle_def">Majestic bird of prey</string>
     <string name="fish">Fish</string>
     <string name="fish_def">Aquatic, gilled vertebrate</string>
+    <string name="edit_set">Edit set</string>
+    <string name="set_options">set options</string>
+    <string name="set_name">Set name</string>
+    <string name="add_flashcard">add flashcard</string>
+    <string name="do_not_know">do not know</string>
+    <string name="undo_swipe">undo swipe</string>
+    <string name="know">know</string>
+    <string name="content_written_question">content of the written question (definition/translation)</string>
+    <string name="your_answer">Your answer</string>
+    <string name="write_answer">Write answer...</string>
 
 
 </resources>

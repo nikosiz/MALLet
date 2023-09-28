@@ -44,7 +44,7 @@
 
         <TextView
             android:id="@+id/viewGroupOptions_addMembersTv"
-            style="@style/BasicBoldTextStyle"
+            style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -58,7 +58,7 @@
 
         <TextView
             android:id="@+id/viewGroupOptions_addSetsTv"
-            style="@style/BasicBoldTextStyle"
+            style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -72,7 +72,7 @@
 
         <TextView
             android:id="@+id/viewGroupOptions_addFoldersTv"
-            style="@style/BasicBoldTextStyle"
+            style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -86,7 +86,7 @@
 
         <TextView
             android:id="@+id/viewGroupOptions_leaveTv"
-            style="@style/BasicBoldTextStyle"
+            style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -100,7 +100,7 @@
 
         <TextView
             android:id="@+id/viewGroupOptions_reportTv"
-            style="@style/BasicBoldTextStyle"
+            style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"

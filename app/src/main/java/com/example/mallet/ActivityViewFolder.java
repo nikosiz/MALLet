@@ -20,6 +20,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.mallet.databinding.ActivityViewFolderBinding;
 import com.example.mallet.databinding.DialogDeleteFolderBinding;
 import com.example.mallet.databinding.DialogViewFolderToolbarOptionsBinding;
+import com.example.mallet.utils.ModelFolder;
 import com.example.mallet.utils.Utils;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -28,7 +29,8 @@ import java.util.Objects;
 public class ActivityViewFolder extends AppCompatActivity {
 
     private ActivityViewFolderBinding binding;
-
+    private String folderName, folderDescription;
+    private ModelFolder folder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,22 +38,57 @@ public class ActivityViewFolder extends AppCompatActivity {
         binding = ActivityViewFolderBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        TextView folderNameTv = binding.viewFolderNameTv;
+        TextView folderCreatorTv = binding.viewFolderCreatorTv;
+        TextView folderNrOfSets = binding.viewFolderNrOfSetsTv;
+        View aboveDescription = binding.viewFolderAboveDescriptionV;
+        TextView folderDescriptionTv = binding.viewFolderDescriptionTv;
+        Utils.hideItem(aboveDescription);
+        Utils.hideItem(folderDescriptionTv);
+
         setupToolbar();
-        setupListeners();
-        getFolderData();
+        setupContents();
+
+        folder = getIntent().getParcelableExtra("folder");
+
+        if (folder != null) {
+            folderNameTv.setText(folder.getFolderName());
+            folderCreatorTv.setText(folder.getFolderCreator());
+            folderNrOfSets.setText(folder.getSets());
+            //folderDescriptionTv.setText(folder.getFolderDescription());
+        }
+
+        /*getFolderData();
+
+        folderName = getIntent().getStringExtra("folderName");
+        folderDescription = getIntent().getStringExtra("folderDescription");
+
+        if (folderName != null) {
+            folderNameTv.setText(folderName);
+        }
+        if (folderDescription != null && !folderDescription.equals("")) {
+            Utils.showItems(aboveDescription, folderDescriptionTv);
+            folderDescriptionTv.setText(folderDescription);
+        }*/
+
+    }
+
+    private void setupContents() {
+        setupToolbar();
+
     }
 
     private void setupToolbar() {
         Toolbar toolbar = binding.viewFolderToolbar;
         setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle(""); // Set the title to an empty string
+        Objects.requireNonNull(getSupportActionBar()).setTitle("");
+
+        binding.viewFolderToolbarBackIv.setOnClickListener(v -> finish());
+
+        binding.viewFolderToolbarOptionsIv.setOnClickListener(v -> folderOptionsDialog());
     }
 
-    private void setupListeners() {
-        binding.viewFolderToolbarOptionsIv.setOnClickListener(v -> showOptions());
-    }
-
-    private void showOptions() {
+    private void folderOptionsDialog() {
         final Dialog dialog = createDialog(R.layout.dialog_view_folder_toolbar_options);
         DialogViewFolderToolbarOptionsBinding dialogBinding = DialogViewFolderToolbarOptionsBinding.inflate(LayoutInflater.from(this));
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -156,7 +193,8 @@ public class ActivityViewFolder extends AppCompatActivity {
             if (folderName != null) {
                 folderNameTv.setText(folderName);
                 folderCreatorTv.setText(folderCreator);
-                folderSetsTv.setText(folderSets + " sets");
+                String nrOfSets = folder.getSets();
+                folderSetsTv.setText(getString(R.string.string_sets, nrOfSets));
             }
         }
     }

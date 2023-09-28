@@ -1,12 +1,11 @@
 package com.example.mallet;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
 
 public class FragmentViewProfile_Sets extends Fragment {
 
@@ -14,9 +13,8 @@ public class FragmentViewProfile_Sets extends Fragment {
     }
 
     public static FragmentViewProfile_Sets newInstance(String param1, String param2) {
-        FragmentViewProfile_Sets fragment = new FragmentViewProfile_Sets();
 
-        return fragment;
+        return new FragmentViewProfile_Sets();
     }
 
     @Override

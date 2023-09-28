@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:justificationMode="inter_word"
-        android:text="To delete the set, type in"
+        android:text="To delete this set, type in"
         android:textColor="@color/colorPrimary"
         android:textSize="19sp" />
 

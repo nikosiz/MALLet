@@ -32,8 +32,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class ActivityViewLearningSet extends AppCompatActivity {
-    ActivityViewLearningSetBinding binding;
-    ModelLearningSet learningSet;
+    private ActivityViewLearningSetBinding binding;
+    private ModelLearningSet learningSet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,7 +173,8 @@ public class ActivityViewLearningSet extends AppCompatActivity {
                     setDescriptionTv.setText(setDescription);
                 }
 
-                setTermsTv.setText(nrOfTerms + " terms");
+
+                setTermsTv.setText(getString(R.string.string_terms, nrOfTerms));
             }
         }
     }
@@ -294,8 +295,10 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             TextView groupNrOfSetsTv = groupItemView.findViewById(R.id.group_nrOfSetsTv);
 
             groupNameTv.setText(group.getGroupName());
-            groupNrOfMembersTv.setText(group.getNrOfMembers() + " members");
-            groupNrOfSetsTv.setText(group.getNrOfSets() + " sets");
+            String nrOfMembers = String.valueOf(group.getNrOfMembers());
+            groupNrOfMembersTv.setText(getString(R.string.string_members, nrOfMembers));
+            String nrOfSets = String.valueOf(group.getNrOfSets());
+            groupNrOfSetsTv.setText(getString(R.string.string_sets, nrOfSets));
 
             linearLayout.addView(groupItemView);
         }

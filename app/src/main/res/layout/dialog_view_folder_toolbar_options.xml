@@ -44,7 +44,7 @@
 
         <TextView
             android:id="@+id/viewFolderOptions_editTv"
-            style="@style/BasicBoldTextStyle"
+            style="@style/BasicTextStyle"
             app:drawableTint="@color/colorPrimary"
             android:textColor="@color/colorPrimary"
             android:layout_width="match_parent"
@@ -61,7 +61,7 @@
 
         <TextView
             android:id="@+id/viewFolderOptions_addSetsTv"
-            style="@style/BasicBoldTextStyle"
+            style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_ripple"
@@ -78,7 +78,7 @@
 
         <TextView
             android:id="@+id/viewFolderOptions_addToGroupTv"
-            style="@style/BasicBoldTextStyle"
+            style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_ripple"
@@ -95,7 +95,7 @@
 
         <TextView
             android:id="@+id/viewFolderOptions_deleteTv"
-            style="@style/BasicBoldTextStyle"
+            style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_ripple"

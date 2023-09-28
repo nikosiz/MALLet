@@ -14,9 +14,8 @@ public class FragmentViewProfile_Groups extends Fragment {
     }
 
     public static FragmentViewProfile_Groups newInstance(String param1, String param2) {
-        FragmentViewProfile_Groups fragment = new FragmentViewProfile_Groups();
 
-        return fragment;
+        return new FragmentViewProfile_Groups();
     }
 
     @Override

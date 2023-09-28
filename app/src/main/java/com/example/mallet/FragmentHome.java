@@ -42,7 +42,7 @@ public class FragmentHome extends Fragment {
         List<ModelLearningSet> learningSets = Objects.requireNonNull(activityMain).createSetList();
         setupViewPager(binding.homeSetsViewPager, learningSets);
 
-        List<ModelFolder> folders = activityMain.createFolderList();
+        List<ModelFolder> folders = Objects.requireNonNull(activityMain).createFolderList();
         setupViewPager(binding.homeSetsViewPager, folders);
 
         List<ModelGroup> groups = activityMain.createGroupList();
@@ -77,7 +77,13 @@ public class FragmentHome extends Fragment {
                 viewPager.setPageTransformer(Utils::applySwipeTransformer);
             } else if (item instanceof ModelFolder) {
                 viewPager = binding.homeFoldersViewPager;
-                AdapterFolder adapterFolders = new AdapterFolder(getContext(), activityMain.createFolderList(), v -> Utils.openActivity(getContext(), ActivityViewFolder.class));
+                AdapterFolder adapterFolders = new AdapterFolder(getContext(), activityMain.createFolderList(), folder -> {
+                    Intent intent = new Intent(getContext(), ActivityViewFolder.class);
+
+                    intent.putExtra("folder", folder);
+
+                    startActivity(intent);
+                });
 
                 viewPager.setAdapter(adapterFolders);
 

@@ -20,7 +20,7 @@ public class AdapterLearningSet extends RecyclerView.Adapter<AdapterLearningSet.
     private final AdapterLearningSet.OnLearningSetClickListener setClickListener;
 
     // Constructor to initialize the adapter with data and click listener
-    public AdapterLearningSet(Context context, List<ModelLearningSet> learningSetList, AdapterLearningSet.OnLearningSetClickListener setClickListener) {
+    public AdapterLearningSet(Context context, List<ModelLearningSet> learningSetList, OnLearningSetClickListener setClickListener) {
         this.context = context;
         this.learningSetList = learningSetList;
         this.setClickListener = setClickListener;
@@ -64,14 +64,12 @@ public class AdapterLearningSet extends RecyclerView.Adapter<AdapterLearningSet.
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            // Initialize the TextViews with their corresponding views from the layout
             learningSetNameTv = itemView.findViewById(R.id.learningSet_nameTv);
             learningSetTermsTv = itemView.findViewById(R.id.learningSet_nrOfTermsTv);
             learningSetCreatorTv = itemView.findViewById(R.id.learningSet_creatorTv);
         }
     }
 
-    // Interface for handling learning set click events
     public interface OnLearningSetClickListener {
         void onSetClick(ModelLearningSet set);
     }
