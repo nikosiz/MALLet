@@ -128,6 +128,10 @@ public class AdapterTest extends RecyclerView.Adapter<AdapterTest.ViewHolder> {
     @Override
     public int getItemCount() {
 
+        if (!isMultipleChoiceEnabled && !isWrittenEnabled && !isTrueFalseEnabled && !isMatchEnabled) {
+            return 0;
+        }
+
         return nrOfQuestions;
     }
 
