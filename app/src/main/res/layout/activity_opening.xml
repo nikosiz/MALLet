@@ -10,11 +10,10 @@
     tools:context=".ActivityOpening">
 
 
-    <TextView android:justificationMode="inter_word"
+    <TextView
         android:id="@+id/opening_logoTv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_gravity="center_vertical"
         android:layout_weight="1"
         android:animation="@anim/pulse_anim"
         android:autoSizeMaxTextSize="300sp"
@@ -23,6 +22,7 @@
         android:autoSizeTextType="uniform"
         android:fontFamily="@font/russo_one_regular"
         android:gravity="center"
+        android:justificationMode="inter_word"
         android:text="@string/app_logo"
         android:textColor="@color/colorLight" />
 
@@ -41,13 +41,30 @@
             android:orientation="vertical"
             android:padding="30dp">
 
-            <TextView android:justificationMode="inter_word"
+            <TextView
                 android:id="@+id/opening_title"
-                style="@style/BasicBoldTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/russo_one_regular"
+                android:gravity="center"
+                android:justificationMode="inter_word"
+                android:singleLine="true"
+                android:text="Welcome to MALLet!"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="25sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <TextView
+                android:id="@+id/opening_subtitle"
+                style="@style/BasicTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="Choose what you want to do "
+                android:justificationMode="inter_word"
+                android:text="Choose what you wat to do"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="21sp" />
 
