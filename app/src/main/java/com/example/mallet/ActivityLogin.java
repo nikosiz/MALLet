@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.mallet.client.test.Test;
 import com.example.mallet.databinding.ActivityLoginBinding;
 import com.example.mallet.databinding.DialogForgotPasswordBinding;
 import com.example.mallet.databinding.DialogForgotPasswordOpenEmailBinding;
@@ -43,6 +44,8 @@ public class ActivityLogin extends AppCompatActivity {
         passwordErrTv = binding.loginPasswordErrorTv;
         passwordIncorrect = getString(R.string.password_incorrect);
 
+        Test test = new Test();
+        test.initMethod();
         setupContents();
     }
 
