@@ -1,11 +1,14 @@
 package com.example.mallet.utils;
 
+import com.example.mallet.client.user.UserServiceImpl;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class AuthenticationManager {
 
     private static AuthenticationManager instance;
+    private final UserServiceImpl userService;
 
     // Singleton pattern to ensure a single instance of AuthenticationManager
     public static AuthenticationManager getInstance() {
@@ -16,6 +19,7 @@ public class AuthenticationManager {
     }
 
     private AuthenticationManager() {
+        userService = new UserServiceImpl();
         // Private constructor to prevent instantiation
     }
 

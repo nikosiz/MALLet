@@ -11,17 +11,26 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.mallet.client.error.ResponseHandler;
+import com.example.mallet.client.user.UserServiceImpl;
 import com.example.mallet.databinding.ActivitySignupBinding;
 import com.example.mallet.databinding.DialogChooseUsernameBinding;
 import com.example.mallet.databinding.DialogConfirmAccountBinding;
+import com.example.mallet.exception.MalletException;
 import com.example.mallet.utils.AuthenticationManager;
 import com.example.mallet.utils.Utils;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
+
+import okhttp3.internal.Util;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ActivitySignup extends AppCompatActivity {
     private ActivitySignupBinding binding;
@@ -32,11 +41,17 @@ public class ActivitySignup extends AppCompatActivity {
     private final Pattern passwordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^*()<>?/|}{~:]).{8,}$");
     private final Pattern usernamePattern = Pattern.compile("^[a-zA-Z0-9_]+$");
 
+    private UserServiceImpl userService;
+    private  ResponseHandler responseHandler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivitySignupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        userService = new UserServiceImpl();
+        responseHandler= new ResponseHandler();
 
         emailEt = binding.signupEmailEt;
         emailErrTv = binding.signupEmailErrorTv;
@@ -87,15 +102,31 @@ public class ActivitySignup extends AppCompatActivity {
             username = Objects.requireNonNull(dialogUsernameEt.getText()).toString().trim();
 
             // TODO: Handle signup through AuthenticationManager
-            Utils.showToast(this, email + "\n" + AuthenticationManager.md5(password) + "\n" + username);
-            System.out.println(email + "\n" + password + "\n" + username);
+           //Utils.showToast(this, email + "\n" + AuthenticationManager.md5(password) + "\n" + username);
+            //System.out.println(email + "\n" + password + "\n" + username);
 
             Utils.validateInput(dialogUsernameEt, dialogErrTv, usernamePattern, usernameIncorrect);
 
             if (!Utils.isErrVisible(dialogErrTv)) {
+                userService.signUp(username, password, email, new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        try {
+                            responseHandler.handleResponse(response);
+                            dialog.dismiss();
+                            Utils.openActivity(getApplicationContext(), ActivityMain.class);
+                            //confirmAccountDialog();
+                        } catch (MalletException e) {
+                            Utils.showToast(getApplicationContext(), e.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Utils.showToast(getApplicationContext(), "Network failure");
+                    }
+                });
                 // TODO: Implement sending an email with a password-resetting link
-                dialog.dismiss();
-                confirmAccountDialog();
             }
         });
     }
