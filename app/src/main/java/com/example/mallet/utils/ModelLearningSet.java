@@ -6,23 +6,26 @@ import android.os.Parcelable;
 import java.util.List;
 
 public class ModelLearningSet implements Parcelable {
-    // Attributes to define a learning set
-    private String name, creator, description;
-    private int id, nrOfTerms;
+    private long id;
+    private String name;
+    private String description;
+    private String creator;
+    private int nrOfTerms;
     private List<ModelFlashcard> terms;
+    private String nextChungUri;
 
     // Constructor to initialize a learning set
     public ModelLearningSet(String name,
                             String creator,
                             String description,
                             List<ModelFlashcard> terms,
-                            int id) {
-        this.name = name;
-        this.creator = creator;
+                            long id, String nextChungUri) {
         this.id = id;
-        this.terms = terms;
-        this.nrOfTerms = terms.size();
+        this.name = name;
         this.description = description;
+        this.creator = creator;
+        this.terms = terms;
+        this.nextChungUri = nextChungUri;
     }
 
     // Getter for the name of the learning set
@@ -56,7 +59,7 @@ public class ModelLearningSet implements Parcelable {
     }
 
     // Getter for the ID of the learning set
-    public int getId() {
+    public long getId() {
         return id;
     }
 

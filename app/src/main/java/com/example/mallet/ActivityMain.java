@@ -265,7 +265,6 @@ public class ActivityMain extends AppCompatActivity {
                 return;
             }
 
-
             createNewFolder(folder, folderDescription);
             dialog.dismiss();
         });

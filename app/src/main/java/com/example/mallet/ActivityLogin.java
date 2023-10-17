@@ -14,14 +14,22 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.agh.api.UserInformationDTO;
+import com.example.mallet.client.error.ResponseHandler;
 import com.example.mallet.client.test.Test;
+import com.example.mallet.client.user.UserServiceImpl;
 import com.example.mallet.databinding.ActivityLoginBinding;
 import com.example.mallet.databinding.DialogForgotPasswordBinding;
 import com.example.mallet.databinding.DialogForgotPasswordOpenEmailBinding;
+import com.example.mallet.exception.MalletException;
 import com.example.mallet.utils.Utils;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ActivityLogin extends AppCompatActivity {
     private EditText emailEt, passwordEt;
@@ -30,11 +38,17 @@ public class ActivityLogin extends AppCompatActivity {
     private final Pattern passwordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^*()<>?/|}{~:]).{8,}$");
     private String emailIncorrect, passwordIncorrect;
 
+    private UserServiceImpl userService;
+    private ResponseHandler responseHandler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        userService = new UserServiceImpl();
+        responseHandler = new ResponseHandler();
 
         emailEt = binding.loginEmailEt;
         emailErrTv = binding.loginEmailErrorTv;
@@ -130,8 +144,23 @@ public class ActivityLogin extends AppCompatActivity {
         Utils.validateInput(passwordEt, passwordErrTv, passwordPattern, passwordIncorrect);
 
         if (!Utils.isErrVisible(emailErrTv) && !Utils.isErrVisible(passwordErrTv)) {
-            // TODO: Handle login through AuthenticationManager
-            Utils.openActivity(this, ActivityMain.class);
+            userService.login(email, password, new Callback<UserInformationDTO>() {
+                @Override
+                public void onResponse(Call<UserInformationDTO> call, Response<UserInformationDTO> response) {
+                    try {
+                        responseHandler.handleResponse(response);
+                        Utils.showToast(getApplicationContext(), "Logged in");
+                        Utils.openActivity(getApplicationContext(), ActivityMain.class);
+                    } catch (MalletException e) {
+                        Utils.showToast(getApplicationContext(), e.getMessage());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<UserInformationDTO> call, Throwable t) {
+                    System.out.println();
+                }
+            });
         } else {
             System.out.println("Error is visible");
         }

@@ -1,6 +1,7 @@
 package com.example.mallet;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -11,7 +12,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,13 +21,11 @@ import com.example.mallet.databinding.ActivitySignupBinding;
 import com.example.mallet.databinding.DialogChooseUsernameBinding;
 import com.example.mallet.databinding.DialogConfirmAccountBinding;
 import com.example.mallet.exception.MalletException;
-import com.example.mallet.utils.AuthenticationManager;
 import com.example.mallet.utils.Utils;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import okhttp3.internal.Util;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,7 +40,8 @@ public class ActivitySignup extends AppCompatActivity {
     private final Pattern usernamePattern = Pattern.compile("^[a-zA-Z0-9_]+$");
 
     private UserServiceImpl userService;
-    private  ResponseHandler responseHandler;
+    private ResponseHandler responseHandler;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +49,9 @@ public class ActivitySignup extends AppCompatActivity {
         binding = ActivitySignupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
         userService = new UserServiceImpl();
-        responseHandler= new ResponseHandler();
+        responseHandler = new ResponseHandler();
 
         emailEt = binding.signupEmailEt;
         emailErrTv = binding.signupEmailErrorTv;
@@ -97,13 +97,12 @@ public class ActivitySignup extends AppCompatActivity {
         TextView cancel = dialogBinding.chooseUsernameCancelTv;
         TextView confirm = dialogBinding.chooseUsernameCreateAccTv;
 
-        cancel.setOnClickListener(v -> dialog.dismiss());
+        cancel.setOnClickListener(v -> {
+            dialog.dismiss();
+            Utils.resetEditText(dialogUsernameEt, dialogErrTv);
+        });
         confirm.setOnClickListener(v -> {
             username = Objects.requireNonNull(dialogUsernameEt.getText()).toString().trim();
-
-            // TODO: Handle signup through AuthenticationManager
-           //Utils.showToast(this, email + "\n" + AuthenticationManager.md5(password) + "\n" + username);
-            //System.out.println(email + "\n" + password + "\n" + username);
 
             Utils.validateInput(dialogUsernameEt, dialogErrTv, usernamePattern, usernameIncorrect);
 
@@ -114,8 +113,10 @@ public class ActivitySignup extends AppCompatActivity {
                         try {
                             responseHandler.handleResponse(response);
                             dialog.dismiss();
-                            Utils.openActivity(getApplicationContext(), ActivityMain.class);
-                            //confirmAccountDialog();
+                            Utils.resetEditText(emailEt, emailErrTv);
+                            Utils.resetEditText(passwordEt, passwordErrTv);
+                            Utils.resetEditText(dialogUsernameEt, dialogErrTv);
+                            confirmAccountDialog();
                         } catch (MalletException e) {
                             Utils.showToast(getApplicationContext(), e.getMessage());
                         }
@@ -126,7 +127,6 @@ public class ActivitySignup extends AppCompatActivity {
                         Utils.showToast(getApplicationContext(), "Network failure");
                     }
                 });
-                // TODO: Implement sending an email with a password-resetting link
             }
         });
     }
