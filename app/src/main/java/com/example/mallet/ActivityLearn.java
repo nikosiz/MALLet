@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class ActivityLearn extends AppCompatActivity {
-
     private ActivityLearnBinding binding;
     private int clickCounter;
 

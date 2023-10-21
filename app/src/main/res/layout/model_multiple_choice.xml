@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView android:justificationMode="inter_word"
+        <TextView
             android:id="@+id/multipleChoice_questionTv"
             style="@style/BasicBoldTextStyle"
             android:layout_width="match_parent"
@@ -24,8 +24,9 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="30dp"
             android:gravity="start"
+            android:justificationMode="inter_word"
             android:paddingHorizontal="10dp"
-            android:text="content of the question: term OR definition/translation"
+            android:text="content of the abcd question: term OR definition/translation"
             android:textColor="@color/primaryTextColor"
             android:textSize="25sp" />
     </LinearLayout>
@@ -37,12 +38,13 @@
         android:orientation="vertical"
         android:paddingVertical="30dp">
 
-        <TextView android:justificationMode="inter_word"
+        <TextView
             android:id="@+id/multipleChoiceTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
+            android:justificationMode="inter_word"
             android:text="Choose the correct answer"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp" />

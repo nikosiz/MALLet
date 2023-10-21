@@ -15,17 +15,14 @@ import java.util.List;
 public class AdapterLearn extends RecyclerView.Adapter<AdapterLearn.ViewHolder> {
     private static final int LAYOUT_MODEL_MULTIPLE = R.layout.model_multiple_choice;
     private static final int LAYOUT_MODEL_WRITTEN = R.layout.model_written;
-
-    private boolean isMultipleChoiceEnabled;
-    private boolean isWrittenEnabled;
-    private final List<ModelWritten> pages;  // Add a list to store ModelWritten pages
+    private boolean isMultipleChoiceEnabled, isWrittenEnabled;
+    private final List<ModelWritten> pages;
 
     public AdapterLearn(boolean isMultipleChoiceEnabled, boolean isWrittenEnabled, List<ModelWritten> pages) {
         this.isMultipleChoiceEnabled = isMultipleChoiceEnabled;
         this.isWrittenEnabled = isWrittenEnabled;
         this.pages = pages;
     }
-
 
     @NonNull
     @Override
@@ -36,12 +33,8 @@ public class AdapterLearn extends RecyclerView.Adapter<AdapterLearn.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        // You can perform any custom logic here if needed
-        // You need to set the content for your ModelWritten here
         if (isWrittenEnabled && position < pages.size()) {
             ModelWritten page = pages.get(position);
-            // Now, you can set the content of your ModelWritten page in your ViewHolder.
-            // For example, if you have a TextView for the content, you can set it like this:
             holder.setContentText(page.getQuestion());
         }
     }
@@ -79,15 +72,20 @@ public class AdapterLearn extends RecyclerView.Adapter<AdapterLearn.ViewHolder> 
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView questionTv;
+        private final TextView writtenQuestionTv;
 
         ViewHolder(View itemView) {
             super(itemView);
-            questionTv = itemView.findViewById(R.id.written_questionTv);
+            writtenQuestionTv = itemView.findViewById(R.id.written_questionTv);
         }
 
-        void setContentText(String question) {
-            questionTv.setText(question);
+        void setContentText(String writtenQuestion) {
+            try {
+                writtenQuestionTv.setText(writtenQuestion);
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Error with setting question");
+            }
         }
     }
 }

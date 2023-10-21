@@ -18,15 +18,21 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.mallet.databinding.DialogLearnOptionsBinding;
 import com.example.mallet.databinding.DialogLearningFinishedBinding;
-import com.example.mallet.databinding.FragmentLearnBinding;
+import com.example.mallet.databinding.FragmentTestowyBinding;
 import com.example.mallet.utils.AdapterLearn;
+import com.example.mallet.utils.ModelFlashcard;
+import com.example.mallet.utils.ModelWritten;
 import com.example.mallet.utils.Utils;
 import com.google.android.material.materialswitch.MaterialSwitch;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 public class FragmentLearn extends Fragment {
-    private FragmentLearnBinding binding;
+    private FragmentTestowyBinding binding;
     private ViewPager2 questionVp2;
     private AdapterLearn pagerAdapter;
     private MaterialSwitch multipleChoiceMs, writtenMs;
@@ -34,12 +40,13 @@ public class FragmentLearn extends Fragment {
     private static final String PREFS_NAME = "LearnSettings";
     private static final String KEY_MULTIPLE_CHOICE = "multipleChoice";
     private static final String KEY_WRITTEN = "written";
-    private static final String KEY_FORMAT = "questionFormat";
+    private static final String KEY_FORMAT = "questionFormat"; // SharedPreferences key for the FORMAT
     private int questionFormat;
+    private int formatCounter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentLearnBinding.inflate(inflater, container, false);
+        binding = FragmentTestowyBinding.inflate(inflater, container, false);
 
         learnOptionsDialog();
 
@@ -49,8 +56,8 @@ public class FragmentLearn extends Fragment {
         TextView nextQuestionTv = binding.learnNextTv;
         TextView restartTv = binding.learnRestartTv;
 
-
-        //pagerAdapter = new AdapterLearn(multipleChoiceMs.isChecked(), writtenMs.isChecked());
+        List<ModelWritten> questionList = handleWrittenQuestion();
+        pagerAdapter = new AdapterLearn(multipleChoiceMs.isChecked(), writtenMs.isChecked(), questionList);
         questionVp2.setAdapter(pagerAdapter);
         questionVp2.setUserInputEnabled(false);
 
@@ -94,8 +101,6 @@ public class FragmentLearn extends Fragment {
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.show();
         dialog.setCanceledOnTouchOutside(false);
-
-
     }
 
     private void setupContents() {
@@ -159,27 +164,27 @@ public class FragmentLearn extends Fragment {
         TextView questionFormatTv = dialogBinding.learnOptionsFormatTv;
         questionFormat = getFormat(KEY_FORMAT);
 
-        if (questionFormat == 0) {
+        if (formatCounter == 0) {
             questionFormatTv.setText("Term");
-        } else if (questionFormat == 1) {
+        } else if (formatCounter == 1) {
             questionFormatTv.setText("Definition");
-        } else if (questionFormat == 2) {
+        } else if (formatCounter == 2) {
             questionFormatTv.setText("Both");
         }
 
         questionFormatLl.setOnClickListener(v -> {
-            clickCount++;
-            if (clickCount % 3 == 0) {
+            formatCounter++;
+            if (formatCounter % 3 == 0) {
                 questionFormatTv.setText("Term");
-                saveQuestionFormat(KEY_FORMAT, 0);
+                saveFormat(KEY_FORMAT, 0); // Save the format to SharedPreferences
                 // TODO
-            } else if (clickCount % 3 == 1) {
+            } else if (formatCounter % 3 == 1) {
                 questionFormatTv.setText("Definition");
-                saveQuestionFormat(KEY_FORMAT, 1);
+                saveFormat(KEY_FORMAT, 1); // Save the format to SharedPreferences
                 // TODO
-            } else {
+            } else if (formatCounter % 3 == 2) {
                 questionFormatTv.setText("Both");
-                saveQuestionFormat(KEY_FORMAT, 2);
+                saveFormat(KEY_FORMAT, 2); // Save the format to SharedPreferences
                 clickCount = 0;
                 // TODO
             }
@@ -237,7 +242,7 @@ public class FragmentLearn extends Fragment {
         return sharedPreferences.getBoolean(switchKey, false); // Default value (false) if key not found
     }
 
-    private void saveQuestionFormat(String formatKey, int format) {
+    private void saveFormat(String formatKey, int format) {
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(formatKey, format);
@@ -246,6 +251,60 @@ public class FragmentLearn extends Fragment {
 
     private int getFormat(String formatKey) {
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        return sharedPreferences.getInt(formatKey, 0);
+        return sharedPreferences.getInt(formatKey, 0); // Default value (0) if the key is not found
+    }
+
+    private List<ModelWritten> handleWrittenQuestion() {
+        int format = getFormat(KEY_FORMAT);
+
+        List<ModelFlashcard> flashcardList = new ArrayList<>();
+        flashcardList.add(new ModelFlashcard("Dog", "A domesticated mammal", "Pies"));
+        flashcardList.add(new ModelFlashcard("Cat", "A small domesticated carnivorous mammal", "Kot"));
+        flashcardList.add(new ModelFlashcard("Elephant", "A large, herbivorous mammal with a trunk", "Słoń"));
+        flashcardList.add(new ModelFlashcard("Lion", "A large wild cat known for its mane", "Lew"));
+        flashcardList.add(new ModelFlashcard("Giraffe", "A tall, long-necked African mammal", "Żyrafa"));
+
+        List<ModelWritten> questionList = new ArrayList();
+        Random random = new Random();
+
+        int questionPosition = random.nextInt(2);
+
+        for (ModelFlashcard flashcard : flashcardList) {
+            // Create a list of options with the correct answer at position 0
+            List<String> options = new ArrayList<>();
+            options.add(flashcard.getTerm());
+            options.add(flashcard.getDefinition());
+            options.add(flashcard.getTranslation());
+
+            // Randomly shuffle the options to change the order
+            Collections.shuffle(options);
+
+            // Set the correct answer positions based on the chosen question position
+            int correctAnswerPosition = 1, alternativeAnswerPosition = 2;
+
+            switch (questionPosition) {
+                case 0:
+                    correctAnswerPosition = 1;
+                    alternativeAnswerPosition = 2;
+                    break;
+                case 1:
+                    correctAnswerPosition = 0;
+                    alternativeAnswerPosition = 2;
+                    break;
+                case 2:
+                    correctAnswerPosition = 1;
+                    alternativeAnswerPosition = 0;
+                    break;
+            }
+
+            // Create a ModelTrueFalse object with the question and the correct answer positions
+            ModelWritten written = new ModelWritten(options.get(questionPosition), options.get(correctAnswerPosition), options.get(alternativeAnswerPosition));
+
+            questionList.add(written);
+
+            System.out.println(written);
+        }
+
+        return questionList;
     }
 }

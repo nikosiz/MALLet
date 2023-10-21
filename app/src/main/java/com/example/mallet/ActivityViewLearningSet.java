@@ -59,8 +59,8 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         binding.viewSetViewpager.setOnClickListener(v -> flipCard());
         binding.viewSetFlashcards.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentFlashcards.class, ActivityLearn.class));
         //TODO ZMIENIĆ
-        //binding.viewSetLearn.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentLearn.class, ActivityLearn.class));
-        binding.viewSetLearn.setOnClickListener(v -> Utils.openActivityWithFragment(this, TestowyFragment.class, TestowaAktywność.class));
+        binding.viewSetLearn.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentLearn.class, ActivityLearn.class));
+        //binding.viewSetLearn.setOnClickListener(v -> Utils.openActivityWithFragment(this, TestowyFragment.class, TestowaAktywność.class));
         binding.viewSetTest.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentTest.class, ActivityLearn.class));
         binding.viewSetMatch.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentMatch.class, ActivityLearn.class));
         binding.testBtn.setOnClickListener(v -> {
