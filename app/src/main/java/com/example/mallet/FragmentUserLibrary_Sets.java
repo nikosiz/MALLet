@@ -35,7 +35,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
                              Bundle savedInstanceState) {
         com.example.mallet.databinding.FragmentUserLibrarySetsBinding binding = FragmentUserLibrarySetsBinding.inflate(inflater, container, false);
 
-        LinearLayout userLibrarySetsLl= binding.userLibrarySetsAllSetsLl;
+        LinearLayout userLibrarySetsLl = binding.userLibrarySetsAllSetsLl;
         List<ModelLearningSet> userLibraryFoldersList = getUserLibrarySetList();
 
         for (ModelLearningSet set : userLibraryFoldersList) {
@@ -61,11 +61,11 @@ public class FragmentUserLibrary_Sets extends Fragment {
     private List<ModelLearningSet> getUserLibrarySetList() {
         List<ModelLearningSet> setList = new ArrayList<>();
         List<ModelFlashcard> flashcardList = new ArrayList<>();
-        setList.add(new ModelLearningSet("Fruits", "user123", null,flashcardList,1));
-        setList.add(new ModelLearningSet("Animals", "user123", null, flashcardList, 2));
-        setList.add(new ModelLearningSet("Nrs", "user123", null, flashcardList, 3));
-        setList.add(new ModelLearningSet("Countries", "user123", null, flashcardList, 4));
-        setList.add(new ModelLearningSet("Colors", "user123", null,flashcardList,5));
+        setList.add(new ModelLearningSet("Fruits", "user123", null, flashcardList, 1, ""));
+        setList.add(new ModelLearningSet("Animals", "user123", null, flashcardList, 2, ""));
+        setList.add(new ModelLearningSet("Nrs", "user123", null, flashcardList, 3, ""));
+        setList.add(new ModelLearningSet("Countries", "user123", null, flashcardList, 4, ""));
+        setList.add(new ModelLearningSet("Colors", "user123", null, flashcardList, 5, ""));
         return setList;
     }
 }

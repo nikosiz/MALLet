@@ -17,7 +17,7 @@ public class ModelMultipleChoice {
     }
 
     // Getter for the quiz question
-    public String getQuestion() {
+    public String getMultipleChoiceQuestion() {
         return question;
     }
 

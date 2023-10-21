@@ -71,8 +71,6 @@ public class ActivitySignup extends AppCompatActivity {
         Utils.setupTextWatcher(passwordEt, passwordErrTv, passwordPattern, passwordIncorrect);
 
         binding.signupContinueTv.setOnClickListener(v -> validateSignupData());
-        binding.signupGoogleMatbtn.setOnClickListener(v -> validateSignupData());
-        binding.signupFacebookMatbtn.setOnClickListener(v -> validateSignupData());
         binding.signupLoginHereTv.setOnClickListener(v -> loginActivity());
     }
 
@@ -161,7 +159,7 @@ public class ActivitySignup extends AppCompatActivity {
         cancel.setOnClickListener(v -> {
             Utils.resetEditText(emailEt, emailErrTv); // Reset email EditText and error TextView
             Utils.resetEditText(passwordEt, passwordErrTv); // Reset password EditText and error TextView
-            dialog.dismiss(); // Dismiss the dialog
+            dialog.dismiss();
             System.out.println("Email and password ETs reset"); // Print a message
             Utils.hideItems(emailErrTv, passwordErrTv);
         });

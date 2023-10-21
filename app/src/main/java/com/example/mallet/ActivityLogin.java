@@ -71,8 +71,6 @@ public class ActivityLogin extends AppCompatActivity {
 
         binding.loginForgotPasswordTv.setOnClickListener(v -> forgotPasswordDialog());
         binding.loginBtn.setOnClickListener(v -> handleLogin());
-        binding.loginGoogleMatbtn.setOnClickListener(v -> handleLogin());
-        binding.loginFacebookMatbtn.setOnClickListener(v -> handleLogin());
         binding.loginSignupHereTv.setOnClickListener(v -> signupActivity());
     }
 

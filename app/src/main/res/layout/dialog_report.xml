@@ -14,26 +14,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="20dp">
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="20dp">
 
-        <ImageView
-            android:id="@+id/report_toolbarBackIv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginEnd="50dp"
-            android:background="@drawable/bg_ripple"
-            android:clickable="true"
-            android:contentDescription="@string/back_arrow"
-            android:focusable="true"
-            android:src="@drawable/ic_arrow_back"
-            app:tint="@color/colorPrimaryDark" />
-
-        <TextView android:justificationMode="inter_word"
+        <TextView
             android:id="@+id/report_titleTv"
             style="@style/BasicBoldTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:justificationMode="inter_word"
             android:text="Report"
             android:textColor="@color/primaryTextColor"
             android:textSize="25sp" />
@@ -83,24 +72,26 @@
             android:gravity="end"
             android:orientation="horizontal">
 
-            <TextView android:justificationMode="inter_word"
+            <TextView
                 android:id="@+id/changeUsername_cancelTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
-                android:padding="10dp"
                 android:background="@drawable/bg_ripple"
+                android:justificationMode="inter_word"
+                android:padding="10dp"
                 android:text="@string/cancel"
                 android:textColor="@color/colorPrimary"
                 android:textSize="20sp" />
 
-            <TextView android:justificationMode="inter_word"
+            <TextView
                 android:id="@+id/changeUsername_confirmTv"
                 android:layout_width="wrap_content"
-                android:padding="10dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:background="@drawable/bg_ripple"
+                android:justificationMode="inter_word"
+                android:padding="10dp"
                 android:text="Send report"
                 android:textColor="@color/colorPrimary"
                 android:textSize="20sp" />

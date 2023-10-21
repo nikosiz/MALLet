@@ -9,19 +9,20 @@
     android:orientation="vertical"
     tools:context=".ActivityLogin">
 
-    <TextView android:justificationMode="inter_word"
+    <TextView
         android:id="@+id/login_logoTv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center"
         android:layout_weight="1"
         android:animation="@anim/pulse_anim"
-        android:autoSizeMaxTextSize="250sp"
+        android:autoSizeMaxTextSize="300sp"
         android:autoSizeMinTextSize="2sp"
         android:autoSizeStepGranularity="2sp"
         android:autoSizeTextType="uniform"
         android:fontFamily="@font/russo_one_regular"
         android:gravity="center"
+        android:justificationMode="inter_word"
         android:text="@string/app_logo"
         android:textColor="@color/colorLight" />
 
@@ -41,7 +42,7 @@
             android:paddingHorizontal="20dp"
             android:paddingVertical="30dp">
 
-            <TextView android:justificationMode="inter_word"
+            <TextView
                 android:id="@+id/login_email_titleTv"
                 style="@style/BasicBoldTextStyle"
                 android:layout_width="match_parent"
@@ -51,6 +52,7 @@
                 android:autoSizeMinTextSize="16sp"
                 android:autoSizeStepGranularity="1sp"
                 android:autoSizeTextType="uniform"
+                android:justificationMode="inter_word"
                 android:maxLines="1"
                 android:text="@string/login_with_email_address"
                 android:textColor="@color/primaryTextColor"
@@ -78,21 +80,23 @@
                     app:boxStrokeColor="@color/colorPrimary"
                     app:boxStrokeWidth="2dp">
 
-                    <com.google.android.material.textfield.TextInputEditText android:textSize="15sp"
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/login_email_et"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:autofillHints="emailAddress"
                         android:hint="@string/email_address"
                         android:inputType="textEmailAddress"
-                        android:textColorHint="@color/downriver_blue_300"/>
+                        android:textColorHint="@color/downriver_blue_300"
+                        android:textSize="15sp" />
 
-                    <TextView android:justificationMode="inter_word"
+                    <TextView
                         android:id="@+id/login_email_errorTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:layout_marginBottom="5dp"
+                        android:justificationMode="inter_word"
                         android:text="Error"
                         android:textColor="@color/carnation_red_600"
                         android:visibility="gone" />
@@ -115,27 +119,29 @@
                     app:boxStrokeWidth="2dp"
                     app:passwordToggleEnabled="true">
 
-                    <com.google.android.material.textfield.TextInputEditText android:textSize="15sp"
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/login_password_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:autofillHints="password"
                         android:hint="@string/password"
                         android:inputType="textPassword"
-                        android:textColorHint="@color/downriver_blue_300"/>
+                        android:textColorHint="@color/downriver_blue_300"
+                        android:textSize="15sp" />
 
-                    <TextView android:justificationMode="inter_word"
+                    <TextView
                         android:id="@+id/login_password_errorTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:layout_marginBottom="5dp"
+                        android:justificationMode="inter_word"
                         android:text="Error"
                         android:textColor="@color/carnation_red_600"
                         android:visibility="gone" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     android:id="@+id/login_forgot_passwordTv"
                     style="@style/BasicTextStyle"
                     android:layout_width="wrap_content"
@@ -144,6 +150,7 @@
                     android:background="@drawable/bg_ripple"
                     android:clickable="true"
                     android:focusable="true"
+                    android:justificationMode="inter_word"
                     android:padding="5dp"
                     android:text="@string/forgot_password"
                     android:textSize="20sp"
@@ -170,86 +177,23 @@
                 android:layout_height="10dp" />
 
             <LinearLayout
-                android:id="@+id/login_options_ll"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/login_ll">
-
-                <TextView android:justificationMode="inter_word"
-                    android:id="@+id/login_options_titleTv"
-                    style="@style/BasicTextStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:text="@string/or_quickly"
-                    android:textSize="20sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/login_ll" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-                <LinearLayout
-                    android:id="@+id/login_socials_ll"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <!-- Google Sign-In Button -->
-                    <!-- TODO: <com.google.android.gms.common.SignInButton -->
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/login_google_matbtn"
-                        style="@style/SocialButtonStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
-                        android:minWidth="140dp"
-                        android:text="@string/google"
-                        app:icon="@drawable/ic_google"
-                        app:iconGravity="textStart"
-                        app:iconTint="@null" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/login_facebook_matbtn"
-                        style="@style/SocialButtonStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
-                        android:background="@drawable/bg_social_btn"
-                        android:minWidth="140dp"
-                        android:text="@string/facebook"
-                        app:icon="@drawable/ic_facebook"
-                        app:iconGravity="textStart"
-                        app:iconTint="@null" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
-
-            <LinearLayout
                 android:id="@+id/login_signup_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     android:id="@+id/login_signup_titleTv"
                     style="@style/BasicTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:justificationMode="inter_word"
                     android:paddingTop="6dp"
                     android:text="@string/no_account" />
 
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     android:id="@+id/login_signupHereTv"
                     style="@style/BasicBoldTextStyle"
                     android:layout_width="wrap_content"
@@ -257,6 +201,7 @@
                     android:background="@drawable/bg_ripple"
                     android:clickable="true"
                     android:focusable="true"
+                    android:justificationMode="inter_word"
                     android:padding="5dp"
                     android:text="@string/signup_here"
                     android:textColor="@color/primaryTextColor"
@@ -268,12 +213,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp" />
 
-            <TextView android:justificationMode="inter_word"
+            <TextView
                 android:id="@+id/login_termsTv"
                 style="@style/BasicTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:justificationMode="inter_word"
                 android:text="@string/by_logging_in_you_accept"
                 android:textSize="10sp" />
         </LinearLayout>

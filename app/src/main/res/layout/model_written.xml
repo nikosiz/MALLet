@@ -51,6 +51,22 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="10dp"
+            android:layout_marginHorizontal="5dp" />
+
+        <TextView
+            android:id="@+id/written_correctAnswerTv"
+            style="@style/BasicTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:justificationMode="inter_word"
+            android:text="correct_answer"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
             android:layout_marginHorizontal="20dp" />
 
         <com.google.android.material.textfield.TextInputLayout

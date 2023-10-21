@@ -9,16 +9,16 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.mallet.databinding.ActivityViewGroupBinding;
-import com.example.mallet.databinding.DialogAddFolderBinding;
-import com.example.mallet.databinding.DialogAddMembersBinding;
-import com.example.mallet.databinding.DialogAddSetBinding;
 import com.example.mallet.databinding.DialogReportBinding;
+import com.example.mallet.databinding.DialogViewGroupManageMembersBinding;
+import com.example.mallet.databinding.DialogViewGroupManageSetsBinding;
 import com.example.mallet.databinding.DialogViewGroupToolbarOptionsBinding;
 import com.example.mallet.utils.Utils;
 
@@ -43,37 +43,39 @@ public class ActivityViewGroup extends AppCompatActivity {
         Toolbar toolbar = binding.viewGroupToolbar;
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle("");
+
+        binding.viewGroupToolbarOptionsIv.setOnClickListener(v -> dialogGroupOptions());
+
+        binding.viewGroupToolbarBackIv.setOnClickListener(v -> finish());
     }
 
     private void setupListeners() {
-        binding.viewGroupToolbarOptionsIv.setOnClickListener(v -> groupOptionsDialog());
+
     }
 
-    private void groupOptionsDialog() {
+    private void dialogGroupOptions() {
         final Dialog dialog = createDialog(R.layout.dialog_view_group_toolbar_options);
         DialogViewGroupToolbarOptionsBinding dialogBinding = DialogViewGroupToolbarOptionsBinding.inflate(LayoutInflater.from(this));
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
         dialog.show();
 
-        TextView addMembersTv = dialogBinding.viewGroupOptionsAddMembersTv;
-        TextView addSetsTv = dialogBinding.viewGroupOptionsAddSetsTv;
-        TextView addFoldersTv = dialogBinding.viewGroupOptionsAddFoldersTv;
+        ImageView backIv = dialogBinding.viewGroupOptionsBackIv;
+        TextView manageMembersTv = dialogBinding.viewGroupOptionsManageMembersTv;
+        TextView manageSetsTv = dialogBinding.viewGroupOptionsManageSetsTv;
         TextView leaveTv = dialogBinding.viewGroupOptionsLeaveTv;
         TextView reportTv = dialogBinding.viewGroupOptionsReportTv;
 
-        addMembersTv.setOnClickListener(v -> {
+        backIv.setOnClickListener(v -> dialog.dismiss());
+
+        manageMembersTv.setOnClickListener(v -> {
             dialog.dismiss();
-            addMembersDialog();
+            manageMembersDialog();
         });
 
-        addSetsTv.setOnClickListener(v -> {
+        manageSetsTv.setOnClickListener(v -> {
             dialog.dismiss();
-            addSetsDialog();
-        });
-
-        addFoldersTv.setOnClickListener(v -> {
-            dialog.dismiss();
-            addFoldersDialog();
+            manageSetsDialog();
         });
 
         leaveTv.setOnClickListener(v -> {
@@ -83,29 +85,23 @@ public class ActivityViewGroup extends AppCompatActivity {
         });
 
         reportTv.setOnClickListener(v -> {
+            dialog.dismiss();
+            reportDialog();
             // TODO: ActivityReport
         });
-
-
     }
 
-    private void addMembersDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_add_members);
-        DialogAddMembersBinding dialogBinding = DialogAddMembersBinding.inflate(LayoutInflater.from(this));
+    private void manageMembersDialog() {
+        final Dialog dialog = createDialog(R.layout.dialog_view_group_manage_members);
+        DialogViewGroupManageMembersBinding dialogBinding = DialogViewGroupManageMembersBinding.inflate(LayoutInflater.from(this));
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
         dialog.show();
     }
 
-    private void addSetsDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_add_set);
-        DialogAddSetBinding dialogBinding = DialogAddSetBinding.inflate(LayoutInflater.from(this));
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.show();
-    }
-
-    private void addFoldersDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_add_folder);
-        DialogAddFolderBinding dialogBinding = DialogAddFolderBinding.inflate(LayoutInflater.from(this));
+    private void manageSetsDialog() {
+        final Dialog dialog = createDialog(R.layout.dialog_view_group_manage_sets);
+        DialogViewGroupManageSetsBinding dialogBinding = DialogViewGroupManageSetsBinding.inflate(LayoutInflater.from(this));
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.show();
     }

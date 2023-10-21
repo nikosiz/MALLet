@@ -19,7 +19,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.mallet.client.userSet.UserSetInformationImpl;
 import com.example.mallet.databinding.ActivityViewLearningSetBinding;
-import com.example.mallet.databinding.DialogAddSetBinding;
+import com.example.mallet.databinding.DialogViewGroupManageSetsBinding;
 import com.example.mallet.databinding.DialogViewSetToolbarOptionsBinding;
 import com.example.mallet.utils.AdapterFlashcardViewPager;
 import com.example.mallet.utils.ModelFlashcard;
@@ -58,7 +58,9 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         setupToolbar();
         binding.viewSetViewpager.setOnClickListener(v -> flipCard());
         binding.viewSetFlashcards.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentFlashcards.class, ActivityLearn.class));
-        binding.viewSetLearn.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentLearn.class, ActivityLearn.class));
+        //TODO ZMIENIĆ
+        //binding.viewSetLearn.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentLearn.class, ActivityLearn.class));
+        binding.viewSetLearn.setOnClickListener(v -> Utils.openActivityWithFragment(this, TestowyFragment.class, TestowaAktywność.class));
         binding.viewSetTest.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentTest.class, ActivityLearn.class));
         binding.viewSetMatch.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentMatch.class, ActivityLearn.class));
         binding.testBtn.setOnClickListener(v -> {
@@ -78,14 +80,14 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
         binding.flashcardsBackIv.setOnClickListener(v -> finish());
 
-        binding.viewSetOptionsBtn.setOnClickListener(v -> dialogViewSetOptions());
+        binding.viewSetOptionsBtn.setOnClickListener(v -> viewSetOptionsDialog());
     }
 
     private void flipCard() {
 
     }
 
-    private void dialogViewSetOptions() {
+    private void viewSetOptionsDialog() {
         final Dialog dialog = createDialog(R.layout.dialog_view_set_toolbar_options);
         DialogViewSetToolbarOptionsBinding dialogBinding = DialogViewSetToolbarOptionsBinding.inflate(LayoutInflater.from(this));
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -123,32 +125,28 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     }
 
     private void addSetToFolderDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_add_set);
-        DialogAddSetBinding dialogBinding = DialogAddSetBinding.inflate(LayoutInflater.from(this));
+        final Dialog dialog = createDialog(R.layout.dialog_view_group_manage_sets);
+        DialogViewGroupManageSetsBinding dialogBinding = DialogViewGroupManageSetsBinding.inflate(LayoutInflater.from(this));
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
         dialog.show();
 
-        dialogBinding.addSetToolbarBackIv.setOnClickListener(v -> dialog.dismiss());
-
         List<ModelFolder> folders = createFolderList();
 
-        displayFolders(folders, dialogBinding.addSetListLl, getLayoutInflater());
+        displayFolders(folders, dialogBinding.manageSetsSetListLl, getLayoutInflater());
 
     }
 
     private void addSetToGroupDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_add_set);
-        DialogAddSetBinding dialogBinding = DialogAddSetBinding.inflate(LayoutInflater.from(this));
+        final Dialog dialog = createDialog(R.layout.dialog_view_group_manage_sets);
+        DialogViewGroupManageSetsBinding dialogBinding = DialogViewGroupManageSetsBinding.inflate(LayoutInflater.from(this));
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
         dialog.show();
 
-        dialogBinding.addSetToolbarBackIv.setOnClickListener(v -> dialog.dismiss());
-
         List<ModelGroup> groups = createGroupList();
 
-        displayGroups(groups, dialogBinding.addSetListLl, getLayoutInflater());
+        displayGroups(groups, dialogBinding.manageSetsSetListLl, getLayoutInflater());
 
     }
 

@@ -1,24 +1,32 @@
 package com.example.mallet.utils;
 
 public class ModelTrueFalse {
-    private String term, translation, definition;
+    private final String question;
+    private final String displayedAnswer; // Store the actual correct answer content
+    private final String correctAnswer;
 
-    public ModelTrueFalse(String question, String answer) {
+    public ModelTrueFalse(String question, String displayedAnswer, String correctAnswer) {
+        this.question = question;
+        this.correctAnswer = correctAnswer;
+        this.displayedAnswer = displayedAnswer;
     }
 
-    public boolean isTrue() {
-        /* IF (question MATCHES answer)
-            return true;
-           ELSE
-            return false;
-        */
-
-        return true;
+    public String getQuestion() {
+        return question;
     }
 
-    public String getQuestionText() {
-        // Return the question text to display to the user
-        // You can format it as needed based on your examples
-        return term + "\n" + definition + "\n" + translation;
+    public String getCorrectAnswer() {
+        return correctAnswer;
+    }
+
+    public String getDisplayedAnswer() {
+        return displayedAnswer;
+    }
+
+    @Override
+    public String toString() {
+        return "Question: " + question + "\n" +
+                "Correct answer: " + correctAnswer + "\n" +
+                "Displayed answer: " + displayedAnswer;
     }
 }

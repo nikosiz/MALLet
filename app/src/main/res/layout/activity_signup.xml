@@ -16,7 +16,7 @@
         android:layout_gravity="center_vertical"
         android:layout_weight="1"
         android:animation="@anim/pulse_anim"
-        android:autoSizeMaxTextSize="250sp"
+        android:autoSizeMaxTextSize="300sp"
         android:autoSizeMinTextSize="2sp"
         android:autoSizeStepGranularity="2sp"
         android:autoSizeTextType="uniform"
@@ -145,57 +145,6 @@
                 android:textSize="20sp"
                 app:drawableEndCompat="@drawable/ic_arrow_forward"
                 app:drawableTint="@color/danube_blue_800" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
-
-            <TextView android:justificationMode="inter_word"
-                android:id="@+id/signup_socials_titleTv"
-                style="@style/BasicTextStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/or_quickly"
-                android:textColor="@color/primaryTextColor"
-                android:textSize="20sp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
-
-            <LinearLayout
-                android:id="@+id/signup_socials_ll"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/signup_google_matbtn"
-                    style="@style/SocialButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:minWidth="140dp"
-                    android:text="@string/google"
-                    app:icon="@drawable/ic_google"
-                    app:iconGravity="textStart"
-                    app:iconTint="@null" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/signup_facebook_matbtn"
-                    style="@style/SocialButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:background="@drawable/bg_social_btn"
-                    android:minWidth="140dp"
-                    android:text="@string/facebook"
-                    app:icon="@drawable/ic_facebook"
-                    app:iconGravity="textStart"
-                    app:iconTint="@null" />
-            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"

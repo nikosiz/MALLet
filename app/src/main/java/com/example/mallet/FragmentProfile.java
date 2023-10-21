@@ -72,7 +72,6 @@ public class FragmentProfile extends Fragment {
         }
 
         return binding.getRoot();
-
     }
 
     private void setupContents() {

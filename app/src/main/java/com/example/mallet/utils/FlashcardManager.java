@@ -17,6 +17,8 @@ public class FlashcardManager {
         String setName; // Name of the learning set
         String setCreator; // Creator of the learning set
         String setDescription; // Description of the learning set
+        long setId = 0;
+        String nextChunkUri = "";
 
         try {
             // Get the asset manager for reading files from the assets folder
@@ -51,7 +53,7 @@ public class FlashcardManager {
             reader.close();
 
             // Create a new ModelLearningSet object with the extracted data
-            learningSet = new ModelLearningSet(setName, setCreator, setDescription, flashcards, 0);
+            learningSet = new ModelLearningSet(setName, setCreator, setDescription, flashcards, setId, nextChunkUri);
         } catch (IOException e) {
             // Handle any IOException by printing the stack trace
             e.printStackTrace();
