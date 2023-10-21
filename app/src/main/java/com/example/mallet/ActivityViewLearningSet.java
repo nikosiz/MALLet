@@ -112,11 +112,6 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             startActivity(intent);
         });
 
-        dialogBinding.viewSetOptionsAddToFolderTv.setOnClickListener(v -> {
-            dialog.dismiss();
-            addSetToFolderDialog();
-        });
-
         dialogBinding.viewSetOptionsAddToGroupTv.setOnClickListener(v -> {
             dialog.dismiss();
             addSetToGroupDialog();

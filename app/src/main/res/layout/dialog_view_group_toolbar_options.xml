@@ -43,41 +43,6 @@
         android:padding="30dp">
 
         <TextView
-            android:id="@+id/viewGroupOptions_manageMembersTv"
-            style="@style/BasicTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_ripple"
-            android:clickable="true"
-            android:focusable="true"
-
-            android:gravity="center_vertical"
-            android:justificationMode="inter_word"
-            android:padding="20dp"
-            android:text="Manage members"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp"
-            app:drawableEndCompat="@drawable/ic_create_group"
-            app:drawableTint="@color/colorPrimary" />
-
-        <TextView
-            android:id="@+id/view_group_options_manage_sets_tv"
-            style="@style/BasicTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_ripple"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center_vertical"
-            android:justificationMode="inter_word"
-            android:padding="20dp"
-            android:text="Manage sets"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp"
-            app:drawableEndCompat="@drawable/ic_learning_set"
-            app:drawableTint="@color/colorPrimary" />
-
-        <TextView
             android:id="@+id/viewGroupOptions_leaveTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"

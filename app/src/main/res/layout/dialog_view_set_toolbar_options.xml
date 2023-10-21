@@ -43,23 +43,6 @@
         android:padding="30dp">
 
         <TextView
-            android:id="@+id/viewSetOptions_addToCollectionTv"
-            style="@style/BasicTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_ripple"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center_vertical"
-            android:justificationMode="inter_word"
-            android:padding="20dp"
-            android:text="Add to my collection"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp"
-            app:drawableEndCompat="@drawable/ic_plus"
-            app:drawableTint="@color/colorPrimary" />
-
-        <TextView
             android:id="@+id/viewSetOptions_editTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
@@ -77,6 +60,42 @@
             app:drawableTint="@color/colorPrimary" />
 
         <TextView
+            android:id="@+id/viewSetOptions_addToCollectionTv"
+            style="@style/BasicTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_ripple"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:justificationMode="inter_word"
+            android:padding="20dp"
+            android:text="Add to my collection"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            app:drawableEndCompat="@drawable/ic_plus"
+            app:drawableTint="@color/colorPrimary" />
+
+        <!-- TODO: -->
+        <TextView
+            android:id="@+id/viewSetOptions_addToGroupTv"
+            style="@style/BasicTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_ripple"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:justificationMode="inter_word"
+            android:padding="20dp"
+            android:text="Add to group (wyświetlić grupy których user jest adminem, jeżeli nie jest adminem żadnej to musi stworzyć i od nowa przejść proces dodawania setu do grupy pozdr)"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            app:drawableEndCompat="@drawable/ic_create_group"
+            app:drawableTint="@color/colorPrimary" />
+
+        <!--
+        <TextView
             android:id="@+id/viewSetOptions_addToFolderTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
@@ -92,22 +111,6 @@
             android:textSize="20sp"
             app:drawableEndCompat="@drawable/ic_folder"
             app:drawableTint="@color/colorPrimary" />
-
-        <TextView
-            android:id="@+id/viewSetOptions_addToGroupTv"
-            style="@style/BasicTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_ripple"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center_vertical"
-            android:justificationMode="inter_word"
-            android:padding="20dp"
-            android:text="Add to group"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp"
-            app:drawableEndCompat="@drawable/ic_create_group"
-            app:drawableTint="@color/colorPrimary" />
+    -->
     </LinearLayout>
 </LinearLayout>
