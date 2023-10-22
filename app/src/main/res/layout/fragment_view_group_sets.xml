@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/viewGroupSets_mainCl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryLight"
+    android:orientation="vertical"
+    android:padding="20dp"
     tools:context=".FragmentViewGroupSets"
     tools:ignore="Overdraw">
 
@@ -13,8 +15,7 @@
         android:id="@+id/viewGroupSets_addSetsCv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="30dp"
+        android:visibility="gone"
         app:cardCornerRadius="10dp"
         app:cardElevation="1dp"
         app:layout_constraintTop_toTopOf="parent">
@@ -34,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:justificationMode="inter_word"
-                android:text="@string/no_sets_in_this_group"
+                android:text="There are no sets in this group"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="20sp" />
 
@@ -48,7 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:justificationMode="inter_word"
-                android:text="@string/add_sets_share_with_friends"
+                android:text="Add sets to share with other users"
                 android:textColor="@color/colorPrimary"
                 android:textSize="15sp" />
 
@@ -74,4 +75,13 @@
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <LinearLayout
+        android:id="@+id/viewGroupSets_memberListLl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/model_learning_set" />
+    </LinearLayout>
+</LinearLayout>

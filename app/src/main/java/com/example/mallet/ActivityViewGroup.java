@@ -196,7 +196,7 @@ public class ActivityViewGroup extends AppCompatActivity {
                 tabLayout.getTabAt(i).setCustomView(tabTv);
 
                 ViewGroup.LayoutParams layoutParams = tabTv.getLayoutParams();
-                layoutParams.width = 200;
+                layoutParams.width = 500;
                 tabTv.setLayoutParams(layoutParams);
             }
         });
