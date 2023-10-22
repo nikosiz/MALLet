@@ -76,22 +76,10 @@ public class ActivityViewGroup extends AppCompatActivity {
         dialog.show();
 
         ImageView backIv = dialogBinding.viewGroupOptionsBackIv;
-        TextView manageMembersTv = dialogBinding.viewGroupOptionsManageMembersTv;
-        TextView manageSetsTv = dialogBinding.viewGroupOptionsManageSetsTv;
         TextView leaveTv = dialogBinding.viewGroupOptionsLeaveTv;
         TextView reportTv = dialogBinding.viewGroupOptionsReportTv;
 
         backIv.setOnClickListener(v -> dialog.dismiss());
-
-        manageMembersTv.setOnClickListener(v -> {
-            dialog.dismiss();
-            manageMembersDialog();
-        });
-
-        manageSetsTv.setOnClickListener(v -> {
-            dialog.dismiss();
-            manageSetsDialog();
-        });
 
         leaveTv.setOnClickListener(v -> {
             // TODO: leaveGroup()

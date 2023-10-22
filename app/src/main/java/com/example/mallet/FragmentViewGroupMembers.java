@@ -1,63 +1,84 @@
 package com.example.mallet;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentViewGroupMembers#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class FragmentViewGroupMembers extends Fragment {
+import com.example.mallet.databinding.FragmentViewGroupMembersBinding;
+import com.example.mallet.utils.AdapterFolder;
+import com.example.mallet.utils.ModelFolder;
+import com.example.mallet.utils.ModelGroupMember;
+import com.example.mallet.utils.Utils;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import java.util.ArrayList;
+import java.util.List;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public FragmentViewGroupMembers() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentViewGroupMembers.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FragmentViewGroupMembers newInstance(String param1, String param2) {
-        FragmentViewGroupMembers fragment = new FragmentViewGroupMembers();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+public class FragmentViewGroupMembers extends Fragment implements AdapterFolder.OnFolderClickListener {
+    int clickCounter = 0;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        FragmentViewGroupMembersBinding binding = FragmentViewGroupMembersBinding.inflate(inflater, container, false);
+
+        LinearLayout userLibraryMembersLl = binding.viewGroupMembersMemberListLl; // Change to LinearLayout
+        List<ModelGroupMember> userLibraryMembersList = getUserLibraryMemberList();
+
+        for (ModelGroupMember member : userLibraryMembersList) {
+            final int[] clickCounter = {0}; // Define a final variable here
+
+            final View[] memberItemView = {inflater.inflate(R.layout.model_group_member, userLibraryMembersLl, false)};
+
+            TextView usernameTv = memberItemView[0].findViewById(R.id.groupMember_usernameTv);
+            ImageView memberOptionsIv = memberItemView[0].findViewById(R.id.groupMember_optionsIv);
+            TextView managePermissionsTv = memberItemView[0].findViewById(R.id.groupMember_permissionTv);
+            TextView deleteUserTv = memberItemView[0].findViewById(R.id.groupMember_deleteTv);
+
+            // Initially hide the TextViews
+            Utils.hideItems(deleteUserTv, managePermissionsTv);
+
+            usernameTv.setText(member.getUsername());
+
+            memberOptionsIv.setOnClickListener(v -> {
+                clickCounter[0]++;
+                // Use the local clickCounter here
+                if (clickCounter[0] % 2 != 0) {
+                    Utils.showItems(deleteUserTv, managePermissionsTv); // Show on odd clicks
+                } else {
+                    Utils.hideItems(deleteUserTv, managePermissionsTv); // Hide on even clicks
+                }
+            });
+
+            userLibraryMembersLl.addView(memberItemView[0]);
         }
+
+
+        return binding.getRoot();
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_view_group_members, container, false);
+    private List<ModelGroupMember> getUserLibraryMemberList() {
+        List<ModelGroupMember> memberList = new ArrayList<>();
+        memberList.add(new ModelGroupMember(0, "user0"));
+        memberList.add(new ModelGroupMember(1, "user1"));
+        memberList.add(new ModelGroupMember(2, "user2"));
+        memberList.add(new ModelGroupMember(3, "user3"));
+        memberList.add(new ModelGroupMember(4, "user4"));
+        return memberList;
+    }
+
+    private void startViewFolderActivity() {
+        Intent intent = new Intent(getContext(), ActivityViewFolder.class);
+        startActivity(intent);
+    }
+
+    public void onFolderClick(ModelFolder folder) {
+        Utils.showToast(getContext(), "ASDF");
     }
 }

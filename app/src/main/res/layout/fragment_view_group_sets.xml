@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/viewGroupSets_mainCl"
@@ -7,81 +7,86 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryLight"
     android:orientation="vertical"
-    android:padding="20dp"
     tools:context=".FragmentViewGroupSets"
     tools:ignore="Overdraw">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/viewGroupSets_addSetsCv"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="1dp"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="20dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/viewGroupSets_addSetsCv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="1dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:id="@+id/viewGroupSets_addSetsCvLl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/viewGroupSets_addSetsTitleTv"
+                    style="@style/BasicBoldTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:justificationMode="inter_word"
+                    android:text="There are no sets in this group"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="20sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp" />
+
+                <TextView
+                    android:id="@+id/viewGroupSets_addSetsSubtitleTv"
+                    style="@style/BasicTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:justificationMode="inter_word"
+                    android:text="Add sets to share with other users"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+                <TextView
+                    android:id="@+id/viewGroupSets_addSetsTv"
+                    style="@style/BasicTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_ripple"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:justificationMode="inter_word"
+                    android:padding="10dp"
+                    android:text="Add sets"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp"
+                    app:drawableEndCompat="@drawable/ic_plus"
+                    app:drawableTint="@color/colorPrimary" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
 
         <LinearLayout
-            android:id="@+id/viewGroupSets_addSetsCvLl"
+            android:id="@+id/viewGroupSets_setListLl"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="20dp"
-            android:visibility="visible">
-
-            <TextView
-                android:id="@+id/viewGroupSets_addSetsTitleTv"
-                style="@style/BasicBoldTextStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:justificationMode="inter_word"
-                android:text="There are no sets in this group"
-                android:textColor="@color/primaryTextColor"
-                android:textSize="20sp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="5dp" />
-
-            <TextView
-                android:id="@+id/viewGroupSets_addSetsSubtitleTv"
-                style="@style/BasicTextStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:justificationMode="inter_word"
-                android:text="Add sets to share with other users"
-                android:textColor="@color/colorPrimary"
-                android:textSize="15sp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
-
-            <TextView
-                android:id="@+id/viewGroupSets_addSetsTv"
-                style="@style/BasicTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_ripple"
-                android:drawablePadding="10dp"
-                android:gravity="center_vertical"
-                android:justificationMode="inter_word"
-                android:padding="10dp"
-                android:text="Add sets"
-                android:textColor="@color/colorPrimary"
-                android:textSize="20sp"
-                app:drawableEndCompat="@drawable/ic_plus"
-                app:drawableTint="@color/colorPrimary" />
-
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-
-    <LinearLayout
-        android:id="@+id/viewGroupSets_memberListLl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <include layout="@layout/model_learning_set" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"></LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</ScrollView>

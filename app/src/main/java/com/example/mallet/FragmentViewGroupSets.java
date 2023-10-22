@@ -1,63 +1,67 @@
 package com.example.mallet;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentViewGroupSets#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class FragmentViewGroupSets extends Fragment {
+import com.example.mallet.databinding.FragmentViewGroupSetsBinding;
+import com.example.mallet.utils.AdapterFolder;
+import com.example.mallet.utils.ModelFlashcard;
+import com.example.mallet.utils.ModelFolder;
+import com.example.mallet.utils.ModelLearningSet;
+import com.example.mallet.utils.Utils;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import java.util.ArrayList;
+import java.util.List;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public FragmentViewGroupSets() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentViewGroupSets.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FragmentViewGroupSets newInstance(String param1, String param2) {
-        FragmentViewGroupSets fragment = new FragmentViewGroupSets();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+public class FragmentViewGroupSets extends Fragment implements AdapterFolder.OnFolderClickListener {
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        FragmentViewGroupSetsBinding binding = FragmentViewGroupSetsBinding.inflate(inflater, container, false);
+
+        LinearLayout userLibrarySetsLl = binding.viewGroupSetsSetListLl; // Change to LinearLayout
+        List<ModelLearningSet> userLibrarySetList = getUserLibrarySetList();
+
+        for (ModelLearningSet set : userLibrarySetList) {
+            View memberItemView = inflater.inflate(R.layout.model_learning_set, userLibrarySetsLl, false);
+
+            TextView usernameTv = memberItemView.findViewById(R.id.learningSet_nameTv);
+            usernameTv.setText(set.getName());
+
+            userLibrarySetsLl.addView(memberItemView);
+
+            //memberItemView.setOnClickListener(v -> startViewFolderActivity());
+
         }
+
+        return binding.getRoot();
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_view_group_sets, container, false);
+    private List<ModelLearningSet> getUserLibrarySetList() {
+        List<ModelLearningSet> setList = new ArrayList<>();
+        List<ModelFlashcard> flashcardList = new ArrayList<>();
+        setList.add(new ModelLearningSet("Fruits", "user123", null, flashcardList, 1, ""));
+        setList.add(new ModelLearningSet("Animals", "user123", null, flashcardList, 2, ""));
+        setList.add(new ModelLearningSet("Nrs", "user123", null, flashcardList, 3, ""));
+        setList.add(new ModelLearningSet("Countries", "user123", null, flashcardList, 4, ""));
+        setList.add(new ModelLearningSet("Colors", "user123", null, flashcardList, 5, ""));
+        return setList;
+    }
+
+    private void startViewFolderActivity() {
+        Intent intent = new Intent(getContext(), ActivityViewFolder.class);
+        startActivity(intent);
+    }
+
+    public void onFolderClick(ModelFolder folder) {
+        Utils.showToast(getContext(), "ASDF");
     }
 }
