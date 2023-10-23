@@ -11,7 +11,7 @@
     android:focusable="true"
     android:minWidth="300dp"
     app:cardCornerRadius="10dp"
-    app:cardElevation="3dp">
+    app:cardElevation="0dp">
 
     <LinearLayout
         android:id="@+id/learningSet_cvLl"

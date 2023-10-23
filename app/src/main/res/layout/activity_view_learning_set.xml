@@ -13,8 +13,8 @@
         android:id="@+id/view_set_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
         android:layout_gravity="center_vertical"
+        android:background="@android:color/transparent"
         android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,13 +80,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     android:id="@+id/view_set_nameTv"
                     style="@style/BasicBoldTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
                     android:gravity="center"
+                    android:justificationMode="inter_word"
                     android:text="set_name"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="20sp" />
@@ -108,12 +109,13 @@
                         android:src="@drawable/ic_profile"
                         app:tint="@color/danube_blue_800" />
 
-                    <TextView android:justificationMode="inter_word"
+                    <TextView
                         android:id="@+id/view_set_creatorTv"
                         style="@style/BasicTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
+                        android:justificationMode="inter_word"
                         android:text="user_name"
                         android:textColor="@color/colorPrimary" />
 
@@ -123,11 +125,12 @@
                         android:layout_marginHorizontal="10dp"
                         android:background="@color/danube_blue_200" />
 
-                    <TextView android:justificationMode="inter_word"
+                    <TextView
                         android:id="@+id/view_set_termsTv"
                         style="@style/BasicTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:justificationMode="inter_word"
                         android:text="terms"
                         android:textColor="@color/danube_blue_400" />
                 </LinearLayout>
@@ -136,10 +139,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="10dp" />
 
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     android:id="@+id/viewSet_descriptionTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:justificationMode="inter_word"
                     android:text="Set description"
                     android:textColor="@color/colorPrimary"
                     android:visibility="gone" />
@@ -165,7 +169,7 @@
                     android:focusable="true"
                     android:minWidth="300dp"
                     app:cardCornerRadius="10dp"
-                    app:cardElevation="3dp">
+                    app:cardElevation="0dp">
 
 
                     <LinearLayout
@@ -188,18 +192,20 @@
                             android:layout_marginHorizontal="10dp"
                             android:orientation="vertical">
 
-                            <TextView android:justificationMode="inter_word"
+                            <TextView
                                 style="@style/BasicBoldTextStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:justificationMode="inter_word"
                                 android:text="Flashcards"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="15sp" />
 
-                            <TextView android:justificationMode="inter_word"
+                            <TextView
                                 style="@style/BasicTextStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:justificationMode="inter_word"
                                 android:text="Review terms and definitions"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="15sp" />
@@ -213,13 +219,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="5dp"
                     android:layout_marginVertical="5dp"
-
                     android:background="@drawable/bg_social_btn"
                     android:clickable="true"
                     android:focusable="true"
                     android:minWidth="300dp"
                     app:cardCornerRadius="10dp"
-                    app:cardElevation="3dp">
+                    app:cardElevation="0dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -241,18 +246,20 @@
                             android:layout_marginHorizontal="10dp"
                             android:orientation="vertical">
 
-                            <TextView android:justificationMode="inter_word"
+                            <TextView
                                 style="@style/BasicBoldTextStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:justificationMode="inter_word"
                                 android:text="Learn"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="15sp" />
 
-                            <TextView android:justificationMode="inter_word"
+                            <TextView
                                 style="@style/BasicTextStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:justificationMode="inter_word"
                                 android:text="Study in your own pace"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="15sp" />
@@ -270,7 +277,7 @@
                     android:focusable="true"
                     android:minWidth="300dp"
                     app:cardCornerRadius="10dp"
-                    app:cardElevation="3dp">
+                    app:cardElevation="0dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -292,18 +299,20 @@
                             android:layout_marginHorizontal="10dp"
                             android:orientation="vertical">
 
-                            <TextView android:justificationMode="inter_word"
+                            <TextView
                                 style="@style/BasicBoldTextStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:justificationMode="inter_word"
                                 android:text="Test"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="15sp" />
 
-                            <TextView android:justificationMode="inter_word"
+                            <TextView
                                 style="@style/BasicTextStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:justificationMode="inter_word"
                                 android:text="Take a test to check your knowledge"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="15sp" />
@@ -322,7 +331,7 @@
                     android:focusable="true"
                     android:minWidth="300dp"
                     app:cardCornerRadius="10dp"
-                    app:cardElevation="3dp">
+                    app:cardElevation="0dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -344,18 +353,20 @@
                             android:layout_marginHorizontal="10dp"
                             android:orientation="vertical">
 
-                            <TextView android:justificationMode="inter_word"
+                            <TextView
                                 style="@style/BasicBoldTextStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:justificationMode="inter_word"
                                 android:text="Match"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="15sp" />
 
-                            <TextView android:justificationMode="inter_word"
+                            <TextView
                                 style="@style/BasicTextStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:justificationMode="inter_word"
                                 android:text="Match terms and definitions"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="15sp" />
@@ -367,10 +378,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="10dp" />
 
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     style="@style/BasicBoldTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:justificationMode="inter_word"
                     android:text="Cards in this set"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="20sp" />

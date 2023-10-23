@@ -65,7 +65,7 @@ public class ActivityMain extends AppCompatActivity {
     }
 
     private void setupContents() {
-        binding.bottomNavigationView.setOnItemSelectedListener(this::onNavigationItemSelected);
+        binding.mainBottomNavigation.setOnItemSelectedListener(this::onNavigationItemSelected);
     }
 
     private void initializeSelectedFragment(Bundle savedInstanceState) {
@@ -78,7 +78,7 @@ public class ActivityMain extends AppCompatActivity {
     }
 
     private void setSelectedFragment(int fragmentId) {
-        binding.bottomNavigationView.setSelectedItemId(fragmentId);
+        binding.mainBottomNavigation.setSelectedItemId(fragmentId);
     }
 
     @Override
@@ -90,13 +90,13 @@ public class ActivityMain extends AppCompatActivity {
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.main_activity_frame_layout, fragment);
+        fragmentTransaction.replace(R.id.mainFl, fragment);
         fragmentTransaction.commit();
     }
 
     @SuppressLint("RestrictedApi")
     private void setExceptionItemColor() {
-        BottomNavigationMenuView menuView = (BottomNavigationMenuView) binding.bottomNavigationView.getChildAt(0);
+        BottomNavigationMenuView menuView = (BottomNavigationMenuView) binding.mainBottomNavigation.getChildAt(0);
         BottomNavigationItemView exceptionItem = (BottomNavigationItemView) menuView.getChildAt(2);
         int color = ContextCompat.getColor(this, R.color.downriver_blue_300);
         exceptionItem.setIconTintList(ColorStateList.valueOf(color));

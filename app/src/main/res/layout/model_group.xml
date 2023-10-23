@@ -12,7 +12,7 @@
     android:focusable="true"
     android:minWidth="300dp"
     app:cardCornerRadius="10dp"
-    app:cardElevation="3dp"
+    app:cardElevation="0dp"
     card_view:strokeColor="@color/danube_blue_800">
 
     <LinearLayout
@@ -35,11 +35,12 @@
             android:layout_width="match_parent"
             android:layout_height="10dp" />
 
-        <TextView android:justificationMode="inter_word"
+        <TextView
             android:id="@+id/group_nameTv"
             style="@style/BasicBoldTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:justificationMode="inter_word"
 
             android:singleLine="true"
             android:text="group_name"
@@ -55,12 +56,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView android:justificationMode="inter_word"
+            <TextView
                 android:id="@+id/group_nrOfMembersTv"
                 style="@style/BasicTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
+                android:justificationMode="inter_word"
                 android:text=" members"
                 android:textColor="@color/colorPrimary"
                 android:textSize="15sp" />
@@ -71,12 +73,13 @@
                 android:layout_marginHorizontal="10dp"
                 android:background="@color/colorPrimaryLight" />
 
-            <TextView android:justificationMode="inter_word"
+            <TextView
                 android:id="@+id/group_nrOfSetsTv"
                 style="@style/BasicTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
+                android:justificationMode="inter_word"
                 android:text=" sets"
                 android:textColor="@color/colorPrimary"
                 android:textSize="15sp" />
