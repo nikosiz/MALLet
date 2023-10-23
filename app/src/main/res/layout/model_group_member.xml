@@ -4,16 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
-    android:background="@drawable/bg_corners_rounded"
+    android:background="@drawable/bg_white_dark_stroke"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:paddingVertical="10dp">
 
     <LinearLayout
         android:id="@+id/groupMemberLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_marginHorizontal="10dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -44,24 +44,133 @@
             android:src="@drawable/ic_toolbar_options" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/groupMember_permissionTv"
-        style="@style/BasicTextStyle"
+    <LinearLayout
+        android:id="@+id/groupMember_permissionsLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_margin="5dp"
-        android:layout_weight="1"
-        android:background="@drawable/bg_ripple"
-        android:clickable="true"
-        android:drawableEnd="@drawable/ic_permissions"
-        android:drawablePadding="10dp"
-        android:drawableTint="@color/colorPrimaryDark"
-        android:focusable="true"
-        android:gravity="center_vertical|end"
-        android:padding="10dp"
-        android:text="Manage permissions"
-        android:textSize="20sp" />
+        android:layout_marginHorizontal="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/groupMember_permissionsTv"
+            style="@style/BasicTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_weight="1"
+            android:background="@drawable/bg_ripple"
+            android:drawableEnd="@drawable/ic_permissions"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/colorPrimaryDark"
+            android:gravity="center_vertical|end"
+            android:padding="10dp"
+            android:text="Manage permissions"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:id="@+id/groupMember_permissionsRgLl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/groupMember_groupPermissionsLl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/groupMember_groupPermissionsTitleTv"
+                    style="@style/BasicTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_ripple"
+                    android:drawableEnd="@drawable/ic_create_group"
+                    android:drawablePadding="10dp"
+                    android:drawableTint="@color/colorPrimaryDark"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:text="Group"
+                    android:textSize="20sp" />
+
+                <RadioGroup
+                    android:id="@+id/groupMember_groupPermissionsRg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/groupMember_groupPermissionsViewRb"
+                        style="@style/CustomRadioButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/carnation_red_500"
+                        android:checked="true"
+                        android:text="View"
+                        android:textSize="15sp" />
+
+                    <RadioButton
+                        android:id="@+id/groupMember_groupPermissionsEditRb"
+                        style="@style/CustomRadioButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Edit"
+                        android:textSize="15sp" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/groupMember_setPermissionsLl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/groupMember_setPermissionsTitleTv"
+                    style="@style/BasicTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_ripple"
+                    android:drawableEnd="@drawable/ic_learning_set"
+                    android:drawablePadding="10dp"
+                    android:drawableTint="@color/colorPrimaryDark"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:text="Sets"
+                    android:textSize="20sp" />
+
+                <RadioGroup
+                    android:id="@+id/groupMember_setPermissionsRg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/groupMember_setPermissionsViewRb"
+                        style="@style/CustomRadioButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/carnation_red_500"
+                        android:checked="true"
+                        android:text="View"
+                        android:textSize="15sp" />
+
+                    <RadioButton
+                        android:id="@+id/groupMember_setPermissionsEditRb"
+                        style="@style/CustomRadioButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Edit"
+                        android:textSize="15sp" />
+                </RadioGroup>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/groupMember_deleteTv"
@@ -69,7 +178,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:layout_margin="5dp"
+        android:layout_marginHorizontal="10dp"
         android:layout_weight="1"
         android:background="@drawable/bg_ripple"
         android:clickable="true"

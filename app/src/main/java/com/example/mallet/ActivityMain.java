@@ -3,6 +3,7 @@ package com.example.mallet;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -49,6 +50,8 @@ public class ActivityMain extends AppCompatActivity {
     private static final String SELECTED_FRAGMENT_KEY = "selected_fragment";
     private int selectedFragmentId = R.id.bottom_nav_home;
     private EditText folderNameEt, folderDescriptionEt;
+    private SharedPreferences sharedPreferences;
+    private int savedTheme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +110,7 @@ public class ActivityMain extends AppCompatActivity {
         } else if (selectedFragmentId == R.id.bottom_nav_library) {
             replaceFragment(new FragmentSetsDatabase());
         } else if (selectedFragmentId == R.id.bottom_nav_add_new) {
-            createNewSetFolderGroupDialog();
+            newSetFolderGroupDialog();
         } else if (selectedFragmentId == R.id.bottom_nav_your_library) {
             replaceFragment(new FragmentUserLibrary());
         } else if (selectedFragmentId == R.id.bottom_nav_profile) {
@@ -116,7 +119,7 @@ public class ActivityMain extends AppCompatActivity {
         return true;
     }
 
-    private void createNewSetFolderGroupDialog() {
+    private void newSetFolderGroupDialog() {
         final Dialog dialog = createDialog(R.layout.dialog_create);
         DialogCreateBinding dialogBinding = DialogCreateBinding.inflate(getLayoutInflater());
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());

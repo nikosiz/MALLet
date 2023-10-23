@@ -8,13 +8,15 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 public class MALLet extends Application {
     private MALLet mallet;
+    private SharedPreferences sharedPreferences;
+    private int selectedTheme;
 
     @Override
     public void onCreate() {
         super.onCreate();
         initializeTheme();
 
-        mallet=new MALLet();
+        mallet = new MALLet();
     }
 
     public MALLet getMALLet() {
@@ -22,8 +24,12 @@ public class MALLet extends Application {
     }
 
     private void initializeTheme() {
-        String selectedTheme = getSavedTheme();
-        applyTheme(selectedTheme);
+        // Load the selected theme from SharedPreferences
+        sharedPreferences = getApplicationContext().getSharedPreferences("AppSettings", Context.MODE_PRIVATE);
+        selectedTheme = sharedPreferences.getInt("selectedTheme", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+
+        // Set the theme based on the selectedTheme value
+        AppCompatDelegate.setDefaultNightMode(selectedTheme);
     }
 
     public String getSavedTheme() {

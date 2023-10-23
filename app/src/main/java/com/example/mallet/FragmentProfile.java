@@ -15,6 +15,9 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -38,18 +41,35 @@ import java.util.regex.Pattern;
 
 public class FragmentProfile extends Fragment {
     private FragmentProfileBinding binding;
-    private int clickCount = 0, themeCounter;
-    private TextView themeTv;
-    private String selectedTheme;
+    private int clickCount = 0;
+    int[] themeClickCounter = {0};
     private final Pattern usernamePattern = Pattern.compile("^[a-zA-Z0-9_]+$");
-    private final String usernameIncorrect = "The username can only consist of letters, nrs, and underscores";
-    private final String emailIncorrectMsg = "Email incorrect";
     private final Pattern passwordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^*()<>?/|}{~:]).{8,}$");
-    private final String passwordIncorrect = "The password must be at least 8 characters long and contain at least one digit, one small letter, one big letter and one special character";
-    private MaterialSwitch notificationsMs, setsOfflineMs;
+
+    // Declare your strings here, but don't initialize them immediately
+    private String usernameIncorrect;
+    private String emailIncorrect;
+    private String passwordIncorrect;
+
+    private LinearLayout emailLl;
+    private LinearLayout usernameLl;
+    private TextView passwordTv;
+    private MaterialSwitch notificationsMs;
+    private MaterialSwitch setsOfflineMs;
+    private LinearLayout themeLl;
+    private TextView themeTv;
+    private LinearLayout themeRgLl;
+    private RadioGroup themeRg;
+    private RadioButton systemThemeRb;
+    private RadioButton lightThemeRb;
+    private RadioButton darkThemeRb;
+    private TextView aboutTv;
+    private TextView logoutTv;
+    private TextView deleteAccTv;
     private static final String PREFS_NAME = "ProfileAppSettings";
     private static final String KEY_NOTIFICATIONS = "notifications";
     private static final String KET_SETS_OFFLINE = "setsOffline";
+    private int selectedTheme;
 
     @Nullable
     @Override
@@ -57,49 +77,67 @@ public class FragmentProfile extends Fragment {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
 
         setupContents();
-
-        selectedTheme = getSavedTheme();
-        switch (selectedTheme) {
-            case "System default":
-                themeCounter = 0;
-                break;
-            case "Light":
-                themeCounter = 1;
-                break;
-            case "Dark":
-                themeCounter = 2;
-                break;
+        // Set themeTv based on the current theme
+        int currentTheme = AppCompatDelegate.getDefaultNightMode();
+        if (currentTheme == AppCompatDelegate.MODE_NIGHT_NO) {
+            themeTv.setText("Light theme");
+            lightThemeRb.setChecked(true);
+            darkThemeRb.setChecked(false);
+        } else if (currentTheme == AppCompatDelegate.MODE_NIGHT_YES) {
+            themeTv.setText("Dark theme");
+            lightThemeRb.setChecked(false);
+            darkThemeRb.setChecked(true);
         }
+
+        // Initialize the strings requiring the context here
+        usernameIncorrect = getString(R.string.username_incorrect);
+        emailIncorrect = getString(R.string.email_incorrect);
+        passwordIncorrect = getString(R.string.password_incorrect);
+
 
         return binding.getRoot();
     }
 
     private void setupContents() {
-        binding.profileUserPhotoIv.setOnClickListener(v -> Utils.openActivity(getContext(), ActivityViewProfile.class));
-
-        binding.profileEmailLl.setOnClickListener(v -> verifyPasswordDialog(VerifyPasswordAction.CHANGE_EMAIL));
-        binding.profileUsernameLll.setOnClickListener(v -> verifyPasswordDialog(VerifyPasswordAction.CHANGE_USERNAME));
-        binding.profileChangePasswordTv.setOnClickListener(v -> changePasswordDialog());
+        emailLl = binding.profileEmailLl;
+        usernameLl = binding.profileUsernameLll;
+        passwordTv = binding.profileChangePasswordTv;
 
         notificationsMs = binding.profileNotificationsMs;
+        setsOfflineMs = binding.profileSaveOfflineMs;
+        themeLl = binding.profileThemeLl;
+        themeTv = binding.profileThemeTv;
+        themeRgLl = binding.profileThemeRgLl;
+        themeRg = binding.profileThemeRg;
+        lightThemeRb = binding.profileLightThemeRb;
+        darkThemeRb = binding.profileDarkThemeRb;
+        aboutTv = binding.profileAboutTv;
+        logoutTv = binding.profileLogoutTv;
+        deleteAccTv = binding.profileDeleteAccTv;
+
+        //binding.profileUserPhotoIv.setOnClickListener(v -> Utils.openActivity(getContext(), ActivityViewProfile.class));
+
+        emailLl.setOnClickListener(v -> verifyPasswordDialog(VerifyPasswordAction.CHANGE_EMAIL));
+        usernameLl.setOnClickListener(v -> verifyPasswordDialog(VerifyPasswordAction.CHANGE_USERNAME));
+        passwordTv.setOnClickListener(v -> changePasswordDialog());
+
         notificationsMs.setChecked(getSwitchState(KEY_NOTIFICATIONS));
 
         notificationsMs.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 // TODO: Implement notifications
-                // Enable notifications
+                showNotifications();
                 Utils.showToast(getContext(), "You will get notifications when the back end exists");
                 binding.profileNotificationsMs.setChecked(true);
             } else {
                 // TODO: Implement
-                // Disable notifications
+                doNotShowNotifications();
                 Utils.showToast(getContext(), "You will NOT get notifications when the back end exists");
                 binding.profileNotificationsMs.setChecked(false);
             }
             saveSwitchState(KEY_NOTIFICATIONS, isChecked);
         });
 
-        setsOfflineMs = binding.profileSaveOfflineMs;
         setsOfflineMs.setChecked(getSwitchState(KEY_NOTIFICATIONS));
 
         setsOfflineMs.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -115,35 +153,53 @@ public class FragmentProfile extends Fragment {
             saveSwitchState(KET_SETS_OFFLINE, isChecked);
         });
 
-        selectedTheme = getSavedTheme();
-        themeTv = binding.profileThemeTv;
-        themeTv.setText(selectedTheme);
+        Utils.hideItem(themeRgLl);
+        Utils.disableItems(themeRgLl);
 
-        binding.profileThemeLl.setOnClickListener(v -> {
-            themeCounter++;
-            System.out.println(themeCounter);
-            if (themeCounter % 3 == 0) {
-                selectedTheme = "System default";
-            } else if (themeCounter % 3 == 1) {
-                selectedTheme = "Light";
-            } else if (themeCounter % 3 == 2) {
-                selectedTheme = "Dark";
+        themeLl.setOnClickListener(v -> {
+            themeClickCounter[0]++;
+            if (themeClickCounter[0] % 2 != 0) {
+                Utils.showItem(themeRgLl);
+                Utils.enableItems(themeRgLl);
+            } else {
+                Utils.hideItem(themeRgLl);
+                Utils.disableItems(themeRgLl);
             }
-
-            // Save the selected theme and apply it
-            saveSelectedTheme(selectedTheme);
-            applyTheme(selectedTheme);
-
-            // Update the themeTv text
-            themeTv.setText(selectedTheme);
-
-
         });
 
-        binding.profileAboutTv.setOnClickListener(v -> aboutDialog());
-        binding.profileLogoutTv.setOnClickListener(v -> logOut());
+        themeRg.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.profile_lightThemeRb) {
+                themeTv.setText("Light theme");
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                saveSelectedTheme(AppCompatDelegate.MODE_NIGHT_NO);
+            } else if (checkedId == R.id.profile_darkThemeRb) {
+                themeTv.setText("Dark theme");
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                saveSelectedTheme(AppCompatDelegate.MODE_NIGHT_YES);
+            }
+        });
 
-        binding.profileDeleteAccTv.setOnClickListener(v -> showDeleteAccountDialog());
+        aboutTv.setOnClickListener(v -> aboutDialog());
+        logoutTv.setOnClickListener(v -> logOut());
+
+        deleteAccTv.setOnClickListener(v -> showDeleteAccountDialog());
+    }
+
+    private void saveSelectedTheme(int selectedTheme) {
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("AppSettings", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        // Save the selected theme to SharedPreferences
+        editor.putInt("selectedTheme", selectedTheme);
+
+        // Apply the changes
+        editor.apply();
+    }
+
+    private void showNotifications() {
+    }
+
+    private void doNotShowNotifications() {
     }
 
     public enum VerifyPasswordAction {
@@ -203,7 +259,7 @@ public class FragmentProfile extends Fragment {
 
         TextInputEditText newEmailEt = dialogBinding.changeEmailEt;
         TextView emailErrTv = dialogBinding.changeEmailErrorTv;
-        Utils.setupTextWatcher(newEmailEt, emailErrTv, Patterns.EMAIL_ADDRESS, emailIncorrectMsg);
+        Utils.setupTextWatcher(newEmailEt, emailErrTv, Patterns.EMAIL_ADDRESS, emailIncorrect);
 
         TextView cancelTv = dialogBinding.changeEmailCancelTv;
         TextView confirmTv = dialogBinding.changeEmailConfirmTv;
@@ -215,7 +271,7 @@ public class FragmentProfile extends Fragment {
 
         confirmTv.setOnClickListener(v -> {
             String newEmail = Objects.requireNonNull(newEmailEt.getText()).toString();
-            Utils.validateInput(newEmailEt, emailErrTv, Patterns.EMAIL_ADDRESS, emailIncorrectMsg);
+            Utils.validateInput(newEmailEt, emailErrTv, Patterns.EMAIL_ADDRESS, emailIncorrect);
 
             // TODO: Implement password verification through AuthenticationManager
 
@@ -320,31 +376,6 @@ public class FragmentProfile extends Fragment {
     private boolean getSwitchState(String switchKey) {
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getBoolean(switchKey, false); // Default value (false) if key not found
-    }
-
-    private void saveSelectedTheme(String themeName) {
-        SharedPreferences preferences = requireContext().getSharedPreferences("theme_prefs", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("selectedTheme", themeName);
-        editor.apply();
-    }
-
-    private String getSavedTheme() {
-        SharedPreferences preferences = requireContext().getSharedPreferences("theme_prefs", Context.MODE_PRIVATE);
-        return preferences.getString("selectedTheme", "System default");
-    }
-
-    private void applyTheme(String themeName) {
-        int themeMode;
-        if (themeName.equals("Light")) {
-            themeMode = AppCompatDelegate.MODE_NIGHT_NO;
-        } else if (themeName.equals("Dark")) {
-            themeMode = AppCompatDelegate.MODE_NIGHT_YES;
-        } else {
-            themeMode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
-        }
-
-        AppCompatDelegate.setDefaultNightMode(themeMode);
     }
 
 

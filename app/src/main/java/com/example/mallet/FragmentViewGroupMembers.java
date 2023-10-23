@@ -1,6 +1,5 @@
 package com.example.mallet;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,8 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentViewGroupMembers extends Fragment implements AdapterFolder.OnFolderClickListener {
-    int clickCounter = 0;
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentViewGroupMembersBinding binding = FragmentViewGroupMembersBinding.inflate(inflater, container, false);
@@ -37,22 +34,38 @@ public class FragmentViewGroupMembers extends Fragment implements AdapterFolder.
             final View[] memberItemView = {inflater.inflate(R.layout.model_group_member, userLibraryMembersLl, false)};
 
             TextView usernameTv = memberItemView[0].findViewById(R.id.groupMember_usernameTv);
+            TextView memberTv = memberItemView[0].findViewById(R.id.groupMember_usernameTv);
             ImageView memberOptionsIv = memberItemView[0].findViewById(R.id.groupMember_optionsIv);
-            TextView managePermissionsTv = memberItemView[0].findViewById(R.id.groupMember_permissionTv);
+            LinearLayout managePermissionsLl = memberItemView[0].findViewById(R.id.groupMember_permissionsLl);
             TextView deleteUserTv = memberItemView[0].findViewById(R.id.groupMember_deleteTv);
 
             // Initially hide the TextViews
-            Utils.hideItems(deleteUserTv, managePermissionsTv);
+            Utils.hideItems(deleteUserTv, managePermissionsLl);
+            Utils.makeItemsUnclickable(deleteUserTv, managePermissionsLl);
 
             usernameTv.setText(member.getUsername());
+
+            memberTv.setOnClickListener(v -> {
+                clickCounter[0]++;
+                // Use the local clickCounter here
+                if (clickCounter[0] % 2 != 0) {
+                    Utils.showItems(deleteUserTv, managePermissionsLl); // Show on odd clicks
+                    Utils.makeItemsClickable(deleteUserTv);
+                } else {
+                    Utils.hideItems(deleteUserTv, managePermissionsLl); // Hide on even clicks
+                    Utils.makeItemsClickable(deleteUserTv);
+                }
+            });
 
             memberOptionsIv.setOnClickListener(v -> {
                 clickCounter[0]++;
                 // Use the local clickCounter here
                 if (clickCounter[0] % 2 != 0) {
-                    Utils.showItems(deleteUserTv, managePermissionsTv); // Show on odd clicks
+                    Utils.showItems(deleteUserTv, managePermissionsLl); // Show on odd clicks
+                    Utils.makeItemsClickable(deleteUserTv, managePermissionsLl);
                 } else {
-                    Utils.hideItems(deleteUserTv, managePermissionsTv); // Hide on even clicks
+                    Utils.hideItems(deleteUserTv, managePermissionsLl); // Hide on even clicks
+                    Utils.makeItemsClickable(deleteUserTv, managePermissionsLl);
                 }
             });
 
@@ -73,9 +86,8 @@ public class FragmentViewGroupMembers extends Fragment implements AdapterFolder.
         return memberList;
     }
 
-    private void startViewFolderActivity() {
-        Intent intent = new Intent(getContext(), ActivityViewFolder.class);
-        startActivity(intent);
+    private void managePermissions() {
+
     }
 
     public void onFolderClick(ModelFolder folder) {

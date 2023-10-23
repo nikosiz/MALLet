@@ -11,9 +11,7 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -24,7 +22,6 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.example.mallet.R;
-import com.example.mallet.databinding.DialogConfirmExitBinding;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -241,15 +238,39 @@ public class Utils {
         return errorTv.getVisibility() == View.VISIBLE;
     }
 
+    public static void showItems(View... elements) {
+        for (View element : elements) {
+            element.setVisibility(View.VISIBLE);
+        }
+    }
+
     public static void hideItems(View... elements) {
         for (View element : elements) {
             element.setVisibility(View.GONE);
         }
     }
 
-    public static void showItems(View... elements) {
-        for (View element : elements) {
-            element.setVisibility(View.VISIBLE);
+    public static void enableItems(View... items) {
+        for (View item : items) {
+            item.setEnabled(true);
+        }
+    }
+
+    public static void disableItems(View... items) {
+        for (View item : items) {
+            item.setEnabled(false);
+        }
+    }
+
+    public static void makeItemsClickable(View... items) {
+        for (View item : items) {
+            item.setClickable(true);
+        }
+    }
+
+    public static void makeItemsUnclickable(View... items) {
+        for (View item : items) {
+            item.setClickable(false);
         }
     }
 
@@ -276,34 +297,9 @@ public class Utils {
         new Handler().postDelayed(() -> backClickCounter = false, 2000); // Reset the flag after 2 seconds
     }
 
-    public static void finishActivityOnDoubleTap(Activity activity) {
-        if (backClickCounter) {
-            activity.finish();
-        }
-
-        backClickCounter = true;
-        Toast.makeText(activity, "Press back again to leave", Toast.LENGTH_SHORT).show();
-
-        new Handler().postDelayed(() -> backClickCounter = false, 2000); // Reset the flag after 2 seconds
-    }
-
     public static void resetEditText(EditText et, TextView err) {
         et.setText("");
         et.clearFocus();
         hideItem(err);
-    }
-
-    public static void confirmExitDialog(Context context, Activity activity) {
-        final Dialog dialog = createDialog(context, R.layout.dialog_confirm_exit);
-        DialogConfirmExitBinding dialogBinding = DialogConfirmExitBinding.inflate(LayoutInflater.from(context));
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
-        dialog.show();
-
-        dialogBinding.confirmExitCancelTv.setOnClickListener(v -> dialog.dismiss());
-        dialogBinding.confirmExitConfirmTv.setOnClickListener(v -> {
-            activity.finish();
-            dialog.dismiss();
-        });
     }
 }
