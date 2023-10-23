@@ -160,9 +160,9 @@ public class ActivityViewGroup extends AppCompatActivity {
                 Fragment result = null;
                 // Return the appropriate fragment for each tab
                 if (position == 0) {
-                    result = new FragmentViewGroupSets();
+                    result = new FragmentViewGroup_Sets();
                 } else if (position == 1) {
-                    result = new FragmentViewGroupMembers();
+                    result = new FragmentViewGroup_Members();
                 }
                 return result;
             }

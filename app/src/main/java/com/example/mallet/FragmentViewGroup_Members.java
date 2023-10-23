@@ -20,7 +20,7 @@ import com.example.mallet.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FragmentViewGroupMembers extends Fragment implements AdapterFolder.OnFolderClickListener {
+public class FragmentViewGroup_Members extends Fragment implements AdapterFolder.OnFolderClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentViewGroupMembersBinding binding = FragmentViewGroupMembersBinding.inflate(inflater, container, false);
@@ -31,13 +31,13 @@ public class FragmentViewGroupMembers extends Fragment implements AdapterFolder.
         for (ModelGroupMember member : userLibraryMembersList) {
             final int[] clickCounter = {0}; // Define a final variable here
 
-            final View[] memberItemView = {inflater.inflate(R.layout.model_group_member, userLibraryMembersLl, false)};
+            final View memberItemView = inflater.inflate(R.layout.model_group_member, userLibraryMembersLl, false);
 
-            TextView usernameTv = memberItemView[0].findViewById(R.id.groupMember_usernameTv);
-            TextView memberTv = memberItemView[0].findViewById(R.id.groupMember_usernameTv);
-            ImageView memberOptionsIv = memberItemView[0].findViewById(R.id.groupMember_optionsIv);
-            LinearLayout managePermissionsLl = memberItemView[0].findViewById(R.id.groupMember_permissionsLl);
-            TextView deleteUserTv = memberItemView[0].findViewById(R.id.groupMember_deleteTv);
+            TextView usernameTv = memberItemView.findViewById(R.id.groupMember_usernameTv);
+            TextView memberTv = memberItemView.findViewById(R.id.groupMember_usernameTv);
+            ImageView memberOptionsIv = memberItemView.findViewById(R.id.groupMember_optionsIv);
+            LinearLayout managePermissionsLl = memberItemView.findViewById(R.id.groupMember_permissionsLl);
+            TextView deleteUserTv = memberItemView.findViewById(R.id.groupMember_deleteTv);
 
             // Initially hide the TextViews
             Utils.hideItems(deleteUserTv, managePermissionsLl);
@@ -69,7 +69,7 @@ public class FragmentViewGroupMembers extends Fragment implements AdapterFolder.
                 }
             });
 
-            userLibraryMembersLl.addView(memberItemView[0]);
+            userLibraryMembersLl.addView(memberItemView);
         }
 
 

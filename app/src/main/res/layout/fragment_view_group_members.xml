@@ -8,7 +8,7 @@
     android:background="@color/colorPrimaryLight"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".FragmentViewGroupMembers"
+    tools:context=".FragmentViewGroup_Members"
     tools:ignore="Overdraw">
 
     <LinearLayout

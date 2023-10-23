@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryLight"
     android:orientation="vertical"
-    tools:context=".FragmentViewGroupSets"
+    tools:context=".FragmentViewGroup_Sets"
     tools:ignore="Overdraw">
 
     <LinearLayout

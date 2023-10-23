@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/groupMember_mainLl"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -20,17 +21,17 @@
         <TextView
             android:id="@+id/groupMember_usernameTv"
             style="@style/BasicTextStyle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:clickable="true"
-            android:drawableStart="@drawable/ic_profile"
             android:drawablePadding="10dp"
-            android:drawableTint="@color/colorPrimaryDark"
             android:focusable="true"
             android:padding="10dp"
             android:text="group_member_username"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            app:drawableStartCompat="@drawable/ic_profile"
+            app:drawableTint="@color/colorPrimaryDark" />
 
 
         <ImageView
@@ -55,23 +56,24 @@
             android:id="@+id/groupMember_permissionsTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_gravity="end"
             android:layout_weight="1"
             android:background="@drawable/bg_ripple"
-            android:drawableEnd="@drawable/ic_permissions"
             android:drawablePadding="10dp"
-            android:drawableTint="@color/colorPrimaryDark"
             android:gravity="center_vertical|end"
             android:padding="10dp"
             android:text="Manage permissions"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            app:drawableEndCompat="@drawable/ic_permissions"
+            app:drawableTint="@color/colorPrimaryDark" />
 
         <LinearLayout
             android:id="@+id/groupMember_permissionsRgLl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
+            android:baselineAligned="false"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -87,15 +89,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:layout_weight="1"
                     android:background="@drawable/bg_ripple"
-                    android:drawableEnd="@drawable/ic_create_group"
                     android:drawablePadding="10dp"
-                    android:drawableTint="@color/colorPrimaryDark"
                     android:gravity="center_vertical"
                     android:padding="10dp"
                     android:text="Group"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    app:drawableEndCompat="@drawable/ic_create_group"
+                    app:drawableTint="@color/colorPrimaryDark" />
 
                 <RadioGroup
                     android:id="@+id/groupMember_groupPermissionsRg"
@@ -135,15 +136,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:layout_weight="1"
                     android:background="@drawable/bg_ripple"
-                    android:drawableEnd="@drawable/ic_learning_set"
                     android:drawablePadding="10dp"
-                    android:drawableTint="@color/colorPrimaryDark"
                     android:gravity="center_vertical"
                     android:padding="10dp"
                     android:text="Sets"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    app:drawableEndCompat="@drawable/ic_learning_set"
+                    app:drawableTint="@color/colorPrimaryDark" />
 
                 <RadioGroup
                     android:id="@+id/groupMember_setPermissionsRg"
@@ -176,18 +176,18 @@
         android:id="@+id/groupMember_deleteTv"
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_gravity="end"
         android:layout_marginHorizontal="10dp"
         android:layout_weight="1"
         android:background="@drawable/bg_ripple"
         android:clickable="true"
-        android:drawableEnd="@drawable/ic_delete"
         android:drawablePadding="10dp"
-        android:drawableTint="@color/colorPrimaryDark"
         android:focusable="true"
         android:gravity="center_vertical|end"
         android:padding="10dp"
         android:text="Delete member"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        app:drawableEndCompat="@drawable/ic_delete"
+        app:drawableTint="@color/colorPrimaryDark" />
 </LinearLayout>

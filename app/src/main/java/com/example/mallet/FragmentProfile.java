@@ -50,22 +50,11 @@ public class FragmentProfile extends Fragment {
     private String usernameIncorrect;
     private String emailIncorrect;
     private String passwordIncorrect;
-
-    private LinearLayout emailLl;
-    private LinearLayout usernameLl;
-    private TextView passwordTv;
-    private MaterialSwitch notificationsMs;
-    private MaterialSwitch setsOfflineMs;
-    private LinearLayout themeLl;
     private TextView themeTv;
     private LinearLayout themeRgLl;
-    private RadioGroup themeRg;
     private RadioButton systemThemeRb;
     private RadioButton lightThemeRb;
     private RadioButton darkThemeRb;
-    private TextView aboutTv;
-    private TextView logoutTv;
-    private TextView deleteAccTv;
     private static final String PREFS_NAME = "ProfileAppSettings";
     private static final String KEY_NOTIFICATIONS = "notifications";
     private static final String KET_SETS_OFFLINE = "setsOffline";
@@ -99,21 +88,20 @@ public class FragmentProfile extends Fragment {
     }
 
     private void setupContents() {
-        emailLl = binding.profileEmailLl;
-        usernameLl = binding.profileUsernameLll;
-        passwordTv = binding.profileChangePasswordTv;
+        LinearLayout emailLl = binding.profileEmailLl;
+        LinearLayout usernameLl = binding.profileUsernameLll;
+        TextView passwordTv = binding.profileChangePasswordTv;
 
-        notificationsMs = binding.profileNotificationsMs;
-        setsOfflineMs = binding.profileSaveOfflineMs;
-        themeLl = binding.profileThemeLl;
+        MaterialSwitch notificationsMs = binding.profileNotificationsMs;
+        MaterialSwitch setsOfflineMs = binding.profileSaveOfflineMs;
+        LinearLayout themeLl = binding.profileThemeLl;
         themeTv = binding.profileThemeTv;
-        themeRgLl = binding.profileThemeRgLl;
-        themeRg = binding.profileThemeRg;
+        RadioGroup themeRg = binding.profileThemeRg;
         lightThemeRb = binding.profileLightThemeRb;
         darkThemeRb = binding.profileDarkThemeRb;
-        aboutTv = binding.profileAboutTv;
-        logoutTv = binding.profileLogoutTv;
-        deleteAccTv = binding.profileDeleteAccTv;
+        TextView aboutTv = binding.profileAboutTv;
+        TextView logoutTv = binding.profileLogoutTv;
+        TextView deleteAccTv = binding.profileDeleteAccTv;
 
         //binding.profileUserPhotoIv.setOnClickListener(v -> Utils.openActivity(getContext(), ActivityViewProfile.class));
 
@@ -153,17 +141,17 @@ public class FragmentProfile extends Fragment {
             saveSwitchState(KET_SETS_OFFLINE, isChecked);
         });
 
-        Utils.hideItem(themeRgLl);
-        Utils.disableItems(themeRgLl);
+        Utils.hideItem(themeRg);
+        Utils.disableItems(themeRg);
 
         themeLl.setOnClickListener(v -> {
             themeClickCounter[0]++;
             if (themeClickCounter[0] % 2 != 0) {
-                Utils.showItem(themeRgLl);
-                Utils.enableItems(themeRgLl);
+                Utils.showItem(themeRg);
+                Utils.enableItems(themeRg);
             } else {
-                Utils.hideItem(themeRgLl);
-                Utils.disableItems(themeRgLl);
+                Utils.hideItem(themeRg);
+                Utils.disableItems(themeRg);
             }
         });
 
@@ -189,18 +177,11 @@ public class FragmentProfile extends Fragment {
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("AppSettings", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        // Save the selected theme to SharedPreferences
         editor.putInt("selectedTheme", selectedTheme);
 
-        // Apply the changes
         editor.apply();
     }
 
-    private void showNotifications() {
-    }
-
-    private void doNotShowNotifications() {
-    }
 
     public enum VerifyPasswordAction {
         CHANGE_EMAIL, CHANGE_USERNAME
@@ -366,6 +347,14 @@ public class FragmentProfile extends Fragment {
         });
     }
 
+    private void showNotifications() {
+        //todo
+    }
+
+    private void doNotShowNotifications() {
+        //todo
+    }
+
     private void saveSwitchState(String switchKey, boolean isChecked) {
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -383,7 +372,6 @@ public class FragmentProfile extends Fragment {
         final Dialog dialog = createDialog(R.layout.dialog_change_password);
         DialogAboutBinding dialogBinding = DialogAboutBinding.inflate(LayoutInflater.from(requireContext()));
         dialog.setContentView(dialogBinding.getRoot());
-
 
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.show();

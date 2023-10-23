@@ -21,7 +21,7 @@ import com.example.mallet.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FragmentViewGroupSets extends Fragment implements AdapterFolder.OnFolderClickListener {
+public class FragmentViewGroup_Sets extends Fragment implements AdapterFolder.OnFolderClickListener {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
