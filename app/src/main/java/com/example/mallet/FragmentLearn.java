@@ -1,3 +1,5 @@
+//TODO: make this class display written/multipleChoice based on which switches are selected
+
 package com.example.mallet;
 
 import android.app.Dialog;
@@ -103,9 +105,7 @@ public class FragmentLearn extends Fragment {
         });
 
 
-        finishTv.setOnClickListener(v -> {
-            learningFinishedDialog();
-        });
+        finishTv.setOnClickListener(v -> learningFinishedDialog());
 
         System.out.println(currentQuestionIndex);
         return binding.getRoot();
