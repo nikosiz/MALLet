@@ -37,13 +37,14 @@
         android:id="@+id/folderToolbarOptionsLl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:gravity="bottom"
         android:orientation="vertical"
-        android:padding="30dp">
+        android:paddingHorizontal="20dp">
 
         <TextView
             android:id="@+id/folderToolbarOptions_editTv"
-            style="@style/BasicTextStyle"
+            style="@style/BasicBoldTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_ripple"
@@ -58,7 +59,7 @@
 
         <TextView
             android:id="@+id/folderToolbarOptions_addTv"
-            style="@style/BasicTextStyle"
+            style="@style/BasicBoldTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_ripple"
@@ -74,7 +75,7 @@
 
         <TextView
             android:id="@+id/folderToolbarOptions_shareTv"
-            style="@style/BasicTextStyle"
+            style="@style/BasicBoldTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_ripple"
@@ -90,7 +91,7 @@
 
         <TextView
             android:id="@+id/folderToolbarOptions_deleteTv"
-            style="@style/BasicTextStyle"
+            style="@style/BasicBoldTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_ripple"
@@ -104,4 +105,18 @@
             app:drawableEndCompat="@drawable/ic_delete"
             app:drawableTint="@color/accentPrimary" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/viewFolderOptions_cancelTv"
+        style="@style/BasicBoldTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:justificationMode="inter_word"
+        android:padding="30dp"
+        android:text="Cancel"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp" />
 </LinearLayout>

@@ -38,13 +38,14 @@
         android:id="@+id/viewFolderOptionsLl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:gravity="bottom"
         android:orientation="vertical"
-        android:padding="30dp">
+        android:paddingHorizontal="20dp">
 
         <TextView
             android:id="@+id/viewFolderOptions_editTv"
-            style="@style/BasicTextStyle"
+            style="@style/BasicBoldTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_ripple"
@@ -54,14 +55,14 @@
             android:justificationMode="inter_word"
             android:padding="20dp"
             android:text="Edit"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             app:drawableEndCompat="@drawable/ic_edit"
-            app:drawableTint="@color/colorPrimary" />
+            app:drawableTint="@color/colorPrimaryDark" />
 
         <TextView
             android:id="@+id/viewFolderOptions_addSetsTv"
-            style="@style/BasicTextStyle"
+            style="@style/BasicBoldTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_ripple"
@@ -71,14 +72,14 @@
             android:justificationMode="inter_word"
             android:padding="20dp"
             android:text="Add learning sets"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             app:drawableEndCompat="@drawable/ic_flashcards"
-            app:drawableTint="@color/colorPrimary" />
+            app:drawableTint="@color/colorPrimaryDark" />
 
         <TextView
             android:id="@+id/viewFolderOptions_addToGroupTv"
-            style="@style/BasicTextStyle"
+            style="@style/BasicBoldTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_ripple"
@@ -88,14 +89,14 @@
             android:justificationMode="inter_word"
             android:padding="20dp"
             android:text="Share with a group"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             app:drawableEndCompat="@drawable/ic_create_group"
-            app:drawableTint="@color/colorPrimary" />
+            app:drawableTint="@color/colorPrimaryDark" />
 
         <TextView
             android:id="@+id/viewFolderOptions_deleteTv"
-            style="@style/BasicTextStyle"
+            style="@style/BasicBoldTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_ripple"
@@ -110,4 +111,18 @@
             app:drawableEndCompat="@drawable/ic_delete"
             app:drawableTint="@color/accentPrimary" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/viewFolderOptions_cancelTv"
+        style="@style/BasicBoldTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:justificationMode="inter_word"
+        android:padding="30dp"
+        android:text="Cancel"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp" />
 </LinearLayout>
