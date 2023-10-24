@@ -141,16 +141,16 @@ public class FragmentProfile extends Fragment {
             saveSwitchState(KET_SETS_OFFLINE, isChecked);
         });
 
-        Utils.hideItem(themeRg);
+        Utils.hideItems(themeRg);
         Utils.disableItems(themeRg);
 
         themeLl.setOnClickListener(v -> {
             themeClickCounter[0]++;
             if (themeClickCounter[0] % 2 != 0) {
-                Utils.showItem(themeRg);
+                Utils.showItems(themeRg);
                 Utils.enableItems(themeRg);
             } else {
-                Utils.hideItem(themeRg);
+                Utils.hideItems(themeRg);
                 Utils.disableItems(themeRg);
             }
         });
@@ -197,7 +197,7 @@ public class FragmentProfile extends Fragment {
 
         EditText passwordEt = dialogBinding.verifyPasswordEt;
         TextView passwordErrTv = dialogBinding.verifyPasswordErrorTv;
-        Utils.hideItem(passwordErrTv);
+        Utils.hideItems(passwordErrTv);
         Utils.setupTextWatcher(passwordEt, passwordErrTv, passwordPattern, "Password does not match valid pattern");
 
         TextView cancelTv = dialogBinding.verifyPasswordCancelTv;
@@ -340,7 +340,7 @@ public class FragmentProfile extends Fragment {
                 System.out.println(oldPassword + "\n" + newPassword + "\n" + confirmNewPassword);
                 Utils.showToast(getContext(), "Password changed");
             } else {
-                Utils.showItem(confirmNewPasswordErrorTv);
+                Utils.showItems(confirmNewPasswordErrorTv);
                 confirmNewPasswordErrorTv.setText("Passwords do not match");
                 //Utils.showToast(getContext(), "Error is visible or passwords do not match");
             }
@@ -416,15 +416,15 @@ public class FragmentProfile extends Fragment {
             if (!Utils.isErrVisible(passwordErrTv)) {
                 if (!cb.isChecked()) {
                     cbErrTv.setText("You need to check this box");
-                    Utils.showItem(cbErrTv);
+                    Utils.showItems(cbErrTv);
                 } else {
                     dialog.dismiss();
                     Utils.resetEditText(passwordEt, passwordErrTv);
                     System.out.println(password);
 
                     // TODO: Add functionality for checking if the password is correct
-                    Utils.hideItem(passwordErrTv);
-                    Utils.hideItem(cbErrTv);
+                    Utils.hideItems(passwordErrTv);
+                    Utils.hideItems(cbErrTv);
 
                     Utils.showToast(getContext(), "When we have backend, we will check if the password is correct. For now we just jump to ChooseLogInSignup.java");
 

@@ -36,18 +36,6 @@ public class Utils {
 
     private static boolean backClickCounter = false;
 
-    public static void showItem(View view) {
-        if (view != null) {
-            view.setVisibility(View.VISIBLE);
-        }
-    }
-
-    public static void hideItem(View view) {
-        if (view != null) {
-            view.setVisibility(View.GONE);
-        }
-    }
-
     public static void showToast(Context context, String message) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
@@ -140,14 +128,6 @@ public class Utils {
         return new ArrayList<>(); // Return an empty list if learningSet is null
     }
 
-    public static String createSetList(ModelLearningSet learningSet) {
-        if (learningSet != null) {
-
-            return learningSet.getName();
-        }
-        return null; // Return null if learningSet is null
-    }
-
 
     // This stays, what is up, needs to be reviewed
     public static void setupAnimation(Context context, TextView logo) {
@@ -165,16 +145,16 @@ public class Utils {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String input = s.toString().trim(); // Get the current input text
                 if (input.isEmpty()) {
-                    Utils.showItem(err);
+                    showItems(err);
                     err.setText("This field cannot be empty");
                 } else if (input.contains(" ")) {
-                    Utils.showItem(err);
+                    showItems(err);
                     err.setText("Check your input for spaces");
                 } else if (!p.matcher(input).matches()) {
-                    Utils.showItem(err);
+                    showItems(err);
                     err.setText(errorMsg);
                 } else {
-                    Utils.hideItem(err);
+                    hideItems(err);
                 }
             }
 
@@ -195,19 +175,19 @@ public class Utils {
                 String newPassword = newPassEt.getText().toString();
                 String confirmPassword = confirmNewPassEt.getText().toString();
                 if (confirmPassword.isEmpty()) {
-                    Utils.showItem(confirmErrTv);
+                    showItems(confirmErrTv);
                     confirmErrTv.setText("This field cannot be empty");
                 } else if (confirmPassword.contains(" ")) {
-                    Utils.showItem(confirmErrTv);
+                    showItems(confirmErrTv);
                     confirmErrTv.setText("Check your input for spaces");
                 } else if (!p.matcher(confirmPassword).matches()) {
-                    Utils.showItem(confirmErrTv);
+                    showItems(confirmErrTv);
                     confirmErrTv.setText(errMsg);
                 } else if (!confirmPassword.equals(newPassword)) { // Use .equals() to compare string content
-                    Utils.showItem(confirmErrTv);
+                    showItems(confirmErrTv);
                     confirmErrTv.setText("Passwords do not match");
                 } else {
-                    Utils.hideItem(confirmErrTv);
+                    hideItems(confirmErrTv);
                 }
             }
 
@@ -222,16 +202,16 @@ public class Utils {
         String input = et.getText().toString().trim();
 
         if (input.isEmpty()) {
-            Utils.showItem(errorTv);
+            showItems(errorTv);
             errorTv.setText("This field cannot be empty");
         } else if (input.contains(" ")) {
-            Utils.showItem(errorTv);
+            showItems(errorTv);
             errorTv.setText("Check your input for spaces");
         } else if (!pattern.matcher(input).matches()) {
-            Utils.showItem(errorTv);
+            showItems(errorTv);
             errorTv.setText(invalidInputMsg);
         } else {
-            Utils.hideItem(errorTv); // Hide the error when input is valid
+            hideItems(errorTv); // Hide the error when input is valid
         }
     }
 
@@ -301,7 +281,7 @@ public class Utils {
     public static void resetEditText(EditText et, TextView err) {
         et.setText("");
         et.clearFocus();
-        hideItem(err);
+        hideItems(err);
     }
 
     public static void saveSwitchState(Context context, String prefsName, String switchKey, boolean isChecked) {

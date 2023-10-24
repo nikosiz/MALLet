@@ -2,7 +2,7 @@ package com.example.mallet.utils;
 
 public class ModelWritten {
     private final String question;
-    private final String correctAnswer; // Store the actual correct answer content
+    private final String correctAnswer;
     private final String alternativeAnswer;
 
     public ModelWritten(String question, String correctAnswer, String alternativeAnswer) {
@@ -26,7 +26,8 @@ public class ModelWritten {
 
     @Override
     public String toString() {
-        return "Question: " + question + "\n" +
+        return "Written questions: \n" +
+                "Question: " + question + "\n" +
                 "Correct answer: " + correctAnswer + "\n" +
                 "Alternative answer: " + alternativeAnswer;
     }

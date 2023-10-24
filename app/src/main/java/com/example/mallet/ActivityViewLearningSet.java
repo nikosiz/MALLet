@@ -172,7 +172,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
                 }
 
                 if (setDescription != null) {
-                    Utils.showItem(setDescriptionTv);
+                    Utils.showItems(setDescriptionTv);
                     setDescriptionTv.setText(setDescription);
                 }
 

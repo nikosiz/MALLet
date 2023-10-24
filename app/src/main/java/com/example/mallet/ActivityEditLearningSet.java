@@ -60,7 +60,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         setNameErrTv = binding.editSetErrorTv;
 
         setDescriptionTil = binding.editSetDescriptionTil;
-        Utils.hideItem(setDescriptionTil);
+        Utils.hideItems(setDescriptionTil);
         setDescriptionEt = binding.editSetDescriptionEt;
 
         scrollView = binding.editSetFlashcardsSv;
@@ -95,7 +95,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         binding.editSetAddDescriptionTv.setOnClickListener(v -> {
             clickCount++;
             if (clickCount == 1) {
-                Utils.showItem(setDescriptionTil);
+                Utils.showItems(setDescriptionTil);
                 addSetDescription();
             } else if (clickCount == 2) {
                 Utils.hideItems(setDescriptionTil);
@@ -206,9 +206,9 @@ public class ActivityEditLearningSet extends AppCompatActivity {
             setDescriptionEt.setText(learningSetDescription);
 
             if (learningSetDescription.isEmpty()) {
-                Utils.hideItem(setDescriptionTil);
+                Utils.hideItems(setDescriptionTil);
             } else {
-                Utils.showItem(setDescriptionTil);
+                Utils.showItems(setDescriptionTil);
             }
         }
 

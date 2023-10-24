@@ -43,8 +43,8 @@ public class ActivityViewFolder extends AppCompatActivity {
         TextView folderNrOfSets = binding.viewFolderNrOfSetsTv;
         View aboveDescription = binding.viewFolderAboveDescriptionV;
         TextView folderDescriptionTv = binding.viewFolderDescriptionTv;
-        Utils.hideItem(aboveDescription);
-        Utils.hideItem(folderDescriptionTv);
+        Utils.hideItems(aboveDescription);
+        Utils.hideItems(folderDescriptionTv);
 
         setupToolbar();
         setupContents();

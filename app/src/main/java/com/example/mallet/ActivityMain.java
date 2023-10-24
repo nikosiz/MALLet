@@ -186,7 +186,7 @@ public class ActivityMain extends AppCompatActivity {
             String setDescription = Objects.requireNonNull(descriptionEt.getText()).toString().trim();
 
             if (setName.isEmpty()) {
-                Utils.showItem(nameErrTv);
+                Utils.showItems(nameErrTv);
                 nameErrTv.setText(getString(R.string.field_cannot_be_empty));
                 return;
             }
@@ -263,7 +263,7 @@ public class ActivityMain extends AppCompatActivity {
 
 
             if (folderName.isEmpty()) {
-                Utils.showItem(nameErrTv);
+                Utils.showItems(nameErrTv);
                 nameErrTv.setText(getString(R.string.field_cannot_be_empty));
                 return;
             }

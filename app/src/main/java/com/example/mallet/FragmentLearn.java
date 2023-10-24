@@ -21,6 +21,7 @@ import com.example.mallet.databinding.DialogLearnOptionsBinding;
 import com.example.mallet.databinding.DialogLearningFinishedBinding;
 import com.example.mallet.databinding.FragmentLearnBinding;
 import com.example.mallet.utils.ModelFlashcard;
+import com.example.mallet.utils.ModelMultipleChoice;
 import com.example.mallet.utils.ModelWritten;
 import com.example.mallet.utils.Utils;
 import com.google.android.material.materialswitch.MaterialSwitch;
@@ -45,6 +46,7 @@ public class FragmentLearn extends Fragment {
     private TextInputEditText writtenAnswerEt;
     private String answer;
     private List<ModelWritten> writtenQuestions;
+    private List<ModelMultipleChoice> multipleChoiceQuestions;
     private TextView nextTv, prevTv, finishTv;
 
     @Override
@@ -57,27 +59,49 @@ public class FragmentLearn extends Fragment {
         learnOptionsDialog();
 
         writtenQuestions = handleWrittenQuestions();
-        currentQuestionIndex = 0;
-        Utils.showItem(nextTv);
-        Utils.hideItem(finishTv);
+        multipleChoiceQuestions = handleMultipleChoiceQuestions();
 
-        nextTv.setOnClickListener(v -> {
+        currentQuestionIndex = 0;
+        Utils.showItems(nextTv);
+        Utils.hideItems(finishTv);
+
+
+        /*nextTv.setOnClickListener(v -> {
             if (currentQuestionIndex < writtenQuestions.size()) {
-                displayWrittenQuestion(writtenQuestions, questionsLl, inflater);
+                displayWrittenQuestions(writtenQuestions, questionsLl, inflater);
                 currentQuestionIndex++;
             } else {
                 learningFinishedDialog();
             }
 
             if (currentQuestionIndex == writtenQuestions.size()) {
-                Utils.showItem(finishTv);
+                Utils.showItems(finishTv);
                 Utils.makeItemsClickable(finishTv);
-                Utils.hideItem(nextTv);
+                Utils.hideItems(nextTv);
+                Utils.makeItemsUnclickable(nextTv);
+            } else {
+            }
+            System.out.println(currentQuestionIndex);
+        });*/
+
+        nextTv.setOnClickListener(v -> {
+            if (currentQuestionIndex < multipleChoiceQuestions.size()) {
+                displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, inflater);
+                currentQuestionIndex++;
+            } else {
+                learningFinishedDialog();
+            }
+
+            if (currentQuestionIndex == multipleChoiceQuestions.size()) {
+                Utils.showItems(finishTv);
+                Utils.makeItemsClickable(finishTv);
+                Utils.hideItems(nextTv);
                 Utils.makeItemsUnclickable(nextTv);
             } else {
             }
             System.out.println(currentQuestionIndex);
         });
+
 
         finishTv.setOnClickListener(v -> {
             learningFinishedDialog();
@@ -99,7 +123,6 @@ public class FragmentLearn extends Fragment {
         writtenQuestionTv = writtenQuestionView.findViewById(R.id.written_questionTv);
         writtenAnswerEt = writtenQuestionView.findViewById(R.id.written_answerEt);
         answer = writtenAnswerEt.getText().toString();
-
 
     }
 
@@ -123,6 +146,7 @@ public class FragmentLearn extends Fragment {
         writtenMs = dialogBinding.learnOptionsWrittenMs;
         TextView restartTv = dialogBinding.learnOptionsRestartTv;
         TextView startTv = dialogBinding.learnOptionsStartTv;
+        TextView errorTv = dialogBinding.learnOptionsErrorTv;
 
         multipleChoiceMs.setChecked(Utils.getSwitchState(requireContext(), PREFS_NAME, KEY_MULTIPLE_CHOICE));
         multipleChoiceMs.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -156,14 +180,21 @@ public class FragmentLearn extends Fragment {
             Utils.saveSwitchState(requireContext(), PREFS_NAME, KEY_WRITTEN, isChecked);
         });
 
-        restartTv.setOnClickListener(v -> {
-            currentQuestionIndex = 0;
-            writtenQuestions = handleWrittenQuestions();
-            dialog.dismiss();
-        });
+        if (!writtenMs.isChecked() && !multipleChoiceMs.isChecked()) {
+            Utils.showItems(errorTv);
+            Utils.makeItemsUnclickable(finishTv);
+        } else {
+            restartTv.setOnClickListener(v -> {
+                currentQuestionIndex = 0;
+                //writtenQuestions = handleWrittenQuestions();
+                multipleChoiceQuestions = handleMultipleChoiceQuestions();
+                dialog.dismiss();
+            });
+        }
 
         startTv.setOnClickListener(v -> {
-            displayWrittenQuestion(writtenQuestions, questionsLl, getLayoutInflater());
+            //displayWrittenQuestions(writtenQuestions, questionsLl, getLayoutInflater());
+            displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
             currentQuestionIndex = 1;
             dialog.dismiss();
         });
@@ -171,42 +202,74 @@ public class FragmentLearn extends Fragment {
 
     private int currentQuestionIndex = 0; // Initialize the index
 
-    private void displayWrittenQuestion(List<ModelWritten> questions, LinearLayout ll, LayoutInflater inflater) {
+    private void displayWrittenQuestions(List<ModelWritten> questions, LinearLayout ll, LayoutInflater inflater) {
         ll.removeAllViews();
 
-        //if (currentQuestionIndex < questions.size()) {
-        ModelWritten question = questions.get(currentQuestionIndex);
+        if (writtenMs.isChecked()) {
+            // If "writtenMs" is checked, add the elements to "questionsLl"
+            if (currentQuestionIndex < questions.size()) {
+                ModelWritten question = questions.get(currentQuestionIndex);
 
-        View questionItem = inflater.inflate(R.layout.model_written, ll, false);
-        TextView writtenQuestionTv = questionItem.findViewById(R.id.written_questionTv);
-        writtenQuestionTv.setText(question.getQuestion());
+                View questionItem = inflater.inflate(R.layout.model_written, ll, false);
+                TextView writtenQuestionTv = questionItem.findViewById(R.id.written_questionTv);
+                writtenQuestionTv.setText(question.getQuestion());
 
-        ll.addView(questionItem);
-        //} else {
-        //    learningFinishedDialog();
-        //}
+                ll.addView(questionItem);
+            } else {
+                // All questions have been shown
+            }
+        } else {
+            // If "writtenMs" is not checked, do not add any elements
+            // You can also display a message or take other appropriate actions here
+        }
+    }
+
+    private void displayMultipleChoiceQuestion(List<ModelMultipleChoice> questions, LinearLayout ll, LayoutInflater inflater) {
+        ll.removeAllViews();
+
+        if (multipleChoiceMs.isChecked()) {
+            if (currentQuestionIndex < questions.size()) {
+                ModelMultipleChoice question = questions.get(currentQuestionIndex);
+
+                View questionItem = inflater.inflate(R.layout.model_multiple_choice, ll, false);
+                TextView multipleChoiceQuestionTv = questionItem.findViewById(R.id.multipleChoice_questionTv);
+                multipleChoiceQuestionTv.setText(question.getQuestion());
+
+                ll.addView(questionItem);
+            } else {
+                // All questions have been shown
+            }
+        } else {
+            // If "writtenMs" is not checked, do not add any elements
+            // You can also display a message or take other appropriate actions here
+        }
     }
 
     private void learningFinishedDialog() {
-        Dialog dialog = createDialog(R.layout.dialog_learning_finished);
+        Dialog finishedDialog = createDialog(R.layout.dialog_learning_finished);
         DialogLearningFinishedBinding dialogBinding = DialogLearningFinishedBinding.inflate(getLayoutInflater());
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.setContentView(dialogBinding.getRoot());
-        dialog.show();
+        Objects.requireNonNull(finishedDialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        finishedDialog.setContentView(dialogBinding.getRoot());
+
 
         TextView dialogFinishTv = dialogBinding.learningFinishedFinishTv;
         TextView dialogRestartTv = dialogBinding.learningFinishedRestartTv;
 
-        dialogFinishTv.setOnClickListener(v -> requireActivity().finish());
+        dialogFinishTv.setOnClickListener(v -> {
+            finishedDialog.dismiss();
+            requireActivity().finish();
+        });
         dialogRestartTv.setOnClickListener(v -> {
             currentQuestionIndex = 0;
             writtenQuestions = handleWrittenQuestions();
-            Utils.hideItem(finishTv);
+            Utils.hideItems(finishTv);
             Utils.makeItemsUnclickable(finishTv);
-            Utils.showItem(nextTv);
+            Utils.showItems(nextTv);
             Utils.makeItemsClickable(nextTv);
-            dialog.dismiss();
+            finishedDialog.dismiss();
         });
+
+        finishedDialog.show();
     }
 
     private Dialog createDialog(int layoutResId) {
@@ -219,13 +282,7 @@ public class FragmentLearn extends Fragment {
     }
 
     private List<ModelWritten> handleWrittenQuestions() {
-        List<ModelFlashcard> flashcardList = new ArrayList<>();
-        flashcardList.add(new ModelFlashcard("Dog", "A domesticated mammal", "Pies"));
-        flashcardList.add(new ModelFlashcard("Cat", "A small domesticated carnivorous mammal", "Kot"));
-        flashcardList.add(new ModelFlashcard("Elephant", "A large, herbivorous mammal with a trunk", "Słoń"));
-        flashcardList.add(new ModelFlashcard("Lion", "A large wild cat known for its mane", "Lew"));
-        flashcardList.add(new ModelFlashcard("Giraffe", "A tall, long-necked African mammal", "Żyrafa"));
-        flashcardList.add(new ModelFlashcard("Snail", "A shelled gastropod", "Ślimak"));
+        List<ModelFlashcard> flashcardList = getFlashcards();
 
         List<ModelWritten> questionList = new ArrayList();
         Random random = new Random();
@@ -265,5 +322,59 @@ public class FragmentLearn extends Fragment {
         }
 
         return questionList;
+    }
+
+    private List<ModelMultipleChoice> handleMultipleChoiceQuestions() {
+        List<ModelFlashcard> flashcardList = getFlashcards();
+        List<ModelMultipleChoice> questionList = new ArrayList();
+        Random random = new Random();
+
+        int questionPosition = random.nextInt(2);
+
+        for (ModelFlashcard flashcard : flashcardList) {
+            List<String> options = new ArrayList<>();
+            options.add(flashcard.getTerm());
+            options.add(flashcard.getDefinition());
+            options.add(flashcard.getTranslation());
+
+            Collections.shuffle(options);
+
+            int correctAnswerPosition = 1, alternativeAnswerPosition = 2;
+
+            switch (questionPosition) {
+                case 0:
+                    correctAnswerPosition = 1;
+                    alternativeAnswerPosition = 2;
+                    break;
+                case 1:
+                    correctAnswerPosition = 0;
+                    alternativeAnswerPosition = 2;
+                    break;
+                case 2:
+                    correctAnswerPosition = 1;
+                    alternativeAnswerPosition = 0;
+                    break;
+            }
+
+            ModelMultipleChoice multipleChoice = new ModelMultipleChoice(options.get(questionPosition), options.get(correctAnswerPosition), options.get(alternativeAnswerPosition));
+
+            questionList.add(multipleChoice);
+
+            System.out.println(multipleChoice);
+        }
+
+        return questionList;
+    }
+
+    private List<ModelFlashcard> getFlashcards() {
+        List<ModelFlashcard> flashcardList = new ArrayList<>();
+        flashcardList.add(new ModelFlashcard("Dog", "A domesticated mammal", "Pies"));
+        flashcardList.add(new ModelFlashcard("Cat", "A small domesticated carnivorous mammal", "Kot"));
+        flashcardList.add(new ModelFlashcard("Elephant", "A large, herbivorous mammal with a trunk", "Słoń"));
+        flashcardList.add(new ModelFlashcard("Lion", "A large wild cat known for its mane", "Lew"));
+        flashcardList.add(new ModelFlashcard("Giraffe", "A tall, long-necked African mammal", "Żyrafa"));
+        flashcardList.add(new ModelFlashcard("Snail", "A shelled gastropod", "Ślimak"));
+
+        return flashcardList;
     }
 }

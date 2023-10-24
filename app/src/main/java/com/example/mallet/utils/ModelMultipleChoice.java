@@ -3,76 +3,49 @@ package com.example.mallet.utils;
 public class ModelMultipleChoice {
     // Attributes to define a multiple-choice quiz question
     private String question;
-    private String answerA, answerB, answerC, answerD;
-    private String correctAnswer;
+    private String correctAnswer, alternativeAnswer;
+    private String wrongAnswer1, wrongAnswer2, wrongAnswer3;
 
-    // Constructor to initialize a multiple-choice quiz question
-    public ModelMultipleChoice(String question, String answerA, String answerB, String answerC, String answerD, String correctAnswer) {
+    public ModelMultipleChoice(String question, String correctAnswer, String alternativeAnswer) {
         this.question = question;
-        this.answerA = answerA;
-        this.answerB = answerB;
-        this.answerC = answerC;
-        this.answerD = answerD;
         this.correctAnswer = correctAnswer;
+        this.alternativeAnswer = alternativeAnswer;
     }
 
-    // Getter for the quiz question
-    public String getMultipleChoiceQuestion() {
+    public String getQuestion() {
         return question;
     }
 
-    // Setter for the quiz question
     public void setQuestion(String question) {
         this.question = question;
     }
 
-    // Getter for answer choice A
-    public String getAnswerA() {
-        return answerA;
-    }
-
-    // Setter for answer choice A
-    public void setAnswerA(String answerA) {
-        this.answerA = answerA;
-    }
-
-    // Getter for answer choice B
-    public String getAnswerB() {
-        return answerB;
-    }
-
-    // Setter for answer choice B
-    public void setAnswerB(String answerB) {
-        this.answerB = answerB;
-    }
-
-    // Getter for answer choice C
-    public String getAnswerC() {
-        return answerC;
-    }
-
-    // Setter for answer choice C
-    public void setAnswerC(String answerC) {
-        this.answerC = answerC;
-    }
-
-    // Getter for answer choice D
-    public String getAnswerD() {
-        return answerD;
-    }
-
-    // Setter for answer choice D
-    public void setAnswerD(String answerD) {
-        this.answerD = answerD;
-    }
-
-    // Getter for the correct answer
     public String getCorrectAnswer() {
         return correctAnswer;
     }
 
-    // Setter for the correct answer
     public void setCorrectAnswer(String correctAnswer) {
         this.correctAnswer = correctAnswer;
     }
+
+    public String getAlternativeAnswer() {
+        return alternativeAnswer;
+    }
+
+    public void setAlternativeAnswer(String alternativeAnswer) {
+        this.alternativeAnswer = alternativeAnswer;
+    }
+
+    @Override
+    public String toString() {
+        return "Multiple choice questions: \n" +
+                "Question: " + question + "\n" +
+                "Correct answer: " + correctAnswer + "\n" +
+                "Alternative answer: " + alternativeAnswer + "\n" +
+                "Wrong answer 1: " + "\n" +
+                "Wrong answer 2: " + "\n" +
+                "Wrong answer 3: " + "\n";
+    }
+
+
 }
