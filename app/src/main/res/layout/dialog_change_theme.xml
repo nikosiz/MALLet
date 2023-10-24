@@ -4,8 +4,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_top_corners_rounded"
     android:orientation="vertical"
-    android:paddingHorizontal="30dp"
     android:padding="30dp"
+    android:paddingHorizontal="30dp"
     android:theme="@style/Base.Theme.MALLet">
 
     <TextView

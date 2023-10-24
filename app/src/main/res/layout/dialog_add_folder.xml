@@ -27,11 +27,12 @@
             android:src="@drawable/ic_arrow_back"
             app:tint="@color/colorPrimaryDark" />
 
-        <TextView android:justificationMode="inter_word"
+        <TextView
             android:id="@+id/addFolder_titleTv"
             style="@style/BasicBoldTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:justificationMode="inter_word"
             android:text="Add folder"
             android:textColor="@color/primaryTextColor"
             android:textSize="25sp" />
@@ -53,15 +54,19 @@
                 android:id="@+id/aaddFolder_searchTil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="5dp"
+                android:paddingBottom="5dp"
+                app:boxBackgroundColor="@color/colorLight"
                 app:endIconDrawable="@drawable/ic_search"
                 app:endIconMode="custom"
                 app:endIconTint="@color/danube_blue_800">
 
-                <com.google.android.material.textfield.TextInputEditText android:textSize="15sp"
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/addFolder_searchEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Search" />
+                    android:hint="Search"
+                    android:textSize="15sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

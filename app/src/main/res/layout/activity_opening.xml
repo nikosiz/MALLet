@@ -27,12 +27,12 @@
         android:textColor="@color/colorLight" />
 
     <androidx.cardview.widget.CardView
-        app:cardElevation="0dp"
         android:id="@+id/opening_cv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         app:cardCornerRadius="10dp"
+        app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout

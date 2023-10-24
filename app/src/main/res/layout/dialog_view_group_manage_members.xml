@@ -43,6 +43,9 @@
                 android:id="@+id/manageMembers_searchTil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="5dp"
+                android:paddingBottom="5dp"
+                app:boxBackgroundColor="@color/colorLight"
                 app:endIconDrawable="@drawable/ic_search"
                 app:endIconMode="custom"
                 app:endIconTint="@color/danube_blue_800">

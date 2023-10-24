@@ -19,11 +19,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView android:justificationMode="inter_word"
+        <TextView
             android:id="@+id/userLibrary_toolbarTitleTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/rem_bold"
+            android:justificationMode="inter_word"
             android:text="Your library"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="30sp" />

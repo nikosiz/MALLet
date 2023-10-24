@@ -20,11 +20,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView android:justificationMode="inter_word"
+        <TextView
             android:id="@+id/home_toolbarLogoTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/russo_one_regular"
+            android:justificationMode="inter_word"
             android:text="@string/app_name"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="30sp" />
@@ -52,17 +53,18 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     android:id="@+id/home_setTitleTv"
                     style="@style/BasicBoldTextStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:justificationMode="inter_word"
                     android:text="@string/recent_sets"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="20sp" />
 
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     android:id="@+id/home_setViewAllTv"
                     style="@style/BasicTextStyle"
                     android:layout_width="wrap_content"
@@ -72,6 +74,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="end"
+                    android:justificationMode="inter_word"
                     android:paddingHorizontal="5dp"
                     android:text="@string/view_all" />
             </LinearLayout>
@@ -95,17 +98,18 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     android:id="@+id/home_folderTitleTv"
                     style="@style/BasicBoldTextStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:justificationMode="inter_word"
                     android:text="@string/folders"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="20sp" />
 
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     android:id="@+id/home_folderViewAllTv"
                     style="@style/BasicTextStyle"
                     android:layout_width="wrap_content"
@@ -115,6 +119,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="end"
+                    android:justificationMode="inter_word"
                     android:paddingHorizontal="5dp"
                     android:text="@string/view_all" />
             </LinearLayout>
@@ -138,17 +143,18 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     android:id="@+id/home_groupTitleTv"
                     style="@style/BasicBoldTextStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:justificationMode="inter_word"
                     android:text="@string/groups"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="20sp" />
 
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     android:id="@+id/home_groupViewAllTv"
                     style="@style/BasicTextStyle"
                     android:layout_width="wrap_content"
@@ -158,6 +164,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="end"
+                    android:justificationMode="inter_word"
                     android:paddingHorizontal="5dp"
                     android:text="@string/view_all" />
             </LinearLayout>

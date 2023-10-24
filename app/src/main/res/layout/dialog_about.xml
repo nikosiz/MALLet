@@ -42,10 +42,11 @@
         android:padding="30dp">
 
         <!-- Title -->
-        <TextView android:justificationMode="inter_word"
+        <TextView
             style="@style/BasicBoldTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:justificationMode="inter_word"
             android:text="About MALLet - Your Vocabulary Tutor"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp" />
@@ -64,10 +65,11 @@
                 android:orientation="vertical">
 
                 <!-- Welcome Message -->
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     style="@style/BasicTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:justificationMode="inter_word"
                     android:text="Welcome to MALLet, your personal English vocabulary tutor!"
                     android:textColor="@color/colorPrimary"
                     android:textSize="15sp" />
@@ -77,50 +79,56 @@
                     android:layout_height="15dp" />
 
                 <!-- Key Features -->
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     style="@style/BasicBoldTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:justificationMode="inter_word"
                     android:text="Key Features:"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="15sp" />
 
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     style="@style/BasicTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:justificationMode="inter_word"
                     android:text="- Expand your English vocabulary with curated word lists"
                     android:textColor="@color/colorPrimary"
                     android:textSize="15sp" />
 
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     style="@style/BasicTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:justificationMode="inter_word"
                     android:text="- Engage in interactive quizzes and exercises"
                     android:textColor="@color/colorPrimary"
                     android:textSize="15sp" />
 
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     style="@style/BasicTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:justificationMode="inter_word"
                     android:text="- Learn proper pronunciation with our built-in speech recognition"
                     android:textColor="@color/colorPrimary"
                     android:textSize="15sp" />
 
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     style="@style/BasicTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:justificationMode="inter_word"
                     android:text="- Track your vocabulary progress and set personal goals"
                     android:textColor="@color/colorPrimary"
                     android:textSize="15sp" />
 
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     style="@style/BasicTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:justificationMode="inter_word"
                     android:text="- Access offline content for learning anytime, anywhere"
                     android:textColor="@color/colorPrimary"
                     android:textSize="15sp" />
@@ -130,42 +138,47 @@
                     android:layout_height="15dp" />
 
                 <!-- Why Choose MALLet -->
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     style="@style/BasicBoldTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:justificationMode="inter_word"
                     android:text="Why Choose MALLet?"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="15sp" />
 
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     style="@style/BasicTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:justificationMode="inter_word"
                     android:text="- We offer a comprehensive vocabulary-building experience"
                     android:textColor="@color/colorPrimary"
                     android:textSize="15sp" />
 
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     style="@style/BasicTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:justificationMode="inter_word"
                     android:text="- Our user-friendly interface makes learning English enjoyable"
                     android:textColor="@color/colorPrimary"
                     android:textSize="15sp" />
 
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     style="@style/BasicTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:justificationMode="inter_word"
                     android:text="- Join a community of language enthusiasts and vocabulary masters"
                     android:textColor="@color/colorPrimary"
                     android:textSize="15sp" />
 
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     style="@style/BasicTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:justificationMode="inter_word"
                     android:text="- Customize your learning experience to match your pace and style"
                     android:textColor="@color/colorPrimary"
                     android:textSize="15sp" />
@@ -175,18 +188,20 @@
                     android:layout_height="15dp" />
 
                 <!-- Contact Us -->
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     style="@style/BasicBoldTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:justificationMode="inter_word"
                     android:text="Contact Us:"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="15sp" />
 
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     style="@style/BasicTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:justificationMode="inter_word"
                     android:text="Questions or suggestions? Reach out to our dedicated support team at [support@email.com]"
                     android:textColor="@color/colorPrimary"
                     android:textSize="15sp" />
@@ -196,18 +211,20 @@
                     android:layout_height="10dp" />
 
                 <!-- Privacy Policy -->
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     style="@style/BasicBoldTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:justificationMode="inter_word"
                     android:text="Privacy Policy:"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="15sp" />
 
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     style="@style/BasicTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:justificationMode="inter_word"
                     android:text="We value your privacy. Review our [Privacy Policy](link-to-privacy-policy) to understand how we handle your data"
                     android:textColor="@color/colorPrimary"
                     android:textSize="15sp" />
@@ -217,18 +234,20 @@
                     android:layout_height="10dp" />
 
                 <!-- Terms of Service -->
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     style="@style/BasicBoldTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:justificationMode="inter_word"
                     android:text="Terms of Service:"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="15sp" />
 
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     style="@style/BasicTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:justificationMode="inter_word"
                     android:text="By using MALLet, you agree to our [Terms of Service](link-to-terms-of-service)"
                     android:textColor="@color/colorPrimary"
                     android:textSize="15sp" />
@@ -238,26 +257,29 @@
                     android:layout_height="10dp" />
 
                 <!-- Version Information -->
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     style="@style/BasicBoldTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:justificationMode="inter_word"
                     android:text="Version Information:"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="15sp" />
 
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     style="@style/BasicTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:justificationMode="inter_word"
                     android:text="App Version: [Current app version]"
                     android:textColor="@color/colorPrimary"
                     android:textSize="15sp" />
 
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     style="@style/BasicTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:justificationMode="inter_word"
                     android:text="Last Updated: [Date of the last app update]"
                     android:textColor="@color/colorPrimary"
                     android:textSize="15sp" />
@@ -267,10 +289,11 @@
                     android:layout_height="15dp" />
 
                 <!-- Closing Message -->
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     style="@style/BasicBoldTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:justificationMode="inter_word"
                     android:text="Boost your vocabulary and enhance your English skills with MALLet. Begin your journey today!"
                     android:textColor="@color/colorPrimary"
                     android:textSize="15sp" />

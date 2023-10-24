@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -301,5 +302,17 @@ public class Utils {
         et.setText("");
         et.clearFocus();
         hideItem(err);
+    }
+
+    public static void saveSwitchState(Context context, String prefsName, String switchKey, boolean isChecked) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(prefsName, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(switchKey, isChecked);
+        editor.apply();
+    }
+
+    public static boolean getSwitchState(Context context, String prefsName, String switchKey) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(prefsName, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(switchKey, false);
     }
 }

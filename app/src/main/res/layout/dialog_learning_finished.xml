@@ -8,10 +8,11 @@
     android:orientation="vertical"
     android:padding="30dp">
 
-    <TextView android:justificationMode="inter_word"
+    <TextView
         style="@style/BasicBoldTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:justificationMode="inter_word"
         android:text="Congratulations!"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="25sp" />
@@ -21,11 +22,11 @@
         android:layout_height="10dp" />
 
     <TextView
-        android:justificationMode="inter_word"
         android:id="@+id/learningFinished_resultsTv"
         style="@style/BasicTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:justificationMode="inter_word"
         android:text="You have learned everything. You can study again to practice or try different mode of study"
         android:textColor="@color/colorPrimary"
         android:textSize="20sp" />
@@ -41,7 +42,7 @@
         android:gravity="center_vertical|end"
         android:orientation="horizontal">
 
-        <TextView android:justificationMode="inter_word"
+        <TextView
             android:id="@+id/learningFinished_finishTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -49,12 +50,13 @@
             android:background="@drawable/bg_ripple"
             android:clickable="true"
             android:focusable="true"
+            android:justificationMode="inter_word"
             android:padding="10dp"
             android:text="Finish"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
 
-        <TextView android:justificationMode="inter_word"
+        <TextView
             android:id="@+id/learningFinished_restartTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -64,6 +66,7 @@
             android:drawablePadding="10dp"
             android:focusable="true"
             android:gravity="center_vertical"
+            android:justificationMode="inter_word"
             android:padding="10dp"
             android:text="Restart"
             android:textColor="@color/colorPrimary"

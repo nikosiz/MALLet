@@ -11,17 +11,18 @@
         android:id="@+id/home_fragment_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
         android:layout_gravity="center_vertical"
+        android:background="@android:color/transparent"
         android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView android:justificationMode="inter_word"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/rem_bold"
+            android:justificationMode="inter_word"
             android:text="Set database"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="30sp" />

@@ -9,7 +9,7 @@
     android:orientation="vertical"
     tools:context=".ActivitySignup">
 
-    <TextView android:justificationMode="inter_word"
+    <TextView
         android:id="@+id/signup_logoTv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -22,16 +22,17 @@
         android:autoSizeTextType="uniform"
         android:fontFamily="@font/russo_one_regular"
         android:gravity="center"
+        android:justificationMode="inter_word"
         android:text="@string/app_logo"
         android:textColor="@color/colorLight" />
 
     <androidx.cardview.widget.CardView
-        app:cardElevation="0dp"
         android:id="@+id/signup_cv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        app:cardCornerRadius="10dp">
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp">
 
         <LinearLayout
             android:id="@+id/signup_cv_ll"
@@ -41,7 +42,7 @@
             android:paddingHorizontal="20dp"
             android:paddingVertical="30dp">
 
-            <TextView android:justificationMode="inter_word"
+            <TextView
                 android:id="@+id/signup_titleTv"
                 style="@style/BasicBoldTextStyle"
                 android:layout_width="match_parent"
@@ -51,6 +52,7 @@
                 android:autoSizeMinTextSize="16sp"
                 android:autoSizeStepGranularity="1sp"
                 android:autoSizeTextType="uniform"
+                android:justificationMode="inter_word"
                 android:maxLines="1"
                 android:text="@string/signup_with_email_address"
                 android:textColor="@color/primaryTextColor"
@@ -64,6 +66,9 @@
                 android:id="@+id/signup_email_til"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="5dp"
+                android:paddingBottom="5dp"
+                app:boxBackgroundColor="@color/colorLight"
                 app:boxBackgroundMode="outline"
                 app:boxCornerRadiusBottomEnd="5dp"
                 app:boxCornerRadiusBottomStart="5dp"
@@ -81,12 +86,13 @@
                     android:textColorHint="@color/downriver_blue_300"
                     android:textSize="15sp" />
 
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     android:id="@+id/signup_email_errorTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:layout_marginBottom="5dp"
+                    android:justificationMode="inter_word"
                     android:text="@string/field_cannot_be_empty"
                     android:textColor="@color/carnation_red_600"
                     android:visibility="gone" />
@@ -96,6 +102,9 @@
                 android:id="@+id/signup_password_til"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="5dp"
+                android:paddingBottom="5dp"
+                app:boxBackgroundColor="@color/colorLight"
                 app:boxBackgroundMode="outline"
                 app:boxCornerRadiusBottomEnd="5dp"
                 app:boxCornerRadiusBottomStart="5dp"
@@ -114,12 +123,13 @@
                     android:textColorHint="@color/downriver_blue_300"
                     android:textSize="15sp" />
 
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     android:id="@+id/signup_password_errorTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:layout_marginBottom="5dp"
+                    android:justificationMode="inter_word"
                     android:text="@string/field_cannot_be_empty"
                     android:textColor="@color/carnation_red_600"
                     android:visibility="gone" />
@@ -129,7 +139,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="10dp" />
 
-            <TextView android:justificationMode="inter_word"
+            <TextView
                 android:id="@+id/signup_continueTv"
                 style="@style/BasicTextStyle"
                 android:layout_width="wrap_content"
@@ -140,6 +150,7 @@
                 android:drawablePadding="10dp"
                 android:focusable="true"
                 android:gravity="center_vertical"
+                android:justificationMode="inter_word"
                 android:paddingHorizontal="5dp"
                 android:text="Continue"
                 android:textColor="@color/colorPrimary"
@@ -158,17 +169,18 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     android:id="@+id/signup_login_titleTv"
                     style="@style/BasicTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:justificationMode="inter_word"
                     android:paddingTop="6dp"
                     android:text="@string/already_have_account"
                     android:textColor="@color/primaryTextColor" />
 
-                <TextView android:justificationMode="inter_word"
+                <TextView
                     android:id="@+id/signup_loginHereTv"
                     style="@style/BasicBoldTextStyle"
                     android:layout_width="wrap_content"
@@ -177,6 +189,7 @@
                     android:background="@drawable/bg_ripple"
                     android:clickable="true"
                     android:focusable="true"
+                    android:justificationMode="inter_word"
                     android:padding="5dp"
                     android:text="@string/login_here"
                     android:textColor="@color/primaryTextColor"
@@ -189,12 +202,12 @@
                 android:layout_height="30dp" />
 
             <TextView
-                android:justificationMode="inter_word"
                 android:id="@+id/login_termsTv"
                 style="@style/BasicTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:justificationMode="inter_word"
                 android:text="@string/by_logging_in_you_accept"
                 android:textSize="12sp" />
         </LinearLayout>

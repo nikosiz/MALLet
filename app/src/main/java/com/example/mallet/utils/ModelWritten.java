@@ -23,6 +23,7 @@ public class ModelWritten {
         return alternativeAnswer;
     }
 
+
     @Override
     public String toString() {
         return "Question: " + question + "\n" +

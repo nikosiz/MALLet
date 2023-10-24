@@ -17,16 +17,19 @@
             android:id="@+id/user_library_search_til"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingHorizontal="5dp"
+            android:paddingBottom="5dp"
+            app:boxBackgroundColor="@color/colorLight"
             app:endIconDrawable="@drawable/ic_search"
             app:endIconMode="custom"
             app:endIconTint="@color/danube_blue_800">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:textSize="15sp"
                 android:id="@+id/user_library_search_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Search" />
+                android:hint="Search"
+                android:textSize="15sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -38,7 +41,6 @@
             android:id="@+id/userLibrarySets_allSetsLl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-        </LinearLayout>
+            android:orientation="vertical"></LinearLayout>
     </LinearLayout>
 </ScrollView>
