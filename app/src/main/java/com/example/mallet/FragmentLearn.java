@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -49,61 +50,57 @@ public class FragmentLearn extends Fragment {
     private String answer;
     private List<ModelWritten> writtenQuestions;
     private List<ModelMultipleChoice> multipleChoiceQuestions;
-    private TextView nextTv, prevTv, finishTv;
+    private TextView nextTv, prevTv, finishTv, errorTv;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentLearnBinding.inflate(inflater, container, false);
         writtenQuestionView = inflater.inflate(R.layout.model_written, container, false);
 
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
         setupContents();
 
         learnOptionsDialog();
-
-        writtenQuestions = handleWrittenQuestions();
-        multipleChoiceQuestions = handleMultipleChoiceQuestions();
 
         currentQuestionIndex = 0;
         Utils.showItems(nextTv);
         Utils.hideItems(finishTv);
 
+        writtenQuestions = generateWrittenQuestions();
+        multipleChoiceQuestions = generateMultipleChoiceQuestions();
 
-        /*nextTv.setOnClickListener(v -> {
-            if (currentQuestionIndex < writtenQuestions.size()) {
-                displayWrittenQuestions(writtenQuestions, questionsLl, inflater);
-                currentQuestionIndex++;
-            } else {
-                learningFinishedDialog();
-            }
+        if (writtenMs.isChecked() && !multipleChoiceMs.isChecked()) {
+            Utils.hideItems(errorTv);
+            nextTv.setOnClickListener(v -> {
+                if (currentQuestionIndex < writtenQuestions.size()) {
+                    displayWrittenQuestions(writtenQuestions, questionsLl, inflater);
+                    currentQuestionIndex++;
+                } else {
+                    Utils.showItems(finishTv);
+                    Utils.makeItemsClickable(finishTv);
+                    Utils.hideItems(nextTv);
+                    Utils.makeItemsUnclickable(nextTv);
+                    learningFinishedDialog();
+                }
 
-            if (currentQuestionIndex == writtenQuestions.size()) {
-                Utils.showItems(finishTv);
-                Utils.makeItemsClickable(finishTv);
-                Utils.hideItems(nextTv);
-                Utils.makeItemsUnclickable(nextTv);
-            } else {
-            }
-            System.out.println(currentQuestionIndex);
-        });*/
+                System.out.println(currentQuestionIndex);
+            });
+        } else if (!writtenMs.isChecked() && multipleChoiceMs.isChecked()) {
+            Utils.hideItems(errorTv);
+            nextTv.setOnClickListener(v -> {
+                if (currentQuestionIndex < multipleChoiceQuestions.size()) {
+                    displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, inflater);
+                    currentQuestionIndex++;
+                } else {
+                    learningFinishedDialog();
+                }
 
-        nextTv.setOnClickListener(v -> {
-            if (currentQuestionIndex < multipleChoiceQuestions.size()) {
-                displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, inflater);
-                currentQuestionIndex++;
-            } else {
-                learningFinishedDialog();
-            }
-
-            if (currentQuestionIndex == multipleChoiceQuestions.size()) {
-                Utils.showItems(finishTv);
-                Utils.makeItemsClickable(finishTv);
-                Utils.hideItems(nextTv);
-                Utils.makeItemsUnclickable(nextTv);
-            } else {
-            }
-            System.out.println(currentQuestionIndex);
-        });
-
+                System.out.println(currentQuestionIndex);
+            });
+        } else if (!writtenMs.isChecked() && !multipleChoiceMs.isChecked()) {
+            Utils.showItems(errorTv);
+        }
 
         finishTv.setOnClickListener(v -> learningFinishedDialog());
 
@@ -136,17 +133,16 @@ public class FragmentLearn extends Fragment {
     }
 
     private void learnOptionsDialog() {
-        Dialog dialog = createDialog(R.layout.dialog_forgot_password);
-        DialogLearnOptionsBinding dialogBinding = DialogLearnOptionsBinding.inflate(getLayoutInflater());
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.setContentView(dialogBinding.getRoot());
-        dialog.show();
+        Dialog optionsDialog = createDialog(R.layout.dialog_forgot_password);
+        DialogLearnOptionsBinding optionsDialogBinding = DialogLearnOptionsBinding.inflate(getLayoutInflater());
+        Objects.requireNonNull(optionsDialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        optionsDialog.setContentView(optionsDialogBinding.getRoot());
 
-        multipleChoiceMs = dialogBinding.learnOptionsMultipleChoiceMs;
-        writtenMs = dialogBinding.learnOptionsWrittenMs;
-        TextView restartTv = dialogBinding.learnOptionsRestartTv;
-        TextView startTv = dialogBinding.learnOptionsStartTv;
-        TextView errorTv = dialogBinding.learnOptionsErrorTv;
+        multipleChoiceMs = optionsDialogBinding.learnOptionsMultipleChoiceMs;
+        writtenMs = optionsDialogBinding.learnOptionsWrittenMs;
+        TextView restartTv = optionsDialogBinding.learnOptionsRestartTv;
+        TextView startTv = optionsDialogBinding.learnOptionsStartTv;
+        errorTv = optionsDialogBinding.learnOptionsErrorTv;
 
         multipleChoiceMs.setChecked(Utils.getSwitchState(requireContext(), PREFS_NAME, KEY_MULTIPLE_CHOICE));
         multipleChoiceMs.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -183,66 +179,69 @@ public class FragmentLearn extends Fragment {
         if (!writtenMs.isChecked() && !multipleChoiceMs.isChecked()) {
             Utils.showItems(errorTv);
             Utils.makeItemsUnclickable(finishTv);
-        } else {
+        } else if (writtenMs.isChecked() && !multipleChoiceMs.isChecked()) {
             restartTv.setOnClickListener(v -> {
                 currentQuestionIndex = 0;
-                //writtenQuestions = handleWrittenQuestions();
-                multipleChoiceQuestions = handleMultipleChoiceQuestions();
-                dialog.dismiss();
+                optionsDialog.dismiss();
+            });
+        } else if (!writtenMs.isChecked() && multipleChoiceMs.isChecked()) {
+            restartTv.setOnClickListener(v -> {
+                currentQuestionIndex = 0;
+                optionsDialog.dismiss();
             });
         }
 
-        startTv.setOnClickListener(v -> {
-            //displayWrittenQuestions(writtenQuestions, questionsLl, getLayoutInflater());
-            displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
-            currentQuestionIndex = 1;
-            dialog.dismiss();
+        restartTv.setOnClickListener(v -> {
+            optionsDialog.dismiss();
+            learnOptionsDialog();
         });
+
+        startTv.setOnClickListener(v -> {
+            if (writtenMs.isChecked() && !multipleChoiceMs.isChecked()) {
+                displayWrittenQuestions(writtenQuestions, questionsLl, getLayoutInflater());
+            } else if (!writtenMs.isChecked() && multipleChoiceMs.isChecked()) {
+                displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
+            }
+            currentQuestionIndex = 1;
+            optionsDialog.dismiss();
+        });
+
+        optionsDialog.show();
     }
 
-    private int currentQuestionIndex = 0; // Initialize the index
+    private int currentQuestionIndex = 0;
 
     private void displayWrittenQuestions(List<ModelWritten> questions, LinearLayout ll, LayoutInflater inflater) {
         ll.removeAllViews();
 
-        if (writtenMs.isChecked()) {
-            // If "writtenMs" is checked, add the elements to "questionsLl"
-            if (currentQuestionIndex < questions.size()) {
-                ModelWritten question = questions.get(currentQuestionIndex);
+        if (currentQuestionIndex < questions.size()) {
+            ModelWritten question = questions.get(currentQuestionIndex);
 
-                View questionItem = inflater.inflate(R.layout.model_written, ll, false);
-                TextView writtenQuestionTv = questionItem.findViewById(R.id.written_questionTv);
-                writtenQuestionTv.setText(question.getQuestion());
+            View questionItem = inflater.inflate(R.layout.model_written, ll, false);
+            TextView writtenQuestionTv = questionItem.findViewById(R.id.written_questionTv);
+            writtenQuestionTv.setText(question.getQuestion());
 
-                ll.addView(questionItem);
-            } else {
-                // All questions have been shown
-            }
+            ll.addView(questionItem);
         } else {
-            // If "writtenMs" is not checked, do not add any elements
-            // You can also display a message or take other appropriate actions here
+            // All questions have been shown
         }
     }
 
     private void displayMultipleChoiceQuestion(List<ModelMultipleChoice> questions, LinearLayout ll, LayoutInflater inflater) {
         ll.removeAllViews();
 
-        if (multipleChoiceMs.isChecked()) {
-            if (currentQuestionIndex < questions.size()) {
-                ModelMultipleChoice question = questions.get(currentQuestionIndex);
+        if (currentQuestionIndex < questions.size()) {
+            ModelMultipleChoice question = questions.get(currentQuestionIndex);
 
-                View questionItem = inflater.inflate(R.layout.model_multiple_choice, ll, false);
-                TextView multipleChoiceQuestionTv = questionItem.findViewById(R.id.multipleChoice_questionTv);
-                multipleChoiceQuestionTv.setText(question.getQuestion());
+            View questionItem = inflater.inflate(R.layout.model_multiple_choice, ll, false);
+            TextView multipleChoiceQuestionTv = questionItem.findViewById(R.id.multipleChoice_questionTv);
+            multipleChoiceQuestionTv.setText(question.getQuestion());
 
-                ll.addView(questionItem);
-            } else {
-                // All questions have been shown
-            }
+            ll.addView(questionItem);
         } else {
-            // If "writtenMs" is not checked, do not add any elements
-            // You can also display a message or take other appropriate actions here
+            // All questions have been shown
         }
+
     }
 
     private void learningFinishedDialog() {
@@ -261,12 +260,13 @@ public class FragmentLearn extends Fragment {
         });
         dialogRestartTv.setOnClickListener(v -> {
             currentQuestionIndex = 0;
-            writtenQuestions = handleWrittenQuestions();
+            writtenQuestions = generateWrittenQuestions();
             Utils.hideItems(finishTv);
             Utils.makeItemsUnclickable(finishTv);
             Utils.showItems(nextTv);
             Utils.makeItemsClickable(nextTv);
             finishedDialog.dismiss();
+            learnOptionsDialog();
         });
 
         finishedDialog.show();
@@ -281,7 +281,7 @@ public class FragmentLearn extends Fragment {
         return dialog;
     }
 
-    private List<ModelWritten> handleWrittenQuestions() {
+    private List<ModelWritten> generateWrittenQuestions() {
         List<ModelFlashcard> flashcardList = getFlashcards();
 
         List<ModelWritten> questionList = new ArrayList();
@@ -324,7 +324,7 @@ public class FragmentLearn extends Fragment {
         return questionList;
     }
 
-    private List<ModelMultipleChoice> handleMultipleChoiceQuestions() {
+    private List<ModelMultipleChoice> generateMultipleChoiceQuestions() {
         List<ModelFlashcard> flashcardList = getFlashcards();
         List<ModelMultipleChoice> questionList = new ArrayList();
         Random random = new Random();
