@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/opening_parent_ll"
+    android:id="@+id/opening_parentLl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/splash_bg"
@@ -36,7 +36,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
-            android:id="@+id/opening_cv_ll"
+            android:id="@+id/openingCvLl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -75,7 +75,7 @@
                 android:layout_height="10dp" />
 
             <LinearLayout
-                android:id="@+id/opening_choose_ll"
+                android:id="@+id/opening_chooseLl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">

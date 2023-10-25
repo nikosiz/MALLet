@@ -14,7 +14,7 @@
     app:cardElevation="0dp">
 
     <LinearLayout
-        android:id="@+id/learningSet_cvLl"
+        android:id="@+id/learningSetCvLl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"

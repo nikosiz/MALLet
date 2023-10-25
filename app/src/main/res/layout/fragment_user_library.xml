@@ -5,7 +5,7 @@
     android:id="@+id/userLibrary_mainCl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryLight"
+    android:background="@color/colorPrimaryLight1"
     tools:context=".FragmentUserLibrary">
 
     <androidx.appcompat.widget.Toolbar

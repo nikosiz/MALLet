@@ -214,7 +214,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             float scale = getResources().getDisplayMetrics().density;
             int paddingInPixels = (int) (paddingInDp * scale + 0.5f);
 
-            LinearLayout flashcardCvLL = flashcardItemView.findViewById(R.id.flashcard_cvLl);
+            LinearLayout flashcardCvLL = flashcardItemView.findViewById(R.id.flashcardCvLl);
             flashcardCvLL.setGravity(View.TEXT_ALIGNMENT_TEXT_START);
             flashcardCvLL.setPadding(paddingInPixels, paddingInPixels, paddingInPixels, paddingInPixels);
 

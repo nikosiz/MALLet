@@ -54,7 +54,7 @@
         android:layout_height="0dp"
         android:clipToPadding="false"
         android:padding="10dp"
-        app:layout_constraintBottom_toTopOf="@id/learn_buttons_ll"
+        app:layout_constraintBottom_toTopOf="@id/learn_buttonsLl"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,7 +62,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <LinearLayout
-        android:id="@+id/learn_buttons_ll"
+        android:id="@+id/learn_buttonsLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"

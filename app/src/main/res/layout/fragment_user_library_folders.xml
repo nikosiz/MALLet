@@ -18,7 +18,7 @@
             android:layout_height="10dp" />
 
         <LinearLayout
-            android:id="@+id/user_library_folders_ll"
+            android:id="@+id/user_library_foldersLl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />

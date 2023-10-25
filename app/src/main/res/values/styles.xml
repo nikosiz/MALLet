@@ -39,7 +39,7 @@
     <style name="BasicButtonStyle" parent="Widget.AppCompat.Button">
         <item name="android:textColor">@color/colorLight</item>
         <item name="android:padding">10dp</item>
-        <item name="android:radius">5dp</item>
+        <item name="android:radius">10dp</item>
         <item name="android:gravity">center</item>
         <item name="backgroundTint">@null</item>
         <item name="android:color">@color/colorPrimary</item>
@@ -52,7 +52,7 @@
     <style name="BasicBoldButtonStyle" parent="Widget.AppCompat.Button">
         <item name="android:textColor">@color/colorLight</item>
         <item name="android:padding">10dp</item>
-        <item name="android:radius">5dp</item>
+        <item name="android:radius">10dp</item>
         <item name="android:gravity">center</item>
         <item name="backgroundTint">@null</item>
         <item name="fontFamily">@font/rem_bold</item>
@@ -65,7 +65,7 @@
     <style name="BasicDarkButtonStyle" parent="Widget.AppCompat.Button">
         <item name="android:textColor">@color/colorLight</item>
         <item name="android:padding">10dp</item>
-        <item name="android:radius">5dp</item>
+        <item name="android:radius">10dp</item>
         <item name="android:gravity">center</item>
         <item name="backgroundTint">@null</item>
         <item name="android:color">@color/colorPrimary</item>
@@ -78,7 +78,7 @@
     <style name="RoundButtonStyle" parent="Widget.AppCompat.Button">
         <item name="android:textColor">@color/colorLight</item>
         <item name="android:padding">10dp</item>
-        <item name="android:radius">5dp</item>
+        <item name="android:radius">10dp</item>
         <item name="android:gravity">center</item>
         <item name="backgroundTint">@null</item>
         <item name="android:color">@color/colorPrimary</item>
@@ -90,7 +90,7 @@
 
     <style name="SocialButtonStyle" parent="Widget.AppCompat.Button">
         <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:radius">5dp</item>
+        <item name="android:radius">10dp</item>
         <item name="backgroundTint">@null</item>
         <item name="android:gravity">center</item>
         <item name="android:fontFamily">@font/rem_regular</item>
@@ -102,7 +102,7 @@
     <style name="FalseButtonStyle" parent="Widget.AppCompat.Button">
         <item name="android:textColor">@color/colorLight</item>
         <item name="android:padding">10dp</item>
-        <item name="android:radius">5dp</item>
+        <item name="android:radius">10dp</item>
         <item name="android:gravity">center</item>
         <item name="backgroundTint">@null</item>
         <item name="fontFamily">@font/rem_regular</item>
@@ -114,7 +114,7 @@
     <style name="TrueButtonStyle" parent="Widget.AppCompat.Button">
         <item name="android:textColor">@color/colorLight</item>
         <item name="android:padding">10dp</item>
-        <item name="android:radius">5dp</item>
+        <item name="android:radius">10dp</item>
         <item name="android:gravity">center</item>
         <item name="backgroundTint">@null</item>
         <item name="fontFamily">@font/rem_regular</item>
@@ -152,7 +152,10 @@
         <item name="android:textColor">@drawable/radio_text_color</item>
     </style>
 
-
+    <style name="TextInputLayoutStyle" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@drawable/text_input_layout</item>
+        <item name="hintTextColor">@drawable/text_input_layout</item>
+    </style>
 
 
 </resources>
