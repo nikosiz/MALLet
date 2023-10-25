@@ -11,13 +11,14 @@
         android:id="@+id/createLl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:gravity="bottom"
         android:orientation="vertical"
         android:padding="20dp">
 
         <TextView
             android:id="@+id/create_setTv"
-            style="@style/BasicTextStyle"
+            style="@style/BasicBoldTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_ripple"
@@ -29,12 +30,12 @@
             android:text="@string/create_new_set"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
-            app:drawableEndCompat="@drawable/ic_create_set"
+            app:drawableEndCompat="@drawable/ic_learning_set"
             app:drawableTint="@color/colorPrimaryDark" />
 
         <TextView
             android:id="@+id/create_folderTv"
-            style="@style/BasicTextStyle"
+            style="@style/BasicBoldTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
@@ -47,12 +48,12 @@
             android:text="@string/create_new_folder"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
-            app:drawableEndCompat="@drawable/ic_create_folder"
+            app:drawableEndCompat="@drawable/ic_folder"
             app:drawableTint="@color/colorPrimaryDark" />
 
         <TextView
             android:id="@+id/create_groupTv"
-            style="@style/BasicTextStyle"
+            style="@style/BasicBoldTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_ripple"
@@ -67,4 +68,18 @@
             app:drawableEndCompat="@drawable/ic_create_group"
             app:drawableTint="@color/colorPrimaryDark" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/create_cancelTv"
+        style="@style/BasicBoldTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:justificationMode="inter_word"
+        android:padding="30dp"
+        android:text="Cancel"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp" />
 </LinearLayout>

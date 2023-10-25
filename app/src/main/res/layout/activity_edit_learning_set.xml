@@ -5,8 +5,7 @@
     android:id="@+id/editSet_mainCl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    android:background="@color/colorPrimaryLight"
+    android:background="@color/colorPrimaryLight1"
     tools:context=".ActivityEditLearningSet"
     tools:ignore="Overdraw">
 
@@ -41,6 +40,7 @@
             style="@style/BasicBoldTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/russo_one_regular"
             android:gravity="center_vertical"
             android:justificationMode="inter_word"
             android:text="@string/edit_set"

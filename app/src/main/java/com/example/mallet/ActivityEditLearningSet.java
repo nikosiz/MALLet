@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -19,14 +20,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.mallet.databinding.ActivityEditLearningSetBinding;
+import com.example.mallet.databinding.DialogAddToFolderBinding;
+import com.example.mallet.databinding.DialogAddToGroupBinding;
 import com.example.mallet.databinding.DialogDeleteSetBinding;
 import com.example.mallet.databinding.DialogEditSetToolbarOptionsBinding;
-import com.example.mallet.databinding.DialogViewGroupManageSetsBinding;
 import com.example.mallet.utils.ModelFlashcard;
 import com.example.mallet.utils.ModelFolder;
 import com.example.mallet.utils.ModelGroup;
 import com.example.mallet.utils.Utils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
@@ -139,29 +142,31 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     }
 
     private void addSetToFolderDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_view_group_manage_sets);
-        DialogViewGroupManageSetsBinding dialogBinding = DialogViewGroupManageSetsBinding.inflate(LayoutInflater.from(this));
+        final Dialog dialog = createDialog(R.layout.dialog_add_to_group);
+        DialogAddToFolderBinding dialogBinding = DialogAddToFolderBinding.inflate(LayoutInflater.from(this));
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
-
-        List<ModelFolder> folders = createFolderList();
-
-        displayFolders(folders, dialogBinding.manageSetsSetListLl, getLayoutInflater());
-
         dialog.show();
-    }
 
-    private void addSetToGroupDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_view_group_manage_sets);
-        DialogViewGroupManageSetsBinding dialogBinding = DialogViewGroupManageSetsBinding.inflate(LayoutInflater.from(this));
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
+        ImageView backIv = dialogBinding.addToFolderToolbarBackIv;
+        TextInputEditText searchEt = dialogBinding.addToFolderSearchEt;
+        LinearLayout noGroupsLl = dialogBinding.addToFolderCreateFolderCvLl;
 
         List<ModelGroup> groups = createGroupList();
 
-        displayGroups(groups, dialogBinding.manageSetsSetListLl, getLayoutInflater());
 
-        dialog.show();
+        if (groups.isEmpty()) {
+            noGroupsLl.setVisibility(View.VISIBLE);
+        } else {
+            noGroupsLl.setVisibility(View.GONE);
+            displayGroups(groups, dialogBinding.addToFolderFolderListLl, getLayoutInflater());
+        }
+
+        backIv.setOnClickListener(v -> {
+            searchEt.clearFocus();
+            dialog.dismiss();
+        });
+
 
     }
 
@@ -329,5 +334,34 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().setGravity(Gravity.BOTTOM);
         return dialog;
+    }
+
+    private void addSetToGroupDialog() {
+        final Dialog dialog = createDialog(R.layout.dialog_add_to_group);
+        DialogAddToGroupBinding dialogBinding = DialogAddToGroupBinding.inflate(LayoutInflater.from(this));
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
+        dialog.show();
+
+        ImageView backIv = dialogBinding.addToGroupTitleBackIv;
+        TextInputEditText searchEt = dialogBinding.addToGroupSearchEt;
+        LinearLayout noGroupsLl = dialogBinding.addToGroupCreateGroupCvLl;
+
+        List<ModelGroup> groups = createGroupList();
+
+
+        if (groups.isEmpty()) {
+            noGroupsLl.setVisibility(View.VISIBLE);
+        } else {
+            noGroupsLl.setVisibility(View.GONE);
+            displayGroups(groups, dialogBinding.addToGroupGroupListLl, getLayoutInflater());
+        }
+
+        backIv.setOnClickListener(v -> {
+            searchEt.clearFocus();
+            dialog.dismiss();
+        });
+
+
     }
 }

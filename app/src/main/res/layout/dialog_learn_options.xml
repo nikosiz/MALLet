@@ -27,7 +27,7 @@
             android:minHeight="65dp"
             android:padding="20dp"
             android:text="Multiple choice questions"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
             app:thumbTint="@drawable/switch_thumb_color"
             app:trackDecorationTint="@drawable/switch_track_decoration_color"
@@ -44,7 +44,7 @@
             android:minHeight="65dp"
             android:padding="20dp"
             android:text="Written questions"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
             app:thumbTint="@drawable/switch_thumb_color"
             app:trackDecorationTint="@drawable/switch_track_decoration_color"
@@ -71,7 +71,7 @@
                         android:layout_weight="1"
                         android:justificationMode="inter_word"
                         android:text="Question format"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="15sp" />
 
                     <TextView
@@ -81,7 +81,7 @@
                         android:layout_height="wrap_content"
                         android:justificationMode="inter_word"
                         android:text="T/D/B"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="15sp" />
                 </LinearLayout>
         -->
@@ -99,10 +99,10 @@
             android:padding="20dp"
             android:paddingHorizontal="10dp"
             android:text="Restart"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
             app:drawableEndCompat="@drawable/ic_restart"
-            app:drawableTint="@color/colorPrimary" />
+            app:drawableTint="@color/colorPrimaryDark" />
 
         <TextView
             android:id="@+id/learnOptions_errorTv"
@@ -132,9 +132,9 @@
             android:justificationMode="inter_word"
             android:padding="10dp"
             android:text="Start learning"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             app:drawableEndCompat="@drawable/ic_arrow_forward"
-            app:drawableTint="@color/colorPrimary" />
+            app:drawableTint="@color/colorPrimaryDark" />
     </LinearLayout>
 </LinearLayout>

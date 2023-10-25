@@ -32,6 +32,7 @@
             style="@style/BasicBoldTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/russo_one_regular"
             android:justificationMode="inter_word"
             android:text="Add folder"
             android:textColor="@color/primaryTextColor"

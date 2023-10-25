@@ -12,6 +12,7 @@
         style="@style/BasicBoldTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/russo_one_regular"
         android:justificationMode="inter_word"
         android:text="Create new group"
         android:textColor="@color/primaryTextColor"

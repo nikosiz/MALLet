@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/usersGroups_mainLl"
+    android:id="@+id/addToFolder_mainLl"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorLight"
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/usersGroups_titleLl"
+        android:id="@+id/addToFolder_titleLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryLight"
@@ -16,7 +16,7 @@
         android:padding="20dp">
 
         <ImageView
-            android:id="@+id/usersGroups_toolbarBackIv"
+            android:id="@+id/addToFolder_toolbarBackIv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
@@ -29,23 +29,24 @@
             app:tint="@color/colorPrimaryDark" />
 
         <TextView
-            android:id="@+id/usersGroups_titleTv"
+            android:id="@+id/addToFolder_titleTv"
             style="@style/BasicBoldTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/russo_one_regular"
             android:justificationMode="inter_word"
-            android:text="Add to group"
+            android:text="Add to folder"
             android:textColor="@color/primaryTextColor"
             android:textSize="25sp" />
     </LinearLayout>
 
     <ScrollView
-        android:id="@+id/usersGroupsSv"
+        android:id="@+id/usersfoldersSv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:id="@+id/usersGroupsSvLl"
+            android:id="@+id/usersfoldersSvLl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimaryLight1"
@@ -53,7 +54,7 @@
             android:padding="20dp">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/usersGroups_searchTil"
+                android:id="@+id/addToFolder_searchTil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="5dp"
@@ -64,7 +65,7 @@
                 app:endIconTint="@color/colorPrimary">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/usersGroups_searchEt"
+                    android:id="@+id/addToFolder_searchEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Search"
@@ -77,13 +78,13 @@
                 android:layout_height="10dp" />
 
             <LinearLayout
-                android:id="@+id/usersGroups_groupListLl"
+                android:id="@+id/addToFolder_folderListLl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/usersGroups_createGroupCvLl"
+                    android:id="@+id/addToFolder_createFolderCvLl"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/bg_corners_rounded"
@@ -93,12 +94,12 @@
                     android:visibility="visible">
 
                     <TextView
-                        android:id="@+id/usersGroups_createGroupTitleTv"
+                        android:id="@+id/addToFolder_createFolderTitleTv"
                         style="@style/BasicBoldTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:justificationMode="inter_word"
-                        android:text="You cannot edit any group"
+                        android:text="You have no folders!"
                         android:textColor="@color/primaryTextColor"
                         android:textSize="20sp" />
 
@@ -107,17 +108,17 @@
                         android:layout_height="5dp" />
 
                     <TextView
-                        android:id="@+id/usersGroups_createGroupSubtitleTv"
+                        android:id="@+id/addToFolder_createFolderSubtitleTv"
                         style="@style/BasicTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:justificationMode="inter_word"
-                        android:text="Create a new one and add sets there!"
+                        android:text="Create a new one and organize your sets"
                         android:textColor="@color/colorPrimary"
                         android:textSize="20sp" />
 
                     <TextView
-                        android:id="@+id/usersGroups_createGroupTv"
+                        android:id="@+id/addToFolder_createFolderTv"
                         style="@style/BasicTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -126,7 +127,7 @@
                         android:gravity="center_vertical"
                         android:justificationMode="inter_word"
                         android:padding="10dp"
-                        android:text="Create group"
+                        android:text="Create folder"
                         android:textColor="@color/colorPrimary"
                         android:textSize="20sp"
                         app:drawableEndCompat="@drawable/ic_plus"

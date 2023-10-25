@@ -33,27 +33,24 @@
             android:focusable="true"
             android:src="@drawable/ic_arrow_back"
             app:tint="@color/colorPrimaryDark" />
+
+        <TextView
+            style="@style/BasicTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/russo_one_regular"
+            android:text="About MALLet"
+            android:textSize="30sp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="30dp">
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="20dp">
 
         <!-- Title -->
-        <TextView
-            style="@style/BasicBoldTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:justificationMode="inter_word"
-            android:text="About MALLet - Your Vocabulary Tutor"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="18sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="30dp" />
 
         <ScrollView
             android:layout_width="match_parent"

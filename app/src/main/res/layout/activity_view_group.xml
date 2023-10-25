@@ -40,6 +40,7 @@
             style="@style/BasicBoldTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/russo_one_regular"
             android:gravity="center_vertical"
             android:justificationMode="inter_word"
             android:text="group_name"

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,7 +20,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.mallet.client.userSet.UserSetInformationImpl;
 import com.example.mallet.databinding.ActivityViewLearningSetBinding;
-import com.example.mallet.databinding.DialogViewGroupManageSetsBinding;
+import com.example.mallet.databinding.DialogAddToGroupBinding;
 import com.example.mallet.databinding.DialogViewSetToolbarOptionsBinding;
 import com.example.mallet.utils.AdapterFlashcardViewPager;
 import com.example.mallet.utils.ModelFlashcard;
@@ -27,6 +28,7 @@ import com.example.mallet.utils.ModelFolder;
 import com.example.mallet.utils.ModelGroup;
 import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.Utils;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,29 +121,31 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
     }
 
-    private void addSetToFolderDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_view_group_manage_sets);
-        DialogViewGroupManageSetsBinding dialogBinding = DialogViewGroupManageSetsBinding.inflate(LayoutInflater.from(this));
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
-        dialog.show();
-
-        List<ModelFolder> folders = createFolderList();
-
-        displayFolders(folders, dialogBinding.manageSetsSetListLl, getLayoutInflater());
-
-    }
-
     private void addSetToGroupDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_view_group_manage_sets);
-        DialogViewGroupManageSetsBinding dialogBinding = DialogViewGroupManageSetsBinding.inflate(LayoutInflater.from(this));
+        final Dialog dialog = createDialog(R.layout.dialog_add_to_group);
+        DialogAddToGroupBinding dialogBinding = DialogAddToGroupBinding.inflate(LayoutInflater.from(this));
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
         dialog.show();
 
-        List<ModelGroup> groups = createGroupList();
+        ImageView backIv = dialogBinding.addToGroupTitleBackIv;
+        TextInputEditText searchEt = dialogBinding.addToGroupSearchEt;
+        LinearLayout noGroupsLl = dialogBinding.addToGroupCreateGroupCvLl;
 
-        displayGroups(groups, dialogBinding.manageSetsSetListLl, getLayoutInflater());
+        List<ModelGroup> groups = new ArrayList<>();//createGroupList();
+
+        if (groups.isEmpty()) {
+            noGroupsLl.setVisibility(View.VISIBLE);
+        } else {
+            noGroupsLl.setVisibility(View.GONE);
+            displayGroups(groups, dialogBinding.addToGroupGroupListLl, getLayoutInflater());
+        }
+
+        backIv.setOnClickListener(v -> {
+            searchEt.clearFocus();
+            dialog.dismiss();
+        });
+
 
     }
 

@@ -21,8 +21,6 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.mallet.databinding.ActivityViewGroupBinding;
 import com.example.mallet.databinding.DialogReportBinding;
-import com.example.mallet.databinding.DialogViewGroupManageMembersBinding;
-import com.example.mallet.databinding.DialogViewGroupManageSetsBinding;
 import com.example.mallet.databinding.DialogViewGroupToolbarOptionsBinding;
 import com.example.mallet.utils.Utils;
 import com.google.android.material.tabs.TabLayout;
@@ -92,21 +90,6 @@ public class ActivityViewGroup extends AppCompatActivity {
             reportDialog();
             // TODO: ActivityReport
         });
-    }
-
-    private void manageMembersDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_view_group_manage_members);
-        DialogViewGroupManageMembersBinding dialogBinding = DialogViewGroupManageMembersBinding.inflate(LayoutInflater.from(this));
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
-        dialog.show();
-    }
-
-    private void manageSetsDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_view_group_manage_sets);
-        DialogViewGroupManageSetsBinding dialogBinding = DialogViewGroupManageSetsBinding.inflate(LayoutInflater.from(this));
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.show();
     }
 
     private void reportDialog() {
