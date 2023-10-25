@@ -23,6 +23,7 @@
         android:autoSizeTextType="uniform"
         android:gravity="center"
         android:justificationMode="inter_word"
+        android:maxLines="3"
         android:text="@string/content_written_question"
         android:textColor="@color/primaryTextColor"
         android:textSize="25sp" />
@@ -83,15 +84,37 @@
                 android:visibility="gone" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/written_correctAnswerTv"
-            style="@style/BasicTextStyle"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
+
+        <LinearLayout
+            android:id="@+id/written_correctAnswersLl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:justificationMode="inter_word"
-            android:text="correct_answer"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp"
-            android:visibility="gone" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/written_correctAnswersTitleTv"
+                style="@style/BasicBoldTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/russo_one_regular"
+                android:justificationMode="inter_word"
+                android:text="Correct answers:"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/written_correctAnswersTv"
+                style="@style/BasicTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:justificationMode="inter_word"
+                android:text=""
+                android:textColor="@color/colorPrimary"
+                android:textSize="15sp" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

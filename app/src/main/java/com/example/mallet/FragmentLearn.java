@@ -38,19 +38,24 @@ import java.util.Random;
 
 public class FragmentLearn extends Fragment {
     private FragmentLearnBinding binding;
-    private int checkedSwitches;
-    private LinearLayout questionsLl;
+    private static final String PREFS_NAME = "FragmentLearnSettings";
     private MaterialSwitch multipleChoiceMs, writtenMs;
     private static final String KEY_MULTIPLE_CHOICE = "multipleChoice";
     private static final String KEY_WRITTEN = "written";
-    private static final String PREFS_NAME = "FragmentLearnSettings";
+    private int checkedSwitches;
+    private LinearLayout questionsLl, answersLl;
     private View writtenQuestionView;
     private TextView writtenQuestionTv;
     private TextInputEditText writtenAnswerEt;
-    private String answer;
+    private String writtenAnswer;
     private List<ModelWritten> writtenQuestions;
+    private int writtenCorrectAnswerPosition, writtenAlternativeAnswerPosition;
+    private TextView correctAnswersTv;
+    private View multipleChoiceQuestionView;
+    private TextView multipleChoiceQuestionTv;
     private List<ModelMultipleChoice> multipleChoiceQuestions;
     private TextView nextTv, prevTv, finishTv, errorTv;
+    private int currentQuestionIndex = 0;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -62,20 +67,26 @@ public class FragmentLearn extends Fragment {
         setupContents();
 
         learnOptionsDialog();
-
-        currentQuestionIndex = 0;
         Utils.showItems(nextTv);
         Utils.hideItems(finishTv);
 
         writtenQuestions = generateWrittenQuestions();
         multipleChoiceQuestions = generateMultipleChoiceQuestions();
 
-        if (writtenMs.isChecked() && !multipleChoiceMs.isChecked()) {
-            Utils.hideItems(errorTv);
-            nextTv.setOnClickListener(v -> {
+        Utils.hideItems(errorTv);
+        nextTv.setOnClickListener(v -> {
+            String writtenUserAnswer = writtenAnswerEt.getText().toString().toLowerCase();
+            ModelWritten writtenQuestion = writtenQuestions.get(currentQuestionIndex);
+            String writtenCorrectAnswer = writtenQuestion.getCorrectAnswer();
+            String writtenAlternativeAnswer = writtenQuestion.getAlternativeAnswer();
+
+            boolean isCorrect = checkAnswer(writtenUserAnswer, writtenCorrectAnswer, writtenAlternativeAnswer);
+
+            if (isCorrect) {
+                writtenAnswerEt.setText("");
+                currentQuestionIndex++;
                 if (currentQuestionIndex < writtenQuestions.size()) {
                     displayWrittenQuestions(writtenQuestions, questionsLl, inflater);
-                    currentQuestionIndex++;
                 } else {
                     Utils.showItems(finishTv);
                     Utils.makeItemsClickable(finishTv);
@@ -83,29 +94,23 @@ public class FragmentLearn extends Fragment {
                     Utils.makeItemsUnclickable(nextTv);
                     learningFinishedDialog();
                 }
-
-                System.out.println(currentQuestionIndex);
-            });
-        } else if (!writtenMs.isChecked() && multipleChoiceMs.isChecked()) {
-            Utils.hideItems(errorTv);
-            nextTv.setOnClickListener(v -> {
-                if (currentQuestionIndex < multipleChoiceQuestions.size()) {
-                    displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, inflater);
-                    currentQuestionIndex++;
-                } else {
-                    learningFinishedDialog();
-                }
-
-                System.out.println(currentQuestionIndex);
-            });
-        } else if (!writtenMs.isChecked() && !multipleChoiceMs.isChecked()) {
-            Utils.showItems(errorTv);
-        }
+            } else {
+                Utils.showItems(answersLl);
+            }
+        });
 
         finishTv.setOnClickListener(v -> learningFinishedDialog());
 
         System.out.println(currentQuestionIndex);
         return binding.getRoot();
+    }
+
+    private boolean checkAnswer(String userAnswer, String correctAnswer, String alternativeAnswer) {
+        String userInputLower = userAnswer.toLowerCase();
+        String correctAnswerLower = correctAnswer.toLowerCase();
+        String alternativeAnswerLower = alternativeAnswer.toLowerCase();
+
+        return userInputLower.equals(correctAnswerLower) || userInputLower.equals(alternativeAnswerLower);
     }
 
 
@@ -114,13 +119,12 @@ public class FragmentLearn extends Fragment {
         questionsLl = binding.learnQuestionLl;
 
         nextTv = binding.learnNextTv;
+
         prevTv = binding.learnPrevTv;
         finishTv = binding.learnFinishTv;
 
         writtenQuestionTv = writtenQuestionView.findViewById(R.id.written_questionTv);
         writtenAnswerEt = writtenQuestionView.findViewById(R.id.written_answerEt);
-        answer = writtenAnswerEt.getText().toString();
-
     }
 
     private void setupToolbar() {
@@ -202,14 +206,13 @@ public class FragmentLearn extends Fragment {
             } else if (!writtenMs.isChecked() && multipleChoiceMs.isChecked()) {
                 displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
             }
-            currentQuestionIndex = 1;
+            currentQuestionIndex = 0;
             optionsDialog.dismiss();
         });
 
         optionsDialog.show();
     }
 
-    private int currentQuestionIndex = 0;
 
     private void displayWrittenQuestions(List<ModelWritten> questions, LinearLayout ll, LayoutInflater inflater) {
         ll.removeAllViews();
@@ -221,11 +224,26 @@ public class FragmentLearn extends Fragment {
             TextView writtenQuestionTv = questionItem.findViewById(R.id.written_questionTv);
             writtenQuestionTv.setText(question.getQuestion());
 
+            correctAnswersTv = questionItem.findViewById(R.id.written_correctAnswersTv);
+            correctAnswersTv.setText("\"" + question.getCorrectAnswer() + "\" or \"" + question.getAlternativeAnswer() + "\"");
+
+
+            writtenAnswerEt = questionItem.findViewById(R.id.written_answerEt);
+            answersLl = questionItem.findViewById(R.id.written_correctAnswersLl);
+            Utils.hideItems(answersLl);
+
+            writtenAnswerEt.setOnFocusChangeListener((v, hasFocus) -> {
+                if (!hasFocus) {
+                    writtenAnswer = writtenAnswerEt.getText().toString();
+                }
+            });
+
             ll.addView(questionItem);
         } else {
             // All questions have been shown
         }
     }
+
 
     private void displayMultipleChoiceQuestion(List<ModelMultipleChoice> questions, LinearLayout ll, LayoutInflater inflater) {
         ll.removeAllViews();
@@ -297,24 +315,25 @@ public class FragmentLearn extends Fragment {
 
             Collections.shuffle(options);
 
-            int correctAnswerPosition = 1, alternativeAnswerPosition = 2;
+            writtenCorrectAnswerPosition = 1;
+            writtenAlternativeAnswerPosition = 2;
 
             switch (questionPosition) {
                 case 0:
-                    correctAnswerPosition = 1;
-                    alternativeAnswerPosition = 2;
+                    writtenCorrectAnswerPosition = 1;
+                    writtenAlternativeAnswerPosition = 2;
                     break;
                 case 1:
-                    correctAnswerPosition = 0;
-                    alternativeAnswerPosition = 2;
+                    writtenCorrectAnswerPosition = 0;
+                    writtenAlternativeAnswerPosition = 2;
                     break;
                 case 2:
-                    correctAnswerPosition = 1;
-                    alternativeAnswerPosition = 0;
+                    writtenCorrectAnswerPosition = 1;
+                    writtenAlternativeAnswerPosition = 0;
                     break;
             }
 
-            ModelWritten written = new ModelWritten(options.get(questionPosition), options.get(correctAnswerPosition), options.get(alternativeAnswerPosition));
+            ModelWritten written = new ModelWritten(options.get(questionPosition), options.get(writtenCorrectAnswerPosition), options.get(writtenAlternativeAnswerPosition));
 
             questionList.add(written);
 
