@@ -43,6 +43,7 @@ public class FragmentLearn extends Fragment {
     private static final String KEY_MULTIPLE_CHOICE = "multipleChoice";
     private static final String KEY_WRITTEN = "written";
     private int checkedSwitches;
+    private static final int MAX_QUESTIONS = 20;
     private LinearLayout questionsLl, answersLl;
     private View writtenQuestionView;
     private TextView writtenQuestionTv;
@@ -75,7 +76,7 @@ public class FragmentLearn extends Fragment {
 
         Utils.hideItems(errorTv);
         nextTv.setOnClickListener(v -> {
-            String writtenUserAnswer = writtenAnswerEt.getText().toString().toLowerCase();
+            String writtenUserAnswer = writtenAnswerEt.getText().toString().toLowerCase().trim();
             ModelWritten writtenQuestion = writtenQuestions.get(currentQuestionIndex);
             String writtenCorrectAnswer = writtenQuestion.getCorrectAnswer();
             String writtenAlternativeAnswer = writtenQuestion.getAlternativeAnswer();
@@ -85,7 +86,8 @@ public class FragmentLearn extends Fragment {
             if (isCorrect) {
                 writtenAnswerEt.setText("");
                 currentQuestionIndex++;
-                if (currentQuestionIndex < writtenQuestions.size()) {
+                if (currentQuestionIndex < MAX_QUESTIONS
+                        && currentQuestionIndex < writtenQuestions.size()) {
                     displayWrittenQuestions(writtenQuestions, questionsLl, inflater);
                 } else {
                     Utils.showItems(finishTv);
