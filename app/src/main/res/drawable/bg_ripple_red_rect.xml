@@ -10,7 +10,7 @@
 
     <item android:id="@android:id/background">
         <shape android:shape="rectangle">
-            <solid android:color="@color/carnation_red_100" />
+            <solid android:color="@color/carnation_red_200" />
             <corners android:radius="0dp" />
         </shape>
     </item>

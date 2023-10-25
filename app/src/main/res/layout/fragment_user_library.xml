@@ -23,7 +23,7 @@
             android:id="@+id/userLibrary_toolbarTitleTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/rem_bold"
+            android:fontFamily="@font/russo_one_regular"
             android:justificationMode="inter_word"
             android:text="Your library"
             android:textColor="@color/colorPrimaryDark"

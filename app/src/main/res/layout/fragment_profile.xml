@@ -5,7 +5,7 @@
     android:id="@+id/profile_mainSv"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryLight"
+    android:background="@color/colorPrimaryLight1"
     android:orientation="vertical"
     android:scrollbars="none"
     tools:context=".FragmentProfile"
@@ -30,7 +30,7 @@
             android:contentDescription="@string/profile_photo"
             android:focusable="true"
             android:src="@drawable/ic_user"
-            app:tint="@color/colorPrimary"
+            app:tint="@color/colorPrimaryDark"
             tools:ignore="ImageContrastCheck" />
 
         <View
@@ -328,7 +328,7 @@
                 android:justificationMode="inter_word"
                 android:minHeight="65dp"
                 android:text="@string/delete_account"
-                android:textColor="@color/carnation_red_700"
+                android:textColor="@color/carnation_red_900"
                 android:textSize="15sp" />
         </androidx.cardview.widget.CardView>
 

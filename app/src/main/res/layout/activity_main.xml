@@ -21,7 +21,7 @@
         android:id="@+id/main_bottomNavigation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
+        android:background="@color/colorPrimaryLight"
         android:gravity="bottom"
         app:elevation="8dp"
         app:itemActiveIndicatorStyle="@android:color/transparent"
