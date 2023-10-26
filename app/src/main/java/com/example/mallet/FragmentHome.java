@@ -54,9 +54,9 @@ public class FragmentHome extends Fragment {
     }
 
     private void setupContents() {
-        binding.homeSetViewAllTv.setOnClickListener(v -> showAllItems("Learning Sets"));
-        binding.homeFolderViewAllTv.setOnClickListener(v -> showAllItems("Folders"));
-        binding.homeGroupViewAllTv.setOnClickListener(v -> showAllItems("Groups"));
+        binding.homeSetViewAllTv.setOnClickListener(v -> showAllItems(0));
+        binding.homeFolderViewAllTv.setOnClickListener(v -> showAllItems(1));
+        binding.homeGroupViewAllTv.setOnClickListener(v -> showAllItems(2));
     }
 
     private void setupViewPager(ViewPager2 viewPager, List<?> itemList) {
@@ -100,9 +100,9 @@ public class FragmentHome extends Fragment {
         viewPager.setPageTransformer(Utils::applySwipeTransformer);
     }
 
-    private void showAllItems(String itemType) {
+    private void showAllItems(int index) {
         // TODO: Implement this method to display all items of a specific type
-        Utils.showToast(getContext(), "Here should open a list of " + itemType);
+        Utils.showToast(getContext(), "Here should open a list of " + index);
     }
 
 }

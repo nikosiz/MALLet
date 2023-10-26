@@ -73,120 +73,68 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:baselineAligned="false"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/groupMember_groupPermissionsLl"
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/groupMember_editGroupMs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:background="@color/colorLight"
+                android:contentDescription="@string/notifications_switch"
+                android:drawableStart="@drawable/ic_create_group"
+                android:drawablePadding="10dp"
+                android:drawableTint="@color/downriver_blue_500"
+                android:fontFamily="@font/rem_bold"
+                android:minHeight="65dp"
+                android:paddingHorizontal="30dp"
+                android:text="Edit group"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp"
+                app:thumbTint="@drawable/switch_thumb_color"
+                app:trackDecorationTint="@drawable/switch_track_decoration_color"
+                app:trackTint="@drawable/switch_track_color" />
 
-                <TextView
-                    android:id="@+id/groupMember_groupPermissionsTitleTv"
-                    style="@style/BasicTextStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:background="@drawable/bg_ripple"
-                    android:drawablePadding="10dp"
-                    android:gravity="center_vertical"
-                    android:padding="10dp"
-                    android:text="Group"
-                    android:textSize="20sp"
-                    app:drawableEndCompat="@drawable/ic_create_group"
-                    app:drawableTint="@color/colorPrimaryDark" />
-
-                <RadioGroup
-                    android:id="@+id/groupMember_groupPermissionsRg"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <RadioButton
-                        android:id="@+id/groupMember_groupPermissionsViewRb"
-                        style="@style/CustomRadioButtonStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/carnation_red_500"
-                        android:checked="true"
-                        android:text="View"
-                        android:textSize="15sp" />
-
-                    <RadioButton
-                        android:id="@+id/groupMember_groupPermissionsEditRb"
-                        style="@style/CustomRadioButtonStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Edit"
-                        android:textSize="15sp" />
-                </RadioGroup>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/groupMember_setPermissionsLl"
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/groupMember_editSetsMs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/groupMember_setPermissionsTitleTv"
-                    style="@style/BasicTextStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:background="@drawable/bg_ripple"
-                    android:drawablePadding="10dp"
-                    android:gravity="center_vertical"
-                    android:padding="10dp"
-                    android:text="Sets"
-                    android:textSize="20sp"
-                    app:drawableEndCompat="@drawable/ic_learning_set"
-                    app:drawableTint="@color/colorPrimaryDark" />
-
-                <RadioGroup
-                    android:id="@+id/groupMember_setPermissionsRg"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <RadioButton
-                        android:id="@+id/groupMember_setPermissionsViewRb"
-                        style="@style/CustomRadioButtonStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/carnation_red_500"
-                        android:checked="true"
-                        android:text="View"
-                        android:textSize="15sp" />
-
-                    <RadioButton
-                        android:id="@+id/groupMember_setPermissionsEditRb"
-                        style="@style/CustomRadioButtonStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Edit"
-                        android:textSize="15sp" />
-                </RadioGroup>
-            </LinearLayout>
+                android:background="@color/colorLight"
+                android:contentDescription="@string/notifications_switch"
+                android:drawableStart="@drawable/ic_learning_set"
+                android:drawablePadding="10dp"
+                android:drawableTint="@color/downriver_blue_500"
+                android:fontFamily="@font/rem_bold"
+                android:minHeight="65dp"
+                android:paddingHorizontal="30dp"
+                android:text="Edit sets"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp"
+                app:thumbTint="@drawable/switch_thumb_color"
+                app:trackDecorationTint="@drawable/switch_track_decoration_color"
+                app:trackTint="@drawable/switch_track_color" />
         </LinearLayout>
-    </LinearLayout>
 
-    <TextView
-        android:id="@+id/groupMember_deleteTv"
-        style="@style/BasicTextStyle"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="end"
-        android:layout_marginHorizontal="10dp"
-        android:layout_weight="1"
-        android:background="@drawable/bg_ripple"
-        android:clickable="true"
-        android:drawablePadding="10dp"
-        android:focusable="true"
-        android:gravity="center_vertical|end"
-        android:padding="10dp"
-        android:text="Delete member"
-        android:textSize="20sp"
-        app:drawableEndCompat="@drawable/ic_delete"
-        app:drawableTint="@color/colorPrimaryDark" />
+        <TextView
+            android:id="@+id/groupMember_deleteTv"
+            style="@style/BasicTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="end"
+            android:layout_marginHorizontal="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_ripple"
+            android:clickable="true"
+            android:drawablePadding="10dp"
+            android:focusable="true"
+            android:gravity="center_vertical|end"
+            android:padding="10dp"
+            android:text="Delete member"
+            android:textSize="20sp"
+            app:drawableEndCompat="@drawable/ic_delete"
+            app:drawableTint="@color/colorPrimaryDark" />
+    </LinearLayout>
 </LinearLayout>

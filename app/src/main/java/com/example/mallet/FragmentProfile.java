@@ -93,7 +93,7 @@ public class FragmentProfile extends Fragment {
         TextView passwordTv = binding.profileChangePasswordTv;
 
         MaterialSwitch notificationsMs = binding.profileNotificationsMs;
-        MaterialSwitch setsOfflineMs = binding.profileSaveOfflineMs;
+        //MaterialSwitch setsOfflineMs = binding.profileSaveOfflineMs;
         LinearLayout themeLl = binding.profileThemeLl;
         themeTv = binding.profileThemeTv;
         RadioGroup themeRg = binding.profileThemeRg;
@@ -126,7 +126,7 @@ public class FragmentProfile extends Fragment {
             saveSwitchState(KEY_NOTIFICATIONS, isChecked);
         });
 
-        setsOfflineMs.setChecked(getSwitchState(KEY_NOTIFICATIONS));
+        /*setsOfflineMs.setChecked(getSwitchState(KEY_NOTIFICATIONS));
 
         setsOfflineMs.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
@@ -139,7 +139,7 @@ public class FragmentProfile extends Fragment {
                 Utils.showToast(getContext(), "Sets will not be saved for offline use. The downloaded ones will be deleted (when the back end exists)");
             }
             saveSwitchState(KET_SETS_OFFLINE, isChecked);
-        });
+        });*/
 
         Utils.hideItems(themeRg);
         Utils.disableItems(themeRg);
