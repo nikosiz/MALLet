@@ -15,14 +15,13 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 
-import com.agh.api.UserInformationDTO;
-import com.example.mallet.client.error.ResponseHandler;
-import com.example.mallet.client.test.Test;
-import com.example.mallet.client.user.UserServiceImpl;
+import com.agh.api.UserDetailDTO;
+import com.example.mallet.backend.client.configuration.ResponseHandler;
+import com.example.mallet.backend.client.user.boundary.UserServiceImpl;
 import com.example.mallet.databinding.ActivityLoginBinding;
 import com.example.mallet.databinding.DialogForgotPasswordBinding;
 import com.example.mallet.databinding.DialogForgotPasswordOpenEmailBinding;
-import com.example.mallet.exception.MalletException;
+import com.example.mallet.backend.exception.MalletException;
 import com.example.mallet.utils.Utils;
 
 import java.util.Objects;
@@ -59,8 +58,6 @@ public class ActivityLogin extends AppCompatActivity {
         passwordErrTv = binding.loginPasswordErrorTv;
         passwordIncorrect = getString(R.string.password_incorrect);
 
-        Test test = new Test();
-        test.initMethod();
         setupContents();
     }
 
@@ -139,9 +136,9 @@ public class ActivityLogin extends AppCompatActivity {
         String password = passwordEt.getText().toString();
 
         if (!Utils.isErrVisible(emailErrTv) && !Utils.isErrVisible(passwordErrTv)) {
-            userService.login(email, password, new Callback<UserInformationDTO>() {
+            userService.login(email, password, new Callback<>() {
                 @Override
-                public void onResponse(Call<UserInformationDTO> call, Response<UserInformationDTO> response) {
+                public void onResponse(Call<UserDetailDTO> call, Response<UserDetailDTO> response) {
                     try {
                         responseHandler.handleResponse(response);
                         Utils.showToast(getApplicationContext(), "Logged in");
@@ -160,7 +157,7 @@ public class ActivityLogin extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<UserInformationDTO> call, Throwable t) {
+                public void onFailure(Call<UserDetailDTO> call, Throwable t) {
                     System.out.println();
                 }
             });
