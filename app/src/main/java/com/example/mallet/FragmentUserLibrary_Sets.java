@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.mallet.backend.client.user.boundary.UserServiceImpl;
 import com.example.mallet.databinding.FragmentUserLibrarySetsBinding;
 import com.example.mallet.utils.ModelFlashcard;
 import com.example.mallet.utils.ModelLearningSet;
@@ -19,6 +20,8 @@ import java.util.List;
 
 public class FragmentUserLibrary_Sets extends Fragment {
 
+    private UserServiceImpl userService;
+
     public static FragmentUserLibrary_Sets newInstance(String param1, String param2) {
 
         return new FragmentUserLibrary_Sets();
@@ -27,6 +30,8 @@ public class FragmentUserLibrary_Sets extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        this.userService = new UserServiceImpl();
 
     }
 

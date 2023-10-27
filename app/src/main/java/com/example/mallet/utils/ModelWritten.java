@@ -26,9 +26,9 @@ public class ModelWritten {
 
     @Override
     public String toString() {
-        return "Written questions: \n" +
+        return "Written: \n" +
                 "Question: " + question + "\n" +
                 "Correct answer: " + correctAnswer + "\n" +
-                "Alternative answer: " + alternativeAnswer;
+                "Alternative answer: " + alternativeAnswer + "\n";
     }
 }

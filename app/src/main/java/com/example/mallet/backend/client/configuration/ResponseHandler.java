@@ -1,6 +1,6 @@
 package com.example.mallet.backend.client.configuration;
 
-import com.agh.api.ErrorResponseDTO;
+/*import com.agh.api.ErrorResponseDTO;
 import com.example.mallet.backend.exception.MalletException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -46,4 +46,4 @@ public class ResponseHandler {
         }
     }
 
-}
+}*/

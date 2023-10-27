@@ -1,16 +1,7 @@
 package com.example.mallet.backend.client.set.boundary;
 
-import androidx.annotation.NonNull;
-
-import com.agh.api.Language;
-import com.agh.api.SetBasicDTO;
-import com.agh.api.SetDetailDTO;
 import com.example.mallet.backend.client.configuration.RetrofitClient;
 import com.example.mallet.backend.client.set.control.SetService;
-
-import java.util.Set;
-
-import retrofit2.Callback;
 
 public class SetServiceImpl {
 
@@ -21,7 +12,7 @@ public class SetServiceImpl {
                 .create(SetService.class);
     }
 
-    public void getSet(@NonNull Long id,
+    /*public void getSet(@NonNull Long id,
                        long termStartPosition,
                        long termLimit,
                        @NonNull Language language,
@@ -44,6 +35,6 @@ public class SetServiceImpl {
                             Callback<SetBasicDTO> callback) {
         setService.getBasicSet(startPosition, limit, language)
                 .enqueue(callback);
-    }
+    }*/
 
 }

@@ -1,8 +1,8 @@
 package com.example.mallet.backend.entity.group.create;
 
-import androidx.annotation.NonNull;
-
 import java.util.List;
+
+import lombok.NonNull;
 
 public record GroupCreateContainer(
         @NonNull

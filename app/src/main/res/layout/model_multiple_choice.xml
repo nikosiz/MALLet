@@ -7,7 +7,7 @@
     android:layout_gravity="center"
     android:layout_margin="10dp"
     android:orientation="vertical"
-    android:padding="10dp"
+    android:padding="30dp"
     app:cardCornerRadius="10dp"
     app:cardElevation="0dp">
 
@@ -16,8 +16,6 @@
         style="@style/BasicBoldTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="30dp"
         android:layout_weight="1"
         android:gravity="start"
         android:justificationMode="inter_word"
@@ -32,8 +30,7 @@
         android:layout_gravity="bottom"
         android:background="@drawable/bg_corners_rounded"
         android:gravity="bottom"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/multipleChoiceTv"
@@ -55,7 +52,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/multipleChoice_answerOneBtn"
+                android:id="@+id/multipleChoice_answerABtn"
                 style="@style/SocialButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -66,7 +63,7 @@
                 android:textSize="20sp" />
 
             <Button
-                android:id="@+id/multipleChoice_answerTwoBtn"
+                android:id="@+id/multipleChoice_answerBBtn"
                 style="@style/SocialButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -77,7 +74,7 @@
                 android:textSize="20sp" />
 
             <Button
-                android:id="@+id/multipleChoice_answerThreeBtn"
+                android:id="@+id/multipleChoice_answerCBtn"
                 style="@style/SocialButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -88,7 +85,7 @@
                 android:textSize="20sp" />
 
             <Button
-                android:id="@+id/multipleChoice_answerFourBtn"
+                android:id="@+id/multipleChoice_answerDBtn"
                 style="@style/SocialButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
