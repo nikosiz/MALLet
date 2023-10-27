@@ -14,12 +14,12 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.mallet.client.error.ResponseHandler;
-import com.example.mallet.client.user.UserServiceImpl;
+import com.example.mallet.backend.client.configuration.ResponseHandler;
+import com.example.mallet.backend.client.user.boundary.UserServiceImpl;
 import com.example.mallet.databinding.ActivitySignupBinding;
 import com.example.mallet.databinding.DialogChooseUsernameBinding;
 import com.example.mallet.databinding.DialogConfirmAccountBinding;
-import com.example.mallet.exception.MalletException;
+import com.example.mallet.backend.exception.MalletException;
 import com.example.mallet.utils.Utils;
 
 import java.util.Objects;
@@ -101,7 +101,7 @@ public class ActivitySignup extends AppCompatActivity {
             username = Objects.requireNonNull(dialogUsernameEt.getText()).toString().trim();
 
             if (!Utils.isErrVisible(dialogErrTv)) {
-                userService.signUp(username, password, email, new Callback<Void>() {
+                userService.signUp(username, password, email, new Callback<>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         try {

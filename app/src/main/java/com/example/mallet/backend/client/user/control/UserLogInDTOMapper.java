@@ -1,4 +1,4 @@
-package com.example.mallet.client.user;
+package com.example.mallet.backend.client.user.control;
 
 import com.agh.api.UserLogInDTO;
 

@@ -18,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.mallet.client.userSet.UserSetInformationImpl;
 import com.example.mallet.databinding.ActivityViewLearningSetBinding;
 import com.example.mallet.databinding.DialogAddToGroupBinding;
 import com.example.mallet.databinding.DialogViewSetToolbarOptionsBinding;
@@ -37,8 +36,6 @@ import java.util.Objects;
 public class ActivityViewLearningSet extends AppCompatActivity {
     private ActivityViewLearningSetBinding binding;
     private ModelLearningSet learningSet;
-    private UserSetInformationImpl setService;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
