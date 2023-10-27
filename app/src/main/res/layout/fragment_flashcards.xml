@@ -49,7 +49,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <com.yuyakaido.android.cardstackview.CardStackView
-        android:id="@+id/flashcardsCsv"
+        android:id="@+id/flashcardStackCsv"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="false"

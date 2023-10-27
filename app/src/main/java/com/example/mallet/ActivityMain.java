@@ -29,7 +29,6 @@ import com.example.mallet.databinding.DialogCreateBinding;
 import com.example.mallet.databinding.DialogCreateFolderBinding;
 import com.example.mallet.databinding.DialogCreateGroupBinding;
 import com.example.mallet.databinding.DialogCreateSetBinding;
-import com.example.mallet.utils.FlashcardManager;
 import com.example.mallet.utils.ModelFolder;
 import com.example.mallet.utils.ModelGroup;
 import com.example.mallet.utils.ModelLearningSet;
@@ -302,11 +301,11 @@ public class ActivityMain extends AppCompatActivity {
     public List<ModelLearningSet> createSetList() {
         List<ModelLearningSet> sets = new ArrayList<>();
 
-        ModelLearningSet set1 = FlashcardManager.readFlashcards(getApplicationContext(), "fruit.txt");
-        ModelLearningSet set2 = FlashcardManager.readFlashcards(getApplicationContext(), "animals.txt");
-        ModelLearningSet set3 = FlashcardManager.readFlashcards(getApplicationContext(), "nrs.txt");
-        ModelLearningSet set4 = FlashcardManager.readFlashcards(getApplicationContext(), "countries.txt");
-        ModelLearningSet set5 = FlashcardManager.readFlashcards(getApplicationContext(), "colors.txt");
+        ModelLearningSet set1 = Utils.readFlashcards(getApplicationContext(), "fruit.txt");
+        ModelLearningSet set2 = Utils.readFlashcards(getApplicationContext(), "animals.txt");
+        ModelLearningSet set3 = Utils.readFlashcards(getApplicationContext(), "nrs.txt");
+        ModelLearningSet set4 = Utils.readFlashcards(getApplicationContext(), "countries.txt");
+        ModelLearningSet set5 = Utils.readFlashcards(getApplicationContext(), "colors.txt");
 
         sets.add(set1);
         sets.add(set2);

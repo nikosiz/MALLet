@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/russo_one_regular"
-        android:justificationMode="inter_word"
+
         android:text="Are you ready?"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="25sp" />
@@ -27,7 +27,7 @@
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:justificationMode="inter_word"
+
         android:text="Match all terms to definitions and translations as quickly as you can. \n\nFor each incorrect match, 5 extra seconds will be awarded to your time"
         android:textColor="@color/colorPrimary"
         android:textSize="20sp" />
@@ -47,7 +47,7 @@
         android:drawablePadding="10dp"
         android:focusable="true"
         android:gravity="end"
-        android:justificationMode="inter_word"
+
         android:padding="10dp"
         android:text="Start playing"
         android:textColor="@color/colorPrimary"

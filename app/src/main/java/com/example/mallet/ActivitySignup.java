@@ -14,7 +14,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.mallet.backend.client.configuration.ResponseHandler;
 import com.example.mallet.backend.client.user.boundary.UserServiceImpl;
+import com.example.mallet.backend.exception.MalletException;
 import com.example.mallet.databinding.ActivitySignupBinding;
 import com.example.mallet.databinding.DialogChooseUsernameBinding;
 import com.example.mallet.databinding.DialogConfirmAccountBinding;
@@ -22,6 +24,10 @@ import com.example.mallet.utils.Utils;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ActivitySignup extends AppCompatActivity {
     private ActivitySignupBinding binding;
@@ -32,7 +38,7 @@ public class ActivitySignup extends AppCompatActivity {
     private final Pattern usernamePattern = Pattern.compile("^[a-zA-Z0-9_]+$");
 
     private UserServiceImpl userService;
-    //private ResponseHandler responseHandler;
+    private ResponseHandler responseHandler;
     private Context context;
 
     @Override
@@ -43,7 +49,7 @@ public class ActivitySignup extends AppCompatActivity {
 
 
         userService = new UserServiceImpl();
-        //responseHandler = new ResponseHandler();
+        responseHandler = new ResponseHandler();
 
         emailEt = binding.signupEmailEt;
         emailErrTv = binding.signupEmailErrorTv;
@@ -95,7 +101,7 @@ public class ActivitySignup extends AppCompatActivity {
             username = Objects.requireNonNull(dialogUsernameEt.getText()).toString().trim();
 
             if (!Utils.isErrVisible(dialogErrTv)) {
-                /*userService.signUp(username, password, email, new Callback<>() {
+                userService.signUp(username, password, email, new Callback<>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         try {
@@ -114,7 +120,7 @@ public class ActivitySignup extends AppCompatActivity {
                     public void onFailure(Call<Void> call, Throwable t) {
                         Utils.showToast(getApplicationContext(), "Network failure");
                     }
-                });*/
+                });
             }
         });
     }

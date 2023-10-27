@@ -43,8 +43,8 @@ public class FragmentFlashcards extends Fragment {
 
     private FragmentFlashcardsBinding binding;
     private static final String TAG = "LearnFragment";
-    private CardStackLayoutManager manager;
-    private AdapterFlashcardStack adapter;
+    private CardStackLayoutManager cardStackManager;
+    private AdapterFlashcardStack adapterFlashcardStack;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -64,7 +64,7 @@ public class FragmentFlashcards extends Fragment {
     }
 
     private void setupCardStackView() {
-        manager = new CardStackLayoutManager(requireContext(), new CardStackListener() {
+        cardStackManager = new CardStackLayoutManager(requireContext(), new CardStackListener() {
             @Override
             public void onCardDragging(Direction direction, float ratio) {
                 // Handle card dragging
@@ -82,18 +82,18 @@ public class FragmentFlashcards extends Fragment {
                     Toast.makeText(requireContext(), "Right", Toast.LENGTH_SHORT).show();
                 }
 
-                if (manager.getTopPosition() == adapter.getItemCount() - 5) {
+                if (cardStackManager.getTopPosition() == adapterFlashcardStack.getItemCount() - 5) {
                     paginate();
                 }
             }
 
             private void paginate() {
-                List<ModelFlashcard> oldItem = adapter.getItems();
+                List<ModelFlashcard> oldItem = adapterFlashcardStack.getItems();
                 List<ModelFlashcard> newItem = new ArrayList<>(addList());
                 CallbackFlashcardStack callback = new CallbackFlashcardStack(oldItem, newItem);
                 DiffUtil.DiffResult results = DiffUtil.calculateDiff(callback);
-                adapter.setItems(newItem);
-                results.dispatchUpdatesTo(adapter);
+                adapterFlashcardStack.setItems(newItem);
+                results.dispatchUpdatesTo(adapterFlashcardStack);
             }
 
             @Override
@@ -122,22 +122,22 @@ public class FragmentFlashcards extends Fragment {
             }
         });
 
-        manager.setStackFrom(StackFrom.Bottom);
-        manager.setVisibleCount(3);
-        manager.setTranslationInterval(4.0f);
-        manager.setScaleInterval(0.95f);
-        manager.setSwipeThreshold(0.3f);
-        manager.setMaxDegree(0.0f);
-        manager.setDirections(Direction.HORIZONTAL);
-        manager.setCanScrollHorizontal(true);
-        manager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual);
-        manager.setOverlayInterpolator(new LinearInterpolator());
-        manager.setCanScrollVertical(false);
+        cardStackManager.setStackFrom(StackFrom.Bottom);
+        cardStackManager.setVisibleCount(3);
+        cardStackManager.setTranslationInterval(4.0f);
+        cardStackManager.setScaleInterval(0.95f);
+        cardStackManager.setSwipeThreshold(0.3f);
+        cardStackManager.setMaxDegree(0.0f);
+        cardStackManager.setDirections(Direction.HORIZONTAL);
+        cardStackManager.setCanScrollHorizontal(true);
+        cardStackManager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual);
+        cardStackManager.setOverlayInterpolator(new LinearInterpolator());
+        cardStackManager.setCanScrollVertical(false);
 
-        adapter = new AdapterFlashcardStack(addList());
-        binding.flashcardsCsv.setLayoutManager(manager);
-        binding.flashcardsCsv.setAdapter(adapter);
-        binding.flashcardsCsv.setItemAnimator(new DefaultItemAnimator());
+        adapterFlashcardStack = new AdapterFlashcardStack(addList());
+        binding.flashcardStackCsv.setLayoutManager(cardStackManager);
+        binding.flashcardStackCsv.setAdapter(adapterFlashcardStack);
+        binding.flashcardStackCsv.setItemAnimator(new DefaultItemAnimator());
     }
 
     private void setupContents() {
@@ -181,39 +181,38 @@ public class FragmentFlashcards extends Fragment {
     }
 
     private void performSwipe(Direction direction) {
-        int currentPosition = manager.getTopPosition();
-        if (currentPosition >= 0 && currentPosition < adapter.getItemCount()) {
+        int currentPosition = cardStackManager.getTopPosition();
+        if (currentPosition >= 0 && currentPosition < adapterFlashcardStack.getItemCount()) {
             if (direction == Direction.Left) {
-                manager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual);
-                manager.setSwipeAnimationSetting(new SwipeAnimationSetting.Builder()
+                cardStackManager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual);
+                cardStackManager.setSwipeAnimationSetting(new SwipeAnimationSetting.Builder()
                         .setDirection(Direction.Left)
                         .setDuration(Duration.Normal.duration)
                         .build());
             } else if (direction == Direction.Right) {
-                manager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual);
-                manager.setSwipeAnimationSetting(new SwipeAnimationSetting.Builder()
+                cardStackManager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual);
+                cardStackManager.setSwipeAnimationSetting(new SwipeAnimationSetting.Builder()
                         .setDirection(Direction.Right)
                         .setDuration(Duration.Normal.duration)
                         .build());
             }
 
-            binding.flashcardsCsv.swipe();
+            binding.flashcardStackCsv.swipe();
         } else {
             Toast.makeText(requireContext(), "No more cards to swipe", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void undoSwipe() {
-        int currentPosition = manager.getTopPosition();
+        int currentPosition = cardStackManager.getTopPosition();
         if (currentPosition > 0) { // Check if there are cards to rewind
-            binding.flashcardsCsv.rewind();
+            binding.flashcardStackCsv.rewind();
         } else {
             Toast.makeText(requireContext(), "No more cards to undo", Toast.LENGTH_SHORT).show();
         }
     }
 
     private List<ModelFlashcard> addList() {
-
 
         return Utils.readFlashcardsFromFile(requireContext(), "animals.txt");
     }

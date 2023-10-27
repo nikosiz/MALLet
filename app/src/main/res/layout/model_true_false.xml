@@ -24,7 +24,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="30dp"
             android:gravity="start"
-            android:justificationMode="inter_word"
+
             android:paddingHorizontal="10dp"
             android:text="content of the question: term OR definition/translation"
             android:textColor="@color/primaryTextColor"
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="30dp"
-            android:justificationMode="inter_word"
+
             android:paddingHorizontal="10dp"
             android:text="definition/translation OR term"
             android:textColor="@color/colorPrimary"

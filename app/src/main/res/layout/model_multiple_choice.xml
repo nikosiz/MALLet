@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:layout_margin="10dp"
+    android:layout_margin="20dp"
     android:orientation="vertical"
-    android:padding="30dp"
+    android:padding="10dp"
     app:cardCornerRadius="10dp"
     app:cardElevation="0dp">
 
@@ -16,9 +16,13 @@
         style="@style/BasicBoldTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
         android:layout_weight="1"
-        android:gravity="start"
-        android:justificationMode="inter_word"
+        android:autoSizeMaxTextSize="30sp"
+        android:autoSizeMinTextSize="10sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
+        android:gravity="center"
         android:paddingHorizontal="10dp"
         android:text="content of the abcd question: term OR definition/translation"
         android:textColor="@color/primaryTextColor"
@@ -30,14 +34,15 @@
         android:layout_gravity="bottom"
         android:background="@drawable/bg_corners_rounded"
         android:gravity="bottom"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="20dp">
 
         <TextView
             android:id="@+id/multipleChoiceTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:justificationMode="inter_word"
+
             android:text="Choose the correct answer"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp" />

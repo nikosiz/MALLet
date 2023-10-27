@@ -5,7 +5,7 @@
     android:ellipsize="end"
     android:fontFamily="@font/rem_regular"
     android:gravity="center"
-    android:justificationMode="inter_word"
+
     android:singleLine="true"
     android:textAllCaps="false"
     android:textColor="@color/colorPrimary" />

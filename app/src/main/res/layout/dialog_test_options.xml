@@ -15,7 +15,7 @@
         style="@style/BasicBoldTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:justificationMode="inter_word"
+
         android:paddingHorizontal="10dp"
         android:text="set_name"
         android:textColor="@color/colorPrimaryDark"
@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/russo_one_regular"
-        android:justificationMode="inter_word"
+
         android:paddingHorizontal="10dp"
         android:text="Test options"
         android:textColor="@color/colorPrimaryDark"
@@ -56,7 +56,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:justificationMode="inter_word"
+
             android:text="Questions (max X)"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="15sp" />
@@ -137,7 +137,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:justificationMode="inter_word"
+
             android:text="Answers"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="15sp" />
@@ -146,7 +146,7 @@
             android:id="@+id/testOptions_answersTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:justificationMode="inter_word"
+
             android:text="pol/eng/both" />
     </LinearLayout>
 
@@ -225,7 +225,7 @@
         android:id="@+id/testOptions_errorTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:justificationMode="inter_word"
+
         android:paddingHorizontal="10dp"
         android:text="Select at least one type of questions for your test"
         android:textColor="@color/carnation_red_600"
@@ -242,7 +242,7 @@
         android:drawablePadding="10dp"
         android:focusable="true"
         android:gravity="end"
-        android:justificationMode="inter_word"
+
         android:padding="10dp"
         android:text="Start test"
         android:textColor="@color/colorPrimaryDark"

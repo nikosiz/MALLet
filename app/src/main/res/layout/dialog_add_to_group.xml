@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/russo_one_regular"
-            android:justificationMode="inter_word"
+
             android:text="Add to group"
             android:textColor="@color/primaryTextColor"
             android:textSize="25sp" />
@@ -103,7 +103,7 @@
                         style="@style/BasicBoldTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:justificationMode="inter_word"
+
                         android:text="You cannot edit any group"
                         android:textColor="@color/primaryTextColor"
                         android:textSize="20sp" />
@@ -117,7 +117,7 @@
                         style="@style/BasicTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:justificationMode="inter_word"
+
                         android:text="Create a new one and add sets there!"
                         android:textColor="@color/colorPrimary"
                         android:textSize="20sp" />
@@ -130,7 +130,7 @@
                         android:background="@drawable/bg_ripple"
                         android:drawablePadding="10dp"
                         android:gravity="center_vertical"
-                        android:justificationMode="inter_word"
+
                         android:padding="10dp"
                         android:text="Create group"
                         android:textColor="@color/colorPrimary"

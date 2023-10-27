@@ -52,7 +52,7 @@
             android:clickable="true"
             android:focusable="true"
             android:gravity="center_vertical"
-            android:justificationMode="inter_word"
+
             android:padding="20dp"
             android:text="Edit"
             android:textColor="@color/colorPrimaryDark"
@@ -69,7 +69,7 @@
             android:clickable="true"
             android:focusable="true"
             android:gravity="center_vertical"
-            android:justificationMode="inter_word"
+
             android:padding="20dp"
             android:text="Add learning sets"
             android:textColor="@color/colorPrimaryDark"
@@ -86,7 +86,7 @@
             android:clickable="true"
             android:focusable="true"
             android:gravity="center_vertical"
-            android:justificationMode="inter_word"
+
             android:padding="20dp"
             android:text="Share with a group"
             android:textColor="@color/colorPrimaryDark"
@@ -103,7 +103,7 @@
             android:clickable="true"
             android:focusable="true"
             android:gravity="center_vertical"
-            android:justificationMode="inter_word"
+
             android:padding="20dp"
             android:text="Delete"
             android:textColor="@color/accentPrimary"
@@ -120,7 +120,7 @@
         android:clickable="true"
         android:focusable="true"
         android:gravity="center"
-        android:justificationMode="inter_word"
+
         android:padding="30dp"
         android:text="Cancel"
         android:textColor="@color/colorPrimaryDark"

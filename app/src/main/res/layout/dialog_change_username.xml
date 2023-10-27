@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/russo_one_regular"
-        android:justificationMode="inter_word"
+
         android:text="Change username"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="20sp" />
@@ -28,7 +28,7 @@
         android:id="@+id/changeUsernameTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:justificationMode="inter_word"
+
         android:text="Enter new username"
         android:textColor="@color/colorPrimary"
         android:textSize="20sp" />
@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginBottom="5dp"
-            android:justificationMode="inter_word"
+
             android:text="This username already exists"
             android:textColor="@color/carnation_red_600"
             android:visibility="gone" />
@@ -93,7 +93,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:background="@drawable/bg_ripple"
-            android:justificationMode="inter_word"
+
             android:padding="10dp"
             android:text="@string/cancel"
             android:textColor="@color/colorPrimary"
@@ -105,7 +105,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:background="@drawable/bg_ripple"
-            android:justificationMode="inter_word"
+
             android:padding="10dp"
             android:text="@string/ok"
             android:textColor="@color/colorPrimary"

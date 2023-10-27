@@ -87,7 +87,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
                     android:gravity="center"
-                    android:justificationMode="inter_word"
+
                     android:text="set_name"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="20sp" />
@@ -115,7 +115,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:justificationMode="inter_word"
+
                         android:text="user_name"
                         android:textColor="@color/colorPrimary" />
 
@@ -130,7 +130,7 @@
                         style="@style/BasicTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:justificationMode="inter_word"
+
                         android:text="terms"
                         android:textColor="@color/danube_blue_400" />
                 </LinearLayout>
@@ -143,7 +143,7 @@
                     android:id="@+id/viewSet_descriptionTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
+
                     android:text="Set description"
                     android:textColor="@color/colorPrimary"
                     android:visibility="gone" />
@@ -196,7 +196,7 @@
                                 style="@style/BasicBoldTextStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:justificationMode="inter_word"
+
                                 android:text="Flashcards"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="15sp" />
@@ -205,7 +205,7 @@
                                 style="@style/BasicTextStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:justificationMode="inter_word"
+
                                 android:text="Review terms and definitions"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="15sp" />
@@ -250,7 +250,7 @@
                                 style="@style/BasicBoldTextStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:justificationMode="inter_word"
+
                                 android:text="Learn"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="15sp" />
@@ -259,7 +259,7 @@
                                 style="@style/BasicTextStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:justificationMode="inter_word"
+
                                 android:text="Study in your own pace"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="15sp" />
@@ -303,7 +303,7 @@
                                 style="@style/BasicBoldTextStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:justificationMode="inter_word"
+
                                 android:text="Test"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="15sp" />
@@ -312,7 +312,7 @@
                                 style="@style/BasicTextStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:justificationMode="inter_word"
+
                                 android:text="Take a test to check your knowledge"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="15sp" />
@@ -357,7 +357,7 @@
                                 style="@style/BasicBoldTextStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:justificationMode="inter_word"
+
                                 android:text="Match"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="15sp" />
@@ -366,7 +366,7 @@
                                 style="@style/BasicTextStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:justificationMode="inter_word"
+
                                 android:text="Match terms and definitions"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="15sp" />
@@ -382,7 +382,7 @@
                     style="@style/BasicBoldTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
+
                     android:text="Cards in this set"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="20sp" />

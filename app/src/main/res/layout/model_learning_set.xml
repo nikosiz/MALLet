@@ -37,7 +37,7 @@
             style="@style/BasicBoldTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:justificationMode="inter_word"
+
             android:singleLine="true"
             android:text="set_name"
             android:textColor="@color/colorPrimaryDark"
@@ -48,7 +48,7 @@
             style="@style/BasicTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:justificationMode="inter_word"
+
 
             android:singleLine="true"
             android:text="nr_of_terms"
@@ -68,7 +68,7 @@
             android:drawablePadding="5dp"
             android:focusable="true"
             android:gravity="center_vertical"
-            android:justificationMode="inter_word"
+
             android:singleLine="true"
             android:text="creator_name"
             android:textColor="@color/colorPrimary"

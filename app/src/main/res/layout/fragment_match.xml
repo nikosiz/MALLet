@@ -40,7 +40,7 @@
             android:layout_gravity="end"
             android:layout_marginHorizontal="20dp"
             android:fontFamily="@font/russo_one_regular"
-            android:justificationMode="inter_word"
+
             android:text="0"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp" />

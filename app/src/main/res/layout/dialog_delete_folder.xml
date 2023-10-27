@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/russo_one_regular"
-        android:justificationMode="inter_word"
+
         android:text="Delete folder"
         android:textColor="@color/primaryTextColor"
         android:textSize="20sp"
@@ -31,7 +31,7 @@
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:justificationMode="inter_word"
+
         android:text="Type the name of the folder to continue deleting it"
         android:textColor="@color/colorPrimary"
         android:textSize="19sp" />
@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginBottom="5dp"
-            android:justificationMode="inter_word"
+
             android:text="This field cannot be empty"
             android:textColor="@color/carnation_red_600"
             android:visibility="gone" />
@@ -84,7 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginBottom="5dp"
-            android:justificationMode="inter_word"
+
             android:text="The name you provided is incorrect"
             android:textColor="@color/carnation_red_600"
             android:visibility="gone" />
@@ -106,7 +106,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:justificationMode="inter_word"
+
         android:text="You need to check this box in order to continue"
         android:textColor="@color/carnation_red_600"
         android:visibility="gone" />
@@ -130,7 +130,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:background="@drawable/bg_ripple"
-            android:justificationMode="inter_word"
+
             android:padding="10dp"
             android:text="@string/cancel"
             android:textColor="@color/colorPrimary"
@@ -143,7 +143,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:background="@drawable/bg_ripple"
-            android:justificationMode="inter_word"
+
             android:padding="10dp"
             android:text="Delete folder"
             android:textColor="@color/carnation_red_700"

@@ -9,12 +9,16 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.agh.api.UserDetailDTO;
+import com.example.mallet.backend.client.configuration.ResponseHandler;
 import com.example.mallet.backend.client.user.boundary.UserServiceImpl;
+import com.example.mallet.backend.exception.MalletException;
 import com.example.mallet.databinding.ActivityLoginBinding;
 import com.example.mallet.databinding.DialogForgotPasswordBinding;
 import com.example.mallet.databinding.DialogForgotPasswordOpenEmailBinding;
@@ -23,6 +27,10 @@ import com.example.mallet.utils.Utils;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class ActivityLogin extends AppCompatActivity {
     private EditText emailEt, passwordEt;
     private TextView emailErrTv, passwordErrTv;
@@ -30,7 +38,7 @@ public class ActivityLogin extends AppCompatActivity {
     private final Pattern passwordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^*()<>?/|}{~:]).{8,}$");
     private String emailIncorrect, passwordIncorrect;
     private UserServiceImpl userService;
-    //private ResponseHandler responseHandler;
+    private ResponseHandler responseHandler;
     SharedPreferences sharedPreferences;
 
     @Override
@@ -39,8 +47,10 @@ public class ActivityLogin extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
         userService = new UserServiceImpl();
-        //responseHandler = new ResponseHandler();
+        responseHandler = new ResponseHandler();
 
         emailEt = binding.loginEmailEt;
         emailErrTv = binding.loginEmailErrorTv;
@@ -128,23 +138,18 @@ public class ActivityLogin extends AppCompatActivity {
         String password = passwordEt.getText().toString();
 
         if (!Utils.isErrVisible(emailErrTv) && !Utils.isErrVisible(passwordErrTv)) {
-            /*userService.login(email, password, new Callback<>() {
+            userService.login(email, password, new Callback<>() {
                 @Override
                 public void onResponse(Call<UserDetailDTO> call, Response<UserDetailDTO> response) {
                     try {
                         responseHandler.handleResponse(response);
                         Utils.showToast(getApplicationContext(), "Logged in");
-                        Utils.openActivity(getApplicationContext(), ActivityMain.class);
 
-                        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putBoolean("isLogged", true);
-                        editor.apply();
+                        Intent intent = new Intent(getApplicationContext(), ActivityMain.class);
+                        startActivity(intent);
+
                     } catch (MalletException e) {
                         Utils.showToast(getApplicationContext(), e.getMessage());
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putBoolean("isLogged", false);
-                        editor.apply();
                     }
                 }
 
@@ -153,7 +158,7 @@ public class ActivityLogin extends AppCompatActivity {
                     System.out.println();
                 }
             });
-        } else {*/
+        } else {
             System.out.println("Error is visible");
         }
     }

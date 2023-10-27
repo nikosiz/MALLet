@@ -52,7 +52,7 @@
             android:clickable="true"
             android:focusable="true"
             android:gravity="center_vertical"
-            android:justificationMode="inter_word"
+
             android:paddingHorizontal="30dp"
             android:paddingVertical="20dp"
             android:text="Leave group"
@@ -70,7 +70,7 @@
             android:clickable="true"
             android:focusable="true"
             android:gravity="center_vertical"
-            android:justificationMode="inter_word"
+
             android:paddingHorizontal="30dp"
             android:paddingVertical="20dp"
             android:text="Report"
@@ -90,7 +90,7 @@
         android:clickable="true"
         android:focusable="true"
         android:gravity="center"
-        android:justificationMode="inter_word"
+
         android:padding="30dp"
         android:text="Cancel"
         android:textColor="@color/colorPrimaryDark"

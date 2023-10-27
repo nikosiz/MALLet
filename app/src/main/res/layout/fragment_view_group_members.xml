@@ -39,7 +39,7 @@
                     style="@style/BasicBoldTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
+
                     android:text="There are no members in this group"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="20sp" />
@@ -53,7 +53,7 @@
                     style="@style/BasicTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
+
                     android:text="Add members to share your sets"
                     android:textColor="@color/colorPrimary"
                     android:textSize="15sp" />
@@ -70,7 +70,7 @@
                     android:background="@drawable/bg_ripple"
                     android:drawablePadding="10dp"
                     android:gravity="center_vertical"
-                    android:justificationMode="inter_word"
+
                     android:padding="10dp"
                     android:text="Add members"
                     android:textColor="@color/colorPrimary"

@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
 
         android:fontFamily="@font/russo_one_regular"
-        android:justificationMode="inter_word"
+
         android:text="Game over"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="25sp" />
@@ -28,7 +28,7 @@
         style="@style/BasicTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:justificationMode="inter_word"
+
         android:text="Time: "
         android:textColor="@color/colorPrimary"
         android:textSize="20sp" />
@@ -53,7 +53,7 @@
             android:background="@drawable/bg_ripple"
             android:clickable="true"
             android:focusable="true"
-            android:justificationMode="inter_word"
+
             android:padding="10dp"
             android:text="Finish"
             android:textColor="@color/colorPrimary"
@@ -67,7 +67,7 @@
             android:background="@drawable/bg_ripple"
             android:clickable="true"
             android:focusable="true"
-            android:justificationMode="inter_word"
+
             android:padding="10dp"
             android:text="Restart"
             android:textColor="@color/colorPrimary"

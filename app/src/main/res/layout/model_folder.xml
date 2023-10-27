@@ -37,7 +37,7 @@
             style="@style/BasicBoldTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:justificationMode="inter_word"
+
             android:text="folder_name"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp" />
@@ -55,7 +55,7 @@
             android:drawablePadding="5dp"
             android:focusable="true"
             android:gravity="center_vertical"
-            android:justificationMode="inter_word"
+
             android:singleLine="true"
             android:text="creator_name"
             android:textColor="@color/colorPrimary"

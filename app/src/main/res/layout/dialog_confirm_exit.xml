@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/russo_one_regular"
-        android:justificationMode="inter_word"
+
         android:text="Are you sure?"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="23sp" />
@@ -36,7 +36,7 @@
             android:background="@drawable/bg_ripple"
             android:clickable="true"
             android:focusable="true"
-            android:justificationMode="inter_word"
+
             android:padding="10dp"
             android:text="@string/cancel"
             android:textColor="@color/colorPrimary"
@@ -50,7 +50,7 @@
             android:background="@drawable/bg_ripple"
             android:clickable="true"
             android:focusable="true"
-            android:justificationMode="inter_word"
+
             android:padding="10dp"
             android:text="Leave"
             android:textColor="@color/colorPrimary"

@@ -36,32 +36,42 @@ public class AdapterFlashcardViewPager extends RecyclerView.Adapter<AdapterFlash
         ModelFlashcard flashcard = flashcards.get(position);
 
         if (isFlipped) {
-            holder.termTv.setVisibility(View.GONE); // Hide term TextView
+            holder.termTv.setVisibility(View.GONE);
 
-            holder.translationTv.setVisibility(View.VISIBLE); // Show translation TextView
-            holder.translationTv.setText(flashcard.getTranslation()); // Set translation text
+            holder.definitionView.setVisibility(View.GONE);
+            holder.definitionTv.setVisibility(View.GONE);
+
+            holder.translationView.setVisibility(View.GONE);
+            holder.translationTv.setVisibility(View.VISIBLE);
+            holder.translationTv.setText(flashcard.getTranslation());
         } else {
-            holder.termTv.setVisibility(View.VISIBLE); // Show term TextView
-            holder.termTv.setText(flashcard.getTerm()); // Set term text
+            holder.termTv.setVisibility(View.VISIBLE);
+            holder.termTv.setText(flashcard.getTerm());
 
-            holder.translationTv.setVisibility(View.GONE); // Hide translation TextView
+            holder.definitionView.setVisibility(View.VISIBLE);
+            if (!flashcard.getDefinition().isEmpty()) {
+                holder.definitionTv.setVisibility(View.VISIBLE);
+                holder.definitionTv.setText(flashcard.getDefinition());
+            }
+
+            holder.translationView.setVisibility(View.GONE);
+            holder.translationTv.setVisibility(View.GONE);
         }
 
         holder.itemView.setOnClickListener(v -> {
-            isFlipped = !isFlipped; // Toggle the flipped state
-            notifyDataSetChanged(); // Notify the adapter that the data has changed
+            isFlipped = !isFlipped;
+            notifyDataSetChanged();
             if (clickListener != null) {
-                clickListener.onClick(v); // Trigger the click listener
+                clickListener.onClick(v);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return flashcards.size(); // Return the nr of flashcards in the list
+        return flashcards.size();
     }
 
-    // ViewHolder class for holding the views of a flashcard item
     static class FlashcardViewHolder extends RecyclerView.ViewHolder {
         final TextView termTv;
         final View definitionView;
@@ -69,13 +79,12 @@ public class AdapterFlashcardViewPager extends RecyclerView.Adapter<AdapterFlash
         final View translationView;
         final TextView translationTv;
 
-        // Constructor to initialize the views
         FlashcardViewHolder(View itemView) {
             super(itemView);
             termTv = itemView.findViewById(R.id.flashcard_termTv);
-            definitionView = itemView.findViewById(R.id.flashcard_definitionV);
+            definitionView = itemView.findViewById(R.id.flashcard_definitionView);
             definitionTv = itemView.findViewById(R.id.flashcard_definitionTv);
-            translationView = itemView.findViewById(R.id.flashcard_translationV);
+            translationView = itemView.findViewById(R.id.flashcard_translationView);
             translationTv = itemView.findViewById(R.id.flashcard_translationTv);
         }
     }

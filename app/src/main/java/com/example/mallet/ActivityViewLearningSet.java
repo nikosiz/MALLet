@@ -211,28 +211,26 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             float scale = getResources().getDisplayMetrics().density;
             int paddingInPixels = (int) (paddingInDp * scale + 0.5f);
 
-            LinearLayout flashcardCvLL = flashcardItemView.findViewById(R.id.flashcardCvLl);
-            flashcardCvLL.setGravity(View.TEXT_ALIGNMENT_TEXT_START);
-            flashcardCvLL.setPadding(paddingInPixels, paddingInPixels, paddingInPixels, paddingInPixels);
+            LinearLayout flashcardLL = flashcardItemView.findViewById(R.id.flashcard_mainLl);
+
+            flashcardLL.setPadding(paddingInPixels, paddingInPixels, paddingInPixels, paddingInPixels);
 
             TextView flashcardTermTv = flashcardItemView.findViewById(R.id.flashcard_termTv);
             flashcardTermTv.setVisibility(View.VISIBLE);
             flashcardTermTv.setText(flashcard.getTerm());
-            flashcardTermTv.setTextSize(25.0f);
-
-            View definitionV = flashcardItemView.findViewById(R.id.flashcard_definitionV);
-            definitionV.setVisibility(View.VISIBLE);
+            flashcardTermTv.setGravity(Gravity.START);
+            flashcardTermTv.setTextSize(30.0f);
 
             TextView flashcardDefinitionTv = flashcardItemView.findViewById(R.id.flashcard_definitionTv);
-            flashcardDefinitionTv.setVisibility(View.GONE);
+            flashcardDefinitionTv.setVisibility(View.VISIBLE);
             flashcardDefinitionTv.setText(flashcard.getDefinition());
-
-            View translationV = flashcardItemView.findViewById(R.id.flashcard_translationV);
-            translationV.setVisibility(View.GONE);
+            flashcardDefinitionTv.setGravity(Gravity.START);
+            flashcardDefinitionTv.setTextSize(20.0f);
 
             TextView flashcardTranslationTv = flashcardItemView.findViewById(R.id.flashcard_translationTv);
             flashcardTranslationTv.setVisibility(View.VISIBLE);
             flashcardTranslationTv.setText(flashcard.getTranslation());
+            flashcardTranslationTv.setGravity(Gravity.START);
             flashcardTranslationTv.setTextSize(20.0f);
 
             linearLayout.addView(flashcardItemView);

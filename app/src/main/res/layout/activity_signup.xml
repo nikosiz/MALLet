@@ -22,7 +22,7 @@
         android:autoSizeTextType="uniform"
         android:fontFamily="@font/russo_one_regular"
         android:gravity="center"
-        android:justificationMode="inter_word"
+
         android:text="@string/app_logo"
         android:textColor="@color/colorLight" />
 
@@ -45,7 +45,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/russo_one_regular"
             android:gravity="center_vertical"
-            android:justificationMode="inter_word"
+
             android:maxLines="1"
             android:text="@string/sign_up"
             android:textColor="@color/primaryTextColor"
@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:layout_marginBottom="5dp"
-                android:justificationMode="inter_word"
+
                 android:text="@string/field_cannot_be_empty"
                 android:textColor="@color/carnation_red_600"
                 android:visibility="gone" />
@@ -124,7 +124,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:layout_marginBottom="5dp"
-                android:justificationMode="inter_word"
+
                 android:text="@string/field_cannot_be_empty"
                 android:textColor="@color/carnation_red_600"
                 android:visibility="gone" />
@@ -141,7 +141,7 @@
             android:drawablePadding="10dp"
             android:focusable="true"
             android:gravity="center_vertical"
-            android:justificationMode="inter_word"
+
             android:padding="10dp"
             android:text="Continue"
             android:textColor="@color/colorPrimary"
@@ -166,7 +166,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:justificationMode="inter_word"
+
                 android:paddingTop="6dp"
                 android:text="@string/already_have_account"
                 android:textColor="@color/primaryTextColor" />
@@ -181,7 +181,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:fontFamily="@font/russo_one_regular"
-                android:justificationMode="inter_word"
+
                 android:padding="5dp"
                 android:text="@string/login_here"
                 android:textColor="@color/primaryTextColor"

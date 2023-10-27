@@ -22,7 +22,7 @@
         android:autoSizeTextType="uniform"
         android:fontFamily="@font/russo_one_regular"
         android:gravity="center"
-        android:justificationMode="inter_word"
+
         android:text="@string/app_logo"
         android:textColor="@color/colorLight" />
 
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/russo_one_regular"
             android:gravity="center"
-            android:justificationMode="inter_word"
+
             android:singleLine="true"
             android:text="@string/welcome"
             android:textColor="@color/colorPrimaryDark"
@@ -58,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:justificationMode="inter_word"
+
             android:text="@string/choose_next_action"
             android:textColor="@color/primaryTextColor"
             android:textSize="21sp" />

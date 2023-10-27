@@ -40,7 +40,7 @@
             style="@style/BasicBoldTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:justificationMode="inter_word"
+
 
             android:singleLine="true"
             android:text="group_name"
@@ -62,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:justificationMode="inter_word"
+
                 android:text=" members"
                 android:textColor="@color/colorPrimary"
                 android:textSize="15sp" />
@@ -79,7 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:justificationMode="inter_word"
+
                 android:text=" sets"
                 android:textColor="@color/colorPrimary"
                 android:textSize="15sp" />

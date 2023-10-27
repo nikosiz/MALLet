@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/russo_one_regular"
             android:gravity="center_vertical"
-            android:justificationMode="inter_word"
+
             android:text="Edit group"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="30sp" />
@@ -112,7 +112,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:layout_marginBottom="5dp"
-                        android:justificationMode="inter_word"
+
                         android:text="group_name_error"
                         android:textColor="@color/carnation_red_600"
                         android:visibility="gone" />

@@ -51,7 +51,7 @@
             android:clickable="true"
             android:focusable="true"
             android:gravity="center_vertical"
-            android:justificationMode="inter_word"
+
             android:paddingHorizontal="30dp"
             android:paddingVertical="20dp"
             android:text="Edit"
@@ -69,7 +69,7 @@
             android:clickable="true"
             android:focusable="true"
             android:gravity="center_vertical"
-            android:justificationMode="inter_word"
+
             android:paddingHorizontal="30dp"
             android:paddingVertical="20dp"
             android:text="Add to my collection"
@@ -88,7 +88,7 @@
             android:clickable="true"
             android:focusable="true"
             android:gravity="center_vertical"
-            android:justificationMode="inter_word"
+
             android:paddingHorizontal="30dp"
             android:paddingVertical="20dp"
             android:text="Add to group (wyświetlić grupy których user jest adminem, jeżeli nie jest adminem żadnej to musi stworzyć i od nowa przejść proces dodawania setu do grupy pozdr)"
@@ -107,7 +107,7 @@
             android:clickable="true"
             android:focusable="true"
             android:gravity="center_vertical"
-            android:justificationMode="inter_word"
+
             android:padding="20dp"
             android:text="Add to folder"
             android:textColor="@color/colorPrimary"
@@ -125,7 +125,7 @@
         android:clickable="true"
         android:focusable="true"
         android:gravity="center"
-        android:justificationMode="inter_word"
+
         android:padding="30dp"
         android:text="Cancel"
         android:textColor="@color/colorPrimaryDark"

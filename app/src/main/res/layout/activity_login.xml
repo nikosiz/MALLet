@@ -11,18 +11,19 @@
 
     <TextView
         android:id="@+id/login_logoTv"
+        style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_gravity="center"
+        android:layout_gravity="top"
         android:layout_weight="1"
         android:animation="@anim/pulse_anim"
-        android:autoSizeMaxTextSize="300sp"
-        android:autoSizeMinTextSize="2sp"
-        android:autoSizeStepGranularity="2sp"
+        android:autoSizeMaxTextSize="299sp"
+        android:autoSizeMinTextSize="1sp"
+        android:autoSizeStepGranularity="1sp"
         android:autoSizeTextType="uniform"
         android:fontFamily="@font/russo_one_regular"
         android:gravity="center"
-        android:justificationMode="inter_word"
+        android:minHeight="0dp"
         android:text="@string/app_logo"
         android:textColor="@color/colorLight" />
 
@@ -44,8 +45,9 @@
             android:layout_weight="1"
             android:fontFamily="@font/russo_one_regular"
             android:gravity="center_vertical"
-            android:justificationMode="inter_word"
+
             android:maxLines="1"
+            android:paddingHorizontal="5dp"
             android:text="@string/login"
             android:textColor="@color/primaryTextColor"
             android:textSize="30sp" />
@@ -92,7 +94,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:layout_marginBottom="5dp"
-                    android:justificationMode="inter_word"
+
                     android:text="email_error"
                     android:textColor="@color/carnation_red_600"
                     android:visibility="gone" />
@@ -135,7 +137,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:layout_marginBottom="5dp"
-                    android:justificationMode="inter_word"
+
                     android:text="password_error"
                     android:textColor="@color/carnation_red_600"
                     android:visibility="gone" />
@@ -150,7 +152,7 @@
                 android:background="@drawable/bg_ripple"
                 android:clickable="true"
                 android:focusable="true"
-                android:justificationMode="inter_word"
+
                 android:padding="5dp"
                 android:text="@string/forgot_password"
                 android:textSize="20sp"
@@ -167,6 +169,7 @@
                 style="@style/BasicButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
                 android:text="@string/login"
                 android:textSize="15sp"
                 app:backgroundTint="@null" />
@@ -189,7 +192,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:justificationMode="inter_word"
+
                 android:paddingTop="6dp"
                 android:text="@string/no_account" />
 
@@ -202,7 +205,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:fontFamily="@font/russo_one_regular"
-                android:justificationMode="inter_word"
+
                 android:padding="5dp"
                 android:text="@string/signup_here"
                 android:textColor="@color/primaryTextColor"

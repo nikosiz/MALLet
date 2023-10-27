@@ -21,9 +21,6 @@
             android:name=".ActivityEditGroup"
             android:exported="false" />
         <activity
-            android:name=".ActivityViewProfile"
-            android:exported="false" />
-        <activity
             android:name=".ActivityViewLearningSet"
             android:exported="false"
             android:screenOrientation="portrait"
