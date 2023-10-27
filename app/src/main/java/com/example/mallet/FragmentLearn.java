@@ -38,14 +38,14 @@ import java.util.Objects;
 import java.util.Random;
 
 public class FragmentLearn extends Fragment {
-    private FragmentLearnBinding binding;
     private static final String PREFS_NAME = "FragmentLearnSettings";
-    private MaterialSwitch multipleChoiceMs, writtenMs;
     private static final String KEY_MULTIPLE_CHOICE = "multipleChoice";
     private static final String KEY_WRITTEN = "written";
-    private int checkedSwitches;
     private static final int MAX_QUESTIONS = 20;
     private static int WRITTEN_QUESTIONS, MULTIPLE_CHOICE_QUESTIONS;
+    private FragmentLearnBinding binding;
+    private MaterialSwitch multipleChoiceMs, writtenMs;
+    private int checkedSwitches;
     private LinearLayout questionsLl, answersLl;
     private View writtenQuestionView;
     private TextView writtenQuestionTv;

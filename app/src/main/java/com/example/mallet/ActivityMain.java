@@ -43,9 +43,9 @@ import java.util.Objects;
 
 public class ActivityMain extends AppCompatActivity {
 
+    private static final String SELECTED_FRAGMENT_KEY = "selected_fragment";
     private ActivityMainBinding binding;
     private int clickCount = 0;
-    private static final String SELECTED_FRAGMENT_KEY = "selected_fragment";
     private int selectedFragmentId = R.id.bottom_nav_home;
     private EditText folderNameEt, folderDescriptionEt;
     private SharedPreferences sharedPreferences;

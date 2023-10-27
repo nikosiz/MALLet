@@ -20,12 +20,12 @@ import com.example.mallet.utils.Utils;
 import java.util.Objects;
 
 public class FragmentMatch extends Fragment {
+    private final Integer[] cardsArray = {101, 102, 103, 104, 105, 201, 202, 203, 204, 205};
     private Chronometer chronometer;
     private TextView tv_p1;
     private CardView cv_11, cv_12, cv_21, cv_22, cv_31, cv_32, cv_41, cv_42, cv_51, cv_52;
     private TextView cv_11Tv, cv_12Tv, cv_21Tv, cv_22Tv, cv_31Tv, cv_32Tv, cv_41Tv, cv_42Tv, cv_51Tv, cv_52Tv;
     private TextView pointsTv;
-    private final Integer[] cardsArray = {101, 102, 103, 104, 105, 201, 202, 203, 204, 205};
     private int text101, text102, text103, text104, text105, text201, text202, text203, text204, text205;
     private int firstCard, secondCard;
     private int clickedFirst, clickedSecond;

@@ -27,7 +27,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.Objects;
 
 public class ActivityViewFolder extends AppCompatActivity {
-
     private ActivityViewFolderBinding binding;
     private String folderName, folderDescription;
     private ModelFolder folder;

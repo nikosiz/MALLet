@@ -38,13 +38,13 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class ActivityEditLearningSet extends AppCompatActivity {
+    private final Pattern namePattern = Pattern.compile(".*");
     private ActivityEditLearningSetBinding binding;
     private TextInputLayout setDescriptionTil;
     private ScrollView scrollView;
     private EditText setNameEt, setDescriptionEt;
     private String learningSetName;
     private TextView setNameErrTv;
-    private final Pattern namePattern = Pattern.compile(".*");
     private int termCounter = 0;
     private EditText setTermEt, setDefinitionEt, setTranslationEt;
     private LinearLayout flashcardsLl;

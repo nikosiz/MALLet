@@ -41,8 +41,8 @@ import java.util.Objects;
 
 public class FragmentFlashcards extends Fragment {
 
-    private FragmentFlashcardsBinding binding;
     private static final String TAG = "LearnFragment";
+    private FragmentFlashcardsBinding binding;
     private CardStackLayoutManager cardStackManager;
     private AdapterFlashcardStack adapterFlashcardStack;
 

@@ -32,14 +32,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ActivityLogin extends AppCompatActivity {
+    private final Pattern passwordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^*()<>?/|}{~:]).{8,}$");
+    SharedPreferences sharedPreferences;
     private EditText emailEt, passwordEt;
     private TextView emailErrTv, passwordErrTv;
     private ActivityLoginBinding binding;
-    private final Pattern passwordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^*()<>?/|}{~:]).{8,}$");
     private String emailIncorrect, passwordIncorrect;
     private UserServiceImpl userService;
     private ResponseHandler responseHandler;
-    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -39,12 +39,14 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class FragmentProfile extends Fragment {
-    private FragmentProfileBinding binding;
-    private int clickCount = 0;
-    int[] themeClickCounter = {0};
+    private static final String PREFS_NAME = "ProfileAppSettings";
+    private static final String KEY_NOTIFICATIONS = "notifications";
+    private static final String KET_SETS_OFFLINE = "setsOffline";
     private final Pattern usernamePattern = Pattern.compile("^[a-zA-Z0-9_]+$");
     private final Pattern passwordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^*()<>?/|}{~:]).{8,}$");
-
+    int[] themeClickCounter = {0};
+    private FragmentProfileBinding binding;
+    private int clickCount = 0;
     // Declare your strings here, but don't initialize them immediately
     private String usernameIncorrect;
     private String emailIncorrect;
@@ -54,9 +56,6 @@ public class FragmentProfile extends Fragment {
     private RadioButton systemThemeRb;
     private RadioButton lightThemeRb;
     private RadioButton darkThemeRb;
-    private static final String PREFS_NAME = "ProfileAppSettings";
-    private static final String KEY_NOTIFICATIONS = "notifications";
-    private static final String KET_SETS_OFFLINE = "setsOffline";
     private int selectedTheme;
 
     @Nullable
@@ -179,11 +178,6 @@ public class FragmentProfile extends Fragment {
         editor.putInt("selectedTheme", selectedTheme);
 
         editor.apply();
-    }
-
-
-    public enum VerifyPasswordAction {
-        CHANGE_EMAIL, CHANGE_USERNAME
     }
 
     private void verifyPasswordDialog(VerifyPasswordAction action) {
@@ -359,7 +353,6 @@ public class FragmentProfile extends Fragment {
         return sharedPreferences.getBoolean(switchKey, false); // Default value (false) if key not found
     }
 
-
     private void aboutDialog() {
         final Dialog dialog = createDialog(R.layout.dialog_change_password);
         DialogAboutBinding dialogBinding = DialogAboutBinding.inflate(LayoutInflater.from(requireContext()));
@@ -436,5 +429,9 @@ public class FragmentProfile extends Fragment {
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().setGravity(Gravity.BOTTOM);
         return dialog;
+    }
+
+    public enum VerifyPasswordAction {
+        CHANGE_EMAIL, CHANGE_USERNAME
     }
 }

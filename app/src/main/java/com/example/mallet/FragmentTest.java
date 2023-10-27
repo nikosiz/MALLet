@@ -26,20 +26,20 @@ import com.google.android.material.materialswitch.MaterialSwitch;
 import java.util.Objects;
 
 public class FragmentTest extends Fragment {
-    private FragmentTestBinding binding;
-    private ViewPager2 questionVp2;
-    private AdapterTest pagerAdapter;
-    private final int minNrOfQuestions = 1;
-    private int nrOfQuestions = minNrOfQuestions;
-    private final int maxNrOfQuestions = 50;
-    private MaterialSwitch trueFalseMs, multipleChoiceMs, matchMs, writtenMs;
-    private int checkedSwitches = 0;
     private static final String PREFS_NAME = "TestSettings";
     private static final String KEY_NR_OF_QUESTIONS = "nrOfQuestions";
     private static final String KEY_TRUE_FALSE = "trueFalse";
     private static final String KEY_MULTIPLE_CHOICE = "multipleChoice";
     private static final String KEY_MATCH = "match";
     private static final String KEY_WRITTEN = "written";
+    private final int minNrOfQuestions = 1;
+    private final int maxNrOfQuestions = 50;
+    private FragmentTestBinding binding;
+    private ViewPager2 questionVp2;
+    private AdapterTest pagerAdapter;
+    private int nrOfQuestions = minNrOfQuestions;
+    private MaterialSwitch trueFalseMs, multipleChoiceMs, matchMs, writtenMs;
+    private int checkedSwitches = 0;
 
     public FragmentTest() {
         // Required empty public constructor
