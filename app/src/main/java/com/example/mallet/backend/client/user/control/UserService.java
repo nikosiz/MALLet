@@ -16,6 +16,21 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
+import com.agh.api.SetBasicDTO;
+import com.agh.api.UserDetailDTO;
+import com.agh.api.UserLogInDTO;
+import com.agh.api.UserRegistrationDTO;
+
+import java.util.Set;
+
+import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.DELETE;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Query;
+
 public interface UserService {
 
     @POST(UserServiceConstants.REGISTRATION_PATH)

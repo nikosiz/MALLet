@@ -30,7 +30,8 @@ public class RetrofitClient {
         }).create();
     }
 
-    private RetrofitClient() {}
+    private RetrofitClient() {
+    }
 
     public static Retrofit getRetrofitClient() {
         OkHttpClient httpClient = new OkHttpClient();
