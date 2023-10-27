@@ -2,10 +2,10 @@ package com.example.mallet;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Patterns;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 import com.agh.api.UserInformationDTO;
 import com.example.mallet.client.error.ResponseHandler;
@@ -37,9 +38,9 @@ public class ActivityLogin extends AppCompatActivity {
     private ActivityLoginBinding binding;
     private final Pattern passwordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^*()<>?/|}{~:]).{8,}$");
     private String emailIncorrect, passwordIncorrect;
-
     private UserServiceImpl userService;
     private ResponseHandler responseHandler;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +67,8 @@ public class ActivityLogin extends AppCompatActivity {
     private void setupContents() {
         setupAnimation();
 
-        Utils.setupTextWatcher(emailEt, emailErrTv, Patterns.EMAIL_ADDRESS, emailIncorrect);
-        Utils.setupTextWatcher(passwordEt, passwordErrTv, passwordPattern, passwordIncorrect);
+        Utils.setupEmailTextWatcher(emailEt, emailErrTv);
+        Utils.setupPasswordTextWatcher(passwordEt, passwordErrTv);
 
         binding.loginForgotPasswordTv.setOnClickListener(v -> forgotPasswordDialog());
         binding.loginBtn.setOnClickListener(v -> handleLogin());
@@ -89,7 +90,7 @@ public class ActivityLogin extends AppCompatActivity {
         EditText dialogEmailEt = dialogBinding.forgotPasswordEmailEt;
         TextView dialogErrTv = dialogBinding.forgotPasswordErrorTv;
 
-        Utils.setupTextWatcher(dialogEmailEt, dialogErrTv, Patterns.EMAIL_ADDRESS, emailIncorrect);
+        Utils.setupPasswordTextWatcher(dialogEmailEt, dialogErrTv);
 
         TextView cancel = dialogBinding.forgotPasswordCancelTv;
         TextView confirm = dialogBinding.forgotPasswordConfirmTv;
@@ -97,7 +98,6 @@ public class ActivityLogin extends AppCompatActivity {
         cancel.setOnClickListener(v -> dialog.dismiss());
         confirm.setOnClickListener(v -> {
             String email = Objects.requireNonNull(dialogEmailEt.getText()).toString().trim();
-            Utils.validateInput(dialogEmailEt, dialogErrTv, Patterns.EMAIL_ADDRESS, emailIncorrect);
 
             if (!Utils.isErrVisible(dialogErrTv)) {
                 // TODO: Implement sending an email with a password-resetting link
@@ -138,9 +138,6 @@ public class ActivityLogin extends AppCompatActivity {
         String email = emailEt.getText().toString();
         String password = passwordEt.getText().toString();
 
-        Utils.validateInput(emailEt, emailErrTv, Patterns.EMAIL_ADDRESS, emailIncorrect);
-        Utils.validateInput(passwordEt, passwordErrTv, passwordPattern, passwordIncorrect);
-
         if (!Utils.isErrVisible(emailErrTv) && !Utils.isErrVisible(passwordErrTv)) {
             userService.login(email, password, new Callback<UserInformationDTO>() {
                 @Override
@@ -149,8 +146,16 @@ public class ActivityLogin extends AppCompatActivity {
                         responseHandler.handleResponse(response);
                         Utils.showToast(getApplicationContext(), "Logged in");
                         Utils.openActivity(getApplicationContext(), ActivityMain.class);
+
+                        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putBoolean("isLogged", true);
+                        editor.apply();
                     } catch (MalletException e) {
                         Utils.showToast(getApplicationContext(), e.getMessage());
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putBoolean("isLogged", false);
+                        editor.apply();
                     }
                 }
 

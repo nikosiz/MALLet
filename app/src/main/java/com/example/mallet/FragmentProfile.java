@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Patterns;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -198,7 +197,7 @@ public class FragmentProfile extends Fragment {
         EditText passwordEt = dialogBinding.verifyPasswordEt;
         TextView passwordErrTv = dialogBinding.verifyPasswordErrorTv;
         Utils.hideItems(passwordErrTv);
-        Utils.setupTextWatcher(passwordEt, passwordErrTv, passwordPattern, "Password does not match valid pattern");
+        Utils.setupPasswordTextWatcher(passwordEt, passwordErrTv);
 
         TextView cancelTv = dialogBinding.verifyPasswordCancelTv;
         TextView confirmTv = dialogBinding.verifyPasswordConfirmTv;
@@ -210,8 +209,6 @@ public class FragmentProfile extends Fragment {
 
         confirmTv.setOnClickListener(v -> {
             String email = Objects.requireNonNull(passwordEt.getText()).toString().trim();
-
-            Utils.validateInput(passwordEt, passwordErrTv, passwordPattern, "Invalid password");
 
             if (!Utils.isErrVisible(passwordErrTv)) {
                 dialog.dismiss();
@@ -240,7 +237,7 @@ public class FragmentProfile extends Fragment {
 
         TextInputEditText newEmailEt = dialogBinding.changeEmailEt;
         TextView emailErrTv = dialogBinding.changeEmailErrorTv;
-        Utils.setupTextWatcher(newEmailEt, emailErrTv, Patterns.EMAIL_ADDRESS, emailIncorrect);
+        Utils.setupEmailTextWatcher(newEmailEt, emailErrTv);
 
         TextView cancelTv = dialogBinding.changeEmailCancelTv;
         TextView confirmTv = dialogBinding.changeEmailConfirmTv;
@@ -252,7 +249,6 @@ public class FragmentProfile extends Fragment {
 
         confirmTv.setOnClickListener(v -> {
             String newEmail = Objects.requireNonNull(newEmailEt.getText()).toString();
-            Utils.validateInput(newEmailEt, emailErrTv, Patterns.EMAIL_ADDRESS, emailIncorrect);
 
             // TODO: Implement password verification through AuthenticationManager
 
@@ -274,7 +270,7 @@ public class FragmentProfile extends Fragment {
 
         TextInputEditText newUsernameEt = dialogBinding.changeUsernameNewEt;
         TextView usernameErrTv = dialogBinding.changeUsernameErrorTv;
-        Utils.setupTextWatcher(newUsernameEt, usernameErrTv, usernamePattern, usernameIncorrect);
+        Utils.setupUniversalTextWatcher(newUsernameEt, usernameErrTv);
 
         TextView cancelTv = dialogBinding.changeUsernameCancelTv;
         TextView confirmTv = dialogBinding.changeUsernameConfirmTv;
@@ -284,7 +280,6 @@ public class FragmentProfile extends Fragment {
 
         confirmTv.setOnClickListener(v -> {
             String newUsername = Objects.requireNonNull(newUsernameEt.getText()).toString();
-            Utils.validateInput(newUsernameEt, usernameErrTv, usernamePattern, usernameIncorrect);
 
             // TODO: Implement password verification through AuthenticationManager
 
@@ -306,11 +301,11 @@ public class FragmentProfile extends Fragment {
 
         TextInputEditText oldPasswordEt = dialogBinding.changePasswordOldEt;
         TextView oldPasswordErrorTv = dialogBinding.changePasswordOldErrorTv;
-        Utils.setupTextWatcher(oldPasswordEt, oldPasswordErrorTv, passwordPattern, "Password incorrect");
+        Utils.setupPasswordTextWatcher(oldPasswordEt, oldPasswordErrorTv);
 
         TextInputEditText newPasswordEt = dialogBinding.changePasswordNewEt;
         TextView newPasswordErrorTv = dialogBinding.changePasswordNewErrorTv;
-        Utils.setupTextWatcher(newPasswordEt, newPasswordErrorTv, passwordPattern, passwordIncorrect);
+        Utils.setupPasswordTextWatcher(newPasswordEt, newPasswordErrorTv);
 
         TextInputEditText confirmNewPasswordEt = dialogBinding.changePasswordConfirmNewEt;
         TextView confirmNewPasswordErrorTv = dialogBinding.changePasswordConfirmNewErrorTv;
@@ -323,13 +318,10 @@ public class FragmentProfile extends Fragment {
 
         confirmBtn.setOnClickListener(v -> {
             String oldPassword = Objects.requireNonNull(oldPasswordEt.getText()).toString();
-            Utils.validateInput(oldPasswordEt, oldPasswordErrorTv, passwordPattern, passwordIncorrect);
 
             String newPassword = Objects.requireNonNull(newPasswordEt.getText()).toString();
-            Utils.validateInput(newPasswordEt, newPasswordErrorTv, passwordPattern, passwordIncorrect);
 
             String confirmNewPassword = Objects.requireNonNull(confirmNewPasswordEt.getText()).toString();
-            Utils.validateInput(confirmNewPasswordEt, confirmNewPasswordErrorTv, passwordPattern, passwordIncorrect);
 
             if (!Utils.isErrVisible(oldPasswordErrorTv) && !Utils.isErrVisible(newPasswordErrorTv) && !Utils.isErrVisible(confirmNewPasswordErrorTv) && newPassword.equals(confirmNewPassword)) {
                 // TODO: Implement password change
@@ -399,7 +391,7 @@ public class FragmentProfile extends Fragment {
 
         TextInputEditText passwordEt = dialogBinding.deleteAccountPasswordEt;
         TextView passwordErrTv = dialogBinding.deleteAccountErrorTv;
-        Utils.setupTextWatcher(passwordEt, passwordErrTv, passwordPattern, "Password incorrect");
+        Utils.setupPasswordTextWatcher(passwordEt, passwordErrTv);
 
         CheckBox cb = dialogBinding.deleteAccountCb;
         TextView cbErrTv = dialogBinding.deleteAccountCbErrorTv;
@@ -411,7 +403,6 @@ public class FragmentProfile extends Fragment {
 
         confirmTv.setOnClickListener(v -> {
             String password = Objects.requireNonNull(passwordEt.getText()).toString();
-            Utils.validateInput(passwordEt, passwordErrTv, passwordPattern, "Password incorrect");
 
             if (!Utils.isErrVisible(passwordErrTv)) {
                 if (!cb.isChecked()) {

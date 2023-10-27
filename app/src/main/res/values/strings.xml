@@ -2,6 +2,16 @@
     <string name="app_name">MALLet</string>
     <string name="app_logo">M</string>
 
+    <!-- ActivityOpening -->
+    <string name="welcome">Welcome to MALLet!</string>
+    <string name="choose_next_action">Choose your next action</string>
+    <string name="sign_up">Sign up</string>
+    <string name="login">Log in</string>
+
+    <!-- ActivitySignup -->
+
+    <!-- ActivityLogin -->
+
     <string name="create_new_set">Create new set</string>
     <string name="create_new_folder">Create new folder</string>
     <string name="create_new_group">Create new group</string>
@@ -29,8 +39,6 @@
     <string name="email_address">Email address</string>
     <string name="password">Password</string>
     <string name="forgot_password">Forgot password?</string>
-    <string name="login">Log in</string>
-    <string name="sign_up">Sign up</string>
     <string name="or_quickly">or quickly with</string>
     <string name="already_have_account">Already have an account?</string>
     <string name="by_signing_up_you_accept">By signing up you accept MALLet\'s Terms of service and Privacy policy</string>
@@ -59,8 +67,6 @@
     <string name="description">Description</string>
     <string name="group_name">Group name</string>
     <string name="allow_group_members">Allow group members to edit sets and add new members</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="color_theme">Color theme</string>
     <string name="notifications_switch">Notifications switch</string>
     <string name="profile_photo">Profile photo</string>

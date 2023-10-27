@@ -93,7 +93,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     private void setupContents() {
         setupToolbar();
 
-        Utils.setupTextWatcher(setNameEt, setNameErrTv, namePattern, "Set name incorrect");
+        Utils.setupUniversalTextWatcher(setNameEt, setNameErrTv);
 
         binding.editSetAddDescriptionTv.setOnClickListener(v -> {
             clickCount++;

@@ -11,6 +11,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Patterns;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -30,6 +31,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Utils {
@@ -135,7 +137,7 @@ public class Utils {
         logo.startAnimation(pulseAnimation);
     }
 
-    public static void setupTextWatcher(EditText et, TextView err, Pattern p, String errorMsg) {
+    public static void setupPasswordTextWatcher(EditText et, TextView err) {
         et.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -143,16 +145,16 @@ public class Utils {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String input = s.toString().trim(); // Get the current input text
+                String input = s.toString().trim();
                 if (input.isEmpty()) {
                     showItems(err);
                     err.setText("This field cannot be empty");
                 } else if (input.contains(" ")) {
                     showItems(err);
                     err.setText("Check your input for spaces");
-                } else if (!p.matcher(input).matches()) {
+                } else if (checkPasswordPattern(input)) {
                     showItems(err);
-                    err.setText(errorMsg);
+                    err.setText("Invalid password");
                 } else {
                     hideItems(err);
                 }
@@ -163,6 +165,59 @@ public class Utils {
             }
         });
     }
+
+    public static void setupEmailTextWatcher(EditText et, TextView err) {
+        et.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String input = s.toString().trim();
+                if (input.isEmpty()) {
+                    showItems(err);
+                    err.setText("This field cannot be empty");
+                } else if (input.contains(" ")) {
+                    showItems(err);
+                    err.setText("Check your input for spaces");
+                } else if (checkEmailPattern(input)) {
+                    showItems(err);
+                    err.setText("Invalid email");
+                } else {
+                    hideItems(err);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+    }
+
+    public static void setupUniversalTextWatcher(EditText et, TextView err) {
+        et.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String input = s.toString().trim();
+                if (input.isEmpty()) {
+                    showItems(err);
+                    err.setText("This field cannot be empty");
+                } else {
+                    hideItems(err);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+    }
+
 
     public static void setupConfirmPasswordTextWatcher(EditText newPassEt, EditText confirmNewPassEt, TextView confirmErrTv, Pattern p, String errMsg) {
         confirmNewPassEt.addTextChangedListener(new TextWatcher() {
@@ -195,24 +250,6 @@ public class Utils {
             public void afterTextChanged(Editable s) {
             }
         });
-    }
-
-
-    public static void validateInput(EditText et, TextView errorTv, Pattern pattern, String invalidInputMsg) {
-        String input = et.getText().toString().trim();
-
-        if (input.isEmpty()) {
-            showItems(errorTv);
-            errorTv.setText("This field cannot be empty");
-        } else if (input.contains(" ")) {
-            showItems(errorTv);
-            errorTv.setText("Check your input for spaces");
-        } else if (!pattern.matcher(input).matches()) {
-            showItems(errorTv);
-            errorTv.setText(invalidInputMsg);
-        } else {
-            hideItems(errorTv); // Hide the error when input is valid
-        }
     }
 
     public static boolean isErrVisible(TextView errorTv) {
@@ -295,4 +332,19 @@ public class Utils {
         SharedPreferences sharedPreferences = context.getSharedPreferences(prefsName, Context.MODE_PRIVATE);
         return sharedPreferences.getBoolean(switchKey, false);
     }
+
+    public static boolean checkPasswordPattern(String password) {
+        String PASSWORD_PATTERN = "^(?=.*[A-Z])(?=.*[@_.]).*$";
+        Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
+        Matcher matcher = pattern.matcher(password);
+        return !password.matches(".*\\d.*") || !matcher.matches();
+    }
+
+    public static boolean checkEmailPattern(String email) {
+        Pattern pattern = Patterns.EMAIL_ADDRESS;
+        Matcher matcher = pattern.matcher(email);
+        // Check if the input matches the email pattern
+        return !matcher.matches();
+    }
+
 }

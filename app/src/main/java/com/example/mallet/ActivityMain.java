@@ -41,7 +41,6 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.regex.Pattern;
 
 public class ActivityMain extends AppCompatActivity {
 
@@ -167,7 +166,7 @@ public class ActivityMain extends AppCompatActivity {
         Utils.showItems(nameEt, addDescriptionBtn, cancelBtn, confirmBtn);
         Utils.hideItems(aboveDescription, descriptionTil);
 
-        Utils.setupTextWatcher(nameEt, nameErrTv, Pattern.compile("^.*$"), "Please, enter a valid set name");
+        Utils.setupUniversalTextWatcher(nameEt, nameErrTv);
 
         addDescriptionBtn.setOnClickListener(v -> {
             clickCount++;
@@ -239,7 +238,7 @@ public class ActivityMain extends AppCompatActivity {
         Utils.showItems(folderNameEt, addDescriptionTv, cancelBtn, confirmBtn);
         Utils.hideItems(aboveDescription, descriptionTil);
 
-        Utils.setupTextWatcher(folderNameEt, nameErrTv, Pattern.compile("^.*$"), "Please, enter a valid set name");
+        Utils.setupUniversalTextWatcher(folderNameEt, nameErrTv);
 
         addDescriptionTv.setOnClickListener(v -> {
             clickCount++;

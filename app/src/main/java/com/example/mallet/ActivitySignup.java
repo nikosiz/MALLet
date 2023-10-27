@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Patterns;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -36,7 +35,6 @@ public class ActivitySignup extends AppCompatActivity {
     private String email, password, username;
     private TextView emailErrTv, passwordErrTv;
     private String emailIncorrect, passwordIncorrect, usernameIncorrect;
-    private final Pattern passwordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^*()<>?/|}{~:]).{8,}$");
     private final Pattern usernamePattern = Pattern.compile("^[a-zA-Z0-9_]+$");
 
     private UserServiceImpl userService;
@@ -67,8 +65,8 @@ public class ActivitySignup extends AppCompatActivity {
     private void setupContents() {
         setupAnimation();
 
-        Utils.setupTextWatcher(emailEt, emailErrTv, Patterns.EMAIL_ADDRESS, emailIncorrect);
-        Utils.setupTextWatcher(passwordEt, passwordErrTv, passwordPattern, passwordIncorrect);
+        Utils.setupEmailTextWatcher(emailEt, emailErrTv);
+        Utils.setupPasswordTextWatcher(passwordEt, passwordErrTv);
 
         binding.signupContinueTv.setOnClickListener(v -> validateSignupData());
         binding.signupLoginHereTv.setOnClickListener(v -> loginActivity());
@@ -90,7 +88,7 @@ public class ActivitySignup extends AppCompatActivity {
         TextView dialogErrTv = dialogBinding.chooseUsernameErrorTv;
         usernameIncorrect = getString(R.string.username_incorrect);
 
-        Utils.setupTextWatcher(dialogUsernameEt, dialogErrTv, usernamePattern, usernameIncorrect);
+        Utils.setupUniversalTextWatcher(dialogUsernameEt, dialogErrTv);
 
         TextView cancel = dialogBinding.chooseUsernameCancelTv;
         TextView confirm = dialogBinding.chooseUsernameCreateAccTv;
@@ -101,8 +99,6 @@ public class ActivitySignup extends AppCompatActivity {
         });
         confirm.setOnClickListener(v -> {
             username = Objects.requireNonNull(dialogUsernameEt.getText()).toString().trim();
-
-            Utils.validateInput(dialogUsernameEt, dialogErrTv, usernamePattern, usernameIncorrect);
 
             if (!Utils.isErrVisible(dialogErrTv)) {
                 userService.signUp(username, password, email, new Callback<Void>() {
@@ -132,9 +128,6 @@ public class ActivitySignup extends AppCompatActivity {
     private void validateSignupData() {
         String enteredEmail = emailEt.getText().toString().trim();
         String enteredPassword = passwordEt.getText().toString();
-
-        Utils.validateInput(emailEt, emailErrTv, Patterns.EMAIL_ADDRESS, emailIncorrect);
-        Utils.validateInput(passwordEt, passwordErrTv, passwordPattern, passwordIncorrect);
 
         if (!Utils.isErrVisible(emailErrTv) && !Utils.isErrVisible(passwordErrTv)) {
             email = enteredEmail;

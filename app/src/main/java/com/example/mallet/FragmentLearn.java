@@ -55,6 +55,7 @@ public class FragmentLearn extends Fragment {
     private View multipleChoiceQuestionView;
     private TextView multipleChoiceQuestionTv;
     private List<ModelMultipleChoice> multipleChoiceQuestions;
+    private int multipleChoiceCorrectAnswerPosition, multipleChoiceAlternativeAnswerPosition, multipleChoiceWrongAnswer1Position, multipleChoiceWrongAnswer2Position, multipleChoiceWrongAnswer3Position;
     private TextView nextTv, prevTv, finishTv, errorTv;
     private int currentQuestionIndex = 0;
 
@@ -71,18 +72,18 @@ public class FragmentLearn extends Fragment {
         Utils.showItems(nextTv);
         Utils.hideItems(finishTv);
 
-        writtenQuestions = generateWrittenQuestions();
+        //writtenQuestions = generateWrittenQuestions();
         multipleChoiceQuestions = generateMultipleChoiceQuestions();
 
         Utils.hideItems(errorTv);
 
-        nextTv.setOnClickListener(v -> {
-            String writtenUserAnswer = writtenAnswerEt.getText().toString().toLowerCase().trim();
+        /*nextTv.setOnClickListener(v -> {
+            writtenAnswer = writtenAnswerEt.getText().toString().toLowerCase().trim();
             ModelWritten writtenQuestion = writtenQuestions.get(currentQuestionIndex);
             String writtenCorrectAnswer = writtenQuestion.getCorrectAnswer();
             String writtenAlternativeAnswer = writtenQuestion.getAlternativeAnswer();
 
-            boolean isCorrect = checkAnswer(writtenUserAnswer, writtenCorrectAnswer, writtenAlternativeAnswer);
+            boolean isCorrect = checkAnswer(writtenAnswer, writtenCorrectAnswer, writtenAlternativeAnswer);
 
             if (isCorrect) {
                 writtenAnswerEt.setText("");
@@ -101,14 +102,35 @@ public class FragmentLearn extends Fragment {
 
                 Utils.showItems(answersLl);
             }
+        });*/
+
+        prevTv.setOnClickListener(v -> {
+            writtenAnswerEt.setText(writtenAnswer);
+
+            currentQuestionIndex--;
+
+            if (currentQuestionIndex > 0) {
+                displayWrittenQuestions(writtenQuestions, questionsLl, inflater);
+
+            } else if (currentQuestionIndex == 0) {
+                displayWrittenQuestions(writtenQuestions, questionsLl, inflater);
+            } else {
+                currentQuestionIndex = 0;
+            }
+            Utils.hideItems(answersLl);
+            System.out.println(currentQuestionIndex);
         });
 
-        finishTv.setOnClickListener(v -> learningFinishedDialog());
+
+        finishTv.setOnClickListener(v ->
+
+                learningFinishedDialog());
 
         return binding.getRoot();
     }
 
-    private boolean checkAnswer(String userAnswer, String correctAnswer, String alternativeAnswer) {
+    private boolean checkAnswer(String userAnswer, String correctAnswer, String
+            alternativeAnswer) {
         String userInputLower = userAnswer.toLowerCase();
         String correctAnswerLower = correctAnswer.toLowerCase();
         String alternativeAnswerLower = alternativeAnswer.toLowerCase();
@@ -194,7 +216,8 @@ public class FragmentLearn extends Fragment {
         }
     }
 
-    private void displayWrittenQuestions(List<ModelWritten> questions, LinearLayout ll, LayoutInflater inflater) {
+    private void displayWrittenQuestions(List<ModelWritten> questions, LinearLayout
+            ll, LayoutInflater inflater) {
         ll.removeAllViews();
 
         if (currentQuestionIndex < questions.size()) {
@@ -223,7 +246,8 @@ public class FragmentLearn extends Fragment {
         }
     }
 
-    private void displayMultipleChoiceQuestion(List<ModelMultipleChoice> questions, LinearLayout ll, LayoutInflater inflater) {
+    private void displayMultipleChoiceQuestion
+            (List<ModelMultipleChoice> questions, LinearLayout ll, LayoutInflater inflater) {
         ll.removeAllViews();
 
         if (currentQuestionIndex < questions.size()) {
@@ -279,7 +303,7 @@ public class FragmentLearn extends Fragment {
         List<ModelFlashcard> flashcardList = getFlashcards();
         List<ModelWritten> questionList = new ArrayList();
         Random random = new Random();
-        int questionPosition = random.nextInt(2);
+        int writtenQuestionPosition = random.nextInt(2);
 
         for (ModelFlashcard flashcard : flashcardList) {
             List<String> options = new ArrayList<>();
@@ -291,7 +315,7 @@ public class FragmentLearn extends Fragment {
             writtenCorrectAnswerPosition = 1;
             writtenAlternativeAnswerPosition = 2;
 
-            switch (questionPosition) {
+            switch (writtenQuestionPosition) {
                 case 0:
                     writtenCorrectAnswerPosition = 1;
                     writtenAlternativeAnswerPosition = 2;
@@ -306,7 +330,7 @@ public class FragmentLearn extends Fragment {
                     break;
             }
 
-            ModelWritten written = new ModelWritten(options.get(questionPosition), options.get(writtenCorrectAnswerPosition), options.get(writtenAlternativeAnswerPosition));
+            ModelWritten written = new ModelWritten(options.get(writtenQuestionPosition), options.get(writtenCorrectAnswerPosition), options.get(writtenAlternativeAnswerPosition));
             questionList.add(written);
             System.out.println(written);
         }
@@ -315,40 +339,66 @@ public class FragmentLearn extends Fragment {
 
     private List<ModelMultipleChoice> generateMultipleChoiceQuestions() {
         List<ModelFlashcard> flashcardList = getFlashcards();
-        List<ModelMultipleChoice> questionList = new ArrayList();
+        List<ModelMultipleChoice> questionList = new ArrayList<>();
         Random random = new Random();
-        int questionPosition = random.nextInt(2);
+
+        int multipleChoiceQuestionPosition = random.nextInt(2);
 
         for (ModelFlashcard flashcard : flashcardList) {
             List<String> options = new ArrayList<>();
             options.add(flashcard.getTerm());
             options.add(flashcard.getDefinition());
             options.add(flashcard.getTranslation());
+
+            // Shuffle the options
             Collections.shuffle(options);
 
-            int correctAnswerPosition = 1, alternativeAnswerPosition = 2;
+            multipleChoiceCorrectAnswerPosition = 1;
+            multipleChoiceAlternativeAnswerPosition = 2;
+            multipleChoiceWrongAnswer1Position = random.nextInt(2);
+            multipleChoiceWrongAnswer2Position = random.nextInt(2);
+            multipleChoiceWrongAnswer3Position = random.nextInt(2);
 
-            switch (questionPosition) {
+            switch (multipleChoiceQuestionPosition) {
                 case 0:
-                    correctAnswerPosition = 1;
-                    alternativeAnswerPosition = 2;
+                    writtenCorrectAnswerPosition = 1;
+                    writtenAlternativeAnswerPosition = 2;
                     break;
                 case 1:
-                    correctAnswerPosition = 0;
-                    alternativeAnswerPosition = 2;
+                    writtenCorrectAnswerPosition = 0;
+                    writtenAlternativeAnswerPosition = 2;
                     break;
                 case 2:
-                    correctAnswerPosition = 1;
-                    alternativeAnswerPosition = 0;
+                    writtenCorrectAnswerPosition = 1;
+                    writtenAlternativeAnswerPosition = 0;
                     break;
             }
 
-            ModelMultipleChoice multipleChoice = new ModelMultipleChoice(options.get(questionPosition), options.get(correctAnswerPosition), options.get(alternativeAnswerPosition));
+            ModelMultipleChoice multipleChoice = new ModelMultipleChoice(
+                    options.get(multipleChoiceQuestionPosition),
+                    options.get(multipleChoiceCorrectAnswerPosition),
+                    options.get(multipleChoiceAlternativeAnswerPosition),
+                    options.get(multipleChoiceWrongAnswer1Position),
+                    options.get(multipleChoiceWrongAnswer2Position),
+                    options.get(multipleChoiceWrongAnswer3Position)
+            );
+
+            // Add the question to the list
             questionList.add(multipleChoice);
-            System.out.println(multipleChoice);
+
+            // Print the question and its answers to the CMD
+            System.out.println("Question: " + flashcard.getTerm());
+            System.out.println("Correct Answer: " + multipleChoice.getCorrectAnswer());
+            System.out.println("Alternative Answer: " + multipleChoice.getAlternativeAnswer());
+            System.out.println("Wrong Answer 1: " + multipleChoice.getWrongAnswer1());
+            System.out.println("Wrong Answer 2: " + multipleChoice.getWrongAnswer2());
+            System.out.println("Wrong Answer 3: " + multipleChoice.getWrongAnswer3());
+            System.out.println();
         }
+
         return questionList;
     }
+
 
     private List<ModelFlashcard> getFlashcards() {
         List<ModelFlashcard> flashcardList = new ArrayList<>();
@@ -358,6 +408,7 @@ public class FragmentLearn extends Fragment {
         flashcardList.add(new ModelFlashcard("Lion", "A large wild cat known for its mane", "Lew"));
         flashcardList.add(new ModelFlashcard("Giraffe", "A tall, long-necked African mammal", "Żyrafa"));
         flashcardList.add(new ModelFlashcard("Snail", "A shelled gastropod", "Ślimak"));
+        System.out.println(flashcardList);
         return flashcardList;
     }
 }

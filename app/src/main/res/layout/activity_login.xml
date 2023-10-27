@@ -30,27 +30,25 @@
         android:id="@+id/loginCvLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="20dp"
         android:background="@drawable/bg_corners_rounded"
         android:orientation="vertical"
         android:paddingHorizontal="20dp"
         android:paddingVertical="30dp">
 
         <TextView
-            android:id="@+id/login_emailTitleTv"
+            android:id="@+id/login_titleTv"
             style="@style/BasicBoldTextStyle"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:autoSizeMaxTextSize="24sp"
-            android:autoSizeMinTextSize="16sp"
-            android:autoSizeStepGranularity="1sp"
-            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/russo_one_regular"
+            android:gravity="center_vertical"
             android:justificationMode="inter_word"
             android:maxLines="1"
-            android:text="@string/login_with_email_address"
+            android:text="@string/login"
             android:textColor="@color/primaryTextColor"
-            android:textSize="22sp" />
+            android:textSize="30sp" />
 
         <View
             android:layout_width="match_parent"
@@ -176,7 +174,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="10dp" />
+            android:layout_height="30dp" />
 
         <LinearLayout
             android:id="@+id/login_signupLl"
@@ -203,26 +201,12 @@
                 android:background="@drawable/bg_ripple"
                 android:clickable="true"
                 android:focusable="true"
+                android:fontFamily="@font/russo_one_regular"
                 android:justificationMode="inter_word"
                 android:padding="5dp"
                 android:text="@string/signup_here"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="20sp" />
-
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="30dp" />
-
-        <TextView
-            android:id="@+id/login_termsTv"
-            style="@style/BasicTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:justificationMode="inter_word"
-            android:text="@string/by_logging_in_you_accept"
-            android:textSize="12sp" />
     </LinearLayout>
 </LinearLayout>
