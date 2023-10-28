@@ -21,9 +21,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.mallet.databinding.ActivityEditLearningSetBinding;
 import com.example.mallet.databinding.DialogAddToFolderBinding;
-import com.example.mallet.databinding.DialogAddToGroupBinding;
 import com.example.mallet.databinding.DialogDeleteSetBinding;
-import com.example.mallet.databinding.DialogEditSetToolbarOptionsBinding;
 import com.example.mallet.utils.ModelFlashcard;
 import com.example.mallet.utils.ModelFolder;
 import com.example.mallet.utils.ModelGroup;
@@ -50,7 +48,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     private LinearLayout flashcardsLl;
     private FloatingActionButton addTermFab;
     private int clickCount = 0;
-
+    private ImageView editSetOptionsIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,33 +114,12 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setTitle("");
 
         binding.editSetToolbarBackIv.setOnClickListener(v -> finish());
-        binding.editSetOptionsIv.setOnClickListener(v -> setOptionsDialog());
+
         binding.editSetSaveIv.setOnClickListener(v -> saveSet());
     }
 
-    private void setOptionsDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_edit_set_toolbar_options);
-        DialogEditSetToolbarOptionsBinding dialogBinding = DialogEditSetToolbarOptionsBinding.inflate(LayoutInflater.from(this));
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
-        dialog.show();
-
-        dialogBinding.editSetToolbarOptionsAddToFolderTv.setOnClickListener(v -> {
-            dialog.dismiss();
-            addSetToFolderDialog();
-        });
-        dialogBinding.editSetToolbarOptionsAddToGroupTv.setOnClickListener(v -> {
-            dialog.dismiss();
-            addSetToGroupDialog();
-        });
-        dialogBinding.editSetToolbarOptionsDeleteTv.setOnClickListener(v -> {
-            dialog.dismiss();
-            deleteSetDialog();
-        });
-    }
-
     private void addSetToFolderDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_add_to_group);
+        final Dialog dialog = createDialog(R.layout.dialog_add_set_to_group);
         DialogAddToFolderBinding dialogBinding = DialogAddToFolderBinding.inflate(LayoutInflater.from(this));
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
@@ -259,6 +236,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
         System.out.println(getClass().getSimpleName() + " was closed");
         finish();
     }
@@ -334,34 +312,5 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().setGravity(Gravity.BOTTOM);
         return dialog;
-    }
-
-    private void addSetToGroupDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_add_to_group);
-        DialogAddToGroupBinding dialogBinding = DialogAddToGroupBinding.inflate(LayoutInflater.from(this));
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
-        dialog.show();
-
-        ImageView backIv = dialogBinding.addToGroupTitleBackIv;
-        TextInputEditText searchEt = dialogBinding.addToGroupSearchEt;
-        LinearLayout noGroupsLl = dialogBinding.addToGroupCreateGroupCvLl;
-
-        List<ModelGroup> groups = createGroupList();
-
-
-        if (groups.isEmpty()) {
-            noGroupsLl.setVisibility(View.VISIBLE);
-        } else {
-            noGroupsLl.setVisibility(View.GONE);
-            displayGroups(groups, dialogBinding.addToGroupGroupListLl, getLayoutInflater());
-        }
-
-        backIv.setOnClickListener(v -> {
-            searchEt.clearFocus();
-            dialog.dismiss();
-        });
-
-
     }
 }

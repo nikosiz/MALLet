@@ -1,33 +1,39 @@
 package com.example.mallet.utils;
 
-public class ModelUser {
-    // Attributes to represent user information
-    private String username;
-    private String email;
+import com.agh.api.UserDTO;
 
-    // Constructor to initialize user information
-    public ModelUser(String username, String email) {
-        this.username = username;
-        this.email = email;
+public class ModelUser {
+    private Long id;
+    private String username;
+    private String identifier;
+
+    public ModelUser(UserDTO userDTO) {
+        this.id = userDTO.id();
+        this.username = userDTO.name();
+        this.identifier = identifier;
     }
 
-    // Getter for the username
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getUsername() {
         return username;
     }
 
-    // Setter for the username
     public void setUsername(String username) {
         this.username = username;
     }
 
-    // Getter for the email
-    public String getEmail() {
-        return email;
+    public String getIdentifier() {
+        return identifier;
     }
 
-    // Setter for the email
-    public void setEmail(String email) {
-        this.email = email;
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
     }
 }

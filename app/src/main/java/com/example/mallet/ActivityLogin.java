@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -23,55 +24,60 @@ import com.example.mallet.databinding.ActivityLoginBinding;
 import com.example.mallet.databinding.DialogForgotPasswordBinding;
 import com.example.mallet.databinding.DialogForgotPasswordOpenEmailBinding;
 import com.example.mallet.utils.Utils;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;
-import java.util.regex.Pattern;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ActivityLogin extends AppCompatActivity {
-    private final Pattern passwordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^*()<>?/|}{~:]).{8,}$");
-    SharedPreferences sharedPreferences;
-    private EditText emailEt, passwordEt;
-    private TextView emailErrTv, passwordErrTv;
+    private SharedPreferences sharedPreferences;
     private ActivityLoginBinding binding;
-    private String emailIncorrect, passwordIncorrect;
     private UserServiceImpl userService;
     private ResponseHandler responseHandler;
+    private TextInputEditText emailEt, passwordEt;
+    private TextView emailErrTv, passwordErrTv;
+    private String emailIncorrect, passwordIncorrect;
+    private TextView forgotPasswordTv;
+    private Button loginBtn;
+    private TextView signupRedirectTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-
-        userService = new UserServiceImpl();
-        responseHandler = new ResponseHandler();
-
-        emailEt = binding.loginEmailEt;
-        emailErrTv = binding.loginEmailErrorTv;
-        emailIncorrect = getString(R.string.email_incorrect);
-
-        passwordEt = binding.loginPasswordEt;
-        passwordErrTv = binding.loginPasswordErrorTv;
-        passwordIncorrect = getString(R.string.password_incorrect);
 
         setupContents();
     }
 
     private void setupContents() {
+        userService = new UserServiceImpl();
+        responseHandler = new ResponseHandler();
+
         setupAnimation();
 
+        emailEt = binding.loginEmailEt;
+        emailErrTv = binding.loginEmailErrorTv;
+        emailIncorrect = getString(R.string.email_incorrect);
         Utils.setupEmailTextWatcher(emailEt, emailErrTv);
+
+        passwordEt = binding.loginPasswordEt;
+        passwordErrTv = binding.loginPasswordErrorTv;
+        passwordIncorrect = getString(R.string.password_incorrect);
         Utils.setupPasswordTextWatcher(passwordEt, passwordErrTv);
 
-        binding.loginForgotPasswordTv.setOnClickListener(v -> forgotPasswordDialog());
-        binding.loginBtn.setOnClickListener(v -> handleLogin());
-        binding.loginSignupHereTv.setOnClickListener(v -> signupActivity());
+        forgotPasswordTv = binding.loginForgotPasswordTv;
+        forgotPasswordTv.setOnClickListener(v -> forgotPasswordDialog());
+
+        loginBtn = binding.loginBtn;
+        loginBtn.setOnClickListener(v -> handleLogin());
+
+        signupRedirectTv = binding.loginSignupHereTv;
+        signupRedirectTv.setOnClickListener(v -> signupActivity());
     }
 
     private void setupAnimation() {
@@ -103,12 +109,52 @@ public class ActivityLogin extends AppCompatActivity {
                 Utils.resetEditText(dialogEmailEt, dialogErrTv);
                 dialog.dismiss();
                 Utils.showToast(this, "Email sent");
-                openEmailDialog();
+                openEmailAppDialog();
             }
         });
     }
 
-    private void openEmailDialog() {
+    private void handleLogin() {
+        String email = emailEt.getText().toString();
+        String password = passwordEt.getText().toString();
+
+        if (!Utils.isErrVisible(emailErrTv) && !Utils.isErrVisible(passwordErrTv)) {
+            Utils.disableItems(loginBtn);
+
+            userService.login(email, password, new Callback<>() {
+                @Override
+                public void onResponse(Call<UserDetailDTO> call, Response<UserDetailDTO> response) {
+                    try {
+                        responseHandler.handleResponse(response);
+                        System.out.println("Logged in");
+
+                        Intent intent = new Intent(getApplicationContext(), ActivityMain.class);
+                        startActivity(intent);
+
+                        Utils.resetEditText(emailEt, emailErrTv);
+                        Utils.resetEditText(passwordEt, passwordErrTv);
+                        Utils.enableItems(loginBtn);
+                    } catch (MalletException e) {
+                        Utils.showToast(getApplicationContext(), e.getMessage());
+                        Utils.enableItems(loginBtn);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<UserDetailDTO> call, Throwable t) {
+                    System.out.println();
+                }
+            });
+        } else {
+            System.out.println("Error is visible");
+        }
+    }
+
+    private void signupActivity() {
+        Utils.openActivity(this, ActivitySignup.class);
+    }
+
+    private void openEmailAppDialog() {
         Dialog dialog = createDialog(R.layout.dialog_forgot_password_open_email);
         DialogForgotPasswordOpenEmailBinding dialogBinding = DialogForgotPasswordOpenEmailBinding.inflate(getLayoutInflater());
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -131,40 +177,6 @@ public class ActivityLogin extends AppCompatActivity {
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().setGravity(Gravity.BOTTOM);
         return dialog;
-    }
-
-    private void handleLogin() {
-        String email = emailEt.getText().toString();
-        String password = passwordEt.getText().toString();
-
-        if (!Utils.isErrVisible(emailErrTv) && !Utils.isErrVisible(passwordErrTv)) {
-            userService.login(email, password, new Callback<>() {
-                @Override
-                public void onResponse(Call<UserDetailDTO> call, Response<UserDetailDTO> response) {
-                    try {
-                        responseHandler.handleResponse(response);
-                        Utils.showToast(getApplicationContext(), "Logged in");
-
-                        Intent intent = new Intent(getApplicationContext(), ActivityMain.class);
-                        startActivity(intent);
-
-                    } catch (MalletException e) {
-                        Utils.showToast(getApplicationContext(), e.getMessage());
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<UserDetailDTO> call, Throwable t) {
-                    System.out.println();
-                }
-            });
-        } else {
-            System.out.println("Error is visible");
-        }
-    }
-
-    private void signupActivity() {
-        Utils.openActivity(this, ActivitySignup.class);
     }
 
     @Override

@@ -34,8 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/russo_one_regular"
-
-            android:text="Add to group"
+            android:text="Add set to group"
             android:textColor="@color/primaryTextColor"
             android:textSize="25sp" />
     </LinearLayout>
@@ -52,6 +51,17 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="20dp">
+
+            <TextView
+                style="@style/BasicTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="A copy of the set you choose will be added to this group"
+                android:textSize="20sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/addToGroup_searchTil"
@@ -73,77 +83,16 @@
                     android:id="@+id/addToGroup_searchEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Search"
+                    android:hint="Search (DOWOLNY set)"
                     android:textSize="15sp" />
 
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
-
-            <LinearLayout
-                android:id="@+id/addToGroup_groupListLl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:id="@+id/addToGroup_createGroupCvLl"
+                <!--  -->
+                <ListView
+                    android:id="@+id/addMembersToGroup_listLv"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/bg_corners_rounded"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="20dp"
-                    android:visibility="visible">
+                    android:layout_height="wrap_content" />
 
-                    <TextView
-                        android:id="@+id/addToGroup_createGroupTitleTv"
-                        style="@style/BasicBoldTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-
-                        android:text="You cannot edit any group"
-                        android:textColor="@color/primaryTextColor"
-                        android:textSize="20sp" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="5dp" />
-
-                    <TextView
-                        android:id="@+id/addToGroup_createGroupSubtitleTv"
-                        style="@style/BasicTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-
-                        android:text="Create a new one and add sets there!"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/addToGroup_createGroupTv"
-                        style="@style/BasicTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_ripple"
-                        android:drawablePadding="10dp"
-                        android:gravity="center_vertical"
-
-                        android:padding="10dp"
-                        android:text="Create group"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="20sp"
-                        app:drawableEndCompat="@drawable/ic_plus"
-                        app:drawableTint="@color/colorPrimary" />
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
     </ScrollView>

@@ -26,9 +26,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.mallet.databinding.ActivityMainBinding;
 import com.example.mallet.databinding.DialogCreateBinding;
-import com.example.mallet.databinding.DialogCreateFolderBinding;
-import com.example.mallet.databinding.DialogCreateGroupBinding;
-import com.example.mallet.databinding.DialogCreateSetBinding;
 import com.example.mallet.utils.ModelFolder;
 import com.example.mallet.utils.ModelGroup;
 import com.example.mallet.utils.ModelLearningSet;
@@ -45,7 +42,7 @@ public class ActivityMain extends AppCompatActivity {
 
     private static final String SELECTED_FRAGMENT_KEY = "selected_fragment";
     private ActivityMainBinding binding;
-    private int clickCount = 0;
+    private final int clickCount = 0;
     private int selectedFragmentId = R.id.bottom_nav_home;
     private EditText folderNameEt, folderDescriptionEt;
     private SharedPreferences sharedPreferences;
@@ -129,68 +126,19 @@ public class ActivityMain extends AppCompatActivity {
 
         createSet.setOnClickListener(v -> {
             dialog.dismiss();
-            createSetDialog();
+            Intent intent = new Intent(this, ActivityEditLearningSet.class);
+            startActivity(intent);
         });
+
         createFolder.setOnClickListener(v -> {
             dialog.dismiss();
-            createFolderDialog();
+            Intent intent = new Intent(this, ActivityCreateGroup.class);
+            startActivity(intent);
         });
         createGroup.setOnClickListener(v -> {
             dialog.dismiss();
-            createGroupDialog();
-        });
-    }
-
-    private void createSetDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_create_set);
-        DialogCreateSetBinding dialogBinding = DialogCreateSetBinding.inflate(LayoutInflater.from(this));
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
-        dialog.show();
-
-        EditText nameEt = dialogBinding.createSetNameEt;
-        TextView nameErrTv = dialogBinding.createSetErrorTv;
-
-        TextView addDescriptionBtn = dialogBinding.createSetAddDescription;
-        View aboveDescription = dialogBinding.createSetAboveDescriptionV;
-        TextInputLayout descriptionTil = dialogBinding.createSetDescriptionTil;
-        EditText descriptionEt = dialogBinding.createSetDescriptionEt;
-
-        TextView cancelBtn = dialogBinding.createSetCancelBtn;
-        cancelBtn.setVisibility(View.VISIBLE);
-
-        TextView confirmBtn = dialogBinding.createSetConfirmBtn;
-        confirmBtn.setVisibility(View.VISIBLE);
-
-        Utils.showItems(nameEt, addDescriptionBtn, cancelBtn, confirmBtn);
-        Utils.hideItems(aboveDescription, descriptionTil);
-
-        Utils.setupUniversalTextWatcher(nameEt, nameErrTv);
-
-        addDescriptionBtn.setOnClickListener(v -> {
-            clickCount++;
-            if (clickCount == 1) {
-                Utils.showItems(addDescriptionBtn, aboveDescription, descriptionTil);
-            } else if (clickCount == 2) {
-                Utils.hideItems(aboveDescription, descriptionTil);
-                clickCount = 0;
-            }
-        });
-
-        cancelBtn.setOnClickListener(v -> dialog.dismiss());
-
-        confirmBtn.setOnClickListener(v -> {
-            String setName = Objects.requireNonNull(nameEt.getText()).toString().trim();
-            String setDescription = Objects.requireNonNull(descriptionEt.getText()).toString().trim();
-
-            if (setName.isEmpty()) {
-                Utils.showItems(nameErrTv);
-                nameErrTv.setText(getString(R.string.field_cannot_be_empty));
-                return;
-            }
-
-            createNewSet(setName, setDescription);
-            dialog.dismiss();
+            Intent intent = new Intent(this, ActivityCreateGroup.class);
+            startActivity(intent);
         });
     }
 
@@ -213,64 +161,6 @@ public class ActivityMain extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void createFolderDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_create_folder);
-        DialogCreateFolderBinding dialogBinding = DialogCreateFolderBinding.inflate(LayoutInflater.from(this));
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
-        dialog.show();
-
-        folderNameEt = dialogBinding.createFolderNameEt;
-        TextView nameErrTv = dialogBinding.createFolderEmptyNameError;
-
-        TextView addDescriptionTv = dialogBinding.createFolderAddDescription;
-        View aboveDescription = dialogBinding.createFolderAboveDescriptionV;
-        TextInputLayout descriptionTil = dialogBinding.createFolderDescriptionTil;
-        folderDescriptionEt = dialogBinding.createFolderDescriptionEt;
-
-        TextView cancelBtn = dialogBinding.createFolderCancelBtn;
-        cancelBtn.setVisibility(View.VISIBLE);
-
-        TextView confirmBtn = dialogBinding.createFolderConfirmBtn;
-        confirmBtn.setVisibility(View.VISIBLE);
-
-        Utils.showItems(folderNameEt, addDescriptionTv, cancelBtn, confirmBtn);
-        Utils.hideItems(aboveDescription, descriptionTil);
-
-        Utils.setupUniversalTextWatcher(folderNameEt, nameErrTv);
-
-        addDescriptionTv.setOnClickListener(v -> {
-            clickCount++;
-            if (clickCount == 1) {
-                Utils.showItems(addDescriptionTv, aboveDescription, descriptionTil);
-            } else if (clickCount == 2) {
-                Utils.hideItems(aboveDescription, descriptionTil);
-                clickCount = 0;
-            }
-        });
-
-        cancelBtn.setOnClickListener(v -> dialog.dismiss());
-
-        confirmBtn.setOnClickListener(v -> {
-            String folderName = Objects.requireNonNull(folderNameEt.getText()).toString().trim();
-            String folderDescription = Objects.requireNonNull(folderDescriptionEt.getText()).toString().trim();
-            // TODO: fix
-            String folderCreator = "";
-            String folderSets = "";
-            ModelFolder folder = new ModelFolder(folderName, folderCreator, folderSets);
-
-
-            if (folderName.isEmpty()) {
-                Utils.showItems(nameErrTv);
-                nameErrTv.setText(getString(R.string.field_cannot_be_empty));
-                return;
-            }
-
-            createNewFolder(folder, folderDescription);
-            dialog.dismiss();
-        });
-    }
-
     private void createNewFolder(ModelFolder folder, String folderDescription) {
         Utils.showToast(this, "The folder will be created in the future with backend. Now we will just open the \"ActivityViewFolder\"");
         Intent intent = new Intent(this, ActivityViewFolder.class);
@@ -288,14 +178,6 @@ public class ActivityMain extends AppCompatActivity {
         }
 
         startActivity(intent);
-    }
-
-    private void createGroupDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_create_group);
-        DialogCreateGroupBinding dialogBinding = DialogCreateGroupBinding.inflate(LayoutInflater.from(this));
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
-        dialog.show();
     }
 
     public List<ModelLearningSet> createSetList() {

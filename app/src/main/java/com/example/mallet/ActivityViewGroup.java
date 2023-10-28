@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +24,7 @@ import com.example.mallet.databinding.ActivityViewGroupBinding;
 import com.example.mallet.databinding.DialogReportBinding;
 import com.example.mallet.databinding.DialogViewGroupToolbarOptionsBinding;
 import com.example.mallet.utils.Utils;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -32,8 +34,18 @@ public class ActivityViewGroup extends AppCompatActivity {
 
     private ActivityViewGroupBinding binding;
 
+    // viewGroup_toolbar
+    private ImageView backIv, optionsIv;
+    private TextView groupNameTv;
+
+    // viewGroupCl
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
+
+    // viewGroup_fabOptionsLl
+    private FloatingActionButton addFab;
+    private static boolean areFabOptionsVisible = false;
+    private LinearLayout fabOptionsLl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +60,24 @@ public class ActivityViewGroup extends AppCompatActivity {
 
         setupTabLayout();
 
-        setupListeners();
+        setupContents();
         getGroupData();
+    }
+
+    private void setupContents() {
+        addFab = binding.viewGroupAddFab;
+        addFab.setOnClickListener(v -> {
+            if (!areFabOptionsVisible) {
+                Utils.showItems(fabOptionsLl);
+                areFabOptionsVisible = true;
+            } else {
+                Utils.hideItems(fabOptionsLl);
+                areFabOptionsVisible = false;
+            }
+        });
+
+        fabOptionsLl = binding.viewGroupFabOptionsLl;
+
     }
 
     private void setupToolbar() {
@@ -60,10 +88,6 @@ public class ActivityViewGroup extends AppCompatActivity {
         binding.viewGroupToolbarOptionsIv.setOnClickListener(v -> dialogGroupOptions());
 
         binding.viewGroupToolbarBackIv.setOnClickListener(v -> finish());
-    }
-
-    private void setupListeners() {
-
     }
 
     private void dialogGroupOptions() {

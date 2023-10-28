@@ -19,7 +19,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.mallet.databinding.ActivityViewLearningSetBinding;
-import com.example.mallet.databinding.DialogAddToGroupBinding;
 import com.example.mallet.databinding.DialogViewSetToolbarOptionsBinding;
 import com.example.mallet.utils.AdapterFlashcardViewPager;
 import com.example.mallet.utils.ModelFlashcard;
@@ -110,40 +109,6 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
             startActivity(intent);
         });
-
-        dialogBinding.viewSetOptionsAddToGroupTv.setOnClickListener(v -> {
-            dialog.dismiss();
-            addSetToGroupDialog();
-        });
-
-    }
-
-    private void addSetToGroupDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_add_to_group);
-        DialogAddToGroupBinding dialogBinding = DialogAddToGroupBinding.inflate(LayoutInflater.from(this));
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
-        dialog.show();
-
-        ImageView backIv = dialogBinding.addToGroupTitleBackIv;
-        TextInputEditText searchEt = dialogBinding.addToGroupSearchEt;
-        LinearLayout noGroupsLl = dialogBinding.addToGroupCreateGroupCvLl;
-
-        List<ModelGroup> groups = new ArrayList<>();//createGroupList();
-
-        if (groups.isEmpty()) {
-            noGroupsLl.setVisibility(View.VISIBLE);
-        } else {
-            noGroupsLl.setVisibility(View.GONE);
-            displayGroups(groups, dialogBinding.addToGroupGroupListLl, getLayoutInflater());
-        }
-
-        backIv.setOnClickListener(v -> {
-            searchEt.clearFocus();
-            dialog.dismiss();
-        });
-
-
     }
 
     private void getLearningSetData() {
@@ -231,7 +196,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             flashcardTranslationTv.setVisibility(View.VISIBLE);
             flashcardTranslationTv.setText(flashcard.getTranslation());
             flashcardTranslationTv.setGravity(Gravity.START);
-            flashcardTranslationTv.setTextSize(20.0f);
+            flashcardTranslationTv.setTextSize(15.0f);
 
             linearLayout.addView(flashcardItemView);
         }

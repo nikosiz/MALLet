@@ -61,7 +61,7 @@
             android:layout_weight="1"
             android:background="@drawable/bg_ripple"
             android:drawablePadding="10dp"
-            android:gravity="center_vertical|end"
+            android:gravity="center_vertical|start"
             android:padding="10dp"
             android:text="Manage permissions"
             android:textSize="20sp"
