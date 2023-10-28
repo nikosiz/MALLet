@@ -1,3 +1,5 @@
+// TODO: NIE DZIAŁA I NIE UMIEM NAPRAWIĆ, PORA NA CSka
+
 package com.example.mallet;
 
 import android.app.Dialog;
@@ -8,6 +10,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -18,15 +21,16 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.agh.api.UserDTO;
 import com.example.mallet.backend.client.configuration.ResponseHandler;
 import com.example.mallet.backend.client.group.boundary.GroupServiceImpl;
 import com.example.mallet.backend.entity.group.create.ContributionCreateContainer;
 import com.example.mallet.databinding.ActivityCreateGroupBinding;
 import com.example.mallet.databinding.DialogAddMemberToGroupBinding;
+import com.example.mallet.utils.ModelUser;
 import com.example.mallet.utils.Utils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -56,7 +60,8 @@ public class ActivityCreateGroup extends AppCompatActivity {
     private TextInputEditText searchUsersEt;
     private ListView userListLv;
     private ArrayAdapter userListAdapter;
-    private ArrayList<UserDTO> userList;
+    private ArrayList<String> userList;
+    private List<ModelUser> users = new ArrayList<>();
     private final ArrayList<String> selectedUsersList = new ArrayList<>();
 
     @Override
@@ -67,6 +72,10 @@ public class ActivityCreateGroup extends AppCompatActivity {
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         setupContents();
+
+        users = getUserList();
+
+        displayAddedUsers(selectedUsersList, groupMembersLl, getLayoutInflater());
     }
 
     private void setupContents() {
@@ -76,7 +85,7 @@ public class ActivityCreateGroup extends AppCompatActivity {
 
         groupNameEt = binding.createGroupNameEt;
 
-        groupMembersLl = binding.createGroupMembersLl;
+        groupMembersLl = binding.createGroupSelectedMembersLl;
         groupMemberView = getLayoutInflater().inflate(R.layout.model_add_member_to_group, groupMembersLl, false);
 
         addMembersFab = binding.createGroupAddMemberFab;
@@ -119,7 +128,7 @@ public class ActivityCreateGroup extends AppCompatActivity {
     }
 
     private void setupListView() {
-        userList = getUserList(); // Initialize userList here
+        userList = getUserListUsernames();
 
         userListAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, userList);
         userListLv.setAdapter(userListAdapter);
@@ -141,31 +150,46 @@ public class ActivityCreateGroup extends AppCompatActivity {
         });
     }
 
+    private ArrayList<String> getUserListUsernames() {
+        ArrayList<String> usernames = new ArrayList<>();
 
-    private ArrayList getUserList() {
-        ArrayList userList = new ArrayList();
+        // Add usernames from ModelUser objects
+        for (ModelUser user : getUserList()) {
+            usernames.add(user.getUsername() + user.getIdentifier());
+        }
+
+        return usernames;
+    }
+
+
+    private List<ModelUser> getUserList() {
+        List<ModelUser> userList = new ArrayList<>();
 
         // TODO: When user finishes writing username of the user he wants to add
         //       display a list of users with this name (and their IDs). Then the user can check
         //       a checkbox and the selected user will be added to group
 
-        userList.add("Anas");
-        userList.add("Aman");
-        userList.add("Shruti");
-        userList.add("Palki");
-        userList.add("Nikhil");
-        userList.add("Varun");
-        userList.add("Avinash");
-        userList.add("Subham");
-        userList.add("Abhishek");
-        userList.add("Sayantan");
-        userList.add("Siddharth");
-        userList.add("Abhinav");
-        userList.add("Viplav");
-        userList.add("Puneet");
-        userList.add("Tarzan");
-        userList.add("Badshah");
-        userList.add("Jake");
+        userList.add(ModelUser.builder()
+                .id(2137L)
+                .username("Miszel")
+                .identifier("#2137")
+                .build());
+        userList.add(ModelUser.builder()
+                .id(3721L)
+                .username("Miszel")
+                .identifier("#3721")
+                .build());
+        userList.add(ModelUser.builder()
+                .id(2137L)
+                .username("PalaMichala")
+                .identifier("#3265")
+                .build());
+        userList.add(ModelUser.builder()
+                .id(2137L)
+                .username("Lukasz")
+                .identifier("#69420")
+                .build());
+
 
         userListAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, userList);
 
@@ -191,4 +215,18 @@ public class ActivityCreateGroup extends AppCompatActivity {
 
         return userList;
     }
+
+    private void displayAddedUsers(List<String> usernames, LinearLayout linearLayout, LayoutInflater inflater) {
+        linearLayout.removeAllViews();
+
+        for (String username : usernames) {
+            View selectedMemberView = inflater.inflate(R.layout.model_add_member_to_group, linearLayout, false);
+
+            TextView usernameTv = selectedMemberView.findViewById(R.id.addMemberToGroup_usernameTv);
+            usernameTv.setText(username);
+
+            linearLayout.addView(selectedMemberView);
+        }
+    }
+
 }

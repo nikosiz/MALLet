@@ -112,9 +112,7 @@
             android:background="@drawable/bg_ripple_blue_rect"
             android:backgroundTint="@color/colorPrimary"
             android:clickable="true"
-            android:drawableStart="@drawable/ic_learning_set"
             android:drawablePadding="20dp"
-            android:drawableTint="@color/colorLight"
             android:focusable="true"
             android:gravity="end"
             android:paddingHorizontal="20dp"
@@ -123,7 +121,9 @@
             android:textColor="@color/colorLight"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@id/viewGroup_addMember"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:drawableStartCompat="@drawable/ic_learning_set"
+            app:drawableTint="@color/colorLight" />
 
         <TextView
             android:id="@+id/viewGroup_addMember"
@@ -134,16 +134,16 @@
             android:background="@drawable/bg_ripple_blue_rect"
             android:backgroundTint="@color/colorPrimary"
             android:clickable="true"
-            android:drawableStart="@drawable/ic_profile"
             android:drawablePadding="20dp"
-            android:drawableTint="@color/colorLight"
             android:focusable="true"
             android:gravity="end"
             android:paddingHorizontal="20dp"
             android:paddingVertical="10dp"
             android:text="MEMBER"
             android:textColor="@color/colorLight"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            app:drawableStartCompat="@drawable/ic_profile"
+            app:drawableTint="@color/colorLight" />
     </LinearLayout>
 
     <!-- TODO: ma sie w gore rozwijać i ma być create new set albo add set-->
