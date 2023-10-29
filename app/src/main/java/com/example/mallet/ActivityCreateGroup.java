@@ -6,8 +6,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -18,6 +18,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -56,8 +57,10 @@ public class ActivityCreateGroup extends AppCompatActivity {
     private TextInputEditText searchUsersEt;
     private ListView userListLv;
     private ArrayAdapter userListAdapter;
-    private ArrayList<String> selectedUsers;
-    private final ArrayList<String> selectedUsersList = new ArrayList<>();
+    private ArrayList<String> allUsernames;
+    private final ArrayList<String> selectedUsers = new ArrayList<>();
+    private View selecteUserItemView;
+    private CheckBox selectedUserCb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +70,8 @@ public class ActivityCreateGroup extends AppCompatActivity {
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         setupContents();
+
+
     }
 
     private void setupContents() {
@@ -91,6 +96,26 @@ public class ActivityCreateGroup extends AppCompatActivity {
 
     }
 
+    // TODO: Fix mismatched types
+    private void displaySelectedUsers
+            (List<ModelUser> selectedUsers, LinearLayout linearLayout, LayoutInflater inflater) {
+        linearLayout.removeAllViews();
+
+        for (ModelUser selectedUser : selectedUsers) {
+            selecteUserItemView = inflater.inflate(R.layout.model_add_member_to_group, linearLayout, false);
+
+            LinearLayout mainLl = selecteUserItemView.findViewById(R.id.addMemberToGroup_mainLl);
+
+            TextView selectedUserUsernameTv = selecteUserItemView.findViewById(R.id.addMemberToGroup_usernameTv);
+            selectedUserUsernameTv.setText(selectedUser.getUsername() + selectedUser.getIdentifier());
+
+            selectedUserCb = selecteUserItemView.findViewById(R.id.addMemberToGroupCb);
+            selectedUserCb.setChecked(true);
+
+            linearLayout.addView(selecteUserItemView);
+        }
+    }
+
     private void addMembersDialog() {
         Dialog dialog = createDialog(R.layout.dialog_add_member_to_group);
         DialogAddMemberToGroupBinding dialogBinding = DialogAddMemberToGroupBinding.inflate(getLayoutInflater());
@@ -102,59 +127,42 @@ public class ActivityCreateGroup extends AppCompatActivity {
         userListLv = dialogBinding.addMembersToGroupListLv;
 
         setupListView();
-
-        System.out.println(selectedUsersList);
-
-
-    }
-
-    private Dialog createDialog(int layoutResId) {
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(layoutResId);
-
-        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
-        return dialog;
     }
 
     private void setupListView() {
-        selectedUsers = getUserListUsernames(); // Get a list of usernames
+        allUsernames = getUserListUsernames();
 
-        userListAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, selectedUsers);
+        userListAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, allUsernames);
         userListLv.setAdapter(userListAdapter);
 
         userListLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedUser = selectedUsers.get(position);
+                String clickedUser = allUsernames.get(position);
 
-                // Check if the user is already in the selected list
-                if (!selectedUsersList.contains(selectedUser)) {
-                    // Add the user to the selected list
-                    selectedUsersList.add(selectedUser);
-                    // Log the content of selectedUsersList
-                    Log.d("SelectedUsersList", selectedUsersList.toString());
-                    Utils.showToast(getApplicationContext(), selectedUser + " added to group.");
+                if (!selectedUsers.contains(clickedUser)) {
+                    selectedUsers.add(clickedUser);
+                    System.out.println("SelectedUsersList: " + selectedUsers);
+                    Utils.showToast(getApplicationContext(), clickedUser + " added to group.");
                 }
             }
         });
     }
 
     private ArrayList<String> getUserListUsernames() {
-        ArrayList<String> usernames = new ArrayList<>();
+        ArrayList<String> allUsernames = new ArrayList<>();
 
         // Add usernames from ModelUser objects
-        for (ModelUser user : getSelectedUsers()) {
-            usernames.add(user.getUsername());
+        for (ModelUser user : getAllUsernames()) {
+            allUsernames.add(user.getUsername());
         }
 
-        return usernames;
+        return allUsernames;
     }
 
 
-
-    private List<ModelUser> getSelectedUsers() {
+    private List<ModelUser> getAllUsernames() {
+        // TODO: This list needs to come from server
         List<ModelUser> allUsers = new ArrayList<>();
 
         // TODO: When user finishes writing username of the user he wants to add
@@ -206,5 +214,14 @@ public class ActivityCreateGroup extends AppCompatActivity {
         });
 
         return allUsers;
+    }
+
+    private Dialog createDialog(int layoutResId) {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(layoutResId);
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+        return dialog;
     }
 }
