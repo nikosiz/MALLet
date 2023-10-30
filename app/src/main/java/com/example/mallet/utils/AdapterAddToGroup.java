@@ -44,7 +44,7 @@ public class AdapterAddToGroup extends BaseAdapter {
             convertView = LayoutInflater.from(context).inflate(R.layout.model_add_member_to_group, parent, false);
         }
 
-        TextView usernameTv = convertView.findViewById(R.id.addMemberToGroup_usernameTv);
+        TextView usernameTv = convertView.findViewById(R.id.modelAddMemberToGroup_usernameTv);
         CheckBox usernameCb = convertView.findViewById(R.id.addMemberToGroupCb);
 
         String username = getItem(position);

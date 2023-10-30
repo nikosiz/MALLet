@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/addMemberToGroup_mainLl"
+    android:id="@+id/modelAddMemberToGroup_mainLl"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/transparent"
@@ -10,7 +10,7 @@
     android:paddingHorizontal="10dp">
 
     <TextView
-        android:id="@+id/addMemberToGroup_usernameTv"
+        android:id="@+id/modelAddMemberToGroup_usernameTv"
         style="@style/BasicTextStyle"
         android:layout_width="0dp"
         android:layout_height="match_parent"

@@ -45,19 +45,6 @@
             android:text="Add members"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="30sp" />
-
-        <ImageView
-            android:id="@+id/addMembersToGroup_saveIv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/bg_ripple"
-            android:clickable="true"
-            android:contentDescription="@string/set_options"
-            android:focusable="true"
-            android:src="@drawable/ic_check"
-            app:tint="@color/colorPrimaryDark" />
     </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout

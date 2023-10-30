@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -97,24 +96,40 @@ public class ActivityCreateGroup extends AppCompatActivity {
     }
 
     // TODO: Fix mismatched types
-    private void displaySelectedUsers
-            (List<ModelUser> selectedUsers, LinearLayout linearLayout, LayoutInflater inflater) {
+    private void displaySelectedUsers(List<String> selectedUsernames, LinearLayout linearLayout, LayoutInflater inflater) {
         linearLayout.removeAllViews();
 
-        for (ModelUser selectedUser : selectedUsers) {
+        for (String selectedUsername : selectedUsernames) {
             selecteUserItemView = inflater.inflate(R.layout.model_add_member_to_group, linearLayout, false);
 
-            LinearLayout mainLl = selecteUserItemView.findViewById(R.id.addMemberToGroup_mainLl);
+            LinearLayout mainLl = selecteUserItemView.findViewById(R.id.modelAddMemberToGroup_mainLl);
 
-            TextView selectedUserUsernameTv = selecteUserItemView.findViewById(R.id.addMemberToGroup_usernameTv);
-            selectedUserUsernameTv.setText(selectedUser.getUsername() + selectedUser.getIdentifier());
+            TextView selectedUserUsernameTv = selecteUserItemView.findViewById(R.id.modelAddMemberToGroup_usernameTv);
+            selectedUserUsernameTv.setText(selectedUsername);
 
             selectedUserCb = selecteUserItemView.findViewById(R.id.addMemberToGroupCb);
             selectedUserCb.setChecked(true);
 
+            // Add a click listener to the checkbox
+            selectedUserCb.setOnClickListener(view -> {
+                if (selectedUserCb.isChecked()) {
+                    // Checkbox is checked, add the user to the selectedUsers list
+                    selectedUsers.add(selectedUsername);
+                } else {
+                    // Checkbox is unchecked, remove the user from the selectedUsers list
+                    selectedUsers.remove(selectedUsername);
+                    System.out.println("SelectedUsersList: " + selectedUsers);
+
+                    // Remove the view from the groupMembersLl
+                    linearLayout.removeView(selecteUserItemView);
+                }
+                // You can also add code to update your UI or perform other actions here.
+            });
+
             linearLayout.addView(selecteUserItemView);
         }
     }
+
 
     private void addMembersDialog() {
         Dialog dialog = createDialog(R.layout.dialog_add_member_to_group);
@@ -122,6 +137,12 @@ public class ActivityCreateGroup extends AppCompatActivity {
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         dialog.setContentView(dialogBinding.getRoot());
         dialog.show();
+
+        addMemberBackIv = dialogBinding.addMembersToGroupToolbarBackIv;
+        addMemberBackIv.setOnClickListener(v -> {
+            dialog.dismiss();
+            saveSelectedUsers();
+        });
 
         searchUsersEt = dialogBinding.addMembersToGroupSearchEt;
         userListLv = dialogBinding.addMembersToGroupListLv;
@@ -135,18 +156,25 @@ public class ActivityCreateGroup extends AppCompatActivity {
         userListAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, allUsernames);
         userListLv.setAdapter(userListAdapter);
 
-        userListLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String clickedUser = allUsernames.get(position);
+        userListLv.setOnItemClickListener((parent, view, position, id) -> {
+            String clickedUser = allUsernames.get(position);
 
-                if (!selectedUsers.contains(clickedUser)) {
-                    selectedUsers.add(clickedUser);
-                    System.out.println("SelectedUsersList: " + selectedUsers);
-                    Utils.showToast(getApplicationContext(), clickedUser + " added to group.");
-                }
+            if (!selectedUsers.contains(clickedUser)) {
+                selectedUsers.add(clickedUser);
+                System.out.println("SelectedUsersList: " + selectedUsers);
+                Utils.showToast(getApplicationContext(), clickedUser + " added to group.");
+            } else {
+                selectedUsers.remove(clickedUser);
+                System.out.println("SelectedUsersList: " + selectedUsers);
+                Utils.showToast(getApplicationContext(), clickedUser + " removed from group.");
             }
+
+            userListAdapter.notifyDataSetChanged(); // Update the list view
         });
+    }
+
+    private void saveSelectedUsers() {
+        displaySelectedUsers(selectedUsers, groupMembersLl, getLayoutInflater());
     }
 
     private ArrayList<String> getUserListUsernames() {
@@ -154,7 +182,7 @@ public class ActivityCreateGroup extends AppCompatActivity {
 
         // Add usernames from ModelUser objects
         for (ModelUser user : getAllUsernames()) {
-            allUsernames.add(user.getUsername());
+            allUsernames.add(user.getUsername() + user.getIdentifier());
         }
 
         return allUsernames;
