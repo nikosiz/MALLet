@@ -95,33 +95,28 @@ public class ActivityCreateGroup extends AppCompatActivity {
 
     }
 
-    // TODO: Fix mismatched types
-    private void displaySelectedUsers(List<String> selectedUsernames, LinearLayout linearLayout, LayoutInflater inflater) {
+   private void displaySelectedUsers(List<String> selectedUsernames, LinearLayout linearLayout, LayoutInflater inflater) {
         linearLayout.removeAllViews();
 
         for (String selectedUsername : selectedUsernames) {
-            selecteUserItemView = inflater.inflate(R.layout.model_add_member_to_group, linearLayout, false);
+            selecteUserItemView = inflater.inflate(R.layout.model_add_member_to_group, null);
 
-            LinearLayout mainLl = selecteUserItemView.findViewById(R.id.modelAddMemberToGroup_mainLl);
+            LinearLayout userLayout = selecteUserItemView.findViewById(R.id.modelAddMemberToGroup_mainLl);
 
-            TextView selectedUserUsernameTv = selecteUserItemView.findViewById(R.id.modelAddMemberToGroup_usernameTv);
+            TextView selectedUserUsernameTv = userLayout.findViewById(R.id.modelAddMemberToGroup_usernameTv);
             selectedUserUsernameTv.setText(selectedUsername);
 
-            selectedUserCb = selecteUserItemView.findViewById(R.id.addMemberToGroupCb);
+            CheckBox selectedUserCb = userLayout.findViewById(R.id.addMemberToGroupCb);
             selectedUserCb.setChecked(true);
 
             // Add a click listener to the checkbox
             selectedUserCb.setOnClickListener(view -> {
-                if (selectedUserCb.isChecked()) {
-                    // Checkbox is checked, add the user to the selectedUsers list
-                    selectedUsers.add(selectedUsername);
-                } else {
+                if (!selectedUserCb.isChecked()) {
                     // Checkbox is unchecked, remove the user from the selectedUsers list
                     selectedUsers.remove(selectedUsername);
                     System.out.println("SelectedUsersList: " + selectedUsers);
-
                     // Remove the view from the groupMembersLl
-                    linearLayout.removeView(selecteUserItemView);
+                    linearLayout.removeView(userLayout);
                 }
                 // You can also add code to update your UI or perform other actions here.
             });
@@ -129,6 +124,7 @@ public class ActivityCreateGroup extends AppCompatActivity {
             linearLayout.addView(selecteUserItemView);
         }
     }
+
 
 
     private void addMembersDialog() {
