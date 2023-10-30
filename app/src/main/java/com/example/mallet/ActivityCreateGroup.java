@@ -69,8 +69,6 @@ public class ActivityCreateGroup extends AppCompatActivity {
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         setupContents();
-
-
     }
 
     private void setupContents() {
@@ -92,40 +90,7 @@ public class ActivityCreateGroup extends AppCompatActivity {
     private void handleGroupCreation() {
         groupName = groupNameEt.getText().toString().trim();
         List<ContributionCreateContainer> members = new ArrayList<>();
-
     }
-
-   private void displaySelectedUsers(List<String> selectedUsernames, LinearLayout linearLayout, LayoutInflater inflater) {
-        linearLayout.removeAllViews();
-
-        for (String selectedUsername : selectedUsernames) {
-            selecteUserItemView = inflater.inflate(R.layout.model_add_member_to_group, null);
-
-            LinearLayout userLayout = selecteUserItemView.findViewById(R.id.modelAddMemberToGroup_mainLl);
-
-            TextView selectedUserUsernameTv = userLayout.findViewById(R.id.modelAddMemberToGroup_usernameTv);
-            selectedUserUsernameTv.setText(selectedUsername);
-
-            CheckBox selectedUserCb = userLayout.findViewById(R.id.addMemberToGroupCb);
-            selectedUserCb.setChecked(true);
-
-            // Add a click listener to the checkbox
-            selectedUserCb.setOnClickListener(view -> {
-                if (!selectedUserCb.isChecked()) {
-                    // Checkbox is unchecked, remove the user from the selectedUsers list
-                    selectedUsers.remove(selectedUsername);
-                    System.out.println("SelectedUsersList: " + selectedUsers);
-                    // Remove the view from the groupMembersLl
-                    linearLayout.removeView(userLayout);
-                }
-                // You can also add code to update your UI or perform other actions here.
-            });
-
-            linearLayout.addView(selecteUserItemView);
-        }
-    }
-
-
 
     private void addMembersDialog() {
         Dialog dialog = createDialog(R.layout.dialog_add_member_to_group);
@@ -146,8 +111,12 @@ public class ActivityCreateGroup extends AppCompatActivity {
         setupListView();
     }
 
+    private void saveSelectedUsers() {
+        displaySelectedUsers(selectedUsers, groupMembersLl, getLayoutInflater());
+    }
+
     private void setupListView() {
-        allUsernames = getUserListUsernames();
+        allUsernames = getUsernames();
 
         userListAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, allUsernames);
         userListLv.setAdapter(userListAdapter);
@@ -157,26 +126,48 @@ public class ActivityCreateGroup extends AppCompatActivity {
 
             if (!selectedUsers.contains(clickedUser)) {
                 selectedUsers.add(clickedUser);
-                System.out.println("SelectedUsersList: " + selectedUsers);
-                Utils.showToast(getApplicationContext(), clickedUser + " added to group.");
+                System.out.println("Selected users: " + selectedUsers);
+                Utils.showToast(getApplicationContext(), clickedUser + " added to group");
             } else {
                 selectedUsers.remove(clickedUser);
-                System.out.println("SelectedUsersList: " + selectedUsers);
-                Utils.showToast(getApplicationContext(), clickedUser + " removed from group.");
+                System.out.println("Selected users: " + selectedUsers);
+                Utils.showToast(getApplicationContext(), clickedUser + " removed from group");
             }
 
-            userListAdapter.notifyDataSetChanged(); // Update the list view
+            userListAdapter.notifyDataSetChanged();
         });
     }
 
-    private void saveSelectedUsers() {
-        displaySelectedUsers(selectedUsers, groupMembersLl, getLayoutInflater());
+    private void displaySelectedUsers(List<String> selectedUsernames, LinearLayout linearLayout, LayoutInflater inflater) {
+        linearLayout.removeAllViews();
+
+        for (String selectedUser : selectedUsernames) {
+            selecteUserItemView = inflater.inflate(R.layout.model_add_member_to_group, null);
+
+            LinearLayout userLayout = selecteUserItemView.findViewById(R.id.modelAddMemberToGroup_mainLl);
+
+            TextView selectedUserUsernameTv = userLayout.findViewById(R.id.modelAddMemberToGroup_usernameTv);
+            selectedUserUsernameTv.setText(selectedUser);
+
+            CheckBox selectedUserCb = userLayout.findViewById(R.id.addMemberToGroupCb);
+            selectedUserCb.setChecked(true);
+
+            selectedUserCb.setOnClickListener(view -> {
+                if (!selectedUserCb.isChecked()) {
+                    selectedUsers.remove(selectedUser);
+                    System.out.println("SelectedUsersList: " + selectedUsers);
+                    linearLayout.removeView(userLayout);
+                }
+            });
+
+            linearLayout.addView(selecteUserItemView);
+        }
     }
 
-    private ArrayList<String> getUserListUsernames() {
+
+    private ArrayList<String> getUsernames() {
         ArrayList<String> allUsernames = new ArrayList<>();
 
-        // Add usernames from ModelUser objects
         for (ModelUser user : getAllUsernames()) {
             allUsernames.add(user.getUsername() + user.getIdentifier());
         }
@@ -222,18 +213,15 @@ public class ActivityCreateGroup extends AppCompatActivity {
         searchUsersEt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                // No action needed before text changes.
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                // Filter the adapter as text changes
                 userListAdapter.getFilter().filter(charSequence);
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                // No action needed after text changes.
             }
         });
 
