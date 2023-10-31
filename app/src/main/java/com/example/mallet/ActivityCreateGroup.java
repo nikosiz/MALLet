@@ -30,7 +30,7 @@ import com.example.mallet.backend.client.user.boundary.UserServiceImpl;
 import com.example.mallet.backend.entity.group.create.GroupCreateContainer;
 import com.example.mallet.backend.mapper.group.GroupCreateContainerMapper;
 import com.example.mallet.databinding.ActivityCreateGroupBinding;
-import com.example.mallet.databinding.DialogAddMemberToGroupBinding;
+import com.example.mallet.databinding.DialogAddUserToGroupBinding;
 import com.example.mallet.utils.AuthenticationUtils;
 import com.example.mallet.utils.ModelUser;
 import com.example.mallet.utils.ModelUserMapper;
@@ -58,12 +58,12 @@ public class ActivityCreateGroup extends AppCompatActivity {
     // createGroupCl
     private TextInputEditText groupNameEt;
     private LinearLayout groupMembersLl;
-    private FloatingActionButton addMembersFab;
+    private FloatingActionButton adddUsersFab;
     private View groupMemberView;
     private CheckBox memberCb;
 
     // addMemberToGroupDialog
-    private ImageView addMemberBackIv, addMemberSubmitIv;
+    private ImageView addMemberBackIv, adddUserSubmitIv;
     private TextInputEditText searchUsersEt;
     private ListView userListLv;
     private ArrayAdapter userListAdapter; // chosen users
@@ -96,8 +96,8 @@ public class ActivityCreateGroup extends AppCompatActivity {
         groupMembersLl = binding.createGroupMembersLl;
         groupMemberView = getLayoutInflater().inflate(R.layout.model_add_member_to_group, groupMembersLl, false);
 
-        addMembersFab = binding.createGroupAddMemberFab;
-        addMembersFab.setOnClickListener(v -> addMembersDialog());
+        adddUsersFab = binding.createGroupAddMemberFab;
+        adddUsersFab.setOnClickListener(v -> addMembersDialog());
 
         memberCb = groupMemberView.findViewById(R.id.addMemberToGroupCb);
     }
@@ -133,12 +133,11 @@ public class ActivityCreateGroup extends AppCompatActivity {
     }
 
     private void addMembersDialog() {
-        Dialog dialog = createDialog(R.layout.dialog_add_member_to_group);
-        DialogAddMemberToGroupBinding dialogBinding = DialogAddMemberToGroupBinding.inflate(getLayoutInflater());
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        Dialog dialog = Utils.createDialog(this, R.layout.dialog_add_user_to_group, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT), Gravity.BOTTOM);
+        DialogAddUserToGroupBinding dialogBinding = DialogAddUserToGroupBinding.inflate(getLayoutInflater());
         dialog.setContentView(dialogBinding.getRoot());
         dialog.show();
-        addMemberBackIv = dialogBinding.addMembersToGroupToolbarBackIv;
+        addMemberBackIv = dialogBinding.addUsersToGroupToolbarBackIv;
         addMemberBackIv.setOnClickListener(v -> {
             allUsernames.clear();
             userListAdapter.notifyDataSetChanged();
@@ -146,8 +145,8 @@ public class ActivityCreateGroup extends AppCompatActivity {
             displaySelectedUsers(selectedUsers, groupMembersLl, getLayoutInflater());
         });
 
-        searchUsersEt = dialogBinding.addMembersToGroupSearchEt;
-        userListLv = dialogBinding.addMembersToGroupListLv;
+        searchUsersEt = dialogBinding.addUsersToGroupSearchEt;
+        userListLv = dialogBinding.addUsersToGroupListLv;
 
         handleSearchUserInputChanged();
         handleAddingRemovingUser();
