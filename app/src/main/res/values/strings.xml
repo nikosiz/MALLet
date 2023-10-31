@@ -116,6 +116,6 @@
     <string name="content_written_question">content of the written question (definition/translation)</string>
     <string name="your_answer">Your answer</string>
     <string name="write_answer">Write answer…</string>
-
+    <string name="box_needs_to_be_checked">This box needs to be checked</string>
     <string name="swipe_counter">%1$d/%2$d</string>
 </resources>

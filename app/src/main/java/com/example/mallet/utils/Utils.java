@@ -29,6 +29,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.mallet.R;
+import com.google.android.material.textfield.TextInputEditText;
 
 import org.w3c.dom.Text;
 
@@ -129,7 +130,7 @@ public class Utils {
         logo.startAnimation(pulseAnimation);
     }
 
-    public static void setupPasswordTextWatcher(EditText et, TextView err) {
+    public static void setupPasswordTextWatcher(TextInputEditText et, TextView err) {
         et.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -158,7 +159,7 @@ public class Utils {
         });
     }
 
-    public static void setupEmailTextWatcher(EditText et, TextView err) {
+    public static void setupEmailTextWatcher(TextInputEditText et, TextView err) {
         et.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -187,7 +188,7 @@ public class Utils {
         });
     }
 
-    public static void setupUniversalTextWatcher(EditText et, TextView err) {
+    public static void setupUniversalTextWatcher(TextInputEditText et, TextView err) {
         et.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -211,7 +212,7 @@ public class Utils {
     }
 
 
-    public static void setupConfirmPasswordTextWatcher(EditText newPassEt, EditText confirmNewPassEt, TextView confirmErrTv, Pattern p, String errMsg) {
+    public static void setupConfirmPasswordTextWatcher(TextInputEditText newPassEt, TextInputEditText confirmNewPassEt, TextView confirmErrTv, Pattern p, String errMsg) {
         confirmNewPassEt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -307,7 +308,7 @@ public class Utils {
         new Handler().postDelayed(() -> backClickCounter = false, 2000); // Reset the flag after 2 seconds
     }
 
-    public static void resetEditText(EditText et, TextView err) {
+    public static void resetEditText(TextInputEditText et, TextView err) {
         et.setText("");
         et.clearFocus();
         hideItems(err);

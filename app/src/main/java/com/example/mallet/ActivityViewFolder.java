@@ -66,7 +66,6 @@ public class ActivityViewFolder extends AppCompatActivity {
 
     private void setupContents() {
         setupToolbar();
-
     }
 
     private void setupToolbar() {
@@ -86,7 +85,6 @@ public class ActivityViewFolder extends AppCompatActivity {
 
         TextView editTv = dialogBinding.viewFolderOptionsEditTv;
         TextView addSetsTv = dialogBinding.viewFolderOptionsAddSetsTv;
-        TextView shareWGroupTv = dialogBinding.viewFolderOptionsAddToGroupTv;
         TextView deleteTv = dialogBinding.viewFolderOptionsDeleteTv;
 
 
@@ -94,37 +92,30 @@ public class ActivityViewFolder extends AppCompatActivity {
 
         addSetsTv.setOnClickListener(v -> addSetsDialog());
 
-        shareWGroupTv.setOnClickListener(v -> {
-            // TODO: Share folder via link of some kind / share all sets in a folder with a group 
-            shareFolderDialog();
-        });
-
         deleteTv.setOnClickListener(v -> {
             dialog.dismiss();
             deleteFolderDialog();
         });
     }
 
-    private void shareFolderDialog() {
-    }
-
     private void deleteFolderDialog() {
         // TODO: Fix because it does not show the dialog
         Dialog dialog = Utils.createDialog(this, R.layout.dialog_delete_folder, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
-        DialogDeleteFolderBinding binding = DialogDeleteFolderBinding.inflate(LayoutInflater.from(this));
+        DialogDeleteFolderBinding dialogBinding = DialogDeleteFolderBinding.inflate(LayoutInflater.from(this));
+        dialog.setContentView(dialogBinding.getRoot());
         dialog.show();
 
-        TextView cancelBtn = binding.deleteFolderCancelBtn;
-        TextView confirmBtn = binding.deleteFolderConfirmBtn;
-        CheckBox deleteFolderCheckBox = binding.deleteFolderCb;
+        TextView cancelBtn = dialogBinding.deleteFolderCancelBtn;
+        TextView confirmBtn = dialogBinding.deleteFolderConfirmBtn;
+        CheckBox deleteFolderCheckBox = dialogBinding.deleteFolderCb;
 
         cancelBtn.setOnClickListener(v -> dialog.dismiss());
 
         confirmBtn.setOnClickListener(v -> {
-            TextView emptyNameErr = binding.deleteFolderEmptyError;
-            TextView wrongNameErr = binding.deleteFolderWrongPassError;
-            TextView checkboxErr = binding.deleteFolderCheckboxError;
-            TextInputEditText nameEditText = binding.deleteFolderNameEt;
+            TextView emptyNameErr = dialogBinding.deleteFolderEmptyError;
+            TextView wrongNameErr = dialogBinding.deleteFolderWrongPassError;
+            TextView checkboxErr = dialogBinding.deleteFolderCheckboxError;
+            TextInputEditText nameEditText = dialogBinding.deleteFolderNameEt;
 
             String password = Objects.requireNonNull(nameEditText.getText()).toString();
 

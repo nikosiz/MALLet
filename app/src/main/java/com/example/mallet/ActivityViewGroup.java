@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,12 +19,15 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.mallet.databinding.ActivityViewGroupBinding;
+import com.example.mallet.databinding.DialogAddSetToGroupBinding;
+import com.example.mallet.databinding.DialogAddUserToGroupBinding;
 import com.example.mallet.databinding.DialogReportBinding;
 import com.example.mallet.databinding.DialogViewGroupToolbarOptionsBinding;
 import com.example.mallet.utils.Utils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;
 
@@ -66,24 +70,7 @@ public class ActivityViewGroup extends AppCompatActivity {
         addFab = binding.viewGroupAddFab;
         setupFloatingActionButton();
 
-
         fabOptionsLl = binding.viewGroupFabOptionsLl;
-
-    }
-
-    private void setupFloatingActionButton() {
-        addFab.setOnClickListener(v -> {
-            if (!areFabOptionsVisible) {
-                Utils.showItems(fabOptionsLl);
-                areFabOptionsVisible = true;
-            } else {
-                Utils.hideItems(fabOptionsLl);
-                areFabOptionsVisible = false;
-            }
-        });
-
-        addSetTv = binding.viewGroupAddSetTv;
-        addUserTv = binding.viewGroupAddUserTv;
     }
 
     private void setupToolbar() {
@@ -91,12 +78,12 @@ public class ActivityViewGroup extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle("");
 
-        binding.viewGroupToolbarOptionsIv.setOnClickListener(v -> dialogGroupOptions());
+        binding.viewGroupToolbarOptionsIv.setOnClickListener(v -> viewGroupOptionsDialog());
 
         binding.viewGroupToolbarBackIv.setOnClickListener(v -> finish());
     }
 
-    private void dialogGroupOptions() {
+    private void viewGroupOptionsDialog() {
         Dialog dialog = Utils.createDialog(this, R.layout.dialog_view_group_toolbar_options, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT), Gravity.BOTTOM);
         DialogViewGroupToolbarOptionsBinding dialogBinding = DialogViewGroupToolbarOptionsBinding.inflate(LayoutInflater.from(this));
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
@@ -105,6 +92,7 @@ public class ActivityViewGroup extends AppCompatActivity {
         ImageView backIv = dialogBinding.viewGroupOptionsBackIv;
         TextView leaveTv = dialogBinding.viewGroupOptionsLeaveTv;
         TextView reportTv = dialogBinding.viewGroupOptionsReportTv;
+        TextView cancelTv = dialogBinding.viewGroupOptionsCancelTv;
 
         backIv.setOnClickListener(v -> dialog.dismiss());
 
@@ -119,6 +107,8 @@ public class ActivityViewGroup extends AppCompatActivity {
             dialog.dismiss();
             reportDialog();
         });
+
+        cancelTv.setOnClickListener(v -> dialog.dismiss());
     }
 
     private void leaveGroup() {
@@ -178,6 +168,77 @@ public class ActivityViewGroup extends AppCompatActivity {
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
             // Nothing needed here since tab titles are set beforehand
         }).attach();
+    }
+
+    private void setupFloatingActionButton() {
+        addFab.setOnClickListener(v -> {
+            if (!areFabOptionsVisible) {
+                Utils.showItems(fabOptionsLl);
+                areFabOptionsVisible = true;
+            } else {
+                Utils.hideItems(fabOptionsLl);
+                areFabOptionsVisible = false;
+            }
+        });
+
+        addSetTv = binding.viewGroupAddSetTv;
+        addSetTv.setOnClickListener(v -> {
+            addSetsDialog();
+            Utils.hideItems(fabOptionsLl);
+            areFabOptionsVisible = false;
+        });
+
+        addUserTv = binding.viewGroupAddUserTv;
+        addUserTv.setOnClickListener(v -> {
+            addUsersDialog();
+            Utils.hideItems(fabOptionsLl);
+            areFabOptionsVisible = false;
+        });
+    }
+
+    private void addSetsDialog() {
+        Dialog dialog = Utils.createDialog(this, R.layout.dialog_add_set_to_group, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT), Gravity.BOTTOM);
+        DialogAddSetToGroupBinding dialogBinding = DialogAddSetToGroupBinding.inflate(LayoutInflater.from(this));
+        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
+        dialog.show();
+
+        ImageView backIv = dialogBinding.addSetToGroupTitleBackIv;
+        backIv.setOnClickListener(v -> {
+            dialog.dismiss();
+            saveSelectedSets();
+        });
+
+    }
+
+    private void saveSelectedSets() {
+        // TODO
+    }
+
+
+    private void addUsersDialog() {
+        Dialog dialog = Utils.createDialog(this, R.layout.dialog_add_user_to_group, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT), Gravity.BOTTOM);
+        DialogAddUserToGroupBinding dialogBinding = DialogAddUserToGroupBinding.inflate(getLayoutInflater());
+        dialog.setContentView(dialogBinding.getRoot());
+        dialog.show();
+
+        ImageView addUserBackIv = dialogBinding.addUsersToGroupToolbarBackIv;
+        addUserBackIv.setOnClickListener(v -> {
+            dialog.dismiss();
+            saveSelectedUsers();
+        });
+
+        TextInputEditText searchUsersEt = dialogBinding.addUsersToGroupSearchEt;
+        ListView userListLv = dialogBinding.addUsersToGroupListLv;
+
+        setupListView();
+    }
+
+    private void saveSelectedUsers() {
+        // TODO
+    }
+
+    private void setupListView() {
+        // TODO
     }
 
     private void getGroupData() {

@@ -20,7 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.mallet.databinding.ActivityEditLearningSetBinding;
-import com.example.mallet.databinding.DialogAddToFolderBinding;
+import com.example.mallet.databinding.DialogAddSetToFolderBinding;
 import com.example.mallet.databinding.DialogDeleteSetBinding;
 import com.example.mallet.utils.ModelFlashcard;
 import com.example.mallet.utils.ModelFolder;
@@ -40,11 +40,11 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     private ActivityEditLearningSetBinding binding;
     private TextInputLayout setDescriptionTil;
     private ScrollView scrollView;
-    private EditText setNameEt, setDescriptionEt;
+    private TextInputEditText setNameEt, setDescriptionEt;
     private String learningSetName;
     private TextView setNameErrTv;
     private int termCounter = 0;
-    private EditText setTermEt, setDefinitionEt, setTranslationEt;
+    private TextInputEditText setTermEt, setDefinitionEt, setTranslationEt;
     private LinearLayout flashcardsLl;
     private FloatingActionButton addTermFab;
     private int clickCount = 0;
@@ -120,22 +120,21 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
     private void addSetToFolderDialog() {
         Dialog dialog = Utils.createDialog(this, R.layout.dialog_add_set_to_group, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT), Gravity.BOTTOM);
-        DialogAddToFolderBinding dialogBinding = DialogAddToFolderBinding.inflate(LayoutInflater.from(this));
+        DialogAddSetToFolderBinding dialogBinding = DialogAddSetToFolderBinding.inflate(LayoutInflater.from(this));
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
         dialog.show();
 
-        ImageView backIv = dialogBinding.addToFolderToolbarBackIv;
-        TextInputEditText searchEt = dialogBinding.addToFolderSearchEt;
-        LinearLayout noGroupsLl = dialogBinding.addToFolderCreateFolderCvLl;
+        ImageView backIv = dialogBinding.addSetToFolderToolbarBackIv;
+        TextInputEditText searchEt = dialogBinding.addSetToFolderSearchEt;
+        LinearLayout noGroupsLl = dialogBinding.addSetToFolderCreateFolderCvLl;
 
         List<ModelGroup> groups = createGroupList();
-
 
         if (groups.isEmpty()) {
             noGroupsLl.setVisibility(View.VISIBLE);
         } else {
             noGroupsLl.setVisibility(View.GONE);
-            displayGroups(groups, dialogBinding.addToFolderFolderListLl, getLayoutInflater());
+            displayGroups(groups, dialogBinding.addSetToFolderFolderListLl, getLayoutInflater());
         }
 
         backIv.setOnClickListener(v -> {
@@ -210,9 +209,9 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         View flashcardItemView = inflater.inflate(R.layout.model_add_flashcard, linearLayout, false);
 
         // Find the relevant UI elements in flashcardItemView and set their values
-        EditText flashcardTermEt = flashcardItemView.findViewById(R.id.editSet_term_et);
-        EditText flashcardDefinitionEt = flashcardItemView.findViewById(R.id.editSet_definition_et);
-        EditText flashcardTranslationEt = flashcardItemView.findViewById(R.id.editSet_translation_et);
+        TextInputEditText flashcardTermEt = flashcardItemView.findViewById(R.id.editSet_term_et);
+        TextInputEditText flashcardDefinitionEt = flashcardItemView.findViewById(R.id.editSet_definition_et);
+        TextInputEditText flashcardTranslationEt = flashcardItemView.findViewById(R.id.editSet_translation_et);
 
         TextView counter = flashcardItemView.findViewById(R.id.editSet_counterTv);
 

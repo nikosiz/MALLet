@@ -78,7 +78,7 @@
 
         <!--
         <TextView
-            android:id="@+id/viewSetOptions_addToFolderTv"
+            android:id="@+id/viewSetOptions_addSetToFolderTv"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

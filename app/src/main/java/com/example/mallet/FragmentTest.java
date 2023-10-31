@@ -23,6 +23,7 @@ import com.example.mallet.databinding.FragmentTestBinding;
 import com.example.mallet.utils.AdapterTest;
 import com.example.mallet.utils.Utils;
 import com.google.android.material.materialswitch.MaterialSwitch;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;
 
@@ -119,7 +120,7 @@ public class FragmentTest extends Fragment {
 
         TextView nrOfQuestionsTv = dialogBinding.testOptionsNrOfQuestionsTitleTv;
         nrOfQuestionsTv.setText("Questions (max"/*"+learningSet.getNrOfTerms()+*/ + ")");
-        EditText nrOfQuestionsEt = dialogBinding.testOptionsNrOfQuestionsEt;
+        TextInputEditText nrOfQuestionsEt = dialogBinding.testOptionsNrOfQuestionsEt;
 
         nrOfQuestionsEt.setText(Integer.toString(nrOfQuestions));
 

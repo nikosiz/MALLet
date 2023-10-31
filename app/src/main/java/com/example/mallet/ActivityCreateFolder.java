@@ -25,7 +25,6 @@ import com.example.mallet.backend.client.configuration.ResponseHandler;
 import com.example.mallet.backend.client.group.boundary.GroupServiceImpl;
 import com.example.mallet.backend.entity.group.create.ContributionCreateContainer;
 import com.example.mallet.databinding.ActivityCreateGroupBinding;
-import com.example.mallet.databinding.DialogAddMemberToGroupBinding;
 import com.example.mallet.utils.ModelUser;
 import com.example.mallet.utils.Utils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;

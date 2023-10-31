@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_top_corners_rounded"
     android:orientation="vertical"
-    android:padding="30dp">
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="30dp">
 
     <TextView
         android:id="@+id/confirmExit_titleTv"

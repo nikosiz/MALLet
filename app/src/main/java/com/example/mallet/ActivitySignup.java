@@ -21,6 +21,7 @@ import com.example.mallet.databinding.ActivitySignupBinding;
 import com.example.mallet.databinding.DialogChooseUsernameBinding;
 import com.example.mallet.databinding.DialogConfirmAccountBinding;
 import com.example.mallet.utils.Utils;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
@@ -32,7 +33,7 @@ import retrofit2.Response;
 public class ActivitySignup extends AppCompatActivity {
     private final Pattern usernamePattern = Pattern.compile("^[a-zA-Z0-9_]+$");
     private ActivitySignupBinding binding;
-    private EditText emailEt, passwordEt;
+    private TextInputEditText emailEt, passwordEt;
     private String email, password, username;
     private TextView emailErrTv, passwordErrTv;
     private String emailIncorrect, passwordIncorrect, usernameIncorrect;
@@ -82,7 +83,7 @@ public class ActivitySignup extends AppCompatActivity {
         dialog.setContentView(dialogBinding.getRoot());
         dialog.show();
 
-        EditText dialogUsernameEt = dialogBinding.chooseUsernameEt;
+        TextInputEditText dialogUsernameEt = dialogBinding.chooseUsernameEt;
         TextView dialogErrTv = dialogBinding.chooseUsernameErrorTv;
         usernameIncorrect = getString(R.string.username_incorrect);
 
@@ -147,10 +148,10 @@ public class ActivitySignup extends AppCompatActivity {
         TextView confirm = dialogBinding.confirmAccountOpenTv;
 
         cancel.setOnClickListener(v -> {
-            Utils.resetEditText(emailEt, emailErrTv); // Reset email EditText and error TextView
-            Utils.resetEditText(passwordEt, passwordErrTv); // Reset password EditText and error TextView
+            Utils.resetEditText(emailEt, emailErrTv);
+            Utils.resetEditText(passwordEt, passwordErrTv);
             dialog.dismiss();
-            System.out.println("Email and password ETs reset"); // Print a message
+            System.out.println("Email and password ETs reset");
             Utils.hideItems(emailErrTv, passwordErrTv);
         });
 
@@ -175,15 +176,5 @@ public class ActivitySignup extends AppCompatActivity {
         // Finish the current activity
         finish();
         System.out.println(getClass().getSimpleName() + " was closed");
-    }
-
-    private Dialog createDialog(int layoutResId) {
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(layoutResId);
-
-        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
-        return dialog;
     }
 }

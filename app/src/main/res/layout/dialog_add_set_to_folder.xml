@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/addToFolder_mainLl"
+    android:id="@+id/addSetToFolder_mainLl"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorLight"
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/addToFolder_titleLl"
+        android:id="@+id/addSetToFolder_titleLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryLight"
@@ -16,7 +16,7 @@
         android:padding="20dp">
 
         <ImageView
-            android:id="@+id/addToFolder_toolbarBackIv"
+            android:id="@+id/addSetToFolder_toolbarBackIv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
@@ -29,7 +29,7 @@
             app:tint="@color/colorPrimaryDark" />
 
         <TextView
-            android:id="@+id/addToFolder_titleTv"
+            android:id="@+id/addSetToFolder_titleTv"
             style="@style/BasicBoldTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
             android:padding="20dp">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/addToFolder_searchTil"
+                android:id="@+id/addSetToFolder_searchTil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="5dp"
@@ -70,7 +70,7 @@
                 app:endIconTint="@color/colorPrimary">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/addToFolder_searchEt"
+                    android:id="@+id/addSetToFolder_searchEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Search"
@@ -83,13 +83,13 @@
                 android:layout_height="10dp" />
 
             <LinearLayout
-                android:id="@+id/addToFolder_folderListLl"
+                android:id="@+id/addSetToFolder_folderListLl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/addToFolder_createFolderCvLl"
+                    android:id="@+id/addSetToFolder_createFolderCvLl"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/bg_corners_rounded"
@@ -99,7 +99,7 @@
                     android:visibility="visible">
 
                     <TextView
-                        android:id="@+id/addToFolder_createFolderTitleTv"
+                        android:id="@+id/addSetToFolder_createFolderTitleTv"
                         style="@style/BasicBoldTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -113,7 +113,7 @@
                         android:layout_height="5dp" />
 
                     <TextView
-                        android:id="@+id/addToFolder_createFolderSubtitleTv"
+                        android:id="@+id/addSetToFolder_createFolderSubtitleTv"
                         style="@style/BasicTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -123,7 +123,7 @@
                         android:textSize="20sp" />
 
                     <TextView
-                        android:id="@+id/addToFolder_createFolderTv"
+                        android:id="@+id/addSetToFolder_createFolderTv"
                         style="@style/BasicTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

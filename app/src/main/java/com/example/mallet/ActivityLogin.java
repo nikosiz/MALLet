@@ -91,7 +91,7 @@ public class ActivityLogin extends AppCompatActivity {
         dialog.setContentView(dialogBinding.getRoot());
         dialog.show();
 
-        EditText dialogEmailEt = dialogBinding.forgotPasswordEmailEt;
+        TextInputEditText dialogEmailEt = dialogBinding.forgotPasswordEmailEt;
         TextView dialogErrTv = dialogBinding.forgotPasswordErrorTv;
 
         Utils.setupPasswordTextWatcher(dialogEmailEt, dialogErrTv);
@@ -165,16 +165,6 @@ public class ActivityLogin extends AppCompatActivity {
             dialog.dismiss();
             Utils.openEmailClient(this);
         });
-    }
-
-    private Dialog createDialog(int layoutResId) {
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(layoutResId);
-
-        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
-        return dialog;
     }
 
     @Override

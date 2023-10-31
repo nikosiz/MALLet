@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/addMembersToGroup_mainLl"
+    android:id="@+id/addUsersToGroup_mainLl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorLight"
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/addMembersToGroup_toolbarLl"
+        android:id="@+id/addUsersToGroup_toolbarLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/addMembersToGroup_toolbarBackIv"
+            android:id="@+id/addUsersToGroup_toolbarBackIv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
@@ -35,7 +35,7 @@
             app:tint="@color/colorPrimaryDark" />
 
         <TextView
-            android:id="@+id/addMembersToGroup_toolbarTitleTv"
+            android:id="@+id/addUsersToGroup_toolbarTitleTv"
             style="@style/BasicBoldTextStyle"
             android:layout_weight="1"
             android:layout_width="wrap_content"
@@ -48,7 +48,7 @@
     </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/addMembersToGroup_searchTil"
+        android:id="@+id/addUsersToGroup_searchTil"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryLight1"
@@ -66,7 +66,7 @@
         app:endIconTint="@color/colorPrimary">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/addMembersToGroup_searchEt"
+            android:id="@+id/addUsersToGroup_searchEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Search"
@@ -74,7 +74,7 @@
 
         <!--  -->
         <ListView
-            android:id="@+id/addMembersToGroup_listLv"
+            android:id="@+id/addUsersToGroup_listLv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -94,7 +94,7 @@
             android:paddingHorizontal="20dp">
 
             <LinearLayout
-                android:id="@+id/addMembersToGroup_membersLl"
+                android:id="@+id/addUsersToGroup_membersLl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">

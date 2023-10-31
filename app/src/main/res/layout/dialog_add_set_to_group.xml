@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/addToGroup_mainLl"
+    android:id="@+id/addSetToGroup_mainLl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorLight"
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/addToGroup_titleLl"
+        android:id="@+id/addSetToGroup_titleLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryLight"
@@ -16,7 +16,7 @@
         android:padding="20dp">
 
         <ImageView
-            android:id="@+id/addToGroup_titleBackIv"
+            android:id="@+id/addSetToGroup_titleBackIv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
@@ -29,7 +29,7 @@
             app:tint="@color/colorPrimaryDark" />
 
         <TextView
-            android:id="@+id/addToGroup_titleTv"
+            android:id="@+id/addSetToGroup_titleTv"
             style="@style/BasicBoldTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
                 android:layout_height="10dp" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/addToGroup_searchTil"
+                android:id="@+id/addSetToGroup_searchTil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="5dp"
@@ -80,7 +80,7 @@
                 app:endIconTint="@color/colorPrimary">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/addToGroup_searchEt"
+                    android:id="@+id/addSetToGroup_searchEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Search (DOWOLNY set)"

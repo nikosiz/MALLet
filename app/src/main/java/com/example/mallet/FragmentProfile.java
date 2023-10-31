@@ -2,18 +2,13 @@ package com.example.mallet;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -30,7 +25,6 @@ import com.example.mallet.databinding.DialogChangeEmailBinding;
 import com.example.mallet.databinding.DialogChangePasswordBinding;
 import com.example.mallet.databinding.DialogChangeUsernameBinding;
 import com.example.mallet.databinding.DialogDeleteAccountBinding;
-import com.example.mallet.databinding.DialogVerifyPasswordBinding;
 import com.example.mallet.databinding.FragmentProfileBinding;
 import com.example.mallet.utils.Utils;
 import com.google.android.material.materialswitch.MaterialSwitch;
@@ -58,6 +52,9 @@ public class FragmentProfile extends Fragment {
     private RadioButton lightThemeRb;
     private RadioButton darkThemeRb;
     private int selectedTheme;
+    private TextInputEditText passwordEt;
+    private String password;
+    private TextView passwordErrTv, cbErrTv;
 
     @Nullable
     @Override
@@ -104,8 +101,8 @@ public class FragmentProfile extends Fragment {
 
         //binding.profileUserPhotoIv.setOnClickListener(v -> Utils.openActivity(getContext(), ActivityViewProfile.class));
 
-        emailLl.setOnClickListener(v -> verifyPasswordDialog(VerifyPasswordAction.CHANGE_EMAIL));
-        usernameLl.setOnClickListener(v -> verifyPasswordDialog(VerifyPasswordAction.CHANGE_USERNAME));
+        emailLl.setOnClickListener(v -> changeEmailDialog());
+        usernameLl.setOnClickListener(v -> changeUsernameDialog());
         passwordTv.setOnClickListener(v -> changePasswordDialog());
 
         notificationsMs.setChecked(getSwitchState(KEY_NOTIFICATIONS));
@@ -181,46 +178,6 @@ public class FragmentProfile extends Fragment {
         editor.apply();
     }
 
-    private void verifyPasswordDialog(VerifyPasswordAction action) {
-        Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_verify_password, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
-        DialogVerifyPasswordBinding dialogBinding = DialogVerifyPasswordBinding.inflate(LayoutInflater.from(requireContext()));
-        dialog.setContentView(dialogBinding.getRoot());
-        dialog.show();
-
-        EditText passwordEt = dialogBinding.verifyPasswordEt;
-        TextView passwordErrTv = dialogBinding.verifyPasswordErrorTv;
-        Utils.hideItems(passwordErrTv);
-        Utils.setupPasswordTextWatcher(passwordEt, passwordErrTv);
-
-        TextView cancelTv = dialogBinding.verifyPasswordCancelTv;
-        TextView confirmTv = dialogBinding.verifyPasswordConfirmTv;
-
-        cancelTv.setOnClickListener(v -> {
-            Utils.resetEditText(passwordEt, passwordErrTv);
-            dialog.dismiss();
-        });
-
-        confirmTv.setOnClickListener(v -> {
-            String email = Objects.requireNonNull(passwordEt.getText()).toString().trim();
-
-            if (!Utils.isErrVisible(passwordErrTv)) {
-                dialog.dismiss();
-                if (action == VerifyPasswordAction.CHANGE_EMAIL) {
-                    // TODO: Implement password verification through AuthenticationManager
-                    changeEmailDialog();
-                    System.out.println("changeEmailDialog()");
-                    System.out.println(email);
-                }
-
-                if (action == VerifyPasswordAction.CHANGE_USERNAME) {
-                    // TODO: Implement password verification through AuthenticationManager
-                    changeUsernameDialog();
-                    System.out.println("changeUsernameDialog()");
-                }
-            }
-        });
-    }
-
     private void changeEmailDialog() {
         Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_change_email, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogChangeEmailBinding dialogBinding = DialogChangeEmailBinding.inflate(LayoutInflater.from(requireContext()));
@@ -242,13 +199,16 @@ public class FragmentProfile extends Fragment {
         confirmTv.setOnClickListener(v -> {
             String newEmail = Objects.requireNonNull(newEmailEt.getText()).toString();
 
-            // TODO: Implement password verification through AuthenticationManager
-
-            if (!Utils.isErrVisible(emailErrTv)) {
-                // TODO: Implement email change
-                dialog.dismiss();
-                System.out.println(newEmail);
-                Utils.showToast(getContext(), "Email changed");
+            if (!newEmail.isEmpty()) {
+                if (!Utils.isErrVisible(emailErrTv)) {
+                    // TODO: Implement email change
+                    dialog.dismiss();
+                    System.out.println(newEmail);
+                    Utils.showToast(getContext(), "Email changed");
+                }
+            } else {
+                Utils.showItems(emailErrTv);
+                emailErrTv.setText(R.string.field_cannot_be_empty);
             }
         });
     }
@@ -266,19 +226,22 @@ public class FragmentProfile extends Fragment {
         TextView cancelTv = dialogBinding.changeUsernameCancelTv;
         TextView confirmTv = dialogBinding.changeUsernameConfirmTv;
 
-        // Set click listeners and perform actions
         cancelTv.setOnClickListener(v -> dialog.dismiss());
 
         confirmTv.setOnClickListener(v -> {
             String newUsername = Objects.requireNonNull(newUsernameEt.getText()).toString();
 
-            // TODO: Implement password verification through AuthenticationManager
+            if (!newUsername.isEmpty()) {
 
-            if (!Utils.isErrVisible(usernameErrTv)) {
-                // TODO: Implement username change
-                dialog.dismiss();
-                System.out.println(newUsername);
-                Utils.showToast(getContext(), "Username changed");
+                if (!Utils.isErrVisible(usernameErrTv)) {
+                    // TODO: Implement username change
+                    dialog.dismiss();
+                    System.out.println(newUsername);
+                    Utils.showToast(getContext(), "Username changed");
+                }
+            } else {
+                Utils.showItems(usernameErrTv);
+                usernameErrTv.setText(R.string.field_cannot_be_empty);
             }
         });
     }
@@ -371,62 +334,48 @@ public class FragmentProfile extends Fragment {
         }
     }
 
+    // TODO
     private void deleteAccountDialog() {
         Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_delete_account, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogDeleteAccountBinding dialogBinding = DialogDeleteAccountBinding.inflate(LayoutInflater.from(requireContext()));
         dialog.setContentView(dialogBinding.getRoot());
         dialog.show();
 
-        TextInputEditText passwordEt = dialogBinding.deleteAccountPasswordEt;
-        TextView passwordErrTv = dialogBinding.deleteAccountErrorTv;
-        Utils.setupPasswordTextWatcher(passwordEt, passwordErrTv);
+        TextInputEditText deleteAccPasswordEt = dialogBinding.deleteAccountPasswordEt;
+        TextView deleteAccPasswordErrTv = dialogBinding.deleteAccountErrorTv;
+        Utils.setupPasswordTextWatcher(deleteAccPasswordEt, deleteAccPasswordErrTv);
 
-        CheckBox cb = dialogBinding.deleteAccountCb;
-        TextView cbErrTv = dialogBinding.deleteAccountCbErrorTv;
+        String deleteAccEnteredPassword = deleteAccPasswordEt.getText().toString();
 
-        TextView cancelTv = dialogBinding.deleteAccountCancelTv;
-        TextView confirmTv = dialogBinding.deleteAccountConfirmTv;
+        CheckBox deleteAccCb = dialogBinding.deleteAccountCb;
+        TextView deleteAccCbErrTv = dialogBinding.deleteAccountCbErrorTv;
+        deleteAccCbErrTv.setText(R.string.box_needs_to_be_checked);
 
-        cancelTv.setOnClickListener(v -> dialog.dismiss());
+        TextView deleteAccCancelTv = dialogBinding.deleteAccountCancelTv;
+        TextView deleteAccConfirmTv = dialogBinding.deleteAccountConfirmTv;
 
-        confirmTv.setOnClickListener(v -> {
-            String password = Objects.requireNonNull(passwordEt.getText()).toString();
+        deleteAccCancelTv.setOnClickListener(v -> dialog.dismiss());
 
-            if (!Utils.isErrVisible(passwordErrTv)) {
-                if (!cb.isChecked()) {
-                    cbErrTv.setText("You need to check this box");
-                    Utils.showItems(cbErrTv);
-                } else {
-                    dialog.dismiss();
-                    Utils.resetEditText(passwordEt, passwordErrTv);
-                    System.out.println(password);
+        deleteAccConfirmTv.setOnClickListener(v -> {
+            if (!deleteAccCb.isChecked()) {
+                Utils.showItems(deleteAccCbErrTv);
+            }
 
-                    // TODO: Add functionality for checking if the password is correct
-                    Utils.hideItems(passwordErrTv);
-                    Utils.hideItems(cbErrTv);
+            if (deleteAccEnteredPassword.isEmpty()) {
+                Utils.showItems(deleteAccPasswordErrTv);
+                deleteAccPasswordErrTv.setText(R.string.field_cannot_be_empty);
+            }
 
-                    Utils.showToast(getContext(), "When we have backend, we will check if the password is correct. For now we just jump to ChooseLogInSignup.java");
-
-                    Intent intent = new Intent(getContext(), ActivityOpening.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    startActivity(intent);
-                    requireActivity().finish();
-                }
+            if (!deleteAccEnteredPassword.isEmpty() && deleteAccCb.isChecked()) {
+                Utils.hideItems(deleteAccPasswordErrTv,deleteAccCbErrTv);
+                validatePassword(deleteAccEnteredPassword, deleteAccPasswordErrTv);
             }
         });
     }
 
-    private Dialog createDialog(int layoutResId) {
-        final Dialog dialog = new Dialog(requireContext());
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(layoutResId);
+    private void validatePassword(String enteredPassword, TextView err) {
 
-        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
-        return dialog;
-    }
-
-    public enum VerifyPasswordAction {
-        CHANGE_EMAIL, CHANGE_USERNAME
+            password = enteredPassword;
+            //TODO
     }
 }
