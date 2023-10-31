@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 
 import com.example.mallet.databinding.ActivityOpeningBinding;
+import com.example.mallet.utils.AuthenticationUtils;
 import com.example.mallet.utils.Utils;
 
 public class ActivityOpening extends AppCompatActivity {
@@ -55,7 +56,11 @@ public class ActivityOpening extends AppCompatActivity {
 
     // TODO: Delete
     private void setupNoLoginBtn() {
-        binding.openingNoLoginBtn.setOnClickListener(v -> Utils.openActivity(this, ActivityMain.class));
+        binding.openingNoLoginBtn.setOnClickListener(v -> {
+            //todo do testow
+            AuthenticationUtils.save(getApplicationContext(), "123456niewiemcotupisac@gmail.com", "chujDupa");
+            Utils.openActivity(this, ActivityMain.class);
+        });
     }
 
 }

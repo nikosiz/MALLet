@@ -1,5 +1,7 @@
 package com.example.mallet.backend.client.configuration;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -7,10 +9,15 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 
+import okhttp3.Authenticator;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.Route;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -33,14 +40,38 @@ public class RetrofitClient {
     private RetrofitClient() {
     }
 
-    public static Retrofit getRetrofitClient() {
-        OkHttpClient httpClient = new OkHttpClient();
-
+    public static Retrofit getRetrofitClient(String credential) {
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .client(httpClient)
+                .client(buildHttpClient(credential))
                 .build();
 
     }
+
+    @NonNull
+    private static OkHttpClient buildHttpClient(String credential) {
+        return new OkHttpClient.Builder()
+                .authenticator(new Authenticator() {
+                    @Override
+                    public Request authenticate(Route route, Response response) throws IOException {
+                        if (countResponse(response) >= 3) {
+                            return null;
+                        }
+                        return response.request()
+                                .newBuilder()
+                                .header("Authorization", credential)
+                                .build();
+                    }
+                }).build();
+    }
+
+    private static int countResponse(Response response) {
+        int result = 1;
+        while ((response = response.priorResponse()) != null) {
+            result++;
+        }
+        return result;
+    }
+
 }

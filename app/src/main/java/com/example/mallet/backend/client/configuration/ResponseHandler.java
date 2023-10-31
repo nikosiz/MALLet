@@ -15,15 +15,15 @@ public class ResponseHandler {
 
     private static final String UNKNOWN_ERROR_OCCURRED_ERROR_MSG = "Unknown error occured";
 
-    private final Gson gson;
+    private static final Gson gson;
 
-    public ResponseHandler() {
-        this.gson = new GsonBuilder()
+    static {
+        gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd")
                 .create();
     }
 
-    public <T> T handleResponse(Response<T> response) throws MalletException {
+    public static <T> T handleResponse(Response<T> response) throws MalletException {
         if (response.isSuccessful()) {
             return response.body();
         }
@@ -37,7 +37,7 @@ public class ResponseHandler {
         throw new MalletException(UNKNOWN_ERROR_OCCURRED_ERROR_MSG);
     }
 
-    private ErrorResponseDTO parseException(ResponseBody errorBody) {
+    private static ErrorResponseDTO parseException(ResponseBody errorBody) {
         try {
             return gson.fromJson(errorBody.string(), ErrorResponseDTO.class);
         } catch (IOException e) {

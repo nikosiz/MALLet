@@ -6,6 +6,7 @@ class UserServiceConstants {
     static final String START_POSITION_PARAM = "startPosition";
     static final String SET_ID_PARAM = "setId";
     static final String USER_PATH = "user";
+    static final String USERNAME_PARAM = "username";
     static final String USER_SET_PATH = USER_PATH + "/set";
     static final String USER_TERM_PATH = USER_PATH + "/term";
     static final String USER_TERM_ADD_PATH = USER_TERM_PATH + "/add";

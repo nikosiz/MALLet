@@ -39,7 +39,7 @@ public interface GroupService {
     Call<Void> updateGroupAdmin(@Body GroupUpdateAdminDTO groupUpdateAdminDTO);
 
     @POST(GroupServiceConstants.GROUP_PATH)
-    Call<Void> createGroup(@Body GroupCreateDTO groupCreateDTO);
+    Call<Long> createGroup(@Body GroupCreateDTO groupCreateDTO);
 
     @POST(GroupServiceConstants.GROUP_PATH)
     Call<Void> deleteGroup(@Body long id);

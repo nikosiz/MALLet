@@ -17,10 +17,12 @@ import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 import com.agh.api.SetBasicDTO;
+import com.agh.api.UserDTO;
 import com.agh.api.UserDetailDTO;
 import com.agh.api.UserLogInDTO;
 import com.agh.api.UserRegistrationDTO;
 
+import java.util.List;
 import java.util.Set;
 
 import retrofit2.Call;
@@ -54,5 +56,8 @@ public interface UserService {
 
     @PUT(UserServiceConstants.USER_TERM_ADD_PATH)
     Call<Void> addUserKnownTerm(@Body Set<Long> userKnownTermIds);
+
+    @GET(UserServiceConstants.USER_PATH)
+    Call<List<UserDTO>> get(@Query(UserServiceConstants.USERNAME_PARAM) String username);
 
 }

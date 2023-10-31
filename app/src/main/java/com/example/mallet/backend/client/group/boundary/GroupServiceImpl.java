@@ -28,8 +28,8 @@ public class GroupServiceImpl {
 
     private final GroupService groupService;
 
-    public GroupServiceImpl() {
-        this.groupService = RetrofitClient.getRetrofitClient()
+    public GroupServiceImpl(String credential) {
+        this.groupService = RetrofitClient.getRetrofitClient(credential)
                 .create(GroupService.class);
     }
 
@@ -48,7 +48,7 @@ public class GroupServiceImpl {
     }
 
     public void createGroup(@NonNull GroupCreateContainer groupCreateContainer,
-                            Callback<Void> callback) {
+                            Callback<Long> callback) {
         GroupCreateDTO groupCreateDTO = GroupCreateDTOMapper.from(groupCreateContainer);
 
         groupService.createGroup(groupCreateDTO)

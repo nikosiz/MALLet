@@ -2,6 +2,7 @@ package com.example.mallet.backend.client.user.boundary;
 
 import com.agh.api.SetBasicDTO;
 import com.agh.api.SetCreateDTO;
+import com.agh.api.UserDTO;
 import com.agh.api.UserDetailDTO;
 import com.agh.api.UserLogInDTO;
 import com.agh.api.UserRegistrationDTO;
@@ -12,6 +13,7 @@ import com.example.mallet.backend.client.user.control.mapper.UserRegistrationDTO
 import com.example.mallet.backend.client.user.control.UserService;
 import com.example.mallet.backend.entity.set.SetCreateContainer;
 
+import java.util.List;
 import java.util.Set;
 
 import lombok.NonNull;
@@ -21,8 +23,8 @@ public class UserServiceImpl {
 
     private final UserService userService;
 
-    public UserServiceImpl() {
-        this.userService = RetrofitClient.getRetrofitClient()
+    public UserServiceImpl(String credential) {
+        this.userService = RetrofitClient.getRetrofitClient(credential)
                 .create(UserService.class);
     }
 
@@ -76,6 +78,12 @@ public class UserServiceImpl {
     public void addUserKnownTerm(@NonNull Set<Long> userKnownTermIds,
                                  Callback<Void> callback) {
         userService.addUserKnownTerm(userKnownTermIds)
+                .enqueue(callback);
+    }
+
+    public void get(@NonNull String username,
+                    Callback<List<UserDTO>> callback) {
+        userService.get(username)
                 .enqueue(callback);
     }
 

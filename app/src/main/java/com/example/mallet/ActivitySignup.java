@@ -20,8 +20,11 @@ import com.example.mallet.backend.exception.MalletException;
 import com.example.mallet.databinding.ActivitySignupBinding;
 import com.example.mallet.databinding.DialogChooseUsernameBinding;
 import com.example.mallet.databinding.DialogConfirmAccountBinding;
+import com.example.mallet.utils.AuthenticationUtils;
 import com.example.mallet.utils.Utils;
 import com.google.android.material.textfield.TextInputEditText;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
@@ -38,7 +41,6 @@ public class ActivitySignup extends AppCompatActivity {
     private TextView emailErrTv, passwordErrTv;
     private String emailIncorrect, passwordIncorrect, usernameIncorrect;
     private UserServiceImpl userService;
-    private ResponseHandler responseHandler;
     private Context context;
 
     @Override
@@ -48,8 +50,7 @@ public class ActivitySignup extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 
-        userService = new UserServiceImpl();
-        responseHandler = new ResponseHandler();
+        userService = new UserServiceImpl(StringUtils.EMPTY);
 
         emailEt = binding.signupEmailEt;
         emailErrTv = binding.signupEmailErrorTv;
@@ -104,7 +105,8 @@ public class ActivitySignup extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         try {
-                            responseHandler.handleResponse(response);
+                            ResponseHandler.handleResponse(response);
+                            AuthenticationUtils.save(getApplicationContext(), email, password);
                             dialog.dismiss();
                             Utils.resetEditText(emailEt, emailErrTv);
                             Utils.resetEditText(passwordEt, passwordErrTv);

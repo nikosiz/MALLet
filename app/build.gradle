@@ -62,6 +62,8 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.10.0l'
+    implementation 'com.jakewharton.rxbinding:rxbinding:0.4.0'
+
 
 
 }

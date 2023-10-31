@@ -23,8 +23,11 @@ import com.example.mallet.backend.exception.MalletException;
 import com.example.mallet.databinding.ActivityLoginBinding;
 import com.example.mallet.databinding.DialogForgotPasswordBinding;
 import com.example.mallet.databinding.DialogForgotPasswordOpenEmailBinding;
+import com.example.mallet.utils.AuthenticationUtils;
 import com.example.mallet.utils.Utils;
 import com.google.android.material.textfield.TextInputEditText;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Objects;
 
@@ -36,7 +39,6 @@ public class ActivityLogin extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private ActivityLoginBinding binding;
     private UserServiceImpl userService;
-    private ResponseHandler responseHandler;
     private TextInputEditText emailEt, passwordEt;
     private TextView emailErrTv, passwordErrTv;
     private String emailIncorrect, passwordIncorrect;
@@ -55,8 +57,7 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
     private void setupContents() {
-        userService = new UserServiceImpl();
-        responseHandler = new ResponseHandler();
+        userService = new UserServiceImpl(StringUtils.EMPTY);
 
         setupAnimation();
 
@@ -124,7 +125,8 @@ public class ActivityLogin extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<UserDetailDTO> call, Response<UserDetailDTO> response) {
                     try {
-                        responseHandler.handleResponse(response);
+                        UserDetailDTO userDetailDTO = ResponseHandler.handleResponse(response);
+                        AuthenticationUtils.save(getApplicationContext(), email, password);
                         System.out.println("Logged in");
 
                         Intent intent = new Intent(getApplicationContext(), ActivityMain.class);

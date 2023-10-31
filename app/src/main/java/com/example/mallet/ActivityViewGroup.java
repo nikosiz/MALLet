@@ -51,6 +51,7 @@ public class ActivityViewGroup extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //todo get groupId and fetch resources if paramter is passed
         super.onCreate(savedInstanceState);
         binding = ActivityViewGroupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

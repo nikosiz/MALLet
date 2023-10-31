@@ -16,8 +16,8 @@ public class SetServiceImpl {
 
     private final SetService setService;
 
-    public SetServiceImpl() {
-        this.setService = RetrofitClient.getRetrofitClient()
+    public SetServiceImpl(String credential) {
+        this.setService = RetrofitClient.getRetrofitClient(credential)
                 .create(SetService.class);
     }
 
