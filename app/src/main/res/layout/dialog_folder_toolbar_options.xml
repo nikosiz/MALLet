@@ -49,7 +49,6 @@
             android:layout_height="wrap_content"
             android:background="@drawable/bg_ripple"
             android:gravity="center_vertical"
-
             android:padding="20dp"
             android:text="Edit"
             android:textColor="@color/colorPrimaryDark"

@@ -117,5 +117,5 @@
     <string name="your_answer">Your answer</string>
     <string name="write_answer">Write answer…</string>
 
-
+    <string name="swipe_counter">%1$d cards left to swipe</string>
 </resources>

@@ -37,6 +37,7 @@ import com.yuyakaido.android.cardstackview.SwipeAnimationSetting;
 import com.yuyakaido.android.cardstackview.SwipeableMethod;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -47,6 +48,7 @@ public class FragmentFlashcards extends Fragment {
     private AdapterFlashcardStack adapterFlashcardStack;
     private ImageView swipeLeftIv, undoIv, swipeRightIv;
     private List<ModelFlashcard> flashcards;
+    private List<ModelFlashcard> originalFlashcards;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,7 +62,7 @@ public class FragmentFlashcards extends Fragment {
     }
 
     private void setupContents() {
-        getLearningSetData();
+        originalFlashcards = getLearningSetData();
 
         setupToolbar();
 
@@ -84,6 +86,39 @@ public class FragmentFlashcards extends Fragment {
 
         ImageView toolbarOptionsIv = binding.flashcardsToolbarOptionsIv;
         toolbarOptionsIv.setOnClickListener(v -> flashcardsOptionsDialog());
+    }
+
+    private void flashcardsOptionsDialog() {
+        final Dialog dialog = createDialog(R.layout.dialog_flashcard_options);
+        DialogFlashcardOptionsBinding dialogBinding = DialogFlashcardOptionsBinding.inflate(LayoutInflater.from(getContext()));
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
+        dialog.show();
+
+        ImageView optionsBackIv = dialogBinding.flashcardsOptionsBackIv;
+        optionsBackIv.setOnClickListener(v -> dialog.dismiss());
+
+        TextView shuffleTv = dialogBinding.flashcardsOptionsShuffleTv;
+        shuffleTv.setOnClickListener(v -> {
+            shuffleFlashcards();
+            dialog.dismiss();
+        });
+
+        TextView restartTv = dialogBinding.flashcardsOptionsRestartTv;
+        restartTv.setOnClickListener(v -> {
+            restartFlashcards();
+            dialog.dismiss();
+        });
+
+        TextView optionsCancelTv = dialogBinding.flashcardsOptionsCancelTv;
+        optionsCancelTv.setOnClickListener(v -> dialog.dismiss());
+    }
+
+    private void shuffleFlashcards() {
+        Collections.shuffle(originalFlashcards);
+
+        adapterFlashcardStack.setItems(originalFlashcards);
+        adapterFlashcardStack.notifyDataSetChanged();
     }
 
     private void setupCardStackView() {
@@ -178,14 +213,6 @@ public class FragmentFlashcards extends Fragment {
         });
     }
 
-    private void flashcardsOptionsDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_flashcard_options);
-        DialogFlashcardOptionsBinding dialogBinding = DialogFlashcardOptionsBinding.inflate(LayoutInflater.from(getContext()));
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
-        dialog.show();
-    }
-
     private Dialog createDialog(int layoutResId) {
         final Dialog dialog = new Dialog(getContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -228,22 +255,23 @@ public class FragmentFlashcards extends Fragment {
         }
     }
 
-    private void getLearningSetData() {
+    private void restartFlashcards() {
+        adapterFlashcardStack = new AdapterFlashcardStack(originalFlashcards);
+        binding.flashcardsCardStackCsv.setAdapter(adapterFlashcardStack);
+        cardStackManager.scrollToPosition(0); // Scroll to the first card
+    }
+
+    private List<ModelFlashcard> getLearningSetData() {
         Bundle args = getArguments();
         if (args != null) {
             ModelLearningSet learningSet = args.getParcelable("learningSet");
             if (learningSet != null) {
-                String setName = learningSet.getName()
+                String setName = learningSet.getName();
                 String nrOfTerms = String.valueOf(learningSet.getNrOfTerms());
                 flashcards = learningSet.getTerms();
-
-                View rootView = getView();
-
-                if (rootView != null) {
-
-
-                }
+                return flashcards;
             }
         }
+        return new ArrayList<>(); // Return an empty list if data retrieval fails
     }
 }

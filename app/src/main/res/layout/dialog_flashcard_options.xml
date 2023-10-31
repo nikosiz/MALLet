@@ -38,9 +38,10 @@
         android:id="@+id/flashcardsOptionsLl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:gravity="bottom"
         android:orientation="vertical"
-        android:padding="30dp">
+        android:paddingHorizontal="20dp">
 
         <TextView
             android:id="@+id/flashcardsOptions_shuffleTv"
@@ -51,7 +52,6 @@
             android:clickable="true"
             android:focusable="true"
             android:gravity="center_vertical"
-
             android:padding="20dp"
             android:text="Shuffle flashcards"
             android:textColor="@color/colorPrimaryDark"
@@ -59,82 +59,90 @@
             app:drawableEndCompat="@drawable/ic_shuffle"
             app:drawableTint="@color/colorPrimaryDark" />
 
+        <!-- TODO -->
         <LinearLayout
             android:id="@+id/flashcardsOptions_frontLl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <LinearLayout
-                android:id="@+id/flashcardsOptions_frontTitleLl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/bg_ripple_white_rect"
-                android:clickable="true"
-                android:focusable="true"
-                android:minHeight="65dp"
-                android:orientation="horizontal"
-                android:padding="20dp">
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/flashcardsOptions_titleTv"
-                    style="@style/BasicBoldTextStyle"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:id="@+id/flashcardsOptions_frontTitleLl"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/bg_ripple_white_rect"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:minHeight="65dp"
+                    android:orientation="horizontal"
+                    android:padding="20dp">
 
-                    android:text="Flashcard front"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="20sp" />
+                    <TextView
+                        android:id="@+id/flashcardsOptions_titleTv"
+                        style="@style/BasicBoldTextStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
 
-                <TextView
-                    android:id="@+id/flashcardsOptions_frontTv"
-                    style="@style/BasicSubTextStyle"
-                    android:layout_width="wrap_content"
+                        android:text="Flashcard front"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/flashcardsOptions_frontTv"
+                        style="@style/BasicSubTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|center"
+                        android:gravity="end"
+
+                        android:text="flashcard_front"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+
+                <RadioGroup
+                    android:id="@+id/flashcardsOptions_frontRg"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end|center"
-                    android:gravity="end"
+                    android:background="@color/colorLight"
+                    android:paddingHorizontal="30dp">
 
-                    android:text="flashcard_front"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16sp" />
+                    <RadioButton
+                        android:id="@+id/flashcardsOptions_termRb"
+                        style="@style/CustomRadioButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Term"
+                        android:textSize="15sp" />
+
+                    <RadioButton
+                        android:id="@+id/flashcardsOptions_definitionRb"
+                        style="@style/CustomRadioButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Definition"
+                        android:textSize="15sp" />
+
+                    <RadioButton
+                        android:id="@+id/flashcardsOptions_translationRb"
+                        style="@style/CustomRadioButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Translation"
+                        android:textSize="15sp" />
+                </RadioGroup>
             </LinearLayout>
-
-
-            <RadioGroup
-                android:id="@+id/flashcardsOptions_frontRg"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorLight"
-                android:paddingHorizontal="30dp">
-
-                <RadioButton
-                    android:id="@+id/flashcardsOptions_termRb"
-                    style="@style/CustomRadioButtonStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Term"
-                    android:textSize="15sp" />
-
-                <RadioButton
-                    android:id="@+id/flashcardsOptions_definitionRb"
-                    style="@style/CustomRadioButtonStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Definition"
-                    android:textSize="15sp" />
-
-                <RadioButton
-                    android:id="@+id/flashcardsOptions_translationRb"
-                    style="@style/CustomRadioButtonStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Translation"
-                    android:textSize="15sp" />
-            </RadioGroup>
         </LinearLayout>
 
         <TextView
@@ -154,4 +162,17 @@
             app:drawableEndCompat="@drawable/ic_restart"
             app:drawableTint="@color/colorPrimaryDark" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/flashcardsOptions_cancelTv"
+        style="@style/BasicBoldTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:padding="30dp"
+        android:text="Cancel"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp" />
 </LinearLayout>

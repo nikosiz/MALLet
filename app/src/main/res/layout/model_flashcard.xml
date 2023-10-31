@@ -1,5 +1,6 @@
 <!-- res/layout/card_group.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/flashcard_mainLl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,53 +8,61 @@
     android:background="@drawable/bg_corners_rounded"
     android:gravity="center_vertical"
     android:minHeight="130dp"
-    android:orientation="vertical"
-    android:padding="30dp">
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/flashcard_termTv"
-        style="@style/BasicTextStyle"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/rem_bold"
+        android:layout_height="match_parent"
+        android:elevation="2dp"
         android:gravity="center"
-        android:text="TERM"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="20sp" />
+        android:orientation="vertical"
+        android:padding="30dp">
 
-    <View
-        android:id="@+id/flashcard_aboveDefinitionView"
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:visibility="gone" />
+        <TextView
+            android:id="@+id/flashcard_termTv"
+            style="@style/BasicTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/rem_bold"
+            android:gravity="center"
+            android:text="TERM"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/flashcard_definitionTv"
-        style="@style/BasicTextStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/rem_regular"
-        android:gravity="center"
-        android:text="DEFINITION"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="15sp"
-        android:visibility="gone" />
+        <View
+            android:id="@+id/flashcard_aboveDefinitionView"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:visibility="gone" />
 
-    <View
-        android:id="@+id/flashcard_aboveTranslationView"
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:visibility="gone" />
+        <TextView
+            android:id="@+id/flashcard_definitionTv"
+            style="@style/BasicTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/rem_regular"
+            android:gravity="center"
+            android:text="DEFINITION"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp"
+            android:visibility="gone" />
 
-    <TextView
-        android:id="@+id/flashcard_translationTv"
-        style="@style/BasicTextStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/rem_regular"
-        android:gravity="center"
-        android:text="TRANSLATION"
-        android:textColor="@color/colorPrimary"
-        android:textSize="20sp"
-        android:visibility="gone" />
+        <View
+            android:id="@+id/flashcard_aboveTranslationView"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/flashcard_translationTv"
+            style="@style/BasicTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/rem_regular"
+            android:gravity="center"
+            android:text="TRANSLATION"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            android:visibility="gone" />
+    </LinearLayout>
 </LinearLayout>

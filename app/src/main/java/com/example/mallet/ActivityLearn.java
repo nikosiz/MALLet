@@ -62,54 +62,6 @@ public class ActivityLearn extends AppCompatActivity {
         //getAndDisplayLearningSetData();
     }
 
-    private void getAndDisplayLearningSetData() {
-        // Retrieve the intent associated with this activity
-        Intent intent = getIntent();
-
-        // Check if the intent exists and contains the "learningSet" extra
-        if (intent != null && intent.hasExtra("learningSet")) {
-            // Get the learning set data from the intent
-            ModelLearningSet learningSet = intent.getParcelableExtra("learningSet");
-
-            // Check if the learning set data is not null
-            if (learningSet != null) {
-                // Retrieve various attributes of the learning set
-                String setName = learningSet.getName();
-                String setDescription = learningSet.getDescription();
-                String setCreator = learningSet.getCreator();
-                String nrOfTerms = String.valueOf(learningSet.getNrOfTerms());
-
-                // Print the received data to the console
-                System.out.println("Received Data:");
-                System.out.println("setName: " + setName);
-                System.out.println("setDescription: " + setDescription);
-                System.out.println("setCreator: " + setCreator);
-                System.out.println("nrOfTerms: " + nrOfTerms);
-
-                // Update TextViews with the retrieved data
-                TextView setNameTv = binding.learnSetNameTv;
-                TextView setCreatorTv = binding.learnSetCreatorTv;
-                TextView setDescriptionTv = binding.learnSetDescriptionTv;
-                TextView setTermsTv = binding.learnSetNrOfTermsTv;
-
-                setNameTv.setText(setName);
-
-
-                if (setCreator != null) {
-                    setCreatorTv.setText(setCreator);
-                }
-
-                if (setDescription != null) {
-                    Utils.showItems(setDescriptionTv);
-                    setDescriptionTv.setText(setDescription);
-                }
-
-                String nrOfTermsStr = nrOfTerms;
-                setTermsTv.setText(getString(R.string.string_terms, nrOfTermsStr));
-            }
-        }
-    }
-
     public void confirmExitDialog() {
         final Dialog dialog = createDialog(R.layout.dialog_confirm_exit);
         DialogConfirmExitBinding dialogBinding = DialogConfirmExitBinding.inflate(LayoutInflater.from(this));
