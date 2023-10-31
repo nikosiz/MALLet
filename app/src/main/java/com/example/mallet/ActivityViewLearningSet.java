@@ -195,7 +195,8 @@ public class ActivityViewLearningSet extends AppCompatActivity {
                 TextView flashcardDefinitionTv = flashcardItemView.findViewById(R.id.flashcard_definitionTv);
                 flashcardDefinitionTv.setVisibility(View.VISIBLE);
                 flashcardDefinitionTv.setText(flashcard.getDefinition());
-                Utils.setTextColor(flashcardDefinitionTv, R.color.colorPrimaryDark);
+                int textColorResId = R.color.colorPrimaryDark;
+                Utils.setTextColor(this,flashcardDefinitionTv, textColorResId);
                 flashcardDefinitionTv.setGravity(Gravity.START);
                 flashcardDefinitionTv.setTextSize(15.0f);
             }

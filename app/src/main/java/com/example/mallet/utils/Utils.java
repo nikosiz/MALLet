@@ -23,6 +23,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
@@ -419,7 +420,8 @@ public class Utils {
         }
     }
 
-    public static void setTextColor(TextView textView, int color) {
-        textView.setTextColor(color);
+    public static void setTextColor(Context c, TextView tv, int colorId) {
+        int color = ContextCompat.getColor(c, colorId);
+        tv.setTextColor(color);
     }
 }

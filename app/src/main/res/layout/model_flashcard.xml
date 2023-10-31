@@ -3,25 +3,23 @@
     android:id="@+id/flashcard_mainLl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
+    android:layout_margin="20dp"
     android:background="@drawable/bg_corners_rounded"
     android:gravity="center_vertical"
-    android:maxHeight="130dp"
-    android:minHeight="120dp"
+    android:minHeight="130dp"
     android:orientation="vertical"
-    android:paddingHorizontal="30dp"
-    android:paddingVertical="100dp">
+    android:padding="30dp">
 
     <TextView
         android:id="@+id/flashcard_termTv"
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/rem_regular"
+        android:fontFamily="@font/rem_bold"
         android:gravity="center"
         android:text="TERM"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="30sp" />
+        android:textSize="20sp" />
 
     <View
         android:id="@+id/flashcard_aboveDefinitionView"
@@ -38,7 +36,7 @@
         android:gravity="center"
         android:text="DEFINITION"
         android:textColor="@color/colorPrimary"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:visibility="gone" />
 
     <View
