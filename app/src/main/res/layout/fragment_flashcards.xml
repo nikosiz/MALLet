@@ -10,7 +10,7 @@
     tools:ignore="Overdraw">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/flashcards_toolbar"
+        android:id="@+id/flashcardsToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
@@ -49,20 +49,20 @@
     </androidx.appcompat.widget.Toolbar>
 
     <com.yuyakaido.android.cardstackview.CardStackView
-        android:id="@+id/flashcardStackCsv"
+        android:id="@+id/flashcards_cardStackCsv"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="false"
         android:padding="10dp"
-        app:layout_constraintBottom_toTopOf="@id/learn_buttonsLl"
+        app:layout_constraintBottom_toTopOf="@id/flashcards_buttonsLl"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/flashcards_toolbar"
+        app:layout_constraintTop_toBottomOf="@id/flashcardsToolbar"
         app:layout_constraintVertical_bias="0.0" />
 
     <LinearLayout
-        android:id="@+id/learn_buttonsLl"
+        android:id="@+id/flashcards_buttonsLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -73,7 +73,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
-            android:id="@+id/learn_swipe_left_btn"
+            android:id="@+id/flashcards_swipeLeftIv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -89,7 +89,7 @@
             app:tint="@color/carnation_red_500" />
 
         <ImageView
-            android:id="@+id/learn_undo_btn"
+            android:id="@+id/flashcards_undoIv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -104,7 +104,7 @@
             app:tint="@color/danube_blue_600" />
 
         <ImageView
-            android:id="@+id/learn_swipe_right_btn"
+            android:id="@+id/flashcards_swipeRightIv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -119,5 +119,4 @@
             app:iconSize="30dp"
             app:tint="@color/green_yellow_700" />
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

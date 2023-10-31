@@ -59,7 +59,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         setupToolbar();
 
         flashcardsLl = binding.viewSetFlashcardsLl;
-        flashcardsLl.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentFlashcards.class, ActivityLearn.class));
+        flashcardsLl.setOnClickListener(v -> startFlashcards());
 
         learnLl = binding.viewSetLearnLl;
         learnLl.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentLearn.class, ActivityLearn.class));
@@ -73,6 +73,16 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         viewSetStudyEfab = binding.viewSetStudyEfab;
         viewSetStudyEfab.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentFlashcards.class, ActivityLearn.class));
     }
+
+    private void startFlashcards() {
+        Intent intent = new Intent(this, ActivityLearn.class);
+
+        intent.putExtra("fragment_class", FragmentFlashcards.class.getName()); // Pass the class name
+        intent.putExtra("learningSet", learningSet);
+
+        startActivity(intent);
+    }
+
 
     private void setupToolbar() {
         Toolbar toolbar = binding.viewSetToolbar;
@@ -117,6 +127,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     }
 
     private void addSetToUsersCollection() {
+        // TODO
     }
 
     private void getLearningSetData() {
@@ -143,7 +154,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
                     setCreatorTv.setText(setCreator);
                 }
 
-                if (setDescription!=null) {
+                if (setDescription != null) {
                     Utils.showItems(setDescriptionTv);
                     setDescriptionTv.setText(setDescription);
                 }

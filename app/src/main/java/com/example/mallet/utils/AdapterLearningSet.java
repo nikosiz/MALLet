@@ -39,7 +39,7 @@ public class AdapterLearningSet extends RecyclerView.Adapter<AdapterLearningSet.
         if (learningSet != null) {
             holder.learningSetNameTv.setText(learningSet.getName());
             holder.learningSetCreatorTv.setText(learningSet.getCreator());
-            holder.learningSetTermsTv.setText(learningSet.getNrOfTerms() + " terms");
+            holder.learningSetNrOfTermsTv.setText(learningSet.getNrOfTerms() + " terms");
         } else {
             // Handle the case when learningSet is null.
         }
@@ -57,12 +57,12 @@ public class AdapterLearningSet extends RecyclerView.Adapter<AdapterLearningSet.
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        final TextView learningSetNameTv, learningSetCreatorTv, learningSetTermsTv;
+        final TextView learningSetNameTv, learningSetCreatorTv, learningSetNrOfTermsTv;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             learningSetNameTv = itemView.findViewById(R.id.learningSet_nameTv);
-            learningSetTermsTv = itemView.findViewById(R.id.learningSet_nrOfTermsTv);
+            learningSetNrOfTermsTv = itemView.findViewById(R.id.learningSet_nrOfTermsTv);
             learningSetCreatorTv = itemView.findViewById(R.id.learningSet_creatorTv);
         }
     }

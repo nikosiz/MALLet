@@ -33,43 +33,33 @@ public class ActivityLearn extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Inflate the layout using data binding
         binding = ActivityLearnBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Retrieve the fragment class name from the intent
-        String fragmentClassName = getIntent().getStringExtra("fragment_class");
+        Intent intent = getIntent();
 
-        // Check if a fragment class is specified
+        String fragmentClassName = intent.getStringExtra("fragment_class");
+        ModelLearningSet learningSet = intent.getParcelableExtra("learningSet");
+
         if (fragmentClassName != null) {
             try {
-                // Load the specified fragment dynamically
-                Fragment fragment = (Fragment) Class.forName(fragmentClassName).newInstance();
+                Class<?> fragmentClass = Class.forName(fragmentClassName);
+                Fragment fragment = (Fragment) fragmentClass.newInstance();
 
-                // Pass the flashcards to the fragment via arguments
                 Bundle args = new Bundle();
-                ArrayList<ModelFlashcard> flashcards = getIntent().getParcelableArrayListExtra("learningSetFlashcards");
-                args.putParcelableArrayList("learningSetFlashcards", flashcards);
+                args.putParcelable("learningSet", learningSet);
                 fragment.setArguments(args);
 
-                // TODO: Remove these lines when data sharing is handled correctly
-                LinearLayout dataCheckLl = binding.learnDataLl;
-                dataCheckLl.setVisibility(View.GONE);
-
-                // Replace the fragment container with the loaded fragment
-                getSupportFragmentManager().beginTransaction()
+                getSupportFragmentManager()
+                        .beginTransaction()
                         .replace(R.id.learn_mainLl, fragment)
                         .commit();
             } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
                 e.printStackTrace();
             }
-        } else {
-            // If no fragment class is specified, load a default layout
-            setContentView(R.layout.activity_learn); // Replace with your layout resource ID
         }
 
-        // Retrieve and display learning set data
-        getAndDisplayLearningSetData();
+        //getAndDisplayLearningSetData();
     }
 
     private void getAndDisplayLearningSetData() {

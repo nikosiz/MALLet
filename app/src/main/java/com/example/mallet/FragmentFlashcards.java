@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +28,6 @@ import com.example.mallet.utils.AdapterFlashcardStack;
 import com.example.mallet.utils.CallbackFlashcardStack;
 import com.example.mallet.utils.ModelFlashcard;
 import com.example.mallet.utils.ModelLearningSet;
-import com.example.mallet.utils.Utils;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackListener;
 import com.yuyakaido.android.cardstackview.Direction;
@@ -41,27 +41,49 @@ import java.util.List;
 import java.util.Objects;
 
 public class FragmentFlashcards extends Fragment {
-
     private static final String TAG = "LearnFragment";
     private FragmentFlashcardsBinding binding;
     private CardStackLayoutManager cardStackManager;
     private AdapterFlashcardStack adapterFlashcardStack;
+    private ImageView swipeLeftIv, undoIv, swipeRightIv;
+    private List<ModelFlashcard> flashcards;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentFlashcardsBinding.inflate(inflater, container, false);
 
-        setupCardStackView();
         setupContents();
-        setupToolbar();
+
+        setupCardStackView();
 
         return binding.getRoot();
+    }
+
+    private void setupContents() {
+        getLearningSetData();
+
+        setupToolbar();
+
+        swipeLeftIv = binding.flashcardsSwipeLeftIv;
+        swipeLeftIv.setOnClickListener(v -> performSwipe(Direction.Left));
+
+        undoIv = binding.flashcardsUndoIv;
+        undoIv.setOnClickListener(v -> undoSwipe());
+
+        swipeRightIv = binding.flashcardsSwipeRightIv;
+        swipeRightIv.setOnClickListener(v -> performSwipe(Direction.Right));
     }
 
     private void setupToolbar() {
         Toolbar toolbar = binding.flashcardsToolbar;
         ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
-        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle(""); // Set the title to an empty string
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle("");
+
+        ImageView toolbarBackIv = binding.flashcardsToolbarBackIv;
+        toolbarBackIv.setOnClickListener(v -> confirmExitDialog());
+
+        ImageView toolbarOptionsIv = binding.flashcardsToolbarOptionsIv;
+        toolbarOptionsIv.setOnClickListener(v -> flashcardsOptionsDialog());
     }
 
     private void setupCardStackView() {
@@ -90,7 +112,7 @@ public class FragmentFlashcards extends Fragment {
 
             private void paginate() {
                 List<ModelFlashcard> oldItem = adapterFlashcardStack.getItems();
-                List<ModelFlashcard> newItem = new ArrayList<>(addList());
+                List<ModelFlashcard> newItem = new ArrayList<>(flashcards);
                 CallbackFlashcardStack callback = new CallbackFlashcardStack(oldItem, newItem);
                 DiffUtil.DiffResult results = DiffUtil.calculateDiff(callback);
                 adapterFlashcardStack.setItems(newItem);
@@ -112,14 +134,14 @@ public class FragmentFlashcards extends Fragment {
 
             @Override
             public void onCardAppeared(View view, int position) {
-                TextView wordTv = view.findViewById(R.id.flashcard_termTv);
-                // Log.d(TAG, "onCardAppeared: " + position + ", word: " + wordTv.getText());
+                TextView termTv = view.findViewById(R.id.flashcard_termTv);
+                // Log.d(TAG, "onCardAppeared: " + position + ", word: " + termTv.getText());
             }
 
             @Override
             public void onCardDisappeared(View view, int position) {
-                TextView wordTv = view.findViewById(R.id.flashcard_termTv);
-                // Log.d(TAG, "onCardDisappeared: " + position + ", word: " + wordTv.getText());
+                TextView termTv = view.findViewById(R.id.flashcard_termTv);
+                // Log.d(TAG, "onCardDisappeared: " + position + ", word: " + termTv.getText());
             }
         });
 
@@ -135,19 +157,12 @@ public class FragmentFlashcards extends Fragment {
         cardStackManager.setOverlayInterpolator(new LinearInterpolator());
         cardStackManager.setCanScrollVertical(false);
 
-        adapterFlashcardStack = new AdapterFlashcardStack(addList());
-        binding.flashcardStackCsv.setLayoutManager(cardStackManager);
-        binding.flashcardStackCsv.setAdapter(adapterFlashcardStack);
-        binding.flashcardStackCsv.setItemAnimator(new DefaultItemAnimator());
+        adapterFlashcardStack = new AdapterFlashcardStack(flashcards);
+        binding.flashcardsCardStackCsv.setLayoutManager(cardStackManager);
+        binding.flashcardsCardStackCsv.setAdapter(adapterFlashcardStack);
+        binding.flashcardsCardStackCsv.setItemAnimator(new DefaultItemAnimator());
     }
 
-    private void setupContents() {
-        binding.flashcardsToolbarBackIv.setOnClickListener(v -> confirmExitDialog());
-        binding.flashcardsToolbarOptionsIv.setOnClickListener(v -> flashcardsOptionsDialog());
-        binding.learnSwipeLeftBtn.setOnClickListener(v -> performSwipe(Direction.Left));
-        binding.learnSwipeRightBtn.setOnClickListener(v -> performSwipe(Direction.Right));
-        binding.learnUndoBtn.setOnClickListener(v -> undoSwipe());
-    }
 
     private void confirmExitDialog() {
         final Dialog dialog = createDialog(R.layout.dialog_confirm_exit);
@@ -198,7 +213,7 @@ public class FragmentFlashcards extends Fragment {
                         .build());
             }
 
-            binding.flashcardStackCsv.swipe();
+            binding.flashcardsCardStackCsv.swipe();
         } else {
             Toast.makeText(requireContext(), "No more cards to swipe", Toast.LENGTH_SHORT).show();
         }
@@ -207,52 +222,28 @@ public class FragmentFlashcards extends Fragment {
     private void undoSwipe() {
         int currentPosition = cardStackManager.getTopPosition();
         if (currentPosition > 0) { // Check if there are cards to rewind
-            binding.flashcardStackCsv.rewind();
+            binding.flashcardsCardStackCsv.rewind();
         } else {
             Toast.makeText(requireContext(), "No more cards to undo", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private List<ModelFlashcard> addList() {
-
-        return Utils.readFlashcardsFromFile(requireContext(), "animals.txt");
-    }
-
-    /*private void getLearningSetData() {
+    private void getLearningSetData() {
         Bundle args = getArguments();
         if (args != null) {
             ModelLearningSet learningSet = args.getParcelable("learningSet");
             if (learningSet != null) {
                 String setName = learningSet.getName();
-                String setCreator = learningSet.getCreator();
                 String nrOfTerms = String.valueOf(learningSet.getNrOfTerms());
-                String setDescription = learningSet.getDescription();
+                flashcards = learningSet.getTerms();
 
-                View rootView = getView(); // Get the root view of the fragment
+                View rootView = getView();
 
                 if (rootView != null) {
-                    TextView setNameTv = rootView.findViewById(R.id.viewSetNameTv);
-                    TextView setCreatorTv = rootView.findViewById(R.id.viewSetCreatorTv);
-                    TextView setDescriptionTv = rootView.findViewById(R.id.viewSetDescriptionTv);
-                    TextView setTermsTv = rootView.findViewById(R.id.viewSetNrOfTermsTv);
 
-                    if (setName != null) {
-                        setNameTv.setText(setName);
-                    }
 
-                    if (setCreator != null) {
-                        setCreatorTv.setText(setCreator);
-                    }
-
-                    if (setDescription != null) {
-                        Utils.showItems(setDescriptionTv);
-                        setDescriptionTv.setText(setDescription);
-                    }
-
-                    setTermsTv.setText(getString(R.string.string_terms, nrOfTerms));
                 }
             }
         }
-    }*/
-
+    }
 }
