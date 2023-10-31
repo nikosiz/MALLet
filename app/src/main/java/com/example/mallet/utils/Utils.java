@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Patterns;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -423,5 +424,21 @@ public class Utils {
     public static void setTextColor(Context c, TextView tv, int colorId) {
         int color = ContextCompat.getColor(c, colorId);
         tv.setTextColor(color);
+    }
+
+    public static void setMargins(Context c, View view, int leftDp, int topDp, int rightDp, int bottomDp) {
+        int leftPx = dpToPx(leftDp, c);
+        int topPx = dpToPx(topDp, c);
+        int rightPx = dpToPx(rightDp, c);
+        int bottomPx = dpToPx(bottomDp, c);
+
+        if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams layoutParams) {
+            layoutParams.setMargins(leftPx, topPx, rightPx, bottomPx);
+            view.requestLayout();
+        }
+    }
+
+    private static int dpToPx(int dp, Context context) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
     }
 }

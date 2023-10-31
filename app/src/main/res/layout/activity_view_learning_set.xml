@@ -337,22 +337,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="10dp" />
 
+                <LinearLayout
+                    android:id="@+id/viewSet_allFlashcardsLl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"></LinearLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="240dp" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/viewSet_allFlashcardsLl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:orientation="vertical">
 
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="240dp"
-                android:layout_marginHorizontal="20dp" />
         </LinearLayout>
     </ScrollView>
 
@@ -361,9 +357,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
+        android:backgroundTint="@color/colorPrimaryDark"
         android:fontFamily="@font/rem_bold"
         android:gravity="center"
         android:text="Study this set"
+        android:textColor="@color/colorLight"
         android:textSize="20sp"
         app:elevation="5dp"
         app:layout_constraintBottom_toBottomOf="parent"

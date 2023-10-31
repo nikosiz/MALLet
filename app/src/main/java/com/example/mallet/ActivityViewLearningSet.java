@@ -171,6 +171,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
         for (ModelFlashcard flashcard : flashcards) {
             View flashcardItemView = inflater.inflate(R.layout.model_flashcard, linearLayout, false);
+            Utils.setMargins(this, flashcardItemView, 0, 0, 0, 10);
 
             int paddingInDp = 20;
             float scale = getResources().getDisplayMetrics().density;
@@ -196,7 +197,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
                 flashcardDefinitionTv.setVisibility(View.VISIBLE);
                 flashcardDefinitionTv.setText(flashcard.getDefinition());
                 int textColorResId = R.color.colorPrimaryDark;
-                Utils.setTextColor(this,flashcardDefinitionTv, textColorResId);
+                Utils.setTextColor(this, flashcardDefinitionTv, textColorResId);
                 flashcardDefinitionTv.setGravity(Gravity.START);
                 flashcardDefinitionTv.setTextSize(15.0f);
             }
