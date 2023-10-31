@@ -13,15 +13,11 @@ import com.example.mallet.R;
 import java.util.List;
 
 public class AdapterFlashcardViewPager extends RecyclerView.Adapter<AdapterFlashcardViewPager.FlashcardViewHolder> {
-
     private final List<ModelFlashcard> flashcards;
-    private boolean isFlipped = false; // Flag to track whether the flashcard is flipped
-    private final View.OnClickListener clickListener;
+    private boolean isFlipped = false;
 
-    // Constructor to initialize the adapter with flashcards and a click listener
-    public AdapterFlashcardViewPager(List<ModelFlashcard> flashcards, View.OnClickListener clickListener) {
+    public AdapterFlashcardViewPager(List<ModelFlashcard> flashcards) {
         this.flashcards = flashcards;
-        this.clickListener = clickListener;
     }
 
     @NonNull
@@ -36,34 +32,25 @@ public class AdapterFlashcardViewPager extends RecyclerView.Adapter<AdapterFlash
         ModelFlashcard flashcard = flashcards.get(position);
 
         if (isFlipped) {
-            holder.termTv.setVisibility(View.GONE);
+            Utils.hideItems(holder.termTv, holder.definitionView, holder.definitionTv);
+            Utils.showItems(holder.translationTv);
 
-            holder.definitionView.setVisibility(View.GONE);
-            holder.definitionTv.setVisibility(View.GONE);
-
-            holder.translationView.setVisibility(View.GONE);
-            holder.translationTv.setVisibility(View.VISIBLE);
             holder.translationTv.setText(flashcard.getTranslation());
         } else {
-            holder.termTv.setVisibility(View.VISIBLE);
+            Utils.showItems(holder.termTv);
             holder.termTv.setText(flashcard.getTerm());
 
-            holder.definitionView.setVisibility(View.VISIBLE);
             if (!flashcard.getDefinition().isEmpty()) {
                 holder.definitionTv.setVisibility(View.VISIBLE);
                 holder.definitionTv.setText(flashcard.getDefinition());
             }
 
-            holder.translationView.setVisibility(View.GONE);
-            holder.translationTv.setVisibility(View.GONE);
+            Utils.hideItems(holder.translationView, holder.translationTv);
         }
 
         holder.itemView.setOnClickListener(v -> {
             isFlipped = !isFlipped;
             notifyDataSetChanged();
-            if (clickListener != null) {
-                clickListener.onClick(v);
-            }
         });
     }
 
@@ -81,10 +68,13 @@ public class AdapterFlashcardViewPager extends RecyclerView.Adapter<AdapterFlash
 
         FlashcardViewHolder(View itemView) {
             super(itemView);
+
             termTv = itemView.findViewById(R.id.flashcard_termTv);
-            definitionView = itemView.findViewById(R.id.flashcard_definitionView);
+
+            definitionView = itemView.findViewById(R.id.flashcard_aboveDefinitionView);
             definitionTv = itemView.findViewById(R.id.flashcard_definitionTv);
-            translationView = itemView.findViewById(R.id.flashcard_translationView);
+
+            translationView = itemView.findViewById(R.id.flashcard_aboveTranslationView);
             translationTv = itemView.findViewById(R.id.flashcard_translationTv);
         }
     }

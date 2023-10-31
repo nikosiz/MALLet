@@ -1,5 +1,7 @@
 package com.example.mallet;
 
+import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -8,7 +10,6 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,11 +23,9 @@ import com.example.mallet.databinding.ActivityViewLearningSetBinding;
 import com.example.mallet.databinding.DialogViewSetToolbarOptionsBinding;
 import com.example.mallet.utils.AdapterFlashcardViewPager;
 import com.example.mallet.utils.ModelFlashcard;
-import com.example.mallet.utils.ModelFolder;
-import com.example.mallet.utils.ModelGroup;
 import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.Utils;
-import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +34,12 @@ import java.util.Objects;
 public class ActivityViewLearningSet extends AppCompatActivity {
     private ActivityViewLearningSetBinding binding;
     private ModelLearningSet learningSet;
+
+    // toolbar
+    private ImageView toolbarBackIv, toolbarOptionsIv;
+
+    private LinearLayout flashcardsLl, learnLl, testLl, matchLl;
+    private ExtendedFloatingActionButton viewSetStudyEfab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,27 +53,27 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
         getLearningSetData();
 
-        displayFlashcardsInViewPager(Utils.createFlashcardList(learningSet), binding.viewSetViewpager);
+        displayFlashcardsInViewPager(Utils.createFlashcardList(learningSet), binding.viewSetFlashcardVp2);
         displayFlashcardsInLinearLayout(Utils.createFlashcardList(learningSet), binding.viewSetAllFlashcardsLl, getLayoutInflater());
     }
 
     private void setupContents() {
         setupToolbar();
-        binding.viewSetViewpager.setOnClickListener(v -> flipCard());
-        binding.viewSetFlashcards.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentFlashcards.class, ActivityLearn.class));
-        //TODO ZMIENIĆ
-        binding.viewSetLearn.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentLearn.class, ActivityLearn.class));
-        //binding.viewSetLearn.setOnClickListener(v -> Utils.openActivityWithFragment(this, TestowyFragment.class, TestowaAktywność.class));
-        binding.viewSetTest.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentTest.class, ActivityLearn.class));
-        binding.viewSetMatch.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentMatch.class, ActivityLearn.class));
-        binding.testBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(this, ActivityLearn.class);
 
-            // Pass the learning set data to ActivityLearn
-            intent.putExtra("learningSet", learningSet);
+        flashcardsLl = binding.viewSetFlashcardsLl;
+        flashcardsLl.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentFlashcards.class, ActivityLearn.class));
 
-            startActivity(intent);
-        });
+        learnLl = binding.viewSetLearnLl;
+        learnLl.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentLearn.class, ActivityLearn.class));
+
+        testLl = binding.viewSetTestLl;
+        testLl.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentTest.class, ActivityLearn.class));
+
+        matchLl = binding.viewSetMatchLl;
+        matchLl.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentMatch.class, ActivityLearn.class));
+
+        viewSetStudyEfab = binding.viewSetStudyEfab;
+        viewSetStudyEfab.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentFlashcards.class, ActivityLearn.class));
     }
 
     private void setupToolbar() {
@@ -76,28 +81,22 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle("");
 
-        binding.flashcardsBackIv.setOnClickListener(v -> finish());
+        toolbarBackIv = binding.viewSetToolbarBackIv;
+        toolbarOptionsIv = binding.viewSetToolbarOptionsIv;
 
-        binding.viewSetOptionsBtn.setOnClickListener(v -> viewSetOptionsDialog());
-    }
+        binding.viewSetToolbarBackIv.setOnClickListener(v -> finish());
 
-    private void flipCard() {
-
+        binding.viewSetToolbarOptionsIv.setOnClickListener(v -> viewSetOptionsDialog());
     }
 
     private void viewSetOptionsDialog() {
         final Dialog dialog = createDialog(R.layout.dialog_view_set_toolbar_options);
         DialogViewSetToolbarOptionsBinding dialogBinding = DialogViewSetToolbarOptionsBinding.inflate(LayoutInflater.from(this));
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        Objects.requireNonNull(dialog.getWindow()).setLayout(MATCH_PARENT, MATCH_PARENT);
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
         dialog.show();
 
-        dialogBinding.viewSetOptionsAddToCollectionTv.setOnClickListener(v -> {
-            dialog.dismiss();
-
-            //setService.addSet();
-
-        });
+        dialogBinding.viewSetOptionsBackIv.setOnClickListener(v -> dialog.dismiss());
 
         dialogBinding.viewSetOptionsEditTv.setOnClickListener(v -> {
             dialog.dismiss();
@@ -109,6 +108,16 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
             startActivity(intent);
         });
+
+        dialogBinding.viewSetOptionsAddToCollectionTv.setOnClickListener(v -> {
+            dialog.dismiss();
+
+            //setService.addSet();
+
+        });
+
+        dialogBinding.viewSetOptionsCancelTv.setOnClickListener(v -> dialog.dismiss());
+
     }
 
     private void getLearningSetData() {
@@ -125,7 +134,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
                 TextView setNameTv = binding.viewSetNameTv;
                 TextView setCreatorTv = binding.viewSetCreatorTv;
                 TextView setDescriptionTv = binding.viewSetDescriptionTv;
-                TextView setTermsTv = binding.viewSetTermsTv;
+                TextView setTermsTv = binding.viewSetNrOfTermsTv;
 
                 List<ModelFlashcard> flashcards = learningSet.getTerms();
 
@@ -150,15 +159,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
     private void displayFlashcardsInViewPager(List<ModelFlashcard> flashcards, ViewPager2
             viewPager) {
-        List<ModelFlashcard> simplifiedFlashcards = new ArrayList<>();
-
-        for (ModelFlashcard flashcard : flashcards) {
-            ModelFlashcard simplifiedFlashcard = new ModelFlashcard(flashcard.getTerm(), "", flashcard.getTranslation());
-
-            simplifiedFlashcards.add(simplifiedFlashcard);
-        }
-
-        AdapterFlashcardViewPager adapter = new AdapterFlashcardViewPager(simplifiedFlashcards, v -> flipCard());
+        AdapterFlashcardViewPager adapter = new AdapterFlashcardViewPager(flashcards);
         viewPager.setAdapter(adapter);
         viewPager.setPageTransformer(Utils::applySwipeTransformer);
     }
@@ -171,8 +172,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         for (ModelFlashcard flashcard : flashcards) {
             View flashcardItemView = inflater.inflate(R.layout.model_flashcard, linearLayout, false);
 
-            // Convert dp to pixels
-            int paddingInDp = 30;
+            int paddingInDp = 20;
             float scale = getResources().getDisplayMetrics().density;
             int paddingInPixels = (int) (paddingInDp * scale + 0.5f);
 
@@ -184,13 +184,25 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             flashcardTermTv.setVisibility(View.VISIBLE);
             flashcardTermTv.setText(flashcard.getTerm());
             flashcardTermTv.setGravity(Gravity.START);
-            flashcardTermTv.setTextSize(30.0f);
+            flashcardTermTv.setTextSize(20.0f);
+            Utils.makeTextPhat(this, flashcardTermTv);
 
-            TextView flashcardDefinitionTv = flashcardItemView.findViewById(R.id.flashcard_definitionTv);
-            flashcardDefinitionTv.setVisibility(View.VISIBLE);
-            flashcardDefinitionTv.setText(flashcard.getDefinition());
-            flashcardDefinitionTv.setGravity(Gravity.START);
-            flashcardDefinitionTv.setTextSize(20.0f);
+            if (!flashcard.getDefinition().isEmpty()) {
+                View aboveDefinition = (View) flashcardItemView.findViewById(R.id.flashcard_aboveDefinitionView);
+                Utils.setViewLayoutParams(aboveDefinition, MATCH_PARENT, 5);
+                Utils.showItems(aboveDefinition);
+
+                TextView flashcardDefinitionTv = flashcardItemView.findViewById(R.id.flashcard_definitionTv);
+                flashcardDefinitionTv.setVisibility(View.VISIBLE);
+                flashcardDefinitionTv.setText(flashcard.getDefinition());
+                Utils.setTextColor(flashcardDefinitionTv, R.color.colorPrimaryDark);
+                flashcardDefinitionTv.setGravity(Gravity.START);
+                flashcardDefinitionTv.setTextSize(15.0f);
+            }
+
+            View aboveTranslation = flashcardItemView.findViewById(R.id.flashcard_aboveTranslationView);
+            Utils.setViewLayoutParams(aboveTranslation, MATCH_PARENT, 5);
+            Utils.showItems(aboveTranslation);
 
             TextView flashcardTranslationTv = flashcardItemView.findViewById(R.id.flashcard_translationTv);
             flashcardTranslationTv.setVisibility(View.VISIBLE);
@@ -210,64 +222,5 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().setGravity(Gravity.BOTTOM);
         return dialog;
-    }
-
-    // TODO: Replace with appropriate functionality
-    private List<ModelFolder> createFolderList() {
-        List<ModelFolder> folders = new ArrayList<>();
-        folders.add(new ModelFolder("Folder #1", "user123", "3"));
-        folders.add(new ModelFolder("Folder #2", "user123", "7"));
-        folders.add(new ModelFolder("Folder #3", "user123", "2"));
-        folders.add(new ModelFolder("Folder #4", "user123", "8"));
-        folders.add(new ModelFolder("Folder #5", "user123", "1"));
-        return folders;
-    }
-
-    private void displayFolders(List<ModelFolder> folders, LinearLayout
-            linearLayout, LayoutInflater inflater) {
-        linearLayout.removeAllViews();
-
-        for (ModelFolder folder : folders) {
-            View folderItemView = inflater.inflate(R.layout.model_folder, linearLayout, false);
-
-            TextView folderNameTextView = folderItemView.findViewById(R.id.folder_model_nameTv);
-            TextView folderCreatorTextView = folderItemView.findViewById(R.id.folder_model_creatorTv);
-
-            folderNameTextView.setText(folder.getFolderName());
-            folderCreatorTextView.setText(folder.getFolderCreator());
-
-            linearLayout.addView(folderItemView);
-        }
-    }
-
-    private List<ModelGroup> createGroupList() {
-        List<ModelGroup> groups = new ArrayList<>();
-        groups.add(new ModelGroup("Group #1", "user123", "3"));
-        groups.add(new ModelGroup("Group #2", "user123", "7"));
-        groups.add(new ModelGroup("Group #3", "user123", "2"));
-        groups.add(new ModelGroup("Group #4", "user123", "8"));
-        groups.add(new ModelGroup("Group #5", "user123", "1"));
-        return groups;
-    }
-
-    private void displayGroups(List<ModelGroup> groups, LinearLayout
-            linearLayout, LayoutInflater inflater) {
-        linearLayout.removeAllViews();
-
-        for (ModelGroup group : groups) {
-            View groupItemView = inflater.inflate(R.layout.model_group, linearLayout, false);
-
-            TextView groupNameTv = groupItemView.findViewById(R.id.group_nameTv);
-            TextView groupNrOfMembersTv = groupItemView.findViewById(R.id.group_nrOfMembersTv);
-            TextView groupNrOfSetsTv = groupItemView.findViewById(R.id.group_nrOfSetsTv);
-
-            groupNameTv.setText(group.getGroupName());
-            String nrOfMembers = String.valueOf(group.getNrOfMembers());
-            groupNrOfMembersTv.setText(getString(R.string.string_members, nrOfMembers));
-            String nrOfSets = String.valueOf(group.getNrOfSets());
-            groupNrOfSetsTv.setText(getString(R.string.string_sets, nrOfSets));
-
-            linearLayout.addView(groupItemView);
-        }
     }
 }

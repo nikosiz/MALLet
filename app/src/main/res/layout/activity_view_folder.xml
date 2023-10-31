@@ -35,14 +35,13 @@
             tools:ignore="TouchTargetSizeCheck" />
 
         <TextView
-            android:id="@+id/viewFolder_toolbarTitleTv"
+            android:id="@+id/viewFolder_toolbarNameTv"
             style="@style/BasicBoldTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/russo_one_regular"
             android:gravity="center_vertical"
-
-            android:text="@string/folder"
+            android:text="folder_name"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="30sp" />
 
@@ -67,161 +66,68 @@
         android:id="@+id/viewFolderLl"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
+        android:padding="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/viewFolder_toolbar">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/viewFolder_infoCv"
+        <LinearLayout
+            android:id="@+id/viewFolder_addSetsLl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardElevation="0dp">
+            android:background="@drawable/bg_corners_rounded"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:visibility="gone">
 
-            <LinearLayout
-                android:id="@+id/viewFolder_infoCvLl"
+            <TextView
+                android:id="@+id/viewFolder_addSetsTitleTv"
+                style="@style/BasicBoldTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="30dp">
 
-                <TextView
-                    android:id="@+id/viewFolder_nameTv"
-                    style="@style/BasicBoldTextStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                android:text="There are no sets in this folder"
+                android:textColor="@color/primaryTextColor"
+                android:textSize="20sp" />
 
-                    android:text="@string/folder_name"
-                    android:textColor="@color/primaryTextColor"
-                    android:textSize="20sp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="5dp" />
-
-                <LinearLayout
-                    android:id="@+id/viewFolder_infoCvLlLl"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center|start"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/viewFolder_userIconIv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/user_icon"
-                        android:src="@drawable/ic_profile"
-                        app:tint="@color/danube_blue_800" />
-
-                    <TextView
-                        android:id="@+id/viewFolder_creatorTv"
-                        style="@style/BasicTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-
-                        android:text="@string/username"
-                        android:textColor="@color/colorPrimary" />
-
-                    <View
-                        android:layout_width="2dp"
-                        android:layout_height="20dp"
-                        android:layout_marginHorizontal="10dp"
-                        android:background="@color/danube_blue_200" />
-
-                    <TextView
-                        android:id="@+id/viewFolder_nrOfSetsTv"
-                        style="@style/BasicTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-
-                        android:text="@string/nr_of_sets"
-                        android:textColor="@color/danube_blue_400"
-                        tools:ignore="TextContrastCheck" />
-                </LinearLayout>
-
-                <View
-                    android:id="@+id/viewFolder_aboveDescriptionV"
-                    android:layout_width="match_parent"
-                    android:layout_height="5dp"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/viewFolder_descriptionTv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="30dp" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/viewFolder_addSetsCv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="30dp"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="0dp">
-
-            <LinearLayout
-                android:id="@+id/viewFolder_addSetsCvLl"
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="20dp"
-                android:visibility="visible">
+                android:layout_height="10dp" />
 
-                <TextView
-                    android:id="@+id/viewFolder_addSetsTitleTv"
-                    style="@style/BasicBoldTextStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+            <TextView
+                android:id="@+id/viewFolder_addSetsSubtitleTv"
+                style="@style/BasicTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
 
-                    android:text="@string/no_sets_in_this_folder"
-                    android:textColor="@color/primaryTextColor"
-                    android:textSize="20sp" />
+                android:text="Organise your learning sets by sorting them into folders"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="5dp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
 
-                <TextView
-                    android:id="@+id/viewFolder_addSetsSubtitleTv"
-                    style="@style/BasicTextStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+            <TextView
+                android:id="@+id/viewFolder_addSetsTv"
+                style="@style/BasicTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_ripple"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
 
-                    android:text="@string/organise_sets_sort_into_folders"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="20sp" />
+                android:padding="10dp"
+                android:text="Add sets"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp"
+                app:drawableEndCompat="@drawable/ic_plus"
+                app:drawableTint="@color/colorPrimary" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp" />
-
-                <TextView
-                    android:id="@+id/viewFolder_addSetsTv"
-                    style="@style/BasicTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_ripple"
-                    android:drawablePadding="10dp"
-                    android:gravity="center_vertical"
-
-                    android:padding="10dp"
-                    android:text="Add sets"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="20sp"
-                    app:drawableEndCompat="@drawable/ic_plus"
-                    app:drawableTint="@color/colorPrimary" />
-
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

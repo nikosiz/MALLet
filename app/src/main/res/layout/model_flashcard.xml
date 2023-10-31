@@ -6,7 +6,7 @@
     android:layout_margin="10dp"
     android:background="@drawable/bg_corners_rounded"
     android:gravity="center_vertical"
-    android:maxHeight="150dp"
+    android:maxHeight="130dp"
     android:minHeight="120dp"
     android:orientation="vertical"
     android:paddingHorizontal="30dp"
@@ -24,7 +24,7 @@
         android:textSize="30sp" />
 
     <View
-        android:id="@+id/flashcard_definitionView"
+        android:id="@+id/flashcard_aboveDefinitionView"
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:visibility="gone" />
@@ -42,7 +42,7 @@
         android:visibility="gone" />
 
     <View
-        android:id="@+id/flashcard_translationView"
+        android:id="@+id/flashcard_aboveTranslationView"
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:visibility="gone" />

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.text.Editable;
@@ -14,6 +15,7 @@ import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -21,9 +23,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.mallet.R;
+
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -397,5 +402,24 @@ public class Utils {
 
         // Return the populated ModelLearningSet object
         return learningSet;
+    }
+
+    public static void makeTextPhat(Context c, TextView tv) {
+        Typeface phatFont = ResourcesCompat.getFont(c, R.font.rem_bold);
+        tv.setTypeface(phatFont);
+    }
+
+    public static void setViewLayoutParams(View view, int width, int height) {
+        ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+
+        if (layoutParams != null) {
+            layoutParams.width = width;
+            layoutParams.height = height;
+            view.setLayoutParams(layoutParams);
+        }
+    }
+
+    public static void setTextColor(TextView textView, int color) {
+        textView.setTextColor(color);
     }
 }

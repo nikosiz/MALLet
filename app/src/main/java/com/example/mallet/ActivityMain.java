@@ -3,18 +3,14 @@ package com.example.mallet;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,21 +28,16 @@ import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.Utils;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class ActivityMain extends AppCompatActivity {
-
-    private static final String SELECTED_FRAGMENT_KEY = "selected_fragment";
     private ActivityMainBinding binding;
-    private final int clickCount = 0;
+    private static final String SELECTED_FRAGMENT_KEY = "selected_fragment";
+    private BottomNavigationMenuView bottomNavMenu;
     private int selectedFragmentId = R.id.bottom_nav_home;
-    private EditText folderNameEt, folderDescriptionEt;
-    private SharedPreferences sharedPreferences;
-    private int savedTheme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +47,8 @@ public class ActivityMain extends AppCompatActivity {
 
         initializeSelectedFragment(savedInstanceState);
         setExceptionItemColor();
-        setupContents();
-    }
 
-    private void setupContents() {
-        binding.mainBottomNavigation.setOnItemSelectedListener(this::onNavigationItemSelected);
+        setupContents();
     }
 
     private void initializeSelectedFragment(Bundle savedInstanceState) {
@@ -70,6 +58,18 @@ public class ActivityMain extends AppCompatActivity {
         } else {
             replaceFragment(new FragmentHome());
         }
+    }
+
+    @SuppressLint("RestrictedApi")
+    private void setExceptionItemColor() {
+        BottomNavigationMenuView bottomNavMenu = (BottomNavigationMenuView) binding.mainBottomNavigation.getChildAt(0);
+        BottomNavigationItemView exceptionItem = (BottomNavigationItemView) bottomNavMenu.getChildAt(2);
+        int color = ContextCompat.getColor(this, R.color.downriver_blue_300);
+        exceptionItem.setIconTintList(ColorStateList.valueOf(color));
+    }
+
+    private void setupContents() {
+        binding.mainBottomNavigation.setOnItemSelectedListener(this::onNavigationItemSelected);
     }
 
     private void setSelectedFragment(int fragmentId) {
@@ -89,14 +89,6 @@ public class ActivityMain extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    @SuppressLint("RestrictedApi")
-    private void setExceptionItemColor() {
-        BottomNavigationMenuView menuView = (BottomNavigationMenuView) binding.mainBottomNavigation.getChildAt(0);
-        BottomNavigationItemView exceptionItem = (BottomNavigationItemView) menuView.getChildAt(2);
-        int color = ContextCompat.getColor(this, R.color.downriver_blue_300);
-        exceptionItem.setIconTintList(ColorStateList.valueOf(color));
-    }
-
     private boolean onNavigationItemSelected(MenuItem item) {
         selectedFragmentId = item.getItemId();
 
@@ -105,7 +97,7 @@ public class ActivityMain extends AppCompatActivity {
         } else if (selectedFragmentId == R.id.bottom_nav_library) {
             replaceFragment(new FragmentSetsDatabase());
         } else if (selectedFragmentId == R.id.bottom_nav_add_new) {
-            newSetFolderGroupDialog();
+            createNewSetFolderGroupDialog();
         } else if (selectedFragmentId == R.id.bottom_nav_your_library) {
             replaceFragment(new FragmentUserLibrary());
         } else if (selectedFragmentId == R.id.bottom_nav_profile) {
@@ -114,7 +106,7 @@ public class ActivityMain extends AppCompatActivity {
         return true;
     }
 
-    private void newSetFolderGroupDialog() {
+    private void createNewSetFolderGroupDialog() {
         final Dialog dialog = createDialog(R.layout.dialog_create);
         DialogCreateBinding dialogBinding = DialogCreateBinding.inflate(getLayoutInflater());
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
@@ -137,49 +129,29 @@ public class ActivityMain extends AppCompatActivity {
         });
         createGroup.setOnClickListener(v -> {
             dialog.dismiss();
-            Intent intent = new Intent(this, ActivityCreateGroup.class);
+            Intent intent = new Intent(this, ActivityCreateFolder.class);
             startActivity(intent);
         });
     }
 
-    private void createNewSet(String setName, String setDescription) {
-        Utils.showToast(this, "The set will be created in the future with backend. Now we will just open the \"ActivityEditLearningSet\"");
-        Intent intent = new Intent(this, ActivityEditLearningSet.class);
+    private Dialog createDialog(int layoutResId) {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(layoutResId);
 
-        String enteredSetDescription;
-
-        intent.putExtra("learningSetName", setName);
-
-        if (setDescription == null) {
-            setDescription = "";
-            intent.putExtra("learningSetDescription", setDescription);
-        } else {
-            enteredSetDescription = setDescription;
-            intent.putExtra("learningSetDescription", enteredSetDescription);
-        }
-
-        startActivity(intent);
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+        dialog.show();
+        return dialog;
     }
 
-    private void createNewFolder(ModelFolder folder, String folderDescription) {
-        Utils.showToast(this, "The folder will be created in the future with backend. Now we will just open the \"ActivityViewFolder\"");
-        Intent intent = new Intent(this, ActivityViewFolder.class);
-
-        String enteredFolderDescription;
-
-        intent.putExtra("folder", folder);
-
-        if (folderDescription == null) {
-            folderDescription = "";
-            intent.putExtra("folderDescription", folderDescription);
-        } else {
-            enteredFolderDescription = folderDescription;
-            intent.putExtra("folderDescription", enteredFolderDescription);
-        }
-
-        startActivity(intent);
+    @Override
+    public void onBackPressed() {
+        Utils.terminateApp(this);
     }
 
+    // TODO
     public List<ModelLearningSet> createSetList() {
         List<ModelLearningSet> sets = new ArrayList<>();
 
@@ -216,22 +188,5 @@ public class ActivityMain extends AppCompatActivity {
         groups.add(new ModelGroup("Group #4", "8", "3"));
         groups.add(new ModelGroup("Group #5", "5", "3"));
         return groups;
-    }
-
-    private Dialog createDialog(int layoutResId) {
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(layoutResId);
-
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
-        dialog.show();
-        return dialog;
-    }
-
-    @Override
-    public void onBackPressed() {
-        Utils.terminateApp(this);
     }
 }

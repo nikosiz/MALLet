@@ -37,13 +37,7 @@ public class ActivityViewFolder extends AppCompatActivity {
         binding = ActivityViewFolderBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        TextView folderNameTv = binding.viewFolderNameTv;
-        TextView folderCreatorTv = binding.viewFolderCreatorTv;
-        TextView folderNrOfSets = binding.viewFolderNrOfSetsTv;
-        View aboveDescription = binding.viewFolderAboveDescriptionV;
-        TextView folderDescriptionTv = binding.viewFolderDescriptionTv;
-        Utils.hideItems(aboveDescription);
-        Utils.hideItems(folderDescriptionTv);
+        TextView folderNameTv = binding.viewFolderToolbarNameTv;
 
         setupToolbar();
         setupContents();
@@ -52,8 +46,6 @@ public class ActivityViewFolder extends AppCompatActivity {
 
         if (folder != null) {
             folderNameTv.setText(folder.getFolderName());
-            folderCreatorTv.setText(folder.getFolderCreator());
-            folderNrOfSets.setText(folder.getSets());
             //folderDescriptionTv.setText(folder.getFolderDescription());
         }
 
@@ -185,15 +177,10 @@ public class ActivityViewFolder extends AppCompatActivity {
             String folderCreator = intent.getStringExtra("folder_creator");
             String folderSets = intent.getStringExtra("folder_sets");
 
-            TextView folderNameTv = binding.viewFolderNameTv;
-            TextView folderCreatorTv = binding.viewFolderCreatorTv;
-            TextView folderSetsTv = binding.viewFolderNrOfSetsTv;
+            TextView folderNameTv = binding.viewFolderToolbarNameTv;
 
             if (folderName != null) {
                 folderNameTv.setText(folderName);
-                folderCreatorTv.setText(folderCreator);
-                String nrOfSets = folder.getSets();
-                folderSetsTv.setText(getString(R.string.string_sets, nrOfSets));
             }
         }
     }
