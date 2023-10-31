@@ -49,21 +49,6 @@ public class Utils {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
-    public static Dialog createDialog(Context context, int layoutResourceId) {
-        if (layoutResourceId == 0) {
-            return null;
-        }
-
-        final Dialog dialog = new Dialog(context);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(layoutResourceId);
-
-        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
-        return dialog;
-    }
-
-
     public static void applySwipeTransformer(View page, float position) {
         float absPosition = Math.abs(position);
         float MIN_Y_SCALE = 0.9f;
@@ -441,4 +426,24 @@ public class Utils {
     private static int dpToPx(int dp, Context context) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
     }
+
+    public static Dialog createDialog(Context context, int layoutResId, ViewGroup.LayoutParams layoutParams, int gravity) {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(layoutResId);
+        dialog.setCanceledOnTouchOutside(false);
+
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setGravity(gravity);
+
+        if (layoutParams != null) {
+            Window window = dialog.getWindow();
+            if (window != null) {
+                window.setLayout(layoutParams.width, layoutParams.height);
+            }
+        }
+
+        return dialog;
+    }
+
 }

@@ -81,34 +81,12 @@ public class ActivityCreateFolder extends AppCompatActivity {
         groupMembersLl = binding.createGroupMembersLl;
         groupMemberView = getLayoutInflater().inflate(R.layout.model_add_member_to_group, groupMembersLl, false);
 
-        addMembersFab = binding.createGroupAddMemberFab;
-        addMembersFab.setOnClickListener(v -> addMembersDialog());
-
         memberCb = groupMemberView.findViewById(R.id.addMemberToGroupCb);
     }
 
     private void handleGroupCreation() {
         groupName = groupNameEt.getText().toString().trim();
         List<ContributionCreateContainer> members = new ArrayList<>();
-    }
-
-    private void addMembersDialog() {
-        Dialog dialog = createDialog(R.layout.dialog_add_member_to_group);
-        DialogAddMemberToGroupBinding dialogBinding = DialogAddMemberToGroupBinding.inflate(getLayoutInflater());
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        dialog.setContentView(dialogBinding.getRoot());
-        dialog.show();
-
-        addMemberBackIv = dialogBinding.addMembersToGroupToolbarBackIv;
-        addMemberBackIv.setOnClickListener(v -> {
-            dialog.dismiss();
-            saveSelectedUsers();
-        });
-
-        searchUsersEt = dialogBinding.addMembersToGroupSearchEt;
-        userListLv = dialogBinding.addMembersToGroupListLv;
-
-        setupListView();
     }
 
     private void saveSelectedUsers() {

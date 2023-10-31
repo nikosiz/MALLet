@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,12 +110,10 @@ public class FragmentTest extends Fragment {
     }
 
     private void testOptionsDialog() {
-        final Dialog dialog = Utils.createDialog(getContext(), R.layout.dialog_test_options);
+        Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_test_options, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogTestOptionsBinding dialogBinding = DialogTestOptionsBinding.inflate(LayoutInflater.from(requireContext()));
         dialog.setContentView(dialogBinding.getRoot());
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.show();
-        dialog.setCanceledOnTouchOutside(false);
 
         TextView setNameTv = dialogBinding.testOptionsSetNameTv;
 

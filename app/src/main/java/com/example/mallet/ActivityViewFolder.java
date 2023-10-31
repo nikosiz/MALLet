@@ -80,9 +80,8 @@ public class ActivityViewFolder extends AppCompatActivity {
     }
 
     private void folderOptionsDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_view_folder_toolbar_options);
+        Dialog dialog = Utils.createDialog(this, R.layout.dialog_view_folder_toolbar_options, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT), Gravity.BOTTOM);
         DialogViewFolderToolbarOptionsBinding dialogBinding = DialogViewFolderToolbarOptionsBinding.inflate(LayoutInflater.from(this));
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         dialog.show();
 
         TextView editTv = dialogBinding.viewFolderOptionsEditTv;
@@ -111,9 +110,8 @@ public class ActivityViewFolder extends AppCompatActivity {
 
     private void deleteFolderDialog() {
         // TODO: Fix because it does not show the dialog
-        Dialog dialog = createDialog(R.layout.dialog_delete_folder);
+        Dialog dialog = Utils.createDialog(this, R.layout.dialog_delete_folder, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogDeleteFolderBinding binding = DialogDeleteFolderBinding.inflate(LayoutInflater.from(this));
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.show();
 
         TextView cancelBtn = binding.deleteFolderCancelBtn;

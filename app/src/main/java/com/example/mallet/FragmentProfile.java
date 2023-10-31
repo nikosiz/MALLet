@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -112,12 +113,12 @@ public class FragmentProfile extends Fragment {
         notificationsMs.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 // TODO: Implement notifications
-                showNotifications();
+                enableNotifications();
                 Utils.showToast(getContext(), "You will get notifications when the back end exists");
                 binding.profileNotificationsMs.setChecked(true);
             } else {
                 // TODO: Implement
-                doNotShowNotifications();
+                disableNotifications();
                 Utils.showToast(getContext(), "You will NOT get notifications when the back end exists");
                 binding.profileNotificationsMs.setChecked(false);
             }
@@ -168,7 +169,7 @@ public class FragmentProfile extends Fragment {
         aboutTv.setOnClickListener(v -> aboutDialog());
         logoutTv.setOnClickListener(v -> logOut());
 
-        deleteAccTv.setOnClickListener(v -> showDeleteAccountDialog());
+        deleteAccTv.setOnClickListener(v -> deleteAccountDialog());
     }
 
     private void saveSelectedTheme(int selectedTheme) {
@@ -181,11 +182,9 @@ public class FragmentProfile extends Fragment {
     }
 
     private void verifyPasswordDialog(VerifyPasswordAction action) {
-        final Dialog dialog = createDialog(R.layout.dialog_change_password);
+        Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_verify_password, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogVerifyPasswordBinding dialogBinding = DialogVerifyPasswordBinding.inflate(LayoutInflater.from(requireContext()));
         dialog.setContentView(dialogBinding.getRoot());
-
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.show();
 
         EditText passwordEt = dialogBinding.verifyPasswordEt;
@@ -223,10 +222,9 @@ public class FragmentProfile extends Fragment {
     }
 
     private void changeEmailDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_change_password);
+        Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_change_email, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogChangeEmailBinding dialogBinding = DialogChangeEmailBinding.inflate(LayoutInflater.from(requireContext()));
         dialog.setContentView(dialogBinding.getRoot());
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.show();
 
         TextInputEditText newEmailEt = dialogBinding.changeEmailEt;
@@ -256,10 +254,9 @@ public class FragmentProfile extends Fragment {
     }
 
     private void changeUsernameDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_change_password);
+        Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_change_username, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogChangeUsernameBinding dialogBinding = DialogChangeUsernameBinding.inflate(LayoutInflater.from(requireContext()));
         dialog.setContentView(dialogBinding.getRoot());
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.show();
 
         TextInputEditText newUsernameEt = dialogBinding.changeUsernameNewEt;
@@ -287,10 +284,9 @@ public class FragmentProfile extends Fragment {
     }
 
     private void changePasswordDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_change_password);
+        Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_change_password, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogChangePasswordBinding dialogBinding = DialogChangePasswordBinding.inflate(LayoutInflater.from(requireContext()));
         dialog.setContentView(dialogBinding.getRoot());
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.show();
 
         TextInputEditText oldPasswordEt = dialogBinding.changePasswordOldEt;
@@ -333,11 +329,11 @@ public class FragmentProfile extends Fragment {
         });
     }
 
-    private void showNotifications() {
+    private void enableNotifications() {
         //todo
     }
 
-    private void doNotShowNotifications() {
+    private void disableNotifications() {
         //todo
     }
 
@@ -354,12 +350,13 @@ public class FragmentProfile extends Fragment {
     }
 
     private void aboutDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_change_password);
+        Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_about, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogAboutBinding dialogBinding = DialogAboutBinding.inflate(LayoutInflater.from(requireContext()));
         dialog.setContentView(dialogBinding.getRoot());
-
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.show();
+
+        ImageView backIv = dialogBinding.faboutBackIv;
+        backIv.setOnClickListener(v -> dialog.dismiss());
     }
 
     private void logOut() {
@@ -374,12 +371,10 @@ public class FragmentProfile extends Fragment {
         }
     }
 
-    private void showDeleteAccountDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_change_password);
+    private void deleteAccountDialog() {
+        Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_delete_account, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogDeleteAccountBinding dialogBinding = DialogDeleteAccountBinding.inflate(LayoutInflater.from(requireContext()));
         dialog.setContentView(dialogBinding.getRoot());
-
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.show();
 
         TextInputEditText passwordEt = dialogBinding.deleteAccountPasswordEt;

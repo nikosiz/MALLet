@@ -104,35 +104,33 @@
         app:layout_constraintTop_toBottomOf="@id/viewGroup_toolbar">
 
         <TextView
-            android:id="@+id/viewGroup_addSet"
+            android:id="@+id/viewGroup_addSetTv"
             style="@style/BasicTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:background="@drawable/bg_ripple_blue_rect"
-            android:backgroundTint="@color/colorPrimary"
+            android:background="@drawable/bg_social_btn"
             android:clickable="true"
             android:drawablePadding="20dp"
             android:focusable="true"
             android:gravity="end"
             android:paddingHorizontal="20dp"
             android:paddingVertical="10dp"
-            android:text="SET"
-            android:textColor="@color/colorLight"
+            android:text="Set"
+            android:textColor="@color/colorPrimary"
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@id/viewGroup_addMember"
-            app:layout_constraintEnd_toEndOf="parent"
             app:drawableStartCompat="@drawable/ic_learning_set"
-            app:drawableTint="@color/colorLight" />
+            app:drawableTint="@color/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@id/viewGroup_addUserTv"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
-            android:id="@+id/viewGroup_addMember"
+            android:id="@+id/viewGroup_addUserTv"
             style="@style/BasicTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:background="@drawable/bg_ripple_blue_rect"
-            android:backgroundTint="@color/colorPrimary"
+            android:background="@drawable/bg_social_btn"
             android:clickable="true"
             android:drawablePadding="20dp"
             android:focusable="true"
@@ -140,10 +138,10 @@
             android:paddingHorizontal="20dp"
             android:paddingVertical="10dp"
             android:text="MEMBER"
-            android:textColor="@color/colorLight"
+            android:textColor="@color/colorPrimary"
             android:textSize="20sp"
             app:drawableStartCompat="@drawable/ic_profile"
-            app:drawableTint="@color/colorLight" />
+            app:drawableTint="@color/colorPrimary" />
     </LinearLayout>
 
     <!-- TODO: ma sie w gore rozwijać i ma być create new set albo add set-->

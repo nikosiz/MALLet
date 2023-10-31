@@ -60,5 +60,4 @@ public class MALLet extends Application {
         saveSelectedTheme(themeName);
         applyTheme(themeName);
     }
-
 }

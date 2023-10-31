@@ -77,9 +77,8 @@ public class ActivitySignup extends AppCompatActivity {
     }
 
     private void chooseUsernameDialog() {
-        Dialog dialog = createDialog(R.layout.dialog_forgot_password);
+        Dialog dialog = Utils.createDialog(this, R.layout.dialog_forgot_password, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogChooseUsernameBinding dialogBinding = DialogChooseUsernameBinding.inflate(getLayoutInflater());
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.setContentView(dialogBinding.getRoot());
         dialog.show();
 
@@ -139,9 +138,8 @@ public class ActivitySignup extends AppCompatActivity {
     }
 
     private void confirmAccountDialog() {
-        Dialog dialog = createDialog(R.layout.dialog_confirm_account);
+        Dialog dialog = Utils.createDialog(this, R.layout.dialog_confirm_account, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogConfirmAccountBinding dialogBinding = DialogConfirmAccountBinding.inflate(getLayoutInflater());
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.setContentView(dialogBinding.getRoot());
         dialog.show();
 

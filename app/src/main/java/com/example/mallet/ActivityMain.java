@@ -107,31 +107,34 @@ public class ActivityMain extends AppCompatActivity {
     }
 
     private void createNewSetFolderGroupDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_create);
+        Dialog dialog = Utils.createDialog(this, R.layout.dialog_create, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogCreateBinding dialogBinding = DialogCreateBinding.inflate(getLayoutInflater());
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
         dialog.show();
 
-        TextView createSet = dialogBinding.createSetTv;
-        TextView createFolder = dialogBinding.createFolderTv;
-        TextView createGroup = dialogBinding.createGroupTv;
+        TextView createSetTv = dialogBinding.createSetTv;
+        TextView createFolderTv = dialogBinding.createFolderTv;
+        TextView createGroupTv = dialogBinding.createGroupTv;
+        TextView cancelTv = dialogBinding.createCancelTv;
 
-        createSet.setOnClickListener(v -> {
+        createSetTv.setOnClickListener(v -> {
             dialog.dismiss();
             Intent intent = new Intent(this, ActivityEditLearningSet.class);
             startActivity(intent);
         });
 
-        createFolder.setOnClickListener(v -> {
+        createFolderTv.setOnClickListener(v -> {
             dialog.dismiss();
             Intent intent = new Intent(this, ActivityCreateFolder.class);
             startActivity(intent);
         });
-        createGroup.setOnClickListener(v -> {
+        createGroupTv.setOnClickListener(v -> {
             dialog.dismiss();
             Intent intent = new Intent(this, ActivityCreateGroup.class);
             startActivity(intent);
         });
+        cancelTv.setOnClickListener(v -> dialog.dismiss());
+
     }
 
     private Dialog createDialog(int layoutResId) {
@@ -148,6 +151,7 @@ public class ActivityMain extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
         Utils.terminateApp(this);
     }
 

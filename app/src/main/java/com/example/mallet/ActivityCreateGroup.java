@@ -93,9 +93,8 @@ public class ActivityCreateGroup extends AppCompatActivity {
     }
 
     private void addMembersDialog() {
-        Dialog dialog = createDialog(R.layout.dialog_add_member_to_group);
+        Dialog dialog = Utils.createDialog(this, R.layout.dialog_add_member_to_group, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT), Gravity.BOTTOM);
         DialogAddMemberToGroupBinding dialogBinding = DialogAddMemberToGroupBinding.inflate(getLayoutInflater());
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         dialog.setContentView(dialogBinding.getRoot());
         dialog.show();
 

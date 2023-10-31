@@ -119,9 +119,8 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     }
 
     private void addSetToFolderDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_add_set_to_group);
+        Dialog dialog = Utils.createDialog(this, R.layout.dialog_add_set_to_group, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT), Gravity.BOTTOM);
         DialogAddToFolderBinding dialogBinding = DialogAddToFolderBinding.inflate(LayoutInflater.from(this));
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
         dialog.show();
 
@@ -148,9 +147,8 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     }
 
     private void deleteSetDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_delete_set);
+        Dialog dialog = Utils.createDialog(this, R.layout.dialog_delete_set, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogDeleteSetBinding dialogBinding = DialogDeleteSetBinding.inflate(LayoutInflater.from(this));
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
         dialog.show();
 

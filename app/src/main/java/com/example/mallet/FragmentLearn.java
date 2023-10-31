@@ -163,9 +163,8 @@ public class FragmentLearn extends Fragment {
     }
 
     private void learnOptionsDialog() {
-        Dialog optionsDialog = createDialog(R.layout.dialog_forgot_password);
+        Dialog optionsDialog = Utils.createDialog(requireContext(), R.layout.dialog_forgot_password, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogLearnOptionsBinding optionsDialogBinding = DialogLearnOptionsBinding.inflate(getLayoutInflater());
-        Objects.requireNonNull(optionsDialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         optionsDialog.setContentView(optionsDialogBinding.getRoot());
         optionsDialog.show();
 
@@ -291,9 +290,8 @@ public class FragmentLearn extends Fragment {
     }
 
     private void learningFinishedDialog() {
-        Dialog finishedDialog = createDialog(R.layout.dialog_learning_finished);
+        Dialog finishedDialog = Utils.createDialog(requireContext(), R.layout.dialog_learning_finished, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogLearningFinishedBinding dialogBinding = DialogLearningFinishedBinding.inflate(getLayoutInflater());
-        Objects.requireNonNull(finishedDialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         finishedDialog.setContentView(dialogBinding.getRoot());
 
         TextView dialogFinishTv = dialogBinding.learningFinishedFinishTv;

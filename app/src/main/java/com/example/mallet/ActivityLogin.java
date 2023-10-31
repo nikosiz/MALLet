@@ -86,9 +86,8 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
     private void forgotPasswordDialog() {
-        Dialog dialog = createDialog(R.layout.dialog_forgot_password);
+        Dialog dialog = Utils.createDialog(this,R.layout.dialog_forgot_password, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogForgotPasswordBinding dialogBinding = DialogForgotPasswordBinding.inflate(getLayoutInflater());
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.setContentView(dialogBinding.getRoot());
         dialog.show();
 
@@ -155,9 +154,8 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
     private void openEmailAppDialog() {
-        Dialog dialog = createDialog(R.layout.dialog_forgot_password_open_email);
+        Dialog dialog = Utils.createDialog(this, R.layout.dialog_forgot_password_open_email, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogForgotPasswordOpenEmailBinding dialogBinding = DialogForgotPasswordOpenEmailBinding.inflate(getLayoutInflater());
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.setContentView(dialogBinding.getRoot());
         dialog.show();
 

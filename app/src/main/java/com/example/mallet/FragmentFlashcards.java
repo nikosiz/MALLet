@@ -21,13 +21,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
 
-import com.example.mallet.databinding.DialogConfirmExitBinding;
 import com.example.mallet.databinding.DialogFlashcardOptionsBinding;
 import com.example.mallet.databinding.FragmentFlashcardsBinding;
 import com.example.mallet.utils.AdapterFlashcardStack;
 import com.example.mallet.utils.CallbackFlashcardStack;
 import com.example.mallet.utils.ModelFlashcard;
 import com.example.mallet.utils.ModelLearningSet;
+import com.example.mallet.utils.Utils;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackListener;
 import com.yuyakaido.android.cardstackview.Direction;
@@ -49,6 +49,9 @@ public class FragmentFlashcards extends Fragment {
     private ImageView swipeLeftIv, undoIv, swipeRightIv;
     private List<ModelFlashcard> flashcards;
     private List<ModelFlashcard> originalFlashcards;
+    private TextView flashcardsLeftTv;
+    private int flashcardsLeft;
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -66,6 +69,10 @@ public class FragmentFlashcards extends Fragment {
 
         setupToolbar();
 
+        flashcardsLeftTv = binding.flashcardsCardCounterTv;
+        flashcardsLeft = flashcards.size();
+        updateCardCounterText();
+
         swipeLeftIv = binding.flashcardsSwipeLeftIv;
         swipeLeftIv.setOnClickListener(v -> performSwipe(Direction.Left));
 
@@ -76,22 +83,35 @@ public class FragmentFlashcards extends Fragment {
         swipeRightIv.setOnClickListener(v -> performSwipe(Direction.Right));
     }
 
+    private List<ModelFlashcard> getLearningSetData() {
+        Bundle args = getArguments();
+        if (args != null) {
+            ModelLearningSet learningSet = args.getParcelable("learningSet");
+            if (learningSet != null) {
+                String setName = learningSet.getName();
+                String nrOfTerms = String.valueOf(learningSet.getNrOfTerms());
+                flashcards = learningSet.getTerms();
+                return flashcards;
+            }
+        }
+        return new ArrayList<>(); // Return an empty list if data retrieval fails
+    }
+
     private void setupToolbar() {
         Toolbar toolbar = binding.flashcardsToolbar;
         ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
         Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle("");
 
         ImageView toolbarBackIv = binding.flashcardsToolbarBackIv;
-        toolbarBackIv.setOnClickListener(v -> confirmExitDialog());
+        toolbarBackIv.setOnClickListener(v -> getActivity().finish());
 
         ImageView toolbarOptionsIv = binding.flashcardsToolbarOptionsIv;
         toolbarOptionsIv.setOnClickListener(v -> flashcardsOptionsDialog());
     }
 
     private void flashcardsOptionsDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_flashcard_options);
+        Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_flashcard_options, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT), Gravity.BOTTOM);
         DialogFlashcardOptionsBinding dialogBinding = DialogFlashcardOptionsBinding.inflate(LayoutInflater.from(getContext()));
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
         dialog.show();
 
@@ -116,9 +136,19 @@ public class FragmentFlashcards extends Fragment {
 
     private void shuffleFlashcards() {
         Collections.shuffle(originalFlashcards);
-
         adapterFlashcardStack.setItems(originalFlashcards);
         adapterFlashcardStack.notifyDataSetChanged();
+    }
+
+    private void restartFlashcards() {
+        adapterFlashcardStack = new AdapterFlashcardStack(originalFlashcards);
+        binding.flashcardsCardStackCsv.setAdapter(adapterFlashcardStack);
+        cardStackManager.scrollToPosition(0); // Scroll to the first card
+    }
+
+    private void updateCardCounterText() {
+        flashcardsLeftTv.setText(getString(R.string.swipe_counter, flashcardsLeft, flashcards.size()));
+        //Log.d(TAG, "Remaining flashcards: " + flashcardsLeft);
     }
 
     private void setupCardStackView() {
@@ -136,8 +166,12 @@ public class FragmentFlashcards extends Fragment {
 
                 if (direction == Direction.Left) {
                     Toast.makeText(requireContext(), "Left", Toast.LENGTH_SHORT).show();
+                    flashcardsLeft--;
+                    updateCardCounterText();
                 } else if (direction == Direction.Right) {
                     Toast.makeText(requireContext(), "Right", Toast.LENGTH_SHORT).show();
+                    flashcardsLeft--;
+                    updateCardCounterText();
                 }
 
                 if (cardStackManager.getTopPosition() == adapterFlashcardStack.getItemCount() - 5) {
@@ -156,26 +190,24 @@ public class FragmentFlashcards extends Fragment {
 
             @Override
             public void onCardRewound() {
-                // Handle card rewound
                 // Log.d(TAG, "onCardRewound: p = " + manager.getTopPosition());
-                Toast.makeText(requireContext(), "REWIND", Toast.LENGTH_SHORT).show();
+                Utils.showToast(requireContext(), "REWIND");
+                flashcardsLeft++;
+                updateCardCounterText();
             }
 
             @Override
             public void onCardCanceled() {
-                // Handle card canceled
                 // Log.d(TAG, "onCardRewound: p = " + manager.getTopPosition());
             }
 
             @Override
             public void onCardAppeared(View view, int position) {
-                TextView termTv = view.findViewById(R.id.flashcard_termTv);
                 // Log.d(TAG, "onCardAppeared: " + position + ", word: " + termTv.getText());
             }
 
             @Override
             public void onCardDisappeared(View view, int position) {
-                TextView termTv = view.findViewById(R.id.flashcard_termTv);
                 // Log.d(TAG, "onCardDisappeared: " + position + ", word: " + termTv.getText());
             }
         });
@@ -198,31 +230,6 @@ public class FragmentFlashcards extends Fragment {
         binding.flashcardsCardStackCsv.setItemAnimator(new DefaultItemAnimator());
     }
 
-
-    private void confirmExitDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_confirm_exit);
-        DialogConfirmExitBinding dialogBinding = DialogConfirmExitBinding.inflate(LayoutInflater.from(getContext()));
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
-        dialog.show();
-
-        dialogBinding.confirmExitCancelTv.setOnClickListener(v -> dialog.dismiss());
-        dialogBinding.confirmExitConfirmTv.setOnClickListener(v -> {
-            requireActivity().finish();
-            dialog.dismiss();
-        });
-    }
-
-    private Dialog createDialog(int layoutResId) {
-        final Dialog dialog = new Dialog(getContext());
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(layoutResId);
-
-        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
-        return dialog;
-    }
-
     private void performSwipe(Direction direction) {
         int currentPosition = cardStackManager.getTopPosition();
         if (currentPosition >= 0 && currentPosition < adapterFlashcardStack.getItemCount()) {
@@ -241,6 +248,10 @@ public class FragmentFlashcards extends Fragment {
             }
 
             binding.flashcardsCardStackCsv.swipe();
+
+            flashcardsLeft--;
+
+            updateCardCounterText();
         } else {
             Toast.makeText(requireContext(), "No more cards to swipe", Toast.LENGTH_SHORT).show();
         }
@@ -255,23 +266,13 @@ public class FragmentFlashcards extends Fragment {
         }
     }
 
-    private void restartFlashcards() {
-        adapterFlashcardStack = new AdapterFlashcardStack(originalFlashcards);
-        binding.flashcardsCardStackCsv.setAdapter(adapterFlashcardStack);
-        cardStackManager.scrollToPosition(0); // Scroll to the first card
-    }
+    private Dialog createDialog(int layoutResId) {
+        final Dialog dialog = new Dialog(getContext());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(layoutResId);
 
-    private List<ModelFlashcard> getLearningSetData() {
-        Bundle args = getArguments();
-        if (args != null) {
-            ModelLearningSet learningSet = args.getParcelable("learningSet");
-            if (learningSet != null) {
-                String setName = learningSet.getName();
-                String nrOfTerms = String.valueOf(learningSet.getNrOfTerms());
-                flashcards = learningSet.getTerms();
-                return flashcards;
-            }
-        }
-        return new ArrayList<>(); // Return an empty list if data retrieval fails
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+        return dialog;
     }
 }

@@ -2,14 +2,11 @@ package com.example.mallet;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -44,6 +41,7 @@ public class ActivityViewGroup extends AppCompatActivity {
 
     // viewGroup_fabOptionsLl
     private FloatingActionButton addFab;
+    private TextView addSetTv, addUserTv;
     private static boolean areFabOptionsVisible = false;
     private LinearLayout fabOptionsLl;
 
@@ -53,6 +51,11 @@ public class ActivityViewGroup extends AppCompatActivity {
         binding = ActivityViewGroupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        setupContents();
+        getGroupData();
+    }
+
+    private void setupContents() {
         setupToolbar();
 
         viewPager = binding.viewGroupViewPager;
@@ -60,12 +63,15 @@ public class ActivityViewGroup extends AppCompatActivity {
 
         setupTabLayout();
 
-        setupContents();
-        getGroupData();
+        addFab = binding.viewGroupAddFab;
+        setupFloatingActionButton();
+
+
+        fabOptionsLl = binding.viewGroupFabOptionsLl;
+
     }
 
-    private void setupContents() {
-        addFab = binding.viewGroupAddFab;
+    private void setupFloatingActionButton() {
         addFab.setOnClickListener(v -> {
             if (!areFabOptionsVisible) {
                 Utils.showItems(fabOptionsLl);
@@ -76,8 +82,8 @@ public class ActivityViewGroup extends AppCompatActivity {
             }
         });
 
-        fabOptionsLl = binding.viewGroupFabOptionsLl;
-
+        addSetTv = binding.viewGroupAddSetTv;
+        addUserTv = binding.viewGroupAddUserTv;
     }
 
     private void setupToolbar() {
@@ -91,9 +97,8 @@ public class ActivityViewGroup extends AppCompatActivity {
     }
 
     private void dialogGroupOptions() {
-        final Dialog dialog = createDialog(R.layout.dialog_view_group_toolbar_options);
+        Dialog dialog = Utils.createDialog(this, R.layout.dialog_view_group_toolbar_options, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT), Gravity.BOTTOM);
         DialogViewGroupToolbarOptionsBinding dialogBinding = DialogViewGroupToolbarOptionsBinding.inflate(LayoutInflater.from(this));
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
         dialog.show();
 
@@ -110,27 +115,10 @@ public class ActivityViewGroup extends AppCompatActivity {
         });
 
         reportTv.setOnClickListener(v -> {
+            // TODO: Dialog / Activity "Report"
             dialog.dismiss();
             reportDialog();
-            // TODO: ActivityReport
         });
-    }
-
-    private void reportDialog() {
-        final Dialog dialog = createDialog(R.layout.dialog_report);
-        DialogReportBinding dialogBinding = DialogReportBinding.inflate(LayoutInflater.from(this));
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.show();
-    }
-
-    private Dialog createDialog(int layoutResId) {
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(layoutResId);
-
-        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
-        return dialog;
     }
 
     private void leaveGroup() {
@@ -139,20 +127,10 @@ public class ActivityViewGroup extends AppCompatActivity {
         finish();
     }
 
-    private void getGroupData() {
-        // TODO: Update PROFILE FRAGMENT to pass more than just name X D
-        // Get the group name from the intent extras
-        Intent intent = getIntent();
-        if (intent != null) {
-            String groupName = intent.getStringExtra("group_name");
-            String nrOfSets = intent.getStringExtra("group_sets");
-
-            TextView groupNameTv = binding.viewGroupNameTv;
-
-            if (groupName != null) {
-                groupNameTv.setText(groupName);
-            }
-        }
+    private void reportDialog() {
+        Dialog dialog = Utils.createDialog(this, R.layout.dialog_report, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
+        DialogReportBinding dialogBinding = DialogReportBinding.inflate(LayoutInflater.from(this));
+        dialog.show();
     }
 
     private void setupTabLayout() {
@@ -202,4 +180,18 @@ public class ActivityViewGroup extends AppCompatActivity {
         }).attach();
     }
 
+    private void getGroupData() {
+        // TODO: Update PROFILE FRAGMENT to pass more than just name X D
+        Intent intent = getIntent();
+        if (intent != null) {
+            String groupName = intent.getStringExtra("group_name");
+            String nrOfSets = intent.getStringExtra("group_sets");
+
+            TextView groupNameTv = binding.viewGroupNameTv;
+
+            if (groupName != null) {
+                groupNameTv.setText(groupName);
+            }
+        }
+    }
 }

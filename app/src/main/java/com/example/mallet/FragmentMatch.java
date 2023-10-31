@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -142,9 +143,8 @@ public class FragmentMatch extends Fragment {
     }
 
     private void areYouReadyDialog() {
-        final Dialog dialog = Utils.createDialog(getContext(), R.layout.dialog_are_you_ready);
+        Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_are_you_ready, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogAreYouReadyBinding dialogBinding = DialogAreYouReadyBinding.inflate(LayoutInflater.from(getContext()));
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
@@ -298,9 +298,8 @@ public class FragmentMatch extends Fragment {
     }
 
     private void gameOverDialog() {
-        Dialog dialog = Utils.createDialog(getContext(), R.layout.dialog_game_over);
+        Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_game_over, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogGameOverBinding dialogBinding = DialogGameOverBinding.inflate(getLayoutInflater());
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.setContentView(dialogBinding.getRoot());
         dialog.show();
 
