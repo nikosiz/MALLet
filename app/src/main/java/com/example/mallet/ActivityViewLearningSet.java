@@ -34,8 +34,6 @@ import java.util.Objects;
 public class ActivityViewLearningSet extends AppCompatActivity {
     private ActivityViewLearningSetBinding binding;
     private ModelLearningSet learningSet;
-
-    // toolbar
     private ImageView toolbarBackIv, toolbarOptionsIv;
 
     private LinearLayout flashcardsLl, learnLl, testLl, matchLl;
@@ -111,13 +109,14 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
         dialogBinding.viewSetOptionsAddToCollectionTv.setOnClickListener(v -> {
             dialog.dismiss();
-
-            //setService.addSet();
+            addSetToUsersCollection();
 
         });
 
         dialogBinding.viewSetOptionsCancelTv.setOnClickListener(v -> dialog.dismiss());
+    }
 
+    private void addSetToUsersCollection() {
     }
 
     private void getLearningSetData() {
@@ -136,8 +135,6 @@ public class ActivityViewLearningSet extends AppCompatActivity {
                 TextView setDescriptionTv = binding.viewSetDescriptionTv;
                 TextView setTermsTv = binding.viewSetNrOfTermsTv;
 
-                List<ModelFlashcard> flashcards = learningSet.getTerms();
-
                 if (setName != null) {
                     setNameTv.setText(setName);
                 }
@@ -146,11 +143,10 @@ public class ActivityViewLearningSet extends AppCompatActivity {
                     setCreatorTv.setText(setCreator);
                 }
 
-                if (setDescription != null) {
+                if (setDescription!=null) {
                     Utils.showItems(setDescriptionTv);
                     setDescriptionTv.setText(setDescription);
                 }
-
 
                 setTermsTv.setText(getString(R.string.string_terms, nrOfTerms));
             }

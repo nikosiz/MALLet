@@ -21,6 +21,9 @@
             android:name=".ActivityCreateGroup"
             android:exported="false" />
         <activity
+            android:name=".ActivityCreateFolder"
+            android:exported="false" />
+        <activity
             android:name=".ActivityViewLearningSet"
             android:exported="false"
             android:screenOrientation="portrait"

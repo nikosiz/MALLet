@@ -76,12 +76,11 @@ public class ModelLearningSet implements Parcelable {
     // Setter for the list of flashcards (terms) in the learning set
     public void setFlashcards(List<ModelFlashcard> terms) {
         this.terms = terms;
-        this.nrOfTerms = terms.size();
     }
 
     // Getter for the nr of terms in the learning set
     public int getNrOfTerms() {
-        return nrOfTerms;
+        return terms.size();
     }
 
     // Setter for the nr of terms in the learning set

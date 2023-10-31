@@ -26,6 +26,7 @@ import com.example.mallet.databinding.FragmentFlashcardsBinding;
 import com.example.mallet.utils.AdapterFlashcardStack;
 import com.example.mallet.utils.CallbackFlashcardStack;
 import com.example.mallet.utils.ModelFlashcard;
+import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.Utils;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackListener;
@@ -216,4 +217,42 @@ public class FragmentFlashcards extends Fragment {
 
         return Utils.readFlashcardsFromFile(requireContext(), "animals.txt");
     }
+
+    /*private void getLearningSetData() {
+        Bundle args = getArguments();
+        if (args != null) {
+            ModelLearningSet learningSet = args.getParcelable("learningSet");
+            if (learningSet != null) {
+                String setName = learningSet.getName();
+                String setCreator = learningSet.getCreator();
+                String nrOfTerms = String.valueOf(learningSet.getNrOfTerms());
+                String setDescription = learningSet.getDescription();
+
+                View rootView = getView(); // Get the root view of the fragment
+
+                if (rootView != null) {
+                    TextView setNameTv = rootView.findViewById(R.id.viewSetNameTv);
+                    TextView setCreatorTv = rootView.findViewById(R.id.viewSetCreatorTv);
+                    TextView setDescriptionTv = rootView.findViewById(R.id.viewSetDescriptionTv);
+                    TextView setTermsTv = rootView.findViewById(R.id.viewSetNrOfTermsTv);
+
+                    if (setName != null) {
+                        setNameTv.setText(setName);
+                    }
+
+                    if (setCreator != null) {
+                        setCreatorTv.setText(setCreator);
+                    }
+
+                    if (setDescription != null) {
+                        Utils.showItems(setDescriptionTv);
+                        setDescriptionTv.setText(setDescription);
+                    }
+
+                    setTermsTv.setText(getString(R.string.string_terms, nrOfTerms));
+                }
+            }
+        }
+    }*/
+
 }

@@ -124,12 +124,12 @@ public class ActivityMain extends AppCompatActivity {
 
         createFolder.setOnClickListener(v -> {
             dialog.dismiss();
-            Intent intent = new Intent(this, ActivityCreateGroup.class);
+            Intent intent = new Intent(this, ActivityCreateFolder.class);
             startActivity(intent);
         });
         createGroup.setOnClickListener(v -> {
             dialog.dismiss();
-            Intent intent = new Intent(this, ActivityCreateFolder.class);
+            Intent intent = new Intent(this, ActivityCreateGroup.class);
             startActivity(intent);
         });
     }

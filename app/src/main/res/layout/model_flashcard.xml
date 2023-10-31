@@ -35,7 +35,7 @@
         android:fontFamily="@font/rem_regular"
         android:gravity="center"
         android:text="DEFINITION"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="15sp"
         android:visibility="gone" />
 
