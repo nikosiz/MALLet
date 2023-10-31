@@ -1,13 +1,16 @@
 package com.example.mallet.backend.client.user.boundary;
 
 import com.agh.api.SetBasicDTO;
+import com.agh.api.SetCreateDTO;
 import com.agh.api.UserDetailDTO;
 import com.agh.api.UserLogInDTO;
 import com.agh.api.UserRegistrationDTO;
 import com.example.mallet.backend.client.configuration.RetrofitClient;
-import com.example.mallet.backend.client.user.control.UserLogInDTOMapper;
-import com.example.mallet.backend.client.user.control.UserRegistrationDTOMapper;
+import com.example.mallet.backend.client.group.control.mapper.SetCreateDTOMapper;
+import com.example.mallet.backend.client.user.control.mapper.UserLogInDTOMapper;
+import com.example.mallet.backend.client.user.control.mapper.UserRegistrationDTOMapper;
 import com.example.mallet.backend.client.user.control.UserService;
+import com.example.mallet.backend.entity.set.SetCreateContainer;
 
 import java.util.Set;
 
@@ -59,6 +62,14 @@ public class UserServiceImpl {
     public void deleteUserSet(@NonNull Long setId,
                               Callback<Void> callback) {
         userService.deleteUserSet(setId)
+                .enqueue(callback);
+    }
+
+    public void createUserSet(@NonNull SetCreateContainer setCreateContainer,
+                              Callback<Void> callback) {
+        SetCreateDTO setCreateDTO = SetCreateDTOMapper.from(setCreateContainer);
+
+        userService.createSet(setCreateDTO)
                 .enqueue(callback);
     }
 
