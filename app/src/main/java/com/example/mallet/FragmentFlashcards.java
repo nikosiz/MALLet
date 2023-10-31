@@ -233,7 +233,7 @@ public class FragmentFlashcards extends Fragment {
         if (args != null) {
             ModelLearningSet learningSet = args.getParcelable("learningSet");
             if (learningSet != null) {
-                String setName = learningSet.getName();
+                String setName = learningSet.getName()
                 String nrOfTerms = String.valueOf(learningSet.getNrOfTerms());
                 flashcards = learningSet.getTerms();
 
