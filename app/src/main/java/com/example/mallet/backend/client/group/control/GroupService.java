@@ -3,6 +3,8 @@ package com.example.mallet.backend.client.group.control;
 import com.agh.api.GroupContributionDeleteDTO;
 import com.agh.api.GroupCreateDTO;
 import com.agh.api.GroupDTO;
+import com.agh.api.GroupSetCreateDTO;
+import com.agh.api.GroupSetDTO;
 import com.agh.api.GroupUpdateAdminDTO;
 import com.agh.api.GroupUpdateDTO;
 
@@ -33,5 +35,14 @@ public interface GroupService {
 
     @POST(GroupServiceConstants.GROUP_PATH)
     Call<Void> deleteGroup(@Body long id);
+
+    @PUT(GroupServiceConstants.GROUP_SET_PATH)
+    Call<Void> addSet(@Body GroupSetDTO groupSetDTO);
+
+    @DELETE(GroupServiceConstants.GROUP_SET_PATH)
+    Call<Void> removeSet(@Body GroupSetDTO groupSetDTO);
+
+    @POST(GroupServiceConstants.GROUP_SET_PATH)
+    Call<Void> createSet(@Body GroupSetCreateDTO groupSetCreateDTO);
 
 }

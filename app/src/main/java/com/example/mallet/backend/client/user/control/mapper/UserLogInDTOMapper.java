@@ -1,4 +1,4 @@
-package com.example.mallet.backend.client.user.control;
+package com.example.mallet.backend.client.user.control.mapper;
 
 import com.agh.api.UserLogInDTO;
 

@@ -3,16 +3,21 @@ package com.example.mallet.backend.client.group.boundary;
 import com.agh.api.GroupContributionDeleteDTO;
 import com.agh.api.GroupCreateDTO;
 import com.agh.api.GroupDTO;
+import com.agh.api.GroupSetCreateDTO;
+import com.agh.api.GroupSetDTO;
 import com.agh.api.GroupUpdateAdminDTO;
 import com.agh.api.GroupUpdateDTO;
 import com.example.mallet.backend.client.configuration.RetrofitClient;
+import com.example.mallet.backend.client.group.control.GroupService;
 import com.example.mallet.backend.client.group.control.mapper.GroupAdminDTOMapper;
 import com.example.mallet.backend.client.group.control.mapper.GroupContributionDeleteDTOMapper;
 import com.example.mallet.backend.client.group.control.mapper.GroupCreateDTOMapper;
-import com.example.mallet.backend.client.group.control.GroupService;
+import com.example.mallet.backend.client.group.control.mapper.GroupSetCreateDTOMapper;
+import com.example.mallet.backend.client.group.control.mapper.GroupSetDTOMapper;
 import com.example.mallet.backend.client.group.control.mapper.GroupUpdateDTOMapper;
 import com.example.mallet.backend.entity.group.create.GroupCreateContainer;
 import com.example.mallet.backend.entity.group.update.GroupUpdateContainer;
+import com.example.mallet.backend.entity.set.SetCreateContainer;
 
 import java.util.Set;
 
@@ -72,6 +77,33 @@ public class GroupServiceImpl {
         GroupContributionDeleteDTO groupContributionDeleteDTO = GroupContributionDeleteDTOMapper.from(groupId, contributionsToDeleteIds);
 
         groupService.deleteGroupContributions(groupContributionDeleteDTO)
+                .enqueue(callback);
+    }
+
+    public void addSet(@NonNull Long groupId,
+                       @NonNull Long setId,
+                       Callback<Void> callback) {
+        GroupSetDTO groupSetDTO = GroupSetDTOMapper.from(groupId, setId);
+
+        groupService.addSet(groupSetDTO)
+                .enqueue(callback);
+    }
+
+    public void removeSet(@NonNull Long groupId,
+                          @NonNull Long setId,
+                          Callback<Void> callback) {
+        GroupSetDTO groupSetDTO = GroupSetDTOMapper.from(groupId, setId);
+
+        groupService.removeSet(groupSetDTO)
+                .enqueue(callback);
+    }
+
+    public void createSet(@NonNull Long groupId,
+                          @NonNull SetCreateContainer setCreateContainer,
+                          Callback<Void> callback) {
+        GroupSetCreateDTO groupSetCreateDTO = GroupSetCreateDTOMapper.from(groupId, setCreateContainer);
+
+        groupService.createSet(groupSetCreateDTO)
                 .enqueue(callback);
     }
 

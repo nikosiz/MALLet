@@ -1,6 +1,7 @@
 package com.example.mallet.backend.client.user.control;
 
 import com.agh.api.SetBasicDTO;
+import com.agh.api.SetCreateDTO;
 import com.agh.api.UserDetailDTO;
 import com.agh.api.UserLogInDTO;
 import com.agh.api.UserRegistrationDTO;
@@ -32,6 +33,9 @@ public interface UserService {
 
     @DELETE(UserServiceConstants.USER_SET_PATH)
     Call<Void> deleteUserSet(@Query(UserServiceConstants.SET_ID_PARAM) long setId);
+
+    @POST(UserServiceConstants.USER_SET_PATH)
+    Call<Void> createSet(@Body SetCreateDTO setCreateDTO);
 
     @PUT(UserServiceConstants.USER_TERM_ADD_PATH)
     Call<Void> addUserKnownTerm(@Body Set<Long> userKnownTermIds);
