@@ -12,19 +12,38 @@ public class ModelLearningSet implements Parcelable {
     private String creator;
     private int nrOfTerms;
     private List<ModelFlashcard> terms;
-    private String nextChungUri;
+    private String nextChunkUri;
+
+    public ModelLearningSet(long id, String name, String description, String creator, int nrOfTerms, List<ModelFlashcard> terms, String nextChunkUri) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.creator = creator;
+        this.nrOfTerms = nrOfTerms;
+        this.terms = terms;
+        this.nextChunkUri = nextChunkUri;
+    }
 
     public ModelLearningSet(String name,
                             String creator,
                             String description,
                             List<ModelFlashcard> terms,
-                            long id, String nextChungUri) {
+                            long id, String nextChunkUri) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.creator = creator;
         this.terms = terms;
-        this.nextChungUri = nextChungUri;
+        this.nextChunkUri = nextChunkUri;
+    }
+
+
+    public ModelLearningSet(long id, String name, String description, String creator, int nrOfTerms) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.creator = creator;
+        this.nrOfTerms = nrOfTerms;
     }
 
     public String getName() {
@@ -68,7 +87,7 @@ public class ModelLearningSet implements Parcelable {
     }
 
     public int getNrOfTerms() {
-        return terms.size();
+        return nrOfTerms;
     }
 
     public void setNrOfTerms(int nrOfTerms) {

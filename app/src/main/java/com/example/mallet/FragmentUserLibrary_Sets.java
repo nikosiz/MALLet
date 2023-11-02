@@ -1,5 +1,6 @@
 package com.example.mallet;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,20 +9,29 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.agh.api.SetBasicDTO;
+import com.example.mallet.backend.client.configuration.ResponseHandler;
 import com.example.mallet.backend.client.user.boundary.UserServiceImpl;
+import com.example.mallet.backend.entity.set.ModelLearningSetMapper;
 import com.example.mallet.databinding.FragmentUserLibrarySetsBinding;
-import com.example.mallet.utils.ModelFlashcard;
+import com.example.mallet.utils.AuthenticationUtils;
 import com.example.mallet.utils.ModelLearningSet;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FragmentUserLibrary_Sets extends Fragment {
 
     private UserServiceImpl userService;
-
+    private List<ModelLearningSet> sets = new ArrayList<>();
     public static FragmentUserLibrary_Sets newInstance(String param1, String param2) {
 
         return new FragmentUserLibrary_Sets();
@@ -31,7 +41,8 @@ public class FragmentUserLibrary_Sets extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.userService = new UserServiceImpl();
+        String credential = AuthenticationUtils.get(getContext());
+        this.userService = new UserServiceImpl(credential);
 
     }
 
@@ -41,8 +52,12 @@ public class FragmentUserLibrary_Sets extends Fragment {
         com.example.mallet.databinding.FragmentUserLibrarySetsBinding binding = FragmentUserLibrarySetsBinding.inflate(inflater, container, false);
 
         LinearLayout userLibrarySetsLl = binding.userLibrarySetsAllSetsLl;
-        List<ModelLearningSet> userLibraryFoldersList = getUserLibrarySetList();
+        getUserLibrarySetList(inflater, userLibrarySetsLl, sets, null);
 
+        return binding.getRoot();
+    }
+
+    private void setView(@NonNull LayoutInflater inflater, LinearLayout userLibrarySetsLl, List<ModelLearningSet> userLibraryFoldersList) {
         for (ModelLearningSet set : userLibraryFoldersList) {
             View setItemView = inflater.inflate(R.layout.model_learning_set, userLibrarySetsLl, false);
 
@@ -59,18 +74,50 @@ public class FragmentUserLibrary_Sets extends Fragment {
             userLibrarySetsLl.addView(setItemView);
         }
 
-        return binding.getRoot();
     }
 
-    //todo
-    private List<ModelLearningSet> getUserLibrarySetList() {
-        List<ModelLearningSet> setList = new ArrayList<>();
-        List<ModelFlashcard> flashcardList = new ArrayList<>();
-        setList.add(new ModelLearningSet("Fruits", "user123", null, flashcardList, 1, ""));
-        setList.add(new ModelLearningSet("Animals", "user123", null, flashcardList, 2, ""));
-        setList.add(new ModelLearningSet("Nrs", "user123", null, flashcardList, 3, ""));
-        setList.add(new ModelLearningSet("Countries", "user123", null, flashcardList, 4, ""));
-        setList.add(new ModelLearningSet("Colors", "user123", null, flashcardList, 5, ""));
-        return setList;
+    private void getUserLibrarySetList(@NonNull LayoutInflater inflater,
+                                       LinearLayout userLibrarySetsLl,
+                                       List<ModelLearningSet> setList,
+                                       @Nullable String nextChunkUri) {
+
+        if (Objects.isNull(nextChunkUri)) {
+            fetchSets(0, 10, inflater, userLibrarySetsLl, setList);
+        } else {
+            Uri uri = Uri.parse(nextChunkUri);
+            String startPosition = uri.getQueryParameter("startPosition");
+            String limit = uri.getQueryParameter("limit");
+            fetchSets(Long.parseLong(startPosition), Long.parseLong(limit), inflater, userLibrarySetsLl, setList);
+        }
+    }
+
+    private void fetchSets(long startPosition,
+                           long limit,
+                           @NonNull LayoutInflater inflater,
+                           LinearLayout userLibrarySetsLl,
+                           List<ModelLearningSet> setList) {
+        //todo poprawic na scroll view
+        userService.getUserSets(startPosition, limit, new Callback<SetBasicDTO>() {
+            @Override
+            public void onResponse(Call<SetBasicDTO> call, Response<SetBasicDTO> response) {
+                SetBasicDTO setBasicDTO = ResponseHandler.handleResponse(response);
+                List<ModelLearningSet> modelLearningSets = ModelLearningSetMapper.from(setBasicDTO.sets());
+                setList.addAll(modelLearningSets);
+                setList.addAll(modelLearningSets);
+                setList.addAll(modelLearningSets);
+                setList.addAll(modelLearningSets);
+                setList.addAll(modelLearningSets);
+                setList.addAll(modelLearningSets);
+                setList.addAll(modelLearningSets);
+                setList.addAll(modelLearningSets);
+
+                setView(inflater, userLibrarySetsLl, setList);
+            }
+
+            @Override
+            public void onFailure(Call<SetBasicDTO> call, Throwable t) {
+
+            }
+        });
     }
 }
