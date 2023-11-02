@@ -1,5 +1,6 @@
 package com.example.mallet.backend.client.user.boundary;
 
+import com.agh.api.GroupBasicDTO;
 import com.agh.api.SetBasicDTO;
 import com.agh.api.SetCreateDTO;
 import com.agh.api.UserDTO;
@@ -8,9 +9,9 @@ import com.agh.api.UserLogInDTO;
 import com.agh.api.UserRegistrationDTO;
 import com.example.mallet.backend.client.configuration.RetrofitClient;
 import com.example.mallet.backend.client.group.control.mapper.SetCreateDTOMapper;
+import com.example.mallet.backend.client.user.control.UserService;
 import com.example.mallet.backend.client.user.control.mapper.UserLogInDTOMapper;
 import com.example.mallet.backend.client.user.control.mapper.UserRegistrationDTOMapper;
-import com.example.mallet.backend.client.user.control.UserService;
 import com.example.mallet.backend.entity.set.SetCreateContainer;
 
 import java.util.List;
@@ -52,6 +53,13 @@ public class UserServiceImpl {
                             long limit,
                             Callback<SetBasicDTO> callback) {
         userService.getUserSets(startPosition, limit)
+                .enqueue(callback);
+    }
+
+    public void getUserGroups(long startPosition,
+                            long limit,
+                            Callback<GroupBasicDTO> callback) {
+        userService.getUserGroups(startPosition, limit)
                 .enqueue(callback);
     }
 

@@ -186,11 +186,11 @@ public class ActivityMain extends AppCompatActivity {
 
     public List<ModelGroup> createGroupList() {
         List<ModelGroup> groups = new ArrayList<>();
-        groups.add(new ModelGroup("Group #1", "2", "3"));
+    /*    groups.add(new ModelGroup("Group #1", "2", "3"));
         groups.add(new ModelGroup("Group #2", "5", "3"));
         groups.add(new ModelGroup("Group #3", "2", "3"));
         groups.add(new ModelGroup("Group #4", "8", "3"));
-        groups.add(new ModelGroup("Group #5", "5", "3"));
+        groups.add(new ModelGroup("Group #5", "5", "3"));*/
         return groups;
     }
 }

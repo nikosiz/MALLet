@@ -13,17 +13,23 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.agh.api.SetBasicDTO;
+import com.agh.api.SetInformationDTO;
 import com.example.mallet.backend.client.configuration.ResponseHandler;
 import com.example.mallet.backend.client.user.boundary.UserServiceImpl;
 import com.example.mallet.backend.entity.set.ModelLearningSetMapper;
 import com.example.mallet.databinding.FragmentUserLibrarySetsBinding;
 import com.example.mallet.utils.AuthenticationUtils;
 import com.example.mallet.utils.ModelLearningSet;
+import com.example.mallet.utils.Utils;
 import com.google.android.material.textfield.TextInputEditText;
+import com.jakewharton.rxbinding.widget.RxTextView;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,8 +39,12 @@ public class FragmentUserLibrary_Sets extends Fragment {
     private FragmentUserLibrarySetsBinding binding;
     private UserServiceImpl userService;
     private final List<ModelLearningSet> sets = new ArrayList<>();
+    private final List<ModelLearningSet> foundSets = new ArrayList<>();
     private TextInputEditText searchEt;
     private LinearLayout userSetsLl;
+    private LayoutInflater inflater;
+    private AtomicBoolean firstTime = new AtomicBoolean(true);
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,16 +57,62 @@ public class FragmentUserLibrary_Sets extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentUserLibrarySetsBinding.inflate(inflater, container, false);
+        setupContents(inflater);
 
-        setupContents();
+        fetchSets(0, 50);
         getUserLibrarySetList(inflater, userSetsLl, sets, null);
-
         return binding.getRoot();
     }
 
-    private void setupContents() {
+    private void fetchSets(long startPosition, long limit) {
+        RxTextView.textChanges(searchEt)
+                .debounce(1, TimeUnit.SECONDS)
+                .subscribe(text -> {
+                    if(firstTime.get()){
+                        return;
+                    }
+                    foundSets.clear();
+                    if (text.length() == 0) {
+                        getUserLibrarySetList(inflater, userSetsLl, sets, null);
+                        return;
+                    }
+                    userService.getUserSets(startPosition, limit, new Callback<SetBasicDTO>() {
+                        @Override
+                        public void onResponse(Call<SetBasicDTO> call, Response<SetBasicDTO> response) {
+                            userSetsLl.removeAllViews();
+                            fetchSets(text.toString(),response);
+                        }
+
+                        @Override
+                        public void onFailure(Call<SetBasicDTO> call, Throwable t) {
+                            Utils.showToast(getContext(), "Network failure");
+                        }
+                    });
+                });
+    }
+
+    private void fetchSets(String text,Response<SetBasicDTO> response) {
+        SetBasicDTO setBasicDTO = ResponseHandler.handleResponse(response);
+        List<SetInformationDTO> collect = setBasicDTO.sets().stream()
+                .filter(set -> set.name().toLowerCase().contains(text.toLowerCase()))
+                .collect(Collectors.toList());
+        List<ModelLearningSet> sets = ModelLearningSetMapper.from(collect);
+        foundSets.addAll(sets);
+        if (Objects.nonNull(setBasicDTO.nextChunkUri())) {
+            Uri uri = Uri.parse(setBasicDTO.nextChunkUri());
+            String startPosition = uri.getQueryParameter("startPosition");
+            String limit = uri.getQueryParameter("limit");
+
+            fetchSets(Long.parseLong(startPosition), Long.parseLong(limit));
+        }else{
+            setView(inflater, userSetsLl,foundSets);
+        }
+    }
+
+    private void setupContents(LayoutInflater inflater) {
         searchEt = binding.userLibrarySetsSearchEt;
         userSetsLl = binding.userLibrarySetsAllSetsLl;
+        this.inflater = inflater;
     }
 
     private void getUserLibrarySetList(@NonNull LayoutInflater inflater,
@@ -85,20 +141,14 @@ public class FragmentUserLibrary_Sets extends Fragment {
                 SetBasicDTO setBasicDTO = ResponseHandler.handleResponse(response);
                 List<ModelLearningSet> modelLearningSets = ModelLearningSetMapper.from(setBasicDTO.sets());
                 setList.addAll(modelLearningSets);
-                setList.addAll(modelLearningSets);
-                setList.addAll(modelLearningSets);
-                setList.addAll(modelLearningSets);
-                setList.addAll(modelLearningSets);
-                setList.addAll(modelLearningSets);
-                setList.addAll(modelLearningSets);
-                setList.addAll(modelLearningSets);
 
                 setView(inflater, setsLl, setList);
+                firstTime.set(false);
             }
 
             @Override
             public void onFailure(Call<SetBasicDTO> call, Throwable t) {
-
+                Utils.showToast(getContext(), "Network failure");
             }
         });
     }
@@ -111,8 +161,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
             setNameTv.setText(set.getName());
 
             TextView setNrOfTermsTv = setItemView.findViewById(R.id.learningSet_nrOfTermsTv);
-            // todo odkomentować
-            //setNrOfTermsTv.setText(String.valueOf(set.getNrOfTerms()));
+            setNrOfTermsTv.setText(String.valueOf(set.getNrOfTerms()));
 
             TextView setCreatorTv = setItemView.findViewById(R.id.learningSet_creatorTv);
             setCreatorTv.setText(set.getCreator());

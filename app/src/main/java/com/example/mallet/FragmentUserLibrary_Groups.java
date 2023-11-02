@@ -13,21 +13,24 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.agh.api.GroupDTO;
-import com.agh.api.SetBasicDTO;
+import com.agh.api.GroupBasicDTO;
+import com.agh.api.GroupBasicInformationDTO;
 import com.example.mallet.backend.client.configuration.ResponseHandler;
-import com.example.mallet.backend.client.group.control.mapper.GroupAdminDTOMapper;
 import com.example.mallet.backend.client.user.boundary.UserServiceImpl;
-import com.example.mallet.backend.entity.set.ModelLearningSetMapper;
-import com.example.mallet.backend.mapper.group.GroupCreateContainerMapper;
+import com.example.mallet.backend.entity.group.ModelGroupMapper;
 import com.example.mallet.databinding.FragmentUserLibraryGroupsBinding;
 import com.example.mallet.utils.AuthenticationUtils;
 import com.example.mallet.utils.ModelGroup;
+import com.example.mallet.utils.Utils;
 import com.google.android.material.textfield.TextInputEditText;
+import com.jakewharton.rxbinding.widget.RxTextView;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,6 +42,10 @@ public class FragmentUserLibrary_Groups extends Fragment {
     private final List<ModelGroup> groups = new ArrayList<>();
     private TextInputEditText searchEt;
     private LinearLayout userGroupsLl;
+    private AtomicBoolean firstTime = new AtomicBoolean(true);
+    private LayoutInflater inflater;
+    private final List<ModelGroup> foundGroups = new ArrayList<>();
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,20 +60,64 @@ public class FragmentUserLibrary_Groups extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentUserLibraryGroupsBinding.inflate(inflater, container, false);
 
-        setupContents();
-
-        getUserLibraryGroupList(inflater, userGroupsLl, groups, null);
+        setupContents(inflater);
+        fetchGroups(0, 50);
+        getUserLibraryGroupList(userGroupsLl, groups, null);
 
         return binding.getRoot();
     }
 
-    private void setupContents() {
+    private void setupContents(LayoutInflater inflater) {
         searchEt = binding.userLibraryGroupsSearchEt;
         userGroupsLl = binding.userLibraryGroupsAllGroupsLl;
+        this.inflater = inflater;
     }
 
-    private void getUserLibraryGroupList(@NonNull LayoutInflater inflater,
-                                         LinearLayout groupsLl,
+    private void fetchGroups(long startPosition, long limit) {
+        RxTextView.textChanges(searchEt)
+                .debounce(1, TimeUnit.SECONDS)
+                .subscribe(text -> {
+                    if(firstTime.get()){
+                        return;
+                    }
+                    foundGroups.clear();
+                    if (text.length() == 0) {
+                        getUserLibraryGroupList(userGroupsLl, groups, null);
+                        return;
+                    }
+                    userService.getUserGroups(startPosition, limit, new Callback<GroupBasicDTO>() {
+                        @Override
+                        public void onResponse(Call<GroupBasicDTO> call, Response<GroupBasicDTO> response) {
+                            userGroupsLl.removeAllViews();
+                            fetchGroups(text.toString(),response);
+                        }
+
+                        @Override
+                        public void onFailure(Call<GroupBasicDTO> call, Throwable t) {
+                            Utils.showToast(getContext(), "Network failure");
+                        }
+                    });
+                });
+    }
+
+    private void fetchGroups(String text,Response<GroupBasicDTO> response) {
+        GroupBasicDTO groupBasicDTO = ResponseHandler.handleResponse(response);
+        List<GroupBasicInformationDTO> collect = groupBasicDTO.groups().stream()
+                .filter(group -> group.name().toLowerCase().contains(text.toLowerCase()))
+                .collect(Collectors.toList());
+        List<ModelGroup> groups = ModelGroupMapper.from(collect);
+        foundGroups.addAll(groups);
+        if (Objects.nonNull(groupBasicDTO.nextChunkUri())) {
+            Uri uri = Uri.parse(groupBasicDTO.nextChunkUri());
+            String startPosition = uri.getQueryParameter("startPosition");
+            String limit = uri.getQueryParameter("limit");
+
+            fetchGroups(Long.parseLong(startPosition), Long.parseLong(limit));
+        }else{
+            setView(inflater, userGroupsLl, foundGroups);
+        }
+    }
+    private void getUserLibraryGroupList(LinearLayout groupsLl,
                                          List<ModelGroup> groupList,
                                          @Nullable String nextChunkUri) {
 
@@ -84,32 +135,27 @@ public class FragmentUserLibrary_Groups extends Fragment {
                              long limit,
                              @NonNull LayoutInflater inflater,
                              LinearLayout groupsLl,
-                             List<ModelGroup> groupList) {/*
-        userService.getUserSets(startPosition, limit, new Callback<GroupDTO>() {
+                             List<ModelGroup> groupList) {
+        userService.getUserGroups(startPosition, limit, new Callback<GroupBasicDTO>() {
             @Override
-            public void onResponse(Call<GroupDTO> call, Response<GroupDTO> response) {
-                GroupDTO groupDTO = ResponseHandler.handleResponse(response);
-                List<ModelGroup> modelGroups = GroupAdminDTOMapper.from(groupDTO.name());
-                groupList.addAll(modelGroups);
-                groupList.addAll(modelGroups);
-                groupList.addAll(modelGroups);
-                groupList.addAll(modelGroups);
-                groupList.addAll(modelGroups);
-                groupList.addAll(modelGroups);
-                groupList.addAll(modelGroups);
+            public void onResponse(Call<GroupBasicDTO> call, Response<GroupBasicDTO> response) {
+                GroupBasicDTO groupDTO = ResponseHandler.handleResponse(response);
+                List<ModelGroup> modelGroups = ModelGroupMapper.from(groupDTO.groups());
                 groupList.addAll(modelGroups);
 
-                groupView(inflater, groupsLl, groupList);
+                setView(inflater, groupsLl, groupList);
+                firstTime.set(false);
+
             }
 
             @Override
-            public void onFailure(Call<GroupDTO> call, Throwable t) {
-
+            public void onFailure(Call<GroupBasicDTO> call, Throwable t) {
+                Utils.showToast(getContext(), "Network failure");
             }
-        });*/
+        });
     }
 
-    private void groupView(@NonNull LayoutInflater inflater, LinearLayout userGroupsLl, List<ModelGroup> userLibraryGroupList) {
+    private void setView(@NonNull LayoutInflater inflater, LinearLayout userGroupsLl, List<ModelGroup> userLibraryGroupList) {
         for (ModelGroup group : userLibraryGroupList) {
             View groupItemView = inflater.inflate(R.layout.model_group, userGroupsLl, false);
 
@@ -122,21 +168,9 @@ public class FragmentUserLibrary_Groups extends Fragment {
             TextView groupNrOfSetsTv = groupItemView.findViewById(R.id.group_nrOfSetsTv);
             groupNrOfSetsTv.setText(group.getNrOfSets());
 
-            // todo odkomentować
-            //setNrOfTermsTv.setText(String.valueOf(set.getNrOfTerms()));
 
             userGroupsLl.addView(groupItemView);
         }
-    }
-
-    private List<ModelGroup> getGroupList() {
-        List<ModelGroup> groupList = new ArrayList<>();
-        groupList.add(new ModelGroup("Group #1", "3", "3"));
-        groupList.add(new ModelGroup("Group #2", "7", "3"));
-        groupList.add(new ModelGroup("Group #3", "2", "3"));
-        groupList.add(new ModelGroup("Group #4", "8", "3"));
-        groupList.add(new ModelGroup("Group #5", "1", "3"));
-        return groupList;
     }
 
     private void startViewGroupActivity() {

@@ -1,22 +1,8 @@
 package com.example.mallet.backend.client.user.control;
 
+import com.agh.api.GroupBasicDTO;
 import com.agh.api.SetBasicDTO;
 import com.agh.api.SetCreateDTO;
-import com.agh.api.UserDetailDTO;
-import com.agh.api.UserLogInDTO;
-import com.agh.api.UserRegistrationDTO;
-
-import java.util.Set;
-
-import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.DELETE;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.PUT;
-import retrofit2.http.Query;
-
-import com.agh.api.SetBasicDTO;
 import com.agh.api.UserDTO;
 import com.agh.api.UserDetailDTO;
 import com.agh.api.UserLogInDTO;
@@ -60,4 +46,7 @@ public interface UserService {
     @GET(UserServiceConstants.USER_PATH)
     Call<List<UserDTO>> get(@Query(UserServiceConstants.USERNAME_PARAM) String username);
 
+    @GET(UserServiceConstants.USER_GROUP_PATH)
+    Call<GroupBasicDTO> getUserGroups(@Query(UserServiceConstants.START_POSITION_PARAM) long startPosition,
+                                      @Query(UserServiceConstants.LIMIT_PARAM) long limit);
 }

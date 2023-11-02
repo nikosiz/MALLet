@@ -9,6 +9,7 @@ class UserServiceConstants {
     static final String USERNAME_PARAM = "username";
     static final String USER_SET_PATH = USER_PATH + "/set";
     static final String USER_TERM_PATH = USER_PATH + "/term";
+    static final String USER_GROUP_PATH = USER_PATH + "/group";
     static final String USER_TERM_ADD_PATH = USER_TERM_PATH + "/add";
     static final String REGISTRATION_PATH = UserServiceConstants.USER_PATH + "/registration";
     static final String LOGIN_PATH = UserServiceConstants.USER_PATH + "/login";
