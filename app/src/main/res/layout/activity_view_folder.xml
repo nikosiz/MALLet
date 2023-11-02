@@ -89,7 +89,6 @@
                 style="@style/BasicBoldTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:text="There are no sets in this folder"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="20sp" />
@@ -103,7 +102,6 @@
                 style="@style/BasicTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:text="Organise your learning sets by sorting them into folders"
                 android:textColor="@color/colorPrimary"
                 android:textSize="20sp" />
@@ -120,7 +118,6 @@
                 android:background="@drawable/bg_ripple"
                 android:drawablePadding="10dp"
                 android:gravity="center_vertical"
-
                 android:padding="10dp"
                 android:text="Add sets"
                 android:textColor="@color/colorPrimary"

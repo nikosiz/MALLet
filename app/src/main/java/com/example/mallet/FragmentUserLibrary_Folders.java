@@ -25,7 +25,7 @@ public class FragmentUserLibrary_Folders extends Fragment implements AdapterFold
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         com.example.mallet.databinding.FragmentUserLibraryFoldersBinding binding = FragmentUserLibraryFoldersBinding.inflate(inflater, container, false);
 
-        LinearLayout userLibraryFoldersLl = binding.userLibraryFoldersLl; // Change to LinearLayout
+        LinearLayout userLibraryFoldersLl = binding.userLibraryFoldersAllFoldersLl; // Change to LinearLayout
         List<ModelFolder> userLibraryFoldersList = getUserLibraryFolderList();
 
         for (ModelFolder folder : userLibraryFoldersList) {

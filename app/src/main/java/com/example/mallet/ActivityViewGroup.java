@@ -222,9 +222,8 @@ public class ActivityViewGroup extends AppCompatActivity {
         dialog.setContentView(dialogBinding.getRoot());
         dialog.show();
 
-        ImageView addUserBackIv = dialogBinding.addUsersToGroupToolbarBackIv;
-        addUserBackIv.setOnClickListener(v -> {
-            dialog.dismiss();
+        dialog.setOnDismissListener(d -> {
+            d.dismiss();
             saveSelectedUsers();
         });
 

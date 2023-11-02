@@ -81,14 +81,4 @@ public class ActivityLearn extends AppCompatActivity {
     public void onBackPressed() {
         confirmExitDialog();
     }
-
-    private Dialog createDialog(int layoutResId) {
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(layoutResId);
-
-        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
-        return dialog;
-    }
 }

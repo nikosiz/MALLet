@@ -1,60 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/addUsersToGroup_mainLl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorLight"
-    android:orientation="vertical">
-
-    <LinearLayout
-        android:id="@+id/addUsersToGroup_toolbarLl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:background="@color/colorPrimaryLight1"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingVertical="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/addUsersToGroup_toolbarBackIv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="50dp"
-            android:background="@drawable/bg_ripple"
-            android:clickable="true"
-            android:contentDescription="@string/toolbar_options"
-            android:focusable="true"
-            android:src="@drawable/ic_arrow_back"
-            app:tint="@color/colorPrimaryDark" />
-
-        <TextView
-            android:id="@+id/addUsersToGroup_toolbarTitleTv"
-            style="@style/BasicBoldTextStyle"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/russo_one_regular"
-            android:gravity="center_vertical"
-            android:text="Add members"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="30sp" />
-    </LinearLayout>
+    android:background="@drawable/bg_top_corners_rounded"
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp"
+    android:paddingTop="30dp">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/addUsersToGroup_searchTil"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryLight1"
-        android:paddingHorizontal="25dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="15dp"
+        android:paddingHorizontal="5dp"
+        android:paddingBottom="5dp"
         app:boxBackgroundColor="@color/colorLight"
         app:boxCornerRadiusBottomEnd="10dp"
         app:boxCornerRadiusBottomStart="10dp"
@@ -68,9 +29,16 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/addUsersToGroup_searchEt"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:autofillHints="emailAddress"
             android:hint="Search"
-            android:textSize="15sp" />
+            android:inputType="text"
+            android:maxLines="1"
+            android:scrollbars="horizontal"
+            android:singleLine="true"
+            android:textColorHint="@color/colorPrimary"
+            android:textSize="15sp"
+            tools:ignore="TextContrastCheck" />
 
         <!--  -->
         <ListView
@@ -87,26 +55,9 @@
         android:background="@color/colorPrimaryLight1">
 
         <LinearLayout
-            android:id="@+id/usersGroupsSvLl"
+            android:id="@+id/addUsersToGroup_membersLl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingHorizontal="20dp">
-
-            <LinearLayout
-                android:id="@+id/addUsersToGroup_membersLl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <include layout="@layout/model_add_member_to_group" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="20dp" />
-
-        </LinearLayout>
+            android:orientation="vertical"></LinearLayout>
     </ScrollView>
 </LinearLayout>

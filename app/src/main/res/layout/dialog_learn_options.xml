@@ -111,7 +111,7 @@
 
             android:paddingHorizontal="10dp"
             android:text="Select at least one type of questions"
-            android:textColor="@color/carnation_red_600"
+            android:textColor="@color/accentPrimary"
             android:visibility="gone" />
 
         <View

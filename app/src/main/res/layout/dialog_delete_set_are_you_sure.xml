@@ -1,72 +1,71 @@
-<?xml version="1.0" encoding="utf-8"?><LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"    android:id="@+id/gameOver_mainLl"    android:layout_width="match_parent"    android:layout_height="wrap_content"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/bg_top_corners_rounded"
     android:orientation="vertical"
-    android:padding="30dp">
-
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="30dp">
 
     <TextView
-        style="@style/BasicBoldTextStyle"
+        android:id="@+id/deleteSet_titleTv"
+        style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:fontFamily="@font/russo_one_regular"
-
-        android:text="Game over"
+        android:text="Are you sure?"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="25sp" />
+        android:textSize="23sp" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="10dp" />
 
     <TextView
-        android:id="@+id/gameOver_timeTv"
+        android:id="@+id/deleteSet_subtitleTv"
         style="@style/BasicTextStyle"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:text="Time: "
+        android:text="This action is irreversible"
         android:textColor="@color/colorPrimary"
         android:textSize="20sp" />
-
 
     <View
         android:layout_width="match_parent"
         android:layout_height="30dp" />
 
     <LinearLayout
-        android:id="@+id/gameOver_finishRestartLl"
+        android:id="@+id/deleteSet_cancelConfirmLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="end"
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/gameOver_finishTv"
+            android:id="@+id/deleteSet_cancelTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
             android:focusable="true"
-
             android:padding="10dp"
-            android:text="Finish"
+            android:text="@string/cancel"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/gameOver_restartTv"
+            android:id="@+id/deleteSet_confirmTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
             android:focusable="true"
-
             android:padding="10dp"
-            android:text="Restart"
+            android:text="Delete set"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
     </LinearLayout>
+
 </LinearLayout>

@@ -22,7 +22,6 @@
         android:autoSizeTextType="uniform"
         android:fontFamily="@font/russo_one_regular"
         android:gravity="center"
-
         android:text="@string/app_logo"
         android:textColor="@color/colorLight" />
 
@@ -42,30 +41,14 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/russo_one_regular"
             android:gravity="center"
-
             android:singleLine="true"
             android:text="@string/welcome"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="28sp" />
+            android:textSize="30sp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="20dp" />
-
-        <TextView
-            android:id="@+id/opening_subtitle"
-            style="@style/BasicTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-
-            android:text="@string/choose_next_action"
-            android:textColor="@color/primaryTextColor"
-            android:textSize="21sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp" />
 
         <LinearLayout
             android:id="@+id/opening_chooseLl"

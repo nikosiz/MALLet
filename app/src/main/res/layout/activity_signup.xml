@@ -22,10 +22,8 @@
         android:autoSizeTextType="uniform"
         android:fontFamily="@font/russo_one_regular"
         android:gravity="center"
-
         android:text="@string/app_logo"
         android:textColor="@color/colorLight" />
-
 
     <LinearLayout
         android:id="@+id/signupCvLl"
@@ -45,15 +43,13 @@
             android:layout_weight="1"
             android:fontFamily="@font/russo_one_regular"
             android:gravity="center_vertical"
-
-            android:maxLines="1"
-            android:text="@string/sign_up"
+            android:text="@string/new_to_mallet_create_account"
             android:textColor="@color/primaryTextColor"
-            android:textSize="30sp" />
+            android:textSize="20sp" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="10dp" />
+            android:layout_height="20dp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/signup_email_til"
@@ -86,9 +82,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:layout_marginBottom="5dp"
-
                 android:text="@string/field_cannot_be_empty"
-                android:textColor="@color/carnation_red_600"
+                android:textColor="@color/accentPrimary"
                 android:visibility="gone" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -124,9 +119,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:layout_marginBottom="5dp"
-
-                android:text="@string/field_cannot_be_empty"
-                android:textColor="@color/carnation_red_600"
+                android:text="@string/err"
+                android:textColor="@color/accentPrimary"
                 android:visibility="gone" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -141,13 +135,12 @@
             android:drawablePadding="10dp"
             android:focusable="true"
             android:gravity="center_vertical"
-
             android:padding="10dp"
-            android:text="Continue"
-            android:textColor="@color/colorPrimary"
+            android:text="@string/str_continue"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             app:drawableEndCompat="@drawable/ic_arrow_forward"
-            app:drawableTint="@color/danube_blue_800" />
+            app:drawableTint="@color/colorPrimaryDark" />
 
         <View
             android:layout_width="match_parent"
@@ -166,7 +159,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-
                 android:paddingTop="6dp"
                 android:text="@string/already_have_account"
                 android:textColor="@color/primaryTextColor" />
@@ -181,12 +173,10 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:fontFamily="@font/russo_one_regular"
-
                 android:padding="5dp"
                 android:text="@string/login_here"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="20sp" />
-
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

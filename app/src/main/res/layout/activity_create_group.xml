@@ -27,13 +27,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginEnd="50dp"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
             android:contentDescription="@string/toolbar_options"
             android:focusable="true"
             android:src="@drawable/ic_arrow_back"
-            app:tint="@color/colorPrimaryDark" />
+            app:tint="@color/colorPrimaryDark"
+            tools:ignore="TouchTargetSizeCheck"
+            tools:layout_editor_absoluteX="20dp"
+            tools:layout_editor_absoluteY="17dp" />
 
         <TextView
             android:id="@+id/createGroup_toolbarTitleTv"
@@ -41,8 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/russo_one_regular"
-            android:gravity="center_vertical"
-            android:text="Create group"
+            android:text="@string/create_group"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="30sp" />
 
@@ -51,14 +52,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginHorizontal="20dp"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
             android:contentDescription="@string/set_options"
             android:focusable="true"
             android:src="@drawable/ic_check"
-            app:tint="@color/colorPrimaryDark" />
+            app:tint="@color/colorPrimaryDark"
+            tools:ignore="TouchTargetSizeCheck"
+            tools:layout_editor_absoluteX="361dp"
+            tools:layout_editor_absoluteY="17dp" />
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -93,7 +96,6 @@
                     app:boxCornerRadiusTopEnd="10dp"
                     app:boxCornerRadiusTopStart="10dp"
                     app:boxStrokeColor="@drawable/text_input_layout"
-
                     app:boxStrokeWidth="2dp">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -101,9 +103,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:autofillHints="emailAddress"
-                        android:hint="Name"
-                        android:textColorHint="@color/downriver_blue_300"
-                        android:textSize="15sp" />
+                        android:hint="@string/name"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:scrollbars="horizontal"
+                        android:singleLine="true"
+                        android:textColorHint="@color/colorPrimary"
+                        android:textSize="15sp"
+                        tools:ignore="TextContrastCheck" />
 
                     <TextView
                         android:id="@+id/createGroup_errorTv"
@@ -111,9 +118,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:layout_marginBottom="5dp"
-
-                        android:text="group_name_error"
-                        android:textColor="@color/carnation_red_600"
+                        android:text="@string/err_group_name"
+                        android:textColor="@color/accentPrimary"
                         android:visibility="gone" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -126,7 +132,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="5dp"
-                    android:text="Added users"
+                    android:text="@string/added_users"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="20sp" />
 
@@ -138,26 +144,26 @@
                     android:id="@+id/createGroup_membersLl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <include layout="@layout/model_add_member_to_group" />
-
-                </LinearLayout>
+                    android:orientation="vertical"></LinearLayout>
             </LinearLayout>
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/createGroup_addMemberFab"
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/createGroup_addUsersEfab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="30dp"
-        android:contentDescription="add_member"
-        android:elevation="5dp"
-        app:backgroundTint="@color/colorPrimary"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:drawableEnd="@drawable/ic_plus"
+        android:drawableTint="@color/colorLight"
+        android:fontFamily="@font/rem_bold"
+        android:gravity="center"
+        android:text="Add users"
+        android:textColor="@color/colorLight"
+        android:textSize="20sp"
+        app:elevation="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_plus"
-        app:tint="@color/colorLight" />
+        app:shapeAppearanceOverlay="@style/EfabStyle" />
 </androidx.constraintlayout.widget.ConstraintLayout>

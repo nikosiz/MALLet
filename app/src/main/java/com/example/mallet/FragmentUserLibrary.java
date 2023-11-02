@@ -40,8 +40,8 @@ public class FragmentUserLibrary extends Fragment {
         binding = FragmentUserLibraryBinding.inflate(inflater, container, false);
         ActivityMain activityMain = (ActivityMain) getActivity();
 
-        viewPager = binding.userLibraryViewPager;
-        tabLayout = binding.userLibraryTabLayout;
+        viewPager = binding.userLibraryVp2;
+        tabLayout = binding.userLibraryTl;
 
         List<ModelLearningSet> learningSets = activityMain.createSetList();
         List<ModelFolder> folders = activityMain.createFolderList();

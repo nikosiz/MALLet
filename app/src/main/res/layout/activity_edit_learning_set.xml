@@ -27,13 +27,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginEnd="50dp"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
             android:contentDescription="@string/toolbar_options"
             android:focusable="true"
             android:src="@drawable/ic_arrow_back"
-            app:tint="@color/colorPrimaryDark" />
+            app:tint="@color/colorPrimaryDark"
+            tools:ignore="TouchTargetSizeCheck"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="17dp" />
 
         <TextView
             android:id="@+id/editSet_toolbarTitleTv"
@@ -52,14 +54,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginHorizontal="20dp"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
             android:contentDescription="@string/set_options"
             android:focusable="true"
             android:src="@drawable/ic_check"
-            app:tint="@color/colorPrimaryDark" />
+            app:tint="@color/colorPrimaryDark"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <ImageView
             android:id="@+id/editSet_deleteIv"
@@ -69,10 +71,11 @@
             android:layout_marginHorizontal="5dp"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
-            android:contentDescription="@string/set_options"
+            android:contentDescription="@string/cd_delete_set"
             android:focusable="true"
             android:src="@drawable/ic_delete"
-            app:tint="@color/colorPrimaryDark" />
+            app:tint="@color/accentPrimary"
+            tools:ignore="TouchTargetSizeCheck" />
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -115,9 +118,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:autofillHints="emailAddress"
-                        android:hint="Topic"
+                        android:hint="@string/topic"
                         android:textColorHint="@color/downriver_blue_300"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        tools:ignore="TextContrastCheck" />
 
                     <TextView
                         android:id="@+id/editSet_errorTv"
@@ -127,7 +131,7 @@
                         android:layout_marginBottom="5dp"
 
                         android:text="@string/email_incorrect"
-                        android:textColor="@color/carnation_red_600"
+                        android:textColor="@color/accentPrimary"
                         android:visibility="gone" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -144,7 +148,8 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="15sp"
                     app:drawableEndCompat="@drawable/ic_plus"
-                    app:drawableTint="@color/danube_blue_800" />
+                    app:drawableTint="@color/danube_blue_800"
+                    tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/editSet_descriptionTil"
@@ -177,7 +182,20 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="20dp" />
+                    android:layout_height="10dp" />
+
+                <TextView
+                    style="@style/BasicBoldTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="5dp"
+                    android:text="@string/vocabulary_in_this_set"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
 
                 <LinearLayout
                     android:id="@+id/editSet_cardsLl"
@@ -204,5 +222,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_plus"
-        app:tint="@color/colorLight" />
+        app:tint="@color/colorLight"
+        tools:ignore="ImageContrastCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>

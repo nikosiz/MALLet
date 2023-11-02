@@ -16,11 +16,11 @@
     <color name="primaryTextColor">@color/danube_blue_900</color>
     <color name="secondaryTextColor">@color/danube_blue_700</color>
 
-    <color name="colorSecondaryLight">@color/supernova_yellow_50</color>
+    <color name="colorSecondaryLight">@color/supernova_yellow_100</color>
     <color name="colorSecondary">@color/supernova_yellow_500</color>
     <color name="colorSecondaryDark">@color/supernova_yellow_900</color>
 
-    <color name="accentPrimaryLight">@color/carnation_red_50</color>
+    <color name="accentPrimaryLight">@color/carnation_red_100</color>
     <color name="accentPrimary">@color/carnation_red_500</color>
     <color name="accentPrimaryDark">@color/carnation_red_900</color>
 

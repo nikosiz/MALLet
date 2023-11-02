@@ -1,76 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/test_mainLl"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimaryLight"
-    android:gravity="center"
-    tools:context=".FragmentTest">
+<?xml version="1.0" encoding="utf-8"?><androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"    xmlns:app="http://schemas.android.com/apk/res-auto"    xmlns:tools="http://schemas.android.com/tools"    android:id="@+id/test_mainLl"    android:layout_width="match_parent"    android:layout_height="match_parent"    android:background="@color/colorPrimaryLight"    android:gravity="center"    tools:context=".FragmentTest">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/test_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:background="@android:color/transparent"
-        android:gravity="center_vertical"
-        android:paddingHorizontal="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <androidx.appcompat.widget.Toolbar        android:id="@+id/test_toolbar"        android:layout_width="match_parent"        android:layout_height="wrap_content"        android:layout_gravity="center_vertical"        android:background="@android:color/transparent"        android:gravity="center_vertical"        android:paddingHorizontal="20dp"        app:layout_constraintEnd_toEndOf="parent"        app:layout_constraintHorizontal_bias="0.0"        app:layout_constraintStart_toStartOf="parent"        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/test_toolbarBackIv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginEnd="50dp"
-            android:background="@drawable/bg_ripple"
-            android:clickable="true"
-            android:contentDescription="toolbar options"
-            android:focusable="true"
-            android:src="@drawable/ic_arrow_back"
-            app:tint="@color/colorPrimaryDark" />
+        <ImageView            android:id="@+id/test_toolbarBackIv"            android:layout_width="wrap_content"            android:layout_height="wrap_content"            android:layout_gravity="start"            android:layout_marginHorizontal="20dp"            android:layout_marginEnd="50dp"            android:background="@drawable/bg_ripple"            android:clickable="true"            android:contentDescription="toolbar options"            android:focusable="true"            android:src="@drawable/ic_arrow_back"            app:tint="@color/colorPrimaryDark" />
 
-        <TextView
-            android:id="@+id/test_toolbarTitleTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/russo_one_regular"
+        <TextView            android:id="@+id/test_toolbarTitleTv"            android:layout_width="wrap_content"            android:layout_height="wrap_content"            android:fontFamily="@font/russo_one_regular"
 
-            android:text="Test"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="30sp" />
+            android:text="Test"            android:textColor="@color/colorPrimaryDark"            android:textSize="30sp" />
 
-        <ImageView
-            android:id="@+id/test_optionsIv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginHorizontal="20dp"
-            android:background="@drawable/bg_ripple"
-            android:clickable="true"
-            android:contentDescription="set options"
-            android:focusable="true"
-            android:src="@drawable/ic_toolbar_options"
-            app:tint="@color/colorPrimaryDark" />
-    </androidx.appcompat.widget.Toolbar>
+        <ImageView            android:id="@+id/test_optionsIv"            android:layout_width="wrap_content"            android:layout_height="wrap_content"            android:layout_gravity="end"            android:layout_marginHorizontal="20dp"            android:background="@drawable/bg_ripple"            android:clickable="true"            android:contentDescription="set options"            android:focusable="true"            android:src="@drawable/ic_toolbar_options"            app:tint="@color/colorPrimaryDark" />    </androidx.appcompat.widget.Toolbar>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/test_toolbar">
+    <androidx.constraintlayout.widget.ConstraintLayout        android:layout_width="match_parent"        android:layout_height="0dp"        android:orientation="vertical"        app:layout_constraintBottom_toBottomOf="parent"        app:layout_constraintTop_toBottomOf="@id/test_toolbar">
 
-        <LinearLayout
-            android:id="@+id/test_contentsLl"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+        <LinearLayout            android:id="@+id/test_contentsLl"            android:layout_width="match_parent"            android:layout_height="0dp"
             android:gravity="center"
             android:orientation="vertical"
             android:padding="10dp"

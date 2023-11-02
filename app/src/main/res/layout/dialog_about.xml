@@ -1,106 +1,36 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/about_mainLl"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorLight"
-    android:gravity="center_vertical"
-    android:orientation="vertical">
+<?xml version="1.0" encoding="utf-8"?><LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"    xmlns:app="http://schemas.android.com/apk/res-auto"    android:id="@+id/about_mainLl"    android:layout_width="match_parent"    android:layout_height="match_parent"    android:background="@color/colorLight"    android:gravity="center_vertical"    android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/about_toolbarLl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:background="@android:color/transparent"
-        android:gravity="center_vertical"
-        android:padding="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <LinearLayout        android:id="@+id/about_toolbarLl"        android:layout_width="match_parent"        android:layout_height="wrap_content"        android:layout_gravity="center_vertical"        android:background="@android:color/transparent"        android:gravity="center_vertical"        android:padding="20dp"        app:layout_constraintEnd_toEndOf="parent"        app:layout_constraintStart_toStartOf="parent"        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/fabout_backIv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginEnd="50dp"
-            android:background="@drawable/bg_ripple"
-            android:clickable="true"
-            android:contentDescription="toolbar options"
-            android:focusable="true"
-            android:src="@drawable/ic_arrow_back"
-            app:tint="@color/colorPrimaryDark" />
+        <ImageView            android:id="@+id/fabout_backIv"            android:layout_width="wrap_content"            android:layout_height="wrap_content"            android:layout_gravity="start"            android:layout_marginHorizontal="20dp"            android:layout_marginEnd="50dp"            android:background="@drawable/bg_ripple"            android:clickable="true"            android:contentDescription="toolbar options"            android:focusable="true"            android:src="@drawable/ic_arrow_back"            app:tint="@color/colorPrimaryDark" />
 
-        <TextView
-            style="@style/BasicTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/russo_one_regular"
-            android:text="About MALLet"
-            android:textSize="30sp" />
-    </LinearLayout>
+        <TextView            style="@style/BasicTextStyle"            android:layout_width="match_parent"            android:layout_height="wrap_content"            android:fontFamily="@font/russo_one_regular"            android:text="About MALLet"            android:textSize="30sp" />    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingHorizontal="30dp"
-        android:paddingVertical="20dp">
+    <LinearLayout        android:layout_width="match_parent"        android:layout_height="wrap_content"        android:orientation="vertical"        android:paddingHorizontal="30dp"        android:paddingVertical="20dp">
 
         <!-- Title -->
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <ScrollView            android:layout_width="match_parent"            android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+            <LinearLayout                android:layout_width="match_parent"                android:layout_height="wrap_content"                android:orientation="vertical">
 
-                <!-- Welcome Message -->
-                <TextView
-                    style="@style/BasicTextStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                <!-- Welcome Message -->                <TextView                    style="@style/BasicTextStyle"                    android:layout_width="match_parent"                    android:layout_height="wrap_content"
 
-                    android:text="Welcome to MALLet, your personal English vocabulary tutor!"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="15sp" />
+                    android:text="Welcome to MALLet, your personal English vocabulary tutor!"                    android:textColor="@color/colorPrimary"                    android:textSize="15sp" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="15dp" />
+                <View                    android:layout_width="match_parent"                    android:layout_height="15dp" />
 
-                <!-- Key Features -->
-                <TextView
-                    style="@style/BasicBoldTextStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                <!-- Key Features -->                <TextView                    style="@style/BasicBoldTextStyle"                    android:layout_width="match_parent"                    android:layout_height="wrap_content"
 
-                    android:text="Key Features:"
-                    android:textColor="@color/primaryTextColor"
-                    android:textSize="15sp" />
+                    android:text="Key Features:"                    android:textColor="@color/primaryTextColor"                    android:textSize="15sp" />
 
-                <TextView
-                    style="@style/BasicTextStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                <TextView                    style="@style/BasicTextStyle"                    android:layout_width="match_parent"                    android:layout_height="wrap_content"
 
-                    android:text="- Expand your English vocabulary with curated word lists"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="15sp" />
+                    android:text="- Expand your English vocabulary with curated word lists"                    android:textColor="@color/colorPrimary"                    android:textSize="15sp" />
 
-                <TextView
-                    style="@style/BasicTextStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                <TextView                    style="@style/BasicTextStyle"                    android:layout_width="match_parent"                    android:layout_height="wrap_content"
 
-                    android:text="- Engage in interactive quizzes and exercises"
-                    android:textColor="@color/colorPrimary"
+                    android:text="- Engage in interactive quizzes and exercises"                    android:textColor="@color/colorPrimary"
                     android:textSize="15sp" />
 
                 <TextView

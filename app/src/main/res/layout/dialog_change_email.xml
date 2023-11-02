@@ -72,7 +72,7 @@
             android:layout_marginBottom="5dp"
 
             android:text="Please, input a valid email address"
-            android:textColor="@color/carnation_red_600"
+            android:textColor="@color/accentPrimary"
             android:visibility="gone" />
     </com.google.android.material.textfield.TextInputLayout>
 

@@ -2,8 +2,6 @@ package com.example.mallet;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -12,7 +10,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
@@ -22,6 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.agh.api.UserDTO;
 import com.example.mallet.backend.client.configuration.ResponseHandler;
@@ -31,11 +29,12 @@ import com.example.mallet.backend.entity.group.create.GroupCreateContainer;
 import com.example.mallet.backend.mapper.group.GroupCreateContainerMapper;
 import com.example.mallet.databinding.ActivityCreateGroupBinding;
 import com.example.mallet.databinding.DialogAddUserToGroupBinding;
+import com.example.mallet.databinding.DialogConfirmExitBinding;
 import com.example.mallet.utils.AuthenticationUtils;
 import com.example.mallet.utils.ModelUser;
 import com.example.mallet.utils.ModelUserMapper;
 import com.example.mallet.utils.Utils;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
@@ -52,18 +51,19 @@ public class ActivityCreateGroup extends AppCompatActivity {
     private ActivityCreateGroupBinding binding;
     private GroupServiceImpl groupService;
 
-    // createGroup_toolbar
-    private ImageView backIv, submitIv;
+    // Toolbar
+    private ImageView toolbarBackIv, toolbarSaveIv;
 
     // createGroupCl
     private TextInputEditText groupNameEt;
+    private TextView groupNameErrTv;
     private LinearLayout groupMembersLl;
-    private FloatingActionButton adddUsersFab;
+    private ExtendedFloatingActionButton addUsersEfab;
     private View groupMemberView;
     private CheckBox memberCb;
 
     // addMemberToGroupDialog
-    private ImageView addMemberBackIv, adddUserSubmitIv;
+    private ImageView addMemberBackIv;
     private TextInputEditText searchUsersEt;
     private ListView userListLv;
     private ArrayAdapter userListAdapter; // chosen users
@@ -88,26 +88,55 @@ public class ActivityCreateGroup extends AppCompatActivity {
     }
 
     private void setupContents() {
-        backIv = binding.createGroupToolbarBackIv;
-        submitIv = binding.createGroupSaveIv;
-        submitIv.setOnClickListener(v -> handleGroupCreation());
+        setupToolbar();
+
         groupNameEt = binding.createGroupNameEt;
+        groupNameErrTv = binding.createGroupErrorTv;
 
         groupMembersLl = binding.createGroupMembersLl;
         groupMemberView = getLayoutInflater().inflate(R.layout.model_add_member_to_group, groupMembersLl, false);
 
-        adddUsersFab = binding.createGroupAddMemberFab;
-        adddUsersFab.setOnClickListener(v -> addMembersDialog());
+        addUsersEfab = binding.createGroupAddUsersEfab;
+        addUsersEfab.setOnClickListener(v -> addUsersDialog());
 
         memberCb = groupMemberView.findViewById(R.id.addMemberToGroupCb);
+    }
+
+    private void setupToolbar() {
+        Toolbar toolbar = binding.createGroupToolbar;
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setTitle("");
+
+        toolbarBackIv = binding.createGroupToolbarBackIv;
+        toolbarBackIv.setOnClickListener(v -> confirmExitDialog());
+
+        toolbarSaveIv = binding.createGroupSaveIv;
+        toolbarSaveIv.setOnClickListener(v -> handleGroupCreation());
+    }
+
+    public void confirmExitDialog() {
+        Dialog dialog = Utils.createDialog(this, R.layout.dialog_confirm_exit, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
+        DialogConfirmExitBinding dialogBinding = DialogConfirmExitBinding.inflate(LayoutInflater.from(this));
+        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
+        dialog.show();
+
+        dialogBinding.confirmExitCancelTv.setOnClickListener(v -> dialog.dismiss());
+
+        dialogBinding.confirmExitConfirmTv.setOnClickListener(v -> {
+            dialog.dismiss();
+            close();
+        });
     }
 
     private void handleGroupCreation() {
         Editable text = groupNameEt.getText();
         if (Objects.isNull(text) || text.toString().isEmpty()) {
             Utils.showToast(getApplicationContext(), "Group name cannot be empty");
+            Utils.showItems(groupNameErrTv);
+            groupNameErrTv.setText(R.string.field_cannot_be_empty);
             return;
         }
+
         GroupCreateContainer groupCreateContainer = GroupCreateContainerMapper.from(text.toString().trim(), selectedUsers);
         groupService.createGroup(groupCreateContainer, new Callback<Long>() {
             @Override
@@ -128,21 +157,17 @@ public class ActivityCreateGroup extends AppCompatActivity {
         });
     }
 
-    private void close() {
-        finish();
-    }
-
-    private void addMembersDialog() {
-        Dialog dialog = Utils.createDialog(this, R.layout.dialog_add_user_to_group, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT), Gravity.BOTTOM);
+    private void addUsersDialog() {
+        Dialog dialog = Utils.createDialog(this, R.layout.dialog_add_user_to_group, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogAddUserToGroupBinding dialogBinding = DialogAddUserToGroupBinding.inflate(getLayoutInflater());
         dialog.setContentView(dialogBinding.getRoot());
         dialog.show();
-        addMemberBackIv = dialogBinding.addUsersToGroupToolbarBackIv;
-        addMemberBackIv.setOnClickListener(v -> {
+
+        dialog.setOnDismissListener(d -> {
+            d.dismiss();
             allUsernames.clear();
             userListAdapter.notifyDataSetChanged();
-            dialog.dismiss();
-            displaySelectedUsers(selectedUsers, groupMembersLl, getLayoutInflater());
+            //displaySelectedUsers(selectedUsers, groupMembersLl, getLayoutInflater());
         });
 
         searchUsersEt = dialogBinding.addUsersToGroupSearchEt;
@@ -150,25 +175,6 @@ public class ActivityCreateGroup extends AppCompatActivity {
 
         handleSearchUserInputChanged();
         handleAddingRemovingUser();
-    }
-
-    private void handleAddingRemovingUser() {
-        userListLv.setOnItemClickListener((parent, view, position, id) -> {
-            ModelUser clickedUser = allUsernames.get(position);
-
-            if (!selectedUsers.contains(clickedUser)) {
-                selectedUsers.add(clickedUser);
-                Utils.showToast(getApplicationContext(), clickedUser + " added to group");
-            } else {
-                selectedUsers.remove(clickedUser);
-                if (searchUsersEt.getText().toString().trim().isEmpty()) {
-                    allUsernames.remove(clickedUser);
-                }
-                Utils.showToast(getApplicationContext(), clickedUser + " removed from group");
-            }
-
-            userListAdapter.notifyDataSetChanged();
-        });
     }
 
     private void displaySelectedUsers(List<ModelUser> selectedUsernames, LinearLayout linearLayout, LayoutInflater inflater) {
@@ -201,7 +207,7 @@ public class ActivityCreateGroup extends AppCompatActivity {
         userListLv.setAdapter(userListAdapter);
 
         RxTextView.textChanges(searchUsersEt)
-                .debounce(1, TimeUnit.SECONDS)
+                .debounce(100, TimeUnit.MILLISECONDS)
                 .subscribe(text -> {
                     if (text.length() == 0) {
                         handleEmptyInput();
@@ -210,6 +216,12 @@ public class ActivityCreateGroup extends AppCompatActivity {
 
                     fetchUsers(text);
                 });
+    }
+
+    private void handleEmptyInput() {
+        allUsernames.clear();
+        allUsernames.addAll(selectedUsers);
+        notifyListAdapterDataChanged();
     }
 
     private void fetchUsers(CharSequence text) {
@@ -237,10 +249,30 @@ public class ActivityCreateGroup extends AppCompatActivity {
         notifyListAdapterDataChanged();
     }
 
-    private void handleEmptyInput() {
-        allUsernames.clear();
-        allUsernames.addAll(selectedUsers);
-        notifyListAdapterDataChanged();
+    private void handleAddingRemovingUser() {
+        userListLv.setOnItemClickListener((parent, view, position, id) -> {
+            ModelUser clickedUser = allUsernames.get(position);
+
+            if (!selectedUsers.contains(clickedUser)) {
+                selectedUsers.add(clickedUser);
+
+                Utils.showToast(getApplicationContext(), clickedUser.getUsername() + clickedUser.getIdentifier() + " added to group");
+            } else {
+                selectedUsers.remove(clickedUser);
+                if (searchUsersEt.getText().toString().trim().isEmpty()) {
+                    allUsernames.remove(clickedUser);
+                }
+                Utils.showToast(getApplicationContext(), clickedUser.getUsername() + clickedUser.getIdentifier() + " removed from group");
+            }
+
+            displaySelectedUsers(selectedUsers, groupMembersLl, getLayoutInflater());
+
+            userListAdapter.notifyDataSetChanged();
+        });
+    }
+
+    private void close() {
+        finish();
     }
 
     private void notifyListAdapterDataChanged() {
@@ -250,14 +282,5 @@ public class ActivityCreateGroup extends AppCompatActivity {
                 userListAdapter.notifyDataSetChanged();
             }
         });
-    }
-
-    private Dialog createDialog(int layoutResId) {
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(layoutResId);
-        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
-        return dialog;
     }
 }
