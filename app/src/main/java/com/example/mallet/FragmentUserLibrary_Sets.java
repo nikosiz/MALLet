@@ -105,7 +105,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
 
             fetchSets(Long.parseLong(startPosition), Long.parseLong(limit));
         }else{
-            setView(inflater, userSetsLl,foundSets);
+            setView(inflater,foundSets);
         }
     }
 
@@ -140,9 +140,12 @@ public class FragmentUserLibrary_Sets extends Fragment {
             public void onResponse(Call<SetBasicDTO> call, Response<SetBasicDTO> response) {
                 SetBasicDTO setBasicDTO = ResponseHandler.handleResponse(response);
                 List<ModelLearningSet> modelLearningSets = ModelLearningSetMapper.from(setBasicDTO.sets());
-                setList.addAll(modelLearningSets);
+                if(!setList.equals(modelLearningSets)){
+                    setList.clear();
+                    setList.addAll(modelLearningSets);
+                }
 
-                setView(inflater, setsLl, setList);
+                setView(inflater, setList);
                 firstTime.set(false);
             }
 
@@ -153,7 +156,8 @@ public class FragmentUserLibrary_Sets extends Fragment {
         });
     }
 
-    private void setView(@NonNull LayoutInflater inflater, LinearLayout userSetsLl  , List<ModelLearningSet> userLibraryFoldersList) {
+    private void setView(@NonNull LayoutInflater inflater, List<ModelLearningSet> userLibraryFoldersList) {
+       userSetsLl.removeAllViews();
         for (ModelLearningSet set : userLibraryFoldersList) {
             View setItemView = inflater.inflate(R.layout.model_learning_set, userSetsLl, false);
 

@@ -114,7 +114,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
 
             fetchGroups(Long.parseLong(startPosition), Long.parseLong(limit));
         }else{
-            setView(inflater, userGroupsLl, foundGroups);
+            setView(foundGroups);
         }
     }
     private void getUserLibraryGroupList(LinearLayout groupsLl,
@@ -122,19 +122,17 @@ public class FragmentUserLibrary_Groups extends Fragment {
                                          @Nullable String nextChunkUri) {
 
         if (Objects.isNull(nextChunkUri)) {
-            fetchGroups(0, 10, inflater, groupsLl, groupList);
+            fetchGroups(0, 10, groupList);
         } else {
             Uri uri = Uri.parse(nextChunkUri);
             String startPosition = uri.getQueryParameter("startPosition");
             String limit = uri.getQueryParameter("limit");
-            fetchGroups(Long.parseLong(startPosition), Long.parseLong(limit), inflater, groupsLl, groupList);
+            fetchGroups(Long.parseLong(startPosition), Long.parseLong(limit), groupList);
         }
     }
 
     private void fetchGroups(long startPosition,
                              long limit,
-                             @NonNull LayoutInflater inflater,
-                             LinearLayout groupsLl,
                              List<ModelGroup> groupList) {
         userService.getUserGroups(startPosition, limit, new Callback<GroupBasicDTO>() {
             @Override
@@ -143,7 +141,12 @@ public class FragmentUserLibrary_Groups extends Fragment {
                 List<ModelGroup> modelGroups = ModelGroupMapper.from(groupDTO.groups());
                 groupList.addAll(modelGroups);
 
-                setView(inflater, groupsLl, groupList);
+                if(!groupList.equals(modelGroups)){
+                    groupList.clear();
+                    groupList.addAll(modelGroups);
+                }
+
+                setView( groupList);
                 firstTime.set(false);
 
             }
@@ -155,7 +158,8 @@ public class FragmentUserLibrary_Groups extends Fragment {
         });
     }
 
-    private void setView(@NonNull LayoutInflater inflater, LinearLayout userGroupsLl, List<ModelGroup> userLibraryGroupList) {
+    private void setView(List<ModelGroup> userLibraryGroupList) {
+        userGroupsLl.removeAllViews();
         for (ModelGroup group : userLibraryGroupList) {
             View groupItemView = inflater.inflate(R.layout.model_group, userGroupsLl, false);
 
