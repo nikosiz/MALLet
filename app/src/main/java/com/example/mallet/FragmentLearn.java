@@ -232,7 +232,6 @@ public class FragmentLearn extends Fragment {
 
         Random random = new Random();
 
-        // Select a random multiple choice question position (0 or 1)
         int multipleChoiceQuestionPosition = random.nextInt(2);
         int multipleChoiceCorrectAnswerPosition;
 
@@ -241,18 +240,15 @@ public class FragmentLearn extends Fragment {
 
             options.add(flashcard.getTerm());
 
-            // Add definition if it's not empty
             if (!flashcard.getDefinition().isEmpty()) {
                 options.add(flashcard.getDefinition());
             }
 
             options.add(flashcard.getTranslation());
 
-            // Shuffle the options to randomize their order
             Collections.shuffle(options);
             System.out.println(options);
 
-            // Determine the correct answer position based on the selected multipleChoiceQuestionPosition
             switch (multipleChoiceQuestionPosition) {
                 case 0:
                     multipleChoiceCorrectAnswerPosition = 1;
@@ -265,7 +261,6 @@ public class FragmentLearn extends Fragment {
                     break;
             }
 
-            // Create a ModelMultipleChoice object with the selected question position
             ModelMultipleChoice multipleChoice = new ModelMultipleChoice(
                     options.get(multipleChoiceQuestionPosition),
                     options.get(multipleChoiceOption1Position),
