@@ -22,15 +22,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.mallet.databinding.ActivityMainBinding;
 import com.example.mallet.databinding.DialogCreateBinding;
-import com.example.mallet.utils.ModelFolder;
-import com.example.mallet.utils.ModelGroup;
-import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.Utils;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class ActivityMain extends AppCompatActivity {
@@ -153,44 +148,5 @@ public class ActivityMain extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         Utils.terminateApp(this);
-    }
-
-    // TODO
-    public List<ModelLearningSet> createSetList() {
-        List<ModelLearningSet> sets = new ArrayList<>();
-
-        ModelLearningSet set1 = Utils.readFlashcards(getApplicationContext(), "fruit.txt");
-        ModelLearningSet set2 = Utils.readFlashcards(getApplicationContext(), "animals.txt");
-        ModelLearningSet set3 = Utils.readFlashcards(getApplicationContext(), "nrs.txt");
-        ModelLearningSet set4 = Utils.readFlashcards(getApplicationContext(), "countries.txt");
-        ModelLearningSet set5 = Utils.readFlashcards(getApplicationContext(), "colors.txt");
-
-        sets.add(set1);
-        sets.add(set2);
-        sets.add(set3);
-        sets.add(set4);
-        sets.add(set5);
-
-        return sets;
-    }
-
-    public List<ModelFolder> createFolderList() {
-        List<ModelFolder> folders = new ArrayList<>();
-        folders.add(new ModelFolder("Folder #1", "user123", "3"));
-        folders.add(new ModelFolder("Folder #2", "user123", "7"));
-        folders.add(new ModelFolder("Folder #3", "user123", "2"));
-        folders.add(new ModelFolder("Folder #4", "user123", "8"));
-        folders.add(new ModelFolder("Folder #5", "user123", "1"));
-        return folders;
-    }
-
-    public List<ModelGroup> createGroupList() {
-        List<ModelGroup> groups = new ArrayList<>();
-    /*    groups.add(new ModelGroup("Group #1", "2", "3"));
-        groups.add(new ModelGroup("Group #2", "5", "3"));
-        groups.add(new ModelGroup("Group #3", "2", "3"));
-        groups.add(new ModelGroup("Group #4", "8", "3"));
-        groups.add(new ModelGroup("Group #5", "5", "3"));*/
-        return groups;
     }
 }

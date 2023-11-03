@@ -13,13 +13,9 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.mallet.databinding.FragmentUserLibraryBinding;
-import com.example.mallet.utils.ModelFolder;
-import com.example.mallet.utils.ModelGroup;
-import com.example.mallet.utils.ModelLearningSet;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-import java.util.List;
 import java.util.Objects;
 
 public class FragmentUserLibrary extends Fragment {
@@ -43,9 +39,9 @@ public class FragmentUserLibrary extends Fragment {
         viewPager = binding.userLibraryVp2;
         tabLayout = binding.userLibraryTl;
 
-        List<ModelLearningSet> learningSets = activityMain.createSetList();
-        List<ModelFolder> folders = activityMain.createFolderList();
-        List<ModelGroup> groups = activityMain.createGroupList();
+       // List<ModelLearningSet> learningSets = activityMain.createSetList();
+       // List<ModelFolder> folders = activityMain.createFolderList();
+       // List<ModelGroup> groups = activityMain.createGroupList();
 
         setupContents(); // Call the setupTabLayout method
 
