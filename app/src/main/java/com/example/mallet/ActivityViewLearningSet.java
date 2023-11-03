@@ -43,13 +43,14 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     private ModelLearningSet learningSet;
     private long setId;
     private ImageView toolbarBackIv, toolbarOptionsIv;
-
+    private TextView setNameTv, setCreatorTv, nrOfTermsTv;
     private LinearLayout flashcardsLl, learnLl, testLl, matchLl;
     private ExtendedFloatingActionButton viewSetStudyEfab;
 
     // toolbar options
     private ImageView toolbarOptionsBackIv;
     private TextView toolbarOptionsEditTv, toolbarOptionsAddToUsersCollectionTv, toolbarOptionsDeleteTv, toolbarOptionsCancelTv;
+    private final boolean isSetNew = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +70,13 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         setupToolbar();
 
         displayFlashcardsInViewPager(Utils.createFlashcardList(learningSet), binding.viewSetFlashcardVp2);
+
+        setNameTv = binding.viewSetNameTv;
+        setNameTv.setText(learningSet.getName());
+        setCreatorTv = binding.viewSetCreatorTv;
+        setCreatorTv.setText(learningSet.getCreator());
+        nrOfTermsTv = binding.viewSetNrOfTermsTv;
+        //nrOfTermsTv.setText(learningSet.getNrOfTerms());
 
         flashcardsLl = binding.viewSetFlashcardsLl;
         flashcardsLl.setOnClickListener(v -> startFlashcards());
@@ -110,7 +118,6 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private static final boolean isSetNew = false;
 
     private void viewSetOptionsDialog() {
         Dialog dialog = Utils.createDialog(this, R.layout.dialog_view_set_toolbar_options, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, MATCH_PARENT), Gravity.BOTTOM);

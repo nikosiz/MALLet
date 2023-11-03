@@ -1,6 +1,7 @@
 package com.example.mallet;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -15,9 +16,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.mallet.backend.client.user.boundary.UserServiceImpl;
+import com.example.mallet.backend.entity.set.SetCreateContainer;
+import com.example.mallet.backend.entity.set.SetCreateContainerMapper;
 import com.example.mallet.databinding.ActivityEditLearningSetBinding;
 import com.example.mallet.databinding.DialogConfirmExitBinding;
 import com.example.mallet.databinding.DialogDeleteSetBinding;
+import com.example.mallet.utils.AuthenticationUtils;
 import com.example.mallet.utils.ModelFlashcard;
 import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.Utils;
@@ -28,6 +32,10 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ActivityEditLearningSet extends AppCompatActivity {
     private UserServiceImpl userService;
@@ -64,6 +72,9 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityEditLearningSetBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        String credential = AuthenticationUtils.get(getApplicationContext());
+        this.userService = new UserServiceImpl(credential);
 
         isSetNew = getIntent().getBooleanExtra("isSetNew", true);
         //learningSet = getIntent().getParcelableExtra("learningSet");
@@ -185,7 +196,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
             enteredFlashcards.add(addedFlashcard);
         }
 
-        ModelLearningSet newLearningSet = new ModelLearningSet(enteredSetName, "USERNAME", enteredSetDescription, enteredFlashcards, 0, "");
+        newLearningSet = new ModelLearningSet(enteredSetName, "USERNAME", enteredSetDescription, enteredFlashcards, 0, "");
 
         System.out.println("Saved Set: " + newLearningSet.getName());
 
@@ -197,9 +208,10 @@ public class ActivityEditLearningSet extends AppCompatActivity {
             System.out.println();
         }
 
-        handleSetCreation(newLearningSet);
+        handleSetCreation(SetCreateContainerMapper.from(newLearningSet));
     }
 
+    private ModelLearningSet newLearningSet;
     private TextView flashCardCounterTv;
 
     private void addFlashcard(LinearLayout linearLayout, LayoutInflater inflater, String
@@ -241,13 +253,34 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         }
     }
 
-    private void handleSetCreation(ModelLearningSet newUserSet) {
-        // todo nie umiem :((((((((((((((((((((((((((((
-        Utils.showToast(getApplicationContext(), "MICHAL POMUSZ");
+
+    private void handleSetCreation(SetCreateContainer newSetContainer) {
+        userService.createUserSet(newSetContainer, new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Intent intent = new Intent(getApplicationContext(), ActivityViewLearningSet.class);
+
+                intent.putExtra("learningSet", newLearningSet);
+
+                startActivity(intent);
+
+                close();
+                Utils.showToast(getApplicationContext(), "Set created XD");
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override
     public void onBackPressed() {
         confirmExitDialog();
+    }
+
+    private void close() {
+        finish();
     }
 }

@@ -17,7 +17,6 @@ public class ModelFlashcard implements Parcelable {
         this.translation = translation;
     }
 
-    // Getter for the flashcard term
     public String getTerm() {
         return term;
     }
