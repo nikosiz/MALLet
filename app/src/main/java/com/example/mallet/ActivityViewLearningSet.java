@@ -97,7 +97,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         flashcardsLl.setOnClickListener(v -> startFlashcards());
 
         learnLl = binding.viewSetLearnLl;
-        learnLl.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentLearn.class, ActivityLearn.class));
+        learnLl.setOnClickListener(v -> startLearn());
 
         testLl = binding.viewSetTestLl;
         testLl.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentTest.class, ActivityLearn.class));
@@ -108,7 +108,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         displayFlashcardsInLinearLayout(flashcards, binding.viewSetAllFlashcardsLl, getLayoutInflater());
 
         viewSetStudyEfab = binding.viewSetStudyEfab;
-        viewSetStudyEfab.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentFlashcards.class, ActivityLearn.class));
+        viewSetStudyEfab.setOnClickListener(v -> startFlashcards());
     }
 
     private void setupToolbar() {
@@ -128,6 +128,15 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         Intent intent = new Intent(this, ActivityLearn.class);
 
         intent.putExtra("fragment_class", FragmentFlashcards.class.getName()); // Pass the class name
+        intent.putExtra("learningSet", learningSet);
+
+        startActivity(intent);
+    }
+
+    private void startLearn() {
+        Intent intent = new Intent(this, ActivityLearn.class);
+
+        intent.putExtra("fragment_class", FragmentLearn.class.getName()); // Pass the class name
         intent.putExtra("learningSet", learningSet);
 
         startActivity(intent);

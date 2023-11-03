@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
@@ -23,6 +24,7 @@ import com.example.mallet.databinding.DialogAddSetToGroupBinding;
 import com.example.mallet.databinding.DialogAddUserToGroupBinding;
 import com.example.mallet.databinding.DialogReportBinding;
 import com.example.mallet.databinding.DialogViewGroupToolbarOptionsBinding;
+import com.example.mallet.utils.ModelGroup;
 import com.example.mallet.utils.Utils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -32,39 +34,42 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.Objects;
 
 public class ActivityViewGroup extends AppCompatActivity {
-
     private ActivityViewGroupBinding binding;
+    private ModelGroup group;
 
-    // viewGroup_toolbar
-    private ImageView backIv, optionsIv;
+    // Toolbar
+    private ImageView backIv;
     private TextView groupNameTv;
+    private ImageView optionsIv;
 
-    // viewGroupCl
+    // Contents
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
 
-    // viewGroup_fabOptionsLl
+
+    // Floating Action Button & its options
     private FloatingActionButton addFab;
-    private TextView addSetTv, addUserTv;
+    private TextView addSetTv;
+    private TextView addUserTv;
     private static boolean areFabOptionsVisible = false;
     private LinearLayout fabOptionsLl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //todo get groupId and fetch resources if paramter is passed
+        // todo get groupId and fetch resources if paramter is passed
         super.onCreate(savedInstanceState);
         binding = ActivityViewGroupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setupContents();
+
         getGroupData();
     }
 
     private void setupContents() {
-        setupToolbar();
+        group = getIntent().getParcelableExtra("group");
 
-        viewPager = binding.viewGroupViewPager;
-        tabLayout = binding.viewGroupTabLayout;
+        setupToolbar();
 
         setupTabLayout();
 
@@ -79,9 +84,14 @@ public class ActivityViewGroup extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle("");
 
-        binding.viewGroupToolbarOptionsIv.setOnClickListener(v -> viewGroupOptionsDialog());
+        backIv = binding.viewGroupToolbarOptionsIv;
+        backIv.setOnClickListener(v -> viewGroupOptionsDialog());
 
-        binding.viewGroupToolbarBackIv.setOnClickListener(v -> finish());
+        groupNameTv = binding.viewGroupNameTv;
+        groupNameTv.setText(group.getGroupName());
+
+        optionsIv = binding.viewGroupToolbarBackIv;
+        optionsIv.setOnClickListener(v -> finish());
     }
 
     private void viewGroupOptionsDialog() {
@@ -125,6 +135,8 @@ public class ActivityViewGroup extends AppCompatActivity {
     }
 
     private void setupTabLayout() {
+        viewPager = binding.viewGroupViewPager;
+        tabLayout = binding.viewGroupTabLayout;
         FragmentStateAdapter adapter = new FragmentStateAdapter(this) {
             @Override
             public int getItemCount() {
@@ -134,7 +146,6 @@ public class ActivityViewGroup extends AppCompatActivity {
             @Override
             public Fragment createFragment(int position) {
                 Fragment result = null;
-                // Return the appropriate fragment for each tab
                 if (position == 0) {
                     result = new FragmentViewGroup_Sets();
                 } else if (position == 1) {
@@ -157,6 +168,8 @@ public class ActivityViewGroup extends AppCompatActivity {
                         .inflate(R.layout.tab_text, tabLayout, false);
                 tabTv.setText(tabLayout.getTabAt(i).getText());
                 tabTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+                tabTv.setTextColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
+
                 tabLayout.getTabAt(i).setCustomView(tabTv);
 
                 ViewGroup.LayoutParams layoutParams = tabTv.getLayoutParams();

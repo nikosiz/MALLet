@@ -63,7 +63,6 @@ public class ActivityCreateGroup extends AppCompatActivity {
     private CheckBox memberCb;
 
     // addMemberToGroupDialog
-    private ImageView addMemberBackIv;
     private TextInputEditText searchUsersEt;
     private ListView userListLv;
     private ArrayAdapter userListAdapter; // chosen users
@@ -143,10 +142,11 @@ public class ActivityCreateGroup extends AppCompatActivity {
             public void onResponse(Call<Long> call, Response<Long> response) {
                 Long groupId = ResponseHandler.handleResponse(response);
 
-                close();
-
                 Intent intent = new Intent(getApplicationContext(), ActivityViewGroup.class);
                 intent.putExtra("groupId", groupId);
+
+                close();
+
                 startActivity(intent);
             }
 

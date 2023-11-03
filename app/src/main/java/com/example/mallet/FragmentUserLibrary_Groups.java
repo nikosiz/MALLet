@@ -42,7 +42,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
     private final List<ModelGroup> groups = new ArrayList<>();
     private TextInputEditText searchEt;
     private LinearLayout userGroupsLl;
-    private AtomicBoolean firstTime = new AtomicBoolean(true);
+    private final AtomicBoolean firstTime = new AtomicBoolean(true);
     private LayoutInflater inflater;
     private final List<ModelGroup> foundGroups = new ArrayList<>();
 
@@ -146,7 +146,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
                     groupList.addAll(modelGroups);
                 }
 
-                setView( groupList);
+                setView(groupList);
                 firstTime.set(false);
 
             }
@@ -163,6 +163,8 @@ public class FragmentUserLibrary_Groups extends Fragment {
         for (ModelGroup group : userLibraryGroupList) {
             View groupItemView = inflater.inflate(R.layout.model_group, userGroupsLl, false);
 
+            groupItemView.setOnClickListener(v -> viewGroup(group));
+
             TextView groupNameTv = groupItemView.findViewById(R.id.group_nameTv);
             groupNameTv.setText(group.getGroupName());
 
@@ -175,6 +177,14 @@ public class FragmentUserLibrary_Groups extends Fragment {
 
             userGroupsLl.addView(groupItemView);
         }
+    }
+
+    private void viewGroup(ModelGroup group) {
+        Intent intent = new Intent(requireContext(), ActivityViewGroup.class);
+
+        intent.putExtra("groupId", group.getId());
+
+        startActivity(intent);
     }
 
     private void startViewGroupActivity() {
