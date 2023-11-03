@@ -1,5 +1,3 @@
-//TODO: make this class display written/multipleChoice based on which switches are selected
-
 package com.example.mallet;
 
 import android.app.Dialog;
@@ -58,9 +56,13 @@ public class FragmentLearn extends Fragment {
     private View multipleChoiceQuestionView;
     private TextView multipleChoiceQuestionTv;
     private String multipleChoiceAnswer;
-    private Button answerA, answerB, answerC, answerD;
+    private Button option1Btn, option2Btn, option3Btn, option4Btn;
     private List<ModelMultipleChoice> multipleChoiceQuestions;
-    private int multipleChoiceCorrectAnswerPosition, multipleChoiceAlternativeAnswerPosition, multipleChoiceWrongAnswer1Position, multipleChoiceWrongAnswer2Position, multipleChoiceWrongAnswer3Position;
+    private int multipleChoiceCorrectAnswerPosition;
+    private int multipleChoiceOption1Position;
+    private int multipleChoiceOption2Position;
+    private int multipleChoiceOption3Position;
+    private int multipleChoiceOption4Position;
     private TextView nextTv, prevTv, finishTv, errorTv;
     private int currentQuestionIndex = 0;
 
@@ -104,6 +106,11 @@ public class FragmentLearn extends Fragment {
         writtenAnswerEt = writtenQuestionView.findViewById(R.id.written_answerEt);
 
         multipleChoiceQuestionTv = multipleChoiceQuestionView.findViewById(R.id.multipleChoice_questionTv);
+
+        option1Btn = multipleChoiceQuestionView.findViewById(R.id.multipleChoice_answerABtn);
+        option2Btn = multipleChoiceQuestionView.findViewById(R.id.multipleChoice_answerBBtn);
+        option3Btn = multipleChoiceQuestionView.findViewById(R.id.multipleChoice_answerCBtn);
+        option4Btn = multipleChoiceQuestionView.findViewById(R.id.multipleChoice_answerDBtn);
     }
 
     private void setupToolbar() {
@@ -149,7 +156,7 @@ public class FragmentLearn extends Fragment {
                 displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
                 dialog.dismiss();
             } else if (!writtenMs.isChecked() && !multipleChoiceMs.isChecked()) {
-                Utils.showToast(getContext(), "NOPE");
+                Utils.showItems(errorTv);
             } else if (writtenMs.isChecked() && multipleChoiceMs.isChecked()) {
                 MULTIPLE_CHOICE_QUESTIONS = 10;
                 WRITTEN_QUESTIONS = 10;
@@ -211,7 +218,7 @@ public class FragmentLearn extends Fragment {
                     break;
             }
 
-            ModelWritten written = new ModelWritten(options.get(writtenQuestionPosition), options.get(writtenCorrectAnswerPosition), options.get(writtenAlternativeAnswerPosition));
+            ModelWritten written = new ModelWritten(options.get(writtenQuestionPosition), options.get(multipleChoiceCorrectAnswerPosition), options.get(writtenAlternativeAnswerPosition));
             questionList.add(written);
             //System.out.println(written);
         }
@@ -220,38 +227,61 @@ public class FragmentLearn extends Fragment {
 
     private List<ModelMultipleChoice> generateMultipleChoiceQuestions() {
         List<ModelFlashcard> flashcardList = getLearningSetData();
-        List<ModelMultipleChoice> multipleChoiceQuestionList = new ArrayList();
+
+        List<ModelMultipleChoice> questionList = new ArrayList<>();
+
         Random random = new Random();
+
+        // Select a random multiple choice question position (0 or 1)
         int multipleChoiceQuestionPosition = random.nextInt(2);
+        int multipleChoiceCorrectAnswerPosition;
 
         for (ModelFlashcard flashcard : flashcardList) {
             List<String> options = new ArrayList<>();
-            options.add(flashcard.getTerm());
-            options.add(flashcard.getDefinition());
-            options.add(flashcard.getTranslation());
-            Collections.shuffle(options);
 
+            options.add(flashcard.getTerm());
+
+            // Add definition if it's not empty
+            if (!flashcard.getDefinition().isEmpty()) {
+                options.add(flashcard.getDefinition());
+            }
+
+            options.add(flashcard.getTranslation());
+
+            // Shuffle the options to randomize their order
+            Collections.shuffle(options);
+            System.out.println(options);
+
+            // Determine the correct answer position based on the selected multipleChoiceQuestionPosition
             switch (multipleChoiceQuestionPosition) {
                 case 0:
                     multipleChoiceCorrectAnswerPosition = 1;
-                    multipleChoiceAlternativeAnswerPosition = 2;
                     break;
                 case 1:
-                    multipleChoiceCorrectAnswerPosition = 0;
-                    multipleChoiceAlternativeAnswerPosition = 2;
+                    multipleChoiceCorrectAnswerPosition = 2;
                     break;
-                case 2:
-                    multipleChoiceCorrectAnswerPosition = 1;
-                    multipleChoiceAlternativeAnswerPosition = 0;
+                default:
+                    multipleChoiceCorrectAnswerPosition = random.nextInt(3); // For any other case
                     break;
             }
 
-            ModelMultipleChoice generatedMultipleChoiceQuestion = new ModelMultipleChoice(options.get(multipleChoiceQuestionPosition), options.get(writtenCorrectAnswerPosition), options.get(writtenAlternativeAnswerPosition));
-            multipleChoiceQuestionList.add(generatedMultipleChoiceQuestion);
-            System.out.println(generatedMultipleChoiceQuestion);
+            // Create a ModelMultipleChoice object with the selected question position
+            ModelMultipleChoice multipleChoice = new ModelMultipleChoice(
+                    options.get(multipleChoiceQuestionPosition),
+                    options.get(multipleChoiceOption1Position),
+                    options.get(multipleChoiceOption2Position),
+                    options.get(multipleChoiceOption3Position),
+                    options.get(multipleChoiceOption4Position),
+                    multipleChoiceCorrectAnswerPosition
+            );
+
+            questionList.add(multipleChoice);
+            System.out.println(multipleChoice);
         }
-        return multipleChoiceQuestionList;
+
+        return questionList;
     }
+
 
     private void handleNextTvClick() {
         if (!multipleChoiceMs.isChecked()) {
@@ -260,7 +290,7 @@ public class FragmentLearn extends Fragment {
             String writtenCorrectAnswer = writtenQuestion.getCorrectAnswer();
             String writtenAlternativeAnswer = writtenQuestion.getAlternativeAnswer();
 
-            boolean isCorrect = checkAnswer(writtenAnswer, writtenCorrectAnswer, writtenAlternativeAnswer);
+            boolean isCorrect = checkWrittenAnswer(writtenAnswer, writtenCorrectAnswer, writtenAlternativeAnswer);
 
             if (isCorrect) {
                 writtenAnswerEt.setText("");
@@ -281,11 +311,8 @@ public class FragmentLearn extends Fragment {
             }
         } else if (!writtenMs.isChecked()) {
             ModelMultipleChoice multipleChoiceQuestion = multipleChoiceQuestions.get(currentQuestionIndex);
-            String multipleChoiceCorrectAnswer = multipleChoiceQuestion.getCorrectAnswer();
-            String multipleChoiceAlternativeAnswer = multipleChoiceQuestion.getAlternativeAnswer();
+            int multipleChoiceCorrectAnswerPosition = multipleChoiceQuestion.getAnswerPosition();
             currentQuestionIndex++;
-
-            System.out.println(multipleChoiceCorrectAnswer + "\n" + multipleChoiceAlternativeAnswer);
 
             if (currentQuestionIndex < MAX_QUESTIONS && currentQuestionIndex < multipleChoiceQuestions.size()) {
                 displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
@@ -299,7 +326,16 @@ public class FragmentLearn extends Fragment {
         }
     }
 
-    private boolean checkAnswer(String userAnswer, String correctAnswer, String
+
+    private boolean checkWrittenAnswer(String userAnswer, String correctAnswer, String
+            alternativeAnswer) {
+        String userInputLower = userAnswer.toLowerCase();
+        String correctAnswerLower = correctAnswer.toLowerCase();
+        String alternativeAnswerLower = alternativeAnswer.toLowerCase();
+        return userInputLower.equals(correctAnswerLower) || userInputLower.equals(alternativeAnswerLower);
+    }
+
+    private boolean checkMultipleChoiceAnswer(String userAnswer, String correctAnswer, String
             alternativeAnswer) {
         String userInputLower = userAnswer.toLowerCase();
         String correctAnswerLower = correctAnswer.toLowerCase();
@@ -349,15 +385,15 @@ public class FragmentLearn extends Fragment {
             multipleChoiceQuestionTv = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_questionTv);
             multipleChoiceQuestionTv.setText(question.getQuestion());
 
-            answerA = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_answerABtn);
-            answerB = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_answerBBtn);
-            answerC = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_answerCBtn);
-            answerD = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_answerDBtn);
+            option1Btn = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_answerABtn);
+            option2Btn = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_answerBBtn);
+            option3Btn = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_answerCBtn);
+            option4Btn = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_answerDBtn);
 
-            answerA.setText("A");
-            answerB.setText("B");
-            answerC.setText("C");
-            answerD.setText("D");
+            option1Btn.setText("A");
+            option2Btn.setText("B");
+            option3Btn.setText("C");
+            option4Btn.setText("D");
 
 
             ll.addView(multipleChoiceQuestionItem);
@@ -393,14 +429,11 @@ public class FragmentLearn extends Fragment {
         finishedDialog.show();
     }
 
-
     private List<ModelFlashcard> getLearningSetData() {
         Bundle args = getArguments();
         if (args != null) {
             ModelLearningSet learningSet = args.getParcelable("learningSet");
             if (learningSet != null) {
-                String setName = learningSet.getName();
-                String nrOfTerms = String.valueOf(learningSet.getNrOfTerms());
                 flashcards = learningSet.getTerms();
                 return flashcards;
             }

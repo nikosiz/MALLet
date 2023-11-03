@@ -18,12 +18,11 @@ public class AdapterTest extends RecyclerView.Adapter<AdapterTest.ViewHolder> {
     private boolean isMultipleChoiceEnabled, isWrittenEnabled, isTrueFalseEnabled, isMatchEnabled;
     private int nrOfQuestions;
 
-    public AdapterTest(int nrOfQuestions, boolean isMultipleChoiceEnabled, boolean isWrittenEnabled, boolean isTrueFalseEnabled, boolean isMatchEnabled) {
+    public AdapterTest(int nrOfQuestions, boolean isMultipleChoiceEnabled, boolean isWrittenEnabled, boolean isTrueFalseEnabled) {
         this.nrOfQuestions = nrOfQuestions;
         this.isMultipleChoiceEnabled = isMultipleChoiceEnabled;
         this.isWrittenEnabled = isWrittenEnabled;
         this.isTrueFalseEnabled = isTrueFalseEnabled;
-        this.isMatchEnabled = isMatchEnabled;
     }
 
     @NonNull
