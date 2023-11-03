@@ -210,7 +210,7 @@ public class ActivityCreateGroup extends AppCompatActivity {
         userListLv.setAdapter(userListAdapter);
 
         RxTextView.textChanges(searchUsersEt)
-                .debounce(100, TimeUnit.MILLISECONDS)
+                .debounce(500, TimeUnit.MILLISECONDS)
                 .subscribe(text -> {
                     if (text.length() == 0) {
                         handleEmptyInput();
