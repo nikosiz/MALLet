@@ -1,5 +1,6 @@
 package com.example.mallet;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -43,7 +44,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
     private TextInputEditText searchEt;
     private LinearLayout userSetsLl;
     private LayoutInflater inflater;
-    private AtomicBoolean firstTime = new AtomicBoolean(true);
+    private final AtomicBoolean firstTime = new AtomicBoolean(true);
 
 
     @Override
@@ -68,7 +69,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
         RxTextView.textChanges(searchEt)
                 .debounce(1, TimeUnit.SECONDS)
                 .subscribe(text -> {
-                    if(firstTime.get()){
+                    if (firstTime.get()) {
                         return;
                     }
                     foundSets.clear();
@@ -80,7 +81,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
                         @Override
                         public void onResponse(Call<SetBasicDTO> call, Response<SetBasicDTO> response) {
                             userSetsLl.removeAllViews();
-                            fetchSets(text.toString(),response);
+                            fetchSets(text.toString(), response);
                         }
 
                         @Override
@@ -91,7 +92,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
                 });
     }
 
-    private void fetchSets(String text,Response<SetBasicDTO> response) {
+    private void fetchSets(String text, Response<SetBasicDTO> response) {
         SetBasicDTO setBasicDTO = ResponseHandler.handleResponse(response);
         List<SetInformationDTO> collect = setBasicDTO.sets().stream()
                 .filter(set -> set.name().toLowerCase().contains(text.toLowerCase()))
@@ -104,8 +105,8 @@ public class FragmentUserLibrary_Sets extends Fragment {
             String limit = uri.getQueryParameter("limit");
 
             fetchSets(Long.parseLong(startPosition), Long.parseLong(limit));
-        }else{
-            setView(inflater,foundSets);
+        } else {
+            setView(inflater, foundSets);
         }
     }
 
@@ -140,7 +141,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
             public void onResponse(Call<SetBasicDTO> call, Response<SetBasicDTO> response) {
                 SetBasicDTO setBasicDTO = ResponseHandler.handleResponse(response);
                 List<ModelLearningSet> modelLearningSets = ModelLearningSetMapper.from(setBasicDTO.sets());
-                if(!setList.equals(modelLearningSets)){
+                if (!setList.equals(modelLearningSets)) {
                     setList.clear();
                     setList.addAll(modelLearningSets);
                 }
@@ -157,15 +158,21 @@ public class FragmentUserLibrary_Sets extends Fragment {
     }
 
     private void setView(@NonNull LayoutInflater inflater, List<ModelLearningSet> userLibraryFoldersList) {
-       userSetsLl.removeAllViews();
+        userSetsLl.removeAllViews();
         for (ModelLearningSet set : userLibraryFoldersList) {
             View setItemView = inflater.inflate(R.layout.model_learning_set, userSetsLl, false);
+
+            setItemView.setOnClickListener(v -> viewSet(set));
 
             TextView setNameTv = setItemView.findViewById(R.id.learningSet_nameTv);
             setNameTv.setText(set.getName());
 
             TextView setNrOfTermsTv = setItemView.findViewById(R.id.learningSet_nrOfTermsTv);
-            setNrOfTermsTv.setText(String.valueOf(set.getNrOfTerms()));
+            if (set.getNrOfTerms() == 1) {
+                setNrOfTermsTv.setText(getString(R.string.nr_of_terms_singular, String.valueOf(set.getNrOfTerms())));
+            } else {
+                setNrOfTermsTv.setText(getString(R.string.nr_of_terms_plural, String.valueOf(set.getNrOfTerms())));
+            }
 
             TextView setCreatorTv = setItemView.findViewById(R.id.learningSet_creatorTv);
             setCreatorTv.setText(set.getCreator());
@@ -173,5 +180,13 @@ public class FragmentUserLibrary_Sets extends Fragment {
 
             userSetsLl.addView(setItemView);
         }
+    }
+
+    private void viewSet(ModelLearningSet set) {
+        Intent intent = new Intent(requireContext(), ActivityViewLearningSet.class);
+
+        intent.putExtra("learningSet", set);
+
+        startActivity(intent);
     }
 }

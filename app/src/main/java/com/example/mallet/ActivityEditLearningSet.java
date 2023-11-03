@@ -43,8 +43,6 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     private ModelLearningSet learningSet;
     private boolean isSetNew;
     private long learningSetId;
-    private String learningSetName, learningSetDescription;
-    private List<ModelFlashcard> learningSetTerms;
 
     // Toolbar
     private ImageView toolbarBackIv, toolbarDeleteIv, toolbarSaveIv;
@@ -77,11 +75,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         this.userService = new UserServiceImpl(credential);
 
         isSetNew = getIntent().getBooleanExtra("isSetNew", true);
-        //learningSet = getIntent().getParcelableExtra("learningSet");
-        //learningSetId = getIntent().getLongExtra("learningSetId", learningSetId);
-        learningSetName = getIntent().getStringExtra("learningSetName");
-        learningSetDescription = getIntent().getStringExtra("learningSetDescription");
-        learningSetTerms = getIntent().getParcelableArrayListExtra("learningSetTerms");
+        learningSet = getIntent().getParcelableExtra("learningSet");
 
         setupContents();
 
@@ -110,16 +104,16 @@ public class ActivityEditLearningSet extends AppCompatActivity {
             addFlashcard(flashcardsLl, getLayoutInflater(), null, null, null);
         }
 
-        if (learningSetName != null) {
-            setNameEt.setText(learningSetName);
+        if (learningSet.getName() != null) {
+            setNameEt.setText(learningSet.getName());
         }
 
-        if (learningSetName != null) {
-            setDescriptionEt.setText(learningSetDescription);
+        if (learningSet.getDescription() != null) {
+            setDescriptionEt.setText(learningSet.getDescription());
         }
 
-        if (learningSetTerms != null) {
-            populateFlashcardsUI(learningSetTerms);
+        if (learningSet.getTerms() != null) {
+            populateFlashcardsUI(learningSet.getTerms());
         }
 
         addDescriptionTv.setOnClickListener(v -> {
@@ -173,7 +167,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
         TextView deleteMessageTv = dialogBinding.deleteSetTv;
 
-        deleteMessageTv.append(learningSetName.toUpperCase());
+        deleteMessageTv.append(learningSet.getName().toUpperCase());
     }
 
     public void saveSet() {

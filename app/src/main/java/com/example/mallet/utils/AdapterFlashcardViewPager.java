@@ -56,7 +56,11 @@ public class AdapterFlashcardViewPager extends RecyclerView.Adapter<AdapterFlash
 
     @Override
     public int getItemCount() {
-        return flashcards.size();
+        if (flashcards != null) {
+            return flashcards.size();
+        } else {
+            return 0;
+        }
     }
 
     static class FlashcardViewHolder extends RecyclerView.ViewHolder {

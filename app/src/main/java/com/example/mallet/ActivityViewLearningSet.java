@@ -43,6 +43,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     private ModelLearningSet learningSet;
     private long setId;
     private ImageView toolbarBackIv, toolbarOptionsIv;
+    private ViewPager2 flashcardsVp2;
     private TextView setNameTv, setCreatorTv, nrOfTermsTv;
     private LinearLayout flashcardsLl, learnLl, testLl, matchLl;
     private ExtendedFloatingActionButton viewSetStudyEfab;
@@ -51,6 +52,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     private ImageView toolbarOptionsBackIv;
     private TextView toolbarOptionsEditTv, toolbarOptionsAddToUsersCollectionTv, toolbarOptionsDeleteTv, toolbarOptionsCancelTv;
     private final boolean isSetNew = false;
+    private List<ModelFlashcard> flashcards;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,9 +69,22 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         learningSet = getIntent().getParcelableExtra("learningSet");
         setId = learningSet.getId();
 
+        flashcards = Utils.createFlashcardList(learningSet);
+
         setupToolbar();
 
-        displayFlashcardsInViewPager(Utils.createFlashcardList(learningSet), binding.viewSetFlashcardVp2);
+        flashcardsVp2 = binding.viewSetFlashcardVp2;
+
+        if (flashcards == null || flashcards.size() == 0) {
+            Utils.setViewLayoutParams(flashcardsVp2, MATCH_PARENT, 0);
+            Utils.hideItems(flashcardsVp2);
+            Utils.showItems(binding.viewSetNoVocabHereLl);
+            TextView addVocabTv = binding.viewSetAddVocabTv;
+            addVocabTv.setOnClickListener(v -> editSet());
+        } else {
+            Utils.showItems(flashcardsVp2);
+            displayFlashcardsInViewPager(flashcards, flashcardsVp2);
+        }
 
         setNameTv = binding.viewSetNameTv;
         setNameTv.setText(learningSet.getName());
@@ -90,7 +105,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         matchLl = binding.viewSetMatchLl;
         matchLl.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentMatch.class, ActivityLearn.class));
 
-        displayFlashcardsInLinearLayout(Utils.createFlashcardList(learningSet), binding.viewSetAllFlashcardsLl, getLayoutInflater());
+        displayFlashcardsInLinearLayout(flashcards, binding.viewSetAllFlashcardsLl, getLayoutInflater());
 
         viewSetStudyEfab = binding.viewSetStudyEfab;
         viewSetStudyEfab.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentFlashcards.class, ActivityLearn.class));
@@ -136,15 +151,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
                 addSetToUsersCollection();
             }
 
-            Intent intent = new Intent(this, ActivityEditLearningSet.class);
-
-            intent.putExtra("isSetNew", isSetNew);
-            //intent.putExtra("learningSetId", learningSet.getId());
-            intent.putExtra("learningSetName", learningSet.getName());
-            intent.putExtra("learningSetDescription", learningSet.getDescription());
-            intent.putParcelableArrayListExtra("learningSetTerms", new ArrayList<>(learningSet.getTerms()));
-
-            startActivity(intent);
+            editSet();
         });
 
         toolbarOptionsAddToUsersCollectionTv = dialogBinding.viewSetOptionsAddToCollectionTv;
@@ -161,6 +168,19 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
         toolbarOptionsCancelTv = dialogBinding.viewSetOptionsCancelTv;
         toolbarOptionsCancelTv.setOnClickListener(v -> dialog.dismiss());
+    }
+
+    private void editSet() {
+        Intent intent = new Intent(this, ActivityEditLearningSet.class);
+
+        intent.putExtra("isSetNew", isSetNew);
+        intent.putExtra("learningSet",learningSet);
+        /*intent.putExtra("learningSetId", learningSet.getId());
+        intent.putExtra("learningSetName", learningSet.getName());
+        intent.putExtra("learningSetDescription", learningSet.getDescription());
+        intent.putParcelableArrayListExtra("learningSetTerms", new ArrayList<>(learningSet.getTerms()));*/
+
+        startActivity(intent);
     }
 
     private boolean isUserSet(long id) {
@@ -214,59 +234,63 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
     private void displayFlashcardsInViewPager(List<ModelFlashcard> flashcards, ViewPager2
             viewPager) {
-        AdapterFlashcardViewPager adapter = new AdapterFlashcardViewPager(flashcards);
-        viewPager.setAdapter(adapter);
-        viewPager.setPageTransformer(Utils::applySwipeTransformer);
+        if (flashcards != null && flashcards.size() > 0) {
+            AdapterFlashcardViewPager adapter = new AdapterFlashcardViewPager(flashcards);
+            viewPager.setAdapter(adapter);
+            viewPager.setPageTransformer(Utils::applySwipeTransformer);
+        }
     }
 
     private void displayFlashcardsInLinearLayout
             (List<ModelFlashcard> flashcards, LinearLayout linearLayout, LayoutInflater inflater) {
         linearLayout.removeAllViews();
 
-        for (ModelFlashcard flashcard : flashcards) {
-            View flashcardItemView = inflater.inflate(R.layout.model_flashcard, linearLayout, false);
-            Utils.setMargins(this, flashcardItemView, 0, 0, 0, 10);
+        if (flashcards != null && flashcards.size() > 0) {
+            for (ModelFlashcard flashcard : flashcards) {
+                View flashcardItemView = inflater.inflate(R.layout.model_flashcard, linearLayout, false);
+                Utils.setMargins(this, flashcardItemView, 0, 0, 0, 10);
 
-            int paddingInDp = 20;
-            float scale = getResources().getDisplayMetrics().density;
-            int paddingInPixels = (int) (paddingInDp * scale + 0.5f);
+                int paddingInDp = 20;
+                float scale = getResources().getDisplayMetrics().density;
+                int paddingInPixels = (int) (paddingInDp * scale + 0.5f);
 
-            LinearLayout flashcardLL = flashcardItemView.findViewById(R.id.flashcard_mainLl);
+                LinearLayout flashcardLL = flashcardItemView.findViewById(R.id.flashcard_mainLl);
 
-            flashcardLL.setPadding(paddingInPixels, paddingInPixels, paddingInPixels, paddingInPixels);
+                flashcardLL.setPadding(paddingInPixels, paddingInPixels, paddingInPixels, paddingInPixels);
 
-            TextView flashcardTermTv = flashcardItemView.findViewById(R.id.flashcard_termTv);
-            flashcardTermTv.setVisibility(View.VISIBLE);
-            flashcardTermTv.setText(flashcard.getTerm());
-            flashcardTermTv.setGravity(Gravity.START);
-            flashcardTermTv.setTextSize(20.0f);
-            Utils.makeTextPhat(this, flashcardTermTv);
+                TextView flashcardTermTv = flashcardItemView.findViewById(R.id.flashcard_termTv);
+                flashcardTermTv.setVisibility(View.VISIBLE);
+                flashcardTermTv.setText(flashcard.getTerm());
+                flashcardTermTv.setGravity(Gravity.START);
+                flashcardTermTv.setTextSize(20.0f);
+                Utils.makeTextPhat(this, flashcardTermTv);
 
-            if (!flashcard.getDefinition().isEmpty()) {
-                View aboveDefinition = flashcardItemView.findViewById(R.id.flashcard_aboveDefinitionView);
-                Utils.setViewLayoutParams(aboveDefinition, MATCH_PARENT, 5);
-                Utils.showItems(aboveDefinition);
+                if (!flashcard.getDefinition().isEmpty()) {
+                    View aboveDefinition = flashcardItemView.findViewById(R.id.flashcard_aboveDefinitionView);
+                    Utils.setViewLayoutParams(aboveDefinition, MATCH_PARENT, 5);
+                    Utils.showItems(aboveDefinition);
 
-                TextView flashcardDefinitionTv = flashcardItemView.findViewById(R.id.flashcard_definitionTv);
-                flashcardDefinitionTv.setVisibility(View.VISIBLE);
-                flashcardDefinitionTv.setText(flashcard.getDefinition());
-                int textColorResId = R.color.colorPrimaryDark;
-                Utils.setTextColor(this, flashcardDefinitionTv, textColorResId);
-                flashcardDefinitionTv.setGravity(Gravity.START);
-                flashcardDefinitionTv.setTextSize(15.0f);
+                    TextView flashcardDefinitionTv = flashcardItemView.findViewById(R.id.flashcard_definitionTv);
+                    flashcardDefinitionTv.setVisibility(View.VISIBLE);
+                    flashcardDefinitionTv.setText(flashcard.getDefinition());
+                    int textColorResId = R.color.colorPrimaryDark;
+                    Utils.setTextColor(this, flashcardDefinitionTv, textColorResId);
+                    flashcardDefinitionTv.setGravity(Gravity.START);
+                    flashcardDefinitionTv.setTextSize(15.0f);
+                }
+
+                View aboveTranslation = flashcardItemView.findViewById(R.id.flashcard_aboveTranslationView);
+                Utils.setViewLayoutParams(aboveTranslation, MATCH_PARENT, 5);
+                Utils.showItems(aboveTranslation);
+
+                TextView flashcardTranslationTv = flashcardItemView.findViewById(R.id.flashcard_translationTv);
+                flashcardTranslationTv.setVisibility(View.VISIBLE);
+                flashcardTranslationTv.setText(flashcard.getTranslation());
+                flashcardTranslationTv.setGravity(Gravity.START);
+                flashcardTranslationTv.setTextSize(15.0f);
+
+                linearLayout.addView(flashcardItemView);
             }
-
-            View aboveTranslation = flashcardItemView.findViewById(R.id.flashcard_aboveTranslationView);
-            Utils.setViewLayoutParams(aboveTranslation, MATCH_PARENT, 5);
-            Utils.showItems(aboveTranslation);
-
-            TextView flashcardTranslationTv = flashcardItemView.findViewById(R.id.flashcard_translationTv);
-            flashcardTranslationTv.setVisibility(View.VISIBLE);
-            flashcardTranslationTv.setText(flashcard.getTranslation());
-            flashcardTranslationTv.setGravity(Gravity.START);
-            flashcardTranslationTv.setTextSize(15.0f);
-
-            linearLayout.addView(flashcardItemView);
         }
     }
 

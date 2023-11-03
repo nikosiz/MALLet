@@ -136,4 +136,6 @@
     <string name="err">err</string>
     <string name="str_continue">Continue</string>
     <string name="term">Term #%s</string>
+    <string name="nr_of_terms_singular">%s term</string>
+    <string name="nr_of_terms_plural">%s terms</string>
 </resources>

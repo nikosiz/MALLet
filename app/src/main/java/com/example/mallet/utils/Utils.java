@@ -118,9 +118,9 @@ public class Utils {
 
     public static List<ModelFlashcard> createFlashcardList(ModelLearningSet learningSet) {
         if (learningSet != null) {
-            return learningSet.getTerms(); // Return the flashcards from the learning set
+            return learningSet.getTerms();
         }
-        return new ArrayList<>(); // Return an empty list if learningSet is null
+        return new ArrayList<>();
     }
 
 
