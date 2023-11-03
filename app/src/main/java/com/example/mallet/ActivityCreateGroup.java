@@ -163,6 +163,9 @@ public class ActivityCreateGroup extends AppCompatActivity {
         dialog.setContentView(dialogBinding.getRoot());
         dialog.show();
 
+        TextView confirmTv = dialogBinding.addUsersToGroupConfirmTv;
+        confirmTv.setOnClickListener(v -> dialog.dismiss());
+
         dialog.setOnDismissListener(d -> {
             d.dismiss();
             allUsernames.clear();
