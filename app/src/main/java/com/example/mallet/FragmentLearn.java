@@ -43,7 +43,6 @@ public class FragmentLearn extends Fragment {
     private static final int MAX_QUESTIONS = 20;
     private FragmentLearnBinding binding;
     private List<ModelFlashcard> flashcardList;
-    private List<List<String>> flashcardTable;
     private int WRITTEN_QUESTIONS, MULTIPLE_CHOICE_QUESTIONS;
     private MaterialSwitch multipleChoiceMs;
     private MaterialSwitch writtenMs;
