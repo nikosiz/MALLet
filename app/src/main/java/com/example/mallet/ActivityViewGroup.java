@@ -64,7 +64,7 @@ public class ActivityViewGroup extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         // todo get groupId and fetch resources if paramter is passed
         super.onCreate(savedInstanceState);
-        this.groupId = savedInstanceState.getLong("groupId");
+        this.groupId =  getIntent().getLongExtra("groupId",0L);
 
         String credential = AuthenticationUtils.get(getApplicationContext());
         groupService = new GroupServiceImpl(credential);
