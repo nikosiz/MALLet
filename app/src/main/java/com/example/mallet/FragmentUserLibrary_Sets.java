@@ -194,7 +194,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
     private void viewSet(ModelLearningSet set) {
         Intent intent = new Intent(requireContext(), ActivityViewLearningSet.class);
 
-        intent.putExtra("learningSet", set);
+        intent.putExtra("setId", set.getId());
 
         startActivity(intent);
     }
