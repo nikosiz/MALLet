@@ -22,7 +22,7 @@
         android:autoSizeMinTextSize="10sp"
         android:autoSizeStepGranularity="2sp"
         android:autoSizeTextType="uniform"
-        android:gravity="center"
+        android:gravity="start|center_vertical"
         android:paddingHorizontal="10dp"
         android:text="content of the abcd question: term OR definition/translation"
         android:textColor="@color/primaryTextColor"

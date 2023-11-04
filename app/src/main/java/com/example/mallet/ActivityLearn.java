@@ -1,15 +1,11 @@
 package com.example.mallet;
 
 import android.app.Dialog;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -31,23 +27,26 @@ import java.util.Random;
 
 public class ActivityLearn extends AppCompatActivity {
     private ActivityLearnBinding binding;
-    private int clickCounter;
+    private String fragmentName;
+    private ModelLearningSet learningSet;
+    private List<ModelFlashcard> flashcardList;
+    private List<List<String>> flashcardTable;
+    LinearLayout setTermsLl;
+    TextView setNameTv, setTermTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityLearnBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        Intent intent = getIntent();
+        setupContents();
 
-        String fragmentClassName = intent.getStringExtra("fragment_class");
-        ModelLearningSet learningSet = intent.getParcelableExtra("learningSet");
+        displayFlashcards(flashcardList, setTermsLl, getLayoutInflater());
 
-        if (fragmentClassName != null) {
+        if (fragmentName != null) {
             try {
-                Class<?> fragmentClass = Class.forName(fragmentClassName);
+                Class<?> fragmentClass = Class.forName(fragmentName);
                 Fragment fragment = (Fragment) fragmentClass.newInstance();
 
                 Bundle args = new Bundle();
@@ -62,23 +61,53 @@ public class ActivityLearn extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-
-        //getAndDisplayLearningSetData();
     }
 
-    public void confirmExitDialog() {
-        Dialog dialog = Utils.createDialog(this, R.layout.dialog_confirm_exit, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
-        DialogConfirmExitBinding dialogBinding = DialogConfirmExitBinding.inflate(LayoutInflater.from(this));
-        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
-        dialog.show();
+    private void setupContents() {
+        fragmentName = getIntent().getStringExtra("fragment_class");
 
-        dialogBinding.confirmExitCancelTv.setOnClickListener(v -> dialog.dismiss());
-        dialogBinding.confirmExitConfirmTv.setOnClickListener(v -> {
-            this.finish();
-            dialog.dismiss();
-        });
+        learningSet = getIntent().getParcelableExtra("learningSet");
+        flashcardList = learningSet.getTerms();
 
+        setNameTv = binding.ALSetName;
+        setNameTv.setText(learningSet.getName());
 
+        setTermsLl = binding.ALSetTermsLl;
+        setTermTv = binding.ALSetTerm;
+    }
+
+    private void displayFlashcards
+            (List<ModelFlashcard> flashcards, LinearLayout linearLayout, LayoutInflater inflater) {
+        linearLayout.removeAllViews();
+
+        if (flashcards != null && flashcards.size() > 0) {
+            for (ModelFlashcard flashcard : flashcards) {
+                View flashcardItemView = inflater.inflate(R.layout.model_flashcard, linearLayout, false);
+                Utils.setMargins(this, flashcardItemView, 0, 0, 0, 10);
+
+                int paddingInDp = 5;
+                float scale = getResources().getDisplayMetrics().density;
+                int paddingInPixels = (int) (paddingInDp * scale + 0.5f);
+
+                LinearLayout flashcardLL = flashcardItemView.findViewById(R.id.flashcard_mainLl);
+
+                flashcardLL.setPadding(paddingInPixels, paddingInPixels, paddingInPixels, paddingInPixels);
+
+                TextView flashcardTermTv = flashcardItemView.findViewById(R.id.flashcard_termTv);
+                flashcardTermTv.setVisibility(View.VISIBLE);
+                flashcardTermTv.setText(flashcard.getTerm());
+
+                TextView flashcardDefinitionTv = flashcardItemView.findViewById(R.id.flashcard_definitionTv);
+                flashcardDefinitionTv.setVisibility(View.VISIBLE);
+                flashcardDefinitionTv.setText(flashcard.getDefinition());
+
+                TextView flashcardTranslationTv = flashcardItemView.findViewById(R.id.flashcard_translationTv);
+                flashcardTranslationTv.setVisibility(View.VISIBLE);
+                flashcardTranslationTv.setText(flashcard.getTranslation());
+
+                linearLayout.addView(flashcardItemView);
+            }
+        }
     }
 
     public List<ModelMultipleChoice> generateMultipleChoiceQuestions(List<List<String>> flashcardTable) {
@@ -175,12 +204,24 @@ public class ActivityLearn extends AppCompatActivity {
         return questionList;
     }
 
-    // Helper method to safely get an option from the list
     private String getOption(List<String> options, int index) {
         if (index < options.size()) {
             return options.get(index);
         }
         return "";
+    }
+
+    public void confirmExitDialog() {
+        Dialog dialog = Utils.createDialog(this, R.layout.dialog_confirm_exit, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
+        DialogConfirmExitBinding dialogBinding = DialogConfirmExitBinding.inflate(LayoutInflater.from(this));
+        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
+        dialog.show();
+
+        dialogBinding.confirmExitCancelTv.setOnClickListener(v -> dialog.dismiss());
+        dialogBinding.confirmExitConfirmTv.setOnClickListener(v -> {
+            this.finish();
+            dialog.dismiss();
+        });
     }
 
     @Override

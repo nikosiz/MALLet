@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -29,7 +30,6 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -64,6 +64,14 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     }
 
     private void setupContents() {
+        Button testBtn = binding.test;
+        testBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(this,ActivityLearn.class);
+            intent.putExtra("learningSet",learningSet);
+            startActivity(intent);
+        });
+
+
         userService = new UserServiceImpl(StringUtils.EMPTY);
 
         learningSet = getIntent().getParcelableExtra("learningSet");
@@ -183,7 +191,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         Intent intent = new Intent(this, ActivityEditLearningSet.class);
 
         intent.putExtra("isSetNew", isSetNew);
-        intent.putExtra("learningSet",learningSet);
+        intent.putExtra("learningSet", learningSet);
         /*intent.putExtra("learningSetId", learningSet.getId());
         intent.putExtra("learningSetName", learningSet.getName());
         intent.putExtra("learningSetDescription", learningSet.getDescription());
