@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -45,6 +46,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
     private LinearLayout userSetsLl;
     private LayoutInflater inflater;
     private final AtomicBoolean firstTime = new AtomicBoolean(true);
+    private ProgressBar progressBar;
 
 
     @Override
@@ -72,7 +74,9 @@ public class FragmentUserLibrary_Sets extends Fragment {
                     if (firstTime.get()) {
                         return;
                     }
+
                     foundSets.clear();
+
                     if (text.length() == 0) {
                         getUserLibrarySetList(inflater, userSetsLl, sets, null);
                         return;
@@ -113,6 +117,9 @@ public class FragmentUserLibrary_Sets extends Fragment {
     private void setupContents(LayoutInflater inflater) {
         searchEt = binding.userLibrarySetsSearchEt;
         userSetsLl = binding.userLibrarySetsAllSetsLl;
+
+        progressBar = binding.userLibrarySetsProgressBar;
+
         this.inflater = inflater;
     }
 
@@ -136,9 +143,11 @@ public class FragmentUserLibrary_Sets extends Fragment {
                            @NonNull LayoutInflater inflater,
                            LinearLayout setsLl,
                            List<ModelLearningSet> setList) {
+
         userService.getUserSets(startPosition, limit, new Callback<SetBasicDTO>() {
             @Override
             public void onResponse(Call<SetBasicDTO> call, Response<SetBasicDTO> response) {
+                Utils.hideItems(progressBar);
                 SetBasicDTO setBasicDTO = ResponseHandler.handleResponse(response);
                 List<ModelLearningSet> modelLearningSets = ModelLearningSetMapper.from(setBasicDTO.sets());
                 if (!setList.equals(modelLearningSets)) {

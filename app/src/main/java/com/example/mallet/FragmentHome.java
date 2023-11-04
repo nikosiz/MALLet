@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -39,6 +40,7 @@ public class FragmentHome extends Fragment {
     private UserServiceImpl userService;
     private ViewPager2 homeGroupsViewPager;
     private ViewPager2 homeSetsViewPager;
+    private ProgressBar progressBar;
 
     @Nullable
     @Override
@@ -64,12 +66,16 @@ public class FragmentHome extends Fragment {
         binding.homeSetViewAllTv.setOnClickListener(v -> showAllItems(0));
         binding.homeFolderViewAllTv.setOnClickListener(v -> showAllItems(1));
         binding.homeGroupViewAllTv.setOnClickListener(v -> showAllItems(2));
+
+        progressBar = binding.fragmentHomeProgressBar;
     }
 
     private void setupGroups() {
         userService.getUserGroups(0, 5, new Callback<GroupBasicDTO>() {
             @Override
             public void onResponse(Call<GroupBasicDTO> call, Response<GroupBasicDTO> response) {
+                Utils.hideItems(progressBar);
+
                 GroupBasicDTO groupDTO = ResponseHandler.handleResponse(response);
                 List<ModelGroup> modelGroups = ModelGroupMapper.from(groupDTO.groups());
 

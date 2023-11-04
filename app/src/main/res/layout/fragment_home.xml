@@ -1,30 +1,95 @@
-<?xml version="1.0" encoding="utf-8"?><androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"    xmlns:app="http://schemas.android.com/apk/res-auto"    xmlns:tools="http://schemas.android.com/tools"    android:id="@+id/home_mainCl"    android:layout_width="match_parent"    android:layout_height="match_parent"    android:background="@color/colorPrimaryLight1"    tools:context=".FragmentHome">
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_mainCl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryLight1"
+    tools:context=".FragmentHome">
 
-    <androidx.appcompat.widget.Toolbar        android:id="@+id/home_toolbar"        android:layout_width="match_parent"        android:layout_height="wrap_content"        android:layout_gravity="center_vertical"        android:background="@android:color/transparent"        android:gravity="center_vertical"        android:paddingHorizontal="60dp"        app:layout_constraintEnd_toEndOf="parent"        app:layout_constraintStart_toStartOf="parent"        app:layout_constraintTop_toTopOf="parent">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/home_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView            android:id="@+id/home_toolbarLogoTv"            android:layout_width="wrap_content"            android:layout_height="wrap_content"            android:fontFamily="@font/russo_one_regular"
+        <TextView
+            android:id="@+id/home_toolbarLogoTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/russo_one_regular"
 
-            android:text="@string/app_name"            android:textColor="@color/colorPrimaryDark"            android:textSize="30sp" />    </androidx.appcompat.widget.Toolbar>
+            android:text="@string/app_name"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="30sp" />
+    </androidx.appcompat.widget.Toolbar>
 
-    <ScrollView        android:id="@+id/homeSv"        android:layout_width="match_parent"        android:layout_height="0dp"        app:layout_constraintBottom_toBottomOf="parent"        app:layout_constraintEnd_toEndOf="parent"        app:layout_constraintStart_toStartOf="parent"        app:layout_constraintTop_toBottomOf="@id/home_toolbar">
+    <ScrollView
+        android:id="@+id/homeSv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/home_toolbar">
 
-        <LinearLayout            android:id="@+id/homeSvLl"            android:layout_width="match_parent"            android:layout_height="wrap_content"            android:orientation="vertical"            android:padding="20dp">
+        <LinearLayout
+            android:id="@+id/homeSvLl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
 
-            <LinearLayout                android:id="@+id/home_setLl"                android:layout_width="match_parent"                android:layout_height="wrap_content"                android:orientation="horizontal">
+            <LinearLayout
+                android:id="@+id/home_setLl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-                <TextView                    android:id="@+id/home_setTitleTv"                    style="@style/BasicBoldTextStyle"                    android:layout_width="0dp"                    android:layout_height="wrap_content"                    android:layout_weight="1"
+                <TextView
+                    android:id="@+id/home_setTitleTv"
+                    style="@style/BasicBoldTextStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
 
-                    android:text="@string/recent_sets"                    android:textColor="@color/primaryTextColor"                    android:textSize="20sp" />
+                    android:text="@string/recent_sets"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="20sp" />
 
-                <TextView                    android:id="@+id/home_setViewAllTv"                    style="@style/BasicTextStyle"                    android:layout_width="wrap_content"                    android:layout_height="wrap_content"                    android:layout_gravity="center_vertical"                    android:background="@drawable/bg_ripple"                    android:clickable="true"                    android:focusable="true"                    android:gravity="end"
+                <TextView
+                    android:id="@+id/home_setViewAllTv"
+                    style="@style/BasicTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/bg_ripple"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="end"
 
-                    android:paddingHorizontal="5dp"                    android:text="@string/view_all" />            </LinearLayout>
+                    android:paddingHorizontal="5dp"
+                    android:text="@string/view_all" />
+            </LinearLayout>
 
-            <View                android:layout_width="match_parent"                android:layout_height="10dp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
 
-            <androidx.viewpager2.widget.ViewPager2                android:id="@+id/home_setsViewPager"                android:layout_width="match_parent"                android:layout_height="match_parent" />
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/home_setsViewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
-            <View                android:layout_width="match_parent"
+            <View
+                android:layout_width="match_parent"
                 android:layout_height="20dp" />
 
             <LinearLayout
@@ -118,4 +183,15 @@
                 android:layout_height="20dp" />
         </LinearLayout>
     </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/fragmentHome_progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
