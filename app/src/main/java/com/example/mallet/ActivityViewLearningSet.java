@@ -217,6 +217,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 try {
+                    ResponseHandler.handleResponse(response);
                     Utils.showToast(getApplicationContext(), "Added to collection");
 
                 } catch (MalletException e) {
@@ -238,6 +239,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 // TODO stary Michał mocno śpi
                 try {
+                    ResponseHandler.handleResponse(response);
                     Utils.showToast(getApplicationContext(), learningSet.getName() + " was deleted");
 
                 } catch (MalletException e) {
