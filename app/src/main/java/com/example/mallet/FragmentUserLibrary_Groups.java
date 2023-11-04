@@ -81,7 +81,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
 
     private void setupSearchAndFetchGroups(long startPosition, long limit) {
         RxTextView.textChanges(searchEt)
-                .debounce(1, TimeUnit.SECONDS)
+                .debounce(500, TimeUnit.MILLISECONDS)
                 .subscribe(text -> {
                     if(firstTime.get()){
                         return;

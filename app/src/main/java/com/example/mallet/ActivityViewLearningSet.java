@@ -18,11 +18,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.agh.api.SetBasicDTO;
+import com.agh.api.SetInformationDTO;
+import com.example.mallet.backend.client.configuration.ResponseHandler;
+import com.example.mallet.backend.client.set.boundary.SetServiceImpl;
 import com.example.mallet.backend.client.user.boundary.UserServiceImpl;
 import com.example.mallet.backend.exception.MalletException;
 import com.example.mallet.databinding.ActivityViewLearningSetBinding;
 import com.example.mallet.databinding.DialogViewSetToolbarOptionsBinding;
 import com.example.mallet.utils.AdapterFlashcardViewPager;
+import com.example.mallet.utils.AuthenticationUtils;
 import com.example.mallet.utils.ModelFlashcard;
 import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.Utils;
@@ -30,8 +35,10 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -54,9 +61,16 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     private final boolean isSetNew = false;
     private List<ModelFlashcard> flashcards;
 
+    private SetServiceImpl setService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setId =  getIntent().getLongExtra("setId",0L);
+
+        String credential = AuthenticationUtils.get(getApplicationContext());
+        this.setService = new SetServiceImpl(credential);
+        this.userService = new UserServiceImpl(StringUtils.EMPTY);
         binding = ActivityViewLearningSetBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -72,13 +86,9 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         });
 
 
-        userService = new UserServiceImpl(StringUtils.EMPTY);
-
-        learningSet = getIntent().getParcelableExtra("learningSet");
-        setId = learningSet.getId();
-
         flashcards = Utils.createFlashcardList(learningSet);
 
+        getLearningSetData();
         setupToolbar();
 
         flashcardsVp2 = binding.viewSetFlashcardVp2;
@@ -93,13 +103,6 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             Utils.showItems(flashcardsVp2);
             displayFlashcardsInViewPager(flashcards, flashcardsVp2);
         }
-
-        setNameTv = binding.viewSetNameTv;
-        setNameTv.setText(learningSet.getName());
-        setCreatorTv = binding.viewSetCreatorTv;
-        setCreatorTv.setText(learningSet.getCreator());
-        nrOfTermsTv = binding.viewSetNrOfTermsTv;
-        //nrOfTermsTv.setText(learningSet.getNrOfTerms());
 
         flashcardsLl = binding.viewSetFlashcardsLl;
         flashcardsLl.setOnClickListener(v -> startFlashcards());
@@ -214,6 +217,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 try {
+                    ResponseHandler.handleResponse(response);
                     Utils.showToast(getApplicationContext(), "Added to collection");
 
                 } catch (MalletException e) {
@@ -235,6 +239,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 // TODO stary Michał mocno śpi
                 try {
+                    ResponseHandler.handleResponse(response);
                     Utils.showToast(getApplicationContext(), learningSet.getName() + " was deleted");
 
                 } catch (MalletException e) {
@@ -311,37 +316,35 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         }
     }
 
-    /*private void getLearningSetData() {
-        Intent intent = getIntent();
-        if (intent != null) {
-            ModelLearningSet learningSet = intent.getParcelableExtra("learningSet");
-            if (learningSet != null) {
-                String setName = learningSet.getName();
-                String setCreator = learningSet.getCreator();
-                String nrOfTerms = String.valueOf(learningSet.getNrOfTerms());
-
-                String setDescription = learningSet.getDescription();
+    private void getLearningSetData() {
+        setService.getBasicSet(Collections.singleton(setId), new Callback<SetBasicDTO>() {
+            @Override
+            public void onResponse(Call<SetBasicDTO> call, Response<SetBasicDTO> response) {
+                SetBasicDTO setBasicDTO = ResponseHandler.handleResponse(response);
+                SetInformationDTO setInformationDTO = setBasicDTO.sets().get(0);
 
                 TextView setNameTv = binding.viewSetNameTv;
                 TextView setCreatorTv = binding.viewSetCreatorTv;
                 TextView setDescriptionTv = binding.viewSetDescriptionTv;
                 TextView setTermsTv = binding.viewSetNrOfTermsTv;
 
-                if (setName != null) {
-                    setNameTv.setText(setName);
-                }
+                setNameTv.setText(setInformationDTO.name());
 
-                if (setCreator != null) {
-                    setCreatorTv.setText(setCreator);
-                }
+                setCreatorTv.setText(setInformationDTO.creator().name());
 
-                if (setDescription != null) {
-                    Utils.showItems(setDescriptionTv);
-                    setDescriptionTv.setText(setDescription);
-                }
+                Optional.ofNullable(setInformationDTO.description())
+                        .ifPresent((setDescription -> {
+                            Utils.showItems(setDescriptionTv);
+                            setDescriptionTv.setText(setDescription);
+                        }));
 
-                setTermsTv.setText(getString(R.string.string_terms, nrOfTerms));
+                setTermsTv.setText(getString(R.string.string_terms, String.valueOf(setInformationDTO.numberOfTerms())));
             }
+
+            @Override
+            public void onFailure(Call<SetBasicDTO> call, Throwable t) {
+                Utils.showToast(getApplicationContext(), "Network failure");
+            }
+        });
         }
-    }*/
 }
