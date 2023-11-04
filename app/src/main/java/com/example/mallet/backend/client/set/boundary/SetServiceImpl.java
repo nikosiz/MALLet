@@ -22,19 +22,14 @@ public class SetServiceImpl {
     }
 
     public void getSet(@NonNull Long id,
-                       long termStartPosition,
-                       long termLimit,
-                       @NonNull Language language,
                        Callback<SetDetailDTO> callback) {
-        setService.getSet(id, termStartPosition, termLimit, language)
+        setService.getSet(id)
                 .enqueue(callback);
     }
 
     public void getBasicSet(@NonNull Set<Long> ids,
-                            long startPosition,
-                            long limit,
                             Callback<SetBasicDTO> callback) {
-        setService.getBasicSet(ids, startPosition, limit)
+        setService.getBasicSet(ids)
                 .enqueue(callback);
     }
 
