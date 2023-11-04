@@ -173,7 +173,7 @@ public class ActivityLearn extends AppCompatActivity {
             List<String> wrongAnswers = new ArrayList<>();
 
             // Collect wrong answers from up to 5 neighboring rows (excluding the current row)
-            for (int j = randomRowIndex - 1; j >= Math.max(1, randomRowIndex - 5); j--) {
+            for (int j = randomRowIndex - 1; j >= Math.max(1, randomRowIndex - 20); j--) {
                 if (!rowUsed[j]) {
                     List<String> neighborRow = flashcardTable.get(j);
                     String neighborWrongAnswer = neighborRow.get(correctAnswerIndex);
