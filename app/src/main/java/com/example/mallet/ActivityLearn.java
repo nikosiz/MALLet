@@ -17,6 +17,7 @@ import com.example.mallet.databinding.DialogConfirmExitBinding;
 import com.example.mallet.utils.ModelFlashcard;
 import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.ModelMultipleChoice;
+import com.example.mallet.utils.ModelWritten;
 import com.example.mallet.utils.Utils;
 
 import java.util.ArrayList;
@@ -31,8 +32,16 @@ public class ActivityLearn extends AppCompatActivity {
     private ModelLearningSet learningSet;
     private List<ModelFlashcard> flashcardList;
     private List<List<String>> flashcardTable;
-    LinearLayout setTermsLl;
-    TextView setNameTv, setTermTv;
+
+    // Written questions
+    private int writtenCorrectAnswerPosition, writtenAlternativeAnswerPosition;
+
+    // Multiple choice questions
+    private int multipleChoiceCorrectAnswerPosition;
+    private int multipleChoiceOption1Position;
+    private int multipleChoiceOption2Position;
+    private int multipleChoiceOption3Position;
+    private int multipleChoiceOption4Position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +76,45 @@ public class ActivityLearn extends AppCompatActivity {
         learningSet = getIntent().getParcelableExtra("learningSet");
         flashcardList = learningSet.getTerms();
 
+    }
+
+
+
+    public List<ModelWritten> generateWrittenQuestions() {
+        List<ModelWritten> questionList = new ArrayList();
+        Random random = new Random();
+
+        //int writtenQuestionPosition = random.nextInt(2);
+
+        for (ModelFlashcard flashcard : flashcardList) {
+            int writtenQuestionPosition = random.nextInt(2);
+
+            List<String> options = new ArrayList<>();
+            options.add(flashcard.getTerm());
+            options.add(flashcard.getDefinition());
+            options.add(flashcard.getTranslation());
+            Collections.shuffle(options);
+
+            switch (writtenQuestionPosition) {
+                case 0:
+                    writtenCorrectAnswerPosition = 1;
+                    writtenAlternativeAnswerPosition = 2;
+                    break;
+                case 1:
+                    writtenCorrectAnswerPosition = 0;
+                    writtenAlternativeAnswerPosition = 2;
+                    break;
+                case 2:
+                    writtenCorrectAnswerPosition = 1;
+                    writtenAlternativeAnswerPosition = 0;
+                    break;
+            }
+
+            ModelWritten written = new ModelWritten(options.get(writtenQuestionPosition), options.get(writtenCorrectAnswerPosition), options.get(writtenAlternativeAnswerPosition));
+            questionList.add(written);
+            // System.out.println(written);
+        }
+        return questionList;
     }
 
     public List<ModelMultipleChoice> generateMultipleChoiceQuestions() {

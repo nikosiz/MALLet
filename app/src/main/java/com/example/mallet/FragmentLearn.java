@@ -134,7 +134,9 @@ public class FragmentLearn extends Fragment {
         Toolbar toolbar = binding.learnToolbar;
         ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
         Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle("");
-        binding.learnToolbarBackIv.setOnClickListener(v -> getActivity().finish());
+
+        binding.learnToolbarBackIv.setOnClickListener(v -> activityLearn.confirmExitDialog());
+
         binding.learnOptionsIv.setOnClickListener(v -> learnOptionsDialog());
     }
 
@@ -164,12 +166,11 @@ public class FragmentLearn extends Fragment {
             currentQuestionIndex = 0;
 
             if (writtenMs.isChecked() && !multipleChoiceMs.isChecked()) {
-                writtenQuestions = generateWrittenQuestions();
+                writtenQuestions = activityLearn.generateWrittenQuestions();
                 WRITTEN_QUESTIONS = MAX_QUESTIONS;
                 displayWrittenQuestions(writtenQuestions, questionsLl, getLayoutInflater());
             } else if (!writtenMs.isChecked() && multipleChoiceMs.isChecked()) {
                 if (activityLearn != null) {
-                    //flashcardTable = createFlashcardTable(flashcardList);
                     multipleChoiceQuestions = activityLearn.generateMultipleChoiceQuestions();
                     MULTIPLE_CHOICE_QUESTIONS = MAX_QUESTIONS;
                     displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
@@ -209,42 +210,7 @@ public class FragmentLearn extends Fragment {
         }
     }
 
-    private List<ModelWritten> generateWrittenQuestions() {
-        List<ModelWritten> questionList = new ArrayList();
-        Random random = new Random();
 
-        //int writtenQuestionPosition = random.nextInt(2);
-
-        for (ModelFlashcard flashcard : flashcardList) {
-            int writtenQuestionPosition = random.nextInt(2);
-
-            List<String> options = new ArrayList<>();
-            options.add(flashcard.getTerm());
-            options.add(flashcard.getDefinition());
-            options.add(flashcard.getTranslation());
-            Collections.shuffle(options);
-
-            switch (writtenQuestionPosition) {
-                case 0:
-                    writtenCorrectAnswerPosition = 1;
-                    writtenAlternativeAnswerPosition = 2;
-                    break;
-                case 1:
-                    writtenCorrectAnswerPosition = 0;
-                    writtenAlternativeAnswerPosition = 2;
-                    break;
-                case 2:
-                    writtenCorrectAnswerPosition = 1;
-                    writtenAlternativeAnswerPosition = 0;
-                    break;
-            }
-
-            ModelWritten written = new ModelWritten(options.get(writtenQuestionPosition), options.get(writtenCorrectAnswerPosition), options.get(writtenAlternativeAnswerPosition));
-            questionList.add(written);
-            // System.out.println(written);
-        }
-        return questionList;
-    }
 
 
     private void handleNextTvClick() {
@@ -371,7 +337,8 @@ public class FragmentLearn extends Fragment {
 
         dialogRestartTv.setOnClickListener(v -> {
             currentQuestionIndex = 0;
-            writtenQuestions = generateWrittenQuestions();
+            writtenQuestions = activityLearn.generateWrittenQuestions();
+            multipleChoiceQuestions = activityLearn.generateMultipleChoiceQuestions();
             Utils.hideItems(finishTv);
             Utils.makeItemsUnclickable(finishTv);
             Utils.showItems(nextTv);
@@ -395,27 +362,5 @@ public class FragmentLearn extends Fragment {
         }
 
         return new ArrayList<>();
-    }
-
-    public List<List<String>> createFlashcardTable(List<ModelFlashcard> flashcardList) {
-        List<List<String>> flashcardTable = new ArrayList<>();
-
-        // Add a header row with column names
-        List<String> headerRow = new ArrayList<>();
-        headerRow.add("Term");
-        headerRow.add("Definition");
-        headerRow.add("Translation");
-        flashcardTable.add(headerRow);
-
-        // Populate the table with flashcard data
-        for (ModelFlashcard flashcard : flashcardList) {
-            List<String> rowData = new ArrayList<>();
-            rowData.add(flashcard.getTerm());
-            rowData.add(flashcard.getDefinition());
-            rowData.add(flashcard.getTranslation());
-            flashcardTable.add(rowData);
-        }
-
-        return flashcardTable;
     }
 }
