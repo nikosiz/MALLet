@@ -1,5 +1,6 @@
 package com.example.mallet;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -26,7 +27,6 @@ import com.example.mallet.utils.ModelGroup;
 import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.Utils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 
@@ -80,7 +80,7 @@ public class FragmentHome extends Fragment {
                 GroupBasicDTO groupDTO = ResponseHandler.handleResponse(response);
                 List<ModelGroup> modelGroups = ModelGroupMapper.from(groupDTO.groups());
 
-                AdapterGroup adapterGroups = new AdapterGroup(getContext(), modelGroups, v -> Utils.openActivity(getContext(), ActivityViewGroup.class));
+                AdapterGroup adapterGroups = new AdapterGroup(getContext(), modelGroups, openActivityViewGroup());
                 homeGroupsViewPager.setAdapter(adapterGroups);
 
                 homeGroupsViewPager.setPageTransformer(Utils::applySwipeTransformer);
@@ -91,6 +91,16 @@ public class FragmentHome extends Fragment {
                 Utils.showToast(getContext(), "Network failure");
             }
         });
+    }
+
+    @NonNull
+    private AdapterGroup.OnGroupClickListener openActivityViewGroup() {
+        return v -> {
+            Context context = getContext();
+            Intent intent = new Intent(context, ActivityViewGroup.class);
+            intent.putExtra("groupId", v.getId());
+            context.startActivity(intent);
+        };
     }
 
     private void setupLearningSets() {
@@ -119,13 +129,7 @@ public class FragmentHome extends Fragment {
                 SetBasicDTO setBasicDTO = ResponseHandler.handleResponse(response);
                 List<ModelLearningSet> modelLearningSets = ModelLearningSetMapper.from(setBasicDTO.sets());
 
-                AdapterLearningSet adapterSets = new AdapterLearningSet(getContext(), modelLearningSets, learningSet -> {
-                    Intent intent = new Intent(getContext(), ActivityViewLearningSet.class);
-
-                    intent.putExtra("learningSet", learningSet);
-
-                    startActivity(intent);
-                });
+                AdapterLearningSet adapterSets = new AdapterLearningSet(getContext(), modelLearningSets, openActivityViewSet());
 
                 homeSetsViewPager.setAdapter(adapterSets);
 
@@ -137,6 +141,17 @@ public class FragmentHome extends Fragment {
                 Utils.showToast(getContext(), "Network failure");
             }
         });
+    }
+
+    @NonNull
+    private AdapterLearningSet.OnLearningSetClickListener openActivityViewSet() {
+        return learningSet -> {
+            Intent intent = new Intent(getContext(), ActivityViewLearningSet.class);
+
+            intent.putExtra("setId", learningSet.getId());
+
+            startActivity(intent);
+        };
     }
 
     private void showAllItems(int index) {
