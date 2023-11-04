@@ -372,11 +372,11 @@ public class Utils {
 
                     flashcards.add(new ModelFlashcard(term, definition, translation));
 
-                    // Display the flashcard
+                    /*// Display the flashcard
                     System.out.println("Term: " + term);
                     System.out.println("Definition: " + definition);
                     System.out.println("Translation: " + translation);
-                    System.out.println();
+                    System.out.println();*/
                 }
             }
 

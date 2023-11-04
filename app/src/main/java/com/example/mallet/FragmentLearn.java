@@ -1,6 +1,7 @@
 package com.example.mallet;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -35,13 +36,14 @@ import java.util.Objects;
 import java.util.Random;
 
 public class FragmentLearn extends Fragment {
-    private FragmentLearnBinding binding;
-    private List<ModelFlashcard> flashcardList;
-    private List<List<String>> flashcardTable;
+    private ActivityLearn activityLearn;
     private static final String PREFS_NAME = "FragmentLearnSettings";
     private static final String KEY_MULTIPLE_CHOICE = "multipleChoice";
     private static final String KEY_WRITTEN = "written";
     private static final int MAX_QUESTIONS = 20;
+    private FragmentLearnBinding binding;
+    private List<ModelFlashcard> flashcardList;
+    private List<List<String>> flashcardTable;
     private int WRITTEN_QUESTIONS, MULTIPLE_CHOICE_QUESTIONS;
     private MaterialSwitch multipleChoiceMs;
     private MaterialSwitch writtenMs;
@@ -66,6 +68,17 @@ public class FragmentLearn extends Fragment {
     private int multipleChoiceOption4Position;
     private TextView nextTv, prevTv, finishTv, errorTv;
     private int currentQuestionIndex = 0;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof ActivityLearn) {
+            activityLearn = (ActivityLearn) context;
+        } else {
+            // Handle the case where the activity does not implement the method
+        }
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -155,10 +168,12 @@ public class FragmentLearn extends Fragment {
                 WRITTEN_QUESTIONS = MAX_QUESTIONS;
                 displayWrittenQuestions(writtenQuestions, questionsLl, getLayoutInflater());
             } else if (!writtenMs.isChecked() && multipleChoiceMs.isChecked()) {
-                flashcardTable = createFlashcardTable(flashcardList);
-                multipleChoiceQuestions = generateAndDisplayMultipleChoiceQuestions(flashcardTable);
-                MULTIPLE_CHOICE_QUESTIONS = MAX_QUESTIONS;
-                displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
+                if (activityLearn != null) {
+                    flashcardTable = createFlashcardTable(flashcardList);
+                    multipleChoiceQuestions = activityLearn.generateMultipleChoiceQuestions(flashcardTable);
+                    MULTIPLE_CHOICE_QUESTIONS = MAX_QUESTIONS;
+                    displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
+                }
             } else if (!writtenMs.isChecked() && !multipleChoiceMs.isChecked()) {
                 Utils.showItems(errorTv);
             } else if (writtenMs.isChecked() && multipleChoiceMs.isChecked()) {
@@ -404,7 +419,7 @@ public class FragmentLearn extends Fragment {
         return flashcardTable;
     }
 
-    public List<ModelMultipleChoice> generateAndDisplayMultipleChoiceQuestions(List<List<String>> flashcardTable) {
+    public List<ModelMultipleChoice> generateMultipleChoiceQuestions(List<List<String>> flashcardTable) {
         List<ModelMultipleChoice> questionList = new ArrayList<>();
         Random random = new Random();
 
@@ -497,8 +512,6 @@ public class FragmentLearn extends Fragment {
 
         return questionList;
     }
-
-
 
 
     // Helper method to safely get an option from the list
