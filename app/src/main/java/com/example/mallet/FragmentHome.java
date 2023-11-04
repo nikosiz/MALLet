@@ -95,7 +95,7 @@ public class FragmentHome extends Fragment {
 
     private void setupLearningSets() {
         // todo replace with userService below - this is for testing
-        List<ModelLearningSet> sets = new ArrayList<>();
+        /*List<ModelLearningSet> sets = new ArrayList<>();
 
         ModelLearningSet set = Utils.readFlashcards(requireContext(),"animals.txt");
 
@@ -111,9 +111,9 @@ public class FragmentHome extends Fragment {
 
         homeSetsViewPager.setAdapter(adapterSets);
 
-        homeSetsViewPager.setPageTransformer(Utils::applySwipeTransformer);
+        homeSetsViewPager.setPageTransformer(Utils::applySwipeTransformer);*/
 
-        /*userService.getUserSets(0, 5, new Callback<SetBasicDTO>() {
+        userService.getUserSets(0, 5, new Callback<SetBasicDTO>() {
             @Override
             public void onResponse(Call<SetBasicDTO> call, Response<SetBasicDTO> response) {
                 SetBasicDTO setBasicDTO = ResponseHandler.handleResponse(response);
@@ -136,7 +136,7 @@ public class FragmentHome extends Fragment {
             public void onFailure(Call<SetBasicDTO> call, Throwable t) {
                 Utils.showToast(getContext(), "Network failure");
             }
-        });*/
+        });
     }
 
     private void showAllItems(int index) {
