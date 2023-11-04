@@ -1,7 +1,6 @@
 package com.example.mallet;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -19,12 +18,15 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.agh.api.GroupDTO;
+import com.example.mallet.backend.client.configuration.ResponseHandler;
+import com.example.mallet.backend.client.group.boundary.GroupServiceImpl;
 import com.example.mallet.databinding.ActivityViewGroupBinding;
 import com.example.mallet.databinding.DialogAddSetToGroupBinding;
 import com.example.mallet.databinding.DialogAddUserToGroupBinding;
 import com.example.mallet.databinding.DialogReportBinding;
 import com.example.mallet.databinding.DialogViewGroupToolbarOptionsBinding;
-import com.example.mallet.utils.ModelGroup;
+import com.example.mallet.utils.AuthenticationUtils;
 import com.example.mallet.utils.Utils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -33,10 +35,12 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class ActivityViewGroup extends AppCompatActivity {
     private ActivityViewGroupBinding binding;
-    private ModelGroup group;
-
     // Toolbar
     private ImageView backIv;
     private TextView groupNameTv;
@@ -53,11 +57,18 @@ public class ActivityViewGroup extends AppCompatActivity {
     private TextView addUserTv;
     private static boolean areFabOptionsVisible = false;
     private LinearLayout fabOptionsLl;
+    private Long groupId;
+    private GroupServiceImpl groupService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // todo get groupId and fetch resources if paramter is passed
         super.onCreate(savedInstanceState);
+        this.groupId = savedInstanceState.getLong("groupId");
+
+        String credential = AuthenticationUtils.get(getApplicationContext());
+        groupService = new GroupServiceImpl(credential);
+
         binding = ActivityViewGroupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -67,8 +78,6 @@ public class ActivityViewGroup extends AppCompatActivity {
     }
 
     private void setupContents() {
-        group = getIntent().getParcelableExtra("group");
-
         setupToolbar();
 
         setupTabLayout();
@@ -86,9 +95,6 @@ public class ActivityViewGroup extends AppCompatActivity {
 
         backIv = binding.viewGroupToolbarOptionsIv;
         backIv.setOnClickListener(v -> viewGroupOptionsDialog());
-
-        groupNameTv = binding.viewGroupNameTv;
-        groupNameTv.setText(group.getGroupName());
 
         optionsIv = binding.viewGroupToolbarBackIv;
         optionsIv.setOnClickListener(v -> finish());
@@ -255,17 +261,20 @@ public class ActivityViewGroup extends AppCompatActivity {
     }
 
     private void getGroupData() {
-        // TODO: Update PROFILE FRAGMENT to pass more than just name X D
-        Intent intent = getIntent();
-        if (intent != null) {
-            String groupName = intent.getStringExtra("group_name");
-            String nrOfSets = intent.getStringExtra("group_sets");
+        groupService.getGroup(groupId, new Callback<GroupDTO>() {
+            @Override
+            public void onResponse(Call<GroupDTO> call, Response<GroupDTO> response) {
+                GroupDTO groupDTO = ResponseHandler.handleResponse(response);
 
-            TextView groupNameTv = binding.viewGroupNameTv;
+                groupNameTv = binding.viewGroupNameTv;
+                groupNameTv.setText(groupDTO.name());
 
-            if (groupName != null) {
-                groupNameTv.setText(groupName);
             }
-        }
+
+            @Override
+            public void onFailure(Call<GroupDTO> call, Throwable t) {
+                Utils.showToast(getApplicationContext(), "Network failure");
+            }
+        });
     }
 }
