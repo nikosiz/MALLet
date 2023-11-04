@@ -5,35 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingHorizontal="20dp"
-    android:paddingVertical="30dp"
     tools:context=".ActivityLearn">
 
-    <TextView
-        android:id="@+id/AL_setName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="set_name" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Flashcards:" />
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:id="@+id/AL_setTermsLl"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/AL_setTerm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="set_term" />
-        </LinearLayout>
-    </ScrollView>
 </LinearLayout>

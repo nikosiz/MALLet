@@ -169,8 +169,8 @@ public class FragmentLearn extends Fragment {
                 displayWrittenQuestions(writtenQuestions, questionsLl, getLayoutInflater());
             } else if (!writtenMs.isChecked() && multipleChoiceMs.isChecked()) {
                 if (activityLearn != null) {
-                    flashcardTable = createFlashcardTable(flashcardList);
-                    multipleChoiceQuestions = activityLearn.generateMultipleChoiceQuestions(flashcardTable);
+                    //flashcardTable = createFlashcardTable(flashcardList);
+                    multipleChoiceQuestions = activityLearn.generateMultipleChoiceQuestions();
                     MULTIPLE_CHOICE_QUESTIONS = MAX_QUESTIONS;
                     displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
                 }

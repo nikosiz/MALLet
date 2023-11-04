@@ -42,8 +42,6 @@ public class ActivityLearn extends AppCompatActivity {
 
         setupContents();
 
-        displayFlashcards(flashcardList, setTermsLl, getLayoutInflater());
-
         if (fragmentName != null) {
             try {
                 Class<?> fragmentClass = Class.forName(fragmentName);
@@ -69,48 +67,10 @@ public class ActivityLearn extends AppCompatActivity {
         learningSet = getIntent().getParcelableExtra("learningSet");
         flashcardList = learningSet.getTerms();
 
-        setNameTv = binding.ALSetName;
-        setNameTv.setText(learningSet.getName());
-
-        setTermsLl = binding.ALSetTermsLl;
-        setTermTv = binding.ALSetTerm;
     }
 
-    private void displayFlashcards
-            (List<ModelFlashcard> flashcards, LinearLayout linearLayout, LayoutInflater inflater) {
-        linearLayout.removeAllViews();
-
-        if (flashcards != null && flashcards.size() > 0) {
-            for (ModelFlashcard flashcard : flashcards) {
-                View flashcardItemView = inflater.inflate(R.layout.model_flashcard, linearLayout, false);
-                Utils.setMargins(this, flashcardItemView, 0, 0, 0, 10);
-
-                int paddingInDp = 5;
-                float scale = getResources().getDisplayMetrics().density;
-                int paddingInPixels = (int) (paddingInDp * scale + 0.5f);
-
-                LinearLayout flashcardLL = flashcardItemView.findViewById(R.id.flashcard_mainLl);
-
-                flashcardLL.setPadding(paddingInPixels, paddingInPixels, paddingInPixels, paddingInPixels);
-
-                TextView flashcardTermTv = flashcardItemView.findViewById(R.id.flashcard_termTv);
-                flashcardTermTv.setVisibility(View.VISIBLE);
-                flashcardTermTv.setText(flashcard.getTerm());
-
-                TextView flashcardDefinitionTv = flashcardItemView.findViewById(R.id.flashcard_definitionTv);
-                flashcardDefinitionTv.setVisibility(View.VISIBLE);
-                flashcardDefinitionTv.setText(flashcard.getDefinition());
-
-                TextView flashcardTranslationTv = flashcardItemView.findViewById(R.id.flashcard_translationTv);
-                flashcardTranslationTv.setVisibility(View.VISIBLE);
-                flashcardTranslationTv.setText(flashcard.getTranslation());
-
-                linearLayout.addView(flashcardItemView);
-            }
-        }
-    }
-
-    public List<ModelMultipleChoice> generateMultipleChoiceQuestions(List<List<String>> flashcardTable) {
+    public List<ModelMultipleChoice> generateMultipleChoiceQuestions() {
+        flashcardTable = createFlashcardTable(flashcardList);
         List<ModelMultipleChoice> questionList = new ArrayList<>();
         Random random = new Random();
 
@@ -189,8 +149,7 @@ public class ActivityLearn extends AppCompatActivity {
             questionList.add(multipleChoice);
 
             // Print the generated question and options in CMD
-            System.out.println("Question: " + question);
-            System.out.println("Options:");
+            System.out.println(question);
             for (int k = 0; k < wrongAnswers.size(); k++) {
                 System.out.println((k + 1) + ". " + wrongAnswers.get(k));
             }
@@ -198,17 +157,42 @@ public class ActivityLearn extends AppCompatActivity {
             // Print the position of the correct answer
             System.out.println("Correct Answer Type: " + correctAnswerType);
             System.out.println("Correct Answer Position: " + (wrongAnswers.indexOf(correctAnswer) + 1));
-            System.out.println();
+            System.out.println("\n");
         }
 
         return questionList;
     }
+
+
+
 
     private String getOption(List<String> options, int index) {
         if (index < options.size()) {
             return options.get(index);
         }
         return "";
+    }
+
+    public List<List<String>> createFlashcardTable(List<ModelFlashcard> flashcardList) {
+        List<List<String>> flashcardTable = new ArrayList<>();
+
+        // Add a header row with column names
+        List<String> headerRow = new ArrayList<>();
+        headerRow.add("Term");
+        headerRow.add("Definition");
+        headerRow.add("Translation");
+        flashcardTable.add(headerRow);
+
+        // Populate the table with flashcard data
+        for (ModelFlashcard flashcard : flashcardList) {
+            List<String> rowData = new ArrayList<>();
+            rowData.add(flashcard.getTerm());
+            rowData.add(flashcard.getDefinition());
+            rowData.add(flashcard.getTranslation());
+            flashcardTable.add(rowData);
+        }
+
+        return flashcardTable;
     }
 
     public void confirmExitDialog() {
