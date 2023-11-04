@@ -26,6 +26,7 @@ import com.example.mallet.utils.ModelGroup;
 import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.Utils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 
@@ -93,7 +94,26 @@ public class FragmentHome extends Fragment {
     }
 
     private void setupLearningSets() {
-        userService.getUserSets(0, 5, new Callback<SetBasicDTO>() {
+        // todo replace with userService below
+        List<ModelLearningSet> sets = new ArrayList<>();
+
+        ModelLearningSet set = Utils.readFlashcards(requireContext(),"animals.txt");
+
+        sets.add(set);
+
+        AdapterLearningSet adapterSets = new AdapterLearningSet(getContext(), sets, learningSet -> {
+            Intent intent = new Intent(getContext(), ActivityViewLearningSet.class);
+
+            intent.putExtra("learningSet", learningSet);
+
+            startActivity(intent);
+        });
+
+        homeSetsViewPager.setAdapter(adapterSets);
+
+        homeSetsViewPager.setPageTransformer(Utils::applySwipeTransformer);
+
+        /*userService.getUserSets(0, 5, new Callback<SetBasicDTO>() {
             @Override
             public void onResponse(Call<SetBasicDTO> call, Response<SetBasicDTO> response) {
                 SetBasicDTO setBasicDTO = ResponseHandler.handleResponse(response);
@@ -116,12 +136,11 @@ public class FragmentHome extends Fragment {
             public void onFailure(Call<SetBasicDTO> call, Throwable t) {
                 Utils.showToast(getContext(), "Network failure");
             }
-        });
+        });*/
     }
 
     private void showAllItems(int index) {
         // TODO: Implement this method to display all items of a specific type
         Utils.showToast(getContext(), "Here should open a list of " + index);
     }
-
 }

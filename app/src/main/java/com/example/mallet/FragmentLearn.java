@@ -36,7 +36,8 @@ import java.util.Random;
 
 public class FragmentLearn extends Fragment {
     private FragmentLearnBinding binding;
-    private List<ModelFlashcard> flashcards;
+    private List<ModelFlashcard> flashcardList;
+    private List<List<String>> flashcardTable;
     private static final String PREFS_NAME = "FragmentLearnSettings";
     private static final String KEY_MULTIPLE_CHOICE = "multipleChoice";
     private static final String KEY_WRITTEN = "written";
@@ -86,6 +87,9 @@ public class FragmentLearn extends Fragment {
     }
 
     private void setupContents() {
+        flashcardList = getLearningSetData();
+
+        currentQuestionIndex = 0;
         setupToolbar();
 
         learnOptionsDialog();
@@ -141,20 +145,20 @@ public class FragmentLearn extends Fragment {
 
         restartTv.setOnClickListener(v -> {
             currentQuestionIndex = 0;
-            dialog.dismiss();
         });
 
         startTv.setOnClickListener(v -> {
+            currentQuestionIndex = 0;
+
             if (writtenMs.isChecked() && !multipleChoiceMs.isChecked()) {
                 writtenQuestions = generateWrittenQuestions();
                 WRITTEN_QUESTIONS = MAX_QUESTIONS;
                 displayWrittenQuestions(writtenQuestions, questionsLl, getLayoutInflater());
-                dialog.dismiss();
             } else if (!writtenMs.isChecked() && multipleChoiceMs.isChecked()) {
-                multipleChoiceQuestions = generateMultipleChoiceQuestions();
+                flashcardTable = createFlashcardTable(flashcardList);
+                multipleChoiceQuestions = generateAndDisplayMultipleChoiceQuestions(flashcardTable);
                 MULTIPLE_CHOICE_QUESTIONS = MAX_QUESTIONS;
                 displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
-                dialog.dismiss();
             } else if (!writtenMs.isChecked() && !multipleChoiceMs.isChecked()) {
                 Utils.showItems(errorTv);
             } else if (writtenMs.isChecked() && multipleChoiceMs.isChecked()) {
@@ -162,8 +166,8 @@ public class FragmentLearn extends Fragment {
                 WRITTEN_QUESTIONS = 10;
                 Utils.showToast(getContext(), "NOPE");
             }
-            currentQuestionIndex = 0;
-            //optionsDialog.dismiss();
+
+            dialog.dismiss();
         });
     }
 
@@ -191,12 +195,14 @@ public class FragmentLearn extends Fragment {
     }
 
     private List<ModelWritten> generateWrittenQuestions() {
-        List<ModelFlashcard> flashcardList = getLearningSetData();
         List<ModelWritten> questionList = new ArrayList();
         Random random = new Random();
-        int writtenQuestionPosition = random.nextInt(2);
+
+        //int writtenQuestionPosition = random.nextInt(2);
 
         for (ModelFlashcard flashcard : flashcardList) {
+            int writtenQuestionPosition = random.nextInt(2);
+
             List<String> options = new ArrayList<>();
             options.add(flashcard.getTerm());
             options.add(flashcard.getDefinition());
@@ -218,62 +224,10 @@ public class FragmentLearn extends Fragment {
                     break;
             }
 
-            ModelWritten written = new ModelWritten(options.get(writtenQuestionPosition), options.get(multipleChoiceCorrectAnswerPosition), options.get(writtenAlternativeAnswerPosition));
+            ModelWritten written = new ModelWritten(options.get(writtenQuestionPosition), options.get(writtenCorrectAnswerPosition), options.get(writtenAlternativeAnswerPosition));
             questionList.add(written);
-            //System.out.println(written);
+            // System.out.println(written);
         }
-        return questionList;
-    }
-
-    private List<ModelMultipleChoice> generateMultipleChoiceQuestions() {
-        List<ModelFlashcard> flashcardList = getLearningSetData();
-
-        List<ModelMultipleChoice> questionList = new ArrayList<>();
-
-        Random random = new Random();
-
-        int multipleChoiceQuestionPosition = random.nextInt(2);
-        int multipleChoiceCorrectAnswerPosition;
-
-        for (ModelFlashcard flashcard : flashcardList) {
-            List<String> options = new ArrayList<>();
-
-            options.add(flashcard.getTerm());
-
-            if (!flashcard.getDefinition().isEmpty()) {
-                options.add(flashcard.getDefinition());
-            }
-
-            options.add(flashcard.getTranslation());
-
-            Collections.shuffle(options);
-            System.out.println(options);
-
-            switch (multipleChoiceQuestionPosition) {
-                case 0:
-                    multipleChoiceCorrectAnswerPosition = 1;
-                    break;
-                case 1:
-                    multipleChoiceCorrectAnswerPosition = 2;
-                    break;
-                default:
-                    multipleChoiceCorrectAnswerPosition = random.nextInt(3); // For any other case
-                    break;
-            }
-
-            ModelMultipleChoice multipleChoice = new ModelMultipleChoice(
-                    options.get(multipleChoiceQuestionPosition),
-                    options.get(multipleChoiceOption1Position),
-                    options.get(multipleChoiceOption2Position),
-                    options.get(multipleChoiceOption3Position),
-                    options.get(multipleChoiceOption4Position),
-                    multipleChoiceCorrectAnswerPosition
-            );
-
-            questionList.add(multipleChoice);
-            System.out.println(multipleChoice);
-        }
-
         return questionList;
     }
 
@@ -364,6 +318,7 @@ public class FragmentLearn extends Fragment {
             });
 
             ll.addView(writtenQuestionItem);
+            // System.out.println((currentQuestionIndex));
         } else {
             // All questions have been shown
         }
@@ -379,17 +334,6 @@ public class FragmentLearn extends Fragment {
             View multipleChoiceQuestionItem = inflater.inflate(R.layout.model_multiple_choice, ll, false);
             multipleChoiceQuestionTv = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_questionTv);
             multipleChoiceQuestionTv.setText(question.getQuestion());
-
-            option1Btn = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_answerABtn);
-            option2Btn = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_answerBBtn);
-            option3Btn = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_answerCBtn);
-            option4Btn = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_answerDBtn);
-
-            option1Btn.setText("A");
-            option2Btn.setText("B");
-            option3Btn.setText("C");
-            option4Btn.setText("D");
-
 
             ll.addView(multipleChoiceQuestionItem);
         } else {
@@ -429,10 +373,140 @@ public class FragmentLearn extends Fragment {
         if (args != null) {
             ModelLearningSet learningSet = args.getParcelable("learningSet");
             if (learningSet != null) {
-                flashcards = learningSet.getTerms();
-                return flashcards;
+                flashcardList = learningSet.getTerms();
+
+                return flashcardList;
             }
         }
-        return new ArrayList<>(); // Return an empty list if data retrieval fails
+
+        return new ArrayList<>();
     }
+
+    public List<List<String>> createFlashcardTable(List<ModelFlashcard> flashcardList) {
+        List<List<String>> flashcardTable = new ArrayList<>();
+
+        // Add a header row with column names
+        List<String> headerRow = new ArrayList<>();
+        headerRow.add("Term");
+        headerRow.add("Definition");
+        headerRow.add("Translation");
+        flashcardTable.add(headerRow);
+
+        // Populate the table with flashcard data
+        for (ModelFlashcard flashcard : flashcardList) {
+            List<String> rowData = new ArrayList<>();
+            rowData.add(flashcard.getTerm());
+            rowData.add(flashcard.getDefinition());
+            rowData.add(flashcard.getTranslation());
+            flashcardTable.add(rowData);
+        }
+
+        return flashcardTable;
+    }
+
+    public List<ModelMultipleChoice> generateAndDisplayMultipleChoiceQuestions(List<List<String>> flashcardTable) {
+        List<ModelMultipleChoice> questionList = new ArrayList<>();
+        Random random = new Random();
+
+        // Check if the table is empty or if it has less than 20 rows
+        if (flashcardTable.isEmpty() || flashcardTable.size() <= 1) {
+            System.out.println("Table does not have enough data to generate questions.");
+            return questionList;
+        }
+
+        // Get the header row to access column names
+        List<String> headerRow = flashcardTable.get(0);
+        int termIndex = headerRow.indexOf("Term");
+        int definitionIndex = headerRow.indexOf("Definition");
+        int translationIndex = headerRow.indexOf("Translation");
+
+        // Limit the number of questions to generate to 20 or the number of available rows (excluding the header)
+        int maxQuestionsToGenerate = Math.min(20, flashcardTable.size() - 1);
+
+        // Create an array to track which rows have been used
+        boolean[] rowUsed = new boolean[flashcardTable.size()];
+
+        // Generate and display questions
+        for (int questionCount = 0; questionCount < maxQuestionsToGenerate; questionCount++) {
+            int randomRowIndex;
+
+            // Select a random unused row
+            do {
+                randomRowIndex = random.nextInt(flashcardTable.size() - 1) + 1; // Skip the header row
+            } while (rowUsed[randomRowIndex]);
+
+            rowUsed[randomRowIndex] = true;
+
+            List<String> rowData = flashcardTable.get(randomRowIndex);
+
+            String question = rowData.get(termIndex); // Take the Term as the question
+
+            // Determine whether to use "Definition" or "Translation" for options
+            int correctAnswerIndex;
+            String correctAnswerType;
+
+            boolean useDefinitionForOptions = random.nextBoolean();
+            if (useDefinitionForOptions) {
+                correctAnswerIndex = definitionIndex;
+                correctAnswerType = "Definition";
+            } else {
+                correctAnswerIndex = translationIndex;
+                correctAnswerType = "Translation";
+            }
+
+            String correctAnswer = rowData.get(correctAnswerIndex); // Take either Definition or Translation as the correct answer
+
+            List<String> wrongAnswers = new ArrayList<>();
+
+            // Collect wrong answers from up to 5 neighboring rows (excluding the current row)
+            for (int j = randomRowIndex - 1; j >= Math.max(1, randomRowIndex - 5); j--) {
+                if (!rowUsed[j]) {
+                    List<String> neighborRow = flashcardTable.get(j);
+                    String neighborWrongAnswer = neighborRow.get(correctAnswerIndex);
+                    if (!neighborWrongAnswer.isEmpty() && !wrongAnswers.contains(neighborWrongAnswer)) {
+                        wrongAnswers.add(neighborWrongAnswer);
+                    }
+                    if (wrongAnswers.size() >= 3) {
+                        break; // Stop collecting wrong answers after 3 are found
+                    }
+                }
+            }
+
+            // Add the correct answer
+            wrongAnswers.add(correctAnswer);
+
+            // Shuffle the wrong answers
+            Collections.shuffle(wrongAnswers);
+
+            // Create a ModelMultipleChoice object and add it to the list
+            ModelMultipleChoice multipleChoice = new ModelMultipleChoice(question, getOption(wrongAnswers, 0), getOption(wrongAnswers, 1), getOption(wrongAnswers, 2), correctAnswer, 4);
+            questionList.add(multipleChoice);
+
+            // Print the generated question and options in CMD
+            System.out.println("Question: " + question);
+            System.out.println("Options:");
+            for (int k = 0; k < wrongAnswers.size(); k++) {
+                System.out.println((k + 1) + ". " + wrongAnswers.get(k));
+            }
+
+            // Print the position of the correct answer
+            System.out.println("Correct Answer Type: " + correctAnswerType);
+            System.out.println("Correct Answer Position: " + (wrongAnswers.indexOf(correctAnswer) + 1));
+            System.out.println();
+        }
+
+        return questionList;
+    }
+
+
+
+
+    // Helper method to safely get an option from the list
+    private String getOption(List<String> options, int index) {
+        if (index < options.size()) {
+            return options.get(index);
+        }
+        return "";
+    }
+
 }
