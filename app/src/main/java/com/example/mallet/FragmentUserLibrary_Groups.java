@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -42,9 +43,10 @@ public class FragmentUserLibrary_Groups extends Fragment {
     private final List<ModelGroup> groups = new ArrayList<>();
     private TextInputEditText searchEt;
     private LinearLayout userGroupsLl;
-    private AtomicBoolean firstTime = new AtomicBoolean(true);
+    private final AtomicBoolean firstTime = new AtomicBoolean(true);
     private LayoutInflater inflater;
     private final List<ModelGroup> foundGroups = new ArrayList<>();
+    private ProgressBar progressBar;
 
 
     @Override
@@ -61,7 +63,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
         binding = FragmentUserLibraryGroupsBinding.inflate(inflater, container, false);
 
         setupContents(inflater);
-        fetchGroups(0, 50);
+        setupSearchAndFetchGroups(0, 50);
         getUserLibraryGroupList(userGroupsLl, groups, null);
 
         return binding.getRoot();
@@ -70,10 +72,14 @@ public class FragmentUserLibrary_Groups extends Fragment {
     private void setupContents(LayoutInflater inflater) {
         searchEt = binding.userLibraryGroupsSearchEt;
         userGroupsLl = binding.userLibraryGroupsAllGroupsLl;
+
+        progressBar = binding.userLibraryGroupsProgressBar;
+
+
         this.inflater = inflater;
     }
 
-    private void fetchGroups(long startPosition, long limit) {
+    private void setupSearchAndFetchGroups(long startPosition, long limit) {
         RxTextView.textChanges(searchEt)
                 .debounce(1, TimeUnit.SECONDS)
                 .subscribe(text -> {
@@ -89,7 +95,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
                         @Override
                         public void onResponse(Call<GroupBasicDTO> call, Response<GroupBasicDTO> response) {
                             userGroupsLl.removeAllViews();
-                            fetchGroups(text.toString(),response);
+                            fetchGroupsForSearch(text.toString(),response);
                         }
 
                         @Override
@@ -100,7 +106,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
                 });
     }
 
-    private void fetchGroups(String text,Response<GroupBasicDTO> response) {
+    private void fetchGroupsForSearch(String text, Response<GroupBasicDTO> response) {
         GroupBasicDTO groupBasicDTO = ResponseHandler.handleResponse(response);
         List<GroupBasicInformationDTO> collect = groupBasicDTO.groups().stream()
                 .filter(group -> group.name().toLowerCase().contains(text.toLowerCase()))
@@ -112,7 +118,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
             String startPosition = uri.getQueryParameter("startPosition");
             String limit = uri.getQueryParameter("limit");
 
-            fetchGroups(Long.parseLong(startPosition), Long.parseLong(limit));
+            setupSearchAndFetchGroups(Long.parseLong(startPosition), Long.parseLong(limit));
         }else{
             setView(foundGroups);
         }
@@ -122,21 +128,23 @@ public class FragmentUserLibrary_Groups extends Fragment {
                                          @Nullable String nextChunkUri) {
 
         if (Objects.isNull(nextChunkUri)) {
-            fetchGroups(0, 10, groupList);
+            fetchUserGroups(0, 10, groupList);
         } else {
             Uri uri = Uri.parse(nextChunkUri);
             String startPosition = uri.getQueryParameter("startPosition");
             String limit = uri.getQueryParameter("limit");
-            fetchGroups(Long.parseLong(startPosition), Long.parseLong(limit), groupList);
+            fetchUserGroups(Long.parseLong(startPosition), Long.parseLong(limit), groupList);
         }
     }
 
-    private void fetchGroups(long startPosition,
-                             long limit,
-                             List<ModelGroup> groupList) {
+    private void fetchUserGroups(long startPosition,
+                                 long limit,
+                                 List<ModelGroup> groupList) {
         userService.getUserGroups(startPosition, limit, new Callback<GroupBasicDTO>() {
             @Override
             public void onResponse(Call<GroupBasicDTO> call, Response<GroupBasicDTO> response) {
+                Utils.hideItems(progressBar);
+
                 GroupBasicDTO groupDTO = ResponseHandler.handleResponse(response);
                 List<ModelGroup> modelGroups = ModelGroupMapper.from(groupDTO.groups());
                 groupList.addAll(modelGroups);
@@ -146,7 +154,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
                     groupList.addAll(modelGroups);
                 }
 
-                setView( groupList);
+                setView(groupList);
                 firstTime.set(false);
 
             }
@@ -163,6 +171,8 @@ public class FragmentUserLibrary_Groups extends Fragment {
         for (ModelGroup group : userLibraryGroupList) {
             View groupItemView = inflater.inflate(R.layout.model_group, userGroupsLl, false);
 
+            groupItemView.setOnClickListener(v -> viewGroup(group));
+
             TextView groupNameTv = groupItemView.findViewById(R.id.group_nameTv);
             groupNameTv.setText(group.getGroupName());
 
@@ -175,6 +185,14 @@ public class FragmentUserLibrary_Groups extends Fragment {
 
             userGroupsLl.addView(groupItemView);
         }
+    }
+
+    private void viewGroup(ModelGroup group) {
+        Intent intent = new Intent(requireContext(), ActivityViewGroup.class);
+
+        intent.putExtra("groupId", group.getId());
+
+        startActivity(intent);
     }
 
     private void startViewGroupActivity() {

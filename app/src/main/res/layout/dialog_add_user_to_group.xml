@@ -8,7 +8,7 @@
     android:background="@drawable/bg_top_corners_rounded"
     android:orientation="vertical"
     android:paddingHorizontal="20dp"
-    android:paddingTop="30dp">
+    android:paddingVertical="30dp">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/addUsersToGroup_searchTil"
@@ -51,13 +51,27 @@
     <ScrollView
         android:id="@+id/usersGroupsSv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimaryLight1">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/addUsersToGroup_membersLl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="30dp"
             android:orientation="vertical"></LinearLayout>
     </ScrollView>
+
+    <TextView
+        android:id="@+id/addUsersToGroup_confirmTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/bg_ripple"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="10dp"
+        android:text="Confirm"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp" />
 </LinearLayout>

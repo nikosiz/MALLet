@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +26,7 @@ import com.example.mallet.utils.ModelGroup;
 import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.Utils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 
@@ -39,6 +41,7 @@ public class FragmentHome extends Fragment {
     private UserServiceImpl userService;
     private ViewPager2 homeGroupsViewPager;
     private ViewPager2 homeSetsViewPager;
+    private ProgressBar progressBar;
 
     @Nullable
     @Override
@@ -64,12 +67,16 @@ public class FragmentHome extends Fragment {
         binding.homeSetViewAllTv.setOnClickListener(v -> showAllItems(0));
         binding.homeFolderViewAllTv.setOnClickListener(v -> showAllItems(1));
         binding.homeGroupViewAllTv.setOnClickListener(v -> showAllItems(2));
+
+        progressBar = binding.fragmentHomeProgressBar;
     }
 
     private void setupGroups() {
         userService.getUserGroups(0, 5, new Callback<GroupBasicDTO>() {
             @Override
             public void onResponse(Call<GroupBasicDTO> call, Response<GroupBasicDTO> response) {
+                Utils.hideItems(progressBar);
+
                 GroupBasicDTO groupDTO = ResponseHandler.handleResponse(response);
                 List<ModelGroup> modelGroups = ModelGroupMapper.from(groupDTO.groups());
 
@@ -87,6 +94,25 @@ public class FragmentHome extends Fragment {
     }
 
     private void setupLearningSets() {
+        // todo replace with userService below - this is for testing
+        /*List<ModelLearningSet> sets = new ArrayList<>();
+
+        ModelLearningSet set = Utils.readFlashcards(requireContext(),"animals.txt");
+
+        sets.add(set);
+
+        AdapterLearningSet adapterSets = new AdapterLearningSet(getContext(), sets, learningSet -> {
+            Intent intent = new Intent(getContext(), ActivityViewLearningSet.class);
+
+            intent.putExtra("learningSet", learningSet);
+
+            startActivity(intent);
+        });
+
+        homeSetsViewPager.setAdapter(adapterSets);
+
+        homeSetsViewPager.setPageTransformer(Utils::applySwipeTransformer);*/
+
         userService.getUserSets(0, 5, new Callback<SetBasicDTO>() {
             @Override
             public void onResponse(Call<SetBasicDTO> call, Response<SetBasicDTO> response) {
@@ -117,5 +143,4 @@ public class FragmentHome extends Fragment {
         // TODO: Implement this method to display all items of a specific type
         Utils.showToast(getContext(), "Here should open a list of " + index);
     }
-
 }

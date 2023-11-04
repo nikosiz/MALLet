@@ -73,8 +73,7 @@ public class FragmentTest extends Fragment {
                 nrOfQuestions,
                 multipleChoiceMs.isChecked(),
                 writtenMs.isChecked(),
-                trueFalseMs.isChecked(),
-                matchMs.isChecked()
+                trueFalseMs.isChecked()
         );
 
         prevQuestionTv.setOnClickListener(v -> {
@@ -176,24 +175,6 @@ public class FragmentTest extends Fragment {
 
             saveSwitchState(KEY_MULTIPLE_CHOICE, isChecked);
             pagerAdapter.setMultipleChoiceEnabled(isChecked);
-        });
-
-        matchMs = dialogBinding.testOptionsMatchMs;
-        matchMs.setChecked(getSwitchState(KEY_MATCH));
-
-        matchMs.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                if (checkedSwitches < 4) {
-                    checkedSwitches++; // Increment if it's less than 4
-                }
-            } else {
-                if (checkedSwitches > 0) {
-                    checkedSwitches--; // Decrement if it's greater than 1
-                }
-            }
-
-            saveSwitchState(KEY_MATCH, isChecked);
-            pagerAdapter.setMatchEnabled(isChecked);
         });
 
         writtenMs = dialogBinding.testOptionsWrittenMs;

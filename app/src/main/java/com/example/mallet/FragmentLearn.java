@@ -1,22 +1,19 @@
-//TODO: make this class display written/multipleChoice based on which switches are selected
-
 package com.example.mallet;
 
 import android.app.Dialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -25,6 +22,7 @@ import com.example.mallet.databinding.DialogLearnOptionsBinding;
 import com.example.mallet.databinding.DialogLearningFinishedBinding;
 import com.example.mallet.databinding.FragmentLearnBinding;
 import com.example.mallet.utils.ModelFlashcard;
+import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.ModelMultipleChoice;
 import com.example.mallet.utils.ModelWritten;
 import com.example.mallet.utils.Utils;
@@ -38,13 +36,16 @@ import java.util.Objects;
 import java.util.Random;
 
 public class FragmentLearn extends Fragment {
+    private ActivityLearn activityLearn;
     private static final String PREFS_NAME = "FragmentLearnSettings";
     private static final String KEY_MULTIPLE_CHOICE = "multipleChoice";
     private static final String KEY_WRITTEN = "written";
     private static final int MAX_QUESTIONS = 20;
-    private static int WRITTEN_QUESTIONS, MULTIPLE_CHOICE_QUESTIONS;
     private FragmentLearnBinding binding;
-    private MaterialSwitch multipleChoiceMs, writtenMs;
+    private List<ModelFlashcard> flashcardList;
+    private int WRITTEN_QUESTIONS, MULTIPLE_CHOICE_QUESTIONS;
+    private MaterialSwitch multipleChoiceMs;
+    private MaterialSwitch writtenMs;
     private int checkedSwitches;
     private LinearLayout questionsLl, answersLl;
     private View writtenQuestionView;
@@ -57,11 +58,31 @@ public class FragmentLearn extends Fragment {
     private View multipleChoiceQuestionView;
     private TextView multipleChoiceQuestionTv;
     private String multipleChoiceAnswer;
-    private Button answerA, answerB, answerC, answerD;
+    private Button option1Btn, option2Btn, option3Btn, option4Btn;
     private List<ModelMultipleChoice> multipleChoiceQuestions;
-    private int multipleChoiceCorrectAnswerPosition, multipleChoiceAlternativeAnswerPosition, multipleChoiceWrongAnswer1Position, multipleChoiceWrongAnswer2Position, multipleChoiceWrongAnswer3Position;
+    private int multipleChoiceCorrectAnswerPosition;
+    private int multipleChoiceOption1Position;
+    private int multipleChoiceOption2Position;
+    private int multipleChoiceOption3Position;
+    private int multipleChoiceOption4Position;
     private TextView nextTv, prevTv, finishTv, errorTv;
     private int currentQuestionIndex = 0;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof ActivityLearn) {
+            activityLearn = (ActivityLearn) context;
+        } else {
+            // Handle the case where the activity does not implement the method
+        }
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -74,137 +95,94 @@ public class FragmentLearn extends Fragment {
 
         setupContents();
 
-        learnOptionsDialog();
-        Utils.showItems(nextTv);
-        Utils.hideItems(finishTv);
-
-
-        Utils.hideItems(errorTv);
-
-        nextTv.setOnClickListener(v -> {
-            if (!multipleChoiceMs.isChecked()) {
-                writtenAnswer = writtenAnswerEt.getText().toString().toLowerCase().trim();
-                ModelWritten writtenQuestion = writtenQuestions.get(currentQuestionIndex);
-                String writtenCorrectAnswer = writtenQuestion.getCorrectAnswer();
-                String writtenAlternativeAnswer = writtenQuestion.getAlternativeAnswer();
-
-                boolean isCorrect = checkAnswer(writtenAnswer, writtenCorrectAnswer, writtenAlternativeAnswer);
-
-                if (isCorrect) {
-                    writtenAnswerEt.setText("");
-                    currentQuestionIndex++;
-
-                    if (currentQuestionIndex < MAX_QUESTIONS && currentQuestionIndex < writtenQuestions.size()) {
-                        displayWrittenQuestions(writtenQuestions, questionsLl, inflater);
-                    } else {
-                        Utils.showItems(finishTv);
-                        Utils.makeItemsClickable(finishTv);
-                        Utils.hideItems(nextTv);
-                        Utils.makeItemsUnclickable(nextTv);
-                        learningFinishedDialog();
-                    }
-                } else {
-
-                    Utils.showItems(answersLl);
-                }
-            } else if (!writtenMs.isChecked()) {
-                ModelMultipleChoice multipleChoiceQuestion = multipleChoiceQuestions.get(currentQuestionIndex);
-                String multipleChoiceCorrectAnswer = multipleChoiceQuestion.getCorrectAnswer();
-                String multipleChoiceAlternativeAnswer = multipleChoiceQuestion.getAlternativeAnswer();
-                currentQuestionIndex++;
-
-                System.out.println(multipleChoiceCorrectAnswer + "\n" + multipleChoiceAlternativeAnswer);
-
-                if (currentQuestionIndex < MAX_QUESTIONS && currentQuestionIndex < multipleChoiceQuestions.size()) {
-                    displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, inflater);
-                } else {
-                    Utils.showItems(finishTv);
-                    Utils.makeItemsClickable(finishTv);
-                    Utils.hideItems(nextTv);
-                    Utils.makeItemsUnclickable(nextTv);
-                    learningFinishedDialog();
-                }
-            }
-        });
-
-        finishTv.setOnClickListener(v -> learningFinishedDialog());
-
         return binding.getRoot();
     }
 
-    private boolean checkAnswer(String userAnswer, String correctAnswer, String
-            alternativeAnswer) {
-        String userInputLower = userAnswer.toLowerCase();
-        String correctAnswerLower = correctAnswer.toLowerCase();
-        String alternativeAnswerLower = alternativeAnswer.toLowerCase();
-        return userInputLower.equals(correctAnswerLower) || userInputLower.equals(alternativeAnswerLower);
-    }
-
     private void setupContents() {
+        flashcardList = getLearningSetData();
+
+        currentQuestionIndex = 0;
         setupToolbar();
 
+        learnOptionsDialog();
+
         questionsLl = binding.learnQuestionsLl;
+
         nextTv = binding.learnNextTv;
+        nextTv.setOnClickListener(v -> handleNextTvClick());
+
         prevTv = binding.learnPrevTv;
+        Utils.showItems(prevTv, nextTv);
+
         finishTv = binding.learnFinishTv;
+        finishTv.setOnClickListener(v -> learningFinishedDialog());
+        Utils.hideItems(finishTv, errorTv);
 
         writtenQuestionTv = writtenQuestionView.findViewById(R.id.written_questionTv);
         writtenAnswerEt = writtenQuestionView.findViewById(R.id.written_answerEt);
 
         multipleChoiceQuestionTv = multipleChoiceQuestionView.findViewById(R.id.multipleChoice_questionTv);
+
+        option1Btn = multipleChoiceQuestionView.findViewById(R.id.multipleChoice_answerABtn);
+        option2Btn = multipleChoiceQuestionView.findViewById(R.id.multipleChoice_answerBBtn);
+        option3Btn = multipleChoiceQuestionView.findViewById(R.id.multipleChoice_answerCBtn);
+        option4Btn = multipleChoiceQuestionView.findViewById(R.id.multipleChoice_answerDBtn);
     }
 
     private void setupToolbar() {
         Toolbar toolbar = binding.learnToolbar;
         ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
         Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle("");
-        binding.learnToolbarBackIv.setOnClickListener(v -> getActivity().finish());
+
+        binding.learnToolbarBackIv.setOnClickListener(v -> activityLearn.confirmExitDialog());
+
         binding.learnOptionsIv.setOnClickListener(v -> learnOptionsDialog());
     }
 
     private void learnOptionsDialog() {
-        Dialog optionsDialog = Utils.createDialog(requireContext(), R.layout.dialog_forgot_password, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
-        DialogLearnOptionsBinding optionsDialogBinding = DialogLearnOptionsBinding.inflate(getLayoutInflater());
-        optionsDialog.setContentView(optionsDialogBinding.getRoot());
-        optionsDialog.show();
+        Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_forgot_password, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
+        DialogLearnOptionsBinding dialogBinding = DialogLearnOptionsBinding.inflate(getLayoutInflater());
+        dialog.setContentView(dialogBinding.getRoot());
+        dialog.show();
 
-        multipleChoiceMs = optionsDialogBinding.learnOptionsMultipleChoiceMs;
+        multipleChoiceMs = dialogBinding.learnOptionsMultipleChoiceMs;
         multipleChoiceMs.setChecked(Utils.getSwitchState(requireContext(), PREFS_NAME, KEY_MULTIPLE_CHOICE));
         multipleChoiceMs.setOnCheckedChangeListener((buttonView, isChecked) -> handleSwitchChange(multipleChoiceMs, KEY_MULTIPLE_CHOICE, isChecked));
 
-        writtenMs = optionsDialogBinding.learnOptionsWrittenMs;
+        writtenMs = dialogBinding.learnOptionsWrittenMs;
         writtenMs.setChecked(Utils.getSwitchState(requireContext(), PREFS_NAME, KEY_WRITTEN));
         writtenMs.setOnCheckedChangeListener((buttonView, isChecked) -> handleSwitchChange(writtenMs, KEY_WRITTEN, isChecked));
 
-        TextView restartTv = optionsDialogBinding.learnOptionsRestartTv;
-        TextView startTv = optionsDialogBinding.learnOptionsStartTv;
-        errorTv = optionsDialogBinding.learnOptionsErrorTv;
+        TextView restartTv = dialogBinding.learnOptionsRestartTv;
+        TextView startTv = dialogBinding.learnOptionsStartTv;
+        errorTv = dialogBinding.learnOptionsErrorTv;
 
         restartTv.setOnClickListener(v -> {
             currentQuestionIndex = 0;
-            optionsDialog.dismiss();
         });
 
         startTv.setOnClickListener(v -> {
+            currentQuestionIndex = 0;
+
             if (writtenMs.isChecked() && !multipleChoiceMs.isChecked()) {
-                writtenQuestions = generateWrittenQuestions();
+                writtenQuestions = activityLearn.generateWrittenQuestions();
                 WRITTEN_QUESTIONS = MAX_QUESTIONS;
                 displayWrittenQuestions(writtenQuestions, questionsLl, getLayoutInflater());
-                optionsDialog.dismiss();
             } else if (!writtenMs.isChecked() && multipleChoiceMs.isChecked()) {
-                multipleChoiceQuestions = generateMultipleChoiceQuestions();
-                MULTIPLE_CHOICE_QUESTIONS = MAX_QUESTIONS;
-                displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
-                optionsDialog.dismiss();
+                if (activityLearn != null) {
+                    multipleChoiceQuestions = activityLearn.generateMultipleChoiceQuestions();
+                    MULTIPLE_CHOICE_QUESTIONS = MAX_QUESTIONS;
+                    displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
+                }
             } else if (!writtenMs.isChecked() && !multipleChoiceMs.isChecked()) {
-                Utils.showToast(getContext(), "NOPE");
+                Utils.showItems(errorTv);
             } else if (writtenMs.isChecked() && multipleChoiceMs.isChecked()) {
                 MULTIPLE_CHOICE_QUESTIONS = 10;
                 WRITTEN_QUESTIONS = 10;
                 Utils.showToast(getContext(), "NOPE");
             }
-            currentQuestionIndex = 0;
-            //optionsDialog.dismiss();
+
+            dialog.dismiss();
         });
     }
 
@@ -231,6 +209,70 @@ public class FragmentLearn extends Fragment {
         }
     }
 
+
+
+
+    private void handleNextTvClick() {
+        if (!multipleChoiceMs.isChecked()) {
+            writtenAnswer = writtenAnswerEt.getText().toString().toLowerCase().trim();
+            ModelWritten writtenQuestion = writtenQuestions.get(currentQuestionIndex);
+            String writtenCorrectAnswer = writtenQuestion.getCorrectAnswer();
+            String writtenAlternativeAnswer = writtenQuestion.getAlternativeAnswer();
+
+            boolean isCorrect = checkWrittenAnswer(writtenAnswer, writtenCorrectAnswer, writtenAlternativeAnswer);
+
+            if (isCorrect) {
+                writtenAnswerEt.setText("");
+                currentQuestionIndex++;
+
+                if (currentQuestionIndex < MAX_QUESTIONS && currentQuestionIndex < writtenQuestions.size()) {
+                    displayWrittenQuestions(writtenQuestions, questionsLl, getLayoutInflater());
+                } else {
+                    Utils.showItems(finishTv);
+                    Utils.makeItemsClickable(finishTv);
+                    Utils.hideItems(nextTv);
+                    Utils.makeItemsUnclickable(nextTv);
+                    learningFinishedDialog();
+                }
+            } else {
+
+                Utils.showItems(answersLl);
+            }
+        } else if (!writtenMs.isChecked()) {
+            ModelMultipleChoice multipleChoiceQuestion = multipleChoiceQuestions.get(currentQuestionIndex);
+            int multipleChoiceCorrectAnswerPosition = multipleChoiceQuestion.getAnswerPosition();
+            currentQuestionIndex++;
+
+            if (currentQuestionIndex < MAX_QUESTIONS && currentQuestionIndex < multipleChoiceQuestions.size()) {
+                displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
+            } else {
+                Utils.showItems(finishTv);
+                Utils.makeItemsClickable(finishTv);
+                Utils.hideItems(nextTv);
+                Utils.makeItemsUnclickable(nextTv);
+                learningFinishedDialog();
+            }
+        }
+    }
+
+
+    private boolean checkWrittenAnswer(String userAnswer, String correctAnswer, String
+            alternativeAnswer) {
+        String userInputLower = userAnswer.toLowerCase();
+        String correctAnswerLower = correctAnswer.toLowerCase();
+        String alternativeAnswerLower = alternativeAnswer.toLowerCase();
+        return userInputLower.equals(correctAnswerLower) || userInputLower.equals(alternativeAnswerLower);
+    }
+
+    private boolean checkMultipleChoiceAnswer(String userAnswer, String correctAnswer, String
+            alternativeAnswer) {
+        String userInputLower = userAnswer.toLowerCase();
+        String correctAnswerLower = correctAnswer.toLowerCase();
+        String alternativeAnswerLower = alternativeAnswer.toLowerCase();
+        return userInputLower.equals(correctAnswerLower) || userInputLower.equals(alternativeAnswerLower);
+    }
+
+
     private void displayWrittenQuestions(List<ModelWritten> wQuestions, LinearLayout
             ll, LayoutInflater inflater) {
         ll.removeAllViews();
@@ -256,6 +298,7 @@ public class FragmentLearn extends Fragment {
             });
 
             ll.addView(writtenQuestionItem);
+            // System.out.println((currentQuestionIndex));
         } else {
             // All questions have been shown
         }
@@ -271,17 +314,6 @@ public class FragmentLearn extends Fragment {
             View multipleChoiceQuestionItem = inflater.inflate(R.layout.model_multiple_choice, ll, false);
             multipleChoiceQuestionTv = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_questionTv);
             multipleChoiceQuestionTv.setText(question.getQuestion());
-
-            answerA = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_answerABtn);
-            answerB = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_answerBBtn);
-            answerC = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_answerCBtn);
-            answerD = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_answerDBtn);
-
-            answerA.setText("A");
-            answerB.setText("B");
-            answerC.setText("C");
-            answerD.setText("D");
-
 
             ll.addView(multipleChoiceQuestionItem);
         } else {
@@ -304,7 +336,8 @@ public class FragmentLearn extends Fragment {
 
         dialogRestartTv.setOnClickListener(v -> {
             currentQuestionIndex = 0;
-            writtenQuestions = generateWrittenQuestions();
+            writtenQuestions = activityLearn.generateWrittenQuestions();
+            multipleChoiceQuestions = activityLearn.generateMultipleChoiceQuestions();
             Utils.hideItems(finishTv);
             Utils.makeItemsUnclickable(finishTv);
             Utils.showItems(nextTv);
@@ -316,94 +349,17 @@ public class FragmentLearn extends Fragment {
         finishedDialog.show();
     }
 
-    private Dialog createDialog(int layoutResId) {
-        final Dialog dialog = new Dialog(requireContext());
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(layoutResId);
-        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
-        return dialog;
-    }
+    private List<ModelFlashcard> getLearningSetData() {
+        Bundle args = getArguments();
+        if (args != null) {
+            ModelLearningSet learningSet = args.getParcelable("learningSet");
+            if (learningSet != null) {
+                flashcardList = learningSet.getTerms();
 
-    private List<ModelWritten> generateWrittenQuestions() {
-        List<ModelFlashcard> flashcardList = getFlashcards();
-        List<ModelWritten> questionList = new ArrayList();
-        Random random = new Random();
-        int writtenQuestionPosition = random.nextInt(2);
-
-        for (ModelFlashcard flashcard : flashcardList) {
-            List<String> options = new ArrayList<>();
-            options.add(flashcard.getTerm());
-            options.add(flashcard.getDefinition());
-            options.add(flashcard.getTranslation());
-            Collections.shuffle(options);
-
-            switch (writtenQuestionPosition) {
-                case 0:
-                    writtenCorrectAnswerPosition = 1;
-                    writtenAlternativeAnswerPosition = 2;
-                    break;
-                case 1:
-                    writtenCorrectAnswerPosition = 0;
-                    writtenAlternativeAnswerPosition = 2;
-                    break;
-                case 2:
-                    writtenCorrectAnswerPosition = 1;
-                    writtenAlternativeAnswerPosition = 0;
-                    break;
+                return flashcardList;
             }
-
-            ModelWritten written = new ModelWritten(options.get(writtenQuestionPosition), options.get(writtenCorrectAnswerPosition), options.get(writtenAlternativeAnswerPosition));
-            questionList.add(written);
-            //System.out.println(written);
         }
-        return questionList;
-    }
 
-    private List<ModelMultipleChoice> generateMultipleChoiceQuestions() {
-        List<ModelFlashcard> flashcardList = getFlashcards();
-        List<ModelMultipleChoice> multipleChoiceQuestionList = new ArrayList();
-        Random random = new Random();
-        int multipleChoiceQuestionPosition = random.nextInt(2);
-
-        for (ModelFlashcard flashcard : flashcardList) {
-            List<String> options = new ArrayList<>();
-            options.add(flashcard.getTerm());
-            options.add(flashcard.getDefinition());
-            options.add(flashcard.getTranslation());
-            Collections.shuffle(options);
-
-            switch (multipleChoiceQuestionPosition) {
-                case 0:
-                    multipleChoiceCorrectAnswerPosition = 1;
-                    multipleChoiceAlternativeAnswerPosition = 2;
-                    break;
-                case 1:
-                    multipleChoiceCorrectAnswerPosition = 0;
-                    multipleChoiceAlternativeAnswerPosition = 2;
-                    break;
-                case 2:
-                    multipleChoiceCorrectAnswerPosition = 1;
-                    multipleChoiceAlternativeAnswerPosition = 0;
-                    break;
-            }
-
-            ModelMultipleChoice generatedMultipleChoiceQuestion = new ModelMultipleChoice(options.get(multipleChoiceQuestionPosition), options.get(writtenCorrectAnswerPosition), options.get(writtenAlternativeAnswerPosition));
-            multipleChoiceQuestionList.add(generatedMultipleChoiceQuestion);
-            System.out.println(generatedMultipleChoiceQuestion);
-        }
-        return multipleChoiceQuestionList;
-    }
-
-    private List<ModelFlashcard> getFlashcards() {
-        List<ModelFlashcard> flashcardList = new ArrayList<>();
-        flashcardList.add(new ModelFlashcard("Dog", "A domesticated mammal", "Pies"));
-        flashcardList.add(new ModelFlashcard("Cat", "A small domesticated carnivorous mammal", "Kot"));
-        flashcardList.add(new ModelFlashcard("Elephant", "A large, herbivorous mammal with a trunk", "Słoń"));
-        flashcardList.add(new ModelFlashcard("Lion", "A large wild cat known for its mane", "Lew"));
-        flashcardList.add(new ModelFlashcard("Giraffe", "A tall, long-necked African mammal", "Żyrafa"));
-        flashcardList.add(new ModelFlashcard("Snail", "A shelled gastropod", "Ślimak"));
-        System.out.println(flashcardList);
-        return flashcardList;
+        return new ArrayList<>();
     }
 }

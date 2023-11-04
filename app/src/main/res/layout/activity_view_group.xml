@@ -42,7 +42,6 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/russo_one_regular"
             android:gravity="center_vertical"
-
             android:text="group_name"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="30sp" />
