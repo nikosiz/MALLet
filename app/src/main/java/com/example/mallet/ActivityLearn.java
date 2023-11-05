@@ -257,16 +257,12 @@ public class ActivityLearn extends AppCompatActivity {
 
 
         } else {
-
-
             flashcardTable = createFlashcardTable(flashcardList);
-
             List<ModelMultipleChoice> questionList = new ArrayList<>();
-            Random random = new Random();
 
-            // Check if the table is empty or if it has less than 20 rows
-            if (flashcardTable.isEmpty() || flashcardTable.size() <= 20) {
-                System.out.println("Table does not have enough data to generate questions");
+            // Check if the table is empty
+            if (flashcardTable.isEmpty() || flashcardTable.get(0).isEmpty()) {
+                System.out.println("Table is empty. No questions to generate.");
                 return questionList;
             }
 
@@ -275,6 +271,8 @@ public class ActivityLearn extends AppCompatActivity {
             int termIndex = headerRow.indexOf("Term");
             int definitionIndex = headerRow.indexOf("Definition");
             int translationIndex = headerRow.indexOf("Translation");
+
+            Random random = new Random();
 
             // Limit the number of questions to generate to 20 or the number of available rows (excluding the header)
             int MAX_QUESTIONS = Math.min(20, flashcardTable.size() - 1);
@@ -316,7 +314,7 @@ public class ActivityLearn extends AppCompatActivity {
 
                 List<String> wrongAnswers = new ArrayList<>();
 
-                // Collect wrong answers from up to 5 neighboring rows (excluding the current row)
+                // Collect wrong answers of the same type from up to 5 neighboring rows (excluding the current row)
                 for (int j = randomRowIndex - 1; j >= Math.max(1, randomRowIndex - 5); j--) {
                     if (!rowUsed[j]) {
                         List<String> neighborRow = flashcardTable.get(j);
@@ -324,17 +322,17 @@ public class ActivityLearn extends AppCompatActivity {
                         if (!neighborWrongAnswer.isEmpty() && !wrongAnswers.contains(neighborWrongAnswer)) {
                             wrongAnswers.add(neighborWrongAnswer);
                         }
-                        if (wrongAnswers.size() >= 3) {
-                            break; // Stop collecting wrong answers after 3 are found
-                        }
+                    }
+                    if (wrongAnswers.size() >= 4) {
+                        break; // Stop collecting wrong answers after 3 are found
                     }
                 }
 
-                // Ensure there are at least 3 unique wrong answers
+                // Ensure there are at least 3 unique wrong answers of the same type
                 while (wrongAnswers.size() < 3) {
                     int randomRowIndexForUniqueWrongAnswer;
 
-                    // Select a random unused row for unique wrong answer
+                    // Select a random unused row for a unique wrong answer of the same type
                     do {
                         randomRowIndexForUniqueWrongAnswer = random.nextInt(flashcardTable.size() - 1) + 1; // Skip the header row
                     } while (rowUsed[randomRowIndexForUniqueWrongAnswer]);
