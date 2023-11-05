@@ -273,26 +273,6 @@ public class ActivityLearn extends AppCompatActivity {
         questionsWithoutCurrent.remove(wrongQuestion);
     }
 
-
-    public HashMap<QuestionType, List<String>> getAnswersByType(List<ModelFlashcard> flashcardList) {
-        List<String> terms = flashcardList.stream()
-                .map(ModelFlashcard::getTerm)
-                .collect(Collectors.toList());
-        List<String> definitions = flashcardList.stream()
-                .map(ModelFlashcard::getDefinition)
-                .collect(Collectors.toList());
-        List<String> translations = flashcardList.stream()
-                .map(ModelFlashcard::getTranslation)
-                .collect(Collectors.toList());
-
-        HashMap<QuestionType, List<String>> questionByType = new HashMap<>();
-        questionByType.put(QuestionType.TERM, terms);
-        questionByType.put(QuestionType.DEFINITION, definitions);
-        questionByType.put(QuestionType.TRANSLATION, translations);
-
-        return questionByType;
-    }
-
     public void confirmExitDialog() {
         Dialog dialog = Utils.createDialog(this, R.layout.dialog_confirm_exit, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogConfirmExitBinding dialogBinding = DialogConfirmExitBinding.inflate(LayoutInflater.from(this));
