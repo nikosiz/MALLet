@@ -26,7 +26,6 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
@@ -158,14 +157,14 @@ public class ActivityLearn extends AppCompatActivity {
     }
 
     public List<ModelMultipleChoice> generateMultipleChoiceQuestions() {
-        int MAX_QUESTIONS = Math.min(10, flashcardList.size());
+        int MAX_QUESTIONS = Math.min(20, flashcardList.size());
         int questionCounter = 1;
 
         List<ModelMultipleChoice> result = new ArrayList<>();
         Collections.shuffle(flashcardList);
 
         for (ModelFlashcard correctQuestion : flashcardList) {
-            if (questionCounter >= MAX_QUESTIONS) {
+            if (questionCounter > MAX_QUESTIONS) {
                 return result;
             }
 
@@ -206,7 +205,6 @@ public class ActivityLearn extends AppCompatActivity {
 
     private ModelAnswer buildModelAnswer(String answer,
                                          boolean isCorrect) {
-
         return ModelAnswer.builder()
                 .answer(answer)
                 .isCorrect(isCorrect)
