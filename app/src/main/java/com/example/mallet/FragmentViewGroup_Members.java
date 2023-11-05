@@ -11,24 +11,31 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.agh.api.GroupDTO;
+import com.example.mallet.backend.entity.group.contribution.ModelGroupMemberMapper;
 import com.example.mallet.databinding.FragmentViewGroupMembersBinding;
 import com.example.mallet.utils.AdapterFolder;
 import com.example.mallet.utils.ModelFolder;
 import com.example.mallet.utils.ModelGroupMember;
 import com.example.mallet.utils.Utils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentViewGroup_Members extends Fragment implements AdapterFolder.OnFolderClickListener {
+
+    private final GroupDTO chosenGroup;
+
+    public FragmentViewGroup_Members(GroupDTO chosenGroup) {
+        this.chosenGroup = chosenGroup;
+    }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentViewGroupMembersBinding binding = FragmentViewGroupMembersBinding.inflate(inflater, container, false);
 
         LinearLayout userLibraryMembersLl = binding.viewGroupMembersMemberListLl; // Change to LinearLayout
-        List<ModelGroupMember> userLibraryMembersList = getUserLibraryMemberList();
 
-        for (ModelGroupMember member : userLibraryMembersList) {
+        for (ModelGroupMember member : getUserLibraryMemberList()) {
             final int[] clickCounter = {0}; // Define a final variable here
 
             final View memberItemView = inflater.inflate(R.layout.model_group_member, userLibraryMembersLl, false);
@@ -77,13 +84,7 @@ public class FragmentViewGroup_Members extends Fragment implements AdapterFolder
     }
 
     private List<ModelGroupMember> getUserLibraryMemberList() {
-        List<ModelGroupMember> memberList = new ArrayList<>();
-        memberList.add(new ModelGroupMember(0, "user0"));
-        memberList.add(new ModelGroupMember(1, "user1"));
-        memberList.add(new ModelGroupMember(2, "user2"));
-        memberList.add(new ModelGroupMember(3, "user3"));
-        memberList.add(new ModelGroupMember(4, "user4"));
-        return memberList;
+        return ModelGroupMemberMapper.from(chosenGroup.contributions());
     }
 
     private void managePermissions() {

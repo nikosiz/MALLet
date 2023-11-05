@@ -144,6 +144,7 @@ public class ActivityCreateGroup extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(), ActivityViewGroup.class);
                 intent.putExtra("groupId", groupId);
+                intent.putExtra("groupName", groupCreateContainer.name());
 
                 close();
 

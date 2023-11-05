@@ -58,6 +58,7 @@ public class ActivityViewGroup extends AppCompatActivity {
     private static boolean areFabOptionsVisible = false;
     private LinearLayout fabOptionsLl;
     private Long groupId;
+    private String groupName;
     private GroupServiceImpl groupService;
 
     @Override
@@ -65,6 +66,7 @@ public class ActivityViewGroup extends AppCompatActivity {
         // todo get groupId and fetch resources if paramter is passed
         super.onCreate(savedInstanceState);
         this.groupId =  getIntent().getLongExtra("groupId",0L);
+        this.groupName =  getIntent().getStringExtra("groupName");
 
         String credential = AuthenticationUtils.get(getApplicationContext());
         groupService = new GroupServiceImpl(credential);
@@ -80,7 +82,8 @@ public class ActivityViewGroup extends AppCompatActivity {
     private void setupContents() {
         setupToolbar();
 
-        setupTabLayout();
+        groupNameTv = binding.viewGroupNameTv;
+        groupNameTv.setText(groupName);
 
         addFab = binding.viewGroupAddFab;
         setupFloatingActionButton();
@@ -140,7 +143,7 @@ public class ActivityViewGroup extends AppCompatActivity {
         dialog.show();
     }
 
-    private void setupTabLayout() {
+    private void setupTabLayout(GroupDTO chosenGroup) {
         viewPager = binding.viewGroupViewPager;
         tabLayout = binding.viewGroupTabLayout;
         FragmentStateAdapter adapter = new FragmentStateAdapter(this) {
@@ -153,9 +156,9 @@ public class ActivityViewGroup extends AppCompatActivity {
             public Fragment createFragment(int position) {
                 Fragment result = null;
                 if (position == 0) {
-                    result = new FragmentViewGroup_Sets();
+                    result = new FragmentViewGroup_Sets(chosenGroup);
                 } else if (position == 1) {
-                    result = new FragmentViewGroup_Members();
+                    result = new FragmentViewGroup_Members(chosenGroup);
                 }
                 return result;
             }
@@ -266,8 +269,7 @@ public class ActivityViewGroup extends AppCompatActivity {
             public void onResponse(Call<GroupDTO> call, Response<GroupDTO> response) {
                 GroupDTO groupDTO = ResponseHandler.handleResponse(response);
 
-                groupNameTv = binding.viewGroupNameTv;
-                groupNameTv.setText(groupDTO.name());
+                setupTabLayout(groupDTO);
 
             }
 
