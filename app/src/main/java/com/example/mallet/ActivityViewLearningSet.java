@@ -107,7 +107,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             displayFlashcardsInViewPager(flashcards, flashcardsVp2);
         }
 
-        setNameTv=binding.viewSetNameTv;
+        setNameTv = binding.viewSetNameTv;
         setNameTv.setText(learningSet.getName());
 
         flashcardsLl = binding.viewSetFlashcardsLl;
@@ -117,16 +117,17 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         learnLl.setOnClickListener(v -> startLearn());
 
         testLl = binding.viewSetTestLl;
-        testLl.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentTest.class, ActivityLearn.class));
+        testLl.setOnClickListener(v -> startTest());
 
         matchLl = binding.viewSetMatchLl;
-        matchLl.setOnClickListener(v -> Utils.openActivityWithFragment(this, FragmentMatch.class, ActivityLearn.class));
+        matchLl.setOnClickListener(v -> startMatch());
 
         displayFlashcardsInLinearLayout(flashcards, binding.viewSetAllFlashcardsLl, getLayoutInflater());
 
         viewSetStudyEfab = binding.viewSetStudyEfab;
         viewSetStudyEfab.setOnClickListener(v -> startFlashcards());
     }
+
 
     private void setupToolbar() {
         Toolbar toolbar = binding.viewSetToolbar;
@@ -157,6 +158,25 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         intent.putExtra("learningSet", learningSet);
 
         startActivity(intent);
+    }
+
+    private void startTest() {
+        Intent intent = new Intent(this, ActivityLearn.class);
+
+        intent.putExtra("fragment_class", FragmentTest.class.getName()); // Pass the class name
+        intent.putExtra("learningSet", learningSet);
+
+        startActivity(intent);
+    }
+
+    private void startMatch() {
+        Intent intent = new Intent(this, ActivityLearn.class);
+
+        intent.putExtra("fragment_class", FragmentMatch.class.getName()); // Pass the class name
+        intent.putExtra("learningSet", learningSet);
+
+        startActivity(intent);
+
     }
 
 

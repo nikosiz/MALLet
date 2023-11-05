@@ -21,13 +21,19 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.mallet.databinding.DialogTestOptionsBinding;
 import com.example.mallet.databinding.FragmentTestBinding;
 import com.example.mallet.utils.AdapterTest;
+import com.example.mallet.utils.ModelFlashcard;
+import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.Utils;
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class FragmentTest extends Fragment {
+    private List<ModelFlashcard> flashcardList;
+
     private static final String PREFS_NAME = "TestSettings";
     private static final String KEY_NR_OF_QUESTIONS = "nrOfQuestions";
     private static final String KEY_TRUE_FALSE = "trueFalse";
@@ -259,5 +265,18 @@ public class FragmentTest extends Fragment {
     private boolean getSwitchState(String switchKey) {
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getBoolean(switchKey, false); // Default value (false) if key not found
+    }
+
+    private List<ModelFlashcard> getLearningSetData() {
+        Bundle args = getArguments();
+        if (args != null) {
+            ModelLearningSet learningSet = args.getParcelable("learningSet");
+            if (learningSet != null) {
+                flashcardList = learningSet.getTerms();
+                return flashcardList;
+            }
+        }
+
+        return new ArrayList<>();
     }
 }

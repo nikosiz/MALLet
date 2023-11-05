@@ -1,6 +1,7 @@
 package com.example.mallet;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -9,29 +10,54 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Chronometer;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.example.mallet.databinding.DialogAreYouReadyBinding;
 import com.example.mallet.databinding.DialogGameOverBinding;
+import com.example.mallet.databinding.FragmentLearnBinding;
+import com.example.mallet.databinding.FragmentMatchBinding;
+import com.example.mallet.utils.ModelFlashcard;
+import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.Utils;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 public class FragmentMatch extends Fragment {
+    private ActivityLearn activityLearn;
+    private FragmentMatchBinding binding;
+    private List<ModelFlashcard> flashcardList;
     private final Integer[] cardsArray = {101, 102, 103, 104, 105, 201, 202, 203, 204, 205};
     private Chronometer chronometer;
     private TextView tv_p1;
     private CardView cv_11, cv_12, cv_21, cv_22, cv_31, cv_32, cv_41, cv_42, cv_51, cv_52;
     private TextView cv_11Tv, cv_12Tv, cv_21Tv, cv_22Tv, cv_31Tv, cv_32Tv, cv_41Tv, cv_42Tv, cv_51Tv, cv_52Tv;
     private TextView pointsTv;
-    private int text101, text102, text103, text104, text105, text201, text202, text203, text204, text205;
+    private String text101, text102, text103, text104, text105, text201, text202, text203, text204, text205;
     private int firstCard, secondCard;
     private int clickedFirst, clickedSecond;
     private int cardNr = 1;
     private int playerPoints = 0;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        if (context instanceof ActivityLearn) {
+            activityLearn = (ActivityLearn) context;
+        } else {
+            // Handle the case where the activity does not implement the method
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,6 +67,11 @@ public class FragmentMatch extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        binding = FragmentMatchBinding.inflate(inflater, container, false);
+
+        setupContents();
+
+        generateTextVariables(flashcardList);
 
         View rootView = inflater.inflate(R.layout.fragment_match, container, false);
 
@@ -82,8 +113,6 @@ public class FragmentMatch extends Fragment {
         cv_42.setTag("7");
         cv_51.setTag("8");
         cv_52.setTag("9");
-
-        cardResources();
 
         //Collections.shuffle(Arrays.asList(cardsArray));
 
@@ -140,6 +169,22 @@ public class FragmentMatch extends Fragment {
         });
 
         return rootView;
+    }
+
+    private void setupContents() {
+        setupToolbar();
+
+        flashcardList = getLearningSetData();
+    }
+
+    private void setupToolbar() {
+        Toolbar toolbar = binding.matchFToolbar;
+        ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle("");
+
+        ImageView backIv = binding.matchFToolbarBackIv;
+
+        backIv.setOnClickListener(v -> activityLearn.confirmExitDialog());
     }
 
     private void areYouReadyDialog() {
@@ -284,19 +329,6 @@ public class FragmentMatch extends Fragment {
         }
     }
 
-    private void cardResources() {
-        text101 = R.string.dog;
-        text102 = R.string.whale;
-        text103 = R.string.worm;
-        text104 = R.string.eagle;
-        text105 = R.string.fish;
-        text201 = R.string.dog_def;
-        text202 = R.string.whale_def;
-        text203 = R.string.worm_def;
-        text204 = R.string.eagle_def;
-        text205 = R.string.fish_def;
-    }
-
     private void gameOverDialog() {
         Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_game_over, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogGameOverBinding dialogBinding = DialogGameOverBinding.inflate(getLayoutInflater());
@@ -321,5 +353,60 @@ public class FragmentMatch extends Fragment {
         finish.setOnClickListener(v -> requireActivity().finish());
     }
 
+    private List<ModelFlashcard> getLearningSetData() {
+        Bundle args = getArguments();
+        if (args != null) {
+            ModelLearningSet learningSet = args.getParcelable("learningSet");
+            if (learningSet != null) {
+                flashcardList = learningSet.getTerms();
+                return flashcardList;
+            }
+        }
+
+        return new ArrayList<>();
+    }
+
+    private void generateTextVariables(List<ModelFlashcard> flashcards) {
+        // Shuffle the flashcards
+        List<ModelFlashcard> shuffledFlashcards = new ArrayList<>(flashcards);
+        Collections.shuffle(shuffledFlashcards);
+
+        // Initialize text variables for terms and definitions
+        String[] termTexts = new String[5];
+        String[] definitionTexts = new String[5];
+
+        // Select five random terms and definitions
+        for (int i = 0; i < 5; i++) {
+            ModelFlashcard flashcard = shuffledFlashcards.get(i);
+            termTexts[i] = flashcard.getTerm();
+            definitionTexts[i] = flashcard.getDefinition();
+        }
+
+        // Assign the generated texts to variables
+        text101 = termTexts[0];
+        text102 = termTexts[1];
+        text103 = termTexts[2];
+        text104 = termTexts[3];
+        text105 = termTexts[4];
+
+        text201 = definitionTexts[0];
+        text202 = definitionTexts[1];
+        text203 = definitionTexts[2];
+        text204 = definitionTexts[3];
+        text205 = definitionTexts[4];
+
+        // Print the assigned variables
+        System.out.println(text101);
+        System.out.println(text102);
+        System.out.println(text103);
+        System.out.println(text104);
+        System.out.println(text105);
+
+        System.out.println(text201);
+        System.out.println(text202);
+        System.out.println(text203);
+        System.out.println(text204);
+        System.out.println(text205);
+    }
 
 }
