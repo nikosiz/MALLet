@@ -88,9 +88,7 @@ public class ActivityLearn extends AppCompatActivity {
 
         learningSet = getIntent().getParcelableExtra("learningSet");
         flashcardList = learningSet.getTerms();
-
     }
-
 
     public List<ModelWritten> generateWrittenQuestions() {
         List<ModelWritten> questionList = new ArrayList<>();
@@ -155,7 +153,7 @@ public class ActivityLearn extends AppCompatActivity {
 
         // Check if the table is empty or if it has less than 20 rows
         if (flashcardTable.isEmpty() || flashcardTable.size() <= 1) {
-            System.out.println("Table does not have enough data to generate questions.");
+            System.out.println("Table does not have enough data to generate questions");
             return questionList;
         }
 
