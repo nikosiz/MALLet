@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import com.example.mallet.databinding.DialogLearnOptionsBinding;
 import com.example.mallet.databinding.DialogLearningFinishedBinding;
 import com.example.mallet.databinding.FragmentLearnBinding;
+import com.example.mallet.utils.ModelAnswer;
 import com.example.mallet.utils.ModelFlashcard;
 import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.ModelMultipleChoice;
@@ -31,6 +32,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class FragmentLearn extends Fragment {
     private ActivityLearn activityLearn;
@@ -209,10 +211,10 @@ public class FragmentLearn extends Fragment {
             }
         } else if (!writtenMs.isChecked()) {
             ModelMultipleChoice multipleChoiceQuestion = multipleChoiceQuestions.get(currentQuestionIndex);
-            int multipleChoiceCorrectAnswerPosition = multipleChoiceQuestion.getAnswerPosition();
+         //   int multipleChoiceCorrectAnswerPosition = multipleChoiceQuestion.getAnswerPosition();
             int multipleChoiceClickedOption;
 
-            boolean isCorrect = checkMultipleChoiceAnswer(multipleChoiceCorrectAnswerPosition, multipleChoiceCorrectAnswerPosition);
+           // boolean isCorrect = checkMultipleChoiceAnswer(multipleChoiceCorrectAnswerPosition, multipleChoiceCorrectAnswerPosition);
 
 
             currentQuestionIndex++;
@@ -344,17 +346,24 @@ public class FragmentLearn extends Fragment {
 
             multipleChoiceQuestionTv.setText(multipleChoiceQuestion.getQuestion());
 
-            option1Tv.setText(multipleChoiceQuestion.getOption1());
-            option2Tv.setText(multipleChoiceQuestion.getOption2());
-            option3Tv.setText(multipleChoiceQuestion.getOption3());
-            option4Tv.setText(multipleChoiceQuestion.getOption4());
+            List<ModelAnswer> answers = multipleChoiceQuestion.getAnswers().stream()
+                    .collect(Collectors.toList());
+            ModelAnswer correctAnswer = answers.stream()
+                    .filter(ModelAnswer::isCorrect)
+                    .findAny().get();
+            int correctAnswerPosition = answers.indexOf(correctAnswer);
 
-            System.out.println(multipleChoiceQuestion.getAnswerPosition());
+            option1Tv.setText(answers.get(0).getAnswer());
+            option2Tv.setText(answers.get(1).getAnswer());
+            option3Tv.setText(answers.get(2).getAnswer());
+            option4Tv.setText(answers.get(3).getAnswer());
 
-            option1Tv.setOnClickListener(v -> checkMultipleChoiceAnswer(1, multipleChoiceQuestion.getAnswerPosition()));
-            option2Tv.setOnClickListener(v -> checkMultipleChoiceAnswer(2, multipleChoiceQuestion.getAnswerPosition()));
-            option3Tv.setOnClickListener(v -> checkMultipleChoiceAnswer(3, multipleChoiceQuestion.getAnswerPosition()));
-            option4Tv.setOnClickListener(v -> checkMultipleChoiceAnswer(4, multipleChoiceQuestion.getAnswerPosition()));
+            System.out.println(correctAnswerPosition);
+
+            option1Tv.setOnClickListener(v -> checkMultipleChoiceAnswer(0, correctAnswerPosition));
+            option2Tv.setOnClickListener(v -> checkMultipleChoiceAnswer(1, correctAnswerPosition));
+            option3Tv.setOnClickListener(v -> checkMultipleChoiceAnswer(2, correctAnswerPosition));
+            option4Tv.setOnClickListener(v -> checkMultipleChoiceAnswer(3, correctAnswerPosition));
 
             ll.addView(multipleChoiceQuestionItem);
         } else {

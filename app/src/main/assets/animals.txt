@@ -7,3 +7,52 @@ Elephant;A large, herbivorous mammal with a trunk;Słoń
 Lion;A large wild cat known for its mane;Lew
 Giraffe;A tall, long-necked African mammal;Żyrafa
 Horse;A large domesticated mammal;Koń
+Cow;A domesticated bovine;Krowa
+Pig;A domesticated swine;Świnia
+Rabbit;A small, burrowing mammal;Królik
+Dolphin;A marine mammal known for its intelligence;Delfin
+Penguin;A flightless seabird;Pingwin
+Tiger;A large carnivorous cat with distinctive stripes;Tygrys
+Bear;A large, omnivorous mammal;Niedźwiedź
+Fox;A small carnivorous mammal with a bushy tail;Lis
+Koala;A marsupial with a diet of eucalyptus leaves;Koala
+Cheetah;A fast-running big cat;Gepard
+Kangaroo;A marsupial known for its powerful hind legs;Kangur
+Gorilla;A large primate;Goryl
+Zebra;A striped African equid;Zebra
+Sloth;A slow-moving tree-dwelling mammal;Leniwiec
+Bald Eagle;A North American bird of prey;Orzeł łysy
+Owl;A nocturnal bird of prey;Sowa
+Penguin;A flightless seabird;Pingwin
+Crocodile;A large aquatic reptile;Krokodyl
+Rhinoceros;A large herbivorous mammal with a horn;Nosorożec
+Hippopotamus;A large aquatic mammal;Hipopotam
+Panda;A bear-like mammal native to China;Panda
+Chimpanzee;A great ape native to Africa;Szympans
+Polar Bear;A large bear native to the Arctic;Niedźwiedź polarny
+Sea Turtle;A marine reptile with a hard shell;Żółw morski
+Ostrich;A large flightless bird;Struś
+Octopus;A marine mollusk with tentacles;Oktopus
+Koel;A species of cuckoo bird;Kukal
+Lemur;A small, long-tailed primate;Lemur
+Gazelle;A small, swift African antelope;Gazela
+Raccoon;A medium-sized mammal with a distinctive mask;Szop
+Eagle;A large bird of prey;Orzeł
+Giraffe;A tall, long-necked African mammal;Żyrafa
+Wolf;A carnivorous mammal known for its pack behavior;Wilk
+Penguin;A flightless seabird;Pingwin
+Toucan;A colorful, tropical bird with a large bill;Tukan
+Kangaroo;A marsupial known for its powerful hind legs;Kangur
+Camel;A desert-dwelling mammal with a hump;Wielbłąd
+Peacock;A bird with a vibrant tail display;Paw
+Walrus;A large, tusked marine mammal;Mors
+Cheetah;A fast-running big cat;Gepard
+Platypus;An egg-laying, semi-aquatic mammal;Dziobak
+Sea Lion;A marine mammal with external ears;Lew morski
+Sloth;A slow-moving tree-dwelling mammal;Leniwiec
+Antelope;A swift, herbivorous mammal;Antylopa
+Hyena;A scavenging carnivorous mammal;Hiena
+Mongoose;A small carnivorous mammal;Mangusta
+Puffin;A seabird known for its colorful beak;Maskonur
+Komodo Dragon;A large, carnivorous lizard;Smok komodo
+Bison;A large, herbivorous mammal;Bizon

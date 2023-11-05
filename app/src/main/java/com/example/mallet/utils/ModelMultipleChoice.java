@@ -1,77 +1,14 @@
 package com.example.mallet.utils;
 
+import java.util.Set;
+
+import lombok.Builder;
+import lombok.Value;
+
+@Builder
+@Value
 public class ModelMultipleChoice {
-    private final String question;
-    private String option1;
-    private String option2;
-    private String option3;
-    private String option4;
-    private int answerPosition;
-
-    public ModelMultipleChoice(String question, String option1, String option2, String option3, String option4, int answerPosition) {
-        this.question = question;
-        this.option1 = option1;
-        this.option2 = option2;
-        this.option3 = option3;
-        this.option4 = option4;
-        this.answerPosition = answerPosition;
-    }
-
-    public String getQuestion() {
-        return question;
-    }
-
-    public String getOption1() {
-        return option1;
-    }
-
-    public String getOption2() {
-        return option2;
-    }
-
-    public String getOption3() {
-        return option3;
-    }
-
-    public String getOption4() {
-        return option4;
-    }
-
-    public int getAnswerPosition() {
-        return answerPosition;
-    }
-
-    public void setOption1(String option1) {
-        this.option1 = option1;
-    }
-
-    public void setOption2(String option2) {
-        this.option2 = option2;
-    }
-
-    public void setOption3(String option3) {
-        this.option3 = option3;
-    }
-
-    public void setOption4(String option4) {
-        this.option4 = option4;
-    }
-
-    public void setAnswerPosition(int answerPosition) {
-        this.answerPosition = answerPosition;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Multiple choice questions: \n" +
-                "Question: " + question + "\n" +
-                "Option 1: " + option1 + "\n" +
-                "Option 2: " + option2 + "\n" +
-                "Option 3: " + option3 + "\n" +
-                "Option 4: " + option4 + "\n" +
-                "Answer position: " + answerPosition + "\n";
-    }
-
-
+    String question;
+    Set<ModelAnswer> answers;
 }
+
