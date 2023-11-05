@@ -16,7 +16,6 @@
         style="@style/BasicBoldTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
         android:layout_weight="1"
         android:autoSizeMaxTextSize="30sp"
         android:autoSizeMinTextSize="10sp"
@@ -42,8 +41,7 @@
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-            android:text="Choose the correct answer"
+            android:text="Choose the correct option"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
 
@@ -56,50 +54,73 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/multipleChoice_answerABtn"
-                style="@style/SocialButtonStyle"
+            <TextView
+                android:id="@+id/multipleChoice_option1Tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
+                android:background="@drawable/bg_social_btn"
+                android:clickable="true"
+                android:drawableStart="@drawable/ic_one"
+                android:drawablePadding="10dp"
+                android:drawableTint="@color/colorPrimary"
+                android:focusable="true"
                 android:gravity="center_vertical"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="15dp"
                 android:text="Option 1"
-                android:textAllCaps="false"
                 android:textSize="20sp" />
 
-            <Button
-                android:id="@+id/multipleChoice_answerBBtn"
-                style="@style/SocialButtonStyle"
+            <TextView
+                android:id="@+id/multipleChoice_option2Tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
+                android:background="@drawable/bg_social_btn"
+                android:clickable="true"
+                android:drawableStart="@drawable/ic_two"
+                android:drawablePadding="10dp"
+                android:drawableTint="@color/colorPrimary"
+                android:focusable="true"
                 android:gravity="center_vertical"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="15dp"
                 android:text="Option 2"
-                android:textAllCaps="false"
                 android:textSize="20sp" />
 
-            <Button
-                android:id="@+id/multipleChoice_answerCBtn"
-                style="@style/SocialButtonStyle"
+            <TextView
+                android:id="@+id/multipleChoice_option3Tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
+                android:background="@drawable/bg_social_btn"
+                android:clickable="true"
+                android:drawableStart="@drawable/ic_three"
+                android:drawablePadding="10dp"
+                android:drawableTint="@color/colorPrimary"
+                android:focusable="true"
                 android:gravity="center_vertical"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="15dp"
                 android:text="Option 3"
-                android:textAllCaps="false"
                 android:textSize="20sp" />
 
-            <Button
-                android:id="@+id/multipleChoice_answerDBtn"
-                style="@style/SocialButtonStyle"
+            <TextView
+                android:id="@+id/multipleChoice_option4Tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
+                android:background="@drawable/bg_social_btn"
+                android:clickable="true"
+                android:drawableStart="@drawable/ic_four"
+                android:drawablePadding="10dp"
+                android:drawableTint="@color/colorPrimary"
+                android:focusable="true"
                 android:gravity="center_vertical"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="15dp"
                 android:text="Option 4"
-                android:textAllCaps="false"
                 android:textSize="20sp" />
-
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

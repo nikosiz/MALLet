@@ -66,7 +66,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setId =  getIntent().getLongExtra("setId",0L);
+        this.setId = getIntent().getLongExtra("setId", 0L);
 
         String credential = AuthenticationUtils.get(getApplicationContext());
         this.setService = new SetServiceImpl(credential);
@@ -80,15 +80,18 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     private void setupContents() {
         Button testBtn = binding.test;
         testBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(this,ActivityLearn.class);
-            intent.putExtra("learningSet",learningSet);
+            Intent intent = new Intent(this, ActivityLearn.class);
+            intent.putExtra("learningSet", learningSet);
             startActivity(intent);
         });
 
+        // todo delete
+        learningSet = getIntent().getParcelableExtra("learningSet");
 
         flashcards = Utils.createFlashcardList(learningSet);
 
         getLearningSetData();
+
         setupToolbar();
 
         flashcardsVp2 = binding.viewSetFlashcardVp2;
@@ -103,6 +106,9 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             Utils.showItems(flashcardsVp2);
             displayFlashcardsInViewPager(flashcards, flashcardsVp2);
         }
+
+        setNameTv=binding.viewSetNameTv;
+        setNameTv.setText(learningSet.getName());
 
         flashcardsLl = binding.viewSetFlashcardsLl;
         flashcardsLl.setOnClickListener(v -> startFlashcards());
@@ -346,5 +352,5 @@ public class ActivityViewLearningSet extends AppCompatActivity {
                 Utils.showToast(getApplicationContext(), "Network failure");
             }
         });
-        }
+    }
 }

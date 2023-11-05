@@ -90,7 +90,7 @@ public class ActivityLearn extends AppCompatActivity {
         flashcardList = learningSet.getTerms();
     }
 
-    public List<ModelWritten> generateWrittenQuestions() {
+    public List<ModelWritten> generateWrittenQuestions(int MAX_QUESTIONS) {
         List<ModelWritten> questionList = new ArrayList<>();
         Random random = new Random();
 
@@ -103,7 +103,7 @@ public class ActivityLearn extends AppCompatActivity {
         // Iterate through the shuffled flashcardList
         for (ModelFlashcard flashcard : shuffledFlashcardList) {
             // Check if the maximum number of questions (20) has been generated
-            if (questionCount >= 20) {
+            if (questionCount >= MAX_QUESTIONS) {
                 break;
             }
 
@@ -146,8 +146,9 @@ public class ActivityLearn extends AppCompatActivity {
         return questionList;
     }
 
-    public List<ModelMultipleChoice> generateMultipleChoiceQuestions() {
+    public List<ModelMultipleChoice> generateMultipleChoiceQuestions(int MAX_QUESTIONS) {
         flashcardTable = createFlashcardTable(flashcardList);
+
         List<ModelMultipleChoice> questionList = new ArrayList<>();
         Random random = new Random();
 
@@ -164,13 +165,13 @@ public class ActivityLearn extends AppCompatActivity {
         int translationIndex = headerRow.indexOf("Translation");
 
         // Limit the number of questions to generate to 20 or the number of available rows (excluding the header)
-        int maxQuestionsToGenerate = Math.min(20, flashcardTable.size() - 1);
+        MAX_QUESTIONS = Math.min(20, flashcardTable.size() - 1);
 
         // Create an array to track which rows have been used
         boolean[] rowUsed = new boolean[flashcardTable.size()];
 
         // Generate and display questions
-        for (int questionCount = 0; questionCount < maxQuestionsToGenerate; questionCount++) {
+        for (int questionCount = 0; questionCount < MAX_QUESTIONS; questionCount++) {
             int randomRowIndex;
 
             // Select a random unused row
@@ -183,6 +184,8 @@ public class ActivityLearn extends AppCompatActivity {
             List<String> rowData = flashcardTable.get(randomRowIndex);
 
             String question = rowData.get(termIndex); // Take the Term as the question
+
+            int termOrDefinition = random.nextInt(1);
 
             // Determine whether to use "Definition" or "Translation" for options
             int correctAnswerIndex;
@@ -202,7 +205,7 @@ public class ActivityLearn extends AppCompatActivity {
             List<String> wrongAnswers = new ArrayList<>();
 
             // Collect wrong answers from up to 5 neighboring rows (excluding the current row)
-            for (int j = randomRowIndex - 1; j >= Math.max(1, randomRowIndex - 20); j--) {
+            for (int j = randomRowIndex - 1; j >= Math.max(1, randomRowIndex - 5); j--) {
                 if (!rowUsed[j]) {
                     List<String> neighborRow = flashcardTable.get(j);
                     String neighborWrongAnswer = neighborRow.get(correctAnswerIndex);
@@ -212,6 +215,25 @@ public class ActivityLearn extends AppCompatActivity {
                     if (wrongAnswers.size() >= 3) {
                         break; // Stop collecting wrong answers after 3 are found
                     }
+                }
+            }
+
+            // Ensure there are at least 3 unique wrong answers
+            while (wrongAnswers.size() < 3) {
+                int randomRowIndexForUniqueWrongAnswer;
+
+                // Select a random unused row for unique wrong answer
+                do {
+                    randomRowIndexForUniqueWrongAnswer = random.nextInt(flashcardTable.size() - 1) + 1; // Skip the header row
+                } while (rowUsed[randomRowIndexForUniqueWrongAnswer]);
+
+                rowUsed[randomRowIndexForUniqueWrongAnswer] = true;
+
+                List<String> neighborRow = flashcardTable.get(randomRowIndexForUniqueWrongAnswer);
+                String neighborWrongAnswer = neighborRow.get(correctAnswerIndex);
+
+                if (!neighborWrongAnswer.isEmpty() && !wrongAnswers.contains(neighborWrongAnswer)) {
+                    wrongAnswers.add(neighborWrongAnswer);
                 }
             }
 
@@ -226,7 +248,8 @@ public class ActivityLearn extends AppCompatActivity {
             questionList.add(multipleChoice);
 
             // Print the generated question and options in CMD
-            System.out.println(question);
+            System.out.println("Question: " + question);
+            System.out.println("Options:");
             for (int k = 0; k < wrongAnswers.size(); k++) {
                 System.out.println((k + 1) + ". " + wrongAnswers.get(k));
             }
@@ -234,11 +257,16 @@ public class ActivityLearn extends AppCompatActivity {
             // Print the position of the correct answer
             System.out.println("Correct Answer Type: " + correctAnswerType);
             System.out.println("Correct Answer Position: " + (wrongAnswers.indexOf(correctAnswer) + 1));
-            System.out.println("\n");
+            System.out.println();
         }
 
         return questionList;
     }
+
+
+
+
+
 
     private String getOption(List<String> options, int index) {
         if (index < options.size()) {
