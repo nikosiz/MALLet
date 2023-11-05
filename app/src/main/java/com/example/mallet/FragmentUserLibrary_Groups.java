@@ -64,7 +64,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
 
         setupContents(inflater);
         setupSearchAndFetchGroups(0, 50);
-        getUserLibraryGroupList(userGroupsLl, groups, null);
+        getUserLibraryGroupList( groups, null);
 
         return binding.getRoot();
     }
@@ -88,7 +88,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
                     }
                     foundGroups.clear();
                     if (text.length() == 0) {
-                        getUserLibraryGroupList(userGroupsLl, groups, null);
+                        getUserLibraryGroupList(groups, null);
                         return;
                     }
                     userService.getUserGroups(startPosition, limit, new Callback<GroupBasicDTO>() {
@@ -123,8 +123,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
             setView(foundGroups);
         }
     }
-    private void getUserLibraryGroupList(LinearLayout groupsLl,
-                                         List<ModelGroup> groupList,
+    private void getUserLibraryGroupList(List<ModelGroup> groupList,
                                          @Nullable String nextChunkUri) {
 
         if (Objects.isNull(nextChunkUri)) {
@@ -191,6 +190,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
         Intent intent = new Intent(requireContext(), ActivityViewGroup.class);
 
         intent.putExtra("groupId", group.getId());
+        intent.putExtra("groupName", group.getGroupName());
 
         startActivity(intent);
     }

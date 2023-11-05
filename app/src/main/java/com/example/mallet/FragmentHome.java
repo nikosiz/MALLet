@@ -99,6 +99,7 @@ public class FragmentHome extends Fragment {
             Context context = getContext();
             Intent intent = new Intent(context, ActivityViewGroup.class);
             intent.putExtra("groupId", v.getId());
+            intent.putExtra("groupName", v.getGroupName());
             context.startActivity(intent);
         };
     }

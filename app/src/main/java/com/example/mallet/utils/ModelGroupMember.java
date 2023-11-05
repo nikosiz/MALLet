@@ -5,6 +5,9 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import lombok.Builder;
+
+@Builder
 public class ModelGroupMember implements Parcelable {
     private long userId;
     private String username;
