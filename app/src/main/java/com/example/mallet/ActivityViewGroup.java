@@ -49,6 +49,8 @@ public class ActivityViewGroup extends AppCompatActivity {
     // Contents
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
+    private TextView usernameTv;
+    private TextView setNameTv, setNrOfTermsTv, creatorNameTv;
 
 
     // Floating Action Button & its options
@@ -268,6 +270,8 @@ public class ActivityViewGroup extends AppCompatActivity {
 
                 groupNameTv = binding.viewGroupNameTv;
                 groupNameTv.setText(groupDTO.name());
+
+
 
             }
 
