@@ -189,8 +189,7 @@ public class FragmentLearn extends Fragment {
             if (currentQuestionIndex < MAX_QUESTIONS && currentQuestionIndex >= 0) {
                 displayWrittenQuestion(writtenQuestions, questionsLl, getLayoutInflater());
             } else {
-                Utils.hideItems(prevTv);
-                Utils.makeItemsUnclickable(prevTv);
+                currentQuestionIndex = 0;
             }
         } else if (!writtenMs.isChecked()) {
             currentQuestionIndex--;
@@ -198,8 +197,7 @@ public class FragmentLearn extends Fragment {
             if (currentQuestionIndex < MAX_QUESTIONS && currentQuestionIndex >= 0) {
                 displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
             } else {
-                Utils.hideItems(prevTv);
-                Utils.makeItemsUnclickable(prevTv);
+                currentQuestionIndex = 0;
             }
         } else if (writtenMs.isChecked() && multipleChoiceMs.isChecked()) {
             if (currentQuestionIndex < MAX_QUESTIONS) {
@@ -221,14 +219,9 @@ public class FragmentLearn extends Fragment {
                     }
                 }
 
-                currentQuestionIndex++;
+                currentQuestionIndex--;
             } else {
-                // Reached the maximum number of questions
-                Utils.showItems(finishTv);
-                Utils.makeItemsClickable(finishTv);
-                Utils.hideItems(nextTv);
-                Utils.makeItemsUnclickable(nextTv);
-                learningFinishedDialog();
+                currentQuestionIndex = 0;
             }
         }
     }
@@ -340,8 +333,6 @@ public class FragmentLearn extends Fragment {
 
     private boolean checkMultipleChoiceAnswer(int clickedOption, int correctAnswerPosition) {
         boolean isCorrect = clickedOption == correctAnswerPosition;
-
-        Utils.showToast(requireContext(), String.valueOf(isCorrect));
 
         return clickedOption == correctAnswerPosition;
     }
