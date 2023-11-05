@@ -40,28 +40,18 @@ public class FragmentLearn extends Fragment {
     private static final int MAX_QUESTIONS = 20;
     private FragmentLearnBinding binding;
     private List<ModelFlashcard> flashcardList;
-    private int WRITTEN_QUESTIONS, MULTIPLE_CHOICE_QUESTIONS;
     private MaterialSwitch multipleChoiceMs;
     private MaterialSwitch writtenMs;
     private int checkedSwitches;
     private LinearLayout questionsLl, answersLl;
-    private View writtenQuestionView;
     private TextView writtenQuestionTv;
     private TextInputEditText writtenAnswerEt;
     private String writtenAnswer;
     private List<ModelWritten> writtenQuestions;
-    private int writtenCorrectAnswerPosition, writtenAlternativeAnswerPosition;
     private TextView correctAnswersTv;
-    private View multipleChoiceQuestionView;
     private TextView multipleChoiceQuestionTv;
-    private String multipleChoiceAnswer;
     private TextView option1Tv, option2Tv, option3Tv, option4Tv;
     private List<ModelMultipleChoice> multipleChoiceQuestions;
-    private int multipleChoiceCorrectAnswerPosition;
-    private int multipleChoiceOption1Position;
-    private int multipleChoiceOption2Position;
-    private int multipleChoiceOption3Position;
-    private int multipleChoiceOption4Position;
     private TextView nextTv, prevTv, finishTv, errorTv;
     private int currentQuestionIndex = 0;
 
@@ -84,9 +74,6 @@ public class FragmentLearn extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentLearnBinding.inflate(inflater, container, false);
-
-        writtenQuestionView = inflater.inflate(R.layout.model_written, container, false);
-        multipleChoiceQuestionView = inflater.inflate(R.layout.model_multiple_choice, container, false);
 
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
@@ -114,16 +101,6 @@ public class FragmentLearn extends Fragment {
         finishTv = binding.learnFinishTv;
         finishTv.setOnClickListener(v -> learningFinishedDialog());
         Utils.hideItems(finishTv, errorTv);
-
-        writtenQuestionTv = writtenQuestionView.findViewById(R.id.written_questionTv);
-        writtenAnswerEt = writtenQuestionView.findViewById(R.id.written_answerEt);
-
-        multipleChoiceQuestionTv = multipleChoiceQuestionView.findViewById(R.id.multipleChoice_questionTv);
-
-        option1Tv = multipleChoiceQuestionView.findViewById(R.id.multipleChoice_option1Tv);
-        option2Tv = multipleChoiceQuestionView.findViewById(R.id.multipleChoice_option2Tv);
-        option3Tv = multipleChoiceQuestionView.findViewById(R.id.multipleChoice_option3Tv);
-        option4Tv = multipleChoiceQuestionView.findViewById(R.id.multipleChoice_option4Tv);
     }
 
     private void setupToolbar() {
@@ -163,12 +140,10 @@ public class FragmentLearn extends Fragment {
 
             if (writtenMs.isChecked() && !multipleChoiceMs.isChecked()) {
                 writtenQuestions = activityLearn.generateWrittenQuestions();
-                WRITTEN_QUESTIONS = MAX_QUESTIONS;
                 displayWrittenQuestion(writtenQuestions, questionsLl, getLayoutInflater());
             } else if (!writtenMs.isChecked() && multipleChoiceMs.isChecked()) {
                 if (activityLearn != null) {
                     multipleChoiceQuestions = activityLearn.generateMultipleChoiceQuestions();
-                    MULTIPLE_CHOICE_QUESTIONS = MAX_QUESTIONS;
                     displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
                 }
             } else if (!writtenMs.isChecked() && !multipleChoiceMs.isChecked()) {
@@ -180,9 +155,6 @@ public class FragmentLearn extends Fragment {
                     displayMixedQuestions(writtenQuestions, multipleChoiceQuestions, questionsLl, getLayoutInflater());
                 }
 
-
-                MULTIPLE_CHOICE_QUESTIONS = 10;
-                WRITTEN_QUESTIONS = 10;
                 Utils.showToast(getContext(), "NOPE");
             }
 
