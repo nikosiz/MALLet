@@ -90,7 +90,7 @@ public class ActivityLearn extends AppCompatActivity {
         flashcardList = learningSet.getTerms();
     }
 
-    public List<ModelWritten> generateWrittenQuestions(int MAX_QUESTIONS) {
+    public List<ModelWritten> generateWrittenQuestions() {
         List<ModelWritten> questionList = new ArrayList<>();
         Random random = new Random();
 
@@ -98,6 +98,7 @@ public class ActivityLearn extends AppCompatActivity {
         List<ModelFlashcard> shuffledFlashcardList = new ArrayList<>(flashcardList);
         Collections.shuffle(shuffledFlashcardList);
 
+        int MAX_QUESTIONS = 20;
         int questionCount = 0; // Initialize the question count
 
         // Iterate through the shuffled flashcardList
@@ -146,7 +147,7 @@ public class ActivityLearn extends AppCompatActivity {
         return questionList;
     }
 
-    public List<ModelMultipleChoice> generateMultipleChoiceQuestions(int MAX_QUESTIONS) {
+    public List<ModelMultipleChoice> generateMultipleChoiceQuestions() {
         flashcardTable = createFlashcardTable(flashcardList);
 
         List<ModelMultipleChoice> questionList = new ArrayList<>();
@@ -165,7 +166,7 @@ public class ActivityLearn extends AppCompatActivity {
         int translationIndex = headerRow.indexOf("Translation");
 
         // Limit the number of questions to generate to 20 or the number of available rows (excluding the header)
-        MAX_QUESTIONS = Math.min(20, flashcardTable.size() - 1);
+        int MAX_QUESTIONS = Math.min(20, flashcardTable.size() - 1);
 
         // Create an array to track which rows have been used
         boolean[] rowUsed = new boolean[flashcardTable.size()];
