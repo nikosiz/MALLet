@@ -50,13 +50,12 @@ public class FragmentLearn extends Fragment {
     private List<ModelWritten> writtenQuestions;
     private TextView correctAnswersTv;
     private TextView multipleChoiceQuestionTv;
-    private TextView option1Tv, option2Tv, option3Tv, option4Tv;
     private List<ModelMultipleChoice> multipleChoiceQuestions;
     private TextView nextTv, prevTv, finishTv, errorTv;
     private int currentQuestionIndex = 0;
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
         if (context instanceof ActivityLearn) {
@@ -75,7 +74,7 @@ public class FragmentLearn extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentLearnBinding.inflate(inflater, container, false);
 
-        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        requireActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         setupContents();
 
@@ -121,19 +120,17 @@ public class FragmentLearn extends Fragment {
 
         multipleChoiceMs = dialogBinding.learnOptionsMultipleChoiceMs;
         multipleChoiceMs.setChecked(Utils.getSwitchState(requireContext(), PREFS_NAME, KEY_MULTIPLE_CHOICE));
-        multipleChoiceMs.setOnCheckedChangeListener((buttonView, isChecked) -> handleSwitchChange(multipleChoiceMs, KEY_MULTIPLE_CHOICE, isChecked));
+        multipleChoiceMs.setOnCheckedChangeListener((buttonView, isChecked) -> handleSwitchChange(KEY_MULTIPLE_CHOICE, isChecked));
 
         writtenMs = dialogBinding.learnOptionsWrittenMs;
         writtenMs.setChecked(Utils.getSwitchState(requireContext(), PREFS_NAME, KEY_WRITTEN));
-        writtenMs.setOnCheckedChangeListener((buttonView, isChecked) -> handleSwitchChange(writtenMs, KEY_WRITTEN, isChecked));
+        writtenMs.setOnCheckedChangeListener((buttonView, isChecked) -> handleSwitchChange(KEY_WRITTEN, isChecked));
 
         TextView restartTv = dialogBinding.learnOptionsRestartTv;
         TextView startTv = dialogBinding.learnOptionsStartTv;
         errorTv = dialogBinding.learnOptionsErrorTv;
 
-        restartTv.setOnClickListener(v -> {
-            currentQuestionIndex = 0;
-        });
+        restartTv.setOnClickListener(v -> currentQuestionIndex = 0);
 
         startTv.setOnClickListener(v -> {
             currentQuestionIndex = 0;
@@ -154,15 +151,13 @@ public class FragmentLearn extends Fragment {
                     multipleChoiceQuestions = activityLearn.generateMultipleChoiceQuestions();
                     displayMixedQuestions(writtenQuestions, multipleChoiceQuestions, questionsLl, getLayoutInflater());
                 }
-
-                Utils.showToast(getContext(), "NOPE");
             }
 
             dialog.dismiss();
         });
     }
 
-    private void handleSwitchChange(MaterialSwitch switchView, String key, boolean isChecked) {
+    private void handleSwitchChange(String key, boolean isChecked) {
         if (isChecked) {
             if (checkedSwitches < 2) {
                 checkedSwitches++;
@@ -189,7 +184,7 @@ public class FragmentLearn extends Fragment {
     private void handleNextTvClick() {
         if (!multipleChoiceMs.isChecked()) {
             ModelWritten writtenQuestion = writtenQuestions.get(currentQuestionIndex);
-            writtenAnswer = writtenAnswerEt.getText().toString().toLowerCase().trim();
+            writtenAnswer = Objects.requireNonNull(writtenAnswerEt.getText()).toString().toLowerCase().trim();
             String writtenCorrectAnswer = writtenQuestion.getCorrectAnswer();
             String writtenAlternativeAnswer = writtenQuestion.getAlternativeAnswer();
 
@@ -215,6 +210,11 @@ public class FragmentLearn extends Fragment {
         } else if (!writtenMs.isChecked()) {
             ModelMultipleChoice multipleChoiceQuestion = multipleChoiceQuestions.get(currentQuestionIndex);
             int multipleChoiceCorrectAnswerPosition = multipleChoiceQuestion.getAnswerPosition();
+            int multipleChoiceClickedOption;
+
+            boolean isCorrect = checkMultipleChoiceAnswer(multipleChoiceCorrectAnswerPosition, multipleChoiceCorrectAnswerPosition);
+
+
             currentQuestionIndex++;
 
             if (currentQuestionIndex < MAX_QUESTIONS && currentQuestionIndex < multipleChoiceQuestions.size()) {
@@ -287,12 +287,12 @@ public class FragmentLearn extends Fragment {
         return userInputLower.equals(correctAnswerLower) || userInputLower.equals(alternativeAnswerLower);
     }
 
-    private boolean checkMultipleChoiceAnswer(String userAnswer, String correctAnswer, String
-            alternativeAnswer) {
-        String userInputLower = userAnswer.toLowerCase();
-        String correctAnswerLower = correctAnswer.toLowerCase();
-        String alternativeAnswerLower = alternativeAnswer.toLowerCase();
-        return userInputLower.equals(correctAnswerLower) || userInputLower.equals(alternativeAnswerLower);
+    private boolean checkMultipleChoiceAnswer(int clickedOption, int correctAnswerPosition) {
+        boolean isCorrect = clickedOption == correctAnswerPosition;
+
+        Utils.showToast(requireContext(), String.valueOf(isCorrect));
+
+        return clickedOption == correctAnswerPosition;
     }
 
 
@@ -337,10 +337,10 @@ public class FragmentLearn extends Fragment {
             View multipleChoiceQuestionItem = inflater.inflate(R.layout.model_multiple_choice, ll, false);
             multipleChoiceQuestionTv = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_questionTv);
 
-            option1Tv = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_option1Tv);
-            option2Tv = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_option2Tv);
-            option3Tv = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_option3Tv);
-            option4Tv = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_option4Tv);
+            TextView option1Tv = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_option1Tv);
+            TextView option2Tv = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_option2Tv);
+            TextView option3Tv = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_option3Tv);
+            TextView option4Tv = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_option4Tv);
 
             multipleChoiceQuestionTv.setText(multipleChoiceQuestion.getQuestion());
 
@@ -348,6 +348,13 @@ public class FragmentLearn extends Fragment {
             option2Tv.setText(multipleChoiceQuestion.getOption2());
             option3Tv.setText(multipleChoiceQuestion.getOption3());
             option4Tv.setText(multipleChoiceQuestion.getOption4());
+
+            System.out.println(multipleChoiceQuestion.getAnswerPosition());
+
+            option1Tv.setOnClickListener(v -> checkMultipleChoiceAnswer(1, multipleChoiceQuestion.getAnswerPosition()));
+            option2Tv.setOnClickListener(v -> checkMultipleChoiceAnswer(2, multipleChoiceQuestion.getAnswerPosition()));
+            option3Tv.setOnClickListener(v -> checkMultipleChoiceAnswer(3, multipleChoiceQuestion.getAnswerPosition()));
+            option4Tv.setOnClickListener(v -> checkMultipleChoiceAnswer(4, multipleChoiceQuestion.getAnswerPosition()));
 
             ll.addView(multipleChoiceQuestionItem);
         } else {
@@ -441,7 +448,6 @@ public class FragmentLearn extends Fragment {
             ModelLearningSet learningSet = args.getParcelable("learningSet");
             if (learningSet != null) {
                 flashcardList = learningSet.getTerms();
-
                 return flashcardList;
             }
         }

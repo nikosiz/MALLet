@@ -87,6 +87,7 @@ public class ActivityLearn extends AppCompatActivity {
         fragmentName = getIntent().getStringExtra("fragment_class");
 
         learningSet = getIntent().getParcelableExtra("learningSet");
+
         flashcardList = learningSet.getTerms();
     }
 
@@ -244,8 +245,10 @@ public class ActivityLearn extends AppCompatActivity {
             // Shuffle the wrong answers
             Collections.shuffle(wrongAnswers);
 
+            int correctAnswerPosition = wrongAnswers.indexOf(correctAnswer);
+
             // Create a ModelMultipleChoice object and add it to the list
-            ModelMultipleChoice multipleChoice = new ModelMultipleChoice(question, getOption(wrongAnswers, 0), getOption(wrongAnswers, 1), getOption(wrongAnswers, 2), correctAnswer, 4);
+            ModelMultipleChoice multipleChoice = new ModelMultipleChoice(question, getOption(wrongAnswers, 0), getOption(wrongAnswers, 1), getOption(wrongAnswers, 2), correctAnswer, correctAnswerPosition + 1);
             questionList.add(multipleChoice);
 
             // Print the generated question and options in CMD
@@ -256,9 +259,8 @@ public class ActivityLearn extends AppCompatActivity {
             }
 
             // Print the position of the correct answer
-            System.out.println("Correct Answer Type: " + correctAnswerType);
             System.out.println("Correct Answer Position: " + (wrongAnswers.indexOf(correctAnswer) + 1));
-            System.out.println();
+            System.out.println("\n");
         }
 
         return questionList;
