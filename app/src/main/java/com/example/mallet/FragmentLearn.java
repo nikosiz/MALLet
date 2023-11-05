@@ -30,10 +30,8 @@ import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 
 public class FragmentLearn extends Fragment {
     private ActivityLearn activityLearn;
@@ -177,6 +175,13 @@ public class FragmentLearn extends Fragment {
             } else if (!writtenMs.isChecked() && !multipleChoiceMs.isChecked()) {
                 Utils.showItems(errorTv);
             } else if (writtenMs.isChecked() && multipleChoiceMs.isChecked()) {
+                if (activityLearn != null) {
+                    writtenQuestions = activityLearn.generateWrittenQuestions();
+                    multipleChoiceQuestions = activityLearn.generateMultipleChoiceQuestions();
+                    displayMixedQuestions(writtenQuestions, multipleChoiceQuestions, questionsLl, getLayoutInflater());
+                }
+
+
                 MULTIPLE_CHOICE_QUESTIONS = 10;
                 WRITTEN_QUESTIONS = 10;
                 Utils.showToast(getContext(), "NOPE");
@@ -210,12 +215,10 @@ public class FragmentLearn extends Fragment {
     }
 
 
-
-
     private void handleNextTvClick() {
         if (!multipleChoiceMs.isChecked()) {
-            writtenAnswer = writtenAnswerEt.getText().toString().toLowerCase().trim();
             ModelWritten writtenQuestion = writtenQuestions.get(currentQuestionIndex);
+            writtenAnswer = writtenAnswerEt.getText().toString().toLowerCase().trim();
             String writtenCorrectAnswer = writtenQuestion.getCorrectAnswer();
             String writtenAlternativeAnswer = writtenQuestion.getAlternativeAnswer();
 
@@ -252,6 +255,56 @@ public class FragmentLearn extends Fragment {
                 Utils.makeItemsUnclickable(nextTv);
                 learningFinishedDialog();
             }
+        } else if(writtenMs.isChecked()&&multipleChoiceMs.isChecked()){
+            if (currentQuestionIndex < MAX_QUESTIONS) {
+                if (currentQuestionIndex % 2 == 0) {
+                    // Display a written question
+                    if (currentQuestionIndex < writtenQuestions.size()) {
+                        displayWrittenQuestions(writtenQuestions, questionsLl, getLayoutInflater());
+                    } else {
+                        // No more written questions
+                        displayNextMultipleChoiceQuestion();
+                    }
+                } else {
+                    // Display a multiple-choice question
+                    if (currentQuestionIndex < multipleChoiceQuestions.size()) {
+                        displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
+                    } else {
+                        // No more multiple-choice questions
+                        displayNextWrittenQuestion();
+                    }
+                }
+
+                currentQuestionIndex++;
+            } else {
+                // Reached the maximum number of questions
+                Utils.showItems(finishTv);
+                Utils.makeItemsClickable(finishTv);
+                Utils.hideItems(nextTv);
+                Utils.makeItemsUnclickable(nextTv);
+                learningFinishedDialog();
+            }
+
+
+
+        }
+    }
+
+    private void displayNextWrittenQuestion() {
+        if (currentQuestionIndex < writtenQuestions.size()) {
+            displayWrittenQuestions(writtenQuestions, questionsLl, getLayoutInflater());
+        } else {
+            // No more written questions
+            displayNextMultipleChoiceQuestion();
+        }
+    }
+
+    private void displayNextMultipleChoiceQuestion() {
+        if (currentQuestionIndex < multipleChoiceQuestions.size()) {
+            displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
+        } else {
+            // No more multiple-choice questions
+            displayNextWrittenQuestion();
         }
     }
 
@@ -309,15 +362,67 @@ public class FragmentLearn extends Fragment {
         ll.removeAllViews();
 
         if (currentQuestionIndex < mcqQuestions.size()) {
-            ModelMultipleChoice question = mcqQuestions.get(currentQuestionIndex);
+            ModelMultipleChoice multipleChoiceQuestion = mcqQuestions.get(currentQuestionIndex);
 
             View multipleChoiceQuestionItem = inflater.inflate(R.layout.model_multiple_choice, ll, false);
             multipleChoiceQuestionTv = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_questionTv);
-            multipleChoiceQuestionTv.setText(question.getQuestion());
+            multipleChoiceQuestionTv.setText(multipleChoiceQuestion.getQuestion());
 
             ll.addView(multipleChoiceQuestionItem);
         } else {
             // All questions have been shown
+        }
+    }
+
+    private void displayMixedQuestions(List<ModelWritten> writtenQuestions, List<ModelMultipleChoice> multipleChoiceQuestions, LinearLayout ll, LayoutInflater inflater) {
+        ll.removeAllViews();
+
+        int maxQuestionsPerType = MAX_QUESTIONS / 2;
+        int writtenQuestionsCount = Math.min(maxQuestionsPerType, writtenQuestions.size());
+        int multipleChoiceQuestionsCount = Math.min(maxQuestionsPerType, multipleChoiceQuestions.size());
+
+        int totalQuestionsDisplayed = 0;
+        int writtenQuestionIndex = 0;
+        int multipleChoiceQuestionIndex = 0;
+
+        while (totalQuestionsDisplayed < MAX_QUESTIONS) {
+            if (totalQuestionsDisplayed < maxQuestionsPerType && writtenQuestionIndex < writtenQuestionsCount) {
+                ModelWritten writtenQuestion = writtenQuestions.get(writtenQuestionIndex);
+                View writtenQuestionItem = inflater.inflate(R.layout.model_written, ll, false);
+                writtenQuestionTv = writtenQuestionItem.findViewById(R.id.written_questionTv);
+                writtenQuestionTv.setText(writtenQuestion.getQuestion());
+
+                correctAnswersTv = writtenQuestionItem.findViewById(R.id.written_correctAnswersTv);
+                correctAnswersTv.setText("\"" + writtenQuestion.getCorrectAnswer() + "\" or \"" + writtenQuestion.getAlternativeAnswer() + "\"");
+
+                writtenAnswerEt = writtenQuestionItem.findViewById(R.id.written_answerEt);
+                answersLl = writtenQuestionItem.findViewById(R.id.written_correctAnswersLl);
+                Utils.hideItems(answersLl);
+
+                writtenAnswerEt.setOnFocusChangeListener((v, hasFocus) -> {
+                    if (!hasFocus) {
+                        writtenAnswer = writtenAnswerEt.getText().toString();
+                    }
+                });
+
+                ll.addView(writtenQuestionItem);
+
+                writtenQuestionIndex++;
+            } else if (multipleChoiceQuestionIndex < multipleChoiceQuestionsCount) {
+                ModelMultipleChoice multipleChoiceQuestion = multipleChoiceQuestions.get(multipleChoiceQuestionIndex);
+                View multipleChoiceQuestionItem = inflater.inflate(R.layout.model_multiple_choice, ll, false);
+                multipleChoiceQuestionTv = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_questionTv);
+                multipleChoiceQuestionTv.setText(multipleChoiceQuestion.getQuestion());
+
+                ll.addView(multipleChoiceQuestionItem);
+
+                multipleChoiceQuestionIndex++;
+            } else {
+                // All questions have been shown
+                break;
+            }
+
+            totalQuestionsDisplayed++;
         }
     }
 
