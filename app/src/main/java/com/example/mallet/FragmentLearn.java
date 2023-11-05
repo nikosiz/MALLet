@@ -95,6 +95,7 @@ public class FragmentLearn extends Fragment {
         nextTv.setOnClickListener(v -> handleNextTvClick());
 
         prevTv = binding.learnPrevTv;
+        prevTv.setOnClickListener(v -> previousQuestion());
         Utils.showItems(prevTv, nextTv);
 
         finishTv = binding.learnFinishTv;
@@ -180,6 +181,58 @@ public class FragmentLearn extends Fragment {
         }
     }
 
+    private void previousQuestion() {
+        if (!multipleChoiceMs.isChecked()) {
+            writtenAnswerEt.setText(writtenAnswer);
+            currentQuestionIndex--;
+
+            if (currentQuestionIndex < MAX_QUESTIONS && currentQuestionIndex >= 0) {
+                displayWrittenQuestion(writtenQuestions, questionsLl, getLayoutInflater());
+            } else {
+                Utils.hideItems(prevTv);
+                Utils.makeItemsUnclickable(prevTv);
+            }
+        } else if (!writtenMs.isChecked()) {
+            currentQuestionIndex--;
+
+            if (currentQuestionIndex < MAX_QUESTIONS && currentQuestionIndex >= 0) {
+                displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
+            } else {
+                Utils.hideItems(prevTv);
+                Utils.makeItemsUnclickable(prevTv);
+            }
+        } else if (writtenMs.isChecked() && multipleChoiceMs.isChecked()) {
+            if (currentQuestionIndex < MAX_QUESTIONS) {
+                if (currentQuestionIndex % 2 == 0) {
+                    // Display a written question
+                    if (currentQuestionIndex < writtenQuestions.size()) {
+                        displayWrittenQuestion(writtenQuestions, questionsLl, getLayoutInflater());
+                    } else {
+                        // No more written questions
+                        displayNextMultipleChoiceQuestion();
+                    }
+                } else {
+                    // Display a multiple-choice question
+                    if (currentQuestionIndex < multipleChoiceQuestions.size()) {
+                        displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
+                    } else {
+                        // No more multiple-choice questions
+                        displayNextWrittenQuestion();
+                    }
+                }
+
+                currentQuestionIndex++;
+            } else {
+                // Reached the maximum number of questions
+                Utils.showItems(finishTv);
+                Utils.makeItemsClickable(finishTv);
+                Utils.hideItems(nextTv);
+                Utils.makeItemsUnclickable(nextTv);
+                learningFinishedDialog();
+            }
+        }
+    }
+
 
     private void handleNextTvClick() {
         if (!multipleChoiceMs.isChecked()) {
@@ -255,8 +308,6 @@ public class FragmentLearn extends Fragment {
                 Utils.makeItemsUnclickable(nextTv);
                 learningFinishedDialog();
             }
-
-
         }
     }
 

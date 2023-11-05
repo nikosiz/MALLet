@@ -260,49 +260,24 @@ public class ActivityLearn extends AppCompatActivity {
             flashcardTable = createFlashcardTable(flashcardList);
             List<ModelMultipleChoice> questionList = new ArrayList<>();
 
-            // Check if the table is empty
-            if (flashcardTable.isEmpty() || flashcardTable.get(0).isEmpty()) {
-                System.out.println("Table is empty. No questions to generate.");
+            if (flashcardTable.isEmpty() || flashcardTable.size() < 2) {
+                System.out.println("Table does not have enough data to generate questions.");
                 return questionList;
             }
 
-            // Get the header row to access column names
             List<String> headerRow = flashcardTable.get(0);
             int termIndex = headerRow.indexOf("Term");
             int definitionIndex = headerRow.indexOf("Definition");
             int translationIndex = headerRow.indexOf("Translation");
 
-            Random random = new Random();
-
-            // Limit the number of questions to generate to 20 or the number of available rows (excluding the header)
-            int MAX_QUESTIONS = Math.min(20, flashcardTable.size() - 1);
-
-            // Create an array to track which rows have been used
-            boolean[] rowUsed = new boolean[flashcardTable.size()];
-
-            // Generate and display questions
-            for (int questionCount = 0; questionCount < MAX_QUESTIONS; questionCount++) {
-                int randomRowIndex;
-
-                // Select a random unused row
-                do {
-                    randomRowIndex = random.nextInt(flashcardTable.size() - 1) + 1; // Skip the header row
-                } while (rowUsed[randomRowIndex]);
-
-                rowUsed[randomRowIndex] = true;
-
-                List<String> rowData = flashcardTable.get(randomRowIndex);
-
+            for (int i = 1; i < flashcardTable.size(); i++) {
+                List<String> rowData = flashcardTable.get(i);
                 String question = rowData.get(termIndex); // Take the Term as the question
-
-                int termOrDefinition = random.nextInt(1);
-
-                // Determine whether to use "Definition" or "Translation" for options
                 int correctAnswerIndex;
                 String correctAnswerType;
 
-                boolean useDefinitionForOptions = random.nextBoolean();
-                if (useDefinitionForOptions) {
+                // Determine the correct answer type
+                if (!rowData.get(definitionIndex).isEmpty() && !rowData.get(translationIndex).isEmpty()) {
                     correctAnswerIndex = definitionIndex;
                     correctAnswerType = "Definition";
                 } else {
@@ -310,38 +285,26 @@ public class ActivityLearn extends AppCompatActivity {
                     correctAnswerType = "Translation";
                 }
 
-                String correctAnswer = rowData.get(correctAnswerIndex); // Take either Definition or Translation as the correct answer
+                String correctAnswer = rowData.get(correctAnswerIndex);
 
                 List<String> wrongAnswers = new ArrayList<>();
+                int maxWrongAnswers = 3;
 
-                // Collect wrong answers of the same type from up to 5 neighboring rows (excluding the current row)
-                for (int j = randomRowIndex - 1; j >= Math.max(1, randomRowIndex - 5); j--) {
-                    if (!rowUsed[j]) {
-                        List<String> neighborRow = flashcardTable.get(j);
-                        String neighborWrongAnswer = neighborRow.get(correctAnswerIndex);
-                        if (!neighborWrongAnswer.isEmpty() && !wrongAnswers.contains(neighborWrongAnswer)) {
-                            wrongAnswers.add(neighborWrongAnswer);
-                        }
-                    }
-                    if (wrongAnswers.size() >= 4) {
-                        break; // Stop collecting wrong answers after 3 are found
+                // Collect wrong answers from neighboring rows (excluding the current row)
+                for (int j = i - 1; j >= Math.max(1, i - 5) && wrongAnswers.size() < maxWrongAnswers; j--) {
+                    List<String> neighborRow = flashcardTable.get(j);
+                    String neighborWrongAnswer = neighborRow.get(correctAnswerIndex);
+                    if (!neighborWrongAnswer.isEmpty() && !wrongAnswers.contains(neighborWrongAnswer)) {
+                        wrongAnswers.add(neighborWrongAnswer);
                     }
                 }
 
-                // Ensure there are at least 3 unique wrong answers of the same type
-                while (wrongAnswers.size() < 3) {
+                while (wrongAnswers.size() < maxWrongAnswers) {
                     int randomRowIndexForUniqueWrongAnswer;
-
-                    // Select a random unused row for a unique wrong answer of the same type
                     do {
-                        randomRowIndexForUniqueWrongAnswer = random.nextInt(flashcardTable.size() - 1) + 1; // Skip the header row
-                    } while (rowUsed[randomRowIndexForUniqueWrongAnswer]);
-
-                    rowUsed[randomRowIndexForUniqueWrongAnswer] = true;
-
-                    List<String> neighborRow = flashcardTable.get(randomRowIndexForUniqueWrongAnswer);
-                    String neighborWrongAnswer = neighborRow.get(correctAnswerIndex);
-
+                        randomRowIndexForUniqueWrongAnswer = 1 + (int) (Math.random() * (flashcardTable.size() - 1));
+                    } while (randomRowIndexForUniqueWrongAnswer == i);
+                    String neighborWrongAnswer = flashcardTable.get(randomRowIndexForUniqueWrongAnswer).get(correctAnswerIndex);
                     if (!neighborWrongAnswer.isEmpty() && !wrongAnswers.contains(neighborWrongAnswer)) {
                         wrongAnswers.add(neighborWrongAnswer);
                     }
@@ -350,25 +313,21 @@ public class ActivityLearn extends AppCompatActivity {
                 // Add the correct answer
                 wrongAnswers.add(correctAnswer);
 
-                // Shuffle the wrong answers
+                // Shuffle the answers
                 Collections.shuffle(wrongAnswers);
 
-                int correctAnswerPosition = wrongAnswers.indexOf(correctAnswer);
-
                 // Create a ModelMultipleChoice object and add it to the list
-                ModelMultipleChoice multipleChoice = new ModelMultipleChoice(question, getOption(wrongAnswers, 0), getOption(wrongAnswers, 1), getOption(wrongAnswers, 2), correctAnswer, correctAnswerPosition + 1);
+                ModelMultipleChoice multipleChoice = new ModelMultipleChoice(question, wrongAnswers.get(0), wrongAnswers.get(1), wrongAnswers.get(2), correctAnswer, 4);
                 questionList.add(multipleChoice);
 
-                // Print the generated question and options in CMD
                 System.out.println("Question: " + question);
+                System.out.println("Answer Type: " + correctAnswerType);
                 System.out.println("Options:");
                 for (int k = 0; k < wrongAnswers.size(); k++) {
                     System.out.println((k + 1) + ". " + wrongAnswers.get(k));
                 }
-
-                // Print the position of the correct answer
-                System.out.println("Correct Answer Position: " + (wrongAnswers.indexOf(correctAnswer) + 1));
-                System.out.println("\n");
+                System.out.println("Correct Answer: " + correctAnswer);
+                System.out.println();
             }
 
             return questionList;
