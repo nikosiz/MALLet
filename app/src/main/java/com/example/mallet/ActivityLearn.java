@@ -6,7 +6,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +19,7 @@ import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.ModelMultipleChoice;
 import com.example.mallet.utils.ModelWritten;
 import com.example.mallet.utils.Utils;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,17 +33,29 @@ public class ActivityLearn extends AppCompatActivity {
     private ModelLearningSet learningSet;
     private List<ModelFlashcard> flashcardList;
     private List<List<String>> flashcardTable;
+    private final int currentQuestionIndex = 0;
+
 
     // Written questions
+    private View writtenQuestionView;
+    private TextView writtenQuestionTv;
+    private TextInputEditText writtenAnswerEt;
+    private String writtenAnswer;
+    private List<ModelWritten> writtenQuestions;
     private int writtenCorrectAnswerPosition, writtenAlternativeAnswerPosition;
+    private TextView correctAnswersTv;
 
     // Multiple choice questions
+    private View multipleChoiceQuestionView;
+    private TextView multipleChoiceQuestionTv;
+    private String multipleChoiceAnswer;
+    private Button option1Btn, option2Btn, option3Btn, option4Btn;
+    private List<ModelMultipleChoice> multipleChoiceQuestions;
     private int multipleChoiceCorrectAnswerPosition;
     private int multipleChoiceOption1Position;
     private int multipleChoiceOption2Position;
     private int multipleChoiceOption3Position;
     private int multipleChoiceOption4Position;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,14 +92,24 @@ public class ActivityLearn extends AppCompatActivity {
     }
 
 
-
     public List<ModelWritten> generateWrittenQuestions() {
-        List<ModelWritten> questionList = new ArrayList();
+        List<ModelWritten> questionList = new ArrayList<>();
         Random random = new Random();
 
-        //int writtenQuestionPosition = random.nextInt(2);
+        // Shuffle the flashcardList to randomize the order of elements
+        List<ModelFlashcard> shuffledFlashcardList = new ArrayList<>(flashcardList);
+        Collections.shuffle(shuffledFlashcardList);
 
-        for (ModelFlashcard flashcard : flashcardList) {
+        int questionCount = 0; // Initialize the question count
+
+        // Iterate through the shuffled flashcardList
+        for (ModelFlashcard flashcard : shuffledFlashcardList) {
+            // Check if the maximum number of questions (20) has been generated
+            if (questionCount >= 20) {
+                break;
+            }
+
+            // Randomly select the position for the written question
             int writtenQuestionPosition = random.nextInt(2);
 
             List<String> options = new ArrayList<>();
@@ -95,6 +118,8 @@ public class ActivityLearn extends AppCompatActivity {
             options.add(flashcard.getTranslation());
             Collections.shuffle(options);
 
+
+            // Determine the positions of the correct and alternative answers
             switch (writtenQuestionPosition) {
                 case 0:
                     writtenCorrectAnswerPosition = 1;
@@ -110,10 +135,16 @@ public class ActivityLearn extends AppCompatActivity {
                     break;
             }
 
+            // Create a ModelWritten object with the selected options
             ModelWritten written = new ModelWritten(options.get(writtenQuestionPosition), options.get(writtenCorrectAnswerPosition), options.get(writtenAlternativeAnswerPosition));
+
+            // Add the written question to the list
             questionList.add(written);
-            // System.out.println(written);
+            System.out.println(written);
+
+            questionCount++; // Increment the question count
         }
+
         return questionList;
     }
 
@@ -210,9 +241,6 @@ public class ActivityLearn extends AppCompatActivity {
 
         return questionList;
     }
-
-
-
 
     private String getOption(List<String> options, int index) {
         if (index < options.size()) {

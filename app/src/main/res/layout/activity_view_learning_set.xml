@@ -75,8 +75,7 @@
                 android:layout_margin="20dp"
                 android:background="@drawable/bg_corners_rounded"
                 android:orientation="vertical"
-                android:paddingHorizontal="20dp"
-                android:paddingVertical="30dp"
+                android:padding="20dp"
                 android:visibility="gone">
 
                 <TextView
