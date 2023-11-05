@@ -256,7 +256,7 @@ public class ActivityLearn extends AppCompatActivity {
         List<String> questionsWithoutCurrent = new ArrayList<>(questions);
         questionsWithoutCurrent.remove(correctQuestion);
 
-        List<String> wrongQuestions = new ArrayList<>();
+        List<String> wrongQuestions = new ArrayList<>()
 
         IntStream.range(0, 3)
                 .forEach(integer -> getRandomWrongQuestion(questionsWithoutCurrent, wrongQuestions));
