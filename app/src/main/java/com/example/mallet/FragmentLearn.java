@@ -138,19 +138,19 @@ public class FragmentLearn extends Fragment {
             if (writtenMs.isChecked() && !multipleChoiceMs.isChecked()) {
                 writtenQuestions = activityLearn.generateWrittenQuestions();
                 displayWrittenQuestion(writtenQuestions, questionsLl, getLayoutInflater());
+
             } else if (!writtenMs.isChecked() && multipleChoiceMs.isChecked()) {
-                if (activityLearn != null) {
-                    multipleChoiceQuestions = activityLearn.generateMultipleChoiceQuestions();
-                    displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
-                }
+                multipleChoiceQuestions = activityLearn.generateMultipleChoiceQuestions();
+                displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
+
             } else if (!writtenMs.isChecked() && !multipleChoiceMs.isChecked()) {
                 Utils.showItems(errorTv);
+
             } else if (writtenMs.isChecked() && multipleChoiceMs.isChecked()) {
-                if (activityLearn != null) {
-                    writtenQuestions = activityLearn.generateWrittenQuestions();
-                    multipleChoiceQuestions = activityLearn.generateMultipleChoiceQuestions();
-                    displayMixedQuestions(writtenQuestions, multipleChoiceQuestions, questionsLl, getLayoutInflater());
-                }
+                writtenQuestions = activityLearn.generateWrittenQuestions();
+                multipleChoiceQuestions = activityLearn.generateMultipleChoiceQuestions();
+                displayMixedQuestions(writtenQuestions, multipleChoiceQuestions, questionsLl, getLayoutInflater());
+
             }
 
             dialog.dismiss();
