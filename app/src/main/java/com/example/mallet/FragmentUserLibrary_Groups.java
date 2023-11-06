@@ -64,7 +64,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
 
         setupContents(inflater);
         setupSearchAndFetchGroups(0, 50);
-        getUserLibraryGroupList( groups, null);
+        getUserLibraryGroupList(groups, null);
 
         return binding.getRoot();
     }
@@ -83,7 +83,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
         RxTextView.textChanges(searchEt)
                 .debounce(500, TimeUnit.MILLISECONDS)
                 .subscribe(text -> {
-                    if(firstTime.get()){
+                    if (firstTime.get()) {
                         return;
                     }
                     foundGroups.clear();
@@ -95,7 +95,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
                         @Override
                         public void onResponse(Call<GroupBasicDTO> call, Response<GroupBasicDTO> response) {
                             userGroupsLl.removeAllViews();
-                            fetchGroupsForSearch(text.toString(),response);
+                            fetchGroupsForSearch(text.toString(), response);
                         }
 
                         @Override
@@ -119,10 +119,11 @@ public class FragmentUserLibrary_Groups extends Fragment {
             String limit = uri.getQueryParameter("limit");
 
             setupSearchAndFetchGroups(Long.parseLong(startPosition), Long.parseLong(limit));
-        }else{
+        } else {
             setView(foundGroups);
         }
     }
+
     private void getUserLibraryGroupList(List<ModelGroup> groupList,
                                          @Nullable String nextChunkUri) {
 
@@ -148,7 +149,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
                 List<ModelGroup> modelGroups = ModelGroupMapper.from(groupDTO.groups());
                 groupList.addAll(modelGroups);
 
-                if(!groupList.equals(modelGroups)){
+                if (!groupList.equals(modelGroups)) {
                     groupList.clear();
                     groupList.addAll(modelGroups);
                 }
@@ -176,10 +177,10 @@ public class FragmentUserLibrary_Groups extends Fragment {
             groupNameTv.setText(group.getGroupName());
 
             TextView groupNrOfMembers = groupItemView.findViewById(R.id.group_nrOfMembersTv);
-            groupNrOfMembers.setText(group.getNrOfMembers());
+            groupNrOfMembers.setText(group.getNrOfMembers() + " members");
 
             TextView groupNrOfSetsTv = groupItemView.findViewById(R.id.group_nrOfSetsTv);
-            groupNrOfSetsTv.setText(group.getNrOfSets());
+            groupNrOfSetsTv.setText(group.getNrOfSets() + " sets");
 
 
             userGroupsLl.addView(groupItemView);

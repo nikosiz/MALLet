@@ -27,7 +27,6 @@ import com.example.mallet.utils.ModelGroup;
 import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.Utils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 
@@ -66,7 +65,7 @@ public class FragmentHome extends Fragment {
         homeSetsViewPager = binding.homeSetsViewPager;
         homeGroupsViewPager = binding.homeGroupsViewPager;
         binding.homeSetViewAllTv.setOnClickListener(v -> showAllItems(0));
-        binding.homeFolderViewAllTv.setOnClickListener(v -> showAllItems(1));
+        //binding.homeFolderViewAllTv.setOnClickListener(v -> showAllItems(1));
         binding.homeGroupViewAllTv.setOnClickListener(v -> showAllItems(2));
 
         progressBar = binding.fragmentHomeProgressBar;
@@ -107,7 +106,7 @@ public class FragmentHome extends Fragment {
 
     private void setupLearningSets() {
         // todo replace with userService below - this is for testing
-        List<ModelLearningSet> sets = new ArrayList<>();
+        /*List<ModelLearningSet> sets = new ArrayList<>();
 
         ModelLearningSet set = Utils.readFlashcards(requireContext(),"animals.txt");
 
@@ -123,9 +122,9 @@ public class FragmentHome extends Fragment {
 
         homeSetsViewPager.setAdapter(adapterSets);
 
-        homeSetsViewPager.setPageTransformer(Utils::applySwipeTransformer);
+        homeSetsViewPager.setPageTransformer(Utils::applySwipeTransformer);*/
 
-        /*userService.getUserSets(0, 5, new Callback<SetBasicDTO>() {
+        userService.getUserSets(0, 5, new Callback<SetBasicDTO>() {
             @Override
             public void onResponse(Call<SetBasicDTO> call, Response<SetBasicDTO> response) {
                 SetBasicDTO setBasicDTO = ResponseHandler.handleResponse(response);
@@ -142,7 +141,7 @@ public class FragmentHome extends Fragment {
             public void onFailure(Call<SetBasicDTO> call, Throwable t) {
                 Utils.showToast(getContext(), "Network failure");
             }
-        });*/
+        });
     }
 
     @NonNull
@@ -150,6 +149,7 @@ public class FragmentHome extends Fragment {
         return learningSet -> {
             Intent intent = new Intent(getContext(), ActivityViewLearningSet.class);
 
+            intent.putExtra("learningSet", learningSet);
             intent.putExtra("setId", learningSet.getId());
 
             startActivity(intent);

@@ -59,8 +59,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-
-                    android:text="@string/recent_sets"
+                    android:text="Your sets"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="20sp" />
 
@@ -92,7 +91,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="20dp" />
 
-            <LinearLayout
+            <!--<LinearLayout
                 android:id="@+id/home_folderLl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -131,7 +130,7 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/home_foldersViewPager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent" />-->
 
             <View
                 android:layout_width="match_parent"
@@ -149,8 +148,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-
-                    android:text="@string/groups"
+                    android:text="Your groups"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="20sp" />
 

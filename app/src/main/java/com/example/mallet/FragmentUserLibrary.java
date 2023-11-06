@@ -56,7 +56,7 @@ public class FragmentUserLibrary extends Fragment {
         FragmentStateAdapter adapter = new FragmentStateAdapter(getChildFragmentManager(), getLifecycle()) {
             @Override
             public int getItemCount() {
-                return 3; // Nr of tabs
+                return 2; // Nr of tabs
             }
 
             @NonNull
@@ -66,9 +66,9 @@ public class FragmentUserLibrary extends Fragment {
                 // Return the appropriate fragment for each tab
                 if (position == 0) {
                     result = new FragmentUserLibrary_Sets();
-                } else if (position == 1) {
+                } /*else if (position == 1) {
                     result = new FragmentUserLibrary_Folders();
-                } else if (position == 2) {
+                }*/ else if (position == 1) {
                     result = new FragmentUserLibrary_Groups();
                 }
                 return Objects.requireNonNull(result);
@@ -80,8 +80,8 @@ public class FragmentUserLibrary extends Fragment {
         // Wait for the adapter to set up the tabs before setting tab titles
         viewPager.post(() -> {
             Objects.requireNonNull(tabLayout.getTabAt(0)).setText("Sets");
-            Objects.requireNonNull(tabLayout.getTabAt(1)).setText("Folders");
-            Objects.requireNonNull(tabLayout.getTabAt(2)).setText("Groups");
+            //Objects.requireNonNull(tabLayout.getTabAt(1)).setText("Folders");
+            Objects.requireNonNull(tabLayout.getTabAt(1)).setText("Groups");
 
             // Customize the text size for each tab
             for (int i = 0; i < tabLayout.getTabCount(); i++) {
@@ -100,7 +100,7 @@ public class FragmentUserLibrary extends Fragment {
         // Connect the TabLayout with the ViewPager
         new TabLayoutMediator(tabLayout, viewPager,
                 (tab, position) -> {
-                    // Nothing needed here since tab titles are set beforehand
+                    // Tab titles are set beforehand
                 }
         ).attach();
     }

@@ -108,7 +108,7 @@ public class ActivityMain extends AppCompatActivity {
         dialog.show();
 
         TextView createSetTv = dialogBinding.createSetTv;
-        TextView createFolderTv = dialogBinding.createFolderTv;
+        //TextView createFolderTv = dialogBinding.createFolderTv;
         TextView createGroupTv = dialogBinding.createGroupTv;
         TextView cancelTv = dialogBinding.createCancelTv;
 
@@ -118,11 +118,12 @@ public class ActivityMain extends AppCompatActivity {
             startActivity(intent);
         });
 
-        createFolderTv.setOnClickListener(v -> {
+        /*createFolderTv.setOnClickListener(v -> {
             dialog.dismiss();
             Intent intent = new Intent(this, ActivityCreateFolder.class);
             startActivity(intent);
-        });
+        });*/
+
         createGroupTv.setOnClickListener(v -> {
             dialog.dismiss();
             Intent intent = new Intent(this, ActivityCreateGroup.class);
