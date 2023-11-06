@@ -75,9 +75,9 @@ public class FragmentProfile extends Fragment {
         }
 
         // Initialize the strings requiring the context here
-        usernameIncorrect = getString(R.string.username_incorrect);
-        emailIncorrect = getString(R.string.email_incorrect);
-        passwordIncorrect = getString(R.string.password_incorrect);
+        usernameIncorrect = getActivity().getString(R.string.username_incorrect);
+        emailIncorrect = getActivity().getString(R.string.email_incorrect);
+        passwordIncorrect = getActivity().getString(R.string.password_incorrect);
 
 
         return binding.getRoot();

@@ -251,8 +251,9 @@ public class FragmentUserLibrary_Groups extends Fragment {
 
                 @Override
                 public void onFailure(Call<Void> call, Throwable t) {
-                    System.out.println();
+                    System.out.println("error");
                 }
+
             });
 
 

@@ -147,7 +147,7 @@ public class FragmentFlashcards extends Fragment {
     }
 
     private void updateCardCounterText() {
-        flashcardsLeftTv.setText(getString(R.string.swipe_counter, flashcardsLeft, flashcards.size()));
+        flashcardsLeftTv.setText(getActivity().getString(R.string.swipe_counter, flashcardsLeft, flashcards.size()));
         //Log.d(TAG, "Remaining flashcards: " + flashcardsLeft);
     }
 

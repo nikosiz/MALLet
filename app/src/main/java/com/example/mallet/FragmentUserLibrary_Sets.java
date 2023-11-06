@@ -205,10 +205,11 @@ public class FragmentUserLibrary_Sets extends Fragment {
 
             TextView setNrOfTermsTv = setItemView.findViewById(R.id.learningSet_nrOfTermsTv);
             if (set.getNrOfTerms() == 1) {
-                setNrOfTermsTv.setText(getString(R.string.nr_of_terms_singular, String.valueOf(set.getNrOfTerms())));
+                setNrOfTermsTv.setText(getActivity().getString(R.string.nr_of_terms_singular, String.valueOf(set.getNrOfTerms())));
             } else {
                 // Todo this line stops app when quickli switching fragments with bottom nav
-                //setNrOfTermsTv.setText(getString(R.string.nr_of_terms_plural, String.valueOf(set.getNrOfTerms())));
+
+                setNrOfTermsTv.setText(getActivity().getString(R.string.nr_of_terms_plural, String.valueOf(set.getNrOfTerms())));
             }
 
             TextView setCreatorTv = setItemView.findViewById(R.id.learningSet_creatorTv);
