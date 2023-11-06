@@ -1,11 +1,13 @@
 package com.example.mallet;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 
@@ -23,6 +25,16 @@ public class ActivityOpening extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityOpeningBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                Utils.terminateApp(thisActivity());
+            }
+        };
+
+        // Register the callback with the onBackPressedDispatcher
+        this.getOnBackPressedDispatcher().addCallback(this, callback);
 
         // Check if the user is logged in
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -61,6 +73,11 @@ public class ActivityOpening extends AppCompatActivity {
             AuthenticationUtils.save(getApplicationContext(), "12345niewiemcotupisac@gmail.com", "dupa123!CHUJ");
             Utils.openActivity(this, ActivityMain.class);
         });
+    }
+
+    private Activity thisActivity() {
+        Activity thisActivity = this;
+        return thisActivity;
     }
 
 }

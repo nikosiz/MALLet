@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryLight"
-
     tools:context=".ActivityViewGroup"
     tools:ignore="Overdraw">
 
@@ -143,7 +142,6 @@
             app:drawableTint="@color/colorPrimary" />
     </LinearLayout>
 
-    <!-- TODO: ma sie w gore rozwijać i ma być create new set albo add set-->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/viewGroup_addFab"
         android:layout_width="wrap_content"

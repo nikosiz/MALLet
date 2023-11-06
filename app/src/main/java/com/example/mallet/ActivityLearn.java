@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -69,6 +70,18 @@ public class ActivityLearn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityLearnBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                confirmExitDialog();
+            }
+        };
+
+        // Register the callback with the onBackPressedDispatcher
+        this.getOnBackPressedDispatcher().addCallback(this, callback);
+
+
         this.random = new Random();
         setupContents();
 
@@ -96,7 +109,9 @@ public class ActivityLearn extends AppCompatActivity {
 
         learningSet = getIntent().getParcelableExtra("learningSet");
 
-        flashcardList = learningSet.getTerms();
+        if (learningSet != null) {
+            flashcardList = learningSet.getTerms();
+        }
     }
 
     public List<ModelWritten> generateWrittenQuestions() {
@@ -282,10 +297,5 @@ public class ActivityLearn extends AppCompatActivity {
             this.finish();
             dialog.dismiss();
         });
-    }
-
-    @Override
-    public void onBackPressed() {
-        confirmExitDialog();
     }
 }

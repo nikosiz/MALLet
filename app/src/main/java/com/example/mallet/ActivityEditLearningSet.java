@@ -9,9 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.OnBackPressedDispatcher;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -43,6 +46,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     private ModelLearningSet learningSet;
     private boolean isSetNew;
     private long learningSetId;
+    private ProgressBar progressBar;
 
     // Toolbar
     private ImageView toolbarBackIv, toolbarDeleteIv, toolbarSaveIv;
@@ -71,6 +75,17 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         binding = ActivityEditLearningSetBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Create an OnBackPressedCallback
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                confirmExitDialog();
+            }
+        };
+
+        // Register the callback with the onBackPressedDispatcher
+        this.getOnBackPressedDispatcher().addCallback(this, callback);
+
         String credential = AuthenticationUtils.get(getApplicationContext());
         this.userService = new UserServiceImpl(credential);
 
@@ -83,6 +98,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     }
 
     private void setupContents() {
+        progressBar = binding.editSetProgressBar;
         setupToolbar();
 
         setNameEt = binding.editSetNameEt;
@@ -101,18 +117,14 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         addFlashcardFab = binding.editSetAddFab;
 
         if (isSetNew) {
+            Utils.hideItems(progressBar);
+            setNameEt.setText("");
+            Utils.hideItems(setNameErrTv);
+            setDescriptionEt.setText("");
             addFlashcard(flashcardsLl, getLayoutInflater(), null, null, null);
-        }
-
-        if (learningSet.getName() != null) {
+        } else {
             setNameEt.setText(learningSet.getName());
-        }
-
-        if (learningSet.getDescription() != null) {
             setDescriptionEt.setText(learningSet.getDescription());
-        }
-
-        if (learningSet.getTerms() != null) {
             populateFlashcardsUI(learningSet.getTerms());
         }
 
@@ -153,6 +165,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         dialog.show();
 
         dialogBinding.confirmExitCancelTv.setOnClickListener(v -> dialog.dismiss());
+
         dialogBinding.confirmExitConfirmTv.setOnClickListener(v -> {
             this.finish();
             dialog.dismiss();
@@ -171,8 +184,8 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     }
 
     public void saveSet() {
-        String enteredSetName = setNameEt.getText().toString();
-        String enteredSetDescription = setDescriptionEt.getText().toString();
+        String enteredSetName = Objects.requireNonNull(setNameEt.getText()).toString();
+        String enteredSetDescription = Objects.requireNonNull(setDescriptionEt.getText()).toString();
 
         List<ModelFlashcard> enteredFlashcards = new ArrayList<>();
 
@@ -182,9 +195,9 @@ public class ActivityEditLearningSet extends AppCompatActivity {
             TextInputEditText definitionEt = flashcardItemView.findViewById(R.id.addFlashcard_definitionEt);
             TextInputEditText translationEt = flashcardItemView.findViewById(R.id.addFlashcard_translationEt);
 
-            String enteredTerm = termEt.getText().toString();
-            String enteredDefinition = definitionEt.getText().toString();
-            String enteredTranslation = translationEt.getText().toString();
+            String enteredTerm = Objects.requireNonNull(termEt.getText()).toString();
+            String enteredDefinition = Objects.requireNonNull(definitionEt.getText()).toString();
+            String enteredTranslation = Objects.requireNonNull(translationEt.getText()).toString();
 
             ModelFlashcard addedFlashcard = new ModelFlashcard(enteredTerm, enteredDefinition, enteredTranslation);
             enteredFlashcards.add(addedFlashcard);
@@ -267,11 +280,6 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
             }
         });
-    }
-
-    @Override
-    public void onBackPressed() {
-        confirmExitDialog();
     }
 
     private void close() {

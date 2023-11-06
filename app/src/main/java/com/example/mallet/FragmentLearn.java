@@ -360,7 +360,7 @@ public class FragmentLearn extends Fragment {
 
             writtenAnswerEt.setOnFocusChangeListener((v, hasFocus) -> {
                 if (!hasFocus) {
-                    writtenAnswer = writtenAnswerEt.getText().toString();
+                    writtenAnswer = Objects.requireNonNull(writtenAnswerEt.getText()).toString();
                 }
             });
 
@@ -440,7 +440,7 @@ public class FragmentLearn extends Fragment {
 
                 writtenAnswerEt.setOnFocusChangeListener((v, hasFocus) -> {
                     if (!hasFocus) {
-                        writtenAnswer = writtenAnswerEt.getText().toString();
+                        writtenAnswer = Objects.requireNonNull(writtenAnswerEt.getText()).toString();
                     }
                 });
 

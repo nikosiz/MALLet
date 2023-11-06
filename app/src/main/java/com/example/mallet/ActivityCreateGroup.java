@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -79,6 +80,17 @@ public class ActivityCreateGroup extends AppCompatActivity {
         setContentView(binding.getRoot());
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                confirmExitDialog();
+            }
+        };
+
+        // Register the callback with the onBackPressedDispatcher
+        this.getOnBackPressedDispatcher().addCallback(this, callback);
+
+
         String credential = AuthenticationUtils.get(getApplicationContext());
         this.userService = new UserServiceImpl(credential);
         this.groupService = new GroupServiceImpl(credential);
@@ -129,7 +141,7 @@ public class ActivityCreateGroup extends AppCompatActivity {
 
     private void handleGroupCreation() {
         Editable text = groupNameEt.getText();
-        if (Objects.isNull(text) || text.toString().isEmpty()) {
+        if (text != null && (Objects.isNull(text) || text.toString().isEmpty())) {
             Utils.showToast(getApplicationContext(), "Group name cannot be empty");
             Utils.showItems(groupNameErrTv);
             groupNameErrTv.setText(R.string.field_cannot_be_empty);
@@ -263,7 +275,7 @@ public class ActivityCreateGroup extends AppCompatActivity {
                 Utils.showToast(getApplicationContext(), clickedUser.getUsername() + clickedUser.getIdentifier() + " added to group");
             } else {
                 selectedUsers.remove(clickedUser);
-                if (searchUsersEt.getText().toString().trim().isEmpty()) {
+                if (Objects.requireNonNull(searchUsersEt.getText()).toString().trim().isEmpty()) {
                     allUsernames.remove(clickedUser);
                 }
                 Utils.showToast(getApplicationContext(), clickedUser.getUsername() + clickedUser.getIdentifier() + " removed from group");

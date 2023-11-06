@@ -59,7 +59,7 @@
         <LinearLayout
             android:id="@+id/viewSetSvLl"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <androidx.viewpager2.widget.ViewPager2
@@ -99,7 +99,6 @@
                     android:layout_gravity="center"
                     android:background="@drawable/bg_basic_btn"
                     android:clickable="true"
-                    android:drawableEnd="@drawable/ic_plus"
                     android:drawableTint="@color/colorLight"
                     android:focusable="true"
                     android:fontFamily="@font/rem_regular"
@@ -107,7 +106,8 @@
                     android:paddingVertical="10dp"
                     android:text="Add"
                     android:textColor="@color/colorLight"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    app:drawableEndCompat="@drawable/ic_plus" />
 
             </LinearLayout>
 
@@ -163,13 +163,14 @@
                         style="@style/BasicTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_profile"
                         android:drawablePadding="10dp"
-                        android:drawableTint="@color/colorPrimaryDark"
                         android:gravity="center_vertical"
                         android:paddingEnd="10dp"
                         android:text="user_name"
-                        android:textColor="@color/colorPrimaryDark" />
+                        android:textColor="@color/colorPrimaryDark"
+                        app:drawableStartCompat="@drawable/ic_profile"
+                        app:drawableTint="@color/colorPrimaryDark"
+                        tools:ignore="RtlSymmetry" />
 
                     <View
                         android:layout_width="2dp"
@@ -391,7 +392,7 @@
                     android:id="@+id/viewSet_allFlashcardsLl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"></LinearLayout>
+                    android:orientation="vertical"/>
 
                 <View
                     android:layout_width="match_parent"
@@ -418,4 +419,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:shapeAppearanceOverlay="@style/EfabStyle" />
+
+    <ProgressBar
+        android:id="@+id/viewSet_progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:indeterminateTint="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

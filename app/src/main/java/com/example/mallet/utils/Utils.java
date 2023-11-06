@@ -14,13 +14,11 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Patterns;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,8 +28,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.mallet.R;
 import com.google.android.material.textfield.TextInputEditText;
-
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -220,8 +216,8 @@ public class Utils {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String newPassword = newPassEt.getText().toString();
-                String confirmPassword = confirmNewPassEt.getText().toString();
+                String newPassword = Objects.requireNonNull(newPassEt.getText()).toString();
+                String confirmPassword = Objects.requireNonNull(confirmNewPassEt.getText()).toString();
                 if (confirmPassword.isEmpty()) {
                     showItems(confirmErrTv);
                     confirmErrTv.setText("This field cannot be empty");
@@ -303,9 +299,13 @@ public class Utils {
         }
 
         backClickCounter = true;
-        Toast.makeText(activity, "Press back again to exit", Toast.LENGTH_SHORT).show();
+        Toast.makeText(activity, "Press back again to exit MALLet", Toast.LENGTH_SHORT).show();
 
         new Handler().postDelayed(() -> backClickCounter = false, 2000); // Reset the flag after 2 seconds
+    }
+
+    public static void closeActivity(Activity a) {
+        a.finish();
     }
 
     public static void resetEditText(TextInputEditText et, TextView err) {

@@ -103,7 +103,7 @@ public class FragmentFlashcards extends Fragment {
         Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle("");
 
         ImageView toolbarBackIv = binding.flashcardsToolbarBackIv;
-        toolbarBackIv.setOnClickListener(v -> getActivity().finish());
+        toolbarBackIv.setOnClickListener(v -> Objects.requireNonNull(getActivity()).finish());
 
         ImageView toolbarOptionsIv = binding.flashcardsToolbarOptionsIv;
         toolbarOptionsIv.setOnClickListener(v -> flashcardsOptionsDialog());
@@ -267,7 +267,7 @@ public class FragmentFlashcards extends Fragment {
     }
 
     private Dialog createDialog(int layoutResId) {
-        final Dialog dialog = new Dialog(getContext());
+        final Dialog dialog = new Dialog(requireContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(layoutResId);
 

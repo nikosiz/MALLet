@@ -8,7 +8,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -111,7 +110,7 @@ public class FragmentTest extends Fragment {
         ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
         Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle(""); // Set the title to an empty string
 
-        binding.testToolbarBackIv.setOnClickListener(v -> getActivity().finish());
+        binding.testToolbarBackIv.setOnClickListener(v -> Objects.requireNonNull(getActivity()).finish());
         binding.testOptionsIv.setOnClickListener(v -> testOptionsDialog());
     }
 
@@ -201,8 +200,7 @@ public class FragmentTest extends Fragment {
             pagerAdapter.setWrittenEnabled(isChecked);
         });
 
-        TextView startTestTv = dialogBinding.testOptionsStartTestTv;
-        TextView errorTv = dialogBinding.testOptionsErrorTv;
+        TextView startTestTv, errorTv;
 
         startTestTv = dialogBinding.testOptionsStartTestTv;
         errorTv = dialogBinding.testOptionsErrorTv;

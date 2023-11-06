@@ -317,9 +317,6 @@ public class FragmentProfile extends Fragment {
         DialogAboutBinding dialogBinding = DialogAboutBinding.inflate(LayoutInflater.from(requireContext()));
         dialog.setContentView(dialogBinding.getRoot());
         dialog.show();
-
-        ImageView backIv = dialogBinding.faboutBackIv;
-        backIv.setOnClickListener(v -> dialog.dismiss());
     }
 
     private void logOut() {
@@ -345,7 +342,7 @@ public class FragmentProfile extends Fragment {
         TextView deleteAccPasswordErrTv = dialogBinding.deleteAccountErrorTv;
         Utils.setupPasswordTextWatcher(deleteAccPasswordEt, deleteAccPasswordErrTv);
 
-        String deleteAccEnteredPassword = deleteAccPasswordEt.getText().toString();
+        String deleteAccEnteredPassword = Objects.requireNonNull(deleteAccPasswordEt.getText()).toString();
 
         CheckBox deleteAccCb = dialogBinding.deleteAccountCb;
         TextView deleteAccCbErrTv = dialogBinding.deleteAccountCbErrorTv;

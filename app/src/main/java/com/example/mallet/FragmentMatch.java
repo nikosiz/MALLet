@@ -21,7 +21,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.mallet.databinding.DialogAreYouReadyBinding;
 import com.example.mallet.databinding.DialogGameOverBinding;
-import com.example.mallet.databinding.FragmentLearnBinding;
 import com.example.mallet.databinding.FragmentMatchBinding;
 import com.example.mallet.utils.ModelFlashcard;
 import com.example.mallet.utils.ModelLearningSet;

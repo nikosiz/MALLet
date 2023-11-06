@@ -224,4 +224,15 @@
         app:srcCompat="@drawable/ic_plus"
         app:tint="@color/colorLight"
         tools:ignore="ImageContrastCheck" />
+
+    <ProgressBar
+        android:id="@+id/editSet_progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

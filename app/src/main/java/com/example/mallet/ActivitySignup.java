@@ -3,15 +3,12 @@ package com.example.mallet;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mallet.backend.client.configuration.ResponseHandler;
@@ -48,6 +45,20 @@ public class ActivitySignup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivitySignupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                Intent intent = new Intent(ActivitySignup.this, ActivityOpening.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                finish();
+                //System.out.println(getClass().getSimpleName() + " was closed");
+            }
+        };
+
+        // Register the callback with the onBackPressedDispatcher
+        this.getOnBackPressedDispatcher().addCallback(this, callback);
 
 
         userService = new UserServiceImpl(StringUtils.EMPTY);
@@ -127,8 +138,8 @@ public class ActivitySignup extends AppCompatActivity {
     }
 
     private void validateSignupData() {
-        String enteredEmail = emailEt.getText().toString().trim();
-        String enteredPassword = passwordEt.getText().toString();
+        String enteredEmail = Objects.requireNonNull(emailEt.getText()).toString().trim();
+        String enteredPassword = Objects.requireNonNull(passwordEt.getText()).toString();
 
         if (!Utils.isErrVisible(emailErrTv) && !Utils.isErrVisible(passwordErrTv)) {
             email = enteredEmail;
@@ -170,6 +181,7 @@ public class ActivitySignup extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // Create an intent to navigate to the opening activity
+        super.onBackPressed();
         Intent intent = new Intent(ActivitySignup.this, ActivityOpening.class);
         // Set intent flags
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);

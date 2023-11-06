@@ -8,7 +8,7 @@
     android:paddingVertical="30dp">
 
     <TextView
-        android:id="@+id/deleteSet_titleTv"
+        android:id="@+id/delete_titleTv"
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
         android:layout_height="10dp" />
 
     <TextView
-        android:id="@+id/deleteSet_subtitleTv"
+        android:id="@+id/delete_subtitleTv"
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,14 +35,14 @@
         android:layout_height="30dp" />
 
     <LinearLayout
-        android:id="@+id/deleteSet_cancelConfirmLl"
+        android:id="@+id/delete_cancelConfirmLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="end"
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/deleteSet_cancelTv"
+            android:id="@+id/delete_cancelTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
@@ -55,7 +55,7 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/deleteSet_confirmTv"
+            android:id="@+id/delete_confirmTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -63,7 +63,7 @@
             android:clickable="true"
             android:focusable="true"
             android:padding="10dp"
-            android:text="Delete set"
+            android:text="Delete"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
     </LinearLayout>

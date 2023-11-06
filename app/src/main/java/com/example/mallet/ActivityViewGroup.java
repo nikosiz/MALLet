@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -67,8 +68,19 @@ public class ActivityViewGroup extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         // todo get groupId and fetch resources if paramter is passed
         super.onCreate(savedInstanceState);
-        this.groupId =  getIntent().getLongExtra("groupId",0L);
-        this.groupName =  getIntent().getStringExtra("groupName");
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                Utils.closeActivity(ActivityViewGroup.this);
+            }
+        };
+
+        // Register the callback with the onBackPressedDispatcher
+        this.getOnBackPressedDispatcher().addCallback(this, callback);
+
+        this.groupId = getIntent().getLongExtra("groupId", 0L);
+        this.groupName = getIntent().getStringExtra("groupName");
 
         String credential = AuthenticationUtils.get(getApplicationContext());
         groupService = new GroupServiceImpl(credential);
@@ -98,11 +110,11 @@ public class ActivityViewGroup extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle("");
 
-        backIv = binding.viewGroupToolbarOptionsIv;
-        backIv.setOnClickListener(v -> viewGroupOptionsDialog());
+        optionsIv = binding.viewGroupToolbarOptionsIv;
+        optionsIv.setOnClickListener(v -> viewGroupOptionsDialog());
 
-        optionsIv = binding.viewGroupToolbarBackIv;
-        optionsIv.setOnClickListener(v -> finish());
+        backIv = binding.viewGroupToolbarBackIv;
+        backIv.setOnClickListener(v -> finish());
     }
 
     private void viewGroupOptionsDialog() {
@@ -222,16 +234,11 @@ public class ActivityViewGroup extends AppCompatActivity {
     }
 
     private void addSetsDialog() {
-        Dialog dialog = Utils.createDialog(this, R.layout.dialog_add_set_to_group, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT), Gravity.BOTTOM);
+        Dialog dialog = Utils.createDialog(this, R.layout.dialog_add_set_to_group, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogAddSetToGroupBinding dialogBinding = DialogAddSetToGroupBinding.inflate(LayoutInflater.from(this));
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
         dialog.show();
 
-        ImageView backIv = dialogBinding.addSetToGroupTitleBackIv;
-        backIv.setOnClickListener(v -> {
-            dialog.dismiss();
-            saveSelectedSets();
-        });
 
     }
 
@@ -241,7 +248,7 @@ public class ActivityViewGroup extends AppCompatActivity {
 
 
     private void addUsersDialog() {
-        Dialog dialog = Utils.createDialog(this, R.layout.dialog_add_user_to_group, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT), Gravity.BOTTOM);
+        Dialog dialog = Utils.createDialog(this, R.layout.dialog_add_user_to_group, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogAddUserToGroupBinding dialogBinding = DialogAddUserToGroupBinding.inflate(getLayoutInflater());
         dialog.setContentView(dialogBinding.getRoot());
         dialog.show();
@@ -272,7 +279,6 @@ public class ActivityViewGroup extends AppCompatActivity {
                 GroupDTO groupDTO = ResponseHandler.handleResponse(response);
 
                 setupTabLayout(groupDTO);
-
 
 
             }

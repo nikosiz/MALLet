@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
@@ -28,6 +30,7 @@ import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.Utils;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.Executors;
 
 import retrofit2.Call;
@@ -35,20 +38,37 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FragmentHome extends Fragment {
-
-    private FragmentHomeBinding binding;
     private ActivityMain activityMain;
+    private FragmentHomeBinding binding;
     private UserServiceImpl userService;
-    private ViewPager2 homeGroupsViewPager;
-    private ViewPager2 homeSetsViewPager;
+    private ViewPager2 homeGroupsVp2;
+    private ViewPager2 homeSetsVp2;
     private ProgressBar progressBar;
+    private Animation fadeInAnimation;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        if (context instanceof ActivityMain) {
+            activityMain = (ActivityMain) context;
+            fadeInAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.fade_in);
+        } else {
+            // Handle the case where the activity does not implement the method
+        }
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
 
-        String credential = AuthenticationUtils.get(getContext());
+        String credential = AuthenticationUtils.get(Objects.requireNonNull(requireContext()));
         this.userService = new UserServiceImpl(credential);
 
         setupContents();
@@ -62,8 +82,8 @@ public class FragmentHome extends Fragment {
     }
 
     private void setupContents() {
-        homeSetsViewPager = binding.homeSetsViewPager;
-        homeGroupsViewPager = binding.homeGroupsViewPager;
+        homeSetsVp2 = binding.homeSetsViewPager;
+        homeGroupsVp2 = binding.homeGroupsViewPager;
         binding.homeSetViewAllTv.setOnClickListener(v -> showAllItems(0));
         //binding.homeFolderViewAllTv.setOnClickListener(v -> showAllItems(1));
         binding.homeGroupViewAllTv.setOnClickListener(v -> showAllItems(2));
@@ -81,9 +101,11 @@ public class FragmentHome extends Fragment {
                 List<ModelGroup> modelGroups = ModelGroupMapper.from(groupDTO.groups());
 
                 AdapterGroup adapterGroups = new AdapterGroup(getContext(), modelGroups, openActivityViewGroup());
-                homeGroupsViewPager.setAdapter(adapterGroups);
+                homeGroupsVp2.setAdapter(adapterGroups);
 
-                homeGroupsViewPager.setPageTransformer(Utils::applySwipeTransformer);
+                homeGroupsVp2.setPageTransformer(Utils::applySwipeTransformer);
+
+                homeGroupsVp2.startAnimation(fadeInAnimation);
             }
 
             @Override
@@ -100,7 +122,9 @@ public class FragmentHome extends Fragment {
             Intent intent = new Intent(context, ActivityViewGroup.class);
             intent.putExtra("groupId", v.getId());
             intent.putExtra("groupName", v.getGroupName());
-            context.startActivity(intent);
+            if (context != null) {
+                context.startActivity(intent);
+            }
         };
     }
 
@@ -132,9 +156,11 @@ public class FragmentHome extends Fragment {
 
                 AdapterLearningSet adapterSets = new AdapterLearningSet(getContext(), modelLearningSets, openActivityViewSet());
 
-                homeSetsViewPager.setAdapter(adapterSets);
+                homeSetsVp2.setAdapter(adapterSets);
 
-                homeSetsViewPager.setPageTransformer(Utils::applySwipeTransformer);
+                homeSetsVp2.setPageTransformer(Utils::applySwipeTransformer);
+
+                homeSetsVp2.startAnimation(fadeInAnimation);
             }
 
             @Override

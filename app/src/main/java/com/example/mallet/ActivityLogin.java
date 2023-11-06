@@ -3,17 +3,14 @@ package com.example.mallet;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.agh.api.UserDetailDTO;
@@ -52,6 +49,19 @@ public class ActivityLogin extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                Intent intent = new Intent(ActivityLogin.this, ActivityOpening.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                finish();
+            }
+        };
+
+        // Register the callback with the onBackPressedDispatcher
+        this.getOnBackPressedDispatcher().addCallback(this, callback);
 
         setupContents();
     }
@@ -115,8 +125,8 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
     private void handleLogin() {
-        String email = emailEt.getText().toString();
-        String password = passwordEt.getText().toString();
+        String email = Objects.requireNonNull(emailEt.getText()).toString();
+        String password = Objects.requireNonNull(passwordEt.getText()).toString();
 
         if (!Utils.isErrVisible(emailErrTv) && !Utils.isErrVisible(passwordErrTv)) {
             Utils.disableItems(loginBtn);
@@ -167,13 +177,5 @@ public class ActivityLogin extends AppCompatActivity {
             dialog.dismiss();
             Utils.openEmailClient(this);
         });
-    }
-
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(ActivityLogin.this, ActivityOpening.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        startActivity(intent);
-        finish();
     }
 }

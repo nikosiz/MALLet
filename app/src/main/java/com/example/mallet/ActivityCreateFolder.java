@@ -9,7 +9,6 @@ import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
@@ -84,7 +83,7 @@ public class ActivityCreateFolder extends AppCompatActivity {
     }
 
     private void handleGroupCreation() {
-        groupName = groupNameEt.getText().toString().trim();
+        groupName = Objects.requireNonNull(groupNameEt.getText()).toString().trim();
         List<ContributionCreateContainer> members = new ArrayList<>();
     }
 

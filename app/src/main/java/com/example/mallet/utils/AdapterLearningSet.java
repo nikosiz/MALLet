@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -58,12 +59,15 @@ public class AdapterLearningSet extends RecyclerView.Adapter<AdapterLearningSet.
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         final TextView learningSetNameTv, learningSetCreatorTv, learningSetNrOfTermsTv;
+        private final ImageView deleteIv;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             learningSetNameTv = itemView.findViewById(R.id.learningSet_nameTv);
             learningSetNrOfTermsTv = itemView.findViewById(R.id.learningSet_nrOfTermsTv);
             learningSetCreatorTv = itemView.findViewById(R.id.learningSet_creatorTv);
+            deleteIv = itemView.findViewById(R.id.learningSet_deleteIv);
+            Utils.hideItems(deleteIv);
         }
     }
 

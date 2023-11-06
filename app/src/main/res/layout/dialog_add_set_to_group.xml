@@ -4,96 +4,96 @@
     android:id="@+id/addSetToGroup_mainLl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorLight"
-    android:orientation="vertical">
+    android:background="@drawable/bg_top_corners_rounded"
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="30dp">
 
-    <LinearLayout
-        android:id="@+id/addSetToGroup_titleLl"
+    <TextView
+        android:id="@+id/addSetToGroup_titleTv"
+        style="@style/BasicBoldTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/russo_one_regular"
+        android:text="Add sets"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="25sp" />
+
+    <TextView
+        style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryLight"
-        android:orientation="horizontal"
-        android:padding="20dp">
+        android:text="A copy of a set of your choice will be added to this group"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp" />
 
-        <ImageView
-            android:id="@+id/addSetToGroup_titleBackIv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginEnd="50dp"
-            android:background="@drawable/bg_ripple"
-            android:clickable="true"
-            android:contentDescription="@string/back_arrow"
-            android:focusable="true"
-            android:src="@drawable/ic_arrow_back"
-            app:tint="@color/colorPrimaryDark" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
 
-        <TextView
-            android:id="@+id/addSetToGroup_titleTv"
-            style="@style/BasicBoldTextStyle"
-            android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/addSetToGroup_searchTil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="5dp"
+        android:paddingBottom="5dp"
+        app:boxBackgroundColor="@color/colorLight"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:boxStrokeColor="@drawable/text_input_layout"
+        app:endIconDrawable="@drawable/ic_search"
+        app:endIconMode="custom"
+        app:endIconTint="@color/colorPrimary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/addSetToGroup_searchEt"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/russo_one_regular"
-            android:text="Add set to group"
-            android:textColor="@color/primaryTextColor"
-            android:textSize="25sp" />
-    </LinearLayout>
+            android:hint="Search (DOWOLNY set)"
+            android:textSize="15sp" />
+
+        <!--  -->
+        <ListView
+            android:id="@+id/addSetToGroup_listLv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <ScrollView
-        android:id="@+id/usersGroupsSv"
+        android:id="@+id/addSetToGroupSv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryLight1">
 
         <LinearLayout
-            android:id="@+id/usersGroupsSvLl"
+            android:id="@+id/addSetToGroupSvLl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="20dp">
 
-            <TextView
-                style="@style/BasicTextStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="A copy of the set you choose will be added to this group"
-                android:textSize="20sp" />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="10dp" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/addSetToGroup_searchTil"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="5dp"
-                android:paddingBottom="5dp"
-                app:boxBackgroundColor="@color/colorLight"
-                app:boxCornerRadiusBottomEnd="10dp"
-                app:boxCornerRadiusBottomStart="10dp"
-                app:boxCornerRadiusTopEnd="10dp"
-                app:boxCornerRadiusTopStart="10dp"
-                app:boxStrokeColor="@drawable/text_input_layout"
-                app:endIconDrawable="@drawable/ic_search"
-                app:endIconMode="custom"
-                app:endIconTint="@color/colorPrimary">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/addSetToGroup_searchEt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Search (DOWOLNY set)"
-                    android:textSize="15sp" />
-
-                <!--  -->
-                <ListView
-                    android:id="@+id/addMembersToGroup_listLv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="30dp" />
 
         </LinearLayout>
     </ScrollView>
+
+    <TextView
+        android:id="@+id/addSetToGroup_confirmTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/bg_ripple"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="10dp"
+        android:text="Confirm"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp" />
 </LinearLayout>

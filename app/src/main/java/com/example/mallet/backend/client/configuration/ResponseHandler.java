@@ -30,7 +30,10 @@ public class ResponseHandler {
 
         ResponseBody errorBody = response.errorBody();
         if (Objects.nonNull(errorBody)) {
-            ErrorResponseDTO errorResponseDTO = parseException(errorBody);
+            ErrorResponseDTO errorResponseDTO = null;
+            if (errorBody != null) {
+                errorResponseDTO = parseException(errorBody);
+            }
             throw new MalletException(errorResponseDTO.message());
         }
 

@@ -1,11 +1,17 @@
 package com.example.mallet;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -17,8 +23,11 @@ import androidx.fragment.app.Fragment;
 import com.agh.api.SetBasicDTO;
 import com.agh.api.SetInformationDTO;
 import com.example.mallet.backend.client.configuration.ResponseHandler;
+import com.example.mallet.backend.client.group.boundary.GroupServiceImpl;
 import com.example.mallet.backend.client.user.boundary.UserServiceImpl;
 import com.example.mallet.backend.entity.set.ModelLearningSetMapper;
+import com.example.mallet.backend.exception.MalletException;
+import com.example.mallet.databinding.DialogDeleteAreYouSureBinding;
 import com.example.mallet.databinding.FragmentUserLibrarySetsBinding;
 import com.example.mallet.utils.AuthenticationUtils;
 import com.example.mallet.utils.ModelLearningSet;
@@ -38,6 +47,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FragmentUserLibrary_Sets extends Fragment {
+    private ActivityMain activityMain;
+    private GroupServiceImpl groupService;
     private FragmentUserLibrarySetsBinding binding;
     private UserServiceImpl userService;
     private final List<ModelLearningSet> sets = new ArrayList<>();
@@ -47,13 +58,25 @@ public class FragmentUserLibrary_Sets extends Fragment {
     private LayoutInflater inflater;
     private final AtomicBoolean firstTime = new AtomicBoolean(true);
     private ProgressBar progressBar;
+    private Animation fadeInAnimation;
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        if (context instanceof ActivityMain) {
+            activityMain = (ActivityMain) context;
+            fadeInAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.fade_in);
+        } else {
+            // Handle the case where the activity does not implement the method
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String credential = AuthenticationUtils.get(getContext());
+        String credential = AuthenticationUtils.get(requireContext());
         this.userService = new UserServiceImpl(credential);
     }
 
@@ -62,12 +85,12 @@ public class FragmentUserLibrary_Sets extends Fragment {
         binding = FragmentUserLibrarySetsBinding.inflate(inflater, container, false);
         setupContents(inflater);
 
-        fetchSets(0, 50);
+        setupSearchAndFetchSets(0, 50);
         getUserLibrarySetList(inflater, userSetsLl, sets, null);
         return binding.getRoot();
     }
 
-    private void fetchSets(long startPosition, long limit) {
+    private void setupSearchAndFetchSets(long startPosition, long limit) {
         RxTextView.textChanges(searchEt)
                 .debounce(500, TimeUnit.MILLISECONDS)
                 .subscribe(text -> {
@@ -85,7 +108,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
                         @Override
                         public void onResponse(Call<SetBasicDTO> call, Response<SetBasicDTO> response) {
                             userSetsLl.removeAllViews();
-                            fetchSets(text.toString(), response);
+                            fetchSetsForSearch(text.toString(), response);
                         }
 
                         @Override
@@ -96,7 +119,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
                 });
     }
 
-    private void fetchSets(String text, Response<SetBasicDTO> response) {
+    private void fetchSetsForSearch(String text, Response<SetBasicDTO> response) {
         SetBasicDTO setBasicDTO = ResponseHandler.handleResponse(response);
         List<SetInformationDTO> collect = setBasicDTO.sets().stream()
                 .filter(set -> set.name().toLowerCase().contains(text.toLowerCase()))
@@ -108,9 +131,11 @@ public class FragmentUserLibrary_Sets extends Fragment {
             String startPosition = uri.getQueryParameter("startPosition");
             String limit = uri.getQueryParameter("limit");
 
-            fetchSets(Long.parseLong(startPosition), Long.parseLong(limit));
+            if (startPosition != null) {
+                setupSearchAndFetchSets(Long.parseLong(startPosition), Long.parseLong(limit));
+            }
         } else {
-            setView(inflater, foundSets);
+            setupSetView(inflater, foundSets);
         }
     }
 
@@ -129,20 +154,22 @@ public class FragmentUserLibrary_Sets extends Fragment {
                                        @Nullable String nextChunkUri) {
 
         if (Objects.isNull(nextChunkUri)) {
-            fetchSets(0, 10, inflater, setsLl, setList);
+            fetchUserSets(0, 10, inflater, setsLl, setList);
         } else {
             Uri uri = Uri.parse(nextChunkUri);
             String startPosition = uri.getQueryParameter("startPosition");
             String limit = uri.getQueryParameter("limit");
-            fetchSets(Long.parseLong(startPosition), Long.parseLong(limit), inflater, userSetsLl, setList);
+            if (startPosition != null) {
+                fetchUserSets(Long.parseLong(startPosition), Long.parseLong(limit), inflater, userSetsLl, setList);
+            }
         }
     }
 
-    private void fetchSets(long startPosition,
-                           long limit,
-                           @NonNull LayoutInflater inflater,
-                           LinearLayout setsLl,
-                           List<ModelLearningSet> setList) {
+    private void fetchUserSets(long startPosition,
+                               long limit,
+                               @NonNull LayoutInflater inflater,
+                               LinearLayout setsLl,
+                               List<ModelLearningSet> setList) {
 
         userService.getUserSets(startPosition, limit, new Callback<SetBasicDTO>() {
             @Override
@@ -155,7 +182,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
                     setList.addAll(modelLearningSets);
                 }
 
-                setView(inflater, setList);
+                setupSetView(inflater, setList);
                 firstTime.set(false);
             }
 
@@ -166,7 +193,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
         });
     }
 
-    private void setView(@NonNull LayoutInflater inflater, List<ModelLearningSet> userLibraryFoldersList) {
+    private void setupSetView(@NonNull LayoutInflater inflater, List<ModelLearningSet> userLibraryFoldersList) {
         userSetsLl.removeAllViews();
         for (ModelLearningSet set : userLibraryFoldersList) {
             View setItemView = inflater.inflate(R.layout.model_learning_set, userSetsLl, false);
@@ -186,6 +213,10 @@ public class FragmentUserLibrary_Sets extends Fragment {
             TextView setCreatorTv = setItemView.findViewById(R.id.learningSet_creatorTv);
             setCreatorTv.setText(set.getCreator());
 
+            ImageView deleteIv = setItemView.findViewById(R.id.learningSet_deleteIv);
+            deleteIv.setOnClickListener(v -> confirmDelete(set));
+
+            setItemView.startAnimation(fadeInAnimation);
 
             userSetsLl.addView(setItemView);
         }
@@ -197,5 +228,37 @@ public class FragmentUserLibrary_Sets extends Fragment {
         intent.putExtra("setId", set.getId());
 
         startActivity(intent);
+    }
+
+    public void confirmDelete(ModelLearningSet set) {
+        Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_delete_are_you_sure, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
+        DialogDeleteAreYouSureBinding dialogBinding = DialogDeleteAreYouSureBinding.inflate(LayoutInflater.from(requireContext()));
+        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
+        dialog.show();
+
+        dialogBinding.deleteCancelTv.setOnClickListener(v -> dialog.dismiss());
+        dialogBinding.deleteConfirmTv.setOnClickListener(v -> {
+            userService.deleteUserSet(set.getId(), new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    // TODO stary Michał mocno śpi
+                    try {
+                        ResponseHandler.handleResponse(response);
+                        Utils.showToast(requireContext(), set.getName() + " was deleted");
+                        setupSearchAndFetchSets(0, 50);
+                    } catch (MalletException e) {
+                        Utils.showToast(requireContext(), e.getMessage());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+
+                }
+            });
+
+
+            dialog.dismiss();
+        });
     }
 }

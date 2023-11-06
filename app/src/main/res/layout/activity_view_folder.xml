@@ -82,7 +82,8 @@
             android:gravity="center"
             android:orientation="vertical"
             android:padding="20dp"
-            android:visibility="gone">
+            android:visibility="gone"
+            tools:ignore="UselessParent">
 
             <TextView
                 android:id="@+id/viewFolder_addSetsTitleTv"

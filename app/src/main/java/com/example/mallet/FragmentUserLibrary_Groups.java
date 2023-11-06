@@ -1,11 +1,17 @@
 package com.example.mallet;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -17,8 +23,11 @@ import androidx.fragment.app.Fragment;
 import com.agh.api.GroupBasicDTO;
 import com.agh.api.GroupBasicInformationDTO;
 import com.example.mallet.backend.client.configuration.ResponseHandler;
+import com.example.mallet.backend.client.group.boundary.GroupServiceImpl;
 import com.example.mallet.backend.client.user.boundary.UserServiceImpl;
 import com.example.mallet.backend.entity.group.ModelGroupMapper;
+import com.example.mallet.backend.exception.MalletException;
+import com.example.mallet.databinding.DialogDeleteAreYouSureBinding;
 import com.example.mallet.databinding.FragmentUserLibraryGroupsBinding;
 import com.example.mallet.utils.AuthenticationUtils;
 import com.example.mallet.utils.ModelGroup;
@@ -38,8 +47,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FragmentUserLibrary_Groups extends Fragment {
+    private ActivityMain activityMain;
     private FragmentUserLibraryGroupsBinding binding;
     private UserServiceImpl userService;
+    private GroupServiceImpl groupService;
     private final List<ModelGroup> groups = new ArrayList<>();
     private TextInputEditText searchEt;
     private LinearLayout userGroupsLl;
@@ -47,14 +58,28 @@ public class FragmentUserLibrary_Groups extends Fragment {
     private LayoutInflater inflater;
     private final List<ModelGroup> foundGroups = new ArrayList<>();
     private ProgressBar progressBar;
+    private Animation fadeInAnimation;
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        if (context instanceof ActivityMain) {
+            activityMain = (ActivityMain) context;
+            fadeInAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.fade_in);
+        } else {
+            // Handle the case where the activity does not implement the method
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String credential = AuthenticationUtils.get(getContext());
+        String credential = AuthenticationUtils.get(requireContext());
+
         this.userService = new UserServiceImpl(credential);
+        this.groupService = new GroupServiceImpl(credential);
     }
 
     @Override
@@ -74,7 +99,6 @@ public class FragmentUserLibrary_Groups extends Fragment {
         userGroupsLl = binding.userLibraryGroupsAllGroupsLl;
 
         progressBar = binding.userLibraryGroupsProgressBar;
-
 
         this.inflater = inflater;
     }
@@ -118,9 +142,11 @@ public class FragmentUserLibrary_Groups extends Fragment {
             String startPosition = uri.getQueryParameter("startPosition");
             String limit = uri.getQueryParameter("limit");
 
-            setupSearchAndFetchGroups(Long.parseLong(startPosition), Long.parseLong(limit));
+            if (startPosition != null) {
+                setupSearchAndFetchGroups(Long.parseLong(startPosition), Long.parseLong(limit));
+            }
         } else {
-            setView(foundGroups);
+            setupGroupView(foundGroups);
         }
     }
 
@@ -133,7 +159,9 @@ public class FragmentUserLibrary_Groups extends Fragment {
             Uri uri = Uri.parse(nextChunkUri);
             String startPosition = uri.getQueryParameter("startPosition");
             String limit = uri.getQueryParameter("limit");
-            fetchUserGroups(Long.parseLong(startPosition), Long.parseLong(limit), groupList);
+            if (startPosition != null) {
+                fetchUserGroups(Long.parseLong(startPosition), Long.parseLong(limit), groupList);
+            }
         }
     }
 
@@ -154,7 +182,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
                     groupList.addAll(modelGroups);
                 }
 
-                setView(groupList);
+                setupGroupView(groupList);
                 firstTime.set(false);
 
             }
@@ -166,7 +194,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
         });
     }
 
-    private void setView(List<ModelGroup> userLibraryGroupList) {
+    private void setupGroupView(List<ModelGroup> userLibraryGroupList) {
         userGroupsLl.removeAllViews();
         for (ModelGroup group : userLibraryGroupList) {
             View groupItemView = inflater.inflate(R.layout.model_group, userGroupsLl, false);
@@ -182,6 +210,10 @@ public class FragmentUserLibrary_Groups extends Fragment {
             TextView groupNrOfSetsTv = groupItemView.findViewById(R.id.group_nrOfSetsTv);
             groupNrOfSetsTv.setText(group.getNrOfSets() + " sets");
 
+            ImageView deleteIv = groupItemView.findViewById(R.id.group_deleteIv);
+            deleteIv.setOnClickListener(v -> confirmDelete(group));
+
+            groupItemView.startAnimation(fadeInAnimation);
 
             userGroupsLl.addView(groupItemView);
         }
@@ -196,8 +228,35 @@ public class FragmentUserLibrary_Groups extends Fragment {
         startActivity(intent);
     }
 
-    private void startViewGroupActivity() {
-        Intent intent = new Intent(getContext(), ActivityViewGroup.class);
-        startActivity(intent);
+    public void confirmDelete(ModelGroup group) {
+        Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_delete_are_you_sure, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
+        DialogDeleteAreYouSureBinding dialogBinding = DialogDeleteAreYouSureBinding.inflate(LayoutInflater.from(requireContext()));
+        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
+        dialog.show();
+
+        dialogBinding.deleteCancelTv.setOnClickListener(v -> dialog.dismiss());
+        dialogBinding.deleteConfirmTv.setOnClickListener(v -> {
+            groupService.deleteGroup(group.getId(), new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    try {
+                        ResponseHandler.handleResponse(response);
+                        Utils.showToast(requireContext(), group.getGroupName() + " was deleted");
+                        fetchUserGroups(0, 50, groups);
+                    } catch (MalletException e) {
+                        System.out.println(e.getMessage());
+                        Utils.showToast(getContext(), "Error");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    System.out.println();
+                }
+            });
+
+
+            dialog.dismiss();
+        });
     }
 }

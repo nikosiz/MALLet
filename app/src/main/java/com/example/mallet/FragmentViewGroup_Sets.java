@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,14 +15,14 @@ import androidx.fragment.app.Fragment;
 import com.agh.api.GroupDTO;
 import com.example.mallet.backend.entity.set.ModelLearningSetMapper;
 import com.example.mallet.databinding.FragmentViewGroupSetsBinding;
-import com.example.mallet.utils.AdapterFolder;
-import com.example.mallet.utils.ModelFolder;
 import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.Utils;
 
 import java.util.List;
 
-public class FragmentViewGroup_Sets extends Fragment implements AdapterFolder.OnFolderClickListener {
+public class FragmentViewGroup_Sets extends Fragment {
+    private FragmentViewGroupSetsBinding binding;
+    private LinearLayout userLibrarySetsLl;
 
     private final GroupDTO chosenGroup;
 
@@ -31,9 +32,10 @@ public class FragmentViewGroup_Sets extends Fragment implements AdapterFolder.On
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        FragmentViewGroupSetsBinding binding = FragmentViewGroupSetsBinding.inflate(inflater, container, false);
+        binding = FragmentViewGroupSetsBinding.inflate(inflater, container, false);
 
-        LinearLayout userLibrarySetsLl = binding.viewGroupSetsSetListLl; // Change to LinearLayout
+        setupContents();
+
         List<ModelLearningSet> userLibrarySetList = getUserLibrarySetList();
 
         for (ModelLearningSet set : userLibrarySetList) {
@@ -55,6 +57,10 @@ public class FragmentViewGroup_Sets extends Fragment implements AdapterFolder.On
         return binding.getRoot();
     }
 
+    private void setupContents() {
+        userLibrarySetsLl = binding.viewGroupSetsSetListLl;
+    }
+
     private List<ModelLearningSet> getUserLibrarySetList() {
         return ModelLearningSetMapper.from(chosenGroup.sets());
     }
@@ -65,9 +71,5 @@ public class FragmentViewGroup_Sets extends Fragment implements AdapterFolder.On
         intent.putExtra("setId", id);
 
         startActivity(intent);
-    }
-
-    public void onFolderClick(ModelFolder folder) {
-        Utils.showToast(getContext(), "ASDF");
     }
 }

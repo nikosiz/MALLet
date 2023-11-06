@@ -1,18 +1,17 @@
 package com.example.mallet;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -40,11 +39,22 @@ public class ActivityMain extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                Utils.terminateApp(thisActivity());
+            }
+        };
+
+        // Register the callback with the onBackPressedDispatcher
+        this.getOnBackPressedDispatcher().addCallback(this, callback);
+
         initializeSelectedFragment(savedInstanceState);
         setExceptionItemColor();
 
         setupContents();
     }
+
 
     private void initializeSelectedFragment(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
@@ -130,24 +140,11 @@ public class ActivityMain extends AppCompatActivity {
             startActivity(intent);
         });
         cancelTv.setOnClickListener(v -> dialog.dismiss());
-
     }
 
-    private Dialog createDialog(int layoutResId) {
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(layoutResId);
-
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
-        dialog.show();
-        return dialog;
+    private Activity thisActivity() {
+        Activity thisActivity = this;
+        return thisActivity;
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Utils.terminateApp(this);
-    }
 }

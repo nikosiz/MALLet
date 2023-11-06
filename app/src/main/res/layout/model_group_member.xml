@@ -41,6 +41,7 @@
             android:layout_margin="10dp"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
+            android:contentDescription="manage group member iv"
             android:focusable="true"
             android:src="@drawable/ic_toolbar_options" />
     </LinearLayout>
@@ -124,17 +125,17 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="end"
-            android:layout_marginHorizontal="10dp"
             android:layout_weight="1"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
             android:drawablePadding="10dp"
             android:focusable="true"
-            android:gravity="center_vertical|end"
+            android:gravity="center_vertical"
             android:padding="10dp"
             android:text="Delete member"
+            android:textColor="@color/accentPrimary"
             android:textSize="20sp"
             app:drawableEndCompat="@drawable/ic_delete"
-            app:drawableTint="@color/colorPrimaryDark" />
+            app:drawableTint="@color/accentPrimary" />
     </LinearLayout>
 </LinearLayout>
