@@ -61,7 +61,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
     private final AtomicBoolean firstTime = new AtomicBoolean(true);
     private ProgressBar progressBar;
     private Animation fadeInAnimation;
-    private ScrollView setsSv;
+    private ScrollView userSetsSv;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -146,7 +146,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
         learningSet = getActivity().getIntent().getParcelableExtra("learningSet");
 
         searchEt = binding.userLibrarySetsSearchEt;
-        setsSv = binding.userLibrarySetsSv;
+        userSetsSv = binding.userLibrarySetsSv;
         userSetsLl = binding.userLibrarySetsAllSetsLl;
 
         progressBar = binding.userLibrarySetsProgressBar;
