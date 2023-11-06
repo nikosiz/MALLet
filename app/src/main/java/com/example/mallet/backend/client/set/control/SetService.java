@@ -22,4 +22,7 @@ public interface SetService {
 
     @GET(SetServiceConstants.SET_BASIC_PATH)
     Call<SetBasicDTO> getBasicSet(@Query(SetServiceConstants.IDS_PARAM) Set<Long> ids);
+
+    @GET(SetServiceConstants.SET_BASIC_PATH)
+    Call<SetBasicDTO> getBasicSet(@Query(SetServiceConstants.TOPIC_PARAM) String topic);
 }

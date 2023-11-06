@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import java.util.List;
 
 import lombok.Builder;
+import lombok.Singular;
 
 @Builder
 public record GroupUpdateContainer(
@@ -12,5 +13,6 @@ public record GroupUpdateContainer(
         Long id,
         String name,
         @NonNull
+                @Singular(value = "contribution")
         List<ContributionUpdateContainer> contributions) {
 }

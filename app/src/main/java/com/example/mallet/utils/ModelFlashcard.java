@@ -3,6 +3,9 @@ package com.example.mallet.utils;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import lombok.Builder;
+
+@Builder
 public class ModelFlashcard implements Parcelable {
     private String term, definition, translation;
 

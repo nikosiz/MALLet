@@ -2,10 +2,13 @@ package com.example.mallet;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -20,27 +23,44 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.agh.api.GroupDTO;
+import com.agh.api.PermissionType;
+import com.agh.api.SetBasicDTO;
+import com.agh.api.UserDTO;
 import com.example.mallet.backend.client.configuration.ResponseHandler;
 import com.example.mallet.backend.client.group.boundary.GroupServiceImpl;
+import com.example.mallet.backend.client.set.boundary.SetServiceImpl;
+import com.example.mallet.backend.client.user.boundary.UserServiceImpl;
+import com.example.mallet.backend.entity.group.update.ContributionUpdateContainer;
+import com.example.mallet.backend.entity.group.update.GroupUpdateContainer;
+import com.example.mallet.backend.entity.set.ModelLearningSetMapper;
 import com.example.mallet.databinding.ActivityViewGroupBinding;
 import com.example.mallet.databinding.DialogAddSetToGroupBinding;
 import com.example.mallet.databinding.DialogAddUserToGroupBinding;
 import com.example.mallet.databinding.DialogReportBinding;
 import com.example.mallet.databinding.DialogViewGroupToolbarOptionsBinding;
 import com.example.mallet.utils.AuthenticationUtils;
+import com.example.mallet.utils.ModelLearningSet;
+import com.example.mallet.utils.ModelUser;
+import com.example.mallet.utils.ModelUserMapper;
 import com.example.mallet.utils.Utils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.textfield.TextInputEditText;
+import com.jakewharton.rxbinding.widget.RxTextView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ActivityViewGroup extends AppCompatActivity {
+    private UserServiceImpl userService;
+    private SetServiceImpl setService;
     private ActivityViewGroupBinding binding;
     // Toolbar
     private ImageView backIv;
@@ -64,10 +84,23 @@ public class ActivityViewGroup extends AppCompatActivity {
     private String groupName;
     private GroupServiceImpl groupService;
 
+    private ListView userListLv;
+    private ListView setListLv;
+    private ArrayAdapter userListAdapter;
+    private final List<ModelUser> allUsernames = new ArrayList<>();
+    private ArrayAdapter setListAdapter;
+    private final List<ModelLearningSet> allSets = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // todo get groupId and fetch resources if paramter is passed
         super.onCreate(savedInstanceState);
+
+        String credential = AuthenticationUtils.get(getApplicationContext());
+        this.setService = new SetServiceImpl(credential);
+        this.userService = new UserServiceImpl(credential);
+        this.groupService = new GroupServiceImpl(credential);
+
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
@@ -82,8 +115,6 @@ public class ActivityViewGroup extends AppCompatActivity {
         this.groupId = getIntent().getLongExtra("groupId", 0L);
         this.groupName = getIntent().getStringExtra("groupName");
 
-        String credential = AuthenticationUtils.get(getApplicationContext());
-        groupService = new GroupServiceImpl(credential);
 
         binding = ActivityViewGroupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -239,7 +270,61 @@ public class ActivityViewGroup extends AppCompatActivity {
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
         dialog.show();
 
+        setListLv = dialogBinding.addSetToGroupListLv;
+        setListAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, allSets);
+        setListLv.setAdapter(setListAdapter);
 
+        TextInputEditText searchUsersEt = dialogBinding.addSetToGroupSearchEt;
+
+        RxTextView.textChanges(searchUsersEt)
+                .debounce(500, TimeUnit.MILLISECONDS)
+                .subscribe(text -> {
+                    if (text.length() == 0) {
+                        handleSetEmptyInput();
+                        return;
+                    }
+
+                    fetchSets(text);
+                });
+    }
+
+    private void handleSetEmptyInput() {
+        allSets.clear();
+        notifySetListAdapterDataChanged();
+    }
+
+    private void fetchSets(CharSequence text) {
+        setService.getBasicSet(text.toString(), new Callback<SetBasicDTO>() {
+            @Override
+            public void onResponse(Call<SetBasicDTO> call, Response<SetBasicDTO> response) {
+                handleFetchSetsResponse(response);
+            }
+
+            @Override
+            public void onFailure(Call<SetBasicDTO> call, Throwable t) {
+                Utils.showToast(getApplicationContext(), "Network failure");
+            }
+        });
+    }
+
+    private void handleFetchSetsResponse(Response<SetBasicDTO> response) {
+        SetBasicDTO sets = ResponseHandler.handleResponse(response);
+
+        allSets.clear();
+        sets.sets().stream()
+                .map(ModelLearningSetMapper::from)
+                        .forEach(allSets::add);
+
+        notifySetListAdapterDataChanged();
+    }
+
+    private void notifySetListAdapterDataChanged() {
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                setListAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     private void saveSelectedSets() {
@@ -259,16 +344,95 @@ public class ActivityViewGroup extends AppCompatActivity {
         });
 
         TextInputEditText searchUsersEt = dialogBinding.addUsersToGroupSearchEt;
-        ListView userListLv = dialogBinding.addUsersToGroupListLv;
+        this.userListLv = dialogBinding.addUsersToGroupListLv;
+        userListAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, allUsernames);
+        userListLv.setAdapter(userListAdapter);
 
-        setupListView();
+        userListLv.setOnItemClickListener((parent, view, position, id) -> {
+            ModelUser clickedUser = allUsernames.get(position);
+            //todo handle add contribution
+            ContributionUpdateContainer contribution = ContributionUpdateContainer.builder()
+                    .groupPermissionType(PermissionType.READ)
+                    .setPermissionType(PermissionType.READ)
+                    .contributorId(clickedUser.getId())
+                    .build();
+            GroupUpdateContainer groupUpdateContainer = GroupUpdateContainer.builder()
+                    .id(groupId)
+                    .contribution(contribution)
+                    .build();
+            groupService.updateGroupContribution(groupUpdateContainer, new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    Utils.showToast(getApplicationContext(),"Added");
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    Utils.showToast(getApplicationContext(),"Network failure");
+                }
+            });
+
+        RxTextView.textChanges(searchUsersEt)
+                .debounce(500, TimeUnit.MILLISECONDS)
+                .subscribe(text -> {
+                    if (text.length() == 0) {
+                        handleUserEmptyInput();
+                        return;
+                    }
+
+                    fetchUsers(text);
+                });
+
+    });}
+
+    private void handleUserEmptyInput() {
+        allUsernames.clear();
+        notifyUserListAdapterDataChanged();
+    }
+
+    private void fetchUsers(CharSequence text) {
+        userService.get(text.toString(), new Callback<>() {
+            @Override
+            public void onResponse(Call<List<UserDTO>> call, Response<List<UserDTO>> response) {
+                handleFetchUsersResponse(response);
+            }
+
+            @Override
+            public void onFailure(Call<List<UserDTO>> call, Throwable t) {
+                Utils.showToast(getApplicationContext(), "Network failure");
+            }
+        });
+    }
+
+    private void handleFetchUsersResponse(Response<List<UserDTO>> response) {
+        List<UserDTO> userDTOS = ResponseHandler.handleResponse(response);
+
+        allUsernames.clear();
+        userDTOS.stream()
+                .map(ModelUserMapper::from)
+                .forEach(allUsernames::add);
+
+        notifyUserListAdapterDataChanged();
+    }
+
+    private void notifyUserListAdapterDataChanged() {
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                userListAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     private void saveSelectedUsers() {
         // TODO
     }
 
-    private void setupListView() {
+    private void setupSetsListView(List<ModelUser> users) {
+        // TODO
+    }
+
+    private void setupUsersListView(List<ModelUser> users) {
         // TODO
     }
 

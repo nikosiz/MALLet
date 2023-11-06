@@ -9,11 +9,13 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -59,7 +61,9 @@ public class FragmentUserLibrary_Groups extends Fragment {
     private final List<ModelGroup> foundGroups = new ArrayList<>();
     private ProgressBar progressBar;
     private Animation fadeInAnimation;
+    private ScrollView groupsSv;
 
+    private String nextChunkUri;
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -91,12 +95,28 @@ public class FragmentUserLibrary_Groups extends Fragment {
         setupSearchAndFetchGroups(0, 50);
         getUserLibraryGroupList(groups, null);
 
+
+        groupsSv.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+                int contentHeight = groupsSv.getChildAt(0).getHeight();
+                int scrollHeight = groupsSv.getHeight();
+
+                int scrollY = groupsSv.getScrollY();
+
+                if (scrollY + scrollHeight >= contentHeight) {
+                    getUserLibraryGroupList(groups, nextChunkUri);
+                }
+            }
+        });
         return binding.getRoot();
     }
 
     private void setupContents(LayoutInflater inflater) {
         searchEt = binding.userLibraryGroupsSearchEt;
         userGroupsLl = binding.userLibraryGroupsAllGroupsLl;
+
+        groupsSv = binding.userLibraryGroupsSv;
 
         progressBar = binding.userLibraryGroupsProgressBar;
 
@@ -174,6 +194,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
                 Utils.hideItems(progressBar);
 
                 GroupBasicDTO groupDTO = ResponseHandler.handleResponse(response);
+                nextChunkUri = groupDTO.nextChunkUri();
                 List<ModelGroup> modelGroups = ModelGroupMapper.from(groupDTO.groups());
                 groupList.addAll(modelGroups);
 
