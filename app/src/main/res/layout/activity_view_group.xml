@@ -40,11 +40,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="1"
+            android:autoSizeMinTextSize="20sp"
+            android:autoSizeStepGranularity="5sp"
             android:fontFamily="@font/russo_one_regular"
             android:gravity="center_vertical"
             android:text="group_name"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="30sp" />
+            android:textSize="20sp" />
 
         <ImageView
             android:id="@+id/viewGroup_toolbarOptionsIv"
