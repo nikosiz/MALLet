@@ -20,10 +20,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.agh.api.SetBasicDTO;
+import com.agh.api.SetDetailDTO;
 import com.agh.api.SetInformationDTO;
 import com.example.mallet.backend.client.configuration.ResponseHandler;
 import com.example.mallet.backend.client.set.boundary.SetServiceImpl;
 import com.example.mallet.backend.client.user.boundary.UserServiceImpl;
+import com.example.mallet.backend.entity.term.ModelFlashcardMapper;
 import com.example.mallet.backend.exception.MalletException;
 import com.example.mallet.databinding.ActivityViewLearningSetBinding;
 import com.example.mallet.databinding.DialogViewSetToolbarOptionsBinding;
@@ -91,25 +93,38 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         progressBar = binding.viewSetProgressBar;
 
         learningSet = getIntent().getParcelableExtra("learningSet");
+        setService.getSet(setId, new Callback<SetDetailDTO>() {
+            @Override
+            public void onResponse(Call<SetDetailDTO> call, Response<SetDetailDTO> response) {
+                SetDetailDTO setDetailDTO = ResponseHandler.handleResponse(response);
 
-        flashcards = Utils.createFlashcardList(learningSet);
+               flashcards = ModelFlashcardMapper.from(setDetailDTO.terms());
+
+                flashcardsVp2 = binding.viewSetFlashcardVp2;
+
+                if (flashcards == null || flashcards.size() == 0) {
+                    Utils.setViewLayoutParams(flashcardsVp2, MATCH_PARENT, 0);
+                    Utils.hideItems(flashcardsVp2);
+                    Utils.showItems(binding.viewSetNoVocabHereLl);
+                    TextView addVocabTv = binding.viewSetAddVocabTv;
+                    addVocabTv.setOnClickListener(v -> editSet());
+                } else {
+                    Utils.showItems(flashcardsVp2);
+                    displayFlashcardsInViewPager(flashcards, flashcardsVp2);
+                }
+                displayFlashcardsInLinearLayout(flashcards, binding.viewSetAllFlashcardsLl, getLayoutInflater());
+            }
+
+            @Override
+            public void onFailure(Call<SetDetailDTO> call, Throwable t) {
+                Utils.showToast(getApplicationContext(),"Network failure");
+            }
+        });
+
 
         getLearningSetData();
 
         setupToolbar();
-
-        flashcardsVp2 = binding.viewSetFlashcardVp2;
-
-        if (flashcards == null || flashcards.size() == 0) {
-            Utils.setViewLayoutParams(flashcardsVp2, MATCH_PARENT, 0);
-            Utils.hideItems(flashcardsVp2);
-            Utils.showItems(binding.viewSetNoVocabHereLl);
-            TextView addVocabTv = binding.viewSetAddVocabTv;
-            addVocabTv.setOnClickListener(v -> editSet());
-        } else {
-            Utils.showItems(flashcardsVp2);
-            displayFlashcardsInViewPager(flashcards, flashcardsVp2);
-        }
 
         setNameTv = binding.viewSetNameTv;
         setNameTv.setText(learningSet.getName());
@@ -128,8 +143,6 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
         matchLl = binding.viewSetMatchLl;
         matchLl.setOnClickListener(v -> startMatch());
-
-        displayFlashcardsInLinearLayout(flashcards, binding.viewSetAllFlashcardsLl, getLayoutInflater());
 
         viewSetStudyEfab = binding.viewSetStudyEfab;
         viewSetStudyEfab.setOnClickListener(v -> startFlashcards());

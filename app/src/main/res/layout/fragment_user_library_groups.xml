@@ -8,6 +8,7 @@
     tools:context=".FragmentUserLibrary_Groups">
 
     <ScrollView
+        android:id="@+id/userLibraryGroupsSv"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

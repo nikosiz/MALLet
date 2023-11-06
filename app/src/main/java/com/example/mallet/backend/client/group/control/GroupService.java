@@ -53,4 +53,8 @@ public interface GroupService {
     @POST(GroupServiceConstants.GROUP_SET_PATH)
     Call<Void> createSet(@Body GroupSetCreateDTO groupSetCreateDTO);
 
+    @POST(GroupServiceConstants.GROUP_CONTRIBUTION_PATH)
+    Call<Void> updateGroupContribution(@Body GroupUpdateDTO groupUpdateDTO);
+
+
 }

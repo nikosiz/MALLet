@@ -70,6 +70,14 @@ public class GroupServiceImpl {
                 .enqueue(callback);
     }
 
+    public void updateGroupContribution(@NonNull GroupUpdateContainer groupUpdateContainer,
+                                         Callback<Void> callback) {
+        GroupUpdateDTO groupUpdateDTO = GroupUpdateDTOMapper.from(groupUpdateContainer);
+
+        groupService.updateGroupContribution(groupUpdateDTO)
+                .enqueue(callback);
+    }
+
 
     public void deleteGroupContributions(@NonNull Long groupId,
                                          @NonNull Set<Long> contributionsToDeleteIds,
