@@ -34,7 +34,7 @@ public class FragmentUserLibrary extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentUserLibraryBinding.inflate(inflater, container, false);
-        ActivityMain activityMain = (ActivityMain) getActivity();
+        ActivityMain activityMain = (ActivityMain) requireActivity();
 
         viewPager = binding.userLibraryVp2;
         tabLayout = binding.userLibraryTl;
@@ -85,7 +85,7 @@ public class FragmentUserLibrary extends Fragment {
 
             // Customize the text size for each tab
             for (int i = 0; i < tabLayout.getTabCount(); i++) {
-                TextView tabTv = (TextView) LayoutInflater.from(requireContext())
+                TextView tabTv = (TextView) LayoutInflater.from(requireActivity())
                         .inflate(R.layout.tab_text, tabLayout, false); // Provide tabLayout as the root view
                 tabTv.setText(Objects.requireNonNull(tabLayout.getTabAt(i)).getText());
                 tabTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15); // Adjust the size as needed

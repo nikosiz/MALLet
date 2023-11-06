@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.ViewGroup;
@@ -85,6 +86,15 @@ public class ActivityMain extends AppCompatActivity {
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putInt(SELECTED_FRAGMENT_KEY, selectedFragmentId);
         super.onSaveInstanceState(outState);
+    }
+
+    private void postponeReplaceFragment(final Fragment fragment, long delayMillis) {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                replaceFragment(fragment);
+            }
+        }, delayMillis);
     }
 
     private void replaceFragment(Fragment fragment) {

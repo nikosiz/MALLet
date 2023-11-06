@@ -97,7 +97,7 @@ public class ActivityLearn extends AppCompatActivity {
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.learn_mainLl, fragment)
-                        .commit();
+                        .commitNow();
             } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
                 e.printStackTrace();
             }

@@ -52,7 +52,7 @@ public class FragmentHome extends Fragment {
 
         if (context instanceof ActivityMain) {
             activityMain = (ActivityMain) context;
-            fadeInAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.fade_in);
+            fadeInAnimation = AnimationUtils.loadAnimation(requireActivity(), R.anim.fade_in);
         } else {
             // Handle the case where the activity does not implement the method
         }
@@ -68,7 +68,7 @@ public class FragmentHome extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
 
-        String credential = AuthenticationUtils.get(Objects.requireNonNull(requireContext()));
+        String credential = AuthenticationUtils.get(getActivity());
         this.userService = new UserServiceImpl(credential);
 
         setupContents();
@@ -100,7 +100,7 @@ public class FragmentHome extends Fragment {
                 GroupBasicDTO groupDTO = ResponseHandler.handleResponse(response);
                 List<ModelGroup> modelGroups = ModelGroupMapper.from(groupDTO.groups());
 
-                AdapterGroup adapterGroups = new AdapterGroup(getContext(), modelGroups, openActivityViewGroup());
+                AdapterGroup adapterGroups = new AdapterGroup(getActivity(), modelGroups, openActivityViewGroup());
                 homeGroupsVp2.setAdapter(adapterGroups);
 
                 homeGroupsVp2.setPageTransformer(Utils::applySwipeTransformer);
@@ -110,7 +110,7 @@ public class FragmentHome extends Fragment {
 
             @Override
             public void onFailure(Call<GroupBasicDTO> call, Throwable t) {
-                Utils.showToast(getContext(), "Network failure");
+                Utils.showToast(getActivity(), "Network failure");
             }
         });
     }
@@ -118,7 +118,7 @@ public class FragmentHome extends Fragment {
     @NonNull
     private AdapterGroup.OnGroupClickListener openActivityViewGroup() {
         return v -> {
-            Context context = getContext();
+            Context context = getActivity();
             Intent intent = new Intent(context, ActivityViewGroup.class);
             intent.putExtra("groupId", v.getId());
             intent.putExtra("groupName", v.getGroupName());
@@ -154,7 +154,7 @@ public class FragmentHome extends Fragment {
                 SetBasicDTO setBasicDTO = ResponseHandler.handleResponse(response);
                 List<ModelLearningSet> modelLearningSets = ModelLearningSetMapper.from(setBasicDTO.sets());
 
-                AdapterLearningSet adapterSets = new AdapterLearningSet(getContext(), modelLearningSets, openActivityViewSet());
+                AdapterLearningSet adapterSets = new AdapterLearningSet(getActivity(), modelLearningSets, openActivityViewSet());
 
                 homeSetsVp2.setAdapter(adapterSets);
 
@@ -165,7 +165,7 @@ public class FragmentHome extends Fragment {
 
             @Override
             public void onFailure(Call<SetBasicDTO> call, Throwable t) {
-                Utils.showToast(getContext(), "Network failure");
+                Utils.showToast(getActivity(), "Network failure");
             }
         });
     }
@@ -173,7 +173,7 @@ public class FragmentHome extends Fragment {
     @NonNull
     private AdapterLearningSet.OnLearningSetClickListener openActivityViewSet() {
         return learningSet -> {
-            Intent intent = new Intent(getContext(), ActivityViewLearningSet.class);
+            Intent intent = new Intent(getActivity(), ActivityViewLearningSet.class);
 
             intent.putExtra("learningSet", learningSet);
             intent.putExtra("setId", learningSet.getId());
@@ -184,6 +184,6 @@ public class FragmentHome extends Fragment {
 
     private void showAllItems(int index) {
         // TODO: Implement this method to display all items of a specific type
-        Utils.showToast(getContext(), "Here should open a list of " + index);
+        Utils.showToast(getActivity(), "Here should open a list of " + index);
     }
 }

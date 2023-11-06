@@ -66,7 +66,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
 
         if (context instanceof ActivityMain) {
             activityMain = (ActivityMain) context;
-            fadeInAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.fade_in);
+            fadeInAnimation = AnimationUtils.loadAnimation(requireActivity(), R.anim.fade_in);
         } else {
             // Handle the case where the activity does not implement the method
         }
@@ -76,7 +76,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String credential = AuthenticationUtils.get(requireContext());
+        String credential = AuthenticationUtils.get(requireActivity());
         this.userService = new UserServiceImpl(credential);
     }
 
@@ -113,7 +113,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
 
                         @Override
                         public void onFailure(Call<SetBasicDTO> call, Throwable t) {
-                            Utils.showToast(getContext(), "Network failure");
+                            Utils.showToast(requireActivity(), "Network failure");
                         }
                     });
                 });
@@ -188,7 +188,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
 
             @Override
             public void onFailure(Call<SetBasicDTO> call, Throwable t) {
-                Utils.showToast(getContext(), "Network failure");
+                Utils.showToast(requireActivity(), "Network failure");
             }
         });
     }
@@ -207,7 +207,8 @@ public class FragmentUserLibrary_Sets extends Fragment {
             if (set.getNrOfTerms() == 1) {
                 setNrOfTermsTv.setText(getString(R.string.nr_of_terms_singular, String.valueOf(set.getNrOfTerms())));
             } else {
-                setNrOfTermsTv.setText(getString(R.string.nr_of_terms_plural, String.valueOf(set.getNrOfTerms())));
+                // Todo this line stops app when quickli switching fragments with bottom nav
+                //setNrOfTermsTv.setText(getString(R.string.nr_of_terms_plural, String.valueOf(set.getNrOfTerms())));
             }
 
             TextView setCreatorTv = setItemView.findViewById(R.id.learningSet_creatorTv);
@@ -223,7 +224,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
     }
 
     private void viewSet(ModelLearningSet set) {
-        Intent intent = new Intent(requireContext(), ActivityViewLearningSet.class);
+        Intent intent = new Intent(requireActivity(), ActivityViewLearningSet.class);
 
         intent.putExtra("setId", set.getId());
 
@@ -231,8 +232,8 @@ public class FragmentUserLibrary_Sets extends Fragment {
     }
 
     public void confirmDelete(ModelLearningSet set) {
-        Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_delete_are_you_sure, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
-        DialogDeleteAreYouSureBinding dialogBinding = DialogDeleteAreYouSureBinding.inflate(LayoutInflater.from(requireContext()));
+        Dialog dialog = Utils.createDialog(requireActivity(), R.layout.dialog_delete_are_you_sure, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
+        DialogDeleteAreYouSureBinding dialogBinding = DialogDeleteAreYouSureBinding.inflate(LayoutInflater.from(requireActivity()));
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
         dialog.show();
 
@@ -244,10 +245,10 @@ public class FragmentUserLibrary_Sets extends Fragment {
                     // TODO stary Michał mocno śpi
                     try {
                         ResponseHandler.handleResponse(response);
-                        Utils.showToast(requireContext(), set.getName() + " was deleted");
+                        Utils.showToast(requireActivity(), set.getName() + " was deleted");
                         setupSearchAndFetchSets(0, 50);
                     } catch (MalletException e) {
-                        Utils.showToast(requireContext(), e.getMessage());
+                        Utils.showToast(requireActivity(), e.getMessage());
                     }
                 }
 
