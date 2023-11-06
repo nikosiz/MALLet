@@ -14,6 +14,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -60,6 +61,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
     private final AtomicBoolean firstTime = new AtomicBoolean(true);
     private ProgressBar progressBar;
     private Animation fadeInAnimation;
+    private ScrollView setsSv;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -144,6 +146,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
         learningSet = getActivity().getIntent().getParcelableExtra("learningSet");
 
         searchEt = binding.userLibrarySetsSearchEt;
+        setsSv = binding.userLibrarySetsSv;
         userSetsLl = binding.userLibrarySetsAllSetsLl;
 
         progressBar = binding.userLibrarySetsProgressBar;
