@@ -68,7 +68,7 @@ public class FragmentHome extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
 
-        String credential = AuthenticationUtils.get(getActivity());
+        String credential = AuthenticationUtils.get(Objects.requireNonNull(requireContext()));
         this.userService = new UserServiceImpl(credential);
 
         setupContents();

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -51,7 +52,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     private long setId;
     private ImageView toolbarBackIv, toolbarOptionsIv;
     private ViewPager2 flashcardsVp2;
-    private TextView setNameTv, setCreatorTv, nrOfTermsTv;
+    private TextView setNameTv, setDescriptionTv, setCreatorTv, nrOfTermsTv;
     private LinearLayout flashcardsLl, learnLl, testLl, matchLl;
     private ExtendedFloatingActionButton viewSetStudyEfab;
 
@@ -62,6 +63,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     private List<ModelFlashcard> flashcards;
 
     private SetServiceImpl setService;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +80,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     }
 
     private void setupContents() {
+        // todo delete
         Button testBtn = binding.test;
         testBtn.setOnClickListener(v -> {
             Intent intent = new Intent(this, ActivityLearn.class);
@@ -85,7 +88,8 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // todo delete
+        progressBar = binding.viewSetProgressBar;
+
         learningSet = getIntent().getParcelableExtra("learningSet");
 
         flashcards = Utils.createFlashcardList(learningSet);
@@ -109,6 +113,9 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
         setNameTv = binding.viewSetNameTv;
         setNameTv.setText(learningSet.getName());
+
+        setDescriptionTv = binding.viewSetDescriptionTv;
+        setDescriptionTv.setText(learningSet.getDescription());
 
         flashcardsLl = binding.viewSetFlashcardsLl;
         flashcardsLl.setOnClickListener(v -> startFlashcards());
@@ -346,6 +353,8 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         setService.getBasicSet(Collections.singleton(setId), new Callback<SetBasicDTO>() {
             @Override
             public void onResponse(Call<SetBasicDTO> call, Response<SetBasicDTO> response) {
+                Utils.hideItems(progressBar);
+
                 SetBasicDTO setBasicDTO = ResponseHandler.handleResponse(response);
                 SetInformationDTO setInformationDTO = setBasicDTO.sets().get(0);
 

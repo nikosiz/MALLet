@@ -70,7 +70,7 @@ public class ActivityOpening extends AppCompatActivity {
     private void setupNoLoginBtn() {
         binding.openingNoLoginBtn.setOnClickListener(v -> {
             //todo do testow
-            AuthenticationUtils.save(getApplicationContext(), "12345niewiemcotupisac@gmail.com", "dupa123!CHUJ");
+            AuthenticationUtils.save(getApplicationContext(), "12345niewiemcotupisac@gmail.com", "SzefBoss123!@#");
             Utils.openActivity(this, ActivityMain.class);
         });
     }

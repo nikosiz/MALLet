@@ -14,7 +14,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
-import androidx.activity.OnBackPressedDispatcher;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -44,6 +43,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     private UserServiceImpl userService;
     private ActivityEditLearningSetBinding binding;
     private ModelLearningSet learningSet;
+    private List<ModelFlashcard> flashcards;
     private boolean isSetNew;
     private long learningSetId;
     private ProgressBar progressBar;
@@ -91,6 +91,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
         isSetNew = getIntent().getBooleanExtra("isSetNew", true);
         learningSet = getIntent().getParcelableExtra("learningSet");
+        flashcards = learningSet.getTerms();
 
         setupContents();
 
@@ -125,7 +126,9 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         } else {
             setNameEt.setText(learningSet.getName());
             setDescriptionEt.setText(learningSet.getDescription());
-            populateFlashcardsUI(learningSet.getTerms());
+            if (learningSet.getTerms() != null) {
+                populateFlashcardsUI();
+            }
         }
 
         addDescriptionTv.setOnClickListener(v -> {
@@ -254,7 +257,8 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         flashCardCounterTv.setText(getString(R.string.term, String.valueOf(termCounter)));
     }
 
-    private void populateFlashcardsUI(List<ModelFlashcard> flashcards) {
+
+    private void populateFlashcardsUI() {
         for (ModelFlashcard flashcard : flashcards) {
             addFlashcard(flashcardsLl, getLayoutInflater(), flashcard.getTerm(), flashcard.getDefinition(), flashcard.getTranslation());
         }

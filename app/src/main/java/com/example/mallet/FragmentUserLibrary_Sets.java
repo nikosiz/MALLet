@@ -47,6 +47,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FragmentUserLibrary_Sets extends Fragment {
+    private ModelLearningSet learningSet;
     private ActivityMain activityMain;
     private GroupServiceImpl groupService;
     private FragmentUserLibrarySetsBinding binding;
@@ -140,6 +141,8 @@ public class FragmentUserLibrary_Sets extends Fragment {
     }
 
     private void setupContents(LayoutInflater inflater) {
+        learningSet = getActivity().getIntent().getParcelableExtra("learningSet");
+
         searchEt = binding.userLibrarySetsSearchEt;
         userSetsLl = binding.userLibrarySetsAllSetsLl;
 
@@ -225,9 +228,10 @@ public class FragmentUserLibrary_Sets extends Fragment {
     }
 
     private void viewSet(ModelLearningSet set) {
-        Intent intent = new Intent(requireActivity(), ActivityViewLearningSet.class);
+        Intent intent = new Intent(requireContext(), ActivityViewLearningSet.class);
 
         intent.putExtra("setId", set.getId());
+        intent.putExtra("learningSet", set);
 
         startActivity(intent);
     }
