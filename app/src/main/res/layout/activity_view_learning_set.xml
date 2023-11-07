@@ -50,6 +50,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
+        android:id="@+id/viewSetSv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"

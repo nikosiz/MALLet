@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -66,6 +67,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
     private SetServiceImpl setService;
     private ProgressBar progressBar;
+    private ScrollView viewSetSv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +93,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         });
 
         progressBar = binding.viewSetProgressBar;
+        viewSetSv = binding.viewSetSv;
 
         learningSet = getIntent().getParcelableExtra("learningSet");
         setService.getSet(setId, new Callback<SetDetailDTO>() {
