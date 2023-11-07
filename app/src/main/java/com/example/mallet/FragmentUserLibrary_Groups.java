@@ -99,7 +99,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
         groupsSv.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
             public void onScrollChanged() {
-                View view = (View) groupsSv.getChildAt(groupsSv.getChildCount() - 1);
+                View view = groupsSv.getChildAt(groupsSv.getChildCount() - 1);
 
                 int diff = (view.getBottom() - (groupsSv.getHeight() + groupsSv
                         .getScrollY()));
@@ -119,25 +119,31 @@ public class FragmentUserLibrary_Groups extends Fragment {
         groupsSv.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
             public void onScrollChanged() {
-                View view = (View) groupsSv.getChildAt(groupsSv.getChildCount() - 1);
+                View view = groupsSv.getChildAt(groupsSv.getChildCount() - 1);
 
                 int diff = (view.getBottom() - (groupsSv.getHeight() + groupsSv
                         .getScrollY()));
 
                 if (diff == 0) {
-                    //todo TUTAJ TRZEBA NA DOL PRZEWINAC NIKODEM
                     if (!nextChunkUri.isEmpty() && isNextChunkUriChanged) {
                         getUserLibraryGroupList(groups, nextChunkUri);
+                        Utils.showItems(indicatorIv);
                     }
+                } else {
+                    Utils.hideItems(indicatorIv);
                 }
             }
         });
         return binding.getRoot();
     }
 
+    private ImageView indicatorIv;
+
     private void setupContents(LayoutInflater inflater) {
         searchEt = binding.userLibraryGroupsSearchEt;
         userGroupsLl = binding.userLibraryGroupsAllGroupsLl;
+
+        indicatorIv = binding.userLibraryGroupsIndicatorIv;
 
         groupsSv = binding.userLibraryGroupsSv;
 

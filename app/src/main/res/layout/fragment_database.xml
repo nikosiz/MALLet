@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryLight1"
-    tools:context=".FragmentSetsDatabase">
+    tools:context=".FragmentDatabase">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/databaseToolbar"
@@ -44,7 +44,6 @@
             android:orientation="horizontal"
             android:paddingHorizontal="20dp"
             android:paddingVertical="30dp">
-
         </LinearLayout>
     </ScrollView>
 
