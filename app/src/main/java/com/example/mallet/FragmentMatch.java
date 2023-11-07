@@ -79,7 +79,7 @@ public class FragmentMatch extends Fragment {
 
         areYouReadyDialog();
 
-        //tv_p1 = rootView.findViewById(R.id.tv_p1);
+        Utils.openActivityWithFragment(getContext(), FragmentMatch.class, ActivityLearn.class);
 
         cv_11 = rootView.findViewById(R.id.cv_11);
         cv_11Tv = rootView.findViewById(R.id.cv_11Tv);
@@ -345,17 +345,22 @@ public class FragmentMatch extends Fragment {
 
         restart.setOnClickListener(v -> {
             dialog.dismiss();
-            Utils.openActivityWithFragment(getContext(), FragmentMatch.class, ActivityLearn.class);
             requireActivity().finish();
         });
 
         finish.setOnClickListener(v -> requireActivity().finish());
     }
 
+    /*private void restart() {
+        generateTextVariables(flashcardList);
+    }*/
+
+    private ModelLearningSet learningSet;
+
     private List<ModelFlashcard> getLearningSetData() {
         Bundle args = getArguments();
         if (args != null) {
-            ModelLearningSet learningSet = args.getParcelable("learningSet");
+            learningSet = args.getParcelable("learningSet");
             if (learningSet != null) {
                 flashcardList = learningSet.getTerms();
                 return flashcardList;
@@ -392,20 +397,6 @@ public class FragmentMatch extends Fragment {
         text202 = definitionTexts[1];
         text203 = definitionTexts[2];
         text204 = definitionTexts[3];
-        text205 = definitionTexts[4];
-
-        // Print the assigned variables
-        System.out.println(text101);
-        System.out.println(text102);
-        System.out.println(text103);
-        System.out.println(text104);
-        System.out.println(text105);
-
-        System.out.println(text201);
-        System.out.println(text202);
-        System.out.println(text203);
-        System.out.println(text204);
-        System.out.println(text205);
     }
 
 }

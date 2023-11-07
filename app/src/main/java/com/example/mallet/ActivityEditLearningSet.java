@@ -91,7 +91,10 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
         isSetNew = getIntent().getBooleanExtra("isSetNew", true);
         learningSet = getIntent().getParcelableExtra("learningSet");
-        flashcards = learningSet.getTerms();
+
+        if (learningSet != null && learningSet.getTerms() != null) {
+            flashcards = learningSet.getTerms();
+        }
 
         setupContents();
 
@@ -276,7 +279,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
                 startActivity(intent);
 
                 close();
-                Utils.showToast(getApplicationContext(), "Set created XD");
+                Utils.showToast(getApplicationContext(), "Set created");
             }
 
             @Override

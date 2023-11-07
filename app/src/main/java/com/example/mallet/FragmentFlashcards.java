@@ -70,7 +70,7 @@ public class FragmentFlashcards extends Fragment {
         setupToolbar();
 
         flashcardsLeftTv = binding.flashcardsCardCounterTv;
-        flashcardsLeft = flashcards.size();
+        flashcardsLeft = originalFlashcards.size();
         updateCardCounterText();
 
         swipeLeftIv = binding.flashcardsSwipeLeftIv;
@@ -83,10 +83,12 @@ public class FragmentFlashcards extends Fragment {
         swipeRightIv.setOnClickListener(v -> performSwipe(Direction.Right));
     }
 
+    private ModelLearningSet learningSet;
+
     private List<ModelFlashcard> getLearningSetData() {
         Bundle args = getArguments();
         if (args != null) {
-            ModelLearningSet learningSet = args.getParcelable("learningSet");
+            learningSet = args.getParcelable("learningSet");
             if (learningSet != null) {
                 String setName = learningSet.getName();
                 String nrOfTerms = String.valueOf(learningSet.getNrOfTerms());
@@ -103,7 +105,7 @@ public class FragmentFlashcards extends Fragment {
         Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle("");
 
         ImageView toolbarBackIv = binding.flashcardsToolbarBackIv;
-        toolbarBackIv.setOnClickListener(v -> Objects.requireNonNull(getActivity()).finish());
+        toolbarBackIv.setOnClickListener(v -> requireActivity().finish());
 
         ImageView toolbarOptionsIv = binding.flashcardsToolbarOptionsIv;
         toolbarOptionsIv.setOnClickListener(v -> flashcardsOptionsDialog());
@@ -248,8 +250,6 @@ public class FragmentFlashcards extends Fragment {
             }
 
             binding.flashcardsCardStackCsv.swipe();
-
-            flashcardsLeft--;
 
             updateCardCounterText();
         } else {
