@@ -99,9 +99,10 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         setService.getSet(setId, new Callback<SetDetailDTO>() {
             @Override
             public void onResponse(Call<SetDetailDTO> call, Response<SetDetailDTO> response) {
+                Utils.hideItems(progressBar);
                 SetDetailDTO setDetailDTO = ResponseHandler.handleResponse(response);
 
-               flashcards = ModelFlashcardMapper.from(setDetailDTO.terms());
+                flashcards = ModelFlashcardMapper.from(setDetailDTO.terms());
 
                 flashcardsVp2 = binding.viewSetFlashcardVp2;
 
