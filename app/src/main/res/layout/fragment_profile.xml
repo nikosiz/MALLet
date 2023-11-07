@@ -37,205 +37,139 @@
             android:layout_width="match_parent"
             android:layout_height="30dp" />
 
-        <androidx.cardview.widget.CardView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="0dp">
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_corners_rounded"
+            android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/profile_emailLl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:id="@+id/profile_emailLl"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_ripple_white_rect"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center_vertical"
-                    android:minHeight="65dp"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="30dp">
-
-                    <TextView
-                        android:id="@+id/profile_emailTitleTv"
-                        style="@style/BasicBoldTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="bottom"
-
-                        android:text="@string/email"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/profile_emailTv"
-                        style="@style/BasicSubTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="top"
-
-                        android:text="@string/email"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="15sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/profile_usernameLll"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_ripple_white_rect"
-                    android:gravity="center_vertical"
-                    android:minHeight="65dp"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="30dp">
-
-                    <TextView
-                        android:id="@+id/profile_usernameTitleTv"
-                        style="@style/BasicBoldTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="bottom"
-
-                        android:text="@string/username"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/profile_usernameTv"
-                        style="@style/BasicSubTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="top"
-
-                        android:text="@string/username"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="15sp" />
-                </LinearLayout>
+                android:gravity="center_vertical"
+                android:minHeight="65dp"
+                android:orientation="vertical"
+                android:paddingHorizontal="20dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="10dp">
 
                 <TextView
-                    android:id="@+id/profile_changePasswordTv"
+                    android:id="@+id/profile_emailTitleTv"
                     style="@style/BasicBoldTextStyle"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_ripple_white_rect"
-                    android:gravity="center_vertical"
-
-                    android:minHeight="65dp"
-                    android:paddingHorizontal="30dp"
-                    android:text="@string/change_password"
+                    android:gravity="bottom"
+                    android:text="@string/email"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/profile_emailTv"
+                    style="@style/BasicSubTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:text="@string/email"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15sp" />
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:id="@+id/profile_usernameLll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minHeight="65dp"
+                android:orientation="vertical"
+                android:paddingHorizontal="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="20dp">
+
+                <TextView
+                    android:id="@+id/profile_usernameTitleTv"
+                    style="@style/BasicBoldTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom"
+                    android:text="@string/username"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/profile_usernameTv"
+                    style="@style/BasicSubTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:text="@string/username"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="10dp" />
 
-        <androidx.cardview.widget.CardView
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="0dp">
+            android:background="@drawable/bg_corners_rounded"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.google.android.material.materialswitch.MaterialSwitch
-                    android:id="@+id/profile_notificationsMs"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="@color/colorLight"
-                    android:contentDescription="@string/notifications_switch"
-                    android:drawableTint="@color/downriver_blue_500"
-                    android:fontFamily="@font/rem_bold"
-                    android:minHeight="65dp"
-                    android:paddingHorizontal="30dp"
-                    android:text="@string/notifications"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp"
-                    app:thumbTint="@drawable/switch_thumb_color"
-                    app:trackDecorationTint="@drawable/switch_track_decoration_color"
-                    app:trackTint="@drawable/switch_track_color" />
-<!--
-                <com.google.android.material.materialswitch.MaterialSwitch
-                    android:id="@+id/profile_saveOfflineMs"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="@color/colorLight"
-                    android:contentDescription="@string/save_sets_offline"
-                    android:drawableTint="@color/downriver_blue_500"
-                    android:fontFamily="@font/rem_bold"
-                    android:minHeight="65dp"
-                    android:paddingHorizontal="30dp"
-                    android:text="@string/save_sets_offline"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp"
-                    app:thumbTint="@drawable/switch_thumb_color"
-                    app:trackDecorationTint="@drawable/switch_track_decoration_color"
-                    app:trackTint="@drawable/switch_track_color" />
--->
                 <LinearLayout
+                    android:id="@+id/profile_theme_permissionsLl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
                     <LinearLayout
-                        android:id="@+id/profile_theme_permissionsLl"
+                        android:id="@+id/profile_themeLl"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:layout_gravity="center_vertical"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:minHeight="65dp"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="20dp"
+                        android:paddingTop="20dp"
+                        android:paddingBottom="10dp"
+                        android:weightSum="3">
 
-                        <LinearLayout
-                            android:id="@+id/profile_themeLl"
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:id="@+id/profile_themeTitleTv"
+                            style="@style/BasicBoldTextStyle"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:background="@drawable/bg_ripple_white_rect"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:minHeight="65dp"
-                            android:orientation="horizontal"
-                            android:paddingHorizontal="30dp"
-                            android:weightSum="3">
+                            android:layout_gravity="center"
+                            android:layout_weight="3"
+                            android:gravity="center_vertical"
+                            android:text="@string/color_theme"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="16sp" />
 
-                            <TextView
-                                android:id="@+id/profile_themeTitleTv"
-                                style="@style/BasicBoldTextStyle"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_weight="3"
-                                android:gravity="center_vertical"
-
-                                android:text="@string/color_theme"
-                                android:textColor="@color/colorPrimaryDark"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:id="@+id/profile_themeTv"
-                                style="@style/BasicSubTextStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="end|center"
-                                android:gravity="end"
-
-                                android:text="@string/theme_name"
-                                android:textColor="@color/colorPrimary"
-                                android:textSize="16sp" />
-                        </LinearLayout>
+                        <TextView
+                            android:id="@+id/profile_themeTv"
+                            style="@style/BasicSubTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center"
+                            android:gravity="end"
+                            android:text="@string/theme_name"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="16sp" />
+                    </LinearLayout>
 
 
                         <RadioGroup
@@ -261,76 +195,68 @@
                                 android:text="Dark"
                                 android:textSize="15sp" />
                         </RadioGroup>
-                    </LinearLayout>
-
-
-                    <TextView
-                        android:id="@+id/profile_aboutTv"
-                        style="@style/BasicBoldTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_ripple_white_rect"
-                        android:gravity="center_vertical"
-
-                        android:minHeight="65dp"
-                        android:paddingHorizontal="30dp"
-                        android:text="@string/about"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="16sp" />
                 </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/profile_aboutTv"
+                    style="@style/BasicBoldTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:minHeight="65dp"
+                    android:paddingHorizontal="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="20dp"
+                    android:text="@string/about"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="16sp" />
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="10dp" />
 
-        <androidx.cardview.widget.CardView
+
+        <TextView
+            android:id="@+id/profile_logoutTv"
+            style="@style/BasicBoldTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="0dp">
-
-            <TextView
-                android:id="@+id/profile_logoutTv"
-                style="@style/BasicBoldTextStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_ripple_white_rect"
-                android:gravity="center_vertical"
-
-                android:minHeight="65dp"
-                android:paddingHorizontal="30dp"
-                android:text="@string/log_out"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="16sp" />
-        </androidx.cardview.widget.CardView>
+            android:background="@drawable/bg_corners_rounded"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:minHeight="65dp"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="20dp"
+            android:text="@string/log_out"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16sp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="10dp" />
 
-        <androidx.cardview.widget.CardView
+        <TextView
+            android:id="@+id/profile_deleteAccTv"
+            style="@style/BasicBoldTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="0dp">
-
-            <TextView
-                android:id="@+id/profile_deleteAccTv"
-                style="@style/BasicBoldTextStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_ripple_red_rect"
-                android:gravity="center"
-
-                android:minHeight="65dp"
-                android:text="@string/delete_account"
-                android:textColor="@color/carnation_red_900"
-                android:textSize="15sp" />
-        </androidx.cardview.widget.CardView>
+            android:background="@drawable/bg_corners_rounded"
+            android:backgroundTint="@color/accentPrimaryLight"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:minHeight="65dp"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="20dp"
+            android:text="@string/delete_account"
+            android:textColor="@color/accentPrimary"
+            android:textSize="16sp" />
 
         <View
             android:layout_width="match_parent"

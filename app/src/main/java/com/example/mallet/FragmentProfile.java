@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -19,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 
 import com.example.mallet.databinding.DialogAboutBinding;
 import com.example.mallet.databinding.DialogChangeEmailBinding;
@@ -27,7 +27,6 @@ import com.example.mallet.databinding.DialogChangeUsernameBinding;
 import com.example.mallet.databinding.DialogDeleteAccountBinding;
 import com.example.mallet.databinding.FragmentProfileBinding;
 import com.example.mallet.utils.Utils;
-import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;
@@ -55,6 +54,7 @@ public class FragmentProfile extends Fragment {
     private TextInputEditText passwordEt;
     private String password;
     private TextView passwordErrTv, cbErrTv;
+    private SharedPreferences sharedPreferences;
 
     @Nullable
     @Override
@@ -79,17 +79,15 @@ public class FragmentProfile extends Fragment {
         emailIncorrect = getActivity().getString(R.string.email_incorrect);
         passwordIncorrect = getActivity().getString(R.string.password_incorrect);
 
-
         return binding.getRoot();
     }
 
     private void setupContents() {
-        LinearLayout emailLl = binding.profileEmailLl;
-        LinearLayout usernameLl = binding.profileUsernameLll;
-        TextView passwordTv = binding.profileChangePasswordTv;
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
 
-        MaterialSwitch notificationsMs = binding.profileNotificationsMs;
-        //MaterialSwitch setsOfflineMs = binding.profileSaveOfflineMs;
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
+        isLogged = sharedPreferences.getBoolean("isLogged", false);
+
         LinearLayout themeLl = binding.profileThemeLl;
         themeTv = binding.profileThemeTv;
         RadioGroup themeRg = binding.profileThemeRg;
@@ -98,44 +96,6 @@ public class FragmentProfile extends Fragment {
         TextView aboutTv = binding.profileAboutTv;
         TextView logoutTv = binding.profileLogoutTv;
         TextView deleteAccTv = binding.profileDeleteAccTv;
-
-        //binding.profileUserPhotoIv.setOnClickListener(v -> Utils.openActivity(getContext(), ActivityViewProfile.class));
-
-        emailLl.setOnClickListener(v -> changeEmailDialog());
-        usernameLl.setOnClickListener(v -> changeUsernameDialog());
-        passwordTv.setOnClickListener(v -> changePasswordDialog());
-
-        notificationsMs.setChecked(getSwitchState(KEY_NOTIFICATIONS));
-
-        notificationsMs.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                // TODO: Implement notifications
-                enableNotifications();
-                Utils.showToast(getContext(), "You will get notifications when the back end exists");
-                binding.profileNotificationsMs.setChecked(true);
-            } else {
-                // TODO: Implement
-                disableNotifications();
-                Utils.showToast(getContext(), "You will NOT get notifications when the back end exists");
-                binding.profileNotificationsMs.setChecked(false);
-            }
-            saveSwitchState(KEY_NOTIFICATIONS, isChecked);
-        });
-
-        /*setsOfflineMs.setChecked(getSwitchState(KEY_NOTIFICATIONS));
-
-        setsOfflineMs.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                // TODO
-                // Download sets
-                Utils.showToast(getContext(), "Sets downloaded (when the back end exists)");
-            } else {
-                // TODO
-                // Delete downloaded sets
-                Utils.showToast(getContext(), "Sets will not be saved for offline use. The downloaded ones will be deleted (when the back end exists)");
-            }
-            saveSwitchState(KET_SETS_OFFLINE, isChecked);
-        });*/
 
         Utils.hideItems(themeRg);
         Utils.disableItems(themeRg);
@@ -292,14 +252,6 @@ public class FragmentProfile extends Fragment {
         });
     }
 
-    private void enableNotifications() {
-        //todo
-    }
-
-    private void disableNotifications() {
-        //todo
-    }
-
     private void saveSwitchState(String switchKey, boolean isChecked) {
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -319,6 +271,8 @@ public class FragmentProfile extends Fragment {
         dialog.show();
     }
 
+    private boolean isLogged;
+
     private void logOut() {
         // TODO: Implement logic for logging out
 
@@ -326,6 +280,10 @@ public class FragmentProfile extends Fragment {
         if (clickCount == 1) {
             Utils.showToast(getContext(), "Click once again to log out");
         } else if (clickCount == 2) {
+            isLogged = false;
+
+            sharedPreferences.edit().putBoolean("isLogged", isLogged).commit();
+
             requireActivity().finish();
             clickCount = 0;
         }

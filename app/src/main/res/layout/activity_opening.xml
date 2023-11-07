@@ -26,7 +26,7 @@
         android:textColor="@color/colorLight" />
 
     <LinearLayout
-        android:id="@+id/openingCvLl"
+        android:id="@+id/openingLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
@@ -36,7 +36,7 @@
         android:paddingVertical="30dp">
 
         <TextView
-            android:id="@+id/opening_title"
+            android:id="@+id/opening_titleTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/russo_one_regular"
@@ -44,7 +44,7 @@
             android:singleLine="true"
             android:text="@string/welcome"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="30sp" />
+            android:textSize="29sp" />
 
         <View
             android:layout_width="match_parent"

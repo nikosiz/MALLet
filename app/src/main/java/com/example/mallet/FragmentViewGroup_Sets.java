@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,14 +15,13 @@ import com.agh.api.GroupDTO;
 import com.example.mallet.backend.entity.set.ModelLearningSetMapper;
 import com.example.mallet.databinding.FragmentViewGroupSetsBinding;
 import com.example.mallet.utils.ModelLearningSet;
-import com.example.mallet.utils.Utils;
 
 import java.util.List;
 
 public class FragmentViewGroup_Sets extends Fragment {
     private FragmentViewGroupSetsBinding binding;
     private LinearLayout userLibrarySetsLl;
-
+    private final boolean isSetInGroup = true;
     private final GroupDTO chosenGroup;
 
     public FragmentViewGroup_Sets(GroupDTO chosenGroup) {
@@ -69,6 +67,7 @@ public class FragmentViewGroup_Sets extends Fragment {
         Intent intent = new Intent(getContext(), ActivityViewLearningSet.class);
 
         intent.putExtra("setId", id);
+        intent.putExtra("isSetInGroup", isSetInGroup);
 
         startActivity(intent);
     }

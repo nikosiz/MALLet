@@ -271,9 +271,6 @@ public class FragmentUserLibrary_Groups extends Fragment {
             TextView groupNrOfSetsTv = groupItemView.findViewById(R.id.group_nrOfSetsTv);
             groupNrOfSetsTv.setText(group.getNrOfSets() + " sets");
 
-            ImageView deleteIv = groupItemView.findViewById(R.id.group_deleteIv);
-            deleteIv.setOnClickListener(v -> confirmDelete(group));
-
             groupItemView.startAnimation(fadeInAnimation);
 
             userGroupsLl.addView(groupItemView);

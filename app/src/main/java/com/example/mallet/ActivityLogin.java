@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 import com.agh.api.UserDetailDTO;
 import com.example.mallet.backend.client.configuration.ResponseHandler;
@@ -42,6 +43,7 @@ public class ActivityLogin extends AppCompatActivity {
     private TextView forgotPasswordTv;
     private Button loginBtn;
     private TextView signupRedirectTv;
+    private boolean isLogged;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,10 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
     private void setupContents() {
+
+        // Check if the user is logged in
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
         userService = new UserServiceImpl(StringUtils.EMPTY);
 
         setupAnimation();
@@ -137,7 +143,6 @@ public class ActivityLogin extends AppCompatActivity {
                     try {
                         UserDetailDTO userDetailDTO = ResponseHandler.handleResponse(response);
                         AuthenticationUtils.save(getApplicationContext(), email, password);
-                        System.out.println("Logged in");
 
                         Intent intent = new Intent(getApplicationContext(), ActivityMain.class);
                         startActivity(intent);
@@ -145,7 +150,15 @@ public class ActivityLogin extends AppCompatActivity {
                         Utils.resetEditText(emailEt, emailErrTv);
                         Utils.resetEditText(passwordEt, passwordErrTv);
                         Utils.enableItems(loginBtn);
+
+                        isLogged = true;
+
+                        sharedPreferences.edit().putBoolean("isLogged", isLogged).commit();
+                        sharedPreferences.edit().putString("username", userDetailDTO.username()).commit();
+                        sharedPreferences.edit().putString("email", userDetailDTO.email()).commit();
                     } catch (MalletException e) {
+                        isLogged = true;
+
                         Utils.showToast(getApplicationContext(), e.getMessage());
                         Utils.enableItems(loginBtn);
                     }

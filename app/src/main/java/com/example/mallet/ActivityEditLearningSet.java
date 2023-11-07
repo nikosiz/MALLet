@@ -22,7 +22,7 @@ import com.example.mallet.backend.entity.set.SetCreateContainer;
 import com.example.mallet.backend.entity.set.SetCreateContainerMapper;
 import com.example.mallet.databinding.ActivityEditLearningSetBinding;
 import com.example.mallet.databinding.DialogConfirmExitBinding;
-import com.example.mallet.databinding.DialogDeleteSetBinding;
+import com.example.mallet.databinding.DialogDeleteAreYouSureBinding;
 import com.example.mallet.utils.AuthenticationUtils;
 import com.example.mallet.utils.ModelFlashcard;
 import com.example.mallet.utils.ModelLearningSet;
@@ -45,6 +45,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     private ModelLearningSet learningSet;
     private List<ModelFlashcard> flashcards;
     private boolean isSetNew;
+    private boolean isSetInGroup;
     private long learningSetId;
     private ProgressBar progressBar;
 
@@ -90,6 +91,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         this.userService = new UserServiceImpl(credential);
 
         isSetNew = getIntent().getBooleanExtra("isSetNew", true);
+        isSetInGroup = getIntent().getBooleanExtra("isSetInGroup", false);
         learningSet = getIntent().getParcelableExtra("learningSet");
 
         if (learningSet != null && learningSet.getTerms() != null) {
@@ -121,17 +123,19 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         addFlashcardFab = binding.editSetAddFab;
 
         if (isSetNew) {
-            Utils.hideItems(progressBar);
-            setNameEt.setText("");
-            Utils.hideItems(setNameErrTv);
-            setDescriptionEt.setText("");
+            Utils.hideItems(progressBar, toolbarDeleteIv, setNameErrTv);
+            Utils.resetEditText(setNameEt, setNameErrTv);
+            Utils.resetEditText(setDescriptionEt, null);
             addFlashcard(flashcardsLl, getLayoutInflater(), null, null, null);
-        } else {
+        } else if (!isSetNew) {
+            Utils.showItems(toolbarDeleteIv);
             setNameEt.setText(learningSet.getName());
             setDescriptionEt.setText(learningSet.getDescription());
             if (learningSet.getTerms() != null) {
                 populateFlashcardsUI();
             }
+        } else if (isSetInGroup) {
+            Utils.showItems(toolbarDeleteIv);
         }
 
         addDescriptionTv.setOnClickListener(v -> {
@@ -149,6 +153,8 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         });
     }
 
+    private TextView toolbarTitleTv;
+
     private void setupToolbar() {
         Toolbar toolbar = binding.editSetToolbar;
         setSupportActionBar(toolbar);
@@ -156,6 +162,13 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
         toolbarBackIv = binding.editSetToolbarBackIv;
         toolbarBackIv.setOnClickListener(v -> confirmExitDialog());
+
+        toolbarTitleTv = binding.editSetToolbarTitleTv;
+        if (isSetNew) {
+            toolbarTitleTv.setText("Create set");
+        } else if (isSetInGroup) {
+            toolbarTitleTv.setText("Edit set in group");
+        }
 
         toolbarDeleteIv = binding.editSetDeleteIv;
         toolbarDeleteIv.setOnClickListener(v -> deleteSetDialog());
@@ -179,14 +192,20 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     }
 
     private void deleteSetDialog() {
-        Dialog dialog = Utils.createDialog(this, R.layout.dialog_delete_set, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
-        DialogDeleteSetBinding dialogBinding = DialogDeleteSetBinding.inflate(LayoutInflater.from(this));
+        Dialog dialog = Utils.createDialog(this, R.layout.dialog_delete_are_you_sure, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
+        DialogDeleteAreYouSureBinding dialogBinding = DialogDeleteAreYouSureBinding.inflate(LayoutInflater.from(this));
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
         dialog.show();
 
-        TextView deleteMessageTv = dialogBinding.deleteSetTv;
+        TextView confirmTv = dialogBinding.deleteConfirmTv;
+        TextView cancelTv = dialogBinding.deleteCancelTv;
 
-        deleteMessageTv.append(learningSet.getName().toUpperCase());
+        confirmTv.setOnClickListener(v -> deleteSet());
+        cancelTv.setOnClickListener(v -> dialog.dismiss());
+    }
+
+    private void deleteSet() {
+
     }
 
     public void saveSet() {

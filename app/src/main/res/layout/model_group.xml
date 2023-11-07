@@ -25,22 +25,6 @@
             android:contentDescription="Folder icon"
             android:src="@drawable/ic_create_group"
             app:tint="@color/colorPrimary" />
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <ImageView
-            android:id="@+id/group_deleteIv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_ripple"
-            android:clickable="true"
-            android:contentDescription="delete term iv"
-            android:focusable="true"
-            android:src="@drawable/ic_check_x"
-            app:tint="@color/colorPrimaryDark" />
     </LinearLayout>
 
     <View

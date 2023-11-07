@@ -57,7 +57,6 @@ public class AdapterGroup extends RecyclerView.Adapter<AdapterGroup.ViewHolder> 
     // ViewHolder class that holds references to the views within each item view
     public static class ViewHolder extends RecyclerView.ViewHolder {
         final TextView groupNameTv,groupNrOfSetsTv,groupNrOfMembersTv;
-        private final ImageView deleteIv;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -65,8 +64,6 @@ public class AdapterGroup extends RecyclerView.Adapter<AdapterGroup.ViewHolder> 
             groupNameTv = itemView.findViewById(R.id.group_nameTv);
             groupNrOfSetsTv = itemView.findViewById(R.id.group_nrOfSetsTv);
             groupNrOfMembersTv = itemView.findViewById(R.id.group_nrOfMembersTv);
-            deleteIv = itemView.findViewById(R.id.group_deleteIv);
-            Utils.hideItems(deleteIv);
         }
     }
 
