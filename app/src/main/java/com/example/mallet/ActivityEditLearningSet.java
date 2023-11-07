@@ -209,7 +209,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
             enteredFlashcards.add(addedFlashcard);
         }
 
-        newLearningSet = new ModelLearningSet(enteredSetName, "USERNAME", enteredSetDescription, enteredFlashcards, 0, "");
+        newLearningSet = new ModelLearningSet(enteredSetName, enteredSetDescription, enteredFlashcards);
 
         System.out.println("Saved Set: " + newLearningSet.getName());
 

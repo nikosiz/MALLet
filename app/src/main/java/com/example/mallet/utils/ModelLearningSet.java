@@ -27,6 +27,12 @@ public class ModelLearningSet implements Parcelable {
         this.nextChunkUri = nextChunkUri;
     }
 
+    public ModelLearningSet(String name, String description, List<ModelFlashcard> terms) {
+        this.name = name;
+        this.description = description;
+        this.terms = terms;
+    }
+
     public ModelLearningSet(String name,
                             String creator,
                             String description,
