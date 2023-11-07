@@ -2,6 +2,7 @@ package com.example.mallet;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -284,7 +285,11 @@ public class FragmentProfile extends Fragment {
 
             sharedPreferences.edit().putBoolean("isLogged", isLogged).commit();
 
+            Intent intent = new Intent(requireActivity(), ActivityOpening.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
             requireActivity().finish();
+
             clickCount = 0;
         }
     }

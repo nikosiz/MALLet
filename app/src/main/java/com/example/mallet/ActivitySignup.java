@@ -101,14 +101,16 @@ public class ActivitySignup extends AppCompatActivity {
 
         Utils.setupUniversalTextWatcher(dialogUsernameEt, dialogErrTv);
 
-        TextView cancel = dialogBinding.chooseUsernameCancelTv;
-        TextView confirm = dialogBinding.chooseUsernameCreateAccTv;
+        TextView cancelTv = dialogBinding.chooseUsernameCancelTv;
+        TextView confirmTv = dialogBinding.chooseUsernameCreateAccTv;
 
-        cancel.setOnClickListener(v -> {
+        cancelTv.setOnClickListener(v -> {
             dialog.dismiss();
             Utils.resetEditText(dialogUsernameEt, dialogErrTv);
         });
-        confirm.setOnClickListener(v -> {
+
+        confirmTv.setOnClickListener(v -> {
+            confirmTv.setEnabled(false);
             username = Objects.requireNonNull(dialogUsernameEt.getText()).toString().trim();
 
             if (!Utils.isErrVisible(dialogErrTv)) {
@@ -122,9 +124,13 @@ public class ActivitySignup extends AppCompatActivity {
                             Utils.resetEditText(emailEt, emailErrTv);
                             Utils.resetEditText(passwordEt, passwordErrTv);
                             Utils.resetEditText(dialogUsernameEt, dialogErrTv);
+
                             confirmAccountDialog();
+
+                            confirmTv.setEnabled(true);
                         } catch (MalletException e) {
                             Utils.showToast(getApplicationContext(), e.getMessage());
+                            confirmTv.setEnabled(true);
                         }
                     }
 

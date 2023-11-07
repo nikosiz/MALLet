@@ -58,15 +58,12 @@ public class FragmentDatabase extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        displaySetsInLinearLayout(sets, databaseSetsLl, inflater);
-
         return inflater.inflate(R.layout.fragment_database, container, false);
     }
 
     private LinearLayout databaseSetsLl;
 
     private void setupContents() {
-        sets = getSets();
 
         progressBar = binding.databaseProgressBar;
         databaseSv = binding.databaseSv;

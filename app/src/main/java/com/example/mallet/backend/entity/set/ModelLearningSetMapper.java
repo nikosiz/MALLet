@@ -26,5 +26,4 @@ public class ModelLearningSetMapper {
                 setInformationDTO.creator().name(),
                setInformationDTO.numberOfTerms());
     }
-
 }

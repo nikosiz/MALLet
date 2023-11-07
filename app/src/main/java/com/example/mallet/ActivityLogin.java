@@ -8,6 +8,7 @@ import android.view.Gravity;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
@@ -69,6 +70,8 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
     private void setupContents() {
+        progressBar = binding.activityLoginProgressBar;
+        Utils.hideItems(progressBar);
 
         // Check if the user is logged in
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -130,17 +133,22 @@ public class ActivityLogin extends AppCompatActivity {
         });
     }
 
+    private ProgressBar progressBar;
+
     private void handleLogin() {
+        loginBtn.setEnabled(false);
+        Utils.showItems(progressBar);
+
         String email = Objects.requireNonNull(emailEt.getText()).toString();
         String password = Objects.requireNonNull(passwordEt.getText()).toString();
 
         if (!Utils.isErrVisible(emailErrTv) && !Utils.isErrVisible(passwordErrTv)) {
-            Utils.disableItems(loginBtn);
-
             userService.login(email, password, new Callback<>() {
                 @Override
                 public void onResponse(Call<UserDetailDTO> call, Response<UserDetailDTO> response) {
                     try {
+                        Utils.hideItems(progressBar);
+
                         UserDetailDTO userDetailDTO = ResponseHandler.handleResponse(response);
                         AuthenticationUtils.save(getApplicationContext(), email, password);
 
@@ -149,18 +157,16 @@ public class ActivityLogin extends AppCompatActivity {
 
                         Utils.resetEditText(emailEt, emailErrTv);
                         Utils.resetEditText(passwordEt, passwordErrTv);
-                        Utils.enableItems(loginBtn);
 
                         isLogged = true;
 
                         sharedPreferences.edit().putBoolean("isLogged", isLogged).commit();
                         sharedPreferences.edit().putString("username", userDetailDTO.username()).commit();
                         sharedPreferences.edit().putString("email", userDetailDTO.email()).commit();
+                        loginBtn.setEnabled(true);
                     } catch (MalletException e) {
-                        isLogged = true;
-
                         Utils.showToast(getApplicationContext(), e.getMessage());
-                        Utils.enableItems(loginBtn);
+                        loginBtn.setEnabled(true);
                     }
                 }
 

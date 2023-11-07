@@ -14,7 +14,7 @@
     <LinearLayout
         android:id="@+id/profileNsvLl"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -249,6 +249,7 @@
             android:backgroundTint="@color/accentPrimaryLight"
             android:clickable="true"
             android:focusable="true"
+            android:layout_gravity="bottom"
             android:gravity="center_vertical"
             android:minHeight="65dp"
             android:paddingHorizontal="20dp"

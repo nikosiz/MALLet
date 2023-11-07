@@ -61,6 +61,8 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     private ImageView toolbarOptionsBackIv;
     private TextView toolbarOptionsEditTv, toolbarOptionsAddToUsersCollectionTv, toolbarOptionsDeleteTv, toolbarOptionsCancelTv;
     private final boolean isSetNew = false;
+    // TODO OSBŁUŻYĆ
+    private final boolean isUserSet = true;
     private List<ModelFlashcard> flashcards;
 
     private SetServiceImpl setService;
@@ -122,7 +124,6 @@ public class ActivityViewLearningSet extends AppCompatActivity {
                 Utils.showToast(getApplicationContext(),"Network failure");
             }
         });
-
 
         getLearningSetData();
 
@@ -260,7 +261,6 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
     // If learningSet != userSet:
     private void addSetToUsersCollection() {
-        // TODO kazać staremu Michałowi sprawdzić
         userService.addSetToUserSets(setId, new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

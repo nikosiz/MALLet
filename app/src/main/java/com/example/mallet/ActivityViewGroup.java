@@ -35,9 +35,11 @@ import com.example.mallet.backend.client.user.boundary.UserServiceImpl;
 import com.example.mallet.backend.entity.group.update.ContributionUpdateContainer;
 import com.example.mallet.backend.entity.group.update.GroupUpdateContainer;
 import com.example.mallet.backend.entity.set.ModelLearningSetMapper;
+import com.example.mallet.backend.exception.MalletException;
 import com.example.mallet.databinding.ActivityViewGroupBinding;
 import com.example.mallet.databinding.DialogAddSetToGroupBinding;
 import com.example.mallet.databinding.DialogAddUserToGroupBinding;
+import com.example.mallet.databinding.DialogDeleteAreYouSureBinding;
 import com.example.mallet.databinding.DialogReportBinding;
 import com.example.mallet.databinding.DialogViewGroupToolbarOptionsBinding;
 import com.example.mallet.utils.AuthenticationUtils;
@@ -97,10 +99,6 @@ public class ActivityViewGroup extends AppCompatActivity {
     private final List<ModelLearningSet> allSets = new ArrayList<>();
 
     private  GroupDTO chosenGroup;
-
-    public List<ModelLearningSet> getAllSets() {
-        return allSets;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,21 +165,14 @@ public class ActivityViewGroup extends AppCompatActivity {
 
         ImageView backIv = dialogBinding.viewGroupOptionsBackIv;
         TextView leaveTv = dialogBinding.viewGroupOptionsLeaveTv;
-        TextView reportTv = dialogBinding.viewGroupOptionsReportTv;
         TextView cancelTv = dialogBinding.viewGroupOptionsCancelTv;
 
         backIv.setOnClickListener(v -> dialog.dismiss());
 
         leaveTv.setOnClickListener(v -> {
             // TODO: leaveGroup()
-            dialog.dismiss();
-            leaveGroup();
-        });
 
-        reportTv.setOnClickListener(v -> {
-            // TODO: Dialog / Activity "Report"
-            dialog.dismiss();
-            reportDialog();
+            leaveGroup();
         });
 
         cancelTv.setOnClickListener(v -> dialog.dismiss());
@@ -190,13 +181,7 @@ public class ActivityViewGroup extends AppCompatActivity {
     private void leaveGroup() {
         // TODO
         Utils.showToast(this, "You left the group");
-        finish();
-    }
 
-    private void reportDialog() {
-        Dialog dialog = Utils.createDialog(this, R.layout.dialog_report, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
-        DialogReportBinding dialogBinding = DialogReportBinding.inflate(LayoutInflater.from(this));
-        dialog.show();
     }
 
     private void setupTabLayout(GroupDTO chosenGroup) {
@@ -365,11 +350,6 @@ public class ActivityViewGroup extends AppCompatActivity {
         });
     }
 
-    private void saveSelectedSets() {
-        // TODO
-    }
-
-
     private void addUsersDialog() {
         Dialog dialog = Utils.createDialog(this, R.layout.dialog_add_user_to_group, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogAddUserToGroupBinding dialogBinding = DialogAddUserToGroupBinding.inflate(getLayoutInflater());
@@ -378,7 +358,6 @@ public class ActivityViewGroup extends AppCompatActivity {
 
         dialog.setOnDismissListener(d -> {
             d.dismiss();
-            saveSelectedUsers();
         });
 
         TextInputEditText searchUsersEt = dialogBinding.addUsersToGroupSearchEt;
@@ -465,18 +444,6 @@ public class ActivityViewGroup extends AppCompatActivity {
         });
     }
 
-    private void saveSelectedUsers() {
-        // TODO
-    }
-
-    private void setupSetsListView(List<ModelUser> users) {
-        // TODO
-    }
-
-    private void setupUsersListView(List<ModelUser> users) {
-        // TODO
-    }
-
     private void getGroupData() {
         groupService.getGroup(groupId, new Callback<GroupDTO>() {
             @Override
@@ -484,8 +451,6 @@ public class ActivityViewGroup extends AppCompatActivity {
                 GroupDTO groupDTO = ResponseHandler.handleResponse(response);
 
                 setupTabLayout(groupDTO);
-
-
             }
 
             @Override
@@ -496,23 +461,28 @@ public class ActivityViewGroup extends AppCompatActivity {
     }
 
     public void confirmDelete(ModelGroup group) {
-        /*Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_delete_are_you_sure, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
-        DialogDeleteAreYouSureBinding dialogBinding = DialogDeleteAreYouSureBinding.inflate(LayoutInflater.from(requireContext()));
+        Dialog dialog = Utils.createDialog(this, R.layout.dialog_delete_are_you_sure, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
+        DialogDeleteAreYouSureBinding dialogBinding = DialogDeleteAreYouSureBinding.inflate(LayoutInflater.from(this));
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
         dialog.show();
 
-        dialogBinding.deleteCancelTv.setOnClickListener(v -> dialog.dismiss());
-        dialogBinding.deleteConfirmTv.setOnClickListener(v -> {
+        TextView cancelTv = dialogBinding.deleteCancelTv;
+        TextView confirmTv = dialogBinding.deleteConfirmTv;
+
+        cancelTv.setOnClickListener(v -> dialog.dismiss());
+        confirmTv.setOnClickListener(v -> {
+            confirmTv.setEnabled(false);
             groupService.deleteGroup(group.getId(), new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
                     try {
                         ResponseHandler.handleResponse(response);
-                        Utils.showToast(requireContext(), group.getGroupName() + " was deleted");
-                        fetchUserGroups(0, 50, groups);
+                        Utils.showToast(getApplicationContext(), group.getGroupName() + " was deleted");
+                        confirmTv.setEnabled(true);
                     } catch (MalletException e) {
                         System.out.println(e.getMessage());
-                        Utils.showToast(getContext(), "Error");
+                        Utils.showToast(getApplicationContext(), "Error");
+                        confirmTv.setEnabled(true);
                     }
                 }
 
@@ -523,8 +493,7 @@ public class ActivityViewGroup extends AppCompatActivity {
 
             });
 
-
             dialog.dismiss();
-        });*/
+        });
     }
 }

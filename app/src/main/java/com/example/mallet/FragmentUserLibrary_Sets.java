@@ -290,12 +290,17 @@ public class FragmentUserLibrary_Sets extends Fragment {
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
         dialog.show();
 
-        dialogBinding.deleteCancelTv.setOnClickListener(v -> dialog.dismiss());
-        dialogBinding.deleteConfirmTv.setOnClickListener(v -> {
+        TextView cancelTv = dialogBinding.deleteCancelTv;
+        TextView confirmTv = dialogBinding.deleteConfirmTv;
+
+        cancelTv.setOnClickListener(v -> dialog.dismiss());
+        confirmTv.setOnClickListener(v -> {
+            confirmTv.setEnabled(false);
             userService.deleteUserSet(set.getId(), new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
-                    // TODO stary Michał mocno śpi
+                    confirmTv.setEnabled(true);
+                    // stary Michał mocno śpi
                     try {
                         ResponseHandler.handleResponse(response);
                         Utils.showToast(requireActivity(), set.getName() + " was deleted");
@@ -307,7 +312,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
 
                 @Override
                 public void onFailure(Call<Void> call, Throwable t) {
-
+                    confirmTv.setEnabled(true);
                 }
             });
 

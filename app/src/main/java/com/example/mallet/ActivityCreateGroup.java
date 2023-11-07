@@ -140,6 +140,8 @@ public class ActivityCreateGroup extends AppCompatActivity {
     }
 
     private void handleGroupCreation() {
+        toolbarSaveIv.setEnabled(false);
+
         Editable text = groupNameEt.getText();
         if (text != null && (Objects.isNull(text) || text.toString().isEmpty())) {
             Utils.showToast(getApplicationContext(), "Group name cannot be empty");
@@ -149,9 +151,12 @@ public class ActivityCreateGroup extends AppCompatActivity {
         }
 
         GroupCreateContainer groupCreateContainer = GroupCreateContainerMapper.from(text.toString().trim(), selectedUsers);
+
         groupService.createGroup(groupCreateContainer, new Callback<Long>() {
             @Override
             public void onResponse(Call<Long> call, Response<Long> response) {
+                toolbarSaveIv.setEnabled(true);
+
                 Long groupId = ResponseHandler.handleResponse(response);
 
                 Intent intent = new Intent(getApplicationContext(), ActivityViewGroup.class);
@@ -165,6 +170,7 @@ public class ActivityCreateGroup extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Long> call, Throwable t) {
+                toolbarSaveIv.setEnabled(true);
                 Utils.showToast(getApplicationContext(), "Network failure");
             }
         });

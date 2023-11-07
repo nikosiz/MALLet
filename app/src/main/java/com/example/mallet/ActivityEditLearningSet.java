@@ -289,9 +289,12 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
 
     private void handleSetCreation(SetCreateContainer newSetContainer) {
+        toolbarSaveIv.setEnabled(false);
         userService.createUserSet(newSetContainer, new Callback<Long>() {
             @Override
             public void onResponse(Call<Long> call, Response<Long> response) {
+                toolbarSaveIv.setEnabled(true);
+
                 Long setId = ResponseHandler.handleResponse(response);
                 Intent intent = new Intent(getApplicationContext(), ActivityViewLearningSet.class);
 
@@ -306,7 +309,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Long> call, Throwable t) {
-
+                toolbarSaveIv.setEnabled(true);
             }
         });
     }
