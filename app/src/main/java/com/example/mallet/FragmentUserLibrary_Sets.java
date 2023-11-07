@@ -157,11 +157,11 @@ public class FragmentUserLibrary_Sets extends Fragment {
             String startPosition = uri.getQueryParameter("startPosition");
             String limit = uri.getQueryParameter("limit");
 
-            if (startPosition != null) {
+            if (startPosition != null && limit != null) {
                 setupSearchAndFetchSets(Long.parseLong(startPosition), Long.parseLong(limit));
             }
         } else {
-            setupSetView(inflater, foundSets);
+            setupSetView(inflater, foundSets, false);
         }
     }
 
@@ -212,7 +212,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
                                 .collect(Collectors.toList());
                         setList.addAll(newSets);
 
-                        addSetView(inflater, setList);
+                        setupSetView(inflater, setList, true);
                         return;
                     }
                 } else {
@@ -223,7 +223,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
                         .collect(Collectors.toList());
                 setList.addAll(newSets);
 
-                setupSetView(inflater, setList);
+                setupSetView(inflater, setList, false);
                 firstTime.set(false);
             }
 
@@ -234,38 +234,12 @@ public class FragmentUserLibrary_Sets extends Fragment {
         });
     }
 
-    private void setupSetView(@NonNull LayoutInflater inflater, List<ModelLearningSet> userLibraryFoldersList) {
-        userSetsLl.removeAllViews();
-        for (ModelLearningSet set : userLibraryFoldersList) {
-            View setItemView = inflater.inflate(R.layout.model_learning_set, userSetsLl, false);
-
-            setItemView.setOnClickListener(v -> viewSet(set));
-
-            TextView setNameTv = setItemView.findViewById(R.id.learningSet_nameTv);
-            setNameTv.setText(set.getName());
-
-            TextView setNrOfTermsTv = setItemView.findViewById(R.id.learningSet_nrOfTermsTv);
-            if (set.getNrOfTerms() == 1) {
-                setNrOfTermsTv.setText(getActivity().getString(R.string.nr_of_terms_singular, String.valueOf(set.getNrOfTerms())));
-            } else {
-                // Todo this line stops app when quickli switching fragments with bottom nav
-
-                setNrOfTermsTv.setText(getActivity().getString(R.string.nr_of_terms_plural, String.valueOf(set.getNrOfTerms())));
-            }
-
-            TextView setCreatorTv = setItemView.findViewById(R.id.learningSet_creatorTv);
-            setCreatorTv.setText(set.getCreator());
-
-            ImageView deleteIv = setItemView.findViewById(R.id.learningSet_deleteIv);
-            deleteIv.setOnClickListener(v -> confirmDelete(set));
-
-            setItemView.startAnimation(fadeInAnimation);
-
-            userSetsLl.addView(setItemView);
+    private void setupSetView(@NonNull LayoutInflater inflater,
+                              List<ModelLearningSet> userLibraryFoldersList,
+                              boolean addSetView) {
+        if (!addSetView) {
+            userSetsLl.removeAllViews();
         }
-    }
-
-    private void addSetView(@NonNull LayoutInflater inflater, List<ModelLearningSet> userLibraryFoldersList) {
         for (ModelLearningSet set : userLibraryFoldersList) {
             View setItemView = inflater.inflate(R.layout.model_learning_set, userSetsLl, false);
 

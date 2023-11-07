@@ -66,6 +66,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
     private ScrollView groupsSv;
 
     private String nextChunkUri = StringUtils.EMPTY;
+    private boolean isNextChunkUriChanged = false;
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -93,7 +94,24 @@ public class FragmentUserLibrary_Groups extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentUserLibraryGroupsBinding.inflate(inflater, container, false);
 
+
         setupContents(inflater);
+        groupsSv.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+                View view = (View) groupsSv.getChildAt(groupsSv.getChildCount() - 1);
+
+                int diff = (view.getBottom() - (groupsSv.getHeight() + groupsSv
+                        .getScrollY()));
+
+                if (diff == 0) {
+                    //todo TUTAJ TRZEBA NA DOL PRZEWINAC NIKODEM
+                    if (!nextChunkUri.isEmpty() && isNextChunkUriChanged) {
+                        getUserLibraryGroupList(groups, nextChunkUri);
+                    }
+                }
+            }
+        });
         setupSearchAndFetchGroups(0, 50);
         getUserLibraryGroupList(groups, null);
 
@@ -101,13 +119,14 @@ public class FragmentUserLibrary_Groups extends Fragment {
         groupsSv.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
             public void onScrollChanged() {
-                int contentHeight = groupsSv.getChildAt(0).getHeight();
-                int scrollHeight = groupsSv.getHeight();
+                View view = (View) groupsSv.getChildAt(groupsSv.getChildCount() - 1);
 
-                int scrollY = groupsSv.getScrollY();
+                int diff = (view.getBottom() - (groupsSv.getHeight() + groupsSv
+                        .getScrollY()));
 
-                if (scrollY + scrollHeight >= contentHeight) {
-                    if (!nextChunkUri.isEmpty()) {
+                if (diff == 0) {
+                    //todo TUTAJ TRZEBA NA DOL PRZEWINAC NIKODEM
+                    if (!nextChunkUri.isEmpty() && isNextChunkUriChanged) {
                         getUserLibraryGroupList(groups, nextChunkUri);
                     }
                 }
@@ -166,11 +185,11 @@ public class FragmentUserLibrary_Groups extends Fragment {
             String startPosition = uri.getQueryParameter("startPosition");
             String limit = uri.getQueryParameter("limit");
 
-            if (startPosition != null) {
+            if (startPosition != null && limit != null) {
                 setupSearchAndFetchGroups(Long.parseLong(startPosition), Long.parseLong(limit));
             }
         } else {
-            setupGroupView(foundGroups);
+            setupGroupView(foundGroups, false);
         }
     }
 
@@ -178,19 +197,20 @@ public class FragmentUserLibrary_Groups extends Fragment {
                                          @Nullable String nextChunkUri) {
 
         if (Objects.isNull(nextChunkUri)) {
-            fetchUserGroups(0, 10, groupList);
+            fetchUserGroups(0, 10, false, groupList);
         } else {
             Uri uri = Uri.parse(nextChunkUri);
             String startPosition = uri.getQueryParameter("startPosition");
             String limit = uri.getQueryParameter("limit");
-            if (startPosition != null) {
-                fetchUserGroups(Long.parseLong(startPosition), Long.parseLong(limit), groupList);
+            if (startPosition != null && limit != null) {
+                fetchUserGroups(Long.parseLong(startPosition), Long.parseLong(limit), true, groupList);
             }
         }
     }
 
     private void fetchUserGroups(long startPosition,
                                  long limit,
+                                 boolean isBottom,
                                  List<ModelGroup> groupList) {
         userService.getUserGroups(startPosition, limit, new Callback<GroupBasicDTO>() {
             @Override
@@ -198,18 +218,29 @@ public class FragmentUserLibrary_Groups extends Fragment {
                 Utils.hideItems(progressBar);
 
                 GroupBasicDTO groupDTO = ResponseHandler.handleResponse(response);
-                if (Objects.nonNull(groupDTO.nextChunkUri())) {
-                    nextChunkUri = groupDTO.nextChunkUri();
-                }
                 List<ModelGroup> modelGroups = ModelGroupMapper.from(groupDTO.groups());
-                groupList.addAll(modelGroups);
+                if (Objects.nonNull(groupDTO.nextChunkUri()) && !nextChunkUri.equals(groupDTO.nextChunkUri())) {
+                    if (!isBottom) {
+                        isNextChunkUriChanged = true;
+                        nextChunkUri = groupDTO.nextChunkUri();
+                    } else {
+                        List<ModelGroup> newGroups = modelGroups.stream()
+                                .filter(newGroup -> !groupList.contains(newGroup))
+                                .collect(Collectors.toList());
+                        groupList.addAll(newGroups);
 
-                if (!groupList.equals(modelGroups)) {
-                    groupList.clear();
-                    groupList.addAll(modelGroups);
+                        setupGroupView(groupList, true);
+                        return;
+                    }
+                } else {
+                    isNextChunkUriChanged = false;
                 }
+                List<ModelGroup> newGroups = modelGroups.stream()
+                        .filter(newGroup -> !groupList.contains(newGroup))
+                        .collect(Collectors.toList());
+                groupList.addAll(newGroups);
 
-                setupGroupView(groupList);
+                setupGroupView(groupList, false);
                 firstTime.set(false);
 
             }
@@ -221,8 +252,11 @@ public class FragmentUserLibrary_Groups extends Fragment {
         });
     }
 
-    private void setupGroupView(List<ModelGroup> userLibraryGroupList) {
-        userGroupsLl.removeAllViews();
+    private void setupGroupView(List<ModelGroup> userLibraryGroupList,
+                                boolean addGroupView) {
+        if (!addGroupView) {
+            userGroupsLl.removeAllViews();
+        }
         for (ModelGroup group : userLibraryGroupList) {
             View groupItemView = inflater.inflate(R.layout.model_group, userGroupsLl, false);
 
@@ -269,7 +303,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
                     try {
                         ResponseHandler.handleResponse(response);
                         Utils.showToast(requireContext(), group.getGroupName() + " was deleted");
-                        fetchUserGroups(0, 50, groups);
+                        fetchUserGroups(0, 50, false, groups);
                     } catch (MalletException e) {
                         System.out.println(e.getMessage());
                         Utils.showToast(getContext(), "Error");
