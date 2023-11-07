@@ -14,4 +14,9 @@ public class ModelUser {
     @NonNull
     String username;
     String identifier;
+
+    @Override
+    public String toString() {
+        return identifier;
+    }
 }

@@ -66,6 +66,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
     private Animation fadeInAnimation;
     private ScrollView userSetsSv;
    private String nextChunkUri = StringUtils.EMPTY;
+    private boolean isNextChunkUriChanged = false;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -96,18 +97,21 @@ public class FragmentUserLibrary_Sets extends Fragment {
         userSetsSv.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
             public void onScrollChanged() {
-                int contentHeight = userSetsSv.getChildAt(0).getHeight();
-                int scrollHeight = userSetsSv.getHeight();
+                View view = (View) userSetsSv.getChildAt(userSetsSv.getChildCount() - 1);
 
-                int scrollY = userSetsSv.getScrollY();
+                int diff = (view.getBottom() - (userSetsSv.getHeight() + userSetsSv
+                        .getScrollY()));
 
-                if (scrollY + scrollHeight >= contentHeight) {
-                    getUserLibrarySetList(sets, nextChunkUri);
+                if (diff == 0) {
+                    //todo TUTAJ TRZEBA NA DOL PRZEWINAC NIKODEM
+                    if (!nextChunkUri.isEmpty() && isNextChunkUriChanged) {
+                        getUserLibrarySetList(sets, nextChunkUri);
+                    }
                 }
             }
         });
 
-        setupSearchAndFetchSets(0, 50);
+        setupSearchAndFetchSets(0, 15);
         getUserLibrarySetList(sets, null);
         return binding.getRoot();
     }
@@ -116,7 +120,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
         RxTextView.textChanges(searchEt)
                 .debounce(500, TimeUnit.MILLISECONDS)
                 .subscribe(text -> {
-                    if (firstTime.get()) {
+                    if (firstTime.get() || text.length() < 2) {
                         return;
                     }
 
@@ -153,11 +157,11 @@ public class FragmentUserLibrary_Sets extends Fragment {
             String startPosition = uri.getQueryParameter("startPosition");
             String limit = uri.getQueryParameter("limit");
 
-            if (startPosition != null) {
+            if (startPosition != null && limit != null) {
                 setupSearchAndFetchSets(Long.parseLong(startPosition), Long.parseLong(limit));
             }
         } else {
-            setupSetView(inflater, foundSets);
+            setupSetView(inflater, foundSets, false);
         }
     }
 
@@ -176,19 +180,20 @@ public class FragmentUserLibrary_Sets extends Fragment {
                                        @Nullable String nextChunkUri) {
 
         if (Objects.isNull(nextChunkUri)) {
-            fetchUserSets(0, 10, setList);
+            fetchUserSets(0, 10, false, setList);
         } else {
             Uri uri = Uri.parse(nextChunkUri);
             String startPosition = uri.getQueryParameter("startPosition");
             String limit = uri.getQueryParameter("limit");
-            if (startPosition != null) {
-                fetchUserSets(Long.parseLong(startPosition), Long.parseLong(limit), setList);
+            if (startPosition != null && limit != null) {
+                fetchUserSets(Long.parseLong(startPosition), Long.parseLong(limit), true, setList);
             }
         }
     }
 
     private void fetchUserSets(long startPosition,
                                long limit,
+                               boolean isBottom,
                                List<ModelLearningSet> setList) {
 
         userService.getUserSets(startPosition, limit, new Callback<SetBasicDTO>() {
@@ -197,17 +202,28 @@ public class FragmentUserLibrary_Sets extends Fragment {
                 Utils.hideItems(progressBar);
                 SetBasicDTO setBasicDTO = ResponseHandler.handleResponse(response);
                 List<ModelLearningSet> modelLearningSets = ModelLearningSetMapper.from(setBasicDTO.sets());
-                if (Objects.nonNull(setBasicDTO.nextChunkUri())) {
-                    nextChunkUri = setBasicDTO.nextChunkUri();
+                if (Objects.nonNull(setBasicDTO.nextChunkUri()) && !nextChunkUri.equals(setBasicDTO.nextChunkUri())) {
+                    if (!isBottom) {
+                        isNextChunkUriChanged = true;
+                        nextChunkUri = setBasicDTO.nextChunkUri();
+                    } else {
+                        List<ModelLearningSet> newSets = modelLearningSets.stream()
+                                .filter(newSet -> !setList.contains(newSet))
+                                .collect(Collectors.toList());
+                        setList.addAll(newSets);
+
+                        setupSetView(inflater, setList, true);
+                        return;
+                    }
+                } else {
+                    isNextChunkUriChanged = false;
                 }
+                List<ModelLearningSet> newSets = modelLearningSets.stream()
+                        .filter(newSet -> !setList.contains(newSet))
+                        .collect(Collectors.toList());
+                setList.addAll(newSets);
 
-
-                if (!setList.equals(modelLearningSets)) {
-                    setList.clear();
-                    setList.addAll(modelLearningSets);
-                }
-
-                setupSetView(inflater, setList);
+                setupSetView(inflater, setList, false);
                 firstTime.set(false);
             }
 
@@ -218,8 +234,12 @@ public class FragmentUserLibrary_Sets extends Fragment {
         });
     }
 
-    private void setupSetView(@NonNull LayoutInflater inflater, List<ModelLearningSet> userLibraryFoldersList) {
-        userSetsLl.removeAllViews();
+    private void setupSetView(@NonNull LayoutInflater inflater,
+                              List<ModelLearningSet> userLibraryFoldersList,
+                              boolean addSetView) {
+        if (!addSetView) {
+            userSetsLl.removeAllViews();
+        }
         for (ModelLearningSet set : userLibraryFoldersList) {
             View setItemView = inflater.inflate(R.layout.model_learning_set, userSetsLl, false);
 
@@ -248,6 +268,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
             userSetsLl.addView(setItemView);
         }
     }
+
 
     private void viewSet(ModelLearningSet set) {
         Intent intent = new Intent(requireContext(), ActivityViewLearningSet.class);

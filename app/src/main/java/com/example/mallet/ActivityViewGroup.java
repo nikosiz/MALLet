@@ -282,6 +282,9 @@ public class ActivityViewGroup extends AppCompatActivity {
         RxTextView.textChanges(searchUsersEt)
                 .debounce(500, TimeUnit.MILLISECONDS)
                 .subscribe(text -> {
+                    if(text.length() < 2){
+                        return;
+                    }
                     if (text.length() == 0) {
                         handleSetEmptyInput();
                         return;
@@ -378,6 +381,9 @@ public class ActivityViewGroup extends AppCompatActivity {
         RxTextView.textChanges(searchUsersEt)
                 .debounce(500, TimeUnit.MILLISECONDS)
                 .subscribe(text -> {
+                    if(text.length() < 2){
+                        return;
+                    }
                     if (text.length() == 0) {
                         handleUserEmptyInput();
                         return;
