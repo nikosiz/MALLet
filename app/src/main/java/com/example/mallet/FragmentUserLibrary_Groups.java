@@ -37,6 +37,8 @@ import com.example.mallet.utils.Utils;
 import com.google.android.material.textfield.TextInputEditText;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -63,7 +65,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
     private Animation fadeInAnimation;
     private ScrollView groupsSv;
 
-    private String nextChunkUri;
+    private String nextChunkUri = StringUtils.EMPTY;
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -105,7 +107,9 @@ public class FragmentUserLibrary_Groups extends Fragment {
                 int scrollY = groupsSv.getScrollY();
 
                 if (scrollY + scrollHeight >= contentHeight) {
-                    getUserLibraryGroupList(groups, nextChunkUri);
+                    if (!nextChunkUri.isEmpty()) {
+                        getUserLibraryGroupList(groups, nextChunkUri);
+                    }
                 }
             }
         });
@@ -194,7 +198,9 @@ public class FragmentUserLibrary_Groups extends Fragment {
                 Utils.hideItems(progressBar);
 
                 GroupBasicDTO groupDTO = ResponseHandler.handleResponse(response);
-                nextChunkUri = groupDTO.nextChunkUri();
+                if (Objects.nonNull(groupDTO.nextChunkUri())) {
+                    nextChunkUri = groupDTO.nextChunkUri();
+                }
                 List<ModelGroup> modelGroups = ModelGroupMapper.from(groupDTO.groups());
                 groupList.addAll(modelGroups);
 

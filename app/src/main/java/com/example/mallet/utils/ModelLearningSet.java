@@ -5,6 +5,9 @@ import android.os.Parcelable;
 
 import java.util.List;
 
+import lombok.Builder;
+
+@Builder
 public class ModelLearningSet implements Parcelable {
     private long id;
     private String name;

@@ -178,7 +178,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         Intent intent = new Intent(this, ActivityLearn.class);
 
         intent.putExtra("fragment_class", FragmentLearn.class.getName()); // Pass the class name
-        intent.putExtra("learningSet", learningSet);
+        intent.putExtra("learningSet", ModelLearningSet.builder().terms(flashcards).build());
 
         startActivity(intent);
     }

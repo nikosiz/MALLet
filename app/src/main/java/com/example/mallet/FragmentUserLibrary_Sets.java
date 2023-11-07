@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -36,6 +37,8 @@ import com.example.mallet.utils.Utils;
 import com.google.android.material.textfield.TextInputEditText;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -62,6 +65,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
     private ProgressBar progressBar;
     private Animation fadeInAnimation;
     private ScrollView userSetsSv;
+   private String nextChunkUri = StringUtils.EMPTY;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -88,8 +92,23 @@ public class FragmentUserLibrary_Sets extends Fragment {
         binding = FragmentUserLibrarySetsBinding.inflate(inflater, container, false);
         setupContents(inflater);
 
+
+        userSetsSv.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+                int contentHeight = userSetsSv.getChildAt(0).getHeight();
+                int scrollHeight = userSetsSv.getHeight();
+
+                int scrollY = userSetsSv.getScrollY();
+
+                if (scrollY + scrollHeight >= contentHeight) {
+                    getUserLibrarySetList(sets, nextChunkUri);
+                }
+            }
+        });
+
         setupSearchAndFetchSets(0, 50);
-        getUserLibrarySetList(inflater, userSetsLl, sets, null);
+        getUserLibrarySetList(sets, null);
         return binding.getRoot();
     }
 
@@ -104,7 +123,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
                     foundSets.clear();
 
                     if (text.length() == 0) {
-                        getUserLibrarySetList(inflater, userSetsLl, sets, null);
+                        getUserLibrarySetList(sets, null);
                         return;
                     }
                     userService.getUserSets(startPosition, limit, new Callback<SetBasicDTO>() {
@@ -150,31 +169,26 @@ public class FragmentUserLibrary_Sets extends Fragment {
         userSetsLl = binding.userLibrarySetsAllSetsLl;
 
         progressBar = binding.userLibrarySetsProgressBar;
-
         this.inflater = inflater;
     }
 
-    private void getUserLibrarySetList(@NonNull LayoutInflater inflater,
-                                       LinearLayout setsLl,
-                                       List<ModelLearningSet> setList,
+    private void getUserLibrarySetList(List<ModelLearningSet> setList,
                                        @Nullable String nextChunkUri) {
 
         if (Objects.isNull(nextChunkUri)) {
-            fetchUserSets(0, 10, inflater, setsLl, setList);
+            fetchUserSets(0, 10, setList);
         } else {
             Uri uri = Uri.parse(nextChunkUri);
             String startPosition = uri.getQueryParameter("startPosition");
             String limit = uri.getQueryParameter("limit");
             if (startPosition != null) {
-                fetchUserSets(Long.parseLong(startPosition), Long.parseLong(limit), inflater, userSetsLl, setList);
+                fetchUserSets(Long.parseLong(startPosition), Long.parseLong(limit), setList);
             }
         }
     }
 
     private void fetchUserSets(long startPosition,
                                long limit,
-                               @NonNull LayoutInflater inflater,
-                               LinearLayout setsLl,
                                List<ModelLearningSet> setList) {
 
         userService.getUserSets(startPosition, limit, new Callback<SetBasicDTO>() {
@@ -183,6 +197,11 @@ public class FragmentUserLibrary_Sets extends Fragment {
                 Utils.hideItems(progressBar);
                 SetBasicDTO setBasicDTO = ResponseHandler.handleResponse(response);
                 List<ModelLearningSet> modelLearningSets = ModelLearningSetMapper.from(setBasicDTO.sets());
+                if (Objects.nonNull(setBasicDTO.nextChunkUri())) {
+                    nextChunkUri = setBasicDTO.nextChunkUri();
+                }
+
+
                 if (!setList.equals(modelLearningSets)) {
                     setList.clear();
                     setList.addAll(modelLearningSets);
