@@ -150,7 +150,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
         RxTextView.textChanges(searchEt)
                 .debounce(500, TimeUnit.MILLISECONDS)
                 .subscribe(text -> {
-                    if (firstTime.get()) {
+                    if (firstTime.get() || text.length() < 2) {
                         return;
                     }
                     foundGroups.clear();

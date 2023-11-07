@@ -225,6 +225,9 @@ public class ActivityCreateGroup extends AppCompatActivity {
         RxTextView.textChanges(searchUsersEt)
                 .debounce(500, TimeUnit.MILLISECONDS)
                 .subscribe(text -> {
+                    if(text.length() < 2){
+                        return;
+                    }
                     if (text.length() == 0) {
                         handleEmptyInput();
                         return;
