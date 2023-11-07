@@ -197,7 +197,6 @@
                         </RadioGroup>
                 </LinearLayout>
 
-
                 <TextView
                     android:id="@+id/profile_aboutTv"
                     style="@style/BasicBoldTextStyle"

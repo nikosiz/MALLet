@@ -88,6 +88,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
         this.userService = new UserServiceImpl(credential);
     }
 
+    private ImageView indicatorIv;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentUserLibrarySetsBinding.inflate(inflater, container, false);
@@ -97,16 +98,18 @@ public class FragmentUserLibrary_Sets extends Fragment {
         userSetsSv.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
             public void onScrollChanged() {
-                View view = (View) userSetsSv.getChildAt(userSetsSv.getChildCount() - 1);
+                View view = userSetsSv.getChildAt(userSetsSv.getChildCount() - 1);
 
                 int diff = (view.getBottom() - (userSetsSv.getHeight() + userSetsSv
                         .getScrollY()));
 
                 if (diff == 0) {
-                    //todo TUTAJ TRZEBA NA DOL PRZEWINAC NIKODEM
                     if (!nextChunkUri.isEmpty() && isNextChunkUriChanged) {
                         getUserLibrarySetList(sets, nextChunkUri);
+                        Utils.showItems(indicatorIv);
                     }
+                } else {
+                    Utils.hideItems(indicatorIv);
                 }
             }
         });
@@ -167,6 +170,8 @@ public class FragmentUserLibrary_Sets extends Fragment {
 
     private void setupContents(LayoutInflater inflater) {
         learningSet = getActivity().getIntent().getParcelableExtra("learningSet");
+
+        indicatorIv = binding.userLibrarySetsIndicatorIv;
 
         searchEt = binding.userLibrarySetsSearchEt;
         userSetsSv = binding.userLibrarySetsSv;

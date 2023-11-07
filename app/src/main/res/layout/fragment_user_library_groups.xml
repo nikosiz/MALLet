@@ -52,9 +52,20 @@
                 android:id="@+id/userLibraryGroups_allGroupsLl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"/>
+                android:orientation="vertical" />
         </LinearLayout>
     </ScrollView>
+
+    <ImageView
+        android:id="@+id/userLibraryGroups_indicatorIv"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:src="@drawable/ic_keyboard_arrow_down"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:tint="@color/colorPrimaryDark" />
 
     <ProgressBar
         android:id="@+id/userLibraryGroups_progressBar"

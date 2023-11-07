@@ -56,6 +56,17 @@
         </LinearLayout>
     </ScrollView>
 
+    <ImageView
+        android:id="@+id/userLibrarySets_indicatorIv"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:src="@drawable/ic_keyboard_arrow_down"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:tint="@color/colorPrimaryDark" />
+
     <ProgressBar
         android:id="@+id/userLibrarySets_progressBar"
         android:layout_width="wrap_content"
