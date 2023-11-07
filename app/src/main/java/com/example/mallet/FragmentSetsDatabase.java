@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +18,7 @@ public class FragmentSetsDatabase extends Fragment {
     private ActivityMain activityMain;
     private FragmentSetDatabaseBinding binding;
     private ProgressBar progressBar;
+    private ScrollView databaseSv;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -42,6 +44,7 @@ public class FragmentSetsDatabase extends Fragment {
 
     private void setupContents() {
         progressBar = binding.databaseProgressBar;
+        databaseSv=binding.databaseSv;
     }
 
 }
