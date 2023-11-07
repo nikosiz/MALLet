@@ -7,7 +7,9 @@ import android.os.Looper;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -33,11 +35,9 @@ import com.example.mallet.backend.client.user.boundary.UserServiceImpl;
 import com.example.mallet.backend.entity.group.update.ContributionUpdateContainer;
 import com.example.mallet.backend.entity.group.update.GroupUpdateContainer;
 import com.example.mallet.backend.entity.set.ModelLearningSetMapper;
-import com.example.mallet.backend.exception.MalletException;
 import com.example.mallet.databinding.ActivityViewGroupBinding;
 import com.example.mallet.databinding.DialogAddSetToGroupBinding;
 import com.example.mallet.databinding.DialogAddUserToGroupBinding;
-import com.example.mallet.databinding.DialogDeleteAreYouSureBinding;
 import com.example.mallet.databinding.DialogReportBinding;
 import com.example.mallet.databinding.DialogViewGroupToolbarOptionsBinding;
 import com.example.mallet.utils.AuthenticationUtils;
@@ -86,6 +86,8 @@ public class ActivityViewGroup extends AppCompatActivity {
     private Long groupId;
     private String groupName;
     private GroupServiceImpl groupService;
+    private FragmentViewGroup_Sets setFragment;
+    private FragmentViewGroup_Members memberFragment;
 
     private ListView userListLv;
     private ListView setListLv;
@@ -93,6 +95,12 @@ public class ActivityViewGroup extends AppCompatActivity {
     private final List<ModelUser> allUsernames = new ArrayList<>();
     private ArrayAdapter setListAdapter;
     private final List<ModelLearningSet> allSets = new ArrayList<>();
+
+    private  GroupDTO chosenGroup;
+
+    public List<ModelLearningSet> getAllSets() {
+        return allSets;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -192,6 +200,7 @@ public class ActivityViewGroup extends AppCompatActivity {
     }
 
     private void setupTabLayout(GroupDTO chosenGroup) {
+        this.chosenGroup = chosenGroup;
         viewPager = binding.viewGroupViewPager;
         tabLayout = binding.viewGroupTabLayout;
         FragmentStateAdapter adapter = new FragmentStateAdapter(this) {
@@ -276,6 +285,25 @@ public class ActivityViewGroup extends AppCompatActivity {
         setListLv = dialogBinding.addSetToGroupListLv;
         setListAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, allSets);
         setListLv.setAdapter(setListAdapter);
+        setListLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ModelLearningSet clickedSet = allSets.get(position);
+                groupService.addSet(groupId, clickedSet.getId(), new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        dialog.dismiss();
+                        Utils.showToast(getApplicationContext(), "Set added");
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Utils.showToast(getApplicationContext(), "Network failure");
+
+                    }
+                });
+            }
+        });
 
         TextInputEditText searchUsersEt = dialogBinding.addSetToGroupSearchEt;
 
@@ -316,10 +344,14 @@ public class ActivityViewGroup extends AppCompatActivity {
     private void handleFetchSetsResponse(Response<SetBasicDTO> response) {
         SetBasicDTO sets = ResponseHandler.handleResponse(response);
 
+
         allSets.clear();
         sets.sets().stream()
                 .map(ModelLearningSetMapper::from)
                         .forEach(allSets::add);
+
+        List<ModelLearningSet> existingSets = ModelLearningSetMapper.from(chosenGroup.sets());
+        allSets.removeAll(existingSets);
 
         notifySetListAdapterDataChanged();
     }

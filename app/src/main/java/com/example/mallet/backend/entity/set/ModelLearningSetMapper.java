@@ -21,6 +21,7 @@ public class ModelLearningSetMapper {
         return new ModelLearningSet(
                 setInformationDTO.id(),
                 setInformationDTO.name(),
+                setInformationDTO.identifier(),
                 setInformationDTO.description(),
                 setInformationDTO.creator().name(),
                setInformationDTO.numberOfTerms());

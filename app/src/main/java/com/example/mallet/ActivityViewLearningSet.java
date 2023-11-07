@@ -37,8 +37,6 @@ import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.Utils;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -76,7 +74,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
         String credential = AuthenticationUtils.get(getApplicationContext());
         this.setService = new SetServiceImpl(credential);
-        this.userService = new UserServiceImpl(StringUtils.EMPTY);
+        this.userService = new UserServiceImpl(credential);
         binding = ActivityViewLearningSetBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 

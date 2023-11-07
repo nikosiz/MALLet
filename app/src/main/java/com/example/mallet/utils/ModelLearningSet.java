@@ -12,10 +12,22 @@ public class ModelLearningSet implements Parcelable {
     private long id;
     private String name;
     private String description;
+    private String identifier;
     private String creator;
     private int nrOfTerms;
     private List<ModelFlashcard> terms;
     private String nextChunkUri;
+
+    public ModelLearningSet(long id, String name, String description, String identifier, String creator, int nrOfTerms, List<ModelFlashcard> terms, String nextChunkUri) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.identifier = identifier;
+        this.creator = creator;
+        this.nrOfTerms = nrOfTerms;
+        this.terms = terms;
+        this.nextChunkUri = nextChunkUri;
+    }
 
     public ModelLearningSet(long id, String name, String description, String creator, int nrOfTerms, List<ModelFlashcard> terms, String nextChunkUri) {
         this.id = id;
@@ -47,9 +59,10 @@ public class ModelLearningSet implements Parcelable {
     }
 
 
-    public ModelLearningSet(long id, String name, String description, String creator, int nrOfTerms) {
+    public ModelLearningSet(long id, String name,String identifier, String description, String creator, int nrOfTerms) {
         this.id = id;
         this.name = name;
+        this.identifier = identifier;
         this.description = description;
         this.creator = creator;
         this.nrOfTerms = nrOfTerms;
@@ -110,6 +123,11 @@ public class ModelLearningSet implements Parcelable {
         nrOfTerms = in.readInt();
     }
 
+    @Override
+    public String toString() {
+        return identifier;
+    }
+
     public static final Creator<ModelLearningSet> CREATOR = new Creator<ModelLearningSet>() {
         @Override
         public ModelLearningSet createFromParcel(Parcel in) {
@@ -126,6 +144,7 @@ public class ModelLearningSet implements Parcelable {
     public int describeContents() {
         return 0;
     }
+
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {

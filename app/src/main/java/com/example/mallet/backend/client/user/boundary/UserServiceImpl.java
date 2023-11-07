@@ -76,7 +76,7 @@ public class UserServiceImpl {
     }
 
     public void createUserSet(@NonNull SetCreateContainer setCreateContainer,
-                              Callback<Void> callback) {
+                              Callback<Long> callback) {
         SetCreateDTO setCreateDTO = SetCreateDTOMapper.from(setCreateContainer);
 
         userService.createSet(setCreateDTO)

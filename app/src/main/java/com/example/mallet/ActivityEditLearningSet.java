@@ -17,6 +17,7 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.mallet.backend.client.configuration.ResponseHandler;
 import com.example.mallet.backend.client.user.boundary.UserServiceImpl;
 import com.example.mallet.backend.entity.set.SetCreateContainer;
 import com.example.mallet.backend.entity.set.SetCreateContainerMapper;
@@ -125,7 +126,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         if (isSetNew) {
             Utils.hideItems(progressBar, toolbarDeleteIv, setNameErrTv);
             Utils.resetEditText(setNameEt, setNameErrTv);
-            Utils.resetEditText(setDescriptionEt, null);
+          //  Utils.resetEditText(setDescriptionEt, null);
             addFlashcard(flashcardsLl, getLayoutInflater(), null, null, null);
         } else if (!isSetNew) {
             Utils.showItems(toolbarDeleteIv);
@@ -288,12 +289,14 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
 
     private void handleSetCreation(SetCreateContainer newSetContainer) {
-        userService.createUserSet(newSetContainer, new Callback<Void>() {
+        userService.createUserSet(newSetContainer, new Callback<Long>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
+            public void onResponse(Call<Long> call, Response<Long> response) {
+                Long setId = ResponseHandler.handleResponse(response);
                 Intent intent = new Intent(getApplicationContext(), ActivityViewLearningSet.class);
 
                 intent.putExtra("learningSet", newLearningSet);
+                intent.putExtra("setId", setId);
 
                 startActivity(intent);
 
@@ -302,7 +305,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(Call<Long> call, Throwable t) {
 
             }
         });

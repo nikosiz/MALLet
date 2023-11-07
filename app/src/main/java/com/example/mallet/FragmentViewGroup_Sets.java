@@ -48,7 +48,7 @@ public class FragmentViewGroup_Sets extends Fragment {
             creator.setText(set.getCreator());
 
             userLibrarySetsLl.addView(setItemView);
-            setItemView.setOnClickListener(view -> openActivityViewSet(set.getId()));
+            setItemView.setOnClickListener(view -> openActivityViewSet(set));
 
         }
 
@@ -63,12 +63,14 @@ public class FragmentViewGroup_Sets extends Fragment {
         return ModelLearningSetMapper.from(chosenGroup.sets());
     }
 
-    private void openActivityViewSet(long id) {
+    private void openActivityViewSet(ModelLearningSet set) {
         Intent intent = new Intent(getContext(), ActivityViewLearningSet.class);
 
-        intent.putExtra("setId", id);
+        intent.putExtra("setId", set.getId());
+        intent.putExtra("learningSet", set);
         intent.putExtra("isSetInGroup", isSetInGroup);
 
         startActivity(intent);
     }
+
 }
