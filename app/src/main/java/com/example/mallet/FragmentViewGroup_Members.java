@@ -14,14 +14,12 @@ import androidx.fragment.app.Fragment;
 import com.agh.api.GroupDTO;
 import com.example.mallet.backend.entity.group.contribution.ModelGroupMemberMapper;
 import com.example.mallet.databinding.FragmentViewGroupMembersBinding;
-import com.example.mallet.utils.AdapterFolder;
-import com.example.mallet.utils.ModelFolder;
 import com.example.mallet.utils.ModelGroupMember;
 import com.example.mallet.utils.Utils;
 
 import java.util.List;
 
-public class FragmentViewGroup_Members extends Fragment implements AdapterFolder.OnFolderClickListener {
+public class FragmentViewGroup_Members extends Fragment {
 
     private final GroupDTO chosenGroup;
 
@@ -89,9 +87,5 @@ public class FragmentViewGroup_Members extends Fragment implements AdapterFolder
 
     private void managePermissions() {
 
-    }
-
-    public void onFolderClick(ModelFolder folder) {
-        Utils.showToast(getContext(), "ASDF");
     }
 }

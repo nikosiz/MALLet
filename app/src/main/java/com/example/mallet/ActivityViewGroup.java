@@ -33,12 +33,15 @@ import com.example.mallet.backend.client.user.boundary.UserServiceImpl;
 import com.example.mallet.backend.entity.group.update.ContributionUpdateContainer;
 import com.example.mallet.backend.entity.group.update.GroupUpdateContainer;
 import com.example.mallet.backend.entity.set.ModelLearningSetMapper;
+import com.example.mallet.backend.exception.MalletException;
 import com.example.mallet.databinding.ActivityViewGroupBinding;
 import com.example.mallet.databinding.DialogAddSetToGroupBinding;
 import com.example.mallet.databinding.DialogAddUserToGroupBinding;
+import com.example.mallet.databinding.DialogDeleteAreYouSureBinding;
 import com.example.mallet.databinding.DialogReportBinding;
 import com.example.mallet.databinding.DialogViewGroupToolbarOptionsBinding;
 import com.example.mallet.utils.AuthenticationUtils;
+import com.example.mallet.utils.ModelGroup;
 import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.ModelUser;
 import com.example.mallet.utils.ModelUserMapper;
@@ -452,5 +455,38 @@ public class ActivityViewGroup extends AppCompatActivity {
                 Utils.showToast(getApplicationContext(), "Network failure");
             }
         });
+    }
+
+    public void confirmDelete(ModelGroup group) {
+        /*Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_delete_are_you_sure, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
+        DialogDeleteAreYouSureBinding dialogBinding = DialogDeleteAreYouSureBinding.inflate(LayoutInflater.from(requireContext()));
+        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
+        dialog.show();
+
+        dialogBinding.deleteCancelTv.setOnClickListener(v -> dialog.dismiss());
+        dialogBinding.deleteConfirmTv.setOnClickListener(v -> {
+            groupService.deleteGroup(group.getId(), new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    try {
+                        ResponseHandler.handleResponse(response);
+                        Utils.showToast(requireContext(), group.getGroupName() + " was deleted");
+                        fetchUserGroups(0, 50, groups);
+                    } catch (MalletException e) {
+                        System.out.println(e.getMessage());
+                        Utils.showToast(getContext(), "Error");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    System.out.println("error");
+                }
+
+            });
+
+
+            dialog.dismiss();
+        });*/
     }
 }

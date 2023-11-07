@@ -1,18 +1,15 @@
 package com.example.mallet;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
@@ -28,8 +25,6 @@ import com.example.mallet.backend.client.configuration.ResponseHandler;
 import com.example.mallet.backend.client.group.boundary.GroupServiceImpl;
 import com.example.mallet.backend.client.user.boundary.UserServiceImpl;
 import com.example.mallet.backend.entity.group.ModelGroupMapper;
-import com.example.mallet.backend.exception.MalletException;
-import com.example.mallet.databinding.DialogDeleteAreYouSureBinding;
 import com.example.mallet.databinding.FragmentUserLibraryGroupsBinding;
 import com.example.mallet.utils.AuthenticationUtils;
 import com.example.mallet.utils.ModelGroup;
@@ -96,7 +91,6 @@ public class FragmentUserLibrary_Groups extends Fragment {
         setupContents(inflater);
         setupSearchAndFetchGroups(0, 50);
         getUserLibraryGroupList(groups, null);
-
 
         groupsSv.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
@@ -237,9 +231,6 @@ public class FragmentUserLibrary_Groups extends Fragment {
             TextView groupNrOfSetsTv = groupItemView.findViewById(R.id.group_nrOfSetsTv);
             groupNrOfSetsTv.setText(group.getNrOfSets() + " sets");
 
-            ImageView deleteIv = groupItemView.findViewById(R.id.group_deleteIv);
-            deleteIv.setOnClickListener(v -> confirmDelete(group));
-
             groupItemView.startAnimation(fadeInAnimation);
 
             userGroupsLl.addView(groupItemView);
@@ -253,38 +244,5 @@ public class FragmentUserLibrary_Groups extends Fragment {
         intent.putExtra("groupName", group.getGroupName());
 
         startActivity(intent);
-    }
-
-    public void confirmDelete(ModelGroup group) {
-        Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_delete_are_you_sure, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
-        DialogDeleteAreYouSureBinding dialogBinding = DialogDeleteAreYouSureBinding.inflate(LayoutInflater.from(requireContext()));
-        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
-        dialog.show();
-
-        dialogBinding.deleteCancelTv.setOnClickListener(v -> dialog.dismiss());
-        dialogBinding.deleteConfirmTv.setOnClickListener(v -> {
-            groupService.deleteGroup(group.getId(), new Callback<Void>() {
-                @Override
-                public void onResponse(Call<Void> call, Response<Void> response) {
-                    try {
-                        ResponseHandler.handleResponse(response);
-                        Utils.showToast(requireContext(), group.getGroupName() + " was deleted");
-                        fetchUserGroups(0, 50, groups);
-                    } catch (MalletException e) {
-                        System.out.println(e.getMessage());
-                        Utils.showToast(getContext(), "Error");
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Void> call, Throwable t) {
-                    System.out.println("error");
-                }
-
-            });
-
-
-            dialog.dismiss();
-        });
     }
 }

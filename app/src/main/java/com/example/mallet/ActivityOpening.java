@@ -1,10 +1,12 @@
 package com.example.mallet;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
@@ -41,11 +43,16 @@ public class ActivityOpening extends AppCompatActivity {
         isLogged = sharedPreferences.getBoolean("isLogged", false);
 
         if (isLogged) {
-            // User is logged in, open ActivityMain
-            Utils.openActivity(this, ActivityMain.class);
-        } else {
+            LinearLayout openingLl = binding.openingLl;
+            Utils.hideItems(openingLl);
+
+            Intent intent = new Intent(this,ActivityMain.class);
+            startActivity(intent);
+        } else if (!isLogged) {
             // User is not logged in, proceed with setting up the opening activity
+            LinearLayout openingLl = binding.openingLl;
             setupContents();
+            Utils.showItems(openingLl);
         }
     }
 
