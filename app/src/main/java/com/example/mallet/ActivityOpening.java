@@ -22,11 +22,15 @@ public class ActivityOpening extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private boolean isLogged;
 
+    private LinearLayout openingLl;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityOpeningBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        setupContents();
+        Utils.showItems(openingLl);
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
@@ -43,15 +47,12 @@ public class ActivityOpening extends AppCompatActivity {
         isLogged = sharedPreferences.getBoolean("isLogged", false);
 
         if (isLogged) {
-            LinearLayout openingLl = binding.openingLl;
             Utils.hideItems(openingLl);
 
             Intent intent = new Intent(this,ActivityMain.class);
             startActivity(intent);
         } else if (!isLogged) {
             // User is not logged in, proceed with setting up the opening activity
-            LinearLayout openingLl = binding.openingLl;
-            setupContents();
             Utils.showItems(openingLl);
         }
     }
@@ -60,6 +61,8 @@ public class ActivityOpening extends AppCompatActivity {
         setupAnimatedLogo();
         setupClickListeners();
         setupNoLoginBtn();
+
+        openingLl = binding.openingLl;
     }
 
     private void setupAnimatedLogo() {
