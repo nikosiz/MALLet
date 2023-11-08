@@ -29,7 +29,9 @@ public class ActivityOpening extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityOpeningBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         setupContents();
+
         Utils.showItems(openingLl);
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {

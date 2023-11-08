@@ -299,7 +299,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
             userService.deleteUserSet(set.getId(), new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
-                    confirmTv.setEnabled(true);
+                    Utils.enableItems(confirmTv);
                     // stary Michał mocno śpi
                     try {
                         ResponseHandler.handleResponse(response);
@@ -312,7 +312,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
 
                 @Override
                 public void onFailure(Call<Void> call, Throwable t) {
-                    confirmTv.setEnabled(true);
+                    Utils.enableItems(confirmTv);
                 }
             });
 

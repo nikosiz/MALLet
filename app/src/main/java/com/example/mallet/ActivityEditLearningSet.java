@@ -175,7 +175,9 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         toolbarDeleteIv.setOnClickListener(v -> deleteSetDialog());
 
         toolbarSaveIv = binding.editSetSaveIv;
-        toolbarSaveIv.setOnClickListener(v -> saveSet());
+        toolbarSaveIv.setOnClickListener(v -> {
+            saveSet();
+        });
     }
 
     public void confirmExitDialog() {
@@ -231,16 +233,6 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
         newLearningSet = new ModelLearningSet(enteredSetName, enteredSetDescription, enteredFlashcards);
 
-        System.out.println("Saved Set: " + newLearningSet.getName());
-
-        System.out.println("Terms:");
-        for (ModelFlashcard flashcard : enteredFlashcards) {
-            System.out.println("Term: " + flashcard.getTerm());
-            System.out.println("Definition: " + flashcard.getDefinition());
-            System.out.println("Translation: " + flashcard.getTranslation());
-            System.out.println();
-        }
-
         handleSetCreation(SetCreateContainerMapper.from(newLearningSet));
     }
 
@@ -289,11 +281,11 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
 
     private void handleSetCreation(SetCreateContainer newSetContainer) {
-        toolbarSaveIv.setEnabled(false);
+        Utils.disableItems(toolbarSaveIv);
         userService.createUserSet(newSetContainer, new Callback<Long>() {
             @Override
             public void onResponse(Call<Long> call, Response<Long> response) {
-                toolbarSaveIv.setEnabled(true);
+                Utils.enableItems(toolbarSaveIv);
 
                 Long setId = ResponseHandler.handleResponse(response);
                 Intent intent = new Intent(getApplicationContext(), ActivityViewLearningSet.class);
@@ -309,12 +301,12 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Long> call, Throwable t) {
-                toolbarSaveIv.setEnabled(true);
+                Utils.enableItems(toolbarSaveIv);
             }
         });
     }
 
     private void close() {
-        finish();
+        this.finish();
     }
 }

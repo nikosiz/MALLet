@@ -136,7 +136,7 @@ public class ActivityLogin extends AppCompatActivity {
     private ProgressBar progressBar;
 
     private void handleLogin() {
-        loginBtn.setEnabled(false);
+        Utils.disableItems(loginBtn);
         Utils.showItems(progressBar);
 
         String email = Objects.requireNonNull(emailEt.getText()).toString();
@@ -163,10 +163,10 @@ public class ActivityLogin extends AppCompatActivity {
                         sharedPreferences.edit().putBoolean("isLogged", isLogged).commit();
                         sharedPreferences.edit().putString("username", userDetailDTO.username()).commit();
                         sharedPreferences.edit().putString("email", userDetailDTO.email()).commit();
-                        loginBtn.setEnabled(true);
+                        Utils.enableItems(loginBtn);
                     } catch (MalletException e) {
                         Utils.showToast(getApplicationContext(), e.getMessage());
-                        loginBtn.setEnabled(true);
+                        Utils.enableItems(loginBtn);
                     }
                 }
 

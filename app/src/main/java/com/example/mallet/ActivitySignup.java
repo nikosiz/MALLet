@@ -110,7 +110,7 @@ public class ActivitySignup extends AppCompatActivity {
         });
 
         confirmTv.setOnClickListener(v -> {
-            confirmTv.setEnabled(false);
+            Utils.disableItems(confirmTv);
             username = Objects.requireNonNull(dialogUsernameEt.getText()).toString().trim();
 
             if (!Utils.isErrVisible(dialogErrTv)) {
@@ -127,10 +127,10 @@ public class ActivitySignup extends AppCompatActivity {
 
                             confirmAccountDialog();
 
-                            confirmTv.setEnabled(true);
+                            Utils.enableItems(confirmTv);
                         } catch (MalletException e) {
                             Utils.showToast(getApplicationContext(), e.getMessage());
-                            confirmTv.setEnabled(true);
+                            Utils.enableItems(confirmTv);
                         }
                     }
 
@@ -182,19 +182,5 @@ public class ActivitySignup extends AppCompatActivity {
 
     private void loginActivity() {
         Utils.openActivity(this, ActivityLogin.class); // Open the login activity
-    }
-
-    @Override
-    public void onBackPressed() {
-        // Create an intent to navigate to the opening activity
-        super.onBackPressed();
-        Intent intent = new Intent(ActivitySignup.this, ActivityOpening.class);
-        // Set intent flags
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        // Start the opening activity
-        startActivity(intent);
-        // Finish the current activity
-        finish();
-        System.out.println(getClass().getSimpleName() + " was closed");
     }
 }

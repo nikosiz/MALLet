@@ -167,11 +167,11 @@ public class FragmentFlashcards extends Fragment {
                 // Log.d(TAG, "onCardSwiped: d = " + manager.getTopPosition() + " d = " + direction);
 
                 if (direction == Direction.Left) {
-                    Toast.makeText(requireContext(), "Left", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(requireContext(), "Left", Toast.LENGTH_SHORT).show();
                     flashcardsLeft--;
                     updateCardCounterText();
                 } else if (direction == Direction.Right) {
-                    Toast.makeText(requireContext(), "Right", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(requireContext(), "Right", Toast.LENGTH_SHORT).show();
                     flashcardsLeft--;
                     updateCardCounterText();
                 }
@@ -193,7 +193,7 @@ public class FragmentFlashcards extends Fragment {
             @Override
             public void onCardRewound() {
                 // Log.d(TAG, "onCardRewound: p = " + manager.getTopPosition());
-                Utils.showToast(requireContext(), "REWIND");
+                //Utils.showToast(requireContext(), "REWIND");
                 flashcardsLeft++;
                 updateCardCounterText();
             }

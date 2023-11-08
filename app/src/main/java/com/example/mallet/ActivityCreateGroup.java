@@ -140,7 +140,7 @@ public class ActivityCreateGroup extends AppCompatActivity {
     }
 
     private void handleGroupCreation() {
-        toolbarSaveIv.setEnabled(false);
+        Utils.disableItems(toolbarSaveIv);
 
         Editable text = groupNameEt.getText();
         if (text != null && (Objects.isNull(text) || text.toString().isEmpty())) {
@@ -155,7 +155,7 @@ public class ActivityCreateGroup extends AppCompatActivity {
         groupService.createGroup(groupCreateContainer, new Callback<Long>() {
             @Override
             public void onResponse(Call<Long> call, Response<Long> response) {
-                toolbarSaveIv.setEnabled(true);
+                Utils.enableItems(toolbarSaveIv);
 
                 Long groupId = ResponseHandler.handleResponse(response);
 
@@ -170,7 +170,7 @@ public class ActivityCreateGroup extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Long> call, Throwable t) {
-                toolbarSaveIv.setEnabled(true);
+                Utils.enableItems(toolbarSaveIv);
                 Utils.showToast(getApplicationContext(), "Network failure");
             }
         });

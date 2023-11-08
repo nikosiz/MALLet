@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.mallet.databinding.DialogAreYouReadyBinding;
 import com.example.mallet.databinding.DialogGameOverBinding;
+import com.example.mallet.databinding.FragmentLearnBinding;
 import com.example.mallet.databinding.FragmentMatchBinding;
 import com.example.mallet.utils.ModelFlashcard;
 import com.example.mallet.utils.ModelLearningSet;
@@ -79,7 +80,7 @@ public class FragmentMatch extends Fragment {
 
         areYouReadyDialog();
 
-        Utils.openActivityWithFragment(getContext(), FragmentMatch.class, ActivityLearn.class);
+        //tv_p1 = rootView.findViewById(R.id.tv_p1);
 
         cv_11 = rootView.findViewById(R.id.cv_11);
         cv_11Tv = rootView.findViewById(R.id.cv_11Tv);
@@ -345,22 +346,20 @@ public class FragmentMatch extends Fragment {
 
         restart.setOnClickListener(v -> {
             dialog.dismiss();
-            requireActivity().finish();
+            restartMatch();
         });
 
         finish.setOnClickListener(v -> requireActivity().finish());
     }
 
-    /*private void restart() {
-        generateTextVariables(flashcardList);
-    }*/
-
-    private ModelLearningSet learningSet;
+    private void restartMatch() {
+        // TODO
+    }
 
     private List<ModelFlashcard> getLearningSetData() {
         Bundle args = getArguments();
         if (args != null) {
-            learningSet = args.getParcelable("learningSet");
+            ModelLearningSet learningSet = args.getParcelable("learningSet");
             if (learningSet != null) {
                 flashcardList = learningSet.getTerms();
                 return flashcardList;
@@ -397,6 +396,20 @@ public class FragmentMatch extends Fragment {
         text202 = definitionTexts[1];
         text203 = definitionTexts[2];
         text204 = definitionTexts[3];
+        text205 = definitionTexts[4];
+
+        // Print the assigned variables
+        System.out.println(text101);
+        System.out.println(text102);
+        System.out.println(text103);
+        System.out.println(text104);
+        System.out.println(text105);
+
+        System.out.println(text201);
+        System.out.println(text202);
+        System.out.println(text203);
+        System.out.println(text204);
+        System.out.println(text205);
     }
 
 }

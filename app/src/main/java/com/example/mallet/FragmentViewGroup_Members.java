@@ -1,9 +1,12 @@
 package com.example.mallet;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,6 +35,8 @@ public class FragmentViewGroup_Members extends Fragment {
         FragmentViewGroupMembersBinding binding = FragmentViewGroupMembersBinding.inflate(inflater, container, false);
 
         LinearLayout userLibraryMembersLl = binding.viewGroupMembersMemberListLl; // Change to LinearLayout
+        fadeInAnimation = AnimationUtils.loadAnimation(requireActivity(), R.anim.fade_in);
+
 
         for (ModelGroupMember member : getUserLibraryMemberList()) {
             final int[] clickCounter = {0}; // Define a final variable here
@@ -74,12 +79,15 @@ public class FragmentViewGroup_Members extends Fragment {
                 }
             });
 
+            memberItemView.setAnimation(fadeInAnimation);
+
             userLibraryMembersLl.addView(memberItemView);
         }
 
 
         return binding.getRoot();
     }
+    private Animation fadeInAnimation;
 
     private List<ModelGroupMember> getUserLibraryMemberList() {
         return ModelGroupMemberMapper.from(chosenGroup.contributions());

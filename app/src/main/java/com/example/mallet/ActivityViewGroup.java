@@ -471,18 +471,18 @@ public class ActivityViewGroup extends AppCompatActivity {
 
         cancelTv.setOnClickListener(v -> dialog.dismiss());
         confirmTv.setOnClickListener(v -> {
-            confirmTv.setEnabled(false);
+            Utils.disableItems(confirmTv);
             groupService.deleteGroup(group.getId(), new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
                     try {
                         ResponseHandler.handleResponse(response);
                         Utils.showToast(getApplicationContext(), group.getGroupName() + " was deleted");
-                        confirmTv.setEnabled(true);
+                        Utils.enableItems(confirmTv);
                     } catch (MalletException e) {
                         System.out.println(e.getMessage());
                         Utils.showToast(getApplicationContext(), "Error");
-                        confirmTv.setEnabled(true);
+                        Utils.enableItems(confirmTv);
                     }
                 }
 
