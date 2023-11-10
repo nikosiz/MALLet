@@ -9,6 +9,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -68,11 +70,17 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     private SetServiceImpl setService;
     private ProgressBar progressBar;
     private ScrollView viewSetSv;
+    private Animation fadeInAnimation;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setId = getIntent().getLongExtra("setId", 0L);
+
+        fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in);
 
         String credential = AuthenticationUtils.get(getApplicationContext());
         this.setService = new SetServiceImpl(credential);
@@ -84,50 +92,17 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     }
 
     private void setupContents() {
-        // todo delete
-        Button testBtn = binding.test;
-        testBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(this, ActivityLearn.class);
-            intent.putExtra("learningSet", learningSet);
-            startActivity(intent);
-        });
+        setupToolbar();
 
         progressBar = binding.viewSetProgressBar;
         viewSetSv = binding.viewSetSv;
 
         learningSet = getIntent().getParcelableExtra("learningSet");
-        setService.getSet(setId, new Callback<SetDetailDTO>() {
-            @Override
-            public void onResponse(Call<SetDetailDTO> call, Response<SetDetailDTO> response) {
-                Utils.hideItems(progressBar);
-                SetDetailDTO setDetailDTO = ResponseHandler.handleResponse(response);
 
-                flashcards = ModelFlashcardMapper.from(setDetailDTO.terms());
-
-                flashcardsVp2 = binding.viewSetFlashcardVp2;
-
-                if (flashcards == null || flashcards.size() == 0) {
-                    Utils.setViewLayoutParams(flashcardsVp2, MATCH_PARENT, 0);
-                    Utils.hideItems(flashcardsVp2);
-                    Utils.showItems(binding.viewSetNoVocabHereLl);
-                    TextView addVocabTv = binding.viewSetAddVocabTv;
-                    addVocabTv.setOnClickListener(v -> editSet());
-                } else {
-                    Utils.showItems(flashcardsVp2);
-                    displayFlashcardsInViewPager(flashcards, flashcardsVp2);
-                }
-                displayFlashcardsInLinearLayout(flashcards, binding.viewSetAllFlashcardsLl, getLayoutInflater());
-            }
-
-            @Override
-            public void onFailure(Call<SetDetailDTO> call, Throwable t) {
-                Utils.showToast(getApplicationContext(),"Network failure");
-            }
-        });
 
         getLearningSetData();
 
-        setupToolbar();
+        flashcardsVp2 = binding.viewSetFlashcardVp2;
 
         setNameTv = binding.viewSetNameTv;
         setNameTv.setText(learningSet.getName());
@@ -149,6 +124,39 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
         viewSetStudyEfab = binding.viewSetStudyEfab;
         viewSetStudyEfab.setOnClickListener(v -> startFlashcards());
+
+        Utils.disableItems(toolbarOptionsIv, flashcardsVp2, flashcardsLl, learnLl, testLl, matchLl, viewSetStudyEfab);
+
+        setService.getSet(setId, new Callback<SetDetailDTO>() {
+            @Override
+            public void onResponse(Call<SetDetailDTO> call, Response<SetDetailDTO> response) {
+                Utils.enableItems(toolbarOptionsIv, flashcardsVp2, flashcardsLl, learnLl, testLl, matchLl, viewSetStudyEfab);
+
+                Utils.hideItems(progressBar);
+                SetDetailDTO setDetailDTO = ResponseHandler.handleResponse(response);
+
+                flashcards = ModelFlashcardMapper.from(setDetailDTO.terms());
+
+                if (flashcards == null || flashcards.size() == 0) {
+                    Utils.setViewLayoutParams(flashcardsVp2, MATCH_PARENT, 0);
+                    Utils.hideItems(flashcardsVp2);
+                    Utils.showItems(binding.viewSetNoVocabHereLl);
+                    TextView addVocabTv = binding.viewSetAddVocabTv;
+                    addVocabTv.setOnClickListener(v -> editSet());
+                } else {
+                    Utils.showItems(flashcardsVp2);
+                    displayFlashcardsInViewPager(flashcards, flashcardsVp2);
+                    flashcardsVp2.startAnimation(fadeInAnimation);
+                }
+                displayFlashcardsInLinearLayout(flashcards, binding.viewSetAllFlashcardsLl, getLayoutInflater());
+                binding.viewSetAllFlashcardsLl.startAnimation(fadeInAnimation);
+            }
+
+            @Override
+            public void onFailure(Call<SetDetailDTO> call, Throwable t) {
+                Utils.showToast(getApplicationContext(), "Network failure");
+            }
+        });
     }
 
 
