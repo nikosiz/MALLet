@@ -39,7 +39,7 @@ public class FragmentLearn extends Fragment {
     private static final String PREFS_NAME = "FragmentLearnSettings";
     private static final String KEY_MULTIPLE_CHOICE = "multipleChoice";
     private static final String KEY_WRITTEN = "written";
-    private static final int MAX_QUESTIONS = 20;
+    private static int MAX_QUESTIONS = 20;
     private FragmentLearnBinding binding;
     private List<ModelFlashcard> flashcardList;
     private MaterialSwitch multipleChoiceMs;
@@ -87,6 +87,9 @@ public class FragmentLearn extends Fragment {
         flashcardList = getLearningSetData();
 
         currentQuestionIndex = 0;
+
+        MAX_QUESTIONS = Math.min(24, flashcardList.size());
+
         setupToolbar();
 
         learnOptionsDialog();
@@ -94,11 +97,7 @@ public class FragmentLearn extends Fragment {
         questionsLl = binding.learnQuestionsLl;
 
         nextTv = binding.learnNextTv;
-        nextTv.setOnClickListener(v -> handleNextTvClick());
-
-        prevTv = binding.learnPrevTv;
-        prevTv.setOnClickListener(v -> previousQuestion());
-        Utils.showItems(prevTv, nextTv);
+        nextTv.setOnClickListener(v -> nextQuestion());
 
         finishTv = binding.learnFinishTv;
         finishTv.setOnClickListener(v -> learningFinishedDialog());
@@ -139,21 +138,19 @@ public class FragmentLearn extends Fragment {
             currentQuestionIndex = 0;
 
             if (writtenMs.isChecked() && !multipleChoiceMs.isChecked()) {
+                WRITTEN_QUESTIONS = MAX_QUESTIONS;
                 writtenQuestions = activityLearn.generateWrittenQuestions();
                 displayWrittenQuestion(writtenQuestions, questionsLl, getLayoutInflater());
 
             } else if (!writtenMs.isChecked() && multipleChoiceMs.isChecked()) {
+                MULTIPLE_CHOICE_QUESTIONS = MAX_QUESTIONS;
                 multipleChoiceQuestions = activityLearn.generateMultipleChoiceQuestions();
                 displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
 
             } else if (!writtenMs.isChecked() && !multipleChoiceMs.isChecked()) {
+                WRITTEN_QUESTIONS = 0;
+                MULTIPLE_CHOICE_QUESTIONS = 0;
                 Utils.showItems(errorTv);
-
-            } else if (writtenMs.isChecked() && multipleChoiceMs.isChecked()) {
-                writtenQuestions = activityLearn.generateWrittenQuestions();
-                multipleChoiceQuestions = activityLearn.generateMultipleChoiceQuestions();
-                displayMixedQuestions(writtenQuestions, multipleChoiceQuestions, questionsLl, getLayoutInflater());
-
             }
 
             dialog.dismiss();
@@ -183,62 +180,18 @@ public class FragmentLearn extends Fragment {
         }
     }
 
-    private void previousQuestion() {
-        if (!multipleChoiceMs.isChecked()) {
-            writtenAnswerEt.setText(writtenAnswer);
-            currentQuestionIndex--;
+    private int WRITTEN_QUESTIONS, MULTIPLE_CHOICE_QUESTIONS;
 
-            if (currentQuestionIndex < MAX_QUESTIONS && currentQuestionIndex >= 0) {
-                displayWrittenQuestion(writtenQuestions, questionsLl, getLayoutInflater());
-            } else {
-                currentQuestionIndex = 0;
-            }
-        } else if (!writtenMs.isChecked()) {
-            currentQuestionIndex--;
-
-            if (currentQuestionIndex < MAX_QUESTIONS && currentQuestionIndex >= 0) {
-                displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
-            } else {
-                currentQuestionIndex = 0;
-            }
-        } else if (writtenMs.isChecked() && multipleChoiceMs.isChecked()) {
-            if (currentQuestionIndex < MAX_QUESTIONS) {
-                if (currentQuestionIndex % 2 == 0) {
-                    // Display a written question
-                    if (currentQuestionIndex < writtenQuestions.size()) {
-                        displayWrittenQuestion(writtenQuestions, questionsLl, getLayoutInflater());
-                    } else {
-                        // No more written questions
-                        displayNextMultipleChoiceQuestion();
-                    }
-                } else {
-                    // Display a multiple-choice question
-                    if (currentQuestionIndex < multipleChoiceQuestions.size()) {
-                        displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
-                    } else {
-                        // No more multiple-choice questions
-                        displayNextWrittenQuestion();
-                    }
-                }
-
-                currentQuestionIndex--;
-            } else {
-                currentQuestionIndex = 0;
-            }
-        }
-    }
-
-
-    private void handleNextTvClick() {
+    private void nextQuestion() {
         if (!multipleChoiceMs.isChecked()) {
             ModelWritten writtenQuestion = writtenQuestions.get(currentQuestionIndex);
             writtenAnswer = Objects.requireNonNull(writtenAnswerEt.getText()).toString().toLowerCase().trim();
             String writtenCorrectAnswer = writtenQuestion.getCorrectAnswer();
             String writtenAlternativeAnswer = writtenQuestion.getAlternativeAnswer();
 
-            boolean isCorrect = checkWrittenAnswer(writtenAnswer, writtenCorrectAnswer, writtenAlternativeAnswer);
+            boolean isWrittenCorrect = checkWrittenAnswer(writtenAnswer, writtenCorrectAnswer, writtenAlternativeAnswer);
 
-            if (isCorrect) {
+            if (isWrittenCorrect) {
                 writtenAnswerEt.setText("");
                 currentQuestionIndex++;
 
@@ -252,16 +205,10 @@ public class FragmentLearn extends Fragment {
                     learningFinishedDialog();
                 }
             } else {
-
                 Utils.showItems(answersLl);
             }
         } else if (!writtenMs.isChecked()) {
             ModelMultipleChoice multipleChoiceQuestion = multipleChoiceQuestions.get(currentQuestionIndex);
-         //   int multipleChoiceCorrectAnswerPosition = multipleChoiceQuestion.getAnswerPosition();
-            int multipleChoiceClickedOption;
-
-           // boolean isCorrect = checkMultipleChoiceAnswer(multipleChoiceCorrectAnswerPosition, multipleChoiceCorrectAnswerPosition);
-
 
             currentQuestionIndex++;
 
@@ -335,7 +282,7 @@ public class FragmentLearn extends Fragment {
 
     private boolean checkMultipleChoiceAnswer(int clickedOption, int correctAnswerPosition) {
         boolean isCorrect = clickedOption == correctAnswerPosition;
-
+        Utils.showToast(getContext(), String.valueOf(isCorrect));
         return clickedOption == correctAnswerPosition;
     }
 
@@ -364,8 +311,9 @@ public class FragmentLearn extends Fragment {
                 }
             });
 
+            Utils.hideItems(answersLl);
+
             ll.addView(writtenQuestionItem);
-            // System.out.println((currentQuestionIndex));
         } else {
             // All questions have been shown
         }
@@ -400,8 +348,6 @@ public class FragmentLearn extends Fragment {
             option3Tv.setText(answers.get(2).getAnswer());
             option4Tv.setText(answers.get(3).getAnswer());
 
-            System.out.println(correctAnswerPosition);
-
             option1Tv.setOnClickListener(v -> checkMultipleChoiceAnswer(0, correctAnswerPosition));
             option2Tv.setOnClickListener(v -> checkMultipleChoiceAnswer(1, correctAnswerPosition));
             option3Tv.setOnClickListener(v -> checkMultipleChoiceAnswer(2, correctAnswerPosition));
@@ -410,58 +356,6 @@ public class FragmentLearn extends Fragment {
             ll.addView(multipleChoiceQuestionItem);
         } else {
             // All questions have been shown
-        }
-    }
-
-    private void displayMixedQuestions(List<ModelWritten> writtenQuestions, List<ModelMultipleChoice> multipleChoiceQuestions, LinearLayout ll, LayoutInflater inflater) {
-        ll.removeAllViews();
-
-        int maxQuestionsPerType = MAX_QUESTIONS / 2;
-        int writtenQuestionsCount = Math.min(maxQuestionsPerType, writtenQuestions.size());
-        int multipleChoiceQuestionsCount = Math.min(maxQuestionsPerType, multipleChoiceQuestions.size());
-
-        int totalQuestionsDisplayed = 0;
-        int writtenQuestionIndex = 0;
-        int multipleChoiceQuestionIndex = 0;
-
-        while (totalQuestionsDisplayed < MAX_QUESTIONS) {
-            if (totalQuestionsDisplayed < maxQuestionsPerType && writtenQuestionIndex < writtenQuestionsCount) {
-                ModelWritten writtenQuestion = writtenQuestions.get(writtenQuestionIndex);
-                View writtenQuestionItem = inflater.inflate(R.layout.model_written, ll, false);
-                writtenQuestionTv = writtenQuestionItem.findViewById(R.id.written_questionTv);
-                writtenQuestionTv.setText(writtenQuestion.getQuestion());
-
-                correctAnswersTv = writtenQuestionItem.findViewById(R.id.written_correctAnswersTv);
-                correctAnswersTv.setText("\"" + writtenQuestion.getCorrectAnswer() + "\" or \"" + writtenQuestion.getAlternativeAnswer() + "\"");
-
-                writtenAnswerEt = writtenQuestionItem.findViewById(R.id.written_answerEt);
-                answersLl = writtenQuestionItem.findViewById(R.id.written_correctAnswersLl);
-                Utils.hideItems(answersLl);
-
-                writtenAnswerEt.setOnFocusChangeListener((v, hasFocus) -> {
-                    if (!hasFocus) {
-                        writtenAnswer = Objects.requireNonNull(writtenAnswerEt.getText()).toString();
-                    }
-                });
-
-                ll.addView(writtenQuestionItem);
-
-                writtenQuestionIndex++;
-            } else if (multipleChoiceQuestionIndex < multipleChoiceQuestionsCount) {
-                ModelMultipleChoice multipleChoiceQuestion = multipleChoiceQuestions.get(multipleChoiceQuestionIndex);
-                View multipleChoiceQuestionItem = inflater.inflate(R.layout.model_multiple_choice, ll, false);
-                multipleChoiceQuestionTv = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_questionTv);
-                multipleChoiceQuestionTv.setText(multipleChoiceQuestion.getQuestion());
-
-                ll.addView(multipleChoiceQuestionItem);
-
-                multipleChoiceQuestionIndex++;
-            } else {
-                // All questions have been shown
-                break;
-            }
-
-            totalQuestionsDisplayed++;
         }
     }
 
@@ -480,12 +374,10 @@ public class FragmentLearn extends Fragment {
 
         dialogRestartTv.setOnClickListener(v -> {
             currentQuestionIndex = 0;
-            //writtenQuestions = activityLearn.generateWrittenQuestions();
-            //multipleChoiceQuestions = activityLearn.generateMultipleChoiceQuestions();
             Utils.hideItems(finishTv);
-            Utils.makeItemsUnclickable(finishTv);
+            Utils.disableItems(finishTv);
             Utils.showItems(nextTv);
-            Utils.makeItemsClickable(nextTv);
+            Utils.enableItems(nextTv);
             finishedDialog.dismiss();
             learnOptionsDialog();
         });

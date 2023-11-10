@@ -2,7 +2,7 @@ package com.example.mallet.utils;
 
 public class ModelTrueFalse {
     private final String question;
-    private final String displayedAnswer; // Store the actual correct answer content
+    private final String displayedAnswer;
     private final String correctAnswer;
 
     public ModelTrueFalse(String question, String displayedAnswer, String correctAnswer) {
@@ -15,12 +15,12 @@ public class ModelTrueFalse {
         return question;
     }
 
-    public String getCorrectAnswer() {
-        return correctAnswer;
-    }
-
     public String getDisplayedAnswer() {
         return displayedAnswer;
+    }
+
+    public String getCorrectAnswer() {
+        return correctAnswer;
     }
 
     @Override

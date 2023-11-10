@@ -20,6 +20,7 @@ import com.example.mallet.utils.ModelAnswer;
 import com.example.mallet.utils.ModelFlashcard;
 import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.ModelMultipleChoice;
+import com.example.mallet.utils.ModelTrueFalse;
 import com.example.mallet.utils.ModelWritten;
 import com.example.mallet.utils.QuestionType;
 import com.example.mallet.utils.Utils;
@@ -113,6 +114,58 @@ public class ActivityLearn extends AppCompatActivity {
             flashcardList = learningSet.getTerms();
         }
     }
+
+    private int trueFalseCorrectAnswerPosition;
+
+    public List<ModelTrueFalse> generateTrueFalseQuestions() {
+        List<ModelTrueFalse> questionList = new ArrayList<>();
+        Random random = new Random();
+
+        List<ModelFlashcard> shuffledFlashcardList = new ArrayList<>(flashcardList);
+        Collections.shuffle(shuffledFlashcardList);
+
+        int MAX_QUESTIONS = Math.min(20, flashcardList.size());
+        int questionCount = 0; // Initialize the question count
+
+        for (ModelFlashcard flashcard : shuffledFlashcardList) {
+            // Check if the maximum number of questions (20) has been generated
+            if (questionCount >= MAX_QUESTIONS) {
+                break;
+            }
+
+            int trueFalseQuestionPosition = random.nextInt(2);
+
+            List<String> options = new ArrayList<>();
+            options.add(flashcard.getTerm());
+            options.add(flashcard.getDefinition());
+            options.add(flashcard.getTranslation());
+            Collections.shuffle(options);
+
+
+            // Determine the positions of the correct and alternative answers
+            switch (trueFalseQuestionPosition) {
+                case 0:
+                    trueFalseCorrectAnswerPosition = 1;
+                    break;
+                case 1:
+                    trueFalseCorrectAnswerPosition = random.nextInt(2) + 1;
+                    break;
+                case 2:
+                    trueFalseCorrectAnswerPosition = 0;
+                    break;
+            }
+
+            ModelTrueFalse trueFalse = new ModelTrueFalse(options.get(trueFalseQuestionPosition), options.get(trueFalseCorrectAnswerPosition), options.get(trueFalseCorrectAnswerPosition));
+
+            // Add the written question to the list
+            questionList.add(trueFalse);
+
+            questionCount++; // Increment the question count
+        }
+
+        return questionList;
+    }
+
 
     public List<ModelWritten> generateWrittenQuestions() {
         List<ModelWritten> questionList = new ArrayList<>();
@@ -225,7 +278,6 @@ public class ActivityLearn extends AppCompatActivity {
                 .isCorrect(isCorrect)
                 .build();
     }
-
 
     private List<String> getAllQuestions(List<ModelFlashcard> flashcardList, QuestionType questionType) {
         return switch (questionType) {
