@@ -114,7 +114,6 @@
                 android:drawablePadding="10dp"
                 android:focusable="true"
                 android:gravity="center"
-
                 android:padding="20dp"
                 android:text="Finish"
                 android:textColor="@color/colorPrimary"
@@ -131,7 +130,6 @@
                 android:drawablePadding="10dp"
                 android:focusable="true"
                 android:gravity="center"
-
                 android:padding="20dp"
                 android:text="Restart"
                 android:textColor="@color/colorPrimary"

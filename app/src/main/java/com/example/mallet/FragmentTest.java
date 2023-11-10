@@ -100,7 +100,6 @@ public class FragmentTest extends Fragment {
 
         testOptionsDialog();
 
-
         return binding.getRoot();
     }
 
@@ -112,8 +111,6 @@ public class FragmentTest extends Fragment {
             learningSet = args.getParcelable("learningSet");
             learningSetName = args.getParcelable("learningSetName");
         }
-
-        testOptionsDialog();
 
         setupToolbar();
 
@@ -127,7 +124,7 @@ public class FragmentTest extends Fragment {
 
         finishTv = binding.testFinishTv;
         finishTv.setOnClickListener(v -> testFinishedDialog());
-//        Utils.hideItems(finishTv, errorTv);
+        // Utils.hideItems(finishTv, errorTv);
 
         nextTv = binding.testNextTv;
         restartTestTv = binding.testRestartTv;
@@ -192,7 +189,6 @@ public class FragmentTest extends Fragment {
             Utils.makeItemsUnclickable(nextTv);
             testFinishedDialog();
         }
-
     }
 
     private boolean checkWrittenAnswer(String userAnswer, String correctAnswer, String
@@ -279,7 +275,7 @@ public class FragmentTest extends Fragment {
 
         //if (currentQuestionIndex < questions.size()) {
         int i = 0;
-        ModelMultipleChoice multipleChoiceQuestion = questions.get(currentQuestionIndex);
+        ModelMultipleChoice multipleChoiceQuestion = questions.get(i);
 
         View multipleChoiceQuestionItem = inflater.inflate(R.layout.model_multiple_choice, ll, false);
         multipleChoiceQuestionTv = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_questionTv);
