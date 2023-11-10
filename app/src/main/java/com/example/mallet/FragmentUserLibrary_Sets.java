@@ -243,7 +243,6 @@ public class FragmentUserLibrary_Sets extends Fragment {
                               List<ModelLearningSet> userLibraryFoldersList,
                               boolean addSetView) {
         if (!addSetView) {
-            //todo nie usuwa widokow jak sie usuwa set
             userSetsLl.removeAllViews();
         }
         for (ModelLearningSet set : userLibraryFoldersList) {
