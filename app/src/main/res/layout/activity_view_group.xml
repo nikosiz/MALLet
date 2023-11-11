@@ -123,7 +123,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:background="@drawable/bg_social_btn"
+            android:background="@drawable/bg_basic_btn"
             android:clickable="true"
             android:drawablePadding="20dp"
             android:focusable="true"
@@ -131,10 +131,10 @@
             android:paddingHorizontal="20dp"
             android:paddingVertical="10dp"
             android:text="@string/learning_set"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorLight"
             android:textSize="20sp"
             app:drawableStartCompat="@drawable/ic_learning_set"
-            app:drawableTint="@color/colorPrimary"
+            app:drawableTint="@color/colorLight"
             app:layout_constraintBottom_toTopOf="@id/viewGroup_addUserTv"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -144,7 +144,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:background="@drawable/bg_social_btn"
+            android:background="@drawable/bg_basic_btn"
             android:clickable="true"
             android:drawablePadding="20dp"
             android:focusable="true"
@@ -152,23 +152,27 @@
             android:paddingHorizontal="20dp"
             android:paddingVertical="10dp"
             android:text="@string/member"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorLight"
             android:textSize="20sp"
             app:drawableStartCompat="@drawable/ic_profile"
-            app:drawableTint="@color/colorPrimary" />
+            app:drawableTint="@color/colorLight" />
     </LinearLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/viewGroup_addFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="30dp"
-        android:contentDescription="@string/add_flashcard"
-        android:elevation="5dp"
-        app:backgroundTint="@color/colorPrimary"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:drawableEnd="@drawable/ic_plus"
+        android:drawableTint="@color/colorLight"
+        android:fontFamily="@font/rem_bold"
+        android:gravity="center"
+        android:text="@string/add"
+        android:textColor="@color/colorLight"
+        android:textSize="20sp"
+        app:elevation="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_plus"
-        app:tint="@color/colorLight" />
+        app:shapeAppearanceOverlay="@style/EfabStyle" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package com.example.mallet;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -46,7 +47,7 @@ import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.ModelUser;
 import com.example.mallet.utils.ModelUserMapper;
 import com.example.mallet.utils.Utils;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.textfield.TextInputEditText;
@@ -78,7 +79,7 @@ public class ActivityViewGroup extends AppCompatActivity {
 
 
     // Floating Action Button & its options
-    private FloatingActionButton addFab;
+    private ExtendedFloatingActionButton addEfab;
     private TextView addSetTv;
     private TextView addUserTv;
     private static boolean areFabOptionsVisible = false;
@@ -138,7 +139,7 @@ public class ActivityViewGroup extends AppCompatActivity {
         groupNameTv = binding.viewGroupNameTv;
         groupNameTv.setText(groupName);
 
-        addFab = binding.viewGroupAddFab;
+        addEfab = binding.viewGroupAddFab;
         setupFloatingActionButton();
 
         fabOptionsLl = binding.viewGroupFabOptionsLl;
@@ -245,7 +246,7 @@ public class ActivityViewGroup extends AppCompatActivity {
     }
 
     private void setupFloatingActionButton() {
-        addFab.setOnClickListener(v -> {
+        addEfab.setOnClickListener(v -> {
             if (!areFabOptionsVisible) {
                 Utils.showItems(fabOptionsLl);
                 areFabOptionsVisible = true;
@@ -275,6 +276,12 @@ public class ActivityViewGroup extends AppCompatActivity {
         DialogAddSetToGroupBinding dialogBinding = DialogAddSetToGroupBinding.inflate(LayoutInflater.from(this));
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
         dialog.show();
+
+        ImageView createNewSetIv = dialogBinding.addSetToGroupCreateNewIv;
+        createNewSetIv.setOnClickListener(v -> {
+            dialog.dismiss();
+            createNewSetInGroup();
+        });
 
         setListLv = dialogBinding.addSetToGroupListLv;
         setListAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, allSets);
@@ -314,6 +321,17 @@ public class ActivityViewGroup extends AppCompatActivity {
 
                     fetchSets(text);
                 });
+    }
+
+    private void createNewSetInGroup() {
+        Intent intent = new Intent(this, ActivityEditLearningSet.class);
+
+        intent.putExtra("isSetInGroup", true);
+        intent.putExtra("groupId", groupId);
+
+        startActivity(intent);
+
+        this.finish();
     }
 
     private void handleSetEmptyInput() {

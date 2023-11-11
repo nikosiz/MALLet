@@ -33,9 +33,7 @@
             android:focusable="true"
             android:src="@drawable/ic_arrow_back"
             app:tint="@color/colorPrimaryDark"
-            tools:ignore="TouchTargetSizeCheck"
-            tools:layout_editor_absoluteX="20dp"
-            tools:layout_editor_absoluteY="17dp" />
+            tools:ignore="TouchTargetSizeCheck"/>
 
         <TextView
             android:id="@+id/createGroup_toolbarTitleTv"

@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.mallet.backend.client.configuration.ResponseHandler;
+import com.example.mallet.backend.client.group.boundary.GroupServiceImpl;
 import com.example.mallet.backend.client.user.boundary.UserServiceImpl;
 import com.example.mallet.backend.entity.set.SetCreateContainer;
 import com.example.mallet.backend.entity.set.SetCreateContainerMapper;
@@ -70,7 +71,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     private TextInputEditText flashcardTermEt;
     private TextInputEditText flashcardDefinitionEt;
     private TextInputEditText flashcardTranslationEt;
-
+    private Long groupId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,18 +91,18 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
         String credential = AuthenticationUtils.get(getApplicationContext());
         this.userService = new UserServiceImpl(credential);
+        this.groupService = new GroupServiceImpl(credential);
 
         isSetNew = getIntent().getBooleanExtra("isSetNew", true);
         isSetInGroup = getIntent().getBooleanExtra("isSetInGroup", false);
         learningSet = getIntent().getParcelableExtra("learningSet");
+        groupId = getIntent().getLongExtra("groupId", 0L);
 
         if (learningSet != null && learningSet.getTerms() != null) {
             flashcards = learningSet.getTerms();
         }
 
         setupContents();
-
-        System.out.println(isSetNew);
     }
 
     private void setupContents() {
@@ -233,7 +234,12 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
         newLearningSet = new ModelLearningSet(enteredSetName, enteredSetDescription, enteredFlashcards);
 
-        handleSetCreation(SetCreateContainerMapper.from(newLearningSet));
+        if (isSetNew & !isSetInGroup) {
+            handleSetCreation(SetCreateContainerMapper.from(newLearningSet));
+        } else if (isSetNew & isSetInGroup) {
+            handleSetInGroupCreation(SetCreateContainerMapper.from(newLearningSet));
+        }
+
     }
 
     private ModelLearningSet newLearningSet;
@@ -302,6 +308,34 @@ public class ActivityEditLearningSet extends AppCompatActivity {
             @Override
             public void onFailure(Call<Long> call, Throwable t) {
                 Utils.enableItems(toolbarSaveIv);
+            }
+        });
+    }
+
+    private GroupServiceImpl groupService;
+
+    private void handleSetInGroupCreation(SetCreateContainer newSetContainer) {
+        Utils.disableItems(toolbarSaveIv);
+        groupService.createSet(groupId, newSetContainer, new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Utils.enableItems(toolbarSaveIv);
+
+                Intent intent = new Intent(getApplicationContext(), ActivityViewGroup.class);
+
+                intent.putExtra("groupId", groupId);
+
+                startActivity(intent);
+
+                close();
+
+                Utils.showToast(getApplicationContext(), "Set created");
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Utils.enableItems(toolbarSaveIv);
+                Utils.showToast(getApplicationContext(), "Set was not created due to an error");
             }
         });
     }

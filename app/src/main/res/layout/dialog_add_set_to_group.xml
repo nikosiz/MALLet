@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/addSetToGroup_mainLl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,15 +10,39 @@
     android:paddingHorizontal="20dp"
     android:paddingVertical="30dp">
 
-    <TextView
-        android:id="@+id/addSetToGroup_titleTv"
-        style="@style/BasicBoldTextStyle"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/russo_one_regular"
-        android:text="@string/add_sets"
-        android:textColor="@color/primaryTextColor"
-        android:textSize="25sp" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/addSetToGroup_titleTv"
+            style="@style/BasicBoldTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/russo_one_regular"
+            android:text="@string/add_sets"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="25sp" />
+
+        <ImageView
+            android:id="@+id/addSetToGroup_createNewIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:background="@drawable/bg_ripple"
+            android:clickable="true"
+            android:contentDescription="create new set in this group"
+            android:focusable="true"
+            android:src="@drawable/ic_plus"
+            app:tint="@color/colorPrimaryDark"
+            tools:ignore="TouchTargetSizeCheck" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
 
     <TextView
         style="@style/BasicTextStyle"
@@ -54,7 +79,6 @@
             android:hint="@string/search"
             android:textSize="15sp" />
 
-        <!--  -->
         <ListView
             android:id="@+id/addSetToGroup_listLv"
             android:layout_width="match_parent"
@@ -62,10 +86,11 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- TODO: to może być niepotrzebne -->
     <ScrollView
         android:id="@+id/addSetToGroupSv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:id="@+id/addSetToGroupSvLl"
@@ -73,7 +98,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="20dp">
-
 
             <View
                 android:layout_width="match_parent"
