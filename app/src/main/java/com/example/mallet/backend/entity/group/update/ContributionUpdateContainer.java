@@ -7,7 +7,6 @@ import lombok.NonNull;
 
 @Builder
 public record ContributionUpdateContainer(
-        @NonNull
         Long id,
         @NonNull
         PermissionType setPermissionType,

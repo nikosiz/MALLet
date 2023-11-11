@@ -369,12 +369,14 @@ public class ActivityViewGroup extends AppCompatActivity {
 
         userListLv.setOnItemClickListener((parent, view, position, id) -> {
             ModelUser clickedUser = allUsernames.get(position);
+
             //todo handle add contribution
             ContributionUpdateContainer contribution = ContributionUpdateContainer.builder()
                     .groupPermissionType(PermissionType.READ)
                     .setPermissionType(PermissionType.READ)
                     .contributorId(clickedUser.getId())
                     .build();
+
             GroupUpdateContainer groupUpdateContainer = GroupUpdateContainer.builder()
                     .id(groupId)
                     .contribution(contribution)

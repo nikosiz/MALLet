@@ -11,10 +11,12 @@ import lombok.Builder;
 public class ModelGroupMember implements Parcelable {
     private long userId;
     private String username;
+    private Long contributionId;
 
-    public ModelGroupMember(long userId, String username) {
+    public ModelGroupMember(long userId, String username, Long contributionId) {
         this.userId = userId;
         this.username = username;
+        this.contributionId = contributionId;
     }
 
     protected ModelGroupMember(Parcel in) {
@@ -42,14 +44,22 @@ public class ModelGroupMember implements Parcelable {
         this.userId = userId;
     }
 
-    // Setter for the creator of the learning set
 
+    // Setter for the creator of the learning set
     public String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Long getContributionId() {
+        return contributionId;
+    }
+
+    public void setContributionId(Long contributionId) {
+        this.contributionId = contributionId;
     }
 
     @Override

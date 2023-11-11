@@ -1,6 +1,5 @@
 package com.example.mallet;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,16 +14,28 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.agh.api.GroupDTO;
+import com.agh.api.PermissionType;
+import com.example.mallet.backend.client.group.boundary.GroupServiceImpl;
 import com.example.mallet.backend.entity.group.contribution.ModelGroupMemberMapper;
+import com.example.mallet.backend.entity.group.update.ContributionUpdateContainer;
+import com.example.mallet.backend.entity.group.update.GroupUpdateContainer;
 import com.example.mallet.databinding.FragmentViewGroupMembersBinding;
 import com.example.mallet.utils.ModelGroupMember;
 import com.example.mallet.utils.Utils;
+import com.google.android.material.materialswitch.MaterialSwitch;
 
 import java.util.List;
 
-public class FragmentViewGroup_Members extends Fragment {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
+public class FragmentViewGroup_Members extends Fragment {
     private final GroupDTO chosenGroup;
+    private Animation fadeInAnimation;
+
+    private MaterialSwitch editGroupMs;
+    private MaterialSwitch editSetsMs;
 
     public FragmentViewGroup_Members(GroupDTO chosenGroup) {
         this.chosenGroup = chosenGroup;
@@ -45,7 +56,11 @@ public class FragmentViewGroup_Members extends Fragment {
 
             TextView usernameTv = memberItemView.findViewById(R.id.groupMember_usernameTv);
             ImageView memberOptionsIv = memberItemView.findViewById(R.id.groupMember_optionsIv);
+
             LinearLayout managePermissionsLl = memberItemView.findViewById(R.id.groupMember_permissionsLl);
+            editGroupMs = memberItemView.findViewById(R.id.groupMember_editGroupMs);
+            editSetsMs = memberItemView.findViewById(R.id.groupMember_editSetsMs);
+
             TextView deleteUserTv = memberItemView.findViewById(R.id.groupMember_deleteTv);
 
             // Initially hide the TextViews
@@ -86,13 +101,45 @@ public class FragmentViewGroup_Members extends Fragment {
 
         return binding.getRoot();
     }
-    private Animation fadeInAnimation;
+
+    private boolean editGroups, editSets;
+
+    private void setContributions() {
+        editGroups = editGroupMs.isChecked();
+
+        editSets = editSetsMs.isChecked();
+    }
+
+    private ModelGroupMember member;
 
     private List<ModelGroupMember> getUserLibraryMemberList() {
         return ModelGroupMemberMapper.from(chosenGroup.contributions());
     }
 
-    private void managePermissions() {
+    private GroupServiceImpl groupService;
 
+    private void updateContributions(GroupUpdateContainer gUC) {
+        ContributionUpdateContainer contribution = ContributionUpdateContainer.builder()
+                .groupPermissionType(PermissionType.READ)
+                .setPermissionType(PermissionType.READ)
+                .contributorId(member.getUserId())
+                .build();
+
+        GroupUpdateContainer groupUpdateContainer = GroupUpdateContainer.builder()
+                .id(chosenGroup.id())
+                .contribution(contribution)
+                .build();
+
+        groupService.updateGroupContribution(groupUpdateContainer, new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
+            }
+        });
     }
 }

@@ -132,7 +132,7 @@
             android:focusable="true"
             android:gravity="center_vertical"
             android:padding="10dp"
-            android:text="Delete member"
+            android:text="Remove user from group"
             android:textColor="@color/accentPrimary"
             android:textSize="20sp"
             app:drawableEndCompat="@drawable/ic_delete"
