@@ -168,4 +168,5 @@
     <string name="match_all_terms_to_definitions_and_translations_for_each_incorrect_match_5_extra_seconds_will_be_awarded_to_your_time">Match all terms to definitions and translations as quickly as you can. \n\nFor each incorrect match, 5 extra seconds will be awarded to your time</string>
     <string name="start_playing">Start playing</string>
     <string name="question">question</string>
+    <string name="cd_save_group">save group</string>
 </resources>

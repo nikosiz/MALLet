@@ -42,7 +42,6 @@ import com.example.mallet.databinding.DialogAddUserToGroupBinding;
 import com.example.mallet.databinding.DialogDeleteAreYouSureBinding;
 import com.example.mallet.databinding.DialogViewGroupToolbarOptionsBinding;
 import com.example.mallet.utils.AuthenticationUtils;
-import com.example.mallet.utils.ModelGroup;
 import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.ModelUser;
 import com.example.mallet.utils.ModelUserMapper;
@@ -98,6 +97,7 @@ public class ActivityViewGroup extends AppCompatActivity {
     private final List<ModelLearningSet> allSets = new ArrayList<>();
 
     private GroupDTO chosenGroup;
+    private ImageView saveGroupIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,11 +149,18 @@ public class ActivityViewGroup extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle("");
 
+        backIv = binding.viewGroupToolbarBackIv;
+        backIv.setOnClickListener(v -> finish());
+
         optionsIv = binding.viewGroupToolbarOptionsIv;
         optionsIv.setOnClickListener(v -> viewGroupOptionsDialog());
 
-        backIv = binding.viewGroupToolbarBackIv;
-        backIv.setOnClickListener(v -> finish());
+        saveGroupIv = binding.viewGroupToolbarSaveGroupIv;
+        saveGroupIv.setOnClickListener(v -> saveGroup());
+    }
+
+    private void saveGroup() {
+        // TODO MICHAŁEK
     }
 
     private void viewGroupOptionsDialog() {
