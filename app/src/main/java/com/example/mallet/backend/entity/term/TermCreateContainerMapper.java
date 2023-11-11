@@ -28,6 +28,7 @@ public class TermCreateContainerMapper {
 
     public static List<TermCreateContainer> from(Collection<ModelFlashcard> flashcards) {
         return flashcards.stream()
+                .filter(flashcard -> !flashcard.getTerm().isEmpty())
                 .map(TermCreateContainerMapper::from)
                 .collect(Collectors.toList());
     }

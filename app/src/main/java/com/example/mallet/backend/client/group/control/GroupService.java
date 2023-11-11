@@ -41,8 +41,8 @@ public interface GroupService {
     @POST(GroupServiceConstants.GROUP_PATH)
     Call<Long> createGroup(@Body GroupCreateDTO groupCreateDTO);
 
-    @POST(GroupServiceConstants.GROUP_PATH)
-    Call<Void> deleteGroup(@Body long id);
+    @DELETE(GroupServiceConstants.GROUP_PATH)
+    Call<Void> deleteGroup(@Query(GroupServiceConstants.ID_PARAM) long id);
 
     @PUT(GroupServiceConstants.GROUP_SET_PATH)
     Call<Void> addSet(@Body GroupSetDTO groupSetDTO);

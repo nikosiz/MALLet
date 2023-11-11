@@ -12,6 +12,7 @@ import com.google.gson.JsonParseException;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Authenticator;
 import okhttp3.OkHttpClient;
@@ -53,6 +54,7 @@ public class RetrofitClient {
     @NonNull
     private static OkHttpClient buildHttpClient(String credential) {
         return new OkHttpClient.Builder()
+                .callTimeout(10, TimeUnit.SECONDS)
                 .authenticator(new Authenticator() {
                     @Override
                     public Request authenticate(Route route, Response response) throws IOException {

@@ -300,11 +300,11 @@ public class FragmentUserLibrary_Sets extends Fragment {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
                     Utils.enableItems(confirmTv);
-                    // stary Michał mocno śpi
                     try {
                         ResponseHandler.handleResponse(response);
                         Utils.showToast(requireActivity(), set.getName() + " was deleted");
-                        setupSearchAndFetchSets(0, 50);
+                        sets.clear();
+                        getUserLibrarySetList(sets, null);
                     } catch (MalletException e) {
                         Utils.showToast(requireActivity(), e.getMessage());
                     }
