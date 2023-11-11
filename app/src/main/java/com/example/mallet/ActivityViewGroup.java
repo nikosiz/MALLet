@@ -40,7 +40,6 @@ import com.example.mallet.databinding.ActivityViewGroupBinding;
 import com.example.mallet.databinding.DialogAddSetToGroupBinding;
 import com.example.mallet.databinding.DialogAddUserToGroupBinding;
 import com.example.mallet.databinding.DialogDeleteAreYouSureBinding;
-import com.example.mallet.databinding.DialogReportBinding;
 import com.example.mallet.databinding.DialogViewGroupToolbarOptionsBinding;
 import com.example.mallet.utils.AuthenticationUtils;
 import com.example.mallet.utils.ModelGroup;
@@ -98,7 +97,7 @@ public class ActivityViewGroup extends AppCompatActivity {
     private ArrayAdapter setListAdapter;
     private final List<ModelLearningSet> allSets = new ArrayList<>();
 
-    private  GroupDTO chosenGroup;
+    private GroupDTO chosenGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,6 +164,7 @@ public class ActivityViewGroup extends AppCompatActivity {
 
         ImageView backIv = dialogBinding.viewGroupOptionsBackIv;
         TextView leaveTv = dialogBinding.viewGroupOptionsLeaveTv;
+        TextView deleteTv = dialogBinding.viewGroupOptionsDeleteTv;
         TextView cancelTv = dialogBinding.viewGroupOptionsCancelTv;
 
         backIv.setOnClickListener(v -> dialog.dismiss());
@@ -174,6 +174,8 @@ public class ActivityViewGroup extends AppCompatActivity {
 
             leaveGroup();
         });
+
+        deleteTv.setOnClickListener(v -> confirmDelete(this.groupId));
 
         cancelTv.setOnClickListener(v -> dialog.dismiss());
     }
@@ -460,7 +462,7 @@ public class ActivityViewGroup extends AppCompatActivity {
         });
     }
 
-    public void confirmDelete(ModelGroup group) {
+    public void confirmDelete(Long id) {
         Dialog dialog = Utils.createDialog(this, R.layout.dialog_delete_are_you_sure, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogDeleteAreYouSureBinding dialogBinding = DialogDeleteAreYouSureBinding.inflate(LayoutInflater.from(this));
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
@@ -472,12 +474,12 @@ public class ActivityViewGroup extends AppCompatActivity {
         cancelTv.setOnClickListener(v -> dialog.dismiss());
         confirmTv.setOnClickListener(v -> {
             Utils.disableItems(confirmTv);
-            groupService.deleteGroup(group.getId(), new Callback<Void>() {
+            groupService.deleteGroup(id, new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
                     try {
                         ResponseHandler.handleResponse(response);
-                        Utils.showToast(getApplicationContext(), group.getGroupName() + " was deleted");
+                        Utils.showToast(getApplicationContext(), "Group was deleted");
                         Utils.enableItems(confirmTv);
                     } catch (MalletException e) {
                         System.out.println(e.getMessage());

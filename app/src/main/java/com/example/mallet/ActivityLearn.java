@@ -175,7 +175,7 @@ public class ActivityLearn extends AppCompatActivity {
         List<ModelFlashcard> shuffledFlashcardList = new ArrayList<>(flashcardList);
         Collections.shuffle(shuffledFlashcardList);
 
-        int MAX_QUESTIONS = 24;
+        int MAX_QUESTIONS = Math.min(20, shuffledFlashcardList.size());
         int questionCount = 0; // Initialize the question count
 
         // Iterate through the shuffled flashcardList

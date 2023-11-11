@@ -120,6 +120,8 @@ public class FragmentHome extends Fragment {
         return v -> {
             Context context = getActivity();
             Intent intent = new Intent(context, ActivityViewGroup.class);
+
+
             intent.putExtra("groupId", v.getId());
             intent.putExtra("groupName", v.getGroupName());
             if (context != null) {
