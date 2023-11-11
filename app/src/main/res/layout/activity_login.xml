@@ -102,8 +102,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:layout_marginBottom="5dp"
-
-                        android:text="email_error"
+                        android:text="@string/err"
                         android:textColor="@color/accentPrimary"
                         android:visibility="gone" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -145,8 +144,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:layout_marginBottom="5dp"
-
-                        android:text="password_error"
+                        android:text="@string/err"
                         android:textColor="@color/accentPrimary"
                         android:visibility="gone" />
                 </com.google.android.material.textfield.TextInputLayout>

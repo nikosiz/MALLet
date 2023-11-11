@@ -14,7 +14,7 @@
     <LinearLayout
         android:id="@+id/profileNsvLl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -122,11 +122,6 @@
             android:background="@drawable/bg_corners_rounded"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
                 <LinearLayout
                     android:id="@+id/profile_theme_permissionsLl"
                     android:layout_width="match_parent"
@@ -172,28 +167,28 @@
                     </LinearLayout>
 
 
-                        <RadioGroup
-                            android:id="@+id/profile_themeRg"
+                    <RadioGroup
+                        android:id="@+id/profile_themeRg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorLight"
+                        android:paddingHorizontal="30dp">
+
+                        <RadioButton
+                            android:id="@+id/profile_lightThemeRb"
+                            style="@style/CustomRadioButtonStyle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@color/colorLight"
-                            android:paddingHorizontal="30dp">
+                            android:text="Light"
+                            android:textSize="15sp" />
 
-                            <RadioButton
-                                android:id="@+id/profile_lightThemeRb"
-                                style="@style/CustomRadioButtonStyle"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Light"
-                                android:textSize="15sp" />
-
-                            <RadioButton
-                                android:id="@+id/profile_darkThemeRb"
-                                style="@style/CustomRadioButtonStyle"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Dark"
-                                android:textSize="15sp" />
+                        <RadioButton
+                            android:id="@+id/profile_darkThemeRb"
+                            style="@style/CustomRadioButtonStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Dark"
+                            android:textSize="15sp" />
                         </RadioGroup>
                 </LinearLayout>
 
@@ -210,7 +205,6 @@
                     android:text="@string/about"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="16sp" />
-            </LinearLayout>
         </LinearLayout>
 
         <View

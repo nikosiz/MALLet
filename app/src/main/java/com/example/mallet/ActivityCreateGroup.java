@@ -49,12 +49,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ActivityCreateGroup extends AppCompatActivity {
+    private final List<ModelUser> allUsernames = new ArrayList<>();
+    private final List<ModelUser> selectedUsers = new ArrayList<>();
     private ActivityCreateGroupBinding binding;
     private GroupServiceImpl groupService;
-
-    // Toolbar
-    private ImageView toolbarBackIv, toolbarSaveIv;
-
     // createGroupCl
     private TextInputEditText groupNameEt;
     private TextView groupNameErrTv;
@@ -62,16 +60,14 @@ public class ActivityCreateGroup extends AppCompatActivity {
     private ExtendedFloatingActionButton addUsersEfab;
     private View groupMemberView;
     private CheckBox memberCb;
-
     // addMemberToGroupDialog
     private TextInputEditText searchUsersEt;
     private ListView userListLv;
     private ArrayAdapter userListAdapter; // chosen users
-    private final List<ModelUser> allUsernames = new ArrayList<>();
-    private final List<ModelUser> selectedUsers = new ArrayList<>();
     private View selecteUserItemView;
     private CheckBox selectedUserCb;
     private UserServiceImpl userService;
+    private ImageView toolbarSaveIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,7 +114,7 @@ public class ActivityCreateGroup extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle("");
 
-        toolbarBackIv = binding.createGroupToolbarBackIv;
+        ImageView toolbarBackIv = binding.createGroupToolbarBackIv;
         toolbarBackIv.setOnClickListener(v -> confirmExitDialog());
 
         toolbarSaveIv = binding.createGroupSaveIv;

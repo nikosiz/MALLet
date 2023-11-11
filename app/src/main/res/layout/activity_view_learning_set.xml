@@ -30,7 +30,7 @@
             android:layout_marginEnd="50dp"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
-            android:contentDescription="toolbar options"
+            android:contentDescription="@string/cd_toolbar_options"
             android:focusable="true"
             android:src="@drawable/ic_arrow_back"
             app:tint="@color/colorPrimaryDark" />
@@ -43,7 +43,7 @@
             android:layout_marginHorizontal="20dp"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
-            android:contentDescription="toolbar options"
+            android:contentDescription="@string/cd_toolbar_options"
             android:focusable="true"
             android:src="@drawable/ic_toolbar_options"
             app:tint="@color/colorPrimaryDark" />
@@ -84,7 +84,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/russo_one_regular"
-                    android:text="There is no vocabulary here"
+                    android:text="@string/there_is_no_vocabulary_here"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="20sp" />
 
@@ -100,15 +100,15 @@
                     android:layout_gravity="center"
                     android:background="@drawable/bg_basic_btn"
                     android:clickable="true"
-                    android:drawableTint="@color/colorLight"
                     android:focusable="true"
                     android:fontFamily="@font/rem_regular"
                     android:paddingHorizontal="20dp"
                     android:paddingVertical="10dp"
-                    android:text="Add"
+                    android:text="@string/add"
                     android:textColor="@color/colorLight"
                     android:textSize="20sp"
-                    app:drawableEndCompat="@drawable/ic_plus" />
+                    app:drawableEndCompat="@drawable/ic_plus"
+                    app:drawableTint="@color/colorLight" />
 
             </LinearLayout>
 
@@ -128,7 +128,7 @@
                     android:layout_gravity="start"
                     android:fontFamily="@font/russo_one_regular"
                     android:gravity="center"
-                    android:text="set_name"
+                    android:text="@string/SET_NAME"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="20sp" />
 
@@ -140,7 +140,7 @@
                     android:id="@+id/viewSet_descriptionTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="set_description"
+                    android:text="@string/SET_DESCRIPTION"
                     android:textColor="@color/colorPrimary"
                     android:visibility="gone" />
 
@@ -163,7 +163,7 @@
                         android:drawablePadding="10dp"
                         android:gravity="center_vertical"
                         android:paddingEnd="10dp"
-                        android:text="user_name"
+                        android:text="@string/USERNAME"
                         android:textColor="@color/colorPrimaryDark"
                         app:drawableStartCompat="@drawable/ic_profile"
                         app:drawableTint="@color/colorPrimaryDark"
@@ -180,7 +180,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="10dp"
-                        android:text="nr_of_terms"
+                        android:text="@string/NR_OF_TERMS"
                         android:textColor="@color/danube_blue_400" />
                 </LinearLayout>
 
@@ -202,7 +202,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:contentDescription="flashcards_icon"
+                        android:contentDescription="@string/cd_flashcards_icon"
                         android:src="@drawable/ic_flashcards"
                         app:tint="@color/colorPrimaryDark" />
 
@@ -216,7 +216,7 @@
                             style="@style/BasicBoldTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Flashcards"
+                            android:text="@string/flashcards"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="15sp" />
 
@@ -224,7 +224,7 @@
                             style="@style/BasicTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Review terms and definitions"
+                            android:text="@string/review_terms_and_definitions"
                             android:textColor="@color/colorPrimary"
                             android:textSize="15sp" />
                     </LinearLayout>
@@ -248,7 +248,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:contentDescription="learn_icon"
+                        android:contentDescription="@string/cd_learn_icon"
                         android:src="@drawable/ic_learn"
                         app:tint="@color/colorPrimaryDark" />
 
@@ -262,7 +262,7 @@
                             style="@style/BasicBoldTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Learn"
+                            android:text="@string/learn"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="15sp" />
 
@@ -270,7 +270,7 @@
                             style="@style/BasicTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Study in your own pace"
+                            android:text="@string/study_in_your_own_pace"
                             android:textColor="@color/colorPrimary"
                             android:textSize="15sp" />
                     </LinearLayout>
@@ -294,7 +294,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:contentDescription="test_icon"
+                        android:contentDescription="@string/cd_test_icon"
                         android:src="@drawable/ic_test"
                         app:tint="@color/colorPrimaryDark" />
 
@@ -308,7 +308,7 @@
                             style="@style/BasicBoldTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Test"
+                            android:text="@string/test"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="15sp" />
 
@@ -316,7 +316,7 @@
                             style="@style/BasicTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Take a test to check your knowledge"
+                            android:text="@string/take_a_test_to_check_your_knowledge"
                             android:textColor="@color/colorPrimary"
                             android:textSize="15sp" />
                     </LinearLayout>
@@ -340,7 +340,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:contentDescription="match_icon"
+                        android:contentDescription="@string/cd_match_icon"
                         android:src="@drawable/ic_match"
                         app:tint="@color/colorPrimaryDark" />
 
@@ -354,7 +354,7 @@
                             style="@style/BasicBoldTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Match"
+                            android:text="@string/match"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="15sp" />
 
@@ -362,7 +362,7 @@
                             style="@style/BasicTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Match vocabulary in a simple minigame"
+                            android:text="@string/match_vocabulary_in_a_simple_minigame"
                             android:textColor="@color/colorPrimary"
                             android:textSize="15sp" />
                     </LinearLayout>
@@ -377,7 +377,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/russo_one_regular"
-                    android:text="Cards in this set"
+                    android:text="@string/flashcards_in_this_set"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="20sp" />
 
@@ -418,7 +418,7 @@
         android:backgroundTint="@color/colorPrimaryDark"
         android:fontFamily="@font/rem_bold"
         android:gravity="center"
-        android:text="Study this set"
+        android:text="@string/study_this_set"
         android:textColor="@color/colorLight"
         android:textSize="20sp"
         app:elevation="5dp"

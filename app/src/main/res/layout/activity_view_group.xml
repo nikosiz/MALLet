@@ -44,7 +44,7 @@
             android:autoSizeStepGranularity="5sp"
             android:fontFamily="@font/russo_one_regular"
             android:gravity="center_vertical"
-            android:text="group_name"
+            android:text="@string/GROUP_NAME"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp" />
 
@@ -117,7 +117,7 @@
             android:gravity="end"
             android:paddingHorizontal="20dp"
             android:paddingVertical="10dp"
-            android:text="Set"
+            android:text="@string/learning_set"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp"
             app:drawableStartCompat="@drawable/ic_learning_set"
@@ -138,7 +138,7 @@
             android:gravity="end"
             android:paddingHorizontal="20dp"
             android:paddingVertical="10dp"
-            android:text="Member"
+            android:text="@string/member"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp"
             app:drawableStartCompat="@drawable/ic_profile"

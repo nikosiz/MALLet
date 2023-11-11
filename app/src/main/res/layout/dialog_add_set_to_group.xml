@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/russo_one_regular"
-        android:text="Add sets"
+        android:text="@string/add_sets"
         android:textColor="@color/primaryTextColor"
         android:textSize="25sp" />
 
@@ -23,7 +23,7 @@
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="A copy of a set of your choice will be added to this group"
+        android:text="@string/a_copy_of_the_set_you_choose_will_be_added_to_this_group"
         android:textColor="@color/colorPrimary"
         android:textSize="20sp" />
 
@@ -51,7 +51,7 @@
             android:id="@+id/addSetToGroup_searchEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Search (DOWOLNY set)"
+            android:hint="@string/search"
             android:textSize="15sp" />
 
         <!--  -->
@@ -92,7 +92,7 @@
         android:clickable="true"
         android:focusable="true"
         android:padding="10dp"
-        android:text="Confirm"
+        android:text="@string/confirm"
         android:textColor="@color/colorPrimary"
         android:textSize="20sp" />
 </LinearLayout>

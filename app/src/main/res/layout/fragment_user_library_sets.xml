@@ -65,7 +65,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:tint="@color/colorPrimaryDark" />
+        app:tint="@color/colorPrimaryDark"
+        android:contentDescription="scroll indicator" />
 
     <ProgressBar
         android:id="@+id/userLibrarySets_progressBar"

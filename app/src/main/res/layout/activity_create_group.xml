@@ -159,7 +159,7 @@
         android:drawableTint="@color/colorLight"
         android:fontFamily="@font/rem_bold"
         android:gravity="center"
-        android:text="Add users"
+        android:text="@string/add_users"
         android:textColor="@color/colorLight"
         android:textSize="20sp"
         app:elevation="5dp"

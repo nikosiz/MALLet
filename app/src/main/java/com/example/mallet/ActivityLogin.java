@@ -160,9 +160,9 @@ public class ActivityLogin extends AppCompatActivity {
 
                         isLogged = true;
 
-                        sharedPreferences.edit().putBoolean("isLogged", isLogged).commit();
-                        sharedPreferences.edit().putString("username", userDetailDTO.username()).commit();
-                        sharedPreferences.edit().putString("email", userDetailDTO.email()).commit();
+                        sharedPreferences.edit().putBoolean("isLogged", isLogged).apply();
+                        sharedPreferences.edit().putString("username", userDetailDTO.username()).apply();
+                        sharedPreferences.edit().putString("email", userDetailDTO.email()).apply();
                         Utils.enableItems(loginBtn);
                     } catch (MalletException e) {
                         Utils.showToast(getApplicationContext(), e.getMessage());

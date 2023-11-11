@@ -108,7 +108,10 @@ public class FragmentUserLibrary_Groups extends Fragment {
                     //todo TUTAJ TRZEBA NA DOL PRZEWINAC NIKODEM
                     if (!nextChunkUri.isEmpty() && isNextChunkUriChanged) {
                         getUserLibraryGroupList(groups, nextChunkUri);
+                        Utils.showItems(indicatorIv);
                     }
+                } else {
+                    Utils.hideItems(indicatorIv);
                 }
             }
         });

@@ -167,9 +167,9 @@ public class FragmentLearn extends Fragment {
                 displayWrittenQuestions(writtenQuestions, questionsLl, getLayoutInflater());
             } else {
                 Utils.showItems(finishTv);
-                Utils.makeItemsClickable(finishTv);
+                Utils.enableItems(finishTv);
                 Utils.hideItems(nextTv);
-                Utils.makeItemsUnclickable(nextTv);
+                Utils.disableItems(nextTv);
                 learningFinishedDialog();
             }
         } else {
@@ -236,9 +236,9 @@ public class FragmentLearn extends Fragment {
             currentQuestionIndex = 0;
             writtenQuestions = activityLearn.generateWrittenQuestions();
             Utils.hideItems(finishTv);
-            Utils.makeItemsUnclickable(finishTv);
+            Utils.disableItems(finishTv);
             Utils.showItems(nextTv);
-            Utils.makeItemsClickable(nextTv);
+            Utils.enableItems(nextTv);
             finishedDialog.dismiss();
             learnOptionsDialog();
         });

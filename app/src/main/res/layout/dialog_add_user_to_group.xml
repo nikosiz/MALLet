@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/russo_one_regular"
-        android:text="Add members"
+        android:text="@string/add_users"
         android:textColor="@color/primaryTextColor"
         android:textSize="25sp" />
 
@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:autofillHints="emailAddress"
-            android:hint="Search"
+            android:hint="@string/search"
             android:inputType="text"
             android:maxLines="1"
             android:scrollbars="horizontal"
@@ -85,7 +85,7 @@
         android:clickable="true"
         android:focusable="true"
         android:padding="10dp"
-        android:text="Confirm"
+        android:text="@string/confirm"
         android:textColor="@color/colorPrimary"
         android:textSize="20sp" />
 </LinearLayout>

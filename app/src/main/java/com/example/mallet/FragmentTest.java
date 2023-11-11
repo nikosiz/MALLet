@@ -157,9 +157,9 @@ public class FragmentTest extends Fragment {
                         displayWrittenQuestion(writtenQuestions, questionsLl, getLayoutInflater());
                     } else {
                         Utils.showItems(finishTv);
-                        Utils.makeItemsClickable(finishTv);
+                        Utils.enableItems(finishTv);
                         Utils.hideItems(nextTv);
-                        Utils.makeItemsUnclickable(nextTv);
+                        Utils.disableItems(nextTv);
                         testFinishedDialog();
                     }
                 } else {
@@ -174,9 +174,9 @@ public class FragmentTest extends Fragment {
                         displayWrittenQuestion(writtenQuestions, questionsLl, getLayoutInflater());
                     } else {
                         Utils.showItems(finishTv);
-                        Utils.makeItemsClickable(finishTv);
+                        Utils.enableItems(finishTv);
                         Utils.hideItems(nextTv);
-                        Utils.makeItemsUnclickable(nextTv);
+                        Utils.disableItems(nextTv);
                         testFinishedDialog();
                     }
                 }
@@ -195,9 +195,9 @@ public class FragmentTest extends Fragment {
                         displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
                     } else {
                         Utils.showItems(finishTv);
-                        Utils.makeItemsClickable(finishTv);
+                        Utils.enableItems(finishTv);
                         Utils.hideItems(nextTv);
-                        Utils.makeItemsUnclickable(nextTv);
+                        Utils.disableItems(nextTv);
                         testFinishedDialog();
                     }
                 } else {
@@ -462,7 +462,6 @@ public class FragmentTest extends Fragment {
         return clickedOption == correctAnswerPosition;
     }
 
-
     private void testFinishedDialog() {
         Dialog finishedDialog = Utils.createDialog(requireContext(), R.layout.dialog_test_finished, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogTestFinishedBinding dialogBinding = DialogTestFinishedBinding.inflate(getLayoutInflater());
@@ -491,18 +490,17 @@ public class FragmentTest extends Fragment {
             trueFalseQuestions = activityLearn.generateTrueFalseQuestions();
 
             Utils.hideItems(finishTv);
-            Utils.makeItemsUnclickable(finishTv);
+            Utils.disableItems(finishTv);
 
             Utils.showItems(nextTv);
-            Utils.makeItemsClickable(nextTv);
+            Utils.enableItems(nextTv);
 
             finishedDialog.dismiss();
+
             stopWatch.reset();
 
             startTestDialog();
         });
-
-
     }
 
     private String motivationalMessage() {
@@ -532,9 +530,9 @@ public class FragmentTest extends Fragment {
         seconds %= 60;
 
         if (minutes > 0) {
-            return String.format("%d minutes %d seconds", minutes, seconds);
+            return getActivity().getResources().getString(R.string.time_minutes_seconds, String.valueOf(minutes), String.valueOf(seconds));
         } else {
-            return String.format("%d seconds", seconds);
+            return getActivity().getResources().getString(R.string.time_seconds, String.valueOf(seconds));
         }
     }
 

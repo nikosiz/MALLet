@@ -44,26 +44,25 @@ public class FragmentViewGroup_Members extends Fragment {
             final View memberItemView = inflater.inflate(R.layout.model_group_member, userLibraryMembersLl, false);
 
             TextView usernameTv = memberItemView.findViewById(R.id.groupMember_usernameTv);
-            TextView memberTv = memberItemView.findViewById(R.id.groupMember_usernameTv);
             ImageView memberOptionsIv = memberItemView.findViewById(R.id.groupMember_optionsIv);
             LinearLayout managePermissionsLl = memberItemView.findViewById(R.id.groupMember_permissionsLl);
             TextView deleteUserTv = memberItemView.findViewById(R.id.groupMember_deleteTv);
 
             // Initially hide the TextViews
             Utils.hideItems(deleteUserTv, managePermissionsLl);
-            Utils.makeItemsUnclickable(deleteUserTv, managePermissionsLl);
+            Utils.disableItems(deleteUserTv, managePermissionsLl);
 
             usernameTv.setText(member.getUsername());
 
-            memberTv.setOnClickListener(v -> {
+            usernameTv.setOnClickListener(v -> {
                 clickCounter[0]++;
                 // Use the local clickCounter here
                 if (clickCounter[0] % 2 != 0) {
                     Utils.showItems(deleteUserTv, managePermissionsLl); // Show on odd clicks
-                    Utils.makeItemsClickable(deleteUserTv);
+                    Utils.enableItems(deleteUserTv);
                 } else {
                     Utils.hideItems(deleteUserTv, managePermissionsLl); // Hide on even clicks
-                    Utils.makeItemsClickable(deleteUserTv);
+                    Utils.enableItems(deleteUserTv);
                 }
             });
 
@@ -72,10 +71,10 @@ public class FragmentViewGroup_Members extends Fragment {
                 // Use the local clickCounter here
                 if (clickCounter[0] % 2 != 0) {
                     Utils.showItems(deleteUserTv, managePermissionsLl); // Show on odd clicks
-                    Utils.makeItemsClickable(deleteUserTv, managePermissionsLl);
+                    Utils.enableItems(deleteUserTv, managePermissionsLl);
                 } else {
                     Utils.hideItems(deleteUserTv, managePermissionsLl); // Hide on even clicks
-                    Utils.makeItemsClickable(deleteUserTv, managePermissionsLl);
+                    Utils.enableItems(deleteUserTv, managePermissionsLl);
                 }
             });
 

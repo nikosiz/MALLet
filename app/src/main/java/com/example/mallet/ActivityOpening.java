@@ -81,7 +81,7 @@ public class ActivityOpening extends AppCompatActivity {
     // TODO: Delete
     private void setupNoLoginBtn() {
         binding.openingNoLoginBtn.setOnClickListener(v -> {
-            //todo do testow
+            // todo do testow - usunac
             AuthenticationUtils.save(getApplicationContext(), "12345niewiemcotupisac@gmail.com", "SzefBoss123!@#");
             Utils.openActivity(this, ActivityMain.class);
         });

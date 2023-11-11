@@ -95,17 +95,6 @@
     <string name="string_sets">%s sets</string>
     <string name="string_terms">%s terms</string>
 
-    <!-- TEST DATA -->
-    <string name="dog">Dog</string>
-    <string name="dog_def">A loyal domesticated pet</string>
-    <string name="whale">Whale</string>
-    <string name="whale_def">Gigantic marine mammal</string>
-    <string name="worm">Worm</string>
-    <string name="worm_def">Legless soil-dweller</string>
-    <string name="eagle">Eagle</string>
-    <string name="eagle_def">Majestic bird of prey</string>
-    <string name="fish">Fish</string>
-    <string name="fish_def">Aquatic, gilled vertebrate</string>
     <string name="edit_set">Edit set</string>
     <string name="set_options">set options</string>
     <string name="set_name">Set name</string>
@@ -146,4 +135,37 @@
     <string name="motivational_message2530">Incredible performance! You are achieving excellence in this test. Your hard work and determination are shining through. Keep aiming high!</string>
     <string name="motivational_message30">Perfect score! You have aced the material and demonstrated an impressive level of knowledge. Your dedication and intelligence are truly commendable. Congratulations!</string>
     <string name="you_finished_and_scored">You finished the test in %s seconds and scored %s points</string>
+    <string name="time_minutes_seconds">%s minutes %s seconds</string>
+    <string name="time_seconds">%s seconds</string>
+    <string name="GROUP_NAME">group_name</string>
+    <string name="learning_set">Learning set</string>
+    <string name="member">Member</string>
+    <string name="cd_toolbar_options">toolbar options</string>
+    <string name="there_is_no_vocabulary_here">There is no vocabulary here</string>
+    <string name="add">Add</string>
+    <string name="SET_NAME">set_name</string>
+    <string name="SET_DESCRIPTION">set_description</string>
+    <string name="USERNAME">user_name</string>
+    <string name="NR_OF_TERMS">nr_of_terms</string>
+    <string name="cd_flashcards_icon">flashcards icon</string>
+    <string name="flashcards">Flashcards</string>
+    <string name="review_terms_and_definitions">Review terms and definitions</string>
+    <string name="cd_learn_icon">learn icon</string>
+    <string name="learn">Learn</string>
+    <string name="study_in_your_own_pace">Study in your own pace</string>
+    <string name="cd_test_icon">test icon</string>
+    <string name="test">Test</string>
+    <string name="take_a_test_to_check_your_knowledge">Take a test to check your knowledge</string>
+    <string name="cd_match_icon">match icon</string>
+    <string name="match">Match</string>
+    <string name="match_vocabulary_in_a_simple_minigame">Match vocabulary in a simple minigame</string>
+    <string name="flashcards_in_this_set">Flashcards in this set</string>
+    <string name="study_this_set">Study this set</string>
+    <string name="a_copy_of_the_set_you_choose_will_be_added_to_this_group">A copy of the set you choose will be added to this group</string>
+    <string name="search">Search</string>
+    <string name="confirm">Confirm</string>
+    <string name="are_you_ready">Are you ready?</string>
+    <string name="match_all_terms_to_definitions_and_translations_for_each_incorrect_match_5_extra_seconds_will_be_awarded_to_your_time">Match all terms to definitions and translations as quickly as you can. \n\nFor each incorrect match, 5 extra seconds will be awarded to your time</string>
+    <string name="start_playing">Start playing</string>
+    <string name="question">question</string>
 </resources>

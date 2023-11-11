@@ -23,7 +23,7 @@
         android:autoSizeTextType="uniform"
         android:gravity="start|center_vertical"
         android:paddingHorizontal="10dp"
-        android:text="content of the abcd question: term OR definition/translation"
+        android:text="@string/question"
         android:textColor="@color/primaryTextColor"
         android:textSize="25sp" />
 

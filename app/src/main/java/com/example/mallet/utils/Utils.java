@@ -269,18 +269,6 @@ public class Utils {
         }
     }
 
-    public static void makeItemsClickable(View... items) {
-        for (View item : items) {
-            item.setClickable(true);
-        }
-    }
-
-    public static void makeItemsUnclickable(View... items) {
-        for (View item : items) {
-            item.setClickable(false);
-        }
-    }
-
     public static void openEmailClient(Context context) {
         try {
             Intent intent = new Intent(Intent.ACTION_MAIN);

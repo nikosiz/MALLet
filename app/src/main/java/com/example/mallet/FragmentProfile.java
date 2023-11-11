@@ -283,7 +283,7 @@ public class FragmentProfile extends Fragment {
         } else if (clickCount == 2) {
             isLogged = false;
 
-            sharedPreferences.edit().putBoolean("isLogged", isLogged).commit();
+            sharedPreferences.edit().putBoolean("isLogged", isLogged).apply();
 
             Intent intent = new Intent(requireActivity(), ActivityOpening.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
