@@ -27,6 +27,7 @@ import com.example.mallet.utils.Utils;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -41,7 +42,6 @@ public class ActivityLearn extends AppCompatActivity {
     private ModelLearningSet learningSet;
     private List<ModelFlashcard> flashcardList;
     private Random random;
-    private List<List<String>> flashcardTable;
     private final int currentQuestionIndex = 0;
 
 
@@ -117,56 +117,6 @@ public class ActivityLearn extends AppCompatActivity {
 
     private int trueFalseCorrectAnswerPosition;
 
-    public List<ModelTrueFalse> generateTrueFalseQuestions() {
-        List<ModelTrueFalse> questionList = new ArrayList<>();
-        Random random = new Random();
-
-        List<ModelFlashcard> shuffledFlashcardList = new ArrayList<>(flashcardList);
-        Collections.shuffle(shuffledFlashcardList);
-
-        int MAX_QUESTIONS = Math.min(20, flashcardList.size());
-        int questionCount = 0; // Initialize the question count
-
-        for (ModelFlashcard flashcard : shuffledFlashcardList) {
-            // Check if the maximum number of questions (20) has been generated
-            if (questionCount >= MAX_QUESTIONS) {
-                break;
-            }
-
-            int trueFalseQuestionPosition = random.nextInt(2);
-
-            List<String> options = new ArrayList<>();
-            options.add(flashcard.getTerm());
-            options.add(flashcard.getDefinition());
-            options.add(flashcard.getTranslation());
-            Collections.shuffle(options);
-
-
-            // Determine the positions of the correct and alternative answers
-            switch (trueFalseQuestionPosition) {
-                case 0:
-                    trueFalseCorrectAnswerPosition = 1;
-                    break;
-                case 1:
-                    trueFalseCorrectAnswerPosition = random.nextInt(2) + 1;
-                    break;
-                case 2:
-                    trueFalseCorrectAnswerPosition = 0;
-                    break;
-            }
-
-            ModelTrueFalse trueFalse = new ModelTrueFalse(options.get(trueFalseQuestionPosition), options.get(trueFalseCorrectAnswerPosition), options.get(trueFalseCorrectAnswerPosition));
-
-            // Add the written question to the list
-            questionList.add(trueFalse);
-
-            questionCount++; // Increment the question count
-        }
-
-        return questionList;
-    }
-
-
     public List<ModelWritten> generateWrittenQuestions() {
         List<ModelWritten> questionList = new ArrayList<>();
         Random random = new Random();
@@ -223,6 +173,110 @@ public class ActivityLearn extends AppCompatActivity {
 
         return questionList;
     }
+
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public List<ModelTrueFalse> generateTrueFalseQuestions() {
+        List<List<String>> flashcardList = getLearningSetDataAsList(); // Assume getLearningSetDataAsList() returns a 2D list
+
+        List<ModelTrueFalse> trueFalseList = new ArrayList<>();
+        Random random = new Random();
+        int correctAnswerCount = 0;
+        int totalQuestions = 0;
+
+        while (correctAnswerCount < 5 && totalQuestions < 20){
+            int questionRow = random.nextInt(flashcardList.size());
+            int answerRow = getRandomNeighborRow(questionRow, flashcardList.size());
+
+            List<String> questionCard = flashcardList.get(questionRow);
+            List<String> answerCard = flashcardList.get(answerRow);
+
+            String questionType = getRandomType();
+            String answerType;
+
+            do {
+                answerType = getRandomType();
+            } while (questionType.equals(answerType));
+
+            String question = getRandomContent(questionCard, questionType);
+            String answer = getRandomContent(answerCard, answerType);
+
+            boolean isAnswerCorrect = questionRow == answerRow;
+
+            if (isAnswerCorrect) {
+                correctAnswerCount++;
+            }
+
+            ModelTrueFalse trueFalse = new ModelTrueFalse(question, answer, isAnswerCorrect);
+
+            // Display the generated true/false statement in the console
+            System.out.println("Question: " + question);
+            System.out.println("Displayed Answer: " + answer);
+            System.out.println("Is Answer Correct? " + isAnswerCorrect);
+            System.out.println(); // Add a newline for better readability
+
+            trueFalseList.add(trueFalse);
+
+            totalQuestions++;
+        }
+
+        return trueFalseList;
+    }
+
+    private String getRandomType() {
+        // Add or remove types as needed
+        List<String> types = Arrays.asList("term", "definition", "translation");
+        Random random = new Random();
+        return types.get(random.nextInt(types.size()));
+    }
+
+    private String getRandomContent(List<String> flashcard, String type) {
+        String content = "";
+
+        switch (type) {
+            case "term":
+                content = flashcard.get(0);
+                break;
+            case "definition":
+                content = flashcard.get(1);
+                break;
+            case "translation":
+                content = flashcard.get(2);
+                break;
+            // Add more cases if needed for additional content types
+        }
+
+        return content;
+    }
+
+    private int getRandomNeighborRow(int currentRow, int totalRows) {
+        // Ensure the neighboring row is within the valid range
+        int neighborRow = currentRow + random.nextInt(11) - 5;
+        return Math.max(0, Math.min(totalRows - 1, neighborRow));
+    }
+
+    // Assuming getLearningSetData() returns a List<ModelFlashcard>
+    private List<List<String>> getLearningSetDataAsList() {
+        flashcardTable = new ArrayList<>();
+
+        for (ModelFlashcard flashcard : flashcardList) {
+            List<String> row = new ArrayList<>();
+            row.add(flashcard.getTerm());
+            row.add(flashcard.getDefinition());
+            row.add(flashcard.getTranslation());
+
+            flashcardTable.add(row);
+        }
+
+        return flashcardTable;
+    }
+
+    List<List<String>> flashcardTable;
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+
 
     public List<ModelMultipleChoice> generateMultipleChoiceQuestions() {
         int MAX_QUESTIONS = Math.min(20, flashcardList.size());

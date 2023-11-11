@@ -126,7 +126,7 @@ public class FragmentLearn extends Fragment {
     }
 
     private void learnOptionsDialog() {
-        Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_forgot_password, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
+        Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_learn_options, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogLearnOptionsBinding dialogBinding = DialogLearnOptionsBinding.inflate(getLayoutInflater());
         dialog.setContentView(dialogBinding.getRoot());
         dialog.show();
@@ -152,7 +152,6 @@ public class FragmentLearn extends Fragment {
     }
 
     private void handleNextTvClick() {
-
         writtenAnswer = writtenAnswerEt.getText().toString().toLowerCase().trim();
         ModelWritten writtenQuestion = writtenQuestions.get(currentQuestionIndex);
         String writtenCorrectAnswer = writtenQuestion.getCorrectAnswer();
@@ -182,14 +181,6 @@ public class FragmentLearn extends Fragment {
 
 
     private boolean checkWrittenAnswer(String userAnswer, String correctAnswer, String
-            alternativeAnswer) {
-        String userInputLower = userAnswer.toLowerCase();
-        String correctAnswerLower = correctAnswer.toLowerCase();
-        String alternativeAnswerLower = alternativeAnswer.toLowerCase();
-        return userInputLower.equals(correctAnswerLower) || userInputLower.equals(alternativeAnswerLower);
-    }
-
-    private boolean checkMultipleChoiceAnswer(String userAnswer, String correctAnswer, String
             alternativeAnswer) {
         String userInputLower = userAnswer.toLowerCase();
         String correctAnswerLower = correctAnswer.toLowerCase();

@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,19 +17,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import com.example.mallet.databinding.DialogLearningFinishedBinding;
 import com.example.mallet.databinding.DialogTestAreYouReadyBinding;
-import com.example.mallet.databinding.DialogTestFinishedBinding;
 import com.example.mallet.databinding.FragmentTestBinding;
 import com.example.mallet.utils.ModelAnswer;
 import com.example.mallet.utils.ModelFlashcard;
-import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.ModelMultipleChoice;
 import com.example.mallet.utils.ModelTrueFalse;
 import com.example.mallet.utils.ModelWritten;
 import com.example.mallet.utils.Utils;
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -38,41 +35,21 @@ import java.util.stream.Collectors;
 public class FragmentTest extends Fragment {
     private ActivityLearn activityLearn;
     private FragmentTestBinding binding;
-    private ModelLearningSet learningSet;
-    private String learningSetName;
-    private List<ModelFlashcard> flashcardList;
-    private static final String PREFS_NAME = "TestSettings";
-    private static final String KEY_NR_OF_QUESTIONS = "nrOfQuestions";
-    private static final String KEY_TRUE_FALSE = "trueFalse";
-    private static final String KEY_MULTIPLE_CHOICE = "multipleChoice";
-    private static final String KEY_WRITTEN = "written";
-
-
-    // dialog test options
-    private TextView setNameTv;
-    private final int nrOfQuestions = 30;
-    private TextView startTestTv;
-
-    //contents
-    private List<ModelWritten> writtenQuestions;
+    private List<ModelFlashcard> flashcards;
+    private LinearLayout questionsLl, answersLl;
+    private View writtenQuestionView;
     private TextView writtenQuestionTv;
     private TextInputEditText writtenAnswerEt;
     private String writtenAnswer;
-    private TextView trueFalseAnswerTv;
-    private List<ModelMultipleChoice> multipleChoiceQuestions;
+    private List<ModelWritten> writtenQuestions;
+    private TextView correctAnswersTv;
+    private View multipleChoiceQuestionView;
     private TextView multipleChoiceQuestionTv;
+    private List<ModelMultipleChoice> multipleChoiceQuestions;
     private List<ModelTrueFalse> trueFalseQuestions;
-    private TextView trueFalseQuestionTv;
-    private TextView nextTv, finishTv, errorTv;
+
+    private TextView nextTv, prevTv, finishTv, errorTv;
     private int currentQuestionIndex = 0;
-    private LinearLayout questionsLl;
-
-    // dialog test finished
-    private TextView scoreTv, timeTv;
-    private LinearLayout userAnswersLl;
-    private TextView messageTv;
-    private TextView restartTestTv, finishActivityTv;
-
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -91,30 +68,23 @@ public class FragmentTest extends Fragment {
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentTestBinding.inflate(inflater, container, false);
-        requireActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
+        writtenQuestionView = inflater.inflate(R.layout.model_written, container, false);
+        multipleChoiceQuestionView = inflater.inflate(R.layout.model_multiple_choice, container, false);
+
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         setupContents();
-
-        testOptionsDialog();
 
         return binding.getRoot();
     }
 
     private void setupContents() {
-        flashcardList = getLearningSetData();
-
-        Bundle args = getArguments();
-        if (args != null) {
-            learningSet = args.getParcelable("learningSet");
-            learningSetName = args.getParcelable("learningSetName");
-        }
-
         setupToolbar();
 
-        currentQuestionIndex = 0;
+        testOptionsDialog();
 
         questionsLl = binding.testQuestionsLl;
 
@@ -123,73 +93,158 @@ public class FragmentTest extends Fragment {
         Utils.showItems(nextTv);
 
         finishTv = binding.testFinishTv;
-        finishTv.setOnClickListener(v -> testFinishedDialog());
-        // Utils.hideItems(finishTv, errorTv);
+        finishTv.setOnClickListener(v -> learningFinishedDialog());
+        Utils.hideItems(finishTv);
 
-        nextTv = binding.testNextTv;
-        restartTestTv = binding.testRestartTv;
+        writtenQuestionTv = writtenQuestionView.findViewById(R.id.written_questionTv);
+        writtenAnswerEt = writtenQuestionView.findViewById(R.id.written_answerEt);
     }
 
     private void setupToolbar() {
         Toolbar toolbar = binding.testToolbar;
         ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
-        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle(""); // Set the title to an empty string
-
-        binding.testToolbarBackIv.setOnClickListener(v -> requireActivity().finish());
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle("");
+        binding.testToolbarBackIv.setOnClickListener(v -> getActivity().finish());
         binding.testOptionsIv.setOnClickListener(v -> testOptionsDialog());
     }
 
     private void testOptionsDialog() {
         Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_test_are_you_ready, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
-        DialogTestAreYouReadyBinding dialogBinding = DialogTestAreYouReadyBinding.inflate(LayoutInflater.from(requireContext()));
+        DialogTestAreYouReadyBinding dialogBinding = DialogTestAreYouReadyBinding.inflate(getLayoutInflater());
         dialog.setContentView(dialogBinding.getRoot());
         dialog.show();
 
-        TextView startTestTv = dialogBinding.testReadyStartTv;
-        startTestTv.setOnClickListener(v -> {
-            startTest();
+        TextView startTv = dialogBinding.testReadyStartTv;
+
+        startTv.setOnClickListener(v -> {
+            writtenQuestions = activityLearn.generateWrittenQuestions();
+            multipleChoiceQuestions = activityLearn.generateMultipleChoiceQuestions();
+            trueFalseQuestions = activityLearn.generateTrueFalseQuestions();
+
+            displayWrittenQuestion(writtenQuestions, questionsLl, getLayoutInflater());
+
             dialog.dismiss();
+
+            currentQuestionIndex = 0;
         });
     }
 
-    private void startTest() {
-        nextQuestion();
-    }
-
     private void nextQuestion() {
-        if (currentQuestionIndex < nrOfQuestions) {
-            if (currentQuestionIndex < 10) {
-                writtenQuestions = activityLearn.generateWrittenQuestions();
+        if (currentQuestionIndex < 9) {
+            writtenAnswer = writtenAnswerEt.getText().toString().toLowerCase().trim();
+            ModelWritten writtenQuestion = writtenQuestions.get(currentQuestionIndex);
+            String writtenCorrectAnswer = writtenQuestion.getCorrectAnswer();
+            String writtenAlternativeAnswer = writtenQuestion.getAlternativeAnswer();
 
-                // Display a written question
+            boolean isCorrect = checkWrittenAnswer(writtenAnswer, writtenCorrectAnswer, writtenAlternativeAnswer);
+
+            if (isCorrect) {
+                points++;
+                System.out.println("Points: " + points);
+
+                writtenAnswerEt.setText("");
+                currentQuestionIndex++;
+                System.out.println("Question index: " + currentQuestionIndex);
+
                 if (currentQuestionIndex < writtenQuestions.size()) {
                     displayWrittenQuestion(writtenQuestions, questionsLl, getLayoutInflater());
+                } else {
+                    Utils.showItems(finishTv);
+                    Utils.makeItemsClickable(finishTv);
+                    Utils.hideItems(nextTv);
+                    Utils.makeItemsUnclickable(nextTv);
+                    learningFinishedDialog();
                 }
-            } else if (currentQuestionIndex < 20) {
-                multipleChoiceQuestions = activityLearn.generateMultipleChoiceQuestions();
+            } else {
+                System.out.println("Points: " + points);
 
-                // Display a multiple-choice question
-                if (currentQuestionIndex - 10 < multipleChoiceQuestions.size()) {
-                    displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
-                }
-            } else if (currentQuestionIndex < 30) {
-                trueFalseQuestions = activityLearn.generateTrueFalseQuestions();
 
-                // Display a true/false question
-                if (currentQuestionIndex - 20 < trueFalseQuestions.size()) {
-                    displayTrueFalseQuestion(trueFalseQuestions, questionsLl, getLayoutInflater());
+                writtenAnswerEt.setText("");
+                currentQuestionIndex++;
+                System.out.println("Question index: " + currentQuestionIndex);
+
+                if (currentQuestionIndex < writtenQuestions.size()) {
+                    displayWrittenQuestion(writtenQuestions, questionsLl, getLayoutInflater());
+                } else {
+                    Utils.showItems(finishTv);
+                    Utils.makeItemsClickable(finishTv);
+                    Utils.hideItems(nextTv);
+                    Utils.makeItemsUnclickable(nextTv);
+                    learningFinishedDialog();
                 }
             }
-            currentQuestionIndex++;
-        } else {
-            // Reached the maximum number of questions
-            Utils.showItems(finishTv);
-            Utils.makeItemsClickable(finishTv);
-            Utils.hideItems(nextTv);
-            Utils.makeItemsUnclickable(nextTv);
-            testFinishedDialog();
+        } else if (currentQuestionIndex < 20) {
+
+            boolean isCorrect = checkMultipleChoiceAnswer(multipleChoiceClickedPosition, correctMultipleChoiceAnswerPosition);
+
+            if (isCorrect) {
+                points++;
+                System.out.println("Points: " + points);
+
+                currentQuestionIndex++;
+                System.out.println("Question index: " + currentQuestionIndex);
+
+                if (currentQuestionIndex - 10 < multipleChoiceQuestions.size()) {
+                    displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
+                } else {
+                    Utils.showItems(finishTv);
+                    Utils.makeItemsClickable(finishTv);
+                    Utils.hideItems(nextTv);
+                    Utils.makeItemsUnclickable(nextTv);
+                    learningFinishedDialog();
+                }
+            } else {
+                System.out.println("Points: " + points);
+                currentQuestionIndex++;
+                System.out.println("Question index: " + currentQuestionIndex);
+
+                if (currentQuestionIndex - 10 < multipleChoiceQuestions.size()) {
+                    displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
+                } else {
+                    Utils.showItems(finishTv);
+                    Utils.makeItemsClickable(finishTv);
+                    Utils.hideItems(nextTv);
+                    Utils.makeItemsUnclickable(nextTv);
+                    learningFinishedDialog();
+                }
+            }
+        } else if (currentQuestionIndex < 30) {
+            boolean isTrueFalseCorrect = checkTrueFalseAnswer(trueFalseClicked, trueFalseCorrectAnswer);
+
+            if (isTrueFalseCorrect) {
+                points++;
+                System.out.println("Points: " + points);
+                currentQuestionIndex++;
+                System.out.println("Question index: " + currentQuestionIndex);
+
+                if (currentQuestionIndex - 10 < trueFalseQuestions.size()) {
+                    displayTrueFalseQuestion(trueFalseQuestions, questionsLl, getLayoutInflater());
+                } else {
+                    Utils.showItems(finishTv);
+                    Utils.makeItemsClickable(finishTv);
+                    Utils.hideItems(nextTv);
+                    Utils.makeItemsUnclickable(nextTv);
+                    learningFinishedDialog();
+                }
+            } else {
+                currentQuestionIndex++;
+                System.out.println("Question index: " + currentQuestionIndex);
+
+                if (currentQuestionIndex - 10 < trueFalseQuestions.size()) {
+                    displayTrueFalseQuestion(trueFalseQuestions, questionsLl, getLayoutInflater());
+                } else {
+                    Utils.showItems(finishTv);
+                    Utils.makeItemsClickable(finishTv);
+                    Utils.hideItems(nextTv);
+                    Utils.makeItemsUnclickable(nextTv);
+                    learningFinishedDialog();
+                }
+            }
         }
+
     }
+
+    private int points = 0;
 
     private boolean checkWrittenAnswer(String userAnswer, String correctAnswer, String
             alternativeAnswer) {
@@ -199,11 +254,37 @@ public class FragmentTest extends Fragment {
         return userInputLower.equals(correctAnswerLower) || userInputLower.equals(alternativeAnswerLower);
     }
 
-    private boolean checkMultipleChoiceAnswer(int clickedOption, int correctAnswerPosition) {
-        boolean isCorrect = clickedOption == correctAnswerPosition;
+    private void displayWrittenQuestion(List<ModelWritten> wQuestions, LinearLayout
+            ll, LayoutInflater inflater) {
+        ll.removeAllViews();
 
-        return clickedOption == correctAnswerPosition;
+        if (currentQuestionIndex < wQuestions.size()) {
+            ModelWritten writtenQuestion = wQuestions.get(currentQuestionIndex);
+
+            View writtenQuestionItem = inflater.inflate(R.layout.model_written, ll, false);
+            writtenQuestionTv = writtenQuestionItem.findViewById(R.id.written_questionTv);
+            writtenQuestionTv.setText(writtenQuestion.getQuestion());
+
+            correctAnswersTv = writtenQuestionItem.findViewById(R.id.written_correctAnswersTv);
+            correctAnswersTv.setText("\"" + writtenQuestion.getCorrectAnswer() + "\" or \"" + writtenQuestion.getAlternativeAnswer() + "\"");
+
+            writtenAnswerEt = writtenQuestionItem.findViewById(R.id.written_answerEt);
+            answersLl = writtenQuestionItem.findViewById(R.id.written_correctAnswersLl);
+            Utils.hideItems(answersLl);
+
+            writtenAnswerEt.setOnFocusChangeListener((v, hasFocus) -> {
+                if (!hasFocus) {
+                    writtenAnswer = writtenAnswerEt.getText().toString();
+                }
+            });
+
+            ll.addView(writtenQuestionItem);
+        } else {
+            // All questions have been shown
+        }
     }
+
+    private TextView trueTv, falseTv;
 
     private void displayTrueFalseQuestion(List<ModelTrueFalse> questions, LinearLayout ll, LayoutInflater inflater) {
         ll.removeAllViews();
@@ -214,14 +295,21 @@ public class FragmentTest extends Fragment {
 
         View trueFalseQuestionItem = inflater.inflate(R.layout.model_true_false, ll, false);
 
-        trueFalseQuestionTv = trueFalseQuestionItem.findViewById(R.id.trueFalse_questionTv);
+        TextView trueFalseQuestionTv = trueFalseQuestionItem.findViewById(R.id.trueFalse_questionTv);
         trueFalseQuestionTv.setText(trueFalseQuestion.getQuestion());
 
-        Button trueBtn = trueFalseQuestionItem.findViewById(R.id.trueFalse_answerTrueBtn);
-        Button falseBtn = trueFalseQuestionItem.findViewById(R.id.trueFalse_answerFalseBtn);
+        trueTv = trueFalseQuestionItem.findViewById(R.id.trueFalse_trueTv);
+        falseTv = trueFalseQuestionItem.findViewById(R.id.trueFalse_falseTv);
 
-        trueBtn.setOnClickListener(v -> checkTrueFalseAnswer(true));
-        falseBtn.setOnClickListener(v -> checkTrueFalseAnswer(false));
+        trueTv.setOnClickListener(v -> {
+            trueFalseClicked = 1;
+            checkTrueFalseAnswer(trueFalseClicked, trueFalseCorrectAnswer);
+        });
+
+        falseTv.setOnClickListener(v -> {
+            trueFalseClicked = 0;
+            checkTrueFalseAnswer(trueFalseClicked, trueFalseCorrectAnswer);
+        });
 
         ll.addView(trueFalseQuestionItem);
         i++;
@@ -230,60 +318,31 @@ public class FragmentTest extends Fragment {
         //}
     }
 
-    private void checkTrueFalseAnswer(boolean userAnswer) {
-        // Handle the user's answer for true/false question
-        // You can compare it with the correct answer and proceed accordingly
-    }
+    private int trueFalseClicked;
+    private int trueFalseCorrectAnswer;
 
+    private boolean checkTrueFalseAnswer(int clicked, int correctAnswer) {
+        return clicked == correctAnswer;
+    }
 
     private TextView writtenAnswerTv;
-
-    private void displayWrittenQuestion(List<ModelWritten> questions, LinearLayout
-            ll, LayoutInflater inflater) {
-        ll.removeAllViews();
-
-        // if (currentQuestionIndex < questions.size()) {
-        int i = 0;
-        ModelWritten writtenQuestion = questions.get(i);
-
-        View writtenQuestionItem = inflater.inflate(R.layout.model_written, ll, false);
-        writtenQuestionTv = writtenQuestionItem.findViewById(R.id.written_questionTv);
-        writtenQuestionTv.setText(writtenQuestion.getQuestion());
-
-        writtenAnswerTv = writtenQuestionItem.findViewById(R.id.written_correctAnswersTv);
-        writtenAnswerTv.setText("\"" + writtenQuestion.getCorrectAnswer() + "\" or \"" + writtenQuestion.getAlternativeAnswer() + "\"");
-
-        writtenAnswerEt = writtenQuestionItem.findViewById(R.id.written_answerEt);
-
-        writtenAnswerEt.setOnFocusChangeListener((v, hasFocus) -> {
-            if (!hasFocus) {
-                writtenAnswer = Objects.requireNonNull(writtenAnswerEt.getText()).toString();
-            }
-        });
-
-        ll.addView(writtenQuestionItem);
-        i++;
-        // System.out.println((currentQuestionIndex));
-        //} else {
-        // All questions have been shown
-        //}
-    }
+    private int correctMultipleChoiceAnswerPosition;
+    private TextView option1Tv, option2Tv, option3Tv, option4Tv;
 
     private void displayMultipleChoiceQuestion
             (List<ModelMultipleChoice> questions, LinearLayout ll, LayoutInflater inflater) {
         ll.removeAllViews();
 
         //if (currentQuestionIndex < questions.size()) {
-        int i = 0;
-        ModelMultipleChoice multipleChoiceQuestion = questions.get(i);
+        ModelMultipleChoice multipleChoiceQuestion = questions.get(currentQuestionIndex - 10);
 
         View multipleChoiceQuestionItem = inflater.inflate(R.layout.model_multiple_choice, ll, false);
         multipleChoiceQuestionTv = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_questionTv);
 
-        TextView option1Tv = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_option1Tv);
-        TextView option2Tv = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_option2Tv);
-        TextView option3Tv = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_option3Tv);
-        TextView option4Tv = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_option4Tv);
+        option1Tv = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_option1Tv);
+        option2Tv = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_option2Tv);
+        option3Tv = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_option3Tv);
+        option4Tv = multipleChoiceQuestionItem.findViewById(R.id.multipleChoice_option4Tv);
 
         multipleChoiceQuestionTv.setText(multipleChoiceQuestion.getQuestion());
 
@@ -292,34 +351,53 @@ public class FragmentTest extends Fragment {
         ModelAnswer correctAnswer = answers.stream()
                 .filter(ModelAnswer::isCorrect)
                 .findAny().get();
-        int correctAnswerPosition = answers.indexOf(correctAnswer);
+
+        correctMultipleChoiceAnswerPosition = answers.indexOf(correctAnswer);
 
         option1Tv.setText(answers.get(0).getAnswer());
         option2Tv.setText(answers.get(1).getAnswer());
         option3Tv.setText(answers.get(2).getAnswer());
         option4Tv.setText(answers.get(3).getAnswer());
 
-        System.out.println(correctAnswerPosition);
+        System.out.println(correctMultipleChoiceAnswerPosition);
 
-        option1Tv.setOnClickListener(v -> checkMultipleChoiceAnswer(0, correctAnswerPosition));
-        option2Tv.setOnClickListener(v -> checkMultipleChoiceAnswer(1, correctAnswerPosition));
-        option3Tv.setOnClickListener(v -> checkMultipleChoiceAnswer(2, correctAnswerPosition));
-        option4Tv.setOnClickListener(v -> checkMultipleChoiceAnswer(3, correctAnswerPosition));
+        option1Tv.setOnClickListener(v -> {
+            multipleChoiceClickedPosition = 0;
+            Utils.showToast(getContext(), String.valueOf(multipleChoiceClickedPosition));
+        });
+        option2Tv.setOnClickListener(v -> {
+            multipleChoiceClickedPosition = 1;
+            Utils.showToast(getContext(), String.valueOf(multipleChoiceClickedPosition));
+        });
+        option3Tv.setOnClickListener(v -> {
+            multipleChoiceClickedPosition = 2;
+            Utils.showToast(getContext(), String.valueOf(multipleChoiceClickedPosition));
+        });
+        option4Tv.setOnClickListener(v -> {
+            multipleChoiceClickedPosition = 3;
+            Utils.showToast(getContext(), String.valueOf(multipleChoiceClickedPosition));
+        });
+
 
         ll.addView(multipleChoiceQuestionItem);
-        i++;
         //} else{
         // All questions have been shown
         //}
     }
 
-    private void testFinishedDialog() {
-        Dialog finishedDialog = Utils.createDialog(requireContext(), R.layout.dialog_test_finished, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
-        DialogTestFinishedBinding dialogBinding = DialogTestFinishedBinding.inflate(getLayoutInflater());
+    private int multipleChoiceClickedPosition = 4;
+
+    private boolean checkMultipleChoiceAnswer(int clickedOption, int correctAnswerPosition) {
+        return clickedOption == correctAnswerPosition;
+    }
+
+    private void learningFinishedDialog() {
+        Dialog finishedDialog = Utils.createDialog(requireContext(), R.layout.dialog_learning_finished, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
+        DialogLearningFinishedBinding dialogBinding = DialogLearningFinishedBinding.inflate(getLayoutInflater());
         finishedDialog.setContentView(dialogBinding.getRoot());
 
-        TextView dialogFinishTv = dialogBinding.testFinishedFinishTv;
-        TextView dialogRestartTv = dialogBinding.testFinishedRestartTv;
+        TextView dialogFinishTv = dialogBinding.learningFinishedFinishTv;
+        TextView dialogRestartTv = dialogBinding.learningFinishedRestartTv;
 
         dialogFinishTv.setOnClickListener(v -> {
             finishedDialog.dismiss();
@@ -328,6 +406,7 @@ public class FragmentTest extends Fragment {
 
         dialogRestartTv.setOnClickListener(v -> {
             currentQuestionIndex = 0;
+            writtenQuestions = activityLearn.generateWrittenQuestions();
             Utils.hideItems(finishTv);
             Utils.makeItemsUnclickable(finishTv);
             Utils.showItems(nextTv);
@@ -339,15 +418,4 @@ public class FragmentTest extends Fragment {
         finishedDialog.show();
     }
 
-    private List<ModelFlashcard> getLearningSetData() {
-        Bundle args = getArguments();
-        if (args != null) {
-            ModelLearningSet learningSet = args.getParcelable("learningSet");
-            if (learningSet != null) {
-                flashcardList = learningSet.getTerms();
-                return flashcardList;
-            }
-        }
-        return new ArrayList<>();
-    }
 }

@@ -3,12 +3,12 @@ package com.example.mallet.utils;
 public class ModelTrueFalse {
     private final String question;
     private final String displayedAnswer;
-    private final String correctAnswer;
+    private final boolean isAnswerCorrect;
 
-    public ModelTrueFalse(String question, String displayedAnswer, String correctAnswer) {
+    public ModelTrueFalse(String question, String displayedAnswer, boolean isAnswerCorrect) {
         this.question = question;
-        this.correctAnswer = correctAnswer;
         this.displayedAnswer = displayedAnswer;
+        this.isAnswerCorrect = isAnswerCorrect;
     }
 
     public String getQuestion() {
@@ -19,14 +19,14 @@ public class ModelTrueFalse {
         return displayedAnswer;
     }
 
-    public String getCorrectAnswer() {
-        return correctAnswer;
+    public boolean getCorrectAnswer() {
+        return isAnswerCorrect;
     }
 
     @Override
     public String toString() {
         return "Question: " + question + "\n" +
-                "Correct answer: " + correctAnswer + "\n" +
-                "Displayed answer: " + displayedAnswer;
+                "Displayed answer: " + displayedAnswer +
+                "Is answer correct: " + isAnswerCorrect + "\n";
     }
 }
