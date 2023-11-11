@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -45,6 +46,7 @@ public class FragmentHome extends Fragment {
     private ViewPager2 homeSetsVp2;
     private ProgressBar progressBar;
     private Animation fadeInAnimation;
+    private static final int MAX_RETRY_ATTEMPTS = 3;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -81,7 +83,11 @@ public class FragmentHome extends Fragment {
         return binding.getRoot();
     }
 
+    private ScrollView homeSv;
     private void setupContents() {
+        homeSv = binding.homeSv;
+        Utils.hideItems(homeSv);
+
         homeSetsVp2 = binding.homeSetsViewPager;
         homeGroupsVp2 = binding.homeGroupsViewPager;
         binding.homeSetViewAllTv.setOnClickListener(v -> showAllItems(0));
@@ -92,11 +98,13 @@ public class FragmentHome extends Fragment {
     }
 
     private void setupGroups() {
+        setupGroups3Times(0);
+    }
+
+    private void setupGroups3Times(int attemptCount) {
         userService.getUserGroups(0, 5, new Callback<GroupBasicDTO>() {
             @Override
             public void onResponse(Call<GroupBasicDTO> call, Response<GroupBasicDTO> response) {
-                Utils.hideItems(progressBar);
-
                 GroupBasicDTO groupDTO = ResponseHandler.handleResponse(response);
                 List<ModelGroup> modelGroups = ModelGroupMapper.from(groupDTO.groups());
 
@@ -110,7 +118,14 @@ public class FragmentHome extends Fragment {
 
             @Override
             public void onFailure(Call<GroupBasicDTO> call, Throwable t) {
-                Utils.showToast(getActivity(), "Network failure");
+                if (attemptCount < MAX_RETRY_ATTEMPTS) {
+                    // Retry the operation
+                    setupGroups3Times(attemptCount + 1);
+                    System.out.println(attemptCount);
+                } else {
+                    // Maximum attempts reached, handle failure
+                    Utils.showToast(getActivity(), "Network failure");
+                }
             }
         });
     }
@@ -131,6 +146,10 @@ public class FragmentHome extends Fragment {
     }
 
     private void setupLearningSets() {
+        setupLearningSets3Times(0);
+    }
+
+    private void setupLearningSets3Times(int attemptCount) {
         // todo replace with userService below - this is for testing
         /*List<ModelLearningSet> sets = new ArrayList<>();
 
@@ -153,6 +172,11 @@ public class FragmentHome extends Fragment {
         userService.getUserSets(0, 5, new Callback<SetBasicDTO>() {
             @Override
             public void onResponse(Call<SetBasicDTO> call, Response<SetBasicDTO> response) {
+                Utils.showItems(homeSv);
+                homeSv.startAnimation(fadeInAnimation);
+
+                Utils.hideItems(progressBar);
+
                 SetBasicDTO setBasicDTO = ResponseHandler.handleResponse(response);
                 List<ModelLearningSet> modelLearningSets = ModelLearningSetMapper.from(setBasicDTO.sets());
 
@@ -167,7 +191,14 @@ public class FragmentHome extends Fragment {
 
             @Override
             public void onFailure(Call<SetBasicDTO> call, Throwable t) {
-                Utils.showToast(getActivity(), "Network failure");
+                if (attemptCount < MAX_RETRY_ATTEMPTS) {
+                    // Retry the operation
+                    setupLearningSets3Times(attemptCount + 1);
+                    System.out.println(attemptCount);
+                } else {
+                    // Maximum attempts reached, handle failure
+                    Utils.showToast(getActivity(), "Network failure");
+                }
             }
         });
     }

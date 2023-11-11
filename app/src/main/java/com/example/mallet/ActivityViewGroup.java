@@ -40,6 +40,7 @@ import com.example.mallet.backend.exception.MalletException;
 import com.example.mallet.databinding.ActivityViewGroupBinding;
 import com.example.mallet.databinding.DialogAddSetToGroupBinding;
 import com.example.mallet.databinding.DialogAddUserToGroupBinding;
+import com.example.mallet.databinding.DialogAdminLeaveAreYouSureBinding;
 import com.example.mallet.databinding.DialogDeleteAreYouSureBinding;
 import com.example.mallet.databinding.DialogViewGroupToolbarOptionsBinding;
 import com.example.mallet.utils.AuthenticationUtils;
@@ -161,8 +162,10 @@ public class ActivityViewGroup extends AppCompatActivity {
     }
 
     private void saveGroup() {
-        // TODO MICHAŁEK
+        // TODO TUTAJ MICHAŁEK
     }
+
+    private boolean isUserAdmin;
 
     private void viewGroupOptionsDialog() {
         Dialog dialog = Utils.createDialog(this, R.layout.dialog_view_group_toolbar_options, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT), Gravity.BOTTOM);
@@ -178,9 +181,11 @@ public class ActivityViewGroup extends AppCompatActivity {
         backIv.setOnClickListener(v -> dialog.dismiss());
 
         leaveTv.setOnClickListener(v -> {
-            // TODO: leaveGroup()
-
-            leaveGroup();
+            if (isUserAdmin) {
+                leaveGroupDialog();
+            } else {
+                leaveAndDeleteGroupDialog();
+            }
         });
 
         deleteTv.setOnClickListener(v -> confirmDelete(this.groupId));
@@ -188,10 +193,30 @@ public class ActivityViewGroup extends AppCompatActivity {
         cancelTv.setOnClickListener(v -> dialog.dismiss());
     }
 
-    private void leaveGroup() {
-        // TODO
-        Utils.showToast(this, "You left the group");
+    private void leaveGroupDialog() {
+        Dialog dialog = Utils.createDialog(this, R.layout.dialog_delete_are_you_sure, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
+        DialogDeleteAreYouSureBinding dialogBinding = DialogDeleteAreYouSureBinding.inflate(LayoutInflater.from(this));
+        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
+        dialog.show();
 
+        TextView cancelTv = dialogBinding.deleteCancelTv;
+        cancelTv.setOnClickListener(v -> dialog.dismiss());
+
+        TextView confirmTv = dialogBinding.deleteConfirmTv;
+        confirmTv.setText("Continue");
+        confirmTv.setOnClickListener(v -> leaveGroup(groupId));
+    }
+
+
+    private void leaveGroup(Long groupId) {
+        groupService.deleteGroupContributions(groupId,);
+    }
+
+    private void leaveAndDeleteGroupDialog() {
+        Dialog dialog = Utils.createDialog(this, R.layout.dialog_admin_leave_are_you_sure, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
+        DialogAdminLeaveAreYouSureBinding dialogBinding = DialogAdminLeaveAreYouSureBinding.inflate(LayoutInflater.from(this));
+        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
+        dialog.show();
     }
 
     private void setupTabLayout(GroupDTO chosenGroup) {
