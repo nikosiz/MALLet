@@ -208,7 +208,7 @@ public class FragmentTest extends Fragment {
                     learningFinishedDialog();
                 }
             }
-        } else if (currentQuestionIndex < 30) {
+        } else if (currentQuestionIndex - 20 < 10) {
             boolean isTrueFalseCorrect = checkTrueFalseAnswer(trueFalseClicked, trueFalseCorrectAnswer);
 
             if (isTrueFalseCorrect) {
@@ -217,7 +217,7 @@ public class FragmentTest extends Fragment {
                 currentQuestionIndex++;
                 System.out.println("Question index: " + currentQuestionIndex);
 
-                if (currentQuestionIndex - 10 < trueFalseQuestions.size()) {
+                if (currentQuestionIndex - 20 < trueFalseQuestions.size()) {
                     displayTrueFalseQuestion(trueFalseQuestions, questionsLl, getLayoutInflater());
                 } else {
                     Utils.showItems(finishTv);
@@ -290,13 +290,15 @@ public class FragmentTest extends Fragment {
         ll.removeAllViews();
 
         //if (currentQuestionIndex < questions.size()) {
-        int i = 0;
-        ModelTrueFalse trueFalseQuestion = questions.get(i);
+        ModelTrueFalse trueFalseQuestion = questions.get(currentQuestionIndex-20);
 
         View trueFalseQuestionItem = inflater.inflate(R.layout.model_true_false, ll, false);
 
         TextView trueFalseQuestionTv = trueFalseQuestionItem.findViewById(R.id.trueFalse_questionTv);
         trueFalseQuestionTv.setText(trueFalseQuestion.getQuestion());
+
+        TextView trueFalseAnswerTv = trueFalseQuestionItem.findViewById(R.id.trueFalse_answerTv);
+        trueFalseAnswerTv.setText(trueFalseQuestion.getDisplayedAnswer());
 
         trueTv = trueFalseQuestionItem.findViewById(R.id.trueFalse_trueTv);
         falseTv = trueFalseQuestionItem.findViewById(R.id.trueFalse_falseTv);
@@ -312,7 +314,6 @@ public class FragmentTest extends Fragment {
         });
 
         ll.addView(trueFalseQuestionItem);
-        i++;
         //} else {
         // All questions have been shown
         //}
