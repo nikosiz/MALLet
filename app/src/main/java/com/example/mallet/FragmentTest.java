@@ -2,6 +2,7 @@ package com.example.mallet;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -15,10 +16,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.example.mallet.databinding.DialogLearningFinishedBinding;
 import com.example.mallet.databinding.DialogTestAreYouReadyBinding;
+import com.example.mallet.databinding.DialogTestFinishedBinding;
 import com.example.mallet.databinding.FragmentTestBinding;
 import com.example.mallet.utils.ModelAnswer;
 import com.example.mallet.utils.ModelFlashcard;
@@ -27,6 +29,8 @@ import com.example.mallet.utils.ModelTrueFalse;
 import com.example.mallet.utils.ModelWritten;
 import com.example.mallet.utils.Utils;
 import com.google.android.material.textfield.TextInputEditText;
+
+import org.apache.commons.lang3.time.StopWatch;
 
 import java.util.List;
 import java.util.Objects;
@@ -50,6 +54,8 @@ public class FragmentTest extends Fragment {
 
     private TextView nextTv, prevTv, finishTv, errorTv;
     private int currentQuestionIndex = 0;
+    private final StopWatch stopWatch = new StopWatch();
+
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -84,7 +90,7 @@ public class FragmentTest extends Fragment {
     private void setupContents() {
         setupToolbar();
 
-        testOptionsDialog();
+        startTestDialog();
 
         questionsLl = binding.testQuestionsLl;
 
@@ -93,7 +99,7 @@ public class FragmentTest extends Fragment {
         Utils.showItems(nextTv);
 
         finishTv = binding.testFinishTv;
-        finishTv.setOnClickListener(v -> learningFinishedDialog());
+        finishTv.setOnClickListener(v -> testFinishedDialog());
         Utils.hideItems(finishTv);
 
         writtenQuestionTv = writtenQuestionView.findViewById(R.id.written_questionTv);
@@ -105,10 +111,10 @@ public class FragmentTest extends Fragment {
         ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
         Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle("");
         binding.testToolbarBackIv.setOnClickListener(v -> getActivity().finish());
-        binding.testOptionsIv.setOnClickListener(v -> testOptionsDialog());
+        binding.testOptionsIv.setOnClickListener(v -> startTestDialog());
     }
 
-    private void testOptionsDialog() {
+    private void startTestDialog() {
         Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_test_are_you_ready, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogTestAreYouReadyBinding dialogBinding = DialogTestAreYouReadyBinding.inflate(getLayoutInflater());
         dialog.setContentView(dialogBinding.getRoot());
@@ -123,125 +129,110 @@ public class FragmentTest extends Fragment {
 
             displayWrittenQuestion(writtenQuestions, questionsLl, getLayoutInflater());
 
-            dialog.dismiss();
-
             currentQuestionIndex = 0;
+            dialog.dismiss();
+            stopWatch.start();
         });
     }
 
     private void nextQuestion() {
-        if (currentQuestionIndex < 9) {
-            writtenAnswer = writtenAnswerEt.getText().toString().toLowerCase().trim();
-            ModelWritten writtenQuestion = writtenQuestions.get(currentQuestionIndex);
-            String writtenCorrectAnswer = writtenQuestion.getCorrectAnswer();
-            String writtenAlternativeAnswer = writtenQuestion.getAlternativeAnswer();
+        if (currentQuestionIndex < 29) {
+            if (currentQuestionIndex < 9) {
+                writtenAnswer = writtenAnswerEt.getText().toString().toLowerCase().trim();
+                ModelWritten writtenQuestion = writtenQuestions.get(currentQuestionIndex);
+                String writtenCorrectAnswer = writtenQuestion.getCorrectAnswer();
+                String writtenAlternativeAnswer = writtenQuestion.getAlternativeAnswer();
 
-            boolean isCorrect = checkWrittenAnswer(writtenAnswer, writtenCorrectAnswer, writtenAlternativeAnswer);
+                boolean isCorrect = checkWrittenAnswer(writtenAnswer, writtenCorrectAnswer, writtenAlternativeAnswer);
 
-            if (isCorrect) {
-                points++;
-                System.out.println("Points: " + points);
+                if (isCorrect) {
+                    points++;
+                    System.out.println("Points: " + points);
 
-                writtenAnswerEt.setText("");
-                currentQuestionIndex++;
-                System.out.println("Question index: " + currentQuestionIndex);
+                    writtenAnswerEt.setText("");
+                    currentQuestionIndex++;
+                    System.out.println("Question index: " + currentQuestionIndex);
 
-                if (currentQuestionIndex < writtenQuestions.size()) {
-                    displayWrittenQuestion(writtenQuestions, questionsLl, getLayoutInflater());
+                    if (currentQuestionIndex < writtenQuestions.size()) {
+                        displayWrittenQuestion(writtenQuestions, questionsLl, getLayoutInflater());
+                    } else {
+                        Utils.showItems(finishTv);
+                        Utils.makeItemsClickable(finishTv);
+                        Utils.hideItems(nextTv);
+                        Utils.makeItemsUnclickable(nextTv);
+                        testFinishedDialog();
+                    }
                 } else {
-                    Utils.showItems(finishTv);
-                    Utils.makeItemsClickable(finishTv);
-                    Utils.hideItems(nextTv);
-                    Utils.makeItemsUnclickable(nextTv);
-                    learningFinishedDialog();
+                    System.out.println("Points: " + points);
+
+
+                    writtenAnswerEt.setText("");
+                    currentQuestionIndex++;
+                    System.out.println("Question index: " + currentQuestionIndex);
+
+                    if (currentQuestionIndex < writtenQuestions.size()) {
+                        displayWrittenQuestion(writtenQuestions, questionsLl, getLayoutInflater());
+                    } else {
+                        Utils.showItems(finishTv);
+                        Utils.makeItemsClickable(finishTv);
+                        Utils.hideItems(nextTv);
+                        Utils.makeItemsUnclickable(nextTv);
+                        testFinishedDialog();
+                    }
                 }
-            } else {
-                System.out.println("Points: " + points);
+            } else if (currentQuestionIndex < 19) {
 
+                boolean isCorrect = checkMultipleChoiceAnswer(multipleChoiceClickedPosition, correctMultipleChoiceAnswerPosition);
 
-                writtenAnswerEt.setText("");
-                currentQuestionIndex++;
-                System.out.println("Question index: " + currentQuestionIndex);
+                if (isCorrect) {
+                    points++;
+                    System.out.println("Points: " + points);
 
-                if (currentQuestionIndex < writtenQuestions.size()) {
-                    displayWrittenQuestion(writtenQuestions, questionsLl, getLayoutInflater());
+                    currentQuestionIndex++;
+                    System.out.println("Question index: " + currentQuestionIndex);
+
+                    if (currentQuestionIndex - 10 < multipleChoiceQuestions.size()) {
+                        displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
+                    } else {
+                        Utils.showItems(finishTv);
+                        Utils.makeItemsClickable(finishTv);
+                        Utils.hideItems(nextTv);
+                        Utils.makeItemsUnclickable(nextTv);
+                        testFinishedDialog();
+                    }
                 } else {
-                    Utils.showItems(finishTv);
-                    Utils.makeItemsClickable(finishTv);
-                    Utils.hideItems(nextTv);
-                    Utils.makeItemsUnclickable(nextTv);
-                    learningFinishedDialog();
+                    System.out.println("Points: " + points);
+                    currentQuestionIndex++;
+                    System.out.println("Question index: " + currentQuestionIndex);
+
+                    if (currentQuestionIndex - 10 < multipleChoiceQuestions.size()) {
+                        displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
+                    }
                 }
-            }
-        } else if (currentQuestionIndex < 20) {
+            } else if (currentQuestionIndex < 30) {
+                boolean isTrueFalseCorrect = checkTrueFalseAnswer(trueFalseClicked, trueFalseCorrectAnswer);
 
-            boolean isCorrect = checkMultipleChoiceAnswer(multipleChoiceClickedPosition, correctMultipleChoiceAnswerPosition);
+                if (isTrueFalseCorrect) {
+                    points++;
+                    System.out.println("Points: " + points);
+                    currentQuestionIndex++;
+                    System.out.println("Question index: " + currentQuestionIndex);
 
-            if (isCorrect) {
-                points++;
-                System.out.println("Points: " + points);
-
-                currentQuestionIndex++;
-                System.out.println("Question index: " + currentQuestionIndex);
-
-                if (currentQuestionIndex - 10 < multipleChoiceQuestions.size()) {
-                    displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
+                    if (currentQuestionIndex - 20 < trueFalseQuestions.size()) {
+                        displayTrueFalseQuestion(trueFalseQuestions, questionsLl, getLayoutInflater());
+                    }
                 } else {
-                    Utils.showItems(finishTv);
-                    Utils.makeItemsClickable(finishTv);
-                    Utils.hideItems(nextTv);
-                    Utils.makeItemsUnclickable(nextTv);
-                    learningFinishedDialog();
-                }
-            } else {
-                System.out.println("Points: " + points);
-                currentQuestionIndex++;
-                System.out.println("Question index: " + currentQuestionIndex);
+                    currentQuestionIndex++;
+                    System.out.println("Question index: " + currentQuestionIndex);
 
-                if (currentQuestionIndex - 10 < multipleChoiceQuestions.size()) {
-                    displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
-                } else {
-                    Utils.showItems(finishTv);
-                    Utils.makeItemsClickable(finishTv);
-                    Utils.hideItems(nextTv);
-                    Utils.makeItemsUnclickable(nextTv);
-                    learningFinishedDialog();
-                }
-            }
-        } else if (currentQuestionIndex - 20 < 10) {
-            boolean isTrueFalseCorrect = checkTrueFalseAnswer(trueFalseClicked, trueFalseCorrectAnswer);
-
-            if (isTrueFalseCorrect) {
-                points++;
-                System.out.println("Points: " + points);
-                currentQuestionIndex++;
-                System.out.println("Question index: " + currentQuestionIndex);
-
-                if (currentQuestionIndex - 20 < trueFalseQuestions.size()) {
-                    displayTrueFalseQuestion(trueFalseQuestions, questionsLl, getLayoutInflater());
-                } else {
-                    Utils.showItems(finishTv);
-                    Utils.makeItemsClickable(finishTv);
-                    Utils.hideItems(nextTv);
-                    Utils.makeItemsUnclickable(nextTv);
-                    learningFinishedDialog();
-                }
-            } else {
-                currentQuestionIndex++;
-                System.out.println("Question index: " + currentQuestionIndex);
-
-                if (currentQuestionIndex - 10 < trueFalseQuestions.size()) {
-                    displayTrueFalseQuestion(trueFalseQuestions, questionsLl, getLayoutInflater());
-                } else {
-                    Utils.showItems(finishTv);
-                    Utils.makeItemsClickable(finishTv);
-                    Utils.hideItems(nextTv);
-                    Utils.makeItemsUnclickable(nextTv);
-                    learningFinishedDialog();
+                    if (currentQuestionIndex - 10 < trueFalseQuestions.size()) {
+                        displayTrueFalseQuestion(trueFalseQuestions, questionsLl, getLayoutInflater());
+                    }
                 }
             }
+        } else {
+            testFinishedDialog();
         }
-
     }
 
     private int points = 0;
@@ -290,7 +281,7 @@ public class FragmentTest extends Fragment {
         ll.removeAllViews();
 
         //if (currentQuestionIndex < questions.size()) {
-        ModelTrueFalse trueFalseQuestion = questions.get(currentQuestionIndex-20);
+        ModelTrueFalse trueFalseQuestion = questions.get(currentQuestionIndex - 20);
 
         View trueFalseQuestionItem = inflater.inflate(R.layout.model_true_false, ll, false);
 
@@ -300,17 +291,34 @@ public class FragmentTest extends Fragment {
         TextView trueFalseAnswerTv = trueFalseQuestionItem.findViewById(R.id.trueFalse_answerTv);
         trueFalseAnswerTv.setText(trueFalseQuestion.getDisplayedAnswer());
 
+        trueFalseCorrectAnswer = trueFalseQuestion.getCorrectAnswer();
+
         trueTv = trueFalseQuestionItem.findViewById(R.id.trueFalse_trueTv);
         falseTv = trueFalseQuestionItem.findViewById(R.id.trueFalse_falseTv);
+
+        Typeface remBold = Typeface.createFromAsset(requireContext().getAssets(), "rem_bold.ttf");
+        Typeface remRegular = Typeface.createFromAsset(requireContext().getAssets(), "rem_regular.ttf");
 
         trueTv.setOnClickListener(v -> {
             trueFalseClicked = 1;
             checkTrueFalseAnswer(trueFalseClicked, trueFalseCorrectAnswer);
+
+            trueTv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
+            trueTv.setTypeface(remBold);
+
+            falseTv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+            falseTv.setTypeface(remRegular);
         });
 
         falseTv.setOnClickListener(v -> {
-            trueFalseClicked = 0;
+            trueFalseClicked = 2;
             checkTrueFalseAnswer(trueFalseClicked, trueFalseCorrectAnswer);
+
+            trueTv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+            trueTv.setTypeface(remRegular);
+
+            falseTv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
+            falseTv.setTypeface(remBold);
         });
 
         ll.addView(trueFalseQuestionItem);
@@ -320,10 +328,18 @@ public class FragmentTest extends Fragment {
     }
 
     private int trueFalseClicked;
-    private int trueFalseCorrectAnswer;
+    private boolean trueFalseCorrectAnswer;
 
-    private boolean checkTrueFalseAnswer(int clicked, int correctAnswer) {
-        return clicked == correctAnswer;
+    private boolean checkTrueFalseAnswer(int clickedAnswer, boolean correctAnswer) {
+        if (correctAnswer && clickedAnswer == 1) {
+            return true;
+        } else if (!correctAnswer && clickedAnswer == 2) {
+            return true;
+        } else if (correctAnswer && clickedAnswer == 2) {
+            return false;
+        } else {
+            return false;
+        }
     }
 
     private TextView writtenAnswerTv;
@@ -362,21 +378,75 @@ public class FragmentTest extends Fragment {
 
         System.out.println(correctMultipleChoiceAnswerPosition);
 
+        Typeface remBold = Typeface.createFromAsset(requireContext().getAssets(), "rem_bold.ttf");
+        Typeface remRegular = Typeface.createFromAsset(requireContext().getAssets(), "rem_regular.ttf");
+
         option1Tv.setOnClickListener(v -> {
             multipleChoiceClickedPosition = 0;
             Utils.showToast(getContext(), String.valueOf(multipleChoiceClickedPosition));
+
+            option1Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
+            option1Tv.setTypeface(remBold);
+
+            option2Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+            option2Tv.setTypeface(remRegular);
+
+            option3Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+            option3Tv.setTypeface(remRegular);
+
+            option4Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+            option4Tv.setTypeface(remRegular);
         });
+
         option2Tv.setOnClickListener(v -> {
             multipleChoiceClickedPosition = 1;
             Utils.showToast(getContext(), String.valueOf(multipleChoiceClickedPosition));
+
+            option1Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+            option1Tv.setTypeface(remRegular);
+
+            option2Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
+            option2Tv.setTypeface(remBold);
+
+            option3Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+            option3Tv.setTypeface(remRegular);
+
+            option4Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+            option4Tv.setTypeface(remRegular);
         });
+
         option3Tv.setOnClickListener(v -> {
             multipleChoiceClickedPosition = 2;
             Utils.showToast(getContext(), String.valueOf(multipleChoiceClickedPosition));
+
+            option1Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+            option1Tv.setTypeface(remRegular);
+
+            option2Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+            option2Tv.setTypeface(remRegular);
+
+            option3Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
+            option3Tv.setTypeface(remBold);
+
+            option4Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+            option4Tv.setTypeface(remRegular);
         });
+
         option4Tv.setOnClickListener(v -> {
             multipleChoiceClickedPosition = 3;
             Utils.showToast(getContext(), String.valueOf(multipleChoiceClickedPosition));
+
+            option1Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+            option1Tv.setTypeface(remRegular);
+
+            option2Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+            option2Tv.setTypeface(remRegular);
+
+            option3Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+            option3Tv.setTypeface(remRegular);
+
+            option4Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
+            option4Tv.setTypeface(remBold);
         });
 
 
@@ -392,13 +462,22 @@ public class FragmentTest extends Fragment {
         return clickedOption == correctAnswerPosition;
     }
 
-    private void learningFinishedDialog() {
-        Dialog finishedDialog = Utils.createDialog(requireContext(), R.layout.dialog_learning_finished, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
-        DialogLearningFinishedBinding dialogBinding = DialogLearningFinishedBinding.inflate(getLayoutInflater());
-        finishedDialog.setContentView(dialogBinding.getRoot());
 
-        TextView dialogFinishTv = dialogBinding.learningFinishedFinishTv;
-        TextView dialogRestartTv = dialogBinding.learningFinishedRestartTv;
+    private void testFinishedDialog() {
+        Dialog finishedDialog = Utils.createDialog(requireContext(), R.layout.dialog_test_finished, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
+        DialogTestFinishedBinding dialogBinding = DialogTestFinishedBinding.inflate(getLayoutInflater());
+        finishedDialog.setContentView(dialogBinding.getRoot());
+        finishedDialog.show();
+        stopWatch.stop();
+
+        TextView scoreTimeTv = dialogBinding.testFinishedScoreTimeTv;
+        scoreTimeTv.setText(getActivity().getString(R.string.you_finished_and_scored, formatTime(stopWatch.getTime()), String.valueOf(points)));
+
+        TextView motivationalMessageTv = dialogBinding.testFinishedMessageTv;
+        motivationalMessageTv.setText(motivationalMessage());
+
+        TextView dialogFinishTv = dialogBinding.testFinishedFinishTv;
+        TextView dialogRestartTv = dialogBinding.testFinishedRestartTv;
 
         dialogFinishTv.setOnClickListener(v -> {
             finishedDialog.dismiss();
@@ -408,15 +487,55 @@ public class FragmentTest extends Fragment {
         dialogRestartTv.setOnClickListener(v -> {
             currentQuestionIndex = 0;
             writtenQuestions = activityLearn.generateWrittenQuestions();
+            multipleChoiceQuestions = activityLearn.generateMultipleChoiceQuestions();
+            trueFalseQuestions = activityLearn.generateTrueFalseQuestions();
+
             Utils.hideItems(finishTv);
             Utils.makeItemsUnclickable(finishTv);
+
             Utils.showItems(nextTv);
             Utils.makeItemsClickable(nextTv);
+
             finishedDialog.dismiss();
-            testOptionsDialog();
+            stopWatch.reset();
+
+            startTestDialog();
         });
 
-        finishedDialog.show();
+
+    }
+
+    private String motivationalMessage() {
+        String motivationalMessage;
+        if (points >= 0 && points < 5) {
+            motivationalMessage = getResources().getString(R.string.motivational_message05);
+        } else if (points >= 5 && points < 10) {
+            motivationalMessage = getResources().getString(R.string.motivational_message510);
+        } else if (points >= 10 && points < 15) {
+            motivationalMessage = getResources().getString(R.string.motivational_message1015);
+        } else if (points >= 15 && points < 20) {
+            motivationalMessage = getResources().getString(R.string.motivational_message1520);
+        } else if (points >= 20 && points < 25) {
+            motivationalMessage = getResources().getString(R.string.motivational_message2025);
+        } else if (points >= 25 && points < 30) {
+            motivationalMessage = getResources().getString(R.string.motivational_message2530);
+        } else {
+            motivationalMessage = getResources().getString(R.string.motivational_message30);
+        }
+
+        return motivationalMessage;
+    }
+
+    private String formatTime(long elapsedTime) {
+        long seconds = elapsedTime / 1000;
+        long minutes = seconds / 60;
+        seconds %= 60;
+
+        if (minutes > 0) {
+            return String.format("%d minutes %d seconds", minutes, seconds);
+        } else {
+            return String.format("%d seconds", seconds);
+        }
     }
 
 }

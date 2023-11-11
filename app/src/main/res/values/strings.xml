@@ -138,4 +138,12 @@
     <string name="term">Term #%s</string>
     <string name="nr_of_terms_singular">%s term</string>
     <string name="nr_of_terms_plural">%s terms</string>
+    <string name="motivational_message05">Great start! Every journey begins with a single step. Keep going, and success will follow!</string>
+    <string name="motivational_message510">Nice effort! You are on your way to mastering this material. Keep pushing yourself to reach new heights!</string>
+    <string name="motivational_message1015">Well done! You are making solid progress. Consistency is key, and you are proving that with each question.</string>
+    <string name="motivational_message1520">Fantastic job! You are really getting the hang of this. Believe in your abilities; you are capable of achieving even more!</string>
+    <string name="motivational_message2025">Outstanding! You are mastering the material with each passing question. Your dedication is paying off, keep up the excellent work!</string>
+    <string name="motivational_message2530">Incredible performance! You are achieving excellence in this test. Your hard work and determination are shining through. Keep aiming high!</string>
+    <string name="motivational_message30">Perfect score! You have aced the material and demonstrated an impressive level of knowledge. Your dedication and intelligence are truly commendable. Congratulations!</string>
+    <string name="you_finished_and_scored">You finished the test in %s seconds and scored %s points</string>
 </resources>

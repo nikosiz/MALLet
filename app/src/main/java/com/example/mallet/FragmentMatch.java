@@ -21,16 +21,17 @@ import androidx.fragment.app.Fragment;
 
 import com.example.mallet.databinding.DialogAreYouReadyBinding;
 import com.example.mallet.databinding.DialogGameOverBinding;
-import com.example.mallet.databinding.FragmentLearnBinding;
 import com.example.mallet.databinding.FragmentMatchBinding;
 import com.example.mallet.utils.ModelFlashcard;
 import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 public class FragmentMatch extends Fragment {
     private ActivityLearn activityLearn;
@@ -224,20 +225,17 @@ public class FragmentMatch extends Fragment {
             cardNr = 1;
             clickedSecond = card;
 
-            cv_11.setEnabled(false);
-            cv_12.setEnabled(false);
-            cv_21.setEnabled(false);
-            cv_22.setEnabled(false);
-            cv_31.setEnabled(false);
-            cv_32.setEnabled(false);
-            cv_41.setEnabled(false);
-            cv_42.setEnabled(false);
-            cv_51.setEnabled(false);
-            cv_52.setEnabled(false);
-
+            disableAllCardViews();
 
             Handler handler = new Handler();
             handler.postDelayed(this::calculate, 200);
+        }
+    }
+
+    private void disableAllCardViews() {
+        List<CardView> cardViews = Arrays.asList(cv_11, cv_12, cv_21, cv_22, cv_31, cv_32, cv_41, cv_42, cv_51, cv_52);
+        for (CardView cardView : cardViews) {
+            cardView.setEnabled(false);
         }
     }
 
@@ -297,16 +295,7 @@ public class FragmentMatch extends Fragment {
 
         }
 
-        cv_11.setEnabled(true);
-        cv_12.setEnabled(true);
-        cv_21.setEnabled(true);
-        cv_22.setEnabled(true);
-        cv_31.setEnabled(true);
-        cv_32.setEnabled(true);
-        cv_41.setEnabled(true);
-        cv_42.setEnabled(true);
-        cv_51.setEnabled(true);
-        cv_52.setEnabled(true);
+        enableAllCardViews();
 
         checkEnd();
     }
@@ -353,7 +342,51 @@ public class FragmentMatch extends Fragment {
     }
 
     private void restartMatch() {
-        // TODO
+        resetGameState();
+        recreateFragment();
+    }
+
+    private void resetGameState() {
+        // Reset any game-related variables, views, or logic
+        playerPoints = 0;
+        chronometer.setBase(SystemClock.elapsedRealtime());
+        pointsTv.setText("0");
+
+        // Reset the visibility of card views
+        cv_11.setVisibility(View.VISIBLE);
+        cv_12.setVisibility(View.VISIBLE);
+        cv_21.setVisibility(View.VISIBLE);
+        cv_22.setVisibility(View.VISIBLE);
+        cv_31.setVisibility(View.VISIBLE);
+        cv_32.setVisibility(View.VISIBLE);
+        cv_41.setVisibility(View.VISIBLE);
+        cv_42.setVisibility(View.VISIBLE);
+        cv_51.setVisibility(View.VISIBLE);
+        cv_52.setVisibility(View.VISIBLE);
+
+        // Enable all card views
+        enableAllCardViews();
+    }
+
+    private void enableAllCardViews() {
+        Utils.enableItems(
+                cv_11,
+                cv_12,
+                cv_21,
+                cv_22,
+                cv_31,
+                cv_32,
+                cv_41,
+                cv_42,
+                cv_51,
+                cv_52);
+    }
+
+    private void recreateFragment() {
+        getParentFragmentManager().beginTransaction()
+                .detach(this)
+                .attach(this)
+                .commit();
     }
 
     private List<ModelFlashcard> getLearningSetData() {
@@ -375,41 +408,38 @@ public class FragmentMatch extends Fragment {
         Collections.shuffle(shuffledFlashcards);
 
         // Initialize text variables for terms and definitions
-        String[] termTexts = new String[5];
-        String[] definitionTexts = new String[5];
+        String[] frontTexts = new String[5];
+        String[] backTexts = new String[5];
+
+        Random random = new Random();
 
         // Select five random terms and definitions
         for (int i = 0; i < 5; i++) {
+            int randomInt = random.nextInt(2);
             ModelFlashcard flashcard = shuffledFlashcards.get(i);
-            termTexts[i] = flashcard.getTerm();
-            definitionTexts[i] = flashcard.getDefinition();
+            frontTexts[i] = flashcard.getTerm();
+
+            if (randomInt == 0 && !flashcard.getDefinition().isEmpty()) {
+                backTexts[i] = flashcard.getDefinition();
+            } else if (randomInt == 0 && flashcard.getDefinition().isEmpty()) {
+                backTexts[i] = flashcard.getTranslation();
+            } else if (randomInt == 1) {
+                backTexts[i] = flashcard.getTranslation();
+            }
         }
 
         // Assign the generated texts to variables
-        text101 = termTexts[0];
-        text102 = termTexts[1];
-        text103 = termTexts[2];
-        text104 = termTexts[3];
-        text105 = termTexts[4];
+        text101 = frontTexts[0];
+        text102 = frontTexts[1];
+        text103 = frontTexts[2];
+        text104 = frontTexts[3];
+        text105 = frontTexts[4];
 
-        text201 = definitionTexts[0];
-        text202 = definitionTexts[1];
-        text203 = definitionTexts[2];
-        text204 = definitionTexts[3];
-        text205 = definitionTexts[4];
-
-        // Print the assigned variables
-        System.out.println(text101);
-        System.out.println(text102);
-        System.out.println(text103);
-        System.out.println(text104);
-        System.out.println(text105);
-
-        System.out.println(text201);
-        System.out.println(text202);
-        System.out.println(text203);
-        System.out.println(text204);
-        System.out.println(text205);
+        text201 = backTexts[0];
+        text202 = backTexts[1];
+        text203 = backTexts[2];
+        text204 = backTexts[3];
+        text205 = backTexts[4];
     }
 
 }

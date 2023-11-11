@@ -8,12 +8,17 @@
     android:orientation="vertical"
     android:padding="30dp">
 
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
     <TextView
         style="@style/BasicBoldTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/russo_one_regular"
-        android:text="You finished the test"
+        android:text="Congrats!"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="25sp" />
 
@@ -22,30 +27,17 @@
         android:layout_height="10dp" />
 
     <TextView
-        android:id="@+id/testFinished_scoreTv"
+        android:id="@+id/testFinished_scoreTimeTv"
         style="@style/BasicTextStyle"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Your score:"
+        android:text="You finished the test in "
         android:textColor="@color/colorPrimary"
         android:textSize="20sp" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="10dp" />
-
-    <TextView
-        android:id="@+id/testFinished_timeTv"
-        style="@style/BasicTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Your time:"
-        android:textColor="@color/colorPrimary"
-        android:textSize="20sp" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="20dp" />
 
     <LinearLayout
         android:id="@+id/testFinished_resultsLl"
@@ -100,9 +92,8 @@
             android:drawablePadding="10dp"
             android:focusable="true"
             android:gravity="center_vertical"
-
             android:padding="10dp"
-            android:text="Restart"
+            android:text="Retake test"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp"
             app:drawableEndCompat="@drawable/ic_restart"
