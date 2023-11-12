@@ -121,6 +121,8 @@ public class ActivityMain extends AppCompatActivity {
         return true;
     }
 
+    private final boolean isSetNew = true;
+
     private void createNewSetFolderGroupDialog() {
         Dialog dialog = Utils.createDialog(this, R.layout.dialog_create, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogCreateBinding dialogBinding = DialogCreateBinding.inflate(getLayoutInflater());
@@ -134,6 +136,9 @@ public class ActivityMain extends AppCompatActivity {
         createSetTv.setOnClickListener(v -> {
             dialog.dismiss();
             Intent intent = new Intent(this, ActivityEditLearningSet.class);
+
+            intent.putExtra("isSetNew", isSetNew);
+
             startActivity(intent);
         });
 

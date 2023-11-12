@@ -109,6 +109,8 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
     private void setupContents() {
         progressBar = binding.editSetProgressBar;
+        Utils.hideItems(progressBar);
+
         setupToolbar();
 
         setNameEt = binding.editSetNameEt;

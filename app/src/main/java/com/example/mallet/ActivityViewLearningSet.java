@@ -79,7 +79,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         this.setId = getIntent().getLongExtra("setId", 0L);
 
         isUserSet = getIntent().getBooleanExtra("isSetNew", true);
-        isSetNew = getIntent().getBooleanExtra("isSetNew", true);
+        isSetNew = getIntent().getBooleanExtra("isSetNew", false);
         isSetInGroup = getIntent().getBooleanExtra("isSetInGroup", false);
         learningSet = getIntent().getParcelableExtra("learningSet");
         groupId = getIntent().getLongExtra("groupId", 0L);
@@ -265,7 +265,8 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     private void editSet() {
         Intent intent = new Intent(this, ActivityEditLearningSet.class);
 
-        intent.putExtra("isSetNew", false);
+        intent.putExtra("isSetNew", isSetNew);
+        intent.putExtra("learningSet", learningSet);
         intent.putExtra("learningSet", learningSet);
 
         startActivity(intent);

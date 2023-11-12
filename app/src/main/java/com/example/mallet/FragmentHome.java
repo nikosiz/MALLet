@@ -40,6 +40,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FragmentHome extends Fragment {
+    private static final int MAX_RETRY_ATTEMPTS = 3;
     private ActivityMain activityMain;
     private FragmentHomeBinding binding;
     private UserServiceImpl userService;
@@ -47,7 +48,8 @@ public class FragmentHome extends Fragment {
     private ViewPager2 homeSetsVp2;
     private ProgressBar progressBar;
     private Animation fadeInAnimation;
-    private static final int MAX_RETRY_ATTEMPTS = 3;
+    private ScrollView homeSv;
+    private FragmentUserLibrary fragmentUserLibrary;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -84,7 +86,6 @@ public class FragmentHome extends Fragment {
         return binding.getRoot();
     }
 
-    private ScrollView homeSv;
     private void setupContents() {
         homeSv = binding.homeSv;
         Utils.hideItems(homeSv);
@@ -96,8 +97,6 @@ public class FragmentHome extends Fragment {
 
         progressBar = binding.fragmentHomeProgressBar;
     }
-
-    private FragmentUserLibrary fragmentUserLibrary;
 
     private void showAllItems(int selectedTabIndex) {
         FragmentUserLibrary fragmentUserLibrary = FragmentUserLibrary.newInstance(selectedTabIndex);

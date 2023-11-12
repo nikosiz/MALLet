@@ -361,6 +361,7 @@ public class ActivityViewGroup extends AppCompatActivity {
         intent.putExtra("isSetInGroup", true);
         intent.putExtra("groupId", groupId);
         intent.putExtra("groupName", groupName);
+        intent.putExtra("isSetNew", true);
 
         startActivity(intent);
 
