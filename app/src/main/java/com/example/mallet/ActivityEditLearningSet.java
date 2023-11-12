@@ -72,6 +72,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     private TextInputEditText flashcardDefinitionEt;
     private TextInputEditText flashcardTranslationEt;
     private Long groupId;
+    private String groupName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +98,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         isSetInGroup = getIntent().getBooleanExtra("isSetInGroup", false);
         learningSet = getIntent().getParcelableExtra("learningSet");
         groupId = getIntent().getLongExtra("groupId", 0L);
+        groupName = getIntent().getStringExtra("groupName");
 
         if (learningSet != null && learningSet.getTerms() != null) {
             flashcards = learningSet.getTerms();
@@ -324,6 +326,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), ActivityViewGroup.class);
 
                 intent.putExtra("groupId", groupId);
+                intent.putExtra("groupName", groupName);
 
                 startActivity(intent);
 
