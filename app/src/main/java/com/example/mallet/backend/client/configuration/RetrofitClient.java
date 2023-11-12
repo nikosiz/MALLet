@@ -28,6 +28,8 @@ public class RetrofitClient {
     //todo no i https tez trzeba bd zrobic zeby stary nie zrobił ataku man in the middle czy innego chuja
     private static final String BASE_URL = "http://10.0.2.2:8080/";
     //private static final String BASE_URL = "http://192.168.8.105:8080/";
+    //private static final String BASE_URL = "http://192.168.0.101:8080/";
+
     private static final Gson gson;
 
     static {
