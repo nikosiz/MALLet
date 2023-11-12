@@ -139,6 +139,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
                 SetDetailDTO setDetailDTO = ResponseHandler.handleResponse(response);
 
                 flashcards = ModelFlashcardMapper.from(setDetailDTO.terms());
+                learningSet.setFlashcards(flashcards);
 
                 if (flashcards == null || flashcards.size() == 0) {
                     Utils.setViewLayoutParams(flashcardsVp2, MATCH_PARENT, 0);
@@ -264,12 +265,8 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     private void editSet() {
         Intent intent = new Intent(this, ActivityEditLearningSet.class);
 
-        intent.putExtra("isSetNew", isSetNew);
+        intent.putExtra("isSetNew", false);
         intent.putExtra("learningSet", learningSet);
-        /*intent.putExtra("learningSetId", learningSet.getId());
-        intent.putExtra("learningSetName", learningSet.getName());
-        intent.putExtra("learningSetDescription", learningSet.getDescription());
-        intent.putParcelableArrayListExtra("learningSetTerms", new ArrayList<>(learningSet.getTerms()));*/
 
         startActivity(intent);
     }

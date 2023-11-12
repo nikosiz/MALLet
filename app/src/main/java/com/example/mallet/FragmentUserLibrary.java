@@ -49,7 +49,7 @@ public class FragmentUserLibrary extends Fragment {
     }
     int selectedTabIndex;
     private void setupContents() {
-        selectedTabIndex = getArguments().getInt("selectedTabIndex", 0); // Default to 0 if not provided
+//        selectedTabIndex = getArguments().getInt("selectedTabIndex", 0); // Default to 0 if not provided
         setupTabLayout();
     }
 
