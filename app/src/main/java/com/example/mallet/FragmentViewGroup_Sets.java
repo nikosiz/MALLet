@@ -21,7 +21,6 @@ import java.util.List;
 public class FragmentViewGroup_Sets extends Fragment {
     private FragmentViewGroupSetsBinding binding;
     private LinearLayout userLibrarySetsLl;
-    private final boolean isSetInGroup = true;
     private final GroupDTO chosenGroup;
 
     public FragmentViewGroup_Sets(GroupDTO chosenGroup) {
@@ -68,7 +67,7 @@ public class FragmentViewGroup_Sets extends Fragment {
 
         intent.putExtra("setId", set.getId());
         intent.putExtra("learningSet", set);
-        intent.putExtra("isSetInGroup", isSetInGroup);
+        intent.putExtra("isSetInGroup", true);
 
         startActivity(intent);
     }

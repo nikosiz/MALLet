@@ -209,7 +209,8 @@ public class ActivityViewGroup extends AppCompatActivity {
 
 
     private void leaveGroup(Long groupId) {
-        groupService.deleteGroupContributions(groupId,);
+        // todo michałek napraw
+        //groupService.deleteGroupContributions(groupId, ???);
     }
 
     private void leaveAndDeleteGroupDialog() {
@@ -351,6 +352,12 @@ public class ActivityViewGroup extends AppCompatActivity {
     private void createNewSetInGroup() {
         Intent intent = new Intent(this, ActivityEditLearningSet.class);
 
+        // todo: proponuję podawać isUserSet == true, jeżeli user może edytować sety w grupie
+        //  if (user can edit set){
+            //intent.putExtra("isUserSet", true);
+        //} else{
+            intent.putExtra("isUserSet", false);
+        //}
         intent.putExtra("isSetInGroup", true);
         intent.putExtra("groupId", groupId);
 

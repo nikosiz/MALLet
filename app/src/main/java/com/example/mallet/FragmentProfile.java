@@ -21,7 +21,6 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
-import com.example.mallet.databinding.DialogAboutBinding;
 import com.example.mallet.databinding.DialogChangeEmailBinding;
 import com.example.mallet.databinding.DialogChangePasswordBinding;
 import com.example.mallet.databinding.DialogChangeUsernameBinding;
@@ -94,7 +93,6 @@ public class FragmentProfile extends Fragment {
         RadioGroup themeRg = binding.profileThemeRg;
         lightThemeRb = binding.profileLightThemeRb;
         darkThemeRb = binding.profileDarkThemeRb;
-        TextView aboutTv = binding.profileAboutTv;
         TextView logoutTv = binding.profileLogoutTv;
         TextView deleteAccTv = binding.profileDeleteAccTv;
 
@@ -124,7 +122,6 @@ public class FragmentProfile extends Fragment {
             }
         });
 
-        aboutTv.setOnClickListener(v -> aboutDialog());
         logoutTv.setOnClickListener(v -> logOut());
 
         deleteAccTv.setOnClickListener(v -> deleteAccountDialog());
@@ -263,13 +260,6 @@ public class FragmentProfile extends Fragment {
     private boolean getSwitchState(String switchKey) {
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getBoolean(switchKey, false); // Default value (false) if key not found
-    }
-
-    private void aboutDialog() {
-        Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_about, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
-        DialogAboutBinding dialogBinding = DialogAboutBinding.inflate(LayoutInflater.from(requireContext()));
-        dialog.setContentView(dialogBinding.getRoot());
-        dialog.show();
     }
 
     private boolean isLogged;

@@ -172,6 +172,7 @@ public class FragmentMatch extends Fragment {
         return rootView;
     }
 
+
     private void setupContents() {
         setupToolbar();
 

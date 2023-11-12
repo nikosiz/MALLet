@@ -43,12 +43,83 @@
             android:id="@+id/homeSvLl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp">
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/home_wordOfTheDayTitleTv"
+                style="@style/BasicBoldTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_weight="1"
+                android:text="Word of the day"
+                android:textColor="@color/primaryTextColor"
+                android:textSize="20sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <LinearLayout
+                android:id="@+id/home_wordOfTheDayLl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:background="@drawable/bg_social_btn"
+                android:orientation="vertical"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="30dp">
+
+                <TextView
+                    android:id="@+id/home_wordOfTheDayTermTv"
+                    style="@style/BasicTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/rem_bold"
+                    android:gravity="center"
+                    android:text="TERM"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+                <TextView
+                    android:id="@+id/home_wordOfTheDayDefinitionTv"
+                    style="@style/BasicTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/rem_regular"
+                    android:gravity="center"
+                    android:text="DEFINITION"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp" />
+
+                <TextView
+                    android:id="@+id/home_wordOfTheDayTranslationTv"
+                    style="@style/BasicTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/rem_regular"
+                    android:gravity="center"
+                    android:text="TRANSLATION"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
 
             <LinearLayout
                 android:id="@+id/home_setLl"
                 android:layout_width="match_parent"
+                android:layout_marginHorizontal="20dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
@@ -83,6 +154,7 @@
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/home_setsViewPager"
+                android:layout_marginHorizontal="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
@@ -90,53 +162,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="20dp" />
 
-            <!--<LinearLayout
-                android:id="@+id/home_folderLl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/home_folderTitleTv"
-                    style="@style/BasicBoldTextStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-
-                    android:text="@string/folders"
-                    android:textColor="@color/primaryTextColor"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/home_folderViewAllTv"
-                    style="@style/BasicTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/bg_ripple"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="end"
-
-                    android:paddingHorizontal="5dp"
-                    android:text="@string/view_all" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/home_foldersViewPager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />-->
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="20dp" />
-
             <LinearLayout
                 android:id="@+id/home_groupLl"
+                android:layout_marginHorizontal="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -172,6 +200,7 @@
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/home_groupsViewPager"
+                android:layout_marginHorizontal="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 

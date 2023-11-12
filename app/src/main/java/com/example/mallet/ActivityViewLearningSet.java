@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -62,23 +61,28 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     // toolbar options
     private ImageView toolbarOptionsBackIv;
     private TextView toolbarOptionsEditTv, toolbarOptionsAddToUsersCollectionTv, toolbarOptionsDeleteTv, toolbarOptionsCancelTv;
-    private final boolean isSetNew = false;
+    private boolean isSetNew, isSetInGroup;
     // TODO OSBŁUŻYĆ
-    private final boolean isUserSet = true;
+    private boolean isUserSet;
     private List<ModelFlashcard> flashcards;
 
     private SetServiceImpl setService;
     private ProgressBar progressBar;
     private ScrollView viewSetSv;
     private Animation fadeInAnimation;
-
-
-
+    private Long groupId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         this.setId = getIntent().getLongExtra("setId", 0L);
+
+        isUserSet = getIntent().getBooleanExtra("isSetNew", true);
+        isSetNew = getIntent().getBooleanExtra("isSetNew", true);
+        isSetInGroup = getIntent().getBooleanExtra("isSetInGroup", false);
+        learningSet = getIntent().getParcelableExtra("learningSet");
+        groupId = getIntent().getLongExtra("groupId", 0L);
 
         fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in);
 
@@ -86,9 +90,9 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         this.setService = new SetServiceImpl(credential);
         this.userService = new UserServiceImpl(credential);
         binding = ActivityViewLearningSetBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
 
         setupContents();
+        setContentView(binding.getRoot());
     }
 
     private void setupContents() {
@@ -230,6 +234,17 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
             editSet();
         });
+
+        Utils.hideItems(toolbarOptionsEditTv);
+        Utils.disableItems(toolbarOptionsEditTv);
+
+        if (isUserSet || (isSetInGroup && isUserSet)) {
+            Utils.showItems(toolbarOptionsEditTv);
+            Utils.enableItems(toolbarOptionsEditTv);
+        } else {
+            Utils.hideItems(toolbarOptionsEditTv);
+            Utils.disableItems(toolbarOptionsEditTv);
+        }
 
         toolbarOptionsAddToUsersCollectionTv = dialogBinding.viewSetOptionsAddToCollectionTv;
         toolbarOptionsAddToUsersCollectionTv.setOnClickListener(v -> {
