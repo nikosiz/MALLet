@@ -14,6 +14,7 @@ import android.widget.ScrollView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.agh.api.GroupBasicDTO;
@@ -91,10 +92,19 @@ public class FragmentHome extends Fragment {
         homeSetsVp2 = binding.homeSetsViewPager;
         homeGroupsVp2 = binding.homeGroupsViewPager;
         binding.homeSetViewAllTv.setOnClickListener(v -> showAllItems(0));
-        //binding.homeFolderViewAllTv.setOnClickListener(v -> showAllItems(1));
-        binding.homeGroupViewAllTv.setOnClickListener(v -> showAllItems(2));
+        binding.homeGroupViewAllTv.setOnClickListener(v -> showAllItems(1));
 
         progressBar = binding.fragmentHomeProgressBar;
+    }
+
+    private FragmentUserLibrary fragmentUserLibrary;
+
+    private void showAllItems(int selectedTabIndex) {
+        FragmentUserLibrary fragmentUserLibrary = FragmentUserLibrary.newInstance(selectedTabIndex);
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(R.id.mainFl, fragmentUserLibrary);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     private void setupGroups() {
@@ -215,8 +225,5 @@ public class FragmentHome extends Fragment {
         };
     }
 
-    private void showAllItems(int index) {
-        // TODO: Implement this method to display all items of a specific type
-        Utils.showToast(getActivity(), "Here should open a list of " + index);
-    }
+
 }

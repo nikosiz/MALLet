@@ -47,10 +47,13 @@ public class FragmentUserLibrary extends Fragment {
 
         return binding.getRoot();
     }
-
+    int selectedTabIndex;
     private void setupContents() {
+        selectedTabIndex = getArguments().getInt("selectedTabIndex", 0); // Default to 0 if not provided
         setupTabLayout();
     }
+
+
 
     private void setupTabLayout() {
         FragmentStateAdapter adapter = new FragmentStateAdapter(getChildFragmentManager(), getLifecycle()) {
@@ -98,10 +101,16 @@ public class FragmentUserLibrary extends Fragment {
         });
 
         // Connect the TabLayout with the ViewPager
-        new TabLayoutMediator(tabLayout, viewPager,
+        TabLayoutMediator mediator = new TabLayoutMediator(tabLayout, viewPager,
                 (tab, position) -> {
                     // Tab titles are set beforehand
                 }
-        ).attach();
+        );
+
+        // Attach the mediator
+        mediator.attach();
+
+        // Automatically select the tab based on the provided index
+        tabLayout.selectTab(tabLayout.getTabAt(selectedTabIndex));
     }
 }

@@ -103,7 +103,6 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
         learningSet = getIntent().getParcelableExtra("learningSet");
 
-
         getLearningSetData();
 
         flashcardsVp2 = binding.viewSetFlashcardVp2;
