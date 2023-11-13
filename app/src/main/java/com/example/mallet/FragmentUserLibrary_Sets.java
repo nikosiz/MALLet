@@ -1,5 +1,7 @@
 package com.example.mallet;
 
+import static com.example.mallet.MALLet.MAX_RETRY_ATTEMPTS;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -119,7 +121,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
         return binding.getRoot();
     }
 
-    private void setupSearchAndFetchSets(long startPosition, long limit) {
+    private void setupSearchAndFetchSets3Queries(long startPosition, long limit, int attemptCount) {
         RxTextView.textChanges(searchEt)
                 .debounce(500, TimeUnit.MILLISECONDS)
                 .subscribe(text -> {
@@ -142,10 +144,20 @@ public class FragmentUserLibrary_Sets extends Fragment {
 
                         @Override
                         public void onFailure(Call<SetBasicDTO> call, Throwable t) {
-                            Utils.showToast(requireActivity(), "Network failure");
+                            if (attemptCount < MAX_RETRY_ATTEMPTS) {
+                                System.out.println(attemptCount);
+                                setupSearchAndFetchSets3Queries(startPosition, limit, attemptCount + 1);
+                            } else {
+                                Utils.showToast(requireActivity(), "Network error");
+                            }
                         }
                     });
                 });
+    }
+
+    private void setupSearchAndFetchSets(long startPosition, long limit) {
+        int attemptCount = MAX_RETRY_ATTEMPTS;
+        setupSearchAndFetchSets3Queries(startPosition, limit, attemptCount);
     }
 
     private void fetchSetsForSearch(String text, Response<SetBasicDTO> response) {
@@ -196,11 +208,11 @@ public class FragmentUserLibrary_Sets extends Fragment {
         }
     }
 
-    private void fetchUserSets(long startPosition,
-                               long limit,
-                               boolean isBottom,
-                               List<ModelLearningSet> setList) {
-
+    private void fetchUserSets3Queries(long startPosition,
+                                       long limit,
+                                       boolean isBottom,
+                                       List<ModelLearningSet> setList,
+                                       int attemptCount) {
         userService.getUserSets(startPosition, limit, new Callback<SetBasicDTO>() {
             @Override
             public void onResponse(Call<SetBasicDTO> call, Response<SetBasicDTO> response) {
@@ -234,9 +246,22 @@ public class FragmentUserLibrary_Sets extends Fragment {
 
             @Override
             public void onFailure(Call<SetBasicDTO> call, Throwable t) {
-                Utils.showToast(requireActivity(), "Network failure");
+                if (attemptCount < MAX_RETRY_ATTEMPTS) {
+                    System.out.println(attemptCount);
+                    fetchUserSets3Queries(startPosition, limit, isBottom, setList, attemptCount + 1);
+                } else {
+                    Utils.showToast(requireActivity(), "Network error");
+                }
             }
         });
+    }
+
+    private void fetchUserSets(long startPosition,
+                               long limit,
+                               boolean isBottom,
+                               List<ModelLearningSet> setList) {
+        int attemptCount = MAX_RETRY_ATTEMPTS;
+        fetchUserSets3Queries(startPosition, limit, isBottom, setList, attemptCount);
     }
 
     private void setupSetView(@NonNull LayoutInflater inflater,
@@ -251,20 +276,22 @@ public class FragmentUserLibrary_Sets extends Fragment {
             setItemView.setOnClickListener(v -> viewSet(set));
 
             TextView setNameTv = setItemView.findViewById(R.id.learningSet_nameTv);
-            setNameTv.setText(set.getName());
+            setNameTv.setText(set.getIdentifier());
 
             TextView setNrOfTermsTv = setItemView.findViewById(R.id.learningSet_nrOfTermsTv);
-            if (set.getNrOfTerms() == 1) {
-                setNrOfTermsTv.setText(getActivity().getString(R.string.nr_of_terms_singular, String.valueOf(set.getNrOfTerms())));
-            } else {
-                setNrOfTermsTv.setText(getActivity().getString(R.string.nr_of_terms_plural, String.valueOf(set.getNrOfTerms())));
+            if (set != null) {
+                if (set.getNrOfTerms() == 1) {
+                    setNrOfTermsTv.setText(getActivity().getString(R.string.nr_of_terms_singular, String.valueOf(set.getNrOfTerms())));
+                } else {
+                    setNrOfTermsTv.setText(getActivity().getString(R.string.nr_of_terms_plural, String.valueOf(set.getNrOfTerms())));
+                }
             }
 
             TextView setCreatorTv = setItemView.findViewById(R.id.learningSet_creatorTv);
             setCreatorTv.setText(set.getCreator());
 
             ImageView deleteIv = setItemView.findViewById(R.id.learningSet_deleteIv);
-            deleteIv.setOnClickListener(v -> confirmDelete(set));
+            deleteIv.setOnClickListener(v -> confirmSetDeletion(set));
 
             setItemView.startAnimation(fadeInAnimation);
 
@@ -286,7 +313,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
         startActivity(intent);
     }
 
-    public void confirmDelete(ModelLearningSet set) {
+    public void confirmSetDeletion3Queries(ModelLearningSet set, int attemptCount) {
         Dialog dialog = Utils.createDialog(requireActivity(), R.layout.dialog_delete_are_you_sure, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogDeleteAreYouSureBinding dialogBinding = DialogDeleteAreYouSureBinding.inflate(LayoutInflater.from(requireActivity()));
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
@@ -297,29 +324,41 @@ public class FragmentUserLibrary_Sets extends Fragment {
 
         cancelTv.setOnClickListener(v -> dialog.dismiss());
         confirmTv.setOnClickListener(v -> {
-            confirmTv.setEnabled(false);
+            Utils.disableItems(cancelTv, confirmTv);
             userService.deleteUserSet(set.getId(), new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
-                    Utils.enableItems(confirmTv);
                     try {
                         ResponseHandler.handleResponse(response);
                         Utils.showToast(requireActivity(), set.getName() + " was deleted");
                         sets.clear();
                         getUserLibrarySetList(sets, null);
+                        Utils.enableItems(cancelTv, confirmTv);
                     } catch (MalletException e) {
                         Utils.showToast(requireActivity(), e.getMessage());
+                        Utils.enableItems(cancelTv, confirmTv);
                     }
                 }
 
                 @Override
                 public void onFailure(Call<Void> call, Throwable t) {
-                    Utils.enableItems(confirmTv);
+                    if (attemptCount < MAX_RETRY_ATTEMPTS) {
+                        System.out.println(attemptCount);
+                        confirmSetDeletion3Queries(set, attemptCount + 1);
+                    } else {
+                        Utils.showToast(requireActivity(), "Network error");
+                        Utils.enableItems(cancelTv, confirmTv);
+                    }
                 }
             });
 
 
             dialog.dismiss();
         });
+    }
+
+    private void confirmSetDeletion(ModelLearningSet set) {
+        int attemptCount = MAX_RETRY_ATTEMPTS;
+        confirmSetDeletion3Queries(set, attemptCount);
     }
 }

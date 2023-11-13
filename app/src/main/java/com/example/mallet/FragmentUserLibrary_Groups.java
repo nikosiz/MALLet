@@ -1,5 +1,7 @@
 package com.example.mallet;
 
+import static com.example.mallet.MALLet.MAX_RETRY_ATTEMPTS;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -55,7 +57,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
     private FragmentUserLibraryGroupsBinding binding;
     private UserServiceImpl userService;
     private GroupServiceImpl groupService;
-    private final List<ModelGroup> groups = new ArrayList<>();
+    public static final List<ModelGroup> groups = new ArrayList<>();
     private TextInputEditText searchEt;
     private LinearLayout userGroupsLl;
     private final AtomicBoolean firstTime = new AtomicBoolean(true);
@@ -115,9 +117,10 @@ public class FragmentUserLibrary_Groups extends Fragment {
                 }
             }
         });
-        setupSearchAndFetchGroups(0, 50);
+
         getUserLibraryGroupList(groups, null);
 
+        setupSearchAndFetchGroups(0, 50);
 
         groupsSv.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
@@ -155,7 +158,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
         this.inflater = inflater;
     }
 
-    private void setupSearchAndFetchGroups(long startPosition, long limit) {
+    private void setupSearchAndFetchGroups3Queries(long startPosition, long limit, int attemptCount) {
         RxTextView.textChanges(searchEt)
                 .debounce(500, TimeUnit.MILLISECONDS)
                 .subscribe(text -> {
@@ -176,10 +179,21 @@ public class FragmentUserLibrary_Groups extends Fragment {
 
                         @Override
                         public void onFailure(Call<GroupBasicDTO> call, Throwable t) {
-                            Utils.showToast(getContext(), "Network failure");
+                            if (attemptCount < MAX_RETRY_ATTEMPTS) {
+                                System.out.println(attemptCount);
+                                // Retry the network call
+                                setupSearchAndFetchGroups3Queries(startPosition, limit, attemptCount + 1);
+                            } else {
+                                Utils.showToast(getContext(), "Network error");
+                            }
                         }
                     });
                 });
+    }
+
+    private void setupSearchAndFetchGroups(long startPosition, long limit) {
+        int attemptCount = MAX_RETRY_ATTEMPTS;
+        setupSearchAndFetchGroups3Queries(startPosition, limit, attemptCount);
     }
 
     private void fetchGroupsForSearch(String text, Response<GroupBasicDTO> response) {
@@ -203,7 +217,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
     }
 
     private void getUserLibraryGroupList(List<ModelGroup> groupList,
-                                         @Nullable String nextChunkUri) {
+                                               @Nullable String nextChunkUri) {
 
         if (Objects.isNull(nextChunkUri)) {
             fetchUserGroups(0, 10, false, groupList);
@@ -217,10 +231,11 @@ public class FragmentUserLibrary_Groups extends Fragment {
         }
     }
 
-    private void fetchUserGroups(long startPosition,
-                                 long limit,
-                                 boolean isBottom,
-                                 List<ModelGroup> groupList) {
+    private void fetchUserGroups3Queries(long startPosition,
+                                         long limit,
+                                         boolean isBottom,
+                                         List<ModelGroup> groupList,
+                                         int attemptCount) {
         userService.getUserGroups(startPosition, limit, new Callback<GroupBasicDTO>() {
             @Override
             public void onResponse(Call<GroupBasicDTO> call, Response<GroupBasicDTO> response) {
@@ -256,9 +271,23 @@ public class FragmentUserLibrary_Groups extends Fragment {
 
             @Override
             public void onFailure(Call<GroupBasicDTO> call, Throwable t) {
-                Utils.showToast(getContext(), "Network failure");
+                if (attemptCount < MAX_RETRY_ATTEMPTS) {
+                    System.out.println(attemptCount);
+                    // Retry the network call
+                    fetchUserGroups3Queries(startPosition, limit, isBottom, groupList, attemptCount + 1);
+                } else {
+                    Utils.showToast(getContext(), "Network error");
+                }
             }
         });
+    }
+
+    private void fetchUserGroups(long startPosition,
+                                 long limit,
+                                 boolean isBottom,
+                                 List<ModelGroup> groupList) {
+        int attemptCount = MAX_RETRY_ATTEMPTS;
+        fetchUserGroups3Queries(startPosition, limit, isBottom, groupList, attemptCount);
     }
 
     private void setupGroupView(List<ModelGroup> userLibraryGroupList,
@@ -293,38 +322,5 @@ public class FragmentUserLibrary_Groups extends Fragment {
         intent.putExtra("groupName", group.getGroupName());
 
         startActivity(intent);
-    }
-
-    public void confirmDelete(ModelGroup group) {
-        Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_delete_are_you_sure, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
-        DialogDeleteAreYouSureBinding dialogBinding = DialogDeleteAreYouSureBinding.inflate(LayoutInflater.from(requireContext()));
-        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
-        dialog.show();
-
-        dialogBinding.deleteCancelTv.setOnClickListener(v -> dialog.dismiss());
-        dialogBinding.deleteConfirmTv.setOnClickListener(v -> {
-            groupService.deleteGroup(group.getId(), new Callback<Void>() {
-                @Override
-                public void onResponse(Call<Void> call, Response<Void> response) {
-                    try {
-                        ResponseHandler.handleResponse(response);
-                        Utils.showToast(requireContext(), group.getGroupName() + " was deleted");
-                        fetchUserGroups(0, 50, false, groups);
-                    } catch (MalletException e) {
-                        System.out.println(e.getMessage());
-                        Utils.showToast(getContext(), "Error");
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Void> call, Throwable t) {
-                    System.out.println("error");
-                }
-
-            });
-
-
-            dialog.dismiss();
-        });
     }
 }

@@ -174,12 +174,12 @@ public class ActivityLogin extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<UserDetailDTO> call, Throwable t) {
-                    if (attemptCount < MAX_RETRY_ATTEMPTS) {
+                    if (attemptCount < MAX_RETRY_ATTEMPTS) {System.out.println(attemptCount);
                         // Retry the operation
                         handleLogin3Queries(attemptCount + 1);
                     } else {
                         Utils.enableItems(emailEt, passwordEt, forgotPasswordTv, loginBtn, signupRedirectTv);
-                        Utils.showToast(getApplicationContext(), "Network failure");
+                        Utils.showToast(getApplicationContext(), "Network error");
                         //Utils.resetEditText(emailEt, emailErrTv);
                         //Utils.resetEditText(passwordEt, passwordErrTv);
                         Utils.hideItems(progressBar);

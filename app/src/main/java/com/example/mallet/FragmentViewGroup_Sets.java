@@ -65,6 +65,8 @@ public class FragmentViewGroup_Sets extends Fragment {
     private void openActivityViewSet(ModelLearningSet set) {
         Intent intent = new Intent(getContext(), ActivityViewLearningSet.class);
 
+        intent.putExtra("groupId", chosenGroup.id());
+
         intent.putExtra("setId", set.getId());
         intent.putExtra("learningSet", set);
         intent.putExtra("isSetInGroup", true);
@@ -75,6 +77,8 @@ public class FragmentViewGroup_Sets extends Fragment {
         intent.putExtra("canUserEditSet", ActivityViewGroup.canUserEditSet);
 
         startActivity(intent);
+
+        getActivity().finish();
     }
 
 }

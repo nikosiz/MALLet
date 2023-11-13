@@ -132,7 +132,7 @@ public class FragmentHome extends Fragment {
                     
                 } else {
                     // Maximum attempts reached, handle failure
-                    Utils.showToast(getActivity(), "Network failure");
+                    Utils.showToast(getActivity(), "Network error");
                 }
             }
         });
@@ -179,12 +179,13 @@ public class FragmentHome extends Fragment {
             @Override
             public void onFailure(Call<GroupBasicDTO> call, Throwable t) {
                 if (attemptCount < MAX_RETRY_ATTEMPTS) {
+                    System.out.println(attemptCount);
                     // Retry the operation
                     setupGroups3Queries(attemptCount + 1);
-                    
+
                 } else {
                     // Maximum attempts reached, handle failure
-                    Utils.showToast(getActivity(), "Network failure");
+                    Utils.showToast(getActivity(), "Network error");
                 }
             }
         });

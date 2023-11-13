@@ -401,9 +401,10 @@
     </ScrollView>
 
     <ProgressBar
-        android:padding="30dp"
+        android:padding="10dp"
         android:elevation="3dp"
-        android:background="@drawable/bg_corners_rounded" android:id="@+id/viewSet_progressBar"
+        android:id="@+id/viewSet_progressBar"
+        android:background="@drawable/bg_circle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -428,6 +429,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:shapeAppearanceOverlay="@style/EfabStyle" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

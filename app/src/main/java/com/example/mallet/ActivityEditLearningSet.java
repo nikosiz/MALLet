@@ -75,7 +75,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     private TextInputEditText flashcardTranslationEt;
     private Long groupId;
     private String groupName;
-    private boolean canUserEditSet, isUserSet;
+    private boolean canUserEditSet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +110,6 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         isSetNew = getIntent().getBooleanExtra("isSetNew", true);
         isSetInGroup = getIntent().getBooleanExtra("isSetInGroup", false);
         canUserEditSet = getIntent().getBooleanExtra("canUserEditSet", false);
-        isUserSet = getIntent().getBooleanExtra("isSetInGroup", true);
 
         if (learningSet != null && learningSet.getTerms() != null) {
             flashcards = learningSet.getTerms();
@@ -137,6 +136,8 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
         addFlashcardFab = binding.editSetAddFab;
 
+        setName = learningSet.getName();
+
         if (isSetNew) {
             Utils.hideItems(progressBar);
             Utils.hideItems(toolbarDeleteIv);
@@ -148,7 +149,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         } else if (!isSetNew || isSetInGroup) {
             Utils.showItems(toolbarDeleteIv);
 
-            setNameEt.setText(learningSet.getName());
+            setNameEt.setText(setName);
             setDescriptionEt.setText(learningSet.getDescription());
 
             if (learningSet.getTerms() != null) {
@@ -171,6 +172,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         });
     }
 
+    private String setName;
     private TextView toolbarTitleTv;
 
     private void setupToolbar() {
@@ -326,6 +328,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
             @Override
             public void onFailure(Call<Long> call, Throwable t) {
                 if (attemptCount < MAX_RETRY_ATTEMPTS) {
+                    System.out.println(attemptCount);
                     // Retry the network call
                     handleSetCreation3Queries(newSetContainer, attemptCount + 1);
                 } else {
@@ -370,6 +373,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 if (attemptCount < MAX_RETRY_ATTEMPTS) {
+                    System.out.println(attemptCount);
                     // Retry the network call
                     handleSetCreation3Queries(newSetContainer, attemptCount + 1);
                 } else {

@@ -95,6 +95,9 @@ public class ModelLearningSet implements Parcelable {
     public long getId() {
         return id;
     }
+    public String getIdentifier() {
+        return identifier;
+    }
 
     public void setId(int id) {
         this.id = id;

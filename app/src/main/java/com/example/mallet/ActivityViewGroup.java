@@ -3,6 +3,7 @@ package com.example.mallet;
 import static com.example.mallet.MALLet.MAX_RETRY_ATTEMPTS;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -46,6 +47,7 @@ import com.example.mallet.databinding.DialogAdminLeaveAreYouSureBinding;
 import com.example.mallet.databinding.DialogDeleteAreYouSureBinding;
 import com.example.mallet.databinding.DialogViewGroupToolbarOptionsBinding;
 import com.example.mallet.utils.AuthenticationUtils;
+import com.example.mallet.utils.ModelGroup;
 import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.ModelUser;
 import com.example.mallet.utils.ModelUserMapper;
@@ -171,7 +173,7 @@ public class ActivityViewGroup extends AppCompatActivity {
     private final boolean isSetInGroup = true;
 
     // TODO - JAK TO SPRAWDZIĆ X D ?
-    public static boolean canUserEditSet;
+    public static boolean canUserEditSet = true;
 
     private ImageView toolbarOptionsBackIv;
     private TextView toolbarOptionsLeaveTv, toolbarOptionsDeleteTv, toolbarOptionsCancelTv;
@@ -335,7 +337,7 @@ public class ActivityViewGroup extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<Void> call, Throwable t) {
-                        Utils.showToast(getApplicationContext(), "Network failure");
+                        Utils.showToast(getApplicationContext(), "Network error");
 
                     }
                 });
@@ -367,6 +369,7 @@ public class ActivityViewGroup extends AppCompatActivity {
         intent.putExtra("groupName", groupName);
         intent.putExtra("groupId", groupId);
 
+        intent.putExtra("isUserSet", false);
         intent.putExtra("isSetInGroup", isSetInGroup);
         intent.putExtra("canUserEditSet", canUserEditSet);
         intent.putExtra("isSetNew", isSetNew);
@@ -376,25 +379,7 @@ public class ActivityViewGroup extends AppCompatActivity {
         this.finish();
     }
 
-    private void editSetInGroup() {
-        if (canUserEditSet) {
-            Intent intent = new Intent(this, ActivityEditLearningSet.class);
 
-            intent.putExtra("groupName", groupName);
-            intent.putExtra("groupId", groupId);
-
-            intent.putExtra("isSetInGroup", isSetInGroup);
-            intent.putExtra("isSetNew", isSetNew);
-            intent.putExtra("canUserEditSet", canUserEditSet);
-
-            startActivity(intent);
-
-            this.finish();
-        } else {
-            Utils.showToast(this, getString(R.string.no_permissions_to_edit));
-        }
-
-    }
 
     private void handleSetEmptyInput() {
         allSets.clear();
@@ -410,7 +395,7 @@ public class ActivityViewGroup extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<SetBasicDTO> call, Throwable t) {
-                Utils.showToast(getApplicationContext(), "Network failure");
+                Utils.showToast(getApplicationContext(), "Network error");
             }
         });
     }
@@ -476,7 +461,7 @@ public class ActivityViewGroup extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<Void> call, Throwable t) {
-                    Utils.showToast(getApplicationContext(),"Network failure");
+                    Utils.showToast(getApplicationContext(), "Network error");
                 }
             });
 
@@ -510,7 +495,7 @@ public class ActivityViewGroup extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<UserDTO>> call, Throwable t) {
-                Utils.showToast(getApplicationContext(), "Network failure");
+                Utils.showToast(getApplicationContext(), "Network error");
             }
         });
     }
@@ -546,11 +531,11 @@ public class ActivityViewGroup extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<GroupDTO> call, Throwable t) {
-                Utils.showToast(getApplicationContext(), "Network failure");
+                Utils.showToast(getApplicationContext(), "Network error");
             }
         });
     }
-
+Context c;
     public void confirmGroupDeletion3Queries(Long id, int attemptCount) {
         Dialog dialog = Utils.createDialog(this, R.layout.dialog_delete_are_you_sure, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogDeleteAreYouSureBinding dialogBinding = DialogDeleteAreYouSureBinding.inflate(LayoutInflater.from(this));
@@ -582,6 +567,7 @@ public class ActivityViewGroup extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<Void> call, Throwable t) {
                     if (attemptCount < MAX_RETRY_ATTEMPTS) {
+                        System.out.println(attemptCount);
                         // Retry the network call
                         confirmGroupDeletion3Queries(id, attemptCount + 1);
                     } else {

@@ -167,12 +167,12 @@ public class ActivityCreateGroup extends AppCompatActivity {
             @Override
             public void onFailure(Call<Long> call, Throwable t) {
                 if (attemptCount < MAX_RETRY_ATTEMPTS) {
+                    System.out.println(attemptCount);
                     // Retry the operation
                     handleGroupCreation3Queries(attemptCount + 1);
-                    
                 } else {
                     Utils.enableItems(toolbarSaveIv);
-                    Utils.showToast(getApplicationContext(), "Network failure");
+                    Utils.showToast(getApplicationContext(), "Network error");
                 }
 
 
@@ -270,10 +270,11 @@ public class ActivityCreateGroup extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<UserDTO>> call, Throwable t) {
                 if (attemptCount < MAX_RETRY_ATTEMPTS) {
+                    System.out.println(attemptCount);
                     // Retry the network call
                     fetchUsers3Queries(text, attemptCount + 1);
                 } else {
-                    Utils.showToast(getApplicationContext(), "Network failure");
+                    Utils.showToast(getApplicationContext(), "Network error");
                 }
             }
         });

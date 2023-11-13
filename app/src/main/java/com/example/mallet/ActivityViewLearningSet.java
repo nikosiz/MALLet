@@ -1,6 +1,7 @@
 package com.example.mallet;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+import static com.example.mallet.MALLet.MAX_RETRY_ATTEMPTS;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -25,6 +26,7 @@ import com.agh.api.SetBasicDTO;
 import com.agh.api.SetDetailDTO;
 import com.agh.api.SetInformationDTO;
 import com.example.mallet.backend.client.configuration.ResponseHandler;
+import com.example.mallet.backend.client.group.boundary.GroupServiceImpl;
 import com.example.mallet.backend.client.set.boundary.SetServiceImpl;
 import com.example.mallet.backend.client.user.boundary.UserServiceImpl;
 import com.example.mallet.backend.entity.term.ModelFlashcardMapper;
@@ -61,7 +63,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     // toolbar options
     private ImageView toolbarOptionsBackIv;
     private TextView toolbarOptionsEditTv, toolbarOptionsAddToUsersCollectionTv, toolbarOptionsDeleteTv, toolbarOptionsCancelTv;
-    private boolean isSetNew, isSetInGroup, canUserEditSet=false, isUserSet;
+    private boolean isSetNew, isSetInGroup, canUserEditSet = true, isUserSet;
     private List<ModelFlashcard> flashcards;
 
     private SetServiceImpl setService;
@@ -89,6 +91,9 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         String credential = AuthenticationUtils.get(getApplicationContext());
         this.setService = new SetServiceImpl(credential);
         this.userService = new UserServiceImpl(credential);
+
+        this.groupService = new GroupServiceImpl(credential);
+
         binding = ActivityViewLearningSetBinding.inflate(getLayoutInflater());
 
         setupContents();
@@ -128,13 +133,14 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         viewSetStudyEfab = binding.viewSetStudyEfab;
         viewSetStudyEfab.setOnClickListener(v -> startFlashcards());
 
-        Utils.disableItems(toolbarOptionsIv, flashcardsVp2, flashcardsLl, learnLl, testLl, matchLl, viewSetStudyEfab);
+        getSet();
+    }
 
+    private void getSet3Queries(int attemptCount) {
+        Utils.disableItems(toolbarOptionsIv, flashcardsVp2, flashcardsLl, learnLl, testLl, matchLl, viewSetStudyEfab);
         setService.getSet(setId, new Callback<SetDetailDTO>() {
             @Override
             public void onResponse(Call<SetDetailDTO> call, Response<SetDetailDTO> response) {
-                Utils.enableItems(toolbarOptionsIv, flashcardsVp2, flashcardsLl, learnLl, testLl, matchLl, viewSetStudyEfab);
-
                 Utils.hideItems(progressBar);
                 SetDetailDTO setDetailDTO = ResponseHandler.handleResponse(response);
 
@@ -152,15 +158,27 @@ public class ActivityViewLearningSet extends AppCompatActivity {
                     displayFlashcardsInViewPager(flashcards, flashcardsVp2);
                     flashcardsVp2.startAnimation(fadeInAnimation);
                 }
+
                 displayFlashcardsInLinearLayout(flashcards, binding.viewSetAllFlashcardsLl, getLayoutInflater());
                 binding.viewSetAllFlashcardsLl.startAnimation(fadeInAnimation);
+
+                Utils.enableItems(toolbarOptionsIv, flashcardsVp2, flashcardsLl, learnLl, testLl, matchLl, viewSetStudyEfab);
             }
 
             @Override
             public void onFailure(Call<SetDetailDTO> call, Throwable t) {
-                Utils.showToast(getApplicationContext(), "Network failure");
+                if (attemptCount < MAX_RETRY_ATTEMPTS) {
+                    System.out.println(attemptCount);
+                    getSet3Queries(attemptCount + 1);
+                } else {
+                    Utils.showToast(getApplicationContext(), "Network error");
+                }
             }
         });
+    }
+
+    private void getSet() {
+        getSet3Queries(0);
     }
 
 
@@ -232,11 +250,12 @@ public class ActivityViewLearningSet extends AppCompatActivity {
                 addSetToUsersCollection();
             }
 
-            editSet();
+            if (!isSetInGroup) {
+                editSet();
+            } else {
+                editSetInGroup();
+            }
         });
-
-        Utils.hideItems(toolbarOptionsEditTv);
-        Utils.disableItems(toolbarOptionsEditTv);
 
         if (isUserSet || (isSetInGroup && isUserSet)) {
             Utils.showItems(toolbarOptionsEditTv);
@@ -261,18 +280,9 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         toolbarOptionsCancelTv = dialogBinding.viewSetOptionsCancelTv;
         toolbarOptionsCancelTv.setOnClickListener(v -> dialog.dismiss());
 
-        if (!isUserSet) {
-            Utils.hideItems(toolbarOptionsEditTv, toolbarOptionsDeleteTv);
-            Utils.showItems(toolbarOptionsAddToUsersCollectionTv);
-        } else if (isUserSet) {
-            Utils.showItems(toolbarOptionsEditTv, toolbarOptionsDeleteTv);
-            toolbarOptionsDeleteTv.setText(getString(R.string.delete_set));
+        Utils.showItems(toolbarOptionsEditTv, toolbarOptionsDeleteTv, toolbarOptionsAddToUsersCollectionTv);
 
-            toolbarOptionsDeleteTv.setOnClickListener(v -> {
-                dialog.dismiss();
-                deleteSet();
-            });
-        }
+
 
         /*if (isSetNew == false) {
             Utils.showItems(toolbarOptionsEditTv, toolbarOptionsDeleteTv);
@@ -294,18 +304,51 @@ public class ActivityViewLearningSet extends AppCompatActivity {
                     deleteSetFromGroup();
                 });
             }
+        } else {
+            if (!isUserSet) {
+                Utils.hideItems(toolbarOptionsEditTv, toolbarOptionsDeleteTv);
+                Utils.showItems(toolbarOptionsAddToUsersCollectionTv);
+            } else if (isUserSet) {
+                Utils.showItems(toolbarOptionsEditTv, toolbarOptionsDeleteTv);
+                toolbarOptionsDeleteTv.setText(getString(R.string.delete_set));
+
+                toolbarOptionsDeleteTv.setOnClickListener(v -> {
+                    dialog.dismiss();
+                    deleteSet();
+                });
+            }
         }
     }
 
-    private void deleteSetFromGroup() {
+    private void editSetInGroup() {
+        isSetNew = false;
+
+        if (canUserEditSet) {
+            Intent intent = new Intent(this, ActivityEditLearningSet.class);
+
+            intent.putExtra("learningSet", learningSet);
+
+            //intent.putExtra("groupName", groupName);
+            intent.putExtra("groupId", groupId);
+
+            intent.putExtra("isSetNew", isSetNew);
+            intent.putExtra("isSetInGroup", isSetInGroup);
+            intent.putExtra("canUserEditSet", canUserEditSet);
+
+            startActivity(intent);
+
+            this.finish();
+        } else {
+            Utils.showToast(this, getString(R.string.no_permissions_to_edit));
+        }
     }
+
 
     private void editSet() {
         Intent intent = new Intent(this, ActivityEditLearningSet.class);
 
+        intent.putExtra("learningSet", learningSet);
         intent.putExtra("isSetNew", isSetNew);
-        intent.putExtra("learningSet", learningSet);
-        intent.putExtra("learningSet", learningSet);
 
         startActivity(intent);
     }
@@ -318,7 +361,11 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     }
 
     // If learningSet != userSet:
-    private void addSetToUsersCollection() {
+    private void addSetToUsersCollection3Queries(int attemptCount) {
+        Utils.disableItems(toolbarOptionsBackIv, toolbarOptionsEditTv,
+                toolbarOptionsAddToUsersCollectionTv, toolbarOptionsDeleteTv,
+                toolbarOptionsCancelTv, toolbarBackIv, toolbarOptionsIv, flashcardsVp2,
+                flashcardsLl, learnLl, testLl, matchLl, viewSetStudyEfab);
         userService.addSetToUserSets(setId, new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -326,20 +373,47 @@ public class ActivityViewLearningSet extends AppCompatActivity {
                     ResponseHandler.handleResponse(response);
                     Utils.showToast(getApplicationContext(), "Added to collection");
 
+                    Utils.enableItems(toolbarOptionsBackIv, toolbarOptionsEditTv,
+                            toolbarOptionsAddToUsersCollectionTv, toolbarOptionsDeleteTv,
+                            toolbarOptionsCancelTv, toolbarBackIv, toolbarOptionsIv, flashcardsVp2,
+                            flashcardsLl, learnLl, testLl, matchLl, viewSetStudyEfab);
+
                 } catch (MalletException e) {
                     Utils.showToast(getApplicationContext(), e.getMessage());
+                    Utils.enableItems(toolbarOptionsBackIv, toolbarOptionsEditTv,
+                            toolbarOptionsAddToUsersCollectionTv, toolbarOptionsDeleteTv,
+                            toolbarOptionsCancelTv, toolbarBackIv, toolbarOptionsIv, flashcardsVp2,
+                            flashcardsLl, learnLl, testLl, matchLl, viewSetStudyEfab);
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
+                if (attemptCount < MAX_RETRY_ATTEMPTS) {
+                    System.out.println(attemptCount);
+                    addSetToUsersCollection3Queries(attemptCount + 1);
+                } else {
+                    Utils.showToast(getApplicationContext(), "Network error");
+                    Utils.enableItems(toolbarOptionsBackIv, toolbarOptionsEditTv,
+                            toolbarOptionsAddToUsersCollectionTv, toolbarOptionsDeleteTv,
+                            toolbarOptionsCancelTv, toolbarBackIv, toolbarOptionsIv, flashcardsVp2,
+                            flashcardsLl, learnLl, testLl, matchLl, viewSetStudyEfab);
 
+                }
             }
         });
     }
 
+    private void addSetToUsersCollection() {
+        addSetToUsersCollection3Queries(0);
+    }
+
     // If learningSet == userSet:
-    private void deleteSet() {
+    private void deleteSet3Queries(int attemptCount) {
+        Utils.disableItems(toolbarOptionsBackIv, toolbarOptionsEditTv,
+                toolbarOptionsAddToUsersCollectionTv, toolbarOptionsDeleteTv,
+                toolbarOptionsCancelTv, toolbarBackIv, toolbarOptionsIv, flashcardsVp2,
+                flashcardsLl, learnLl, testLl, matchLl, viewSetStudyEfab);
         userService.deleteUserSet(setId, new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -347,17 +421,106 @@ public class ActivityViewLearningSet extends AppCompatActivity {
                 try {
                     ResponseHandler.handleResponse(response);
                     Utils.showToast(getApplicationContext(), learningSet.getName() + " was deleted");
+                    Utils.enableItems(toolbarOptionsBackIv, toolbarOptionsEditTv,
+                            toolbarOptionsAddToUsersCollectionTv, toolbarOptionsDeleteTv,
+                            toolbarOptionsCancelTv, toolbarBackIv, toolbarOptionsIv, flashcardsVp2,
+                            flashcardsLl, learnLl, testLl, matchLl, viewSetStudyEfab);
 
+                    closeActivity();
                 } catch (MalletException e) {
                     Utils.showToast(getApplicationContext(), e.getMessage());
+                    Utils.enableItems(toolbarOptionsBackIv, toolbarOptionsEditTv,
+                            toolbarOptionsAddToUsersCollectionTv, toolbarOptionsDeleteTv,
+                            toolbarOptionsCancelTv, toolbarBackIv, toolbarOptionsIv, flashcardsVp2,
+                            flashcardsLl, learnLl, testLl, matchLl, viewSetStudyEfab);
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
+                if (attemptCount < MAX_RETRY_ATTEMPTS) {
+                    System.out.println(attemptCount);
+                    addSetToUsersCollection3Queries(attemptCount + 1);
+                } else {
+                    Utils.showToast(getApplicationContext(), "Network error");
+                    Utils.enableItems(toolbarOptionsBackIv, toolbarOptionsEditTv,
+                            toolbarOptionsAddToUsersCollectionTv, toolbarOptionsDeleteTv,
+                            toolbarOptionsCancelTv, toolbarBackIv, toolbarOptionsIv, flashcardsVp2,
+                            flashcardsLl, learnLl, testLl, matchLl, viewSetStudyEfab);
 
+                }
             }
         });
+    }
+
+    private void deleteSet() {
+        deleteSet3Queries(0);
+    }
+
+    private GroupServiceImpl groupService;
+
+    private void deleteSetFromGroup3Queries(int attemptCount) {
+        Utils.disableItems(toolbarOptionsBackIv, toolbarOptionsEditTv,
+                toolbarOptionsAddToUsersCollectionTv, toolbarOptionsDeleteTv,
+                toolbarOptionsCancelTv, toolbarBackIv, toolbarOptionsIv, flashcardsVp2,
+                flashcardsLl, learnLl, testLl, matchLl, viewSetStudyEfab);
+        groupService.removeSet(groupId, setId, new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                try {
+                    ResponseHandler.handleResponse(response);
+                    Utils.showToast(getApplicationContext(), learningSet.getName() + " was deleted");
+                    Utils.enableItems(toolbarOptionsBackIv, toolbarOptionsEditTv,
+                            toolbarOptionsAddToUsersCollectionTv, toolbarOptionsDeleteTv,
+                            toolbarOptionsCancelTv, toolbarBackIv, toolbarOptionsIv, flashcardsVp2,
+                            flashcardsLl, learnLl, testLl, matchLl, viewSetStudyEfab);
+
+                    startViewGroupActivity();
+
+                    closeActivity();
+                } catch (MalletException e) {
+                    Utils.showToast(getApplicationContext(), e.getMessage());
+                    Utils.enableItems(toolbarOptionsBackIv, toolbarOptionsEditTv,
+                            toolbarOptionsAddToUsersCollectionTv, toolbarOptionsDeleteTv,
+                            toolbarOptionsCancelTv, toolbarBackIv, toolbarOptionsIv, flashcardsVp2,
+                            flashcardsLl, learnLl, testLl, matchLl, viewSetStudyEfab);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                if (attemptCount < MAX_RETRY_ATTEMPTS) {
+                    System.out.println(attemptCount);
+                    addSetToUsersCollection3Queries(attemptCount + 1);
+                } else {
+                    Utils.showToast(getApplicationContext(), "Network error");
+                    Utils.enableItems(toolbarOptionsBackIv, toolbarOptionsEditTv,
+                            toolbarOptionsAddToUsersCollectionTv, toolbarOptionsDeleteTv,
+                            toolbarOptionsCancelTv, toolbarBackIv, toolbarOptionsIv, flashcardsVp2,
+                            flashcardsLl, learnLl, testLl, matchLl, viewSetStudyEfab);
+
+                }
+            }
+        });
+    }
+
+    private void deleteSetFromGroup() {
+        deleteSetFromGroup3Queries(0);
+    }
+
+
+    private void startViewGroupActivity() {
+        finish();
+
+        Intent intent = new Intent(getApplicationContext(), ActivityViewGroup.class);
+
+        intent.putExtra("groupId", groupId);
+
+        startActivity(intent);
+    }
+
+    private void closeActivity() {
+        this.finish();
     }
 
     private void displayFlashcardsInViewPager(List<ModelFlashcard> flashcards, ViewPager2
@@ -422,11 +585,13 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         }
     }
 
-    private void getLearningSetData() {
+    private void getLearningSetData3Queries(int attemptCount) {
+        Utils.disableItems(viewSetSv);
         setService.getBasicSet(Collections.singleton(setId), new Callback<SetBasicDTO>() {
             @Override
             public void onResponse(Call<SetBasicDTO> call, Response<SetBasicDTO> response) {
                 Utils.hideItems(progressBar);
+                Utils.enableItems(viewSetSv);
 
                 SetBasicDTO setBasicDTO = ResponseHandler.handleResponse(response);
                 SetInformationDTO setInformationDTO = setBasicDTO.sets().get(0);
@@ -451,8 +616,20 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<SetBasicDTO> call, Throwable t) {
-                Utils.showToast(getApplicationContext(), "Network failure");
+                if (attemptCount < MAX_RETRY_ATTEMPTS) {
+                    System.out.println(attemptCount);
+                    getLearningSetData3Queries(attemptCount + 1);
+                } else {
+                    Utils.showToast(getApplicationContext(), "Network error");
+                    Utils.hideItems(progressBar);
+                    Utils.enableItems(viewSetSv);
+
+                }
             }
         });
+    }
+
+    private void getLearningSetData() {
+        getLearningSetData3Queries(0);
     }
 }
