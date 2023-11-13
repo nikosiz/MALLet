@@ -11,6 +11,7 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -67,19 +68,12 @@ public class ActivityViewGroup extends AppCompatActivity {
     private UserServiceImpl userService;
     private SetServiceImpl setService;
     private ActivityViewGroupBinding binding;
-    // Toolbar
     private ImageView backIv;
     private TextView groupNameTv;
     private ImageView optionsIv;
 
-    // Contents
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
-    private TextView usernameTv;
-    private TextView setNameTv, setNrOfTermsTv, creatorNameTv;
-
-
-    // Floating Action Button & its options
     private ExtendedFloatingActionButton addEfab;
     private TextView addSetTv;
     private TextView addUserTv;
@@ -112,6 +106,7 @@ public class ActivityViewGroup extends AppCompatActivity {
         this.userService = new UserServiceImpl(credential);
         this.groupService = new GroupServiceImpl(credential);
 
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
@@ -120,7 +115,6 @@ public class ActivityViewGroup extends AppCompatActivity {
             }
         };
 
-        // Register the callback with the onBackPressedDispatcher
         this.getOnBackPressedDispatcher().addCallback(this, callback);
 
         groupId = getIntent().getLongExtra("groupId", 0L);

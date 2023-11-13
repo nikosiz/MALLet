@@ -4,7 +4,8 @@
             app:boxStrokeColor="@drawable/text_input_layout"
             app:boxStrokeWidth="2dp">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputEditText android:inputType="text"
+            android:maxLines="1"
                 android:id="@+id/written_answerEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

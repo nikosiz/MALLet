@@ -21,7 +21,6 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
-import com.example.mallet.databinding.DialogChangeEmailBinding;
 import com.example.mallet.databinding.DialogDeleteAccountBinding;
 import com.example.mallet.databinding.FragmentProfileBinding;
 import com.example.mallet.utils.Utils;
@@ -132,41 +131,6 @@ public class FragmentProfile extends Fragment {
         editor.putInt("selectedTheme", selectedTheme);
 
         editor.apply();
-    }
-
-    private void changeEmailDialog() {
-        Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_change_email, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
-        DialogChangeEmailBinding dialogBinding = DialogChangeEmailBinding.inflate(LayoutInflater.from(requireContext()));
-        dialog.setContentView(dialogBinding.getRoot());
-        dialog.show();
-
-        TextInputEditText newEmailEt = dialogBinding.changeEmailEt;
-        TextView emailErrTv = dialogBinding.changeEmailErrorTv;
-        Utils.setupEmailTextWatcher(newEmailEt, emailErrTv);
-
-        TextView cancelTv = dialogBinding.changeEmailCancelTv;
-        TextView confirmTv = dialogBinding.changeEmailConfirmTv;
-
-        cancelTv.setOnClickListener(v -> {
-            Utils.resetEditText(newEmailEt, emailErrTv);
-            dialog.dismiss();
-        });
-
-        confirmTv.setOnClickListener(v -> {
-            String newEmail = Objects.requireNonNull(newEmailEt.getText()).toString();
-
-            if (!newEmail.isEmpty()) {
-                if (!Utils.isErrVisible(emailErrTv)) {
-                    // TODO: Implement email change
-                    dialog.dismiss();
-                    System.out.println(newEmail);
-                    Utils.showToast(getContext(), "Email changed");
-                }
-            } else {
-                Utils.showItems(emailErrTv);
-                emailErrTv.setText(R.string.field_cannot_be_empty);
-            }
-        });
     }
 
     private boolean isLogged;

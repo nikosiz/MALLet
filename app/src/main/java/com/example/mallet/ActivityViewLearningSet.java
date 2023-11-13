@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -18,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -80,6 +82,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding = ActivityViewLearningSetBinding.inflate(getLayoutInflater());
 
         this.setId = getIntent().getLongExtra("setId", 0L);
 
@@ -99,10 +102,20 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
         this.groupService = new GroupServiceImpl(credential);
 
-        binding = ActivityViewLearningSetBinding.inflate(getLayoutInflater());
 
         setupContents();
         setContentView(binding.getRoot());
+
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                finish();
+            }
+        };
+
+        this.getOnBackPressedDispatcher().addCallback(this, callback);
     }
 
     private void setupContents() {

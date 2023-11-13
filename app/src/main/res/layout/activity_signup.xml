@@ -82,6 +82,7 @@
                     android:autofillHints="emailAddress"
                     android:hint="@string/email_address"
                     android:inputType="textEmailAddress"
+                    android:maxLines="1"
                     android:textColorHint="@color/downriver_blue_300"
                     android:textSize="15sp" />
 
@@ -119,6 +120,7 @@
                     android:autofillHints="password"
                     android:hint="@string/password"
                     android:inputType="textPassword"
+                    android:maxLines="1"
                     android:textColorHint="@color/downriver_blue_300"
                     android:textSize="15sp" />
 

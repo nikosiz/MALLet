@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -80,15 +81,15 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         binding = ActivityEditLearningSetBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Create an OnBackPressedCallback
-        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
                 confirmExitDialog();
             }
         };
 
-        // Register the callback with the onBackPressedDispatcher
         this.getOnBackPressedDispatcher().addCallback(this, callback);
 
         setupContents();

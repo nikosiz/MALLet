@@ -32,10 +32,10 @@
             android:layout_height="wrap_content"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
+            android:contentDescription="delete term iv"
             android:focusable="true"
             android:src="@drawable/ic_check_x"
-            app:tint="@color/colorPrimaryDark"
-            android:contentDescription="delete term iv" />
+            app:tint="@color/colorPrimaryDark" />
     </LinearLayout>
 
     <View
@@ -62,6 +62,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Term"
+            android:inputType="text"
+            android:maxLines="1"
             android:textColorHint="@color/downriver_blue_300"
             android:textSize="15sp" />
 
@@ -170,6 +172,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Definition (optional)"
+            android:inputType="text"
+            android:maxLines="1"
             android:textColorHint="@color/downriver_blue_300"
             android:textSize="15sp" />
 
@@ -283,6 +287,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Translation"
+            android:inputType="text"
+            android:maxLines="1"
             android:textColorHint="@color/downriver_blue_300"
             android:textSize="15sp" />
 

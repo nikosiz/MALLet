@@ -33,7 +33,7 @@
             android:focusable="true"
             android:src="@drawable/ic_arrow_back"
             app:tint="@color/colorPrimaryDark"
-            tools:ignore="TouchTargetSizeCheck"/>
+            tools:ignore="TouchTargetSizeCheck" />
 
         <TextView
             android:id="@+id/createGroup_toolbarTitleTv"
@@ -142,7 +142,7 @@
                     android:id="@+id/createGroup_membersLl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"/>
+                    android:orientation="vertical" />
             </LinearLayout>
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>

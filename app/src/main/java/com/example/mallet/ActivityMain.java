@@ -47,7 +47,6 @@ public class ActivityMain extends AppCompatActivity {
             }
         };
 
-        // Register the callback with the onBackPressedDispatcher
         this.getOnBackPressedDispatcher().addCallback(this, callback);
 
         initializeSelectedFragment(savedInstanceState);

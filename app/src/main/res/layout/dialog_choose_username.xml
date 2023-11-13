@@ -53,7 +53,8 @@
         app:boxStrokeWidth="2dp"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText android:inputType="text"
+            android:maxLines="1"
             android:id="@+id/chooseUsernameEt"
             style="@style/BasicTextStyle"
             android:layout_width="match_parent"
