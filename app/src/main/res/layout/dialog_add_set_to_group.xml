@@ -22,7 +22,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/russo_one_regular"
             android:text="@string/add_sets"
-            android:textColor="@color/primaryTextColor"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="30sp" />
 
         <ImageView

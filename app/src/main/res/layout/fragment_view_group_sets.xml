@@ -50,7 +50,7 @@
                         android:layout_height="wrap_content"
 
                         android:text="There are no sets in this group"
-                        android:textColor="@color/primaryTextColor"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="20sp" />
 
                     <View

@@ -1,19 +1,86 @@
-<?xml version="1.0" encoding="utf-8"?><LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"    xmlns:app="http://schemas.android.com/apk/res-auto"    xmlns:tools="http://schemas.android.com/tools"    android:id="@+id/opening_parentLl"    android:layout_width="match_parent"    android:layout_height="match_parent"    android:background="@drawable/splash_bg"    android:orientation="vertical"    tools:context=".ActivityOpening">    <TextView        android:id="@+id/opening_logoTv"        android:layout_width="match_parent"        android:layout_height="0dp"        android:layout_weight="1"        android:animation="@anim/pulse_anim"        android:autoSizeMaxTextSize="300sp"        android:autoSizeMinTextSize="2sp"        android:autoSizeStepGranularity="2sp"        android:autoSizeTextType="uniform"        android:fontFamily="@font/russo_one_regular"        android:gravity="center"        android:text="@string/app_logo"        android:textColor="@color/colorLight" />    <LinearLayout        android:id="@+id/openingLl"        android:layout_width="match_parent"        android:layout_height="wrap_content"        android:layout_margin="20dp"        android:background="@drawable/bg_corners_rounded"        android:orientation="vertical"        android:paddingHorizontal="20dp"        android:paddingVertical="30dp">        <TextView            android:id="@+id/opening_titleTv"            android:layout_width="match_parent"            android:layout_height="wrap_content"            android:fontFamily="@font/russo_one_regular"            android:gravity="center"            android:singleLine="true"            android:text="@string/welcome"            android:textColor="@color/colorPrimaryDark"            android:textSize="29sp" />        <View            android:layout_width="match_parent"            android:layout_height="20dp" />        <LinearLayout            android:id="@+id/opening_chooseLl"            android:layout_width="match_parent"            android:layout_height="wrap_content"            android:orientation="vertical">            <Button                android:id="@+id/opening_signup_btn"                style="@style/BasicButtonStyle"                android:layout_width="match_parent"                android:layout_height="wrap_content"                android:padding="10dp"                android:text="@string/sign_up"
-                android:textSize="20sp"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/opening_parentLl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash_bg"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".ActivityOpening">
+
+    <TextView
+        android:id="@+id/opening_logoTv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:animation="@anim/pulse_anim"
+        android:autoSizeMaxTextSize="300sp"
+        android:autoSizeMinTextSize="2sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="@font/russo_one_regular"
+        android:gravity="center"
+        android:text="@string/app_logo"
+        android:textColor="@color/colorLight" />
+
+    <LinearLayout
+        android:id="@+id/openingLl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/bg_corners_rounded"
+        android:orientation="vertical"
+        android:paddingHorizontal="25dp"
+        android:paddingVertical="45dp">
+
+        <TextView
+            android:id="@+id/opening_titleTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/russo_one_regular"
+            android:gravity="center"
+            android:text="@string/welcome"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="45sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+
+        <LinearLayout
+            android:id="@+id/opening_chooseLl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/opening_login_btn"
+                style="@style/BasicButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:fontFamily="@font/russo_one_regular"
+                android:padding="10dp"
+                android:text="@string/login"
+                android:textSize="30sp"
                 app:backgroundTint="@null" />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="10dp" />
+                android:layout_height="20dp" />
 
             <Button
-                android:id="@+id/opening_login_btn"
+                android:id="@+id/opening_signup_btn"
                 style="@style/SocialButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:fontFamily="@font/russo_one_regular"
                 android:padding="10dp"
-                android:text="@string/login"
-                android:textSize="20sp"
+                android:text="@string/sign_up"
+                android:textSize="30sp"
                 app:backgroundTint="@null" />
 
             <View

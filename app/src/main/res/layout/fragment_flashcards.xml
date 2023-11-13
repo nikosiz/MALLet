@@ -104,7 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginHorizontal="10dp"
-            android:background="@drawable/bg_social_btn"
+            android:background="@drawable/bg_white_primary_stroke"
             android:clickable="true"
             android:contentDescription="@string/undo_swipe"
             android:focusable="true"

@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/russo_one_regular"
         android:text="@string/add_users"
-        android:textColor="@color/primaryTextColor"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="30sp" />
 
     <View

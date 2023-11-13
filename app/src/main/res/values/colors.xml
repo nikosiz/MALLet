@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="black">#000000</color>
+    <color name="colorDark">#000000</color>
     <color name="colorLight">#FFFFFF</color>
 
     <!-- Light theme values -->
@@ -9,7 +9,6 @@
     <color name="colorPrimaryLight1">@color/danube_blue_100</color>
     <color name="colorPrimaryLight2">@color/danube_blue_200</color>
     <color name="colorPrimaryLight3">@color/danube_blue_300</color>
-    <color name="colorPrimaryLight4">@color/danube_blue_400</color>
     <color name="colorPrimary">@color/danube_blue_500</color>
     <color name="colorPrimaryDark">@color/danube_blue_900</color>
 
