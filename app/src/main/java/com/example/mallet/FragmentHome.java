@@ -31,7 +31,6 @@ import com.example.mallet.utils.ModelGroup;
 import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.Utils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Executors;
@@ -214,6 +213,7 @@ public class FragmentHome extends Fragment {
 
             intent.putExtra("groupId", v.getId());
             intent.putExtra("groupName", v.getGroupName());
+            intent.putExtra("isUserSet", true);
 
             if (context != null) {
                 context.startActivity(intent);
