@@ -33,6 +33,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ActivitySignup extends AppCompatActivity {
+    private TextInputEditText dialogUsernameEt;
+    private TextView dialogErrTv;
     private ActivitySignupBinding binding;
     private TextInputEditText emailEt, passwordEt;
     private String email, password, username;
@@ -41,6 +43,7 @@ public class ActivitySignup extends AppCompatActivity {
     private UserServiceImpl userService;
     private Context context;
     private ProgressBar progressBar;
+    private TextView signupContinueTv, signupLoginHereTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +68,6 @@ public class ActivitySignup extends AppCompatActivity {
 
         setupContents();
     }
-
-    private TextView signupContinueTv, signupLoginHereTv;
 
     private void setupContents() {
         progressBar = binding.signupProgressBar;
@@ -99,11 +100,8 @@ public class ActivitySignup extends AppCompatActivity {
         Utils.setupAnimation(this, logo);
     }
 
-    TextInputEditText dialogUsernameEt;
-    TextView dialogErrTv;
-
     private void chooseUsernameDialog() {
-        Dialog dialog = Utils.createDialog(this, R.layout.dialog_forgot_password, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
+        Dialog dialog = Utils.createDialog(this, R.layout.dialog_choose_username, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogChooseUsernameBinding dialogBinding = DialogChooseUsernameBinding.inflate(getLayoutInflater());
         dialog.setContentView(dialogBinding.getRoot());
         dialog.show();
@@ -205,10 +203,9 @@ public class ActivitySignup extends AppCompatActivity {
         dialog.setContentView(dialogBinding.getRoot());
         dialog.show();
 
-        TextView cancel = dialogBinding.confirmAccountCancelTv;
-        TextView confirm = dialogBinding.confirmAccountOpenTv;
+        TextView cancelTv = dialogBinding.confirmAccountCancelTv;
 
-        cancel.setOnClickListener(v -> {
+        cancelTv.setOnClickListener(v -> {
             Utils.resetEditText(emailEt, emailErrTv);
             Utils.resetEditText(passwordEt, passwordErrTv);
             dialog.dismiss();
@@ -216,10 +213,6 @@ public class ActivitySignup extends AppCompatActivity {
             Utils.hideItems(emailErrTv, passwordErrTv);
         });
 
-        confirm.setOnClickListener(v -> {
-            dialog.dismiss();
-            Utils.openEmailClient(this);
-        });
     }
 
     private void loginActivity() {

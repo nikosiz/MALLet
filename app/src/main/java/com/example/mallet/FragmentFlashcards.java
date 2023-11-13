@@ -51,7 +51,7 @@ public class FragmentFlashcards extends Fragment {
     private List<ModelFlashcard> originalFlashcards;
     private TextView flashcardsLeftTv;
     private int flashcardsLeft;
-
+    private ModelLearningSet learningSet;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -86,8 +86,6 @@ public class FragmentFlashcards extends Fragment {
         swipeRightIv = binding.flashcardsSwipeRightIv;
         swipeRightIv.setOnClickListener(v -> performSwipe(Direction.Right));
     }
-
-    private ModelLearningSet learningSet;
 
     private List<ModelFlashcard> getLearningSetData() {
         Bundle args = getArguments();

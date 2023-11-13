@@ -4,10 +4,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,7 +21,6 @@ import com.example.mallet.utils.ModelTrueFalse;
 import com.example.mallet.utils.ModelWritten;
 import com.example.mallet.utils.QuestionType;
 import com.example.mallet.utils.Utils;
-import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,34 +33,13 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class ActivityLearn extends AppCompatActivity {
+    List<List<String>> flashcardTable;
     private ActivityLearnBinding binding;
     private String fragmentName;
     private ModelLearningSet learningSet;
     private List<ModelFlashcard> flashcardList;
     private Random random;
-    private final int currentQuestionIndex = 0;
-
-
-    // Written questions
-    private View writtenQuestionView;
-    private TextView writtenQuestionTv;
-    private TextInputEditText writtenAnswerEt;
-    private String writtenAnswer;
-    private List<ModelWritten> writtenQuestions;
     private int writtenCorrectAnswerPosition, writtenAlternativeAnswerPosition;
-    private TextView correctAnswersTv;
-
-    // Multiple choice questions
-    private View multipleChoiceQuestionView;
-    private TextView multipleChoiceQuestionTv;
-    private String multipleChoiceAnswer;
-    private Button option1Btn, option2Btn, option3Btn, option4Btn;
-    private List<ModelMultipleChoice> multipleChoiceQuestions;
-    private int multipleChoiceCorrectAnswerPosition;
-    private int multipleChoiceOption1Position;
-    private int multipleChoiceOption2Position;
-    private int multipleChoiceOption3Position;
-    private int multipleChoiceOption4Position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +56,6 @@ public class ActivityLearn extends AppCompatActivity {
 
         // Register the callback with the onBackPressedDispatcher
         this.getOnBackPressedDispatcher().addCallback(this, callback);
-
 
         this.random = new Random();
         setupContents();
@@ -115,27 +89,21 @@ public class ActivityLearn extends AppCompatActivity {
         }
     }
 
-    private int trueFalseCorrectAnswerPosition;
-
     public List<ModelWritten> generateWrittenQuestions() {
         List<ModelWritten> questionList = new ArrayList<>();
         Random random = new Random();
 
-        // Shuffle the flashcardList to randomize the order of elements
         List<ModelFlashcard> shuffledFlashcardList = new ArrayList<>(flashcardList);
         Collections.shuffle(shuffledFlashcardList);
 
         int MAX_QUESTIONS = Math.min(20, shuffledFlashcardList.size());
         int questionCount = 0; // Initialize the question count
 
-        // Iterate through the shuffled flashcardList
         for (ModelFlashcard flashcard : shuffledFlashcardList) {
-            // Check if the maximum number of questions (20) has been generated
             if (questionCount >= MAX_QUESTIONS) {
                 break;
             }
 
-            // Randomly select the position for the written question
             int writtenQuestionPosition = random.nextInt(2);
 
             List<String> options = new ArrayList<>();
@@ -207,11 +175,10 @@ public class ActivityLearn extends AppCompatActivity {
 
             ModelTrueFalse trueFalse = new ModelTrueFalse(question, answer, isAnswerCorrect);
 
-            // Display the generated true/false statement in the console
             System.out.println("Question: " + question);
             System.out.println("Displayed Answer: " + answer);
             System.out.println("Is Answer Correct? " + isAnswerCorrect);
-            System.out.println(); // Add a newline for better readability
+            System.out.println();
 
             trueFalseList.add(trueFalse);
 
@@ -222,7 +189,6 @@ public class ActivityLearn extends AppCompatActivity {
     }
 
     private String getRandomType() {
-        // Add or remove types as needed
         List<String> types = Arrays.asList("term", "definition", "translation");
         Random random = new Random();
         return types.get(random.nextInt(types.size()));
@@ -241,7 +207,6 @@ public class ActivityLearn extends AppCompatActivity {
             case "translation":
                 content = flashcard.get(2);
                 break;
-            // Add more cases if needed for additional content types
         }
 
         return content;
@@ -253,7 +218,6 @@ public class ActivityLearn extends AppCompatActivity {
         return Math.max(0, Math.min(totalRows - 1, neighborRow));
     }
 
-    // Assuming getLearningSetData() returns a List<ModelFlashcard>
     private List<List<String>> getLearningSetDataAsList() {
         flashcardTable = new ArrayList<>();
 
@@ -268,8 +232,6 @@ public class ActivityLearn extends AppCompatActivity {
 
         return flashcardTable;
     }
-
-    List<List<String>> flashcardTable;
 
     public List<ModelMultipleChoice> generateMultipleChoiceQuestions() {
         int MAX_QUESTIONS = Math.min(20, flashcardList.size());

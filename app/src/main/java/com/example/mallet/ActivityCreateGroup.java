@@ -49,23 +49,17 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ActivityCreateGroup extends AppCompatActivity {
+    private static final int MAX_RETRY_ATTEMPTS = 3;
     private final List<ModelUser> allUsernames = new ArrayList<>();
     private final List<ModelUser> selectedUsers = new ArrayList<>();
     private ActivityCreateGroupBinding binding;
     private GroupServiceImpl groupService;
-    // createGroupCl
     private TextInputEditText groupNameEt;
     private TextView groupNameErrTv;
     private LinearLayout groupMembersLl;
-    private ExtendedFloatingActionButton addUsersEfab;
-    private View groupMemberView;
-    private CheckBox memberCb;
-    // addMemberToGroupDialog
     private TextInputEditText searchUsersEt;
     private ListView userListLv;
-    private ArrayAdapter userListAdapter; // chosen users
-    private View selecteUserItemView;
-    private CheckBox selectedUserCb;
+    private ArrayAdapter userListAdapter;
     private UserServiceImpl userService;
     private ImageView toolbarSaveIv;
 
@@ -83,9 +77,7 @@ public class ActivityCreateGroup extends AppCompatActivity {
             }
         };
 
-        // Register the callback with the onBackPressedDispatcher
         this.getOnBackPressedDispatcher().addCallback(this, callback);
-
 
         String credential = AuthenticationUtils.get(getApplicationContext());
         this.userService = new UserServiceImpl(credential);
@@ -101,12 +93,12 @@ public class ActivityCreateGroup extends AppCompatActivity {
         groupNameErrTv = binding.createGroupErrorTv;
 
         groupMembersLl = binding.createGroupMembersLl;
-        groupMemberView = getLayoutInflater().inflate(R.layout.model_add_member_to_group, groupMembersLl, false);
+        View groupMemberView = getLayoutInflater().inflate(R.layout.model_add_member_to_group, groupMembersLl, false);
 
-        addUsersEfab = binding.createGroupAddUsersEfab;
+        ExtendedFloatingActionButton addUsersEfab = binding.createGroupAddUsersEfab;
         addUsersEfab.setOnClickListener(v -> addUsersDialog());
 
-        memberCb = groupMemberView.findViewById(R.id.addMemberToGroupCb);
+        CheckBox memberCb = groupMemberView.findViewById(R.id.addMemberToGroupCb);
     }
 
     private void setupToolbar() {
@@ -140,7 +132,6 @@ public class ActivityCreateGroup extends AppCompatActivity {
 
         Editable text = groupNameEt.getText();
         if (text != null && (Objects.isNull(text) || text.toString().isEmpty())) {
-            Utils.showToast(getApplicationContext(), "Group name cannot be empty");
             Utils.showItems(groupNameErrTv);
             groupNameErrTv.setText(R.string.field_cannot_be_empty);
             return;
@@ -174,13 +165,9 @@ public class ActivityCreateGroup extends AppCompatActivity {
                     Utils.enableItems(toolbarSaveIv);
                     Utils.showToast(getApplicationContext(), "Network error");
                 }
-
-
             }
         });
     }
-
-    private static final int MAX_RETRY_ATTEMPTS = 3;
 
     private void handleGroupCreation() {
         handleGroupCreation3Queries(0);
@@ -214,7 +201,7 @@ public class ActivityCreateGroup extends AppCompatActivity {
         linearLayout.removeAllViews();
 
         for (ModelUser selectedUser : selectedUsernames) {
-            selecteUserItemView = inflater.inflate(R.layout.model_add_member_to_group, null);
+            View selecteUserItemView = inflater.inflate(R.layout.model_add_member_to_group, null);
 
             LinearLayout userLayout = selecteUserItemView.findViewById(R.id.modelAddMemberToGroup_mainLl);
 

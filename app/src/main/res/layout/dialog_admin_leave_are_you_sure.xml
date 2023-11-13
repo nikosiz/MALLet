@@ -4,8 +4,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_top_corners_rounded"
     android:orientation="vertical"
-    android:paddingHorizontal="20dp"
-    android:paddingVertical="30dp">
+    android:padding="30dp">
 
     <TextView
         android:id="@+id/adminLeave_titleTv"
@@ -15,7 +14,7 @@
         android:fontFamily="@font/russo_one_regular"
         android:text="Are you sure?"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="23sp" />
+        android:textSize="30sp" />
 
     <View
         android:layout_width="match_parent"
@@ -26,20 +25,7 @@
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="As you are the admin, with you gone, whole group will be deleted"
-        android:textColor="@color/colorPrimary"
-        android:textSize="20sp" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp" />
-
-    <TextView
-        android:id="@+id/adminLeave_subtitle2Tv"
-        style="@style/BasicTextStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="If you are sure, feel free to continue"
+        android:text="As you are the admin, with you gone, whole group will be deleted\n\nIf you are sure, feel free to continue"
         android:textColor="@color/colorPrimary"
         android:textSize="20sp" />
 
@@ -76,7 +62,7 @@
             android:clickable="true"
             android:focusable="true"
             android:padding="10dp"
-            android:text="Leave and delete group"
+            android:text="Leave"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
     </LinearLayout>

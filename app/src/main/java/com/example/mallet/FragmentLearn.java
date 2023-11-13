@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,49 +20,25 @@ import androidx.fragment.app.Fragment;
 import com.example.mallet.databinding.DialogLearnFinishedBinding;
 import com.example.mallet.databinding.DialogLearnOptionsBinding;
 import com.example.mallet.databinding.FragmentLearnBinding;
-import com.example.mallet.utils.ModelFlashcard;
-import com.example.mallet.utils.ModelLearningSet;
-import com.example.mallet.utils.ModelMultipleChoice;
 import com.example.mallet.utils.ModelWritten;
 import com.example.mallet.utils.Utils;
-import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class FragmentLearn extends Fragment {
+    private static final String PREFS_NAME = "FragmentLearnSettings";
+    private static final int MAX_QUESTIONS = 20;
     private ActivityLearn activityLearn;
     private FragmentLearnBinding binding;
-    private List<ModelFlashcard> flashcards;
-    private static final String PREFS_NAME = "FragmentLearnSettings";
-    private static final String KEY_MULTIPLE_CHOICE = "multipleChoice";
-    private static final String KEY_WRITTEN = "written";
-    private static final int MAX_QUESTIONS = 20;
-    private int WRITTEN_QUESTIONS, MULTIPLE_CHOICE_QUESTIONS;
-    private MaterialSwitch multipleChoiceMs;
-    private MaterialSwitch writtenMs;
-    private int checkedSwitches;
     private LinearLayout questionsLl, answersLl;
     private View writtenQuestionView;
     private TextView writtenQuestionTv;
     private TextInputEditText writtenAnswerEt;
     private String writtenAnswer;
     private List<ModelWritten> writtenQuestions;
-    private int writtenCorrectAnswerPosition, writtenAlternativeAnswerPosition;
-    private TextView correctAnswersTv;
-    private View multipleChoiceQuestionView;
-    private TextView multipleChoiceQuestionTv;
-    private String multipleChoiceAnswer;
-    private Button option1Btn, option2Btn, option3Btn, option4Btn;
-    private List<ModelMultipleChoice> multipleChoiceQuestions;
-    private int multipleChoiceCorrectAnswerPosition;
-    private int multipleChoiceOption1Position;
-    private int multipleChoiceOption2Position;
-    private int multipleChoiceOption3Position;
-    private int multipleChoiceOption4Position;
-    private TextView nextTv, prevTv, finishTv, errorTv;
+    private TextView nextTv, finishTv, errorTv;
     private int currentQuestionIndex = 0;
 
     @Override
@@ -87,7 +62,7 @@ public class FragmentLearn extends Fragment {
         binding = FragmentLearnBinding.inflate(inflater, container, false);
 
         writtenQuestionView = inflater.inflate(R.layout.model_written, container, false);
-        multipleChoiceQuestionView = inflater.inflate(R.layout.model_multiple_choice, container, false);
+        View multipleChoiceQuestionView = inflater.inflate(R.layout.model_multiple_choice, container, false);
 
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
@@ -205,7 +180,7 @@ public class FragmentLearn extends Fragment {
             writtenQuestionTv = writtenQuestionItem.findViewById(R.id.written_questionTv);
             writtenQuestionTv.setText(writtenQuestion.getQuestion());
 
-            correctAnswersTv = writtenQuestionItem.findViewById(R.id.written_correctAnswersTv);
+            TextView correctAnswersTv = writtenQuestionItem.findViewById(R.id.written_correctAnswersTv);
             correctAnswersTv.setText("\"" + writtenQuestion.getCorrectAnswer() + "\" or \"" + writtenQuestion.getAlternativeAnswer() + "\"");
 
             writtenAnswerEt = writtenQuestionItem.findViewById(R.id.written_answerEt);

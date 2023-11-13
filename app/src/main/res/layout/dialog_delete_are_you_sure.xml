@@ -15,7 +15,7 @@
         android:fontFamily="@font/russo_one_regular"
         android:text="Are you sure?"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="23sp" />
+        android:textSize="30sp" />
 
     <View
         android:layout_width="match_parent"

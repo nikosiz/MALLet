@@ -7,8 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_top_corners_rounded"
     android:orientation="vertical"
-    android:paddingHorizontal="20dp"
-    android:paddingVertical="30dp">
+    android:padding="30dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,13 +23,13 @@
             android:fontFamily="@font/russo_one_regular"
             android:text="@string/add_sets"
             android:textColor="@color/primaryTextColor"
-            android:textSize="25sp" />
+            android:textSize="30sp" />
 
         <ImageView
             android:id="@+id/addSetToGroup_createNewIv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
             android:contentDescription="create new set in this group"

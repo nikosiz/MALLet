@@ -3,7 +3,6 @@ package com.example.mallet;
 import static com.example.mallet.MALLet.MAX_RETRY_ATTEMPTS;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,9 +10,7 @@ import android.os.Looper;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -47,7 +44,6 @@ import com.example.mallet.databinding.DialogAdminLeaveAreYouSureBinding;
 import com.example.mallet.databinding.DialogDeleteAreYouSureBinding;
 import com.example.mallet.databinding.DialogViewGroupToolbarOptionsBinding;
 import com.example.mallet.utils.AuthenticationUtils;
-import com.example.mallet.utils.ModelGroup;
 import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.ModelUser;
 import com.example.mallet.utils.ModelUserMapper;
@@ -89,7 +85,7 @@ public class ActivityViewGroup extends AppCompatActivity {
     private TextView addUserTv;
     private static boolean areFabOptionsVisible = false;
     private LinearLayout fabOptionsLl;
-    private Long groupId;
+    public static Long groupId;
     private String groupName;
     private GroupServiceImpl groupService;
     private FragmentViewGroup_Sets setFragment;
@@ -104,13 +100,14 @@ public class ActivityViewGroup extends AppCompatActivity {
 
     private GroupDTO chosenGroup;
     private ImageView saveGroupIv;
+    public static String credential;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // todo get groupId and fetch resources if parameter is passed
         super.onCreate(savedInstanceState);
 
-        String credential = AuthenticationUtils.get(getApplicationContext());
+        credential = AuthenticationUtils.get(getApplicationContext());
         this.setService = new SetServiceImpl(credential);
         this.userService = new UserServiceImpl(credential);
         this.groupService = new GroupServiceImpl(credential);
@@ -126,9 +123,8 @@ public class ActivityViewGroup extends AppCompatActivity {
         // Register the callback with the onBackPressedDispatcher
         this.getOnBackPressedDispatcher().addCallback(this, callback);
 
-        this.groupId = getIntent().getLongExtra("groupId", 0L);
+        groupId = getIntent().getLongExtra("groupId", 0L);
         this.groupName = getIntent().getStringExtra("groupName");
-
 
         binding = ActivityViewGroupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -199,7 +195,7 @@ public class ActivityViewGroup extends AppCompatActivity {
             }
         });
 
-        toolbarOptionsDeleteTv.setOnClickListener(v -> confirmGroupDeletion(this.groupId));
+        toolbarOptionsDeleteTv.setOnClickListener(v -> confirmGroupDeletion(groupId));
 
         toolbarOptionsCancelTv.setOnClickListener(v -> dialog.dismiss());
     }
@@ -309,6 +305,11 @@ public class ActivityViewGroup extends AppCompatActivity {
     }
 
     private void addSetsDialog() {
+        addSetsDialog3Queries(0);
+    }
+
+
+    private void addSetsDialog3Queries(int attemptCount) {
         Dialog dialog = Utils.createDialog(this, R.layout.dialog_add_set_to_group, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogAddSetToGroupBinding dialogBinding = DialogAddSetToGroupBinding.inflate(LayoutInflater.from(this));
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
@@ -323,25 +324,27 @@ public class ActivityViewGroup extends AppCompatActivity {
         setListLv = dialogBinding.addSetToGroupListLv;
         setListAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, allSets);
         setListLv.setAdapter(setListAdapter);
-        setListLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ModelLearningSet clickedSet = allSets.get(position);
-                groupService.addSet(groupId, clickedSet.getId(), new Callback<Void>() {
-                    @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
+        setListLv.setOnItemClickListener((parent, view, position, id) -> {
+            ModelLearningSet clickedSet = allSets.get(position);
+            groupService.addSet(groupId, clickedSet.getId(), new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    getGroupData();
+                    //dialog.dismiss();
+                    Utils.showToast(getApplicationContext(), "Set added");
+                }
 
-                        dialog.dismiss();
-                        Utils.showToast(getApplicationContext(), "Set added");
-                    }
-
-                    @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    if (attemptCount < MAX_RETRY_ATTEMPTS) {
+                        System.out.println(attemptCount);
+                        // Retry the operation
+                        addSetsDialog3Queries(attemptCount + 1);
+                    } else {
                         Utils.showToast(getApplicationContext(), "Network error");
-
                     }
-                });
-            }
+                }
+            });
         });
 
         TextInputEditText searchUsersEt = dialogBinding.addSetToGroupSearchEt;
@@ -349,7 +352,7 @@ public class ActivityViewGroup extends AppCompatActivity {
         RxTextView.textChanges(searchUsersEt)
                 .debounce(500, TimeUnit.MILLISECONDS)
                 .subscribe(text -> {
-                    if(text.length() < 2){
+                    if (text.length() < 2) {
                         return;
                     }
                     if (text.length() == 0) {
@@ -359,6 +362,11 @@ public class ActivityViewGroup extends AppCompatActivity {
 
                     fetchSets(text);
                 });
+
+        TextView confirmTv = dialogBinding.addSetToGroupConfirmTv;
+        confirmTv.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
     }
 
     private final boolean isSetNew = true;
@@ -378,7 +386,6 @@ public class ActivityViewGroup extends AppCompatActivity {
 
         this.finish();
     }
-
 
 
     private void handleSetEmptyInput() {
@@ -407,7 +414,7 @@ public class ActivityViewGroup extends AppCompatActivity {
         allSets.clear();
         sets.sets().stream()
                 .map(ModelLearningSetMapper::from)
-                        .forEach(allSets::add);
+                .forEach(allSets::add);
 
         List<ModelLearningSet> existingSets = ModelLearningSetMapper.from(chosenGroup.sets());
         allSets.removeAll(existingSets);
@@ -456,7 +463,7 @@ public class ActivityViewGroup extends AppCompatActivity {
             groupService.updateGroupContribution(groupUpdateContainer, new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
-                    Utils.showToast(getApplicationContext(),"Added");
+                    Utils.showToast(getApplicationContext(), "Added");
                 }
 
                 @Override
@@ -465,21 +472,22 @@ public class ActivityViewGroup extends AppCompatActivity {
                 }
             });
 
-        RxTextView.textChanges(searchUsersEt)
-                .debounce(500, TimeUnit.MILLISECONDS)
-                .subscribe(text -> {
-                    if(text.length() < 2){
-                        return;
-                    }
-                    if (text.length() == 0) {
-                        handleUserEmptyInput();
-                        return;
-                    }
+            RxTextView.textChanges(searchUsersEt)
+                    .debounce(500, TimeUnit.MILLISECONDS)
+                    .subscribe(text -> {
+                        if (text.length() < 2) {
+                            return;
+                        }
+                        if (text.length() == 0) {
+                            handleUserEmptyInput();
+                            return;
+                        }
 
-                    fetchUsers(text);
-                });
+                        fetchUsers(text);
+                    });
 
-    });}
+        });
+    }
 
     private void handleUserEmptyInput() {
         allUsernames.clear();
@@ -535,7 +543,7 @@ public class ActivityViewGroup extends AppCompatActivity {
             }
         });
     }
-Context c;
+
     public void confirmGroupDeletion3Queries(Long id, int attemptCount) {
         Dialog dialog = Utils.createDialog(this, R.layout.dialog_delete_are_you_sure, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogDeleteAreYouSureBinding dialogBinding = DialogDeleteAreYouSureBinding.inflate(LayoutInflater.from(this));

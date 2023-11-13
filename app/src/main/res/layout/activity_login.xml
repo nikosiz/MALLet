@@ -1,8 +1,61 @@
-<?xml version="1.0" encoding="utf-8"?><androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"    xmlns:app="http://schemas.android.com/apk/res-auto"    xmlns:tools="http://schemas.android.com/tools"    android:id="@+id/login_mainLl"    android:layout_width="match_parent"    android:layout_height="match_parent"    android:background="@drawable/splash_bg"    android:orientation="vertical"    tools:context=".ActivityLogin">    <LinearLayout        android:layout_width="match_parent"        android:layout_height="match_parent"        android:orientation="vertical"        app:layout_constraintBottom_toBottomOf="parent"        app:layout_constraintEnd_toEndOf="parent"        app:layout_constraintStart_toStartOf="parent"        app:layout_constraintTop_toTopOf="parent">        <TextView            android:id="@+id/login_logoTv"            style="@style/BasicTextStyle"            android:layout_width="match_parent"            android:layout_height="0dp"            android:layout_gravity="top"            android:layout_weight="1"            android:animation="@anim/pulse_anim"            android:autoSizeMaxTextSize="299sp"            android:autoSizeMinTextSize="1sp"            android:autoSizeStepGranularity="1sp"            android:autoSizeTextType="uniform"            android:fontFamily="@font/russo_one_regular"            android:gravity="center"            android:minHeight="0dp"            android:text="@string/app_logo"            android:textColor="@color/colorLight" />        <LinearLayout            android:id="@+id/loginCvLl"            android:layout_width="match_parent"            android:layout_height="wrap_content"            android:layout_margin="20dp"            android:background="@drawable/bg_corners_rounded"            android:orientation="vertical"            android:paddingHorizontal="20dp"            android:paddingVertical="30dp">            <TextView                android:id="@+id/login_titleTv"                style="@style/BasicBoldTextStyle"                android:layout_width="match_parent"                android:layout_height="0dp"                android:layout_weight="1"                android:fontFamily="@font/russo_one_regular"
-                android:gravity="center_vertical"
-                android:maxLines="1"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_mainLl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash_bg"
+    android:orientation="vertical"
+    tools:context=".ActivityLogin">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/login_logoTv"
+            style="@style/BasicTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="top"
+            android:layout_weight="1"
+            android:animation="@anim/pulse_anim"
+            android:autoSizeMaxTextSize="299sp"
+            android:autoSizeMinTextSize="1sp"
+            android:autoSizeStepGranularity="1sp"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/russo_one_regular"
+            android:gravity="center"
+            android:minHeight="0dp"
+            android:text="@string/app_logo"
+            android:textColor="@color/colorLight" />
+
+        <LinearLayout
+            android:id="@+id/loginCvLl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/bg_corners_rounded"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="30dp">
+
+            <TextView
+                android:id="@+id/login_titleTv"
+                style="@style/BasicBoldTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/russo_one_regular"
+                android:gravity="center"
                 android:paddingHorizontal="5dp"
-                android:text="@string/login"
+                android:text="@string/already_a_member"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="30sp" />
 
@@ -95,26 +148,9 @@
                         android:visibility="gone" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/login_forgotPasswordTv"
-                    style="@style/BasicTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:background="@drawable/bg_ripple"
-                    android:clickable="true"
-                    android:focusable="true"
-
-                    android:padding="5dp"
-                    android:text="@string/forgot_password"
-                    android:textSize="20sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="10dp" />
+                    android:layout_height="60dp" />
 
                 <Button
                     android:id="@+id/loginBtn"
@@ -167,15 +203,15 @@
 
     <ProgressBar
         android:id="@+id/activityLogin_progressBar"
-        android:background="@drawable/bg_circle"
-        android:elevation="3dp"
-        android:padding="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:visibility="gone"
+        android:background="@drawable/bg_circle"
+        android:elevation="3dp"
         android:indeterminateTint="@color/colorPrimaryDark"
+        android:padding="10dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

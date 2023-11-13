@@ -52,11 +52,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     private boolean isSetInGroup;
     private long learningSetId;
     private ProgressBar progressBar;
-
-    // Toolbar
     private ImageView toolbarBackIv, toolbarDeleteIv, toolbarSaveIv;
-
-    // Contents
     private TextInputEditText setNameEt;
     private TextView setNameErrTv;
     private TextView addDescriptionTv;
@@ -66,9 +62,6 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     private ScrollView scrollView;
     private LinearLayout flashcardsLl;
     private FloatingActionButton addFlashcardFab;
-
-
-    // Add flashcard views
     private int termCounter = 0;
     private TextInputEditText flashcardTermEt;
     private TextInputEditText flashcardDefinitionEt;
@@ -76,6 +69,10 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     private Long groupId;
     private String groupName;
     private boolean canUserEditSet, isUserSet;
+    private TextView toolbarTitleTv;
+    private ModelLearningSet newLearningSet;
+    private TextView flashCardCounterTv;
+    private GroupServiceImpl groupService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,9 +169,6 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         });
     }
 
-    private String setName;
-    private TextView toolbarTitleTv;
-
     private void setupToolbar() {
         Toolbar toolbar = binding.editSetToolbar;
         setSupportActionBar(toolbar);
@@ -267,7 +261,6 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         deleteSet3Queries(0);
     }
 
-
     public void saveSet() {
         String enteredSetName = Objects.requireNonNull(setNameEt.getText()).toString();
         String enteredSetDescription = Objects.requireNonNull(setDescriptionEt.getText()).toString();
@@ -297,9 +290,6 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         }
 
     }
-
-    private ModelLearningSet newLearningSet;
-    private TextView flashCardCounterTv;
 
     private void addFlashcard(LinearLayout linearLayout, LayoutInflater inflater, String
             term, String definition, String translation) {
@@ -334,13 +324,11 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         flashCardCounterTv.setText(getString(R.string.term, String.valueOf(termCounter)));
     }
 
-
     private void populateFlashcardsUI() {
         for (ModelFlashcard flashcard : flashcards) {
             addFlashcard(flashcardsLl, getLayoutInflater(), flashcard.getTerm(), flashcard.getDefinition(), flashcard.getTranslation());
         }
     }
-
 
     private void handleSetCreation3Queries(SetCreateContainer newSetContainer, int attemptCount) {
         Utils.disableItems(toolbarBackIv, toolbarDeleteIv, toolbarSaveIv, setNameEt,
@@ -383,9 +371,6 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         int attemptCount = MAX_RETRY_ATTEMPTS;
         handleSetCreation3Queries(newSetContainer, attemptCount);
     }
-
-
-    private GroupServiceImpl groupService;
 
     private void handleSetInGroupCreation3Queries(SetCreateContainer newSetContainer, int attemptCount) {
         Utils.disableItems(toolbarBackIv, toolbarDeleteIv, toolbarSaveIv, setNameEt,

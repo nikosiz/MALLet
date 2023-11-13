@@ -1,1 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?><TextView xmlns:android="http://schemas.android.com/apk/res/android"    android:layout_width="wrap_content"    android:layout_height="wrap_content"    android:ellipsize="end"    android:fontFamily="@font/rem_regular"    android:gravity="center"    android:singleLine="true"    android:textAllCaps="false"    android:textColor="@color/colorPrimary" />
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:ellipsize="end"
+    android:fontFamily="@font/rem_bold"
+    android:gravity="center"
+    android:singleLine="true"
+    android:text="asdf"
+    android:textAllCaps="false"
+    android:textColor="@color/colorPrimaryDark" />

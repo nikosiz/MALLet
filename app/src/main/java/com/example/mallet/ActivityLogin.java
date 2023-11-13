@@ -22,8 +22,6 @@ import com.example.mallet.backend.client.configuration.ResponseHandler;
 import com.example.mallet.backend.client.user.boundary.UserServiceImpl;
 import com.example.mallet.backend.exception.MalletException;
 import com.example.mallet.databinding.ActivityLoginBinding;
-import com.example.mallet.databinding.DialogForgotPasswordBinding;
-import com.example.mallet.databinding.DialogForgotPasswordOpenEmailBinding;
 import com.example.mallet.utils.AuthenticationUtils;
 import com.example.mallet.utils.Utils;
 import com.google.android.material.textfield.TextInputEditText;
@@ -47,6 +45,7 @@ public class ActivityLogin extends AppCompatActivity {
     private Button loginBtn;
     private TextView signupRedirectTv;
     private boolean isLogged;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,9 +91,6 @@ public class ActivityLogin extends AppCompatActivity {
         passwordIncorrect = getString(R.string.password_incorrect);
         Utils.setupPasswordTextWatcher(passwordEt, passwordErrTv);
 
-        forgotPasswordTv = binding.loginForgotPasswordTv;
-        forgotPasswordTv.setOnClickListener(v -> forgotPasswordDialog());
-
         loginBtn = binding.loginBtn;
         loginBtn.setOnClickListener(v -> handleLogin());
 
@@ -106,36 +102,6 @@ public class ActivityLogin extends AppCompatActivity {
         TextView logo = binding.loginLogoTv;
         Utils.setupAnimation(this, logo);
     }
-
-    private void forgotPasswordDialog() {
-        Dialog dialog = Utils.createDialog(this,R.layout.dialog_forgot_password, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
-        DialogForgotPasswordBinding dialogBinding = DialogForgotPasswordBinding.inflate(getLayoutInflater());
-        dialog.setContentView(dialogBinding.getRoot());
-        dialog.show();
-
-        TextInputEditText dialogEmailEt = dialogBinding.forgotPasswordEmailEt;
-        TextView dialogErrTv = dialogBinding.forgotPasswordErrorTv;
-
-        Utils.setupPasswordTextWatcher(dialogEmailEt, dialogErrTv);
-
-        TextView cancel = dialogBinding.forgotPasswordCancelTv;
-        TextView confirm = dialogBinding.forgotPasswordConfirmTv;
-
-        cancel.setOnClickListener(v -> dialog.dismiss());
-        confirm.setOnClickListener(v -> {
-            String email = Objects.requireNonNull(dialogEmailEt.getText()).toString().trim();
-
-            if (!Utils.isErrVisible(dialogErrTv)) {
-                // TODO: Implement sending an email with a password-resetting link
-                Utils.resetEditText(dialogEmailEt, dialogErrTv);
-                dialog.dismiss();
-                Utils.showToast(this, "Email sent");
-                openEmailAppDialog();
-            }
-        });
-    }
-
-    private ProgressBar progressBar;
 
     private void handleLogin3Queries(int attemptCount) {
         String email = Objects.requireNonNull(emailEt.getText()).toString();
@@ -200,19 +166,5 @@ public class ActivityLogin extends AppCompatActivity {
 
     private void signupActivity() {
         Utils.openActivity(this, ActivitySignup.class);
-    }
-
-    private void openEmailAppDialog() {
-        Dialog dialog = Utils.createDialog(this, R.layout.dialog_forgot_password_open_email, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
-        DialogForgotPasswordOpenEmailBinding dialogBinding = DialogForgotPasswordOpenEmailBinding.inflate(getLayoutInflater());
-        dialog.setContentView(dialogBinding.getRoot());
-        dialog.show();
-
-        TextView confirm = dialogBinding.forgotPasswordOpenEmailOpenTv;
-
-        confirm.setOnClickListener(v -> {
-            dialog.dismiss();
-            Utils.openEmailClient(this);
-        });
     }
 }

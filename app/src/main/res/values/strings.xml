@@ -7,6 +7,7 @@
     <string name="choose_next_action">Choose your next action</string>
     <string name="sign_up">Sign up</string>
     <string name="login">Log in</string>
+    <string name="already_a_member">Already a member? \nLog in!</string>
 
     <!-- ActivitySignup -->
 
@@ -121,7 +122,7 @@
     <string name="vocabulary_in_this_set">Vocabulary in this set</string>
     <string name="cd_delete_set">delete set</string>
     <string name="topic">Topic</string>
-    <string name="new_to_mallet_create_account">New to MALLet? Create account</string>
+    <string name="new_to_mallet_create_account">New to MALLet? \nCreate account!</string>
     <string name="err">err</string>
     <string name="str_continue">Continue</string>
     <string name="term">Term #%s</string>
@@ -179,4 +180,5 @@
     <string name="you_are_about_to_take_a_test">You are about to take a test. There are thirty questions of three types:\n\n- Written: Provide clear, concise responses\n- Multiple Choice: Pick the best answer\n- True/False: Decide if statements are true or false\n\nThere is no time limit but do your best.</string>
     <string name="motivational_message">motivational_message</string>
     <string name="congratulations">Congratulations!</string>
+    <string name="please_check_your_email">Please check your email and click on the link we sent you to confirm your registration.</string>
 </resources>

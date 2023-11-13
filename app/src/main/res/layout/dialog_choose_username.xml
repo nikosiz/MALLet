@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_top_corners_rounded"
     android:orientation="vertical"
-    android:paddingHorizontal="20dp"
-    android:paddingVertical="30dp">
+    android:padding="30dp">
 
     <TextView
         android:id="@+id/chooseUsername_titleTv"
@@ -15,10 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/russo_one_regular"
-
         android:text="Choose username"
         android:textColor="@color/primaryTextColor"
-        android:textSize="20sp" />
+        android:textSize="30sp" />
 
     <View
         android:layout_width="match_parent"
@@ -29,7 +27,6 @@
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:text="Choose a username to continue"
         android:textColor="@color/colorPrimary"
         android:textSize="20sp" />

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/testFinished_mainLl"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@drawable/bg_top_corners_rounded"
     android:orientation="vertical"
     android:paddingHorizontal="20dp"
@@ -16,11 +16,11 @@
         android:fontFamily="@font/russo_one_regular"
         android:text="@string/congratulations"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="25sp" />
+        android:textSize="30sp" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="10dp" />
+        android:layout_height="30dp" />
 
     <TextView
         android:id="@+id/testFinished_scoreTimeTv"

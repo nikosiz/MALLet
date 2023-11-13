@@ -127,6 +127,8 @@ public class FragmentTest extends Fragment {
             multipleChoiceQuestions = activityLearn.generateMultipleChoiceQuestions();
             trueFalseQuestions = activityLearn.generateTrueFalseQuestions();
 
+            allQuestions = Math.min(29, writtenQuestions.size() + multipleChoiceQuestions.size() + trueFalseQuestions.size());
+
             displayWrittenQuestion(writtenQuestions, questionsLl, getLayoutInflater());
 
             currentQuestionIndex = 0;
@@ -135,9 +137,11 @@ public class FragmentTest extends Fragment {
         });
     }
 
+    private int allQuestions;
+
     private void nextQuestion() {
-        if (currentQuestionIndex < 29) {
-            if (currentQuestionIndex < 9) {
+        if (currentQuestionIndex < allQuestions) {
+            if (currentQuestionIndex < allQuestions / 3) {
                 writtenAnswer = writtenAnswerEt.getText().toString().toLowerCase().trim();
                 ModelWritten writtenQuestion = writtenQuestions.get(currentQuestionIndex);
                 String writtenCorrectAnswer = writtenQuestion.getCorrectAnswer();
@@ -165,7 +169,6 @@ public class FragmentTest extends Fragment {
                 } else {
                     System.out.println("Points: " + points);
 
-
                     writtenAnswerEt.setText("");
                     currentQuestionIndex++;
                     System.out.println("Question index: " + currentQuestionIndex);
@@ -180,7 +183,7 @@ public class FragmentTest extends Fragment {
                         testFinishedDialog();
                     }
                 }
-            } else if (currentQuestionIndex < 19) {
+            } else if (currentQuestionIndex < 2 * allQuestions / 3) {
 
                 boolean isCorrect = checkMultipleChoiceAnswer(multipleChoiceClickedPosition, correctMultipleChoiceAnswerPosition);
 
@@ -209,7 +212,7 @@ public class FragmentTest extends Fragment {
                         displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
                     }
                 }
-            } else if (currentQuestionIndex < 30) {
+            } else if (currentQuestionIndex < allQuestions + 1) {
                 boolean isTrueFalseCorrect = checkTrueFalseAnswer(trueFalseClicked, trueFalseCorrectAnswer);
 
                 if (isTrueFalseCorrect) {

@@ -14,10 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/russo_one_regular"
-
         android:text="@string/are_you_ready"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="25sp" />
+        android:textSize="30sp" />
 
     <View
         android:layout_width="match_parent"
@@ -34,7 +33,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="10dp" />
+        android:layout_height="30dp" />
 
     <TextView
         android:id="@+id/ready_startTv"

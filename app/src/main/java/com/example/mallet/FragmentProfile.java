@@ -22,8 +22,6 @@ import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
 import com.example.mallet.databinding.DialogChangeEmailBinding;
-import com.example.mallet.databinding.DialogChangePasswordBinding;
-import com.example.mallet.databinding.DialogChangeUsernameBinding;
 import com.example.mallet.databinding.DialogDeleteAccountBinding;
 import com.example.mallet.databinding.FragmentProfileBinding;
 import com.example.mallet.utils.Utils;
@@ -169,97 +167,6 @@ public class FragmentProfile extends Fragment {
                 emailErrTv.setText(R.string.field_cannot_be_empty);
             }
         });
-    }
-
-    private void changeUsernameDialog() {
-        Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_change_username, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
-        DialogChangeUsernameBinding dialogBinding = DialogChangeUsernameBinding.inflate(LayoutInflater.from(requireContext()));
-        dialog.setContentView(dialogBinding.getRoot());
-        dialog.show();
-
-        TextInputEditText newUsernameEt = dialogBinding.changeUsernameNewEt;
-        TextView usernameErrTv = dialogBinding.changeUsernameErrorTv;
-        Utils.setupUniversalTextWatcher(newUsernameEt, usernameErrTv);
-
-        TextView cancelTv = dialogBinding.changeUsernameCancelTv;
-        TextView confirmTv = dialogBinding.changeUsernameConfirmTv;
-
-        cancelTv.setOnClickListener(v -> dialog.dismiss());
-
-        confirmTv.setOnClickListener(v -> {
-            String newUsername = Objects.requireNonNull(newUsernameEt.getText()).toString();
-
-            if (!newUsername.isEmpty()) {
-
-                if (!Utils.isErrVisible(usernameErrTv)) {
-                    // TODO: Implement username change
-                    dialog.dismiss();
-                    System.out.println(newUsername);
-                    Utils.showToast(getContext(), "Username changed");
-                }
-            } else {
-                Utils.showItems(usernameErrTv);
-                usernameErrTv.setText(R.string.field_cannot_be_empty);
-            }
-        });
-    }
-
-    private void changePasswordDialog() {
-        Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_change_password, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
-        DialogChangePasswordBinding dialogBinding = DialogChangePasswordBinding.inflate(LayoutInflater.from(requireContext()));
-        dialog.setContentView(dialogBinding.getRoot());
-        dialog.show();
-
-        TextInputEditText oldPasswordEt = dialogBinding.changePasswordOldEt;
-        TextView oldPasswordErrorTv = dialogBinding.changePasswordOldErrorTv;
-        Utils.setupPasswordTextWatcher(oldPasswordEt, oldPasswordErrorTv);
-
-        TextInputEditText newPasswordEt = dialogBinding.changePasswordNewEt;
-        TextView newPasswordErrorTv = dialogBinding.changePasswordNewErrorTv;
-        Utils.setupPasswordTextWatcher(newPasswordEt, newPasswordErrorTv);
-
-        TextInputEditText confirmNewPasswordEt = dialogBinding.changePasswordConfirmNewEt;
-        TextView confirmNewPasswordErrorTv = dialogBinding.changePasswordConfirmNewErrorTv;
-        Utils.setupConfirmPasswordTextWatcher(newPasswordEt, confirmNewPasswordEt, confirmNewPasswordErrorTv, passwordPattern, passwordIncorrect);
-
-        TextView cancelBtn = dialogBinding.changePasswordCancelTv;
-        TextView confirmBtn = dialogBinding.changePasswordConfirmTv;
-
-        cancelBtn.setOnClickListener(v -> dialog.dismiss());
-
-        confirmBtn.setOnClickListener(v -> {
-            String oldPassword = Objects.requireNonNull(oldPasswordEt.getText()).toString();
-
-            String newPassword = Objects.requireNonNull(newPasswordEt.getText()).toString();
-
-            String confirmNewPassword = Objects.requireNonNull(confirmNewPasswordEt.getText()).toString();
-
-            if (!Utils.isErrVisible(oldPasswordErrorTv) && !Utils.isErrVisible(newPasswordErrorTv) && !Utils.isErrVisible(confirmNewPasswordErrorTv) && newPassword.equals(confirmNewPassword)) {
-                // TODO: Implement password change
-                Utils.resetEditText(oldPasswordEt, oldPasswordErrorTv);
-                Utils.resetEditText(newPasswordEt, newPasswordErrorTv);
-                Utils.resetEditText(confirmNewPasswordEt, confirmNewPasswordErrorTv);
-                dialog.dismiss();
-                System.out.println(oldPassword + "\n" + newPassword + "\n" + confirmNewPassword);
-                Utils.showToast(getContext(), "Password changed");
-            } else {
-                Utils.showItems(confirmNewPasswordErrorTv);
-                confirmNewPasswordErrorTv.setText("Passwords do not match");
-                //Utils.showToast(getContext(), "Error is visible or passwords do not match");
-            }
-        });
-    }
-
-    private void saveSwitchState(String switchKey, boolean isChecked) {
-        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(switchKey, isChecked);
-        editor.apply();
-    }
-
-    private boolean getSwitchState(String switchKey) {
-        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        return sharedPreferences.getBoolean(switchKey, false); // Default value (false) if key not found
     }
 
     private boolean isLogged;

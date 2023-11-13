@@ -14,10 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/russo_one_regular"
-
         android:text="Delete account"
         android:textColor="@color/primaryTextColor"
-        android:textSize="20sp"
+        android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

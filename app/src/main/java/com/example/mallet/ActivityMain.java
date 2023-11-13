@@ -29,8 +29,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import java.util.Objects;
 
 public class ActivityMain extends AppCompatActivity {
-    private ActivityMainBinding binding;
     private static final String SELECTED_FRAGMENT_KEY = "selected_fragment";
+    private ActivityMainBinding binding;
     private BottomNavigationMenuView bottomNavMenu;
     private int selectedFragmentId = R.id.bottom_nav_home;
 

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -12,17 +13,23 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.agh.api.GroupDTO;
+import com.example.mallet.backend.client.group.boundary.GroupServiceImpl;
 import com.example.mallet.backend.entity.set.ModelLearningSetMapper;
 import com.example.mallet.databinding.FragmentViewGroupSetsBinding;
 import com.example.mallet.utils.ModelLearningSet;
+import com.example.mallet.utils.Utils;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FragmentViewGroup_Sets extends Fragment {
     private FragmentViewGroupSetsBinding binding;
     private LinearLayout userLibrarySetsLl;
     private final GroupDTO chosenGroup;
-
+    List<ModelLearningSet> userLibrarySetList;
     public FragmentViewGroup_Sets(GroupDTO chosenGroup) {
         this.chosenGroup = chosenGroup;
     }
@@ -33,11 +40,25 @@ public class FragmentViewGroup_Sets extends Fragment {
 
         setupContents();
 
-        List<ModelLearningSet> userLibrarySetList = getUserLibrarySetList();
+        userLibrarySetList = getUserLibrarySetList();
 
+        groupService = new GroupServiceImpl(ActivityViewGroup.credential);
+
+        displaySet();
+
+        return binding.getRoot();
+    }
+
+    private Long setId;
+
+    private void displaySet() {
         for (ModelLearningSet set : userLibrarySetList) {
-            View setItemView = inflater.inflate(R.layout.model_learning_set, userLibrarySetsLl, false);
+            View setItemView = getLayoutInflater().inflate(R.layout.model_learning_set, userLibrarySetsLl, false);
 
+            ImageView deleteSetIv = setItemView.findViewById(R.id.learningSet_deleteIv);
+            deleteSetIv.setOnClickListener(v -> deleteSetFromGroup());
+
+            setId = set.getId();
             TextView setName = setItemView.findViewById(R.id.learningSet_nameTv);
             TextView nrOfTerms = setItemView.findViewById(R.id.learningSet_nrOfTermsTv);
             TextView creator = setItemView.findViewById(R.id.learningSet_creatorTv);
@@ -50,11 +71,26 @@ public class FragmentViewGroup_Sets extends Fragment {
             setItemView.setOnClickListener(view -> openActivityViewSet(set));
 
         }
+    }
 
-        return binding.getRoot();
+    private GroupServiceImpl groupService;
+
+    private void deleteSetFromGroup() {
+        groupService.removeSet(ActivityViewGroup.groupId, setId, new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Utils.showToast(getActivity(), "deleted");
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
+            }
+        });
     }
 
     private void setupContents() {
+        userLibrarySetList = getUserLibrarySetList();
         userLibrarySetsLl = binding.viewGroupSetsSetListLl;
     }
 
