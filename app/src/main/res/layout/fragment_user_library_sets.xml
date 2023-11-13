@@ -69,7 +69,9 @@
         android:contentDescription="scroll indicator" />
 
     <ProgressBar
-        android:id="@+id/userLibrarySets_progressBar"
+        android:padding="30dp"
+        android:elevation="3dp"
+        android:background="@drawable/bg_corners_rounded" android:id="@+id/userLibrarySets_progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

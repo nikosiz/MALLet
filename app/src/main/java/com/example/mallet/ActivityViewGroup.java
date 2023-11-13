@@ -1,5 +1,7 @@
 package com.example.mallet;
 
+import static com.example.mallet.MALLet.MAX_RETRY_ATTEMPTS;
+
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -155,7 +157,7 @@ public class ActivityViewGroup extends AppCompatActivity {
         backIv.setOnClickListener(v -> finish());
 
         optionsIv = binding.viewGroupToolbarOptionsIv;
-        optionsIv.setOnClickListener(v -> viewGroupOptionsDialog());
+        optionsIv.setOnClickListener(v -> viewGroupToolbarOptionsDialog());
 
         saveGroupIv = binding.viewGroupToolbarSaveGroupIv;
         saveGroupIv.setOnClickListener(v -> saveGroup());
@@ -171,20 +173,23 @@ public class ActivityViewGroup extends AppCompatActivity {
     // TODO - JAK TO SPRAWDZIĆ X D ?
     public static boolean canUserEditSet;
 
-    private void viewGroupOptionsDialog() {
+    private ImageView toolbarOptionsBackIv;
+    private TextView toolbarOptionsLeaveTv, toolbarOptionsDeleteTv, toolbarOptionsCancelTv;
+
+    private void viewGroupToolbarOptionsDialog() {
         Dialog dialog = Utils.createDialog(this, R.layout.dialog_view_group_toolbar_options, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT), Gravity.BOTTOM);
         DialogViewGroupToolbarOptionsBinding dialogBinding = DialogViewGroupToolbarOptionsBinding.inflate(LayoutInflater.from(this));
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
         dialog.show();
 
-        ImageView backIv = dialogBinding.viewGroupOptionsBackIv;
-        TextView leaveTv = dialogBinding.viewGroupOptionsLeaveTv;
-        TextView deleteTv = dialogBinding.viewGroupOptionsDeleteTv;
-        TextView cancelTv = dialogBinding.viewGroupOptionsCancelTv;
+        toolbarOptionsBackIv = dialogBinding.viewGroupOptionsBackIv;
+        toolbarOptionsLeaveTv = dialogBinding.viewGroupOptionsLeaveTv;
+        toolbarOptionsDeleteTv = dialogBinding.viewGroupOptionsDeleteTv;
+        toolbarOptionsCancelTv = dialogBinding.viewGroupOptionsCancelTv;
 
-        backIv.setOnClickListener(v -> dialog.dismiss());
+        toolbarOptionsBackIv.setOnClickListener(v -> dialog.dismiss());
 
-        leaveTv.setOnClickListener(v -> {
+        toolbarOptionsLeaveTv.setOnClickListener(v -> {
             if (isUserAdmin) {
                 leaveGroupDialog();
             } else {
@@ -192,9 +197,9 @@ public class ActivityViewGroup extends AppCompatActivity {
             }
         });
 
-        deleteTv.setOnClickListener(v -> confirmDelete(this.groupId));
+        toolbarOptionsDeleteTv.setOnClickListener(v -> confirmGroupDeletion(this.groupId));
 
-        cancelTv.setOnClickListener(v -> dialog.dismiss());
+        toolbarOptionsCancelTv.setOnClickListener(v -> dialog.dismiss());
     }
 
     private void leaveGroupDialog() {
@@ -323,6 +328,7 @@ public class ActivityViewGroup extends AppCompatActivity {
                 groupService.addSet(groupId, clickedSet.getId(), new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
+
                         dialog.dismiss();
                         Utils.showToast(getApplicationContext(), "Set added");
                     }
@@ -545,7 +551,7 @@ public class ActivityViewGroup extends AppCompatActivity {
         });
     }
 
-    public void confirmDelete(Long id) {
+    public void confirmGroupDeletion3Queries(Long id, int attemptCount) {
         Dialog dialog = Utils.createDialog(this, R.layout.dialog_delete_are_you_sure, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogDeleteAreYouSureBinding dialogBinding = DialogDeleteAreYouSureBinding.inflate(LayoutInflater.from(this));
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
@@ -556,29 +562,45 @@ public class ActivityViewGroup extends AppCompatActivity {
 
         cancelTv.setOnClickListener(v -> dialog.dismiss());
         confirmTv.setOnClickListener(v -> {
-            Utils.disableItems(confirmTv);
+            Utils.disableItems(cancelTv, confirmTv, toolbarOptionsLeaveTv, toolbarOptionsDeleteTv, toolbarOptionsCancelTv, backIv);
             groupService.deleteGroup(id, new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
                     try {
                         ResponseHandler.handleResponse(response);
                         Utils.showToast(getApplicationContext(), "Group was deleted");
-                        Utils.enableItems(confirmTv);
+
+                        Utils.enableItems(cancelTv, confirmTv, toolbarOptionsLeaveTv, toolbarOptionsDeleteTv, toolbarOptionsCancelTv, backIv);
+
+                        closeActivity();
                     } catch (MalletException e) {
                         System.out.println(e.getMessage());
-                        Utils.showToast(getApplicationContext(), "Error");
-                        Utils.enableItems(confirmTv);
+                        Utils.enableItems(cancelTv, confirmTv, toolbarOptionsLeaveTv, toolbarOptionsDeleteTv, toolbarOptionsCancelTv, backIv);
                     }
                 }
 
                 @Override
                 public void onFailure(Call<Void> call, Throwable t) {
-                    System.out.println("error");
+                    if (attemptCount < MAX_RETRY_ATTEMPTS) {
+                        // Retry the network call
+                        confirmGroupDeletion3Queries(id, attemptCount + 1);
+                    } else {
+                        Utils.showToast(getApplicationContext(), "Group was not deleted due to an error");
+                        Utils.enableItems(cancelTv, confirmTv, toolbarOptionsLeaveTv, toolbarOptionsDeleteTv, toolbarOptionsCancelTv, backIv);
+                    }
                 }
 
             });
-
             dialog.dismiss();
         });
+    }
+
+    private void confirmGroupDeletion(Long id) {
+        int attemptCount = MAX_RETRY_ATTEMPTS;
+        confirmGroupDeletion3Queries(id, attemptCount);
+    }
+
+    private void closeActivity() {
+        finish();
     }
 }

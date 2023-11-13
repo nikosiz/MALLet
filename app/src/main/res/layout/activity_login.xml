@@ -220,11 +220,15 @@
     </LinearLayout>
 
     <ProgressBar
+        android:background="@drawable/bg_circle"
+        android:elevation="3dp"
+        android:padding="30dp"
         android:id="@+id/activityLogin_progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
+        android:visibility="gone"
         android:indeterminateTint="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

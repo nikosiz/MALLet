@@ -126,10 +126,10 @@ public class FragmentHome extends Fragment {
 
             @Override
             public void onFailure(Call<SetBasicDTO> call, Throwable t) {
-                if (attemptCount < MAX_RETRY_ATTEMPTS) {
+                if (attemptCount < MALLet.MAX_RETRY_ATTEMPTS) {
                     // Retry the operation
                     setupLearningSets3Queries(attemptCount + 1);
-                    System.out.println(attemptCount);
+                    
                 } else {
                     // Maximum attempts reached, handle failure
                     Utils.showToast(getActivity(), "Network failure");
@@ -181,7 +181,7 @@ public class FragmentHome extends Fragment {
                 if (attemptCount < MAX_RETRY_ATTEMPTS) {
                     // Retry the operation
                     setupGroups3Queries(attemptCount + 1);
-                    System.out.println(attemptCount);
+                    
                 } else {
                     // Maximum attempts reached, handle failure
                     Utils.showToast(getActivity(), "Network failure");

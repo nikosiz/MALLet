@@ -1,11 +1,14 @@
 package com.example.mallet;
 
+import static com.example.mallet.MALLet.MAX_RETRY_ATTEMPTS;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
@@ -17,7 +20,6 @@ import com.example.mallet.backend.exception.MalletException;
 import com.example.mallet.databinding.ActivitySignupBinding;
 import com.example.mallet.databinding.DialogChooseUsernameBinding;
 import com.example.mallet.databinding.DialogConfirmAccountBinding;
-import com.example.mallet.utils.AuthenticationUtils;
 import com.example.mallet.utils.Utils;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -39,6 +41,7 @@ public class ActivitySignup extends AppCompatActivity {
     private String emailIncorrect, passwordIncorrect, usernameIncorrect;
     private UserServiceImpl userService;
     private Context context;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,15 @@ public class ActivitySignup extends AppCompatActivity {
         this.getOnBackPressedDispatcher().addCallback(this, callback);
 
 
+        setupContents();
+    }
+
+    private TextView signupContinueTv, signupLoginHereTv;
+
+    private void setupContents() {
+        progressBar = binding.signupProgressBar;
+        Utils.hideItems(progressBar);
+
         userService = new UserServiceImpl(StringUtils.EMPTY);
 
         emailEt = binding.signupEmailEt;
@@ -71,17 +83,16 @@ public class ActivitySignup extends AppCompatActivity {
         passwordErrTv = binding.signupPasswordErrorTv;
         passwordIncorrect = getString(R.string.password_incorrect);
 
-        setupContents();
-    }
-
-    private void setupContents() {
         setupAnimation();
 
         Utils.setupEmailTextWatcher(emailEt, emailErrTv);
         Utils.setupPasswordTextWatcher(passwordEt, passwordErrTv);
 
-        binding.signupContinueTv.setOnClickListener(v -> validateSignupData());
-        binding.signupLoginHereTv.setOnClickListener(v -> loginActivity());
+        signupContinueTv = binding.signupContinueTv;
+        signupLoginHereTv = binding.signupLoginHereTv;
+
+        signupContinueTv.setOnClickListener(v -> validateSignupData());
+        signupLoginHereTv.setOnClickListener(v -> loginActivity());
     }
 
     private void setupAnimation() {
@@ -89,14 +100,17 @@ public class ActivitySignup extends AppCompatActivity {
         Utils.setupAnimation(this, logo);
     }
 
+    TextInputEditText dialogUsernameEt;
+    TextView dialogErrTv;
+
     private void chooseUsernameDialog() {
         Dialog dialog = Utils.createDialog(this, R.layout.dialog_forgot_password, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogChooseUsernameBinding dialogBinding = DialogChooseUsernameBinding.inflate(getLayoutInflater());
         dialog.setContentView(dialogBinding.getRoot());
         dialog.show();
 
-        TextInputEditText dialogUsernameEt = dialogBinding.chooseUsernameEt;
-        TextView dialogErrTv = dialogBinding.chooseUsernameErrorTv;
+        dialogUsernameEt = dialogBinding.chooseUsernameEt;
+        dialogErrTv = dialogBinding.chooseUsernameErrorTv;
         usernameIncorrect = getString(R.string.username_incorrect);
 
         Utils.setupUniversalTextWatcher(dialogUsernameEt, dialogErrTv);
@@ -110,38 +124,67 @@ public class ActivitySignup extends AppCompatActivity {
         });
 
         confirmTv.setOnClickListener(v -> {
-            Utils.disableItems(confirmTv);
-            username = Objects.requireNonNull(dialogUsernameEt.getText()).toString().trim();
-
-            if (!Utils.isErrVisible(dialogErrTv)) {
-                userService.signUp(username, password, email, new Callback<>() {
-                    @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
-                        try {
-                            ResponseHandler.handleResponse(response);
-                            AuthenticationUtils.save(getApplicationContext(), email, password);
-                            dialog.dismiss();
-                            Utils.resetEditText(emailEt, emailErrTv);
-                            Utils.resetEditText(passwordEt, passwordErrTv);
-                            Utils.resetEditText(dialogUsernameEt, dialogErrTv);
-
-                            confirmAccountDialog();
-
-                            Utils.enableItems(confirmTv);
-                        } catch (MalletException e) {
-                            Utils.showToast(getApplicationContext(), e.getMessage());
-                            Utils.enableItems(confirmTv);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
-                        Utils.showToast(getApplicationContext(), "Network failure");
-                    }
-                });
-            }
+            dialog.dismiss();
+            handleSignup();
         });
     }
+
+    private void handleSignup3Queries(int attemptCount) {
+        username = Objects.requireNonNull(dialogUsernameEt.getText()).toString().trim();
+
+        if (!Utils.isErrVisible(dialogErrTv)) {
+            Utils.disableItems(emailEt, passwordEt, signupContinueTv, signupContinueTv, signupLoginHereTv);
+            Utils.showItems(progressBar);
+            userService.signUp(username, password, email, new Callback<>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    try {
+                        ResponseHandler.handleResponse(response);
+                        //AuthenticationUtils.save(getApplicationContext(), email, password);
+                        Utils.resetEditText(emailEt, emailErrTv);
+                        Utils.resetEditText(passwordEt, passwordErrTv);
+                        Utils.resetEditText(dialogUsernameEt, dialogErrTv);
+
+                        confirmAccountDialog();
+
+                        Utils.enableItems(emailEt, passwordEt, signupContinueTv, signupContinueTv, signupLoginHereTv);
+                        Utils.hideItems(progressBar);
+                    } catch (MalletException e) {
+                        Utils.showToast(getApplicationContext(), e.getMessage());
+                        Utils.enableItems(emailEt, passwordEt, signupContinueTv, signupContinueTv, signupLoginHereTv);
+                        Utils.hideItems(progressBar);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    if (attemptCount < MAX_RETRY_ATTEMPTS) {
+                        // Retry the operation
+                        handleSignup3Queries(attemptCount + 1);
+                    } else {
+                        Utils.enableItems(emailEt, passwordEt, signupContinueTv, signupContinueTv, signupLoginHereTv);
+                        Utils.showToast(getApplicationContext(), "Network failure");
+                        //Utils.resetEditText(emailEt, emailErrTv);
+                        //Utils.resetEditText(passwordEt, passwordErrTv);
+                        Utils.hideItems(progressBar);
+                    }
+                }
+            });
+        } else {
+            Utils.enableItems(emailEt, passwordEt, signupContinueTv, signupContinueTv, signupLoginHereTv);
+            Utils.hideItems(progressBar);
+            System.out.println("Error is visible");
+        }
+    }
+
+    private ActivitySignup getThisContext() {
+        return this;
+    }
+
+    private void handleSignup() {
+        handleSignup3Queries(0);
+    }
+
 
     private void validateSignupData() {
         String enteredEmail = Objects.requireNonNull(emailEt.getText()).toString().trim();

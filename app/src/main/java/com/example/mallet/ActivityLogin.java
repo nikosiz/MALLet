@@ -1,5 +1,7 @@
 package com.example.mallet;
 
+import static com.example.mallet.MALLet.MAX_RETRY_ATTEMPTS;
+
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -135,20 +137,17 @@ public class ActivityLogin extends AppCompatActivity {
 
     private ProgressBar progressBar;
 
-    private void handleLogin() {
-        Utils.disableItems(loginBtn);
-        Utils.showItems(progressBar);
-
+    private void handleLogin3Queries(int attemptCount) {
         String email = Objects.requireNonNull(emailEt.getText()).toString();
         String password = Objects.requireNonNull(passwordEt.getText()).toString();
 
         if (!Utils.isErrVisible(emailErrTv) && !Utils.isErrVisible(passwordErrTv)) {
+            Utils.disableItems(emailEt, passwordEt, forgotPasswordTv, loginBtn, signupRedirectTv);
+            Utils.showItems(progressBar);
             userService.login(email, password, new Callback<>() {
                 @Override
                 public void onResponse(Call<UserDetailDTO> call, Response<UserDetailDTO> response) {
                     try {
-                        Utils.hideItems(progressBar);
-
                         UserDetailDTO userDetailDTO = ResponseHandler.handleResponse(response);
                         AuthenticationUtils.save(getApplicationContext(), email, password);
 
@@ -163,21 +162,40 @@ public class ActivityLogin extends AppCompatActivity {
                         sharedPreferences.edit().putBoolean("isLogged", isLogged).apply();
                         sharedPreferences.edit().putString("username", userDetailDTO.username()).apply();
                         sharedPreferences.edit().putString("email", userDetailDTO.email()).apply();
-                        Utils.enableItems(loginBtn);
+
+                        Utils.enableItems(emailEt, passwordEt, forgotPasswordTv, loginBtn, signupRedirectTv);
+                        Utils.hideItems(progressBar);
                     } catch (MalletException e) {
                         Utils.showToast(getApplicationContext(), e.getMessage());
-                        Utils.enableItems(loginBtn);
+                        Utils.enableItems(emailEt, passwordEt, forgotPasswordTv, loginBtn, signupRedirectTv);
+                        Utils.hideItems(progressBar);
                     }
                 }
 
                 @Override
                 public void onFailure(Call<UserDetailDTO> call, Throwable t) {
-                    System.out.println();
+                    if (attemptCount < MAX_RETRY_ATTEMPTS) {
+                        // Retry the operation
+                        handleLogin3Queries(attemptCount + 1);
+                    } else {
+                        Utils.enableItems(emailEt, passwordEt, forgotPasswordTv, loginBtn, signupRedirectTv);
+                        Utils.showToast(getApplicationContext(), "Network failure");
+                        //Utils.resetEditText(emailEt, emailErrTv);
+                        //Utils.resetEditText(passwordEt, passwordErrTv);
+                        Utils.hideItems(progressBar);
+                    }
                 }
             });
         } else {
+            Utils.enableItems(emailEt, passwordEt, forgotPasswordTv, loginBtn, signupRedirectTv);
+            Utils.hideItems(progressBar);
             System.out.println("Error is visible");
+            Utils.hideItems(progressBar);
         }
+    }
+
+    private void handleLogin() {
+        handleLogin3Queries(0);
     }
 
     private void signupActivity() {

@@ -135,7 +135,7 @@ public class ActivityCreateGroup extends AppCompatActivity {
         });
     }
 
-    private void handleGroupCreation() {
+    private void handleGroupCreation3Queries(int attemptCount) {
         Utils.disableItems(toolbarSaveIv);
 
         Editable text = groupNameEt.getText();
@@ -166,11 +166,26 @@ public class ActivityCreateGroup extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Long> call, Throwable t) {
-                Utils.enableItems(toolbarSaveIv);
-                Utils.showToast(getApplicationContext(), "Network failure");
+                if (attemptCount < MAX_RETRY_ATTEMPTS) {
+                    // Retry the operation
+                    handleGroupCreation3Queries(attemptCount + 1);
+                    
+                } else {
+                    Utils.enableItems(toolbarSaveIv);
+                    Utils.showToast(getApplicationContext(), "Network failure");
+                }
+
+
             }
         });
     }
+
+    private static final int MAX_RETRY_ATTEMPTS = 3;
+
+    private void handleGroupCreation() {
+        handleGroupCreation3Queries(0);
+    }
+
 
     private void addUsersDialog() {
         Dialog dialog = Utils.createDialog(this, R.layout.dialog_add_user_to_group, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
@@ -245,7 +260,7 @@ public class ActivityCreateGroup extends AppCompatActivity {
         notifyListAdapterDataChanged();
     }
 
-    private void fetchUsers(CharSequence text) {
+    private void fetchUsers3Queries(CharSequence text, int attemptCount) {
         userService.get(text.toString(), new Callback<>() {
             @Override
             public void onResponse(Call<List<UserDTO>> call, Response<List<UserDTO>> response) {
@@ -254,10 +269,21 @@ public class ActivityCreateGroup extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<UserDTO>> call, Throwable t) {
-                Utils.showToast(getApplicationContext(), "Network failure");
+                if (attemptCount < MAX_RETRY_ATTEMPTS) {
+                    // Retry the network call
+                    fetchUsers3Queries(text, attemptCount + 1);
+                } else {
+                    Utils.showToast(getApplicationContext(), "Network failure");
+                }
             }
         });
     }
+
+    private void fetchUsers(CharSequence text) {
+        int attemptCount = MAX_RETRY_ATTEMPTS;
+        fetchUsers3Queries(text, attemptCount);
+    }
+
 
     private void handleFetchUsersResponse(Response<List<UserDTO>> response) {
         List<UserDTO> userDTOS = ResponseHandler.handleResponse(response);

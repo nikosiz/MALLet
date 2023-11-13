@@ -1,5 +1,7 @@
 package com.example.mallet;
 
+import static com.example.mallet.MALLet.MAX_RETRY_ATTEMPTS;
+
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -300,8 +302,10 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     }
 
 
-    private void handleSetCreation(SetCreateContainer newSetContainer) {
-        Utils.disableItems(toolbarSaveIv);
+    private void handleSetCreation3Queries(SetCreateContainer newSetContainer, int attemptCount) {
+        Utils.disableItems(toolbarBackIv, toolbarDeleteIv, toolbarSaveIv, setNameEt,
+                addDescriptionTv, setDescriptionEt, flashcardTermEt, flashcardDefinitionEt,
+                flashcardTranslationEt, addFlashcardFab);
         userService.createUserSet(newSetContainer, new Callback<Long>() {
             @Override
             public void onResponse(Call<Long> call, Response<Long> response) {
@@ -321,15 +325,31 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Long> call, Throwable t) {
-                Utils.enableItems(toolbarSaveIv);
+                if (attemptCount < MAX_RETRY_ATTEMPTS) {
+                    // Retry the network call
+                    handleSetCreation3Queries(newSetContainer, attemptCount + 1);
+                } else {
+                    Utils.enableItems(toolbarBackIv, toolbarDeleteIv, toolbarSaveIv, setNameEt,
+                            addDescriptionTv, setDescriptionEt, flashcardTermEt,
+                            flashcardDefinitionEt, flashcardTranslationEt, addFlashcardFab);
+                    Utils.showToast(getApplicationContext(), "Set was not created due to a network error");
+                }
             }
         });
     }
 
+    private void handleSetCreation(SetCreateContainer newSetContainer) {
+        int attemptCount = MAX_RETRY_ATTEMPTS;
+        handleSetCreation3Queries(newSetContainer, attemptCount);
+    }
+
+
     private GroupServiceImpl groupService;
 
-    private void handleSetInGroupCreation(SetCreateContainer newSetContainer) {
-        Utils.disableItems(toolbarSaveIv);
+    private void handleSetInGroupCreation3Queries(SetCreateContainer newSetContainer, int attemptCount) {
+        Utils.disableItems(toolbarBackIv, toolbarDeleteIv, toolbarSaveIv, setNameEt,
+                addDescriptionTv, setDescriptionEt, flashcardTermEt, flashcardDefinitionEt,
+                flashcardTranslationEt, addFlashcardFab);
         groupService.createSet(groupId, newSetContainer, new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -349,10 +369,22 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Utils.enableItems(toolbarSaveIv);
-                Utils.showToast(getApplicationContext(), "Set was not created due to an error");
+                if (attemptCount < MAX_RETRY_ATTEMPTS) {
+                    // Retry the network call
+                    handleSetCreation3Queries(newSetContainer, attemptCount + 1);
+                } else {
+                    Utils.enableItems(toolbarBackIv, toolbarDeleteIv, toolbarSaveIv, setNameEt,
+                            addDescriptionTv, setDescriptionEt, flashcardTermEt, flashcardDefinitionEt,
+                            flashcardTranslationEt, addFlashcardFab);
+                    Utils.showToast(getApplicationContext(), "Set was not created due to a network error");
+                }
             }
         });
+    }
+
+    private void handleSetInGroupCreation(SetCreateContainer newSetContainer) {
+        int attemptCount = MAX_RETRY_ATTEMPTS;
+        handleSetInGroupCreation3Queries(newSetContainer, attemptCount);
     }
 
     private void close() {

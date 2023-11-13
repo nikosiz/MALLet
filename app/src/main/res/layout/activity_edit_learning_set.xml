@@ -225,7 +225,9 @@
         tools:ignore="ImageContrastCheck" />
 
     <ProgressBar
-        android:id="@+id/editSet_progressBar"
+        android:padding="30dp"
+        android:elevation="3dp"
+        android:background="@drawable/bg_corners_rounded" android:id="@+id/editSet_progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

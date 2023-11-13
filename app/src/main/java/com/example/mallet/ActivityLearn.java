@@ -174,9 +174,6 @@ public class ActivityLearn extends AppCompatActivity {
         return questionList;
     }
 
-
-    //////////////////////////////////////////////////////////////////////////////////////////////////
-
     public List<ModelTrueFalse> generateTrueFalseQuestions() {
         List<List<String>> flashcardList = getLearningSetDataAsList(); // Assume getLearningSetDataAsList() returns a 2D list
 
@@ -273,10 +270,6 @@ public class ActivityLearn extends AppCompatActivity {
     }
 
     List<List<String>> flashcardTable;
-
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////
-
 
     public List<ModelMultipleChoice> generateMultipleChoiceQuestions() {
         int MAX_QUESTIONS = Math.min(20, flashcardList.size());

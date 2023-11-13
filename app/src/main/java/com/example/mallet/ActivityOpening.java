@@ -32,7 +32,7 @@ public class ActivityOpening extends AppCompatActivity {
 
         setupContents();
 
-        Utils.showItems(openingLl);
+
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
@@ -60,11 +60,13 @@ public class ActivityOpening extends AppCompatActivity {
     }
 
     private void setupContents() {
+        openingLl = binding.openingLl;
+        Utils.showItems(openingLl);
+
         setupAnimatedLogo();
         setupClickListeners();
         setupNoLoginBtn();
 
-        openingLl = binding.openingLl;
     }
 
     private void setupAnimatedLogo() {

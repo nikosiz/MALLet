@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 public class MALLet extends Application {
     private MALLet mallet;
+    public static final int MAX_RETRY_ATTEMPTS = 3;
 
     @Override
     public void onCreate() {
