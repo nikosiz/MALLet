@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.agh.api.SetBasicDTO;
@@ -100,6 +101,9 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         setContentView(binding.getRoot());
     }
 
+    private TextView flashcardsTitleTv, learnTitleTv, testTitleTv, matchTitleTv,
+            flashcardsSubtitleTv, learnSubtitleTv, testSubtitleTv, matchSubtitleTv;
+
     private void setupContents() {
         setupToolbar();
 
@@ -118,6 +122,15 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         setDescriptionTv = binding.viewSetDescriptionTv;
         setDescriptionTv.setText(learningSet.getDescription());
 
+        flashcardsTitleTv = binding.flashcardsLlTitleTv;
+        learnTitleTv = binding.learnLlTitleTv;
+        testTitleTv = binding.testLlTitleTv;
+        matchTitleTv = binding.matchLlTitleTv;
+        flashcardsSubtitleTv = binding.flashcardsLlSubtTitleTv;
+        learnSubtitleTv = binding.learnLlSubtitleTv;
+        testSubtitleTv = binding.testLlSubtitleTv;
+        matchSubtitleTv = binding.matchLlSubtitleTv;
+
         flashcardsLl = binding.viewSetFlashcardsLl;
         flashcardsLl.setOnClickListener(v -> startFlashcards());
 
@@ -130,12 +143,17 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         matchLl = binding.viewSetMatchLl;
         matchLl.setOnClickListener(v -> startMatch());
 
+        allFlashcardsLlTitleTv = binding.viewSetAllFlashcardsLlTitleTv;
+
         viewSetStudyEfab = binding.viewSetStudyEfab;
         viewSetStudyEfab.setOnClickListener(v -> startFlashcards());
+
+        Utils.hideItems(flashcardsVp2, allFlashcardsLlTitleTv);
 
         getSet();
     }
 
+    private TextView allFlashcardsLlTitleTv;
     private void getSet3Queries(int attemptCount) {
         Utils.disableItems(toolbarOptionsIv, flashcardsVp2, flashcardsLl, learnLl, testLl, matchLl, viewSetStudyEfab);
         setService.getSet(setId, new Callback<SetDetailDTO>() {
@@ -148,21 +166,34 @@ public class ActivityViewLearningSet extends AppCompatActivity {
                 learningSet.setFlashcards(flashcards);
 
                 if (flashcards == null || flashcards.size() == 0) {
-                    Utils.setViewLayoutParams(flashcardsVp2, MATCH_PARENT, 0);
-                    Utils.hideItems(flashcardsVp2);
-                    Utils.showItems(binding.viewSetNoVocabHereLl);
                     TextView addVocabTv = binding.viewSetAddVocabTv;
                     addVocabTv.setOnClickListener(v -> editSet());
+
+                    Utils.hideItems(flashcardsVp2, allFlashcardsLlTitleTv);
+                    Utils.showItems(binding.viewSetNoVocabHereLl);
+
+                    Utils.disableItems(flashcardsLl, learnLl, testLl, matchLl,viewSetStudyEfab);
+
+                    flashcardsTitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+                    learnTitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+                    testTitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+                    matchTitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+                    flashcardsSubtitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+                    learnSubtitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+                    testSubtitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+                    matchSubtitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
                 } else {
-                    Utils.showItems(flashcardsVp2);
+                    Utils.showItems(flashcardsVp2, allFlashcardsLlTitleTv);
                     displayFlashcardsInViewPager(flashcards, flashcardsVp2);
                     flashcardsVp2.startAnimation(fadeInAnimation);
+
+                    Utils.enableItems(flashcardsLl, learnLl, testLl, matchLl,viewSetStudyEfab);
                 }
 
                 displayFlashcardsInLinearLayout(flashcards, binding.viewSetAllFlashcardsLl, getLayoutInflater());
                 binding.viewSetAllFlashcardsLl.startAnimation(fadeInAnimation);
 
-                Utils.enableItems(toolbarOptionsIv, flashcardsVp2, flashcardsLl, learnLl, testLl, matchLl, viewSetStudyEfab);
+                Utils.enableItems(toolbarOptionsIv, flashcardsVp2);
             }
 
             @Override
@@ -172,6 +203,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
                     getSet3Queries(attemptCount + 1);
                 } else {
                     Utils.showToast(getApplicationContext(), "Network error");
+                    Utils.disableItems(flashcardsLl, learnLl, testLl, matchLl);
                 }
             }
         });

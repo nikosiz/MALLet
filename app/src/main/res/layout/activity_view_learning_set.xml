@@ -213,6 +213,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/flashcardsLlTitleTv"
                             style="@style/BasicBoldTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -221,6 +222,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/flashcardsLlSubtTitleTv"
                             style="@style/BasicTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -259,6 +261,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/learnLlTitleTv"
                             style="@style/BasicBoldTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -267,6 +270,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/learnLlSubtitleTv"
                             style="@style/BasicTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -305,6 +309,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/testLlTitleTv"
                             style="@style/BasicBoldTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -313,6 +318,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/testLlSubtitleTv"
                             style="@style/BasicTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -351,6 +357,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/matchLlTitleTv"
                             style="@style/BasicBoldTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -359,6 +366,7 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/matchLlSubtitleTv"
                             style="@style/BasicTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -373,6 +381,7 @@
                     android:layout_height="10dp" />
 
                 <TextView
+                    android:id="@+id/viewSet_allFlashcardsLlTitleTv"
                     style="@style/BasicBoldTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
