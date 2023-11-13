@@ -73,6 +73,8 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     private TextInputEditText flashcardTranslationEt;
     private Long groupId;
     private String groupName;
+    private boolean canUserEditSet, isUserSet;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,24 +92,29 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         // Register the callback with the onBackPressedDispatcher
         this.getOnBackPressedDispatcher().addCallback(this, callback);
 
+        setupContents();
+    }
+
+    private void setupContents() {
         String credential = AuthenticationUtils.get(getApplicationContext());
         this.userService = new UserServiceImpl(credential);
         this.groupService = new GroupServiceImpl(credential);
 
+        groupName = getIntent().getStringExtra("groupName");
+        groupId = getIntent().getLongExtra("groupId", 0L);
+
+        learningSet = getIntent().getParcelableExtra("learningSet");
+
         isSetNew = getIntent().getBooleanExtra("isSetNew", true);
         isSetInGroup = getIntent().getBooleanExtra("isSetInGroup", false);
-        learningSet = getIntent().getParcelableExtra("learningSet");
-        groupId = getIntent().getLongExtra("groupId", 0L);
-        groupName = getIntent().getStringExtra("groupName");
+        canUserEditSet = getIntent().getBooleanExtra("canUserEditSet", false);
+        isUserSet = getIntent().getBooleanExtra("isSetInGroup", true);
 
         if (learningSet != null && learningSet.getTerms() != null) {
             flashcards = learningSet.getTerms();
         }
 
-        setupContents();
-    }
 
-    private void setupContents() {
         progressBar = binding.editSetProgressBar;
         Utils.hideItems(progressBar);
 
@@ -129,19 +136,22 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         addFlashcardFab = binding.editSetAddFab;
 
         if (isSetNew) {
-            Utils.hideItems(progressBar, toolbarDeleteIv, setNameErrTv);
+            Utils.hideItems(progressBar);
+            Utils.hideItems(toolbarDeleteIv);
+
             Utils.resetEditText(setNameEt, setNameErrTv);
-          //  Utils.resetEditText(setDescriptionEt, null);
+            Utils.hideItems(setNameErrTv);
+
             addFlashcard(flashcardsLl, getLayoutInflater(), null, null, null);
-        } else if (!isSetNew) {
+        } else if (!isSetNew || isSetInGroup) {
             Utils.showItems(toolbarDeleteIv);
+
             setNameEt.setText(learningSet.getName());
             setDescriptionEt.setText(learningSet.getDescription());
+
             if (learningSet.getTerms() != null) {
                 populateFlashcardsUI();
             }
-        } else if (isSetInGroup) {
-            Utils.showItems(toolbarDeleteIv);
         }
 
         addDescriptionTv.setOnClickListener(v -> {
@@ -172,8 +182,8 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         toolbarTitleTv = binding.editSetToolbarTitleTv;
         if (isSetNew) {
             toolbarTitleTv.setText("Create set");
-        } else if (isSetInGroup) {
-            toolbarTitleTv.setText("Edit set in group");
+        } else if (isSetInGroup || !isSetNew) {
+            toolbarTitleTv.setText("Edit set");
         }
 
         toolbarDeleteIv = binding.editSetDeleteIv;

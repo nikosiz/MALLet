@@ -506,19 +506,19 @@ public class FragmentTest extends Fragment {
     private String motivationalMessage() {
         String motivationalMessage;
         if (points >= 0 && points < 5) {
-            motivationalMessage = getResources().getString(R.string.motivational_message05);
+            motivationalMessage = getActivity().getResources().getString(R.string.motivational_message05);
         } else if (points >= 5 && points < 10) {
-            motivationalMessage = getResources().getString(R.string.motivational_message510);
+            motivationalMessage = getActivity().getResources().getString(R.string.motivational_message510);
         } else if (points >= 10 && points < 15) {
-            motivationalMessage = getResources().getString(R.string.motivational_message1015);
+            motivationalMessage = getActivity().getResources().getString(R.string.motivational_message1015);
         } else if (points >= 15 && points < 20) {
-            motivationalMessage = getResources().getString(R.string.motivational_message1520);
+            motivationalMessage = getActivity().getResources().getString(R.string.motivational_message1520);
         } else if (points >= 20 && points < 25) {
-            motivationalMessage = getResources().getString(R.string.motivational_message2025);
+            motivationalMessage = getActivity().getResources().getString(R.string.motivational_message2025);
         } else if (points >= 25 && points < 30) {
-            motivationalMessage = getResources().getString(R.string.motivational_message2530);
+            motivationalMessage = getActivity().getResources().getString(R.string.motivational_message2530);
         } else {
-            motivationalMessage = getResources().getString(R.string.motivational_message30);
+            motivationalMessage = getActivity().getResources().getString(R.string.motivational_message30);
         }
 
         return motivationalMessage;

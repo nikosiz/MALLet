@@ -166,6 +166,10 @@ public class ActivityViewGroup extends AppCompatActivity {
     }
 
     private boolean isUserAdmin;
+    private final boolean isSetInGroup = true;
+
+    // TODO - JAK TO SPRAWDZIĆ X D ?
+    public static boolean canUserEditSet;
 
     private void viewGroupOptionsDialog() {
         Dialog dialog = Utils.createDialog(this, R.layout.dialog_view_group_toolbar_options, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT), Gravity.BOTTOM);
@@ -349,23 +353,41 @@ public class ActivityViewGroup extends AppCompatActivity {
                 });
     }
 
+    private final boolean isSetNew = true;
+
     private void createNewSetInGroup() {
         Intent intent = new Intent(this, ActivityEditLearningSet.class);
 
-        // todo: proponuję podawać isUserSet == true, jeżeli user może edytować sety w grupie
-        //  if (user can edit set){
-            //intent.putExtra("isUserSet", true);
-        //} else{
-            intent.putExtra("isUserSet", false);
-        //}
-        intent.putExtra("isSetInGroup", true);
-        intent.putExtra("groupId", groupId);
         intent.putExtra("groupName", groupName);
-        intent.putExtra("isSetNew", true);
+        intent.putExtra("groupId", groupId);
+
+        intent.putExtra("isSetInGroup", isSetInGroup);
+        intent.putExtra("canUserEditSet", canUserEditSet);
+        intent.putExtra("isSetNew", isSetNew);
 
         startActivity(intent);
 
         this.finish();
+    }
+
+    private void editSetInGroup() {
+        if (canUserEditSet) {
+            Intent intent = new Intent(this, ActivityEditLearningSet.class);
+
+            intent.putExtra("groupName", groupName);
+            intent.putExtra("groupId", groupId);
+
+            intent.putExtra("isSetInGroup", isSetInGroup);
+            intent.putExtra("isSetNew", isSetNew);
+            intent.putExtra("canUserEditSet", canUserEditSet);
+
+            startActivity(intent);
+
+            this.finish();
+        } else {
+            Utils.showToast(this, getString(R.string.no_permissions_to_edit));
+        }
+
     }
 
     private void handleSetEmptyInput() {

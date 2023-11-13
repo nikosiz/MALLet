@@ -92,92 +92,15 @@ public class FragmentHome extends Fragment {
 
         homeSetsVp2 = binding.homeSetsViewPager;
         homeGroupsVp2 = binding.homeGroupsViewPager;
+        Utils.disableItems(homeSetsVp2, homeGroupsVp2);
+
         binding.homeSetViewAllTv.setOnClickListener(v -> showAllItems(0));
         binding.homeGroupViewAllTv.setOnClickListener(v -> showAllItems(1));
 
         progressBar = binding.fragmentHomeProgressBar;
     }
 
-    private void showAllItems(int selectedTabIndex) {
-        FragmentUserLibrary fragmentUserLibrary = FragmentUserLibrary.newInstance(selectedTabIndex);
-        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.replace(R.id.mainFl, fragmentUserLibrary);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
-
-    private void setupGroups() {
-        setupGroups3Times(0);
-    }
-
-    private void setupGroups3Times(int attemptCount) {
-        userService.getUserGroups(0, 5, new Callback<GroupBasicDTO>() {
-            @Override
-            public void onResponse(Call<GroupBasicDTO> call, Response<GroupBasicDTO> response) {
-                GroupBasicDTO groupDTO = ResponseHandler.handleResponse(response);
-                List<ModelGroup> modelGroups = ModelGroupMapper.from(groupDTO.groups());
-
-                AdapterGroup adapterGroups = new AdapterGroup(getActivity(), modelGroups, openActivityViewGroup());
-                homeGroupsVp2.setAdapter(adapterGroups);
-
-                homeGroupsVp2.setPageTransformer(Utils::applySwipeTransformer);
-
-                homeGroupsVp2.startAnimation(fadeInAnimation);
-            }
-
-            @Override
-            public void onFailure(Call<GroupBasicDTO> call, Throwable t) {
-                if (attemptCount < MAX_RETRY_ATTEMPTS) {
-                    // Retry the operation
-                    setupGroups3Times(attemptCount + 1);
-                    System.out.println(attemptCount);
-                } else {
-                    // Maximum attempts reached, handle failure
-                    Utils.showToast(getActivity(), "Network failure");
-                }
-            }
-        });
-    }
-
-    @NonNull
-    private AdapterGroup.OnGroupClickListener openActivityViewGroup() {
-        return v -> {
-            Context context = getActivity();
-            Intent intent = new Intent(context, ActivityViewGroup.class);
-
-
-            intent.putExtra("groupId", v.getId());
-            intent.putExtra("groupName", v.getGroupName());
-            if (context != null) {
-                context.startActivity(intent);
-            }
-        };
-    }
-
-    private void setupLearningSets() {
-        setupLearningSets3Times(0);
-    }
-
-    private void setupLearningSets3Times(int attemptCount) {
-        // todo replace with userService below - this is for testing
-        /*List<ModelLearningSet> sets = new ArrayList<>();
-
-        ModelLearningSet set = Utils.readFlashcards(requireContext(),"animals.txt");
-
-        sets.add(set);
-
-        AdapterLearningSet adapterSets = new AdapterLearningSet(getContext(), sets, learningSet -> {
-            Intent intent = new Intent(getContext(), ActivityViewLearningSet.class);
-
-            intent.putExtra("learningSet", learningSet);
-
-            startActivity(intent);
-        });
-
-        homeSetsViewPager.setAdapter(adapterSets);
-
-        homeSetsViewPager.setPageTransformer(Utils::applySwipeTransformer);*/
-
+    private void setupLearningSets3Queries(int attemptCount) {
         userService.getUserSets(0, 5, new Callback<SetBasicDTO>() {
             @Override
             public void onResponse(Call<SetBasicDTO> call, Response<SetBasicDTO> response) {
@@ -185,6 +108,9 @@ public class FragmentHome extends Fragment {
                 homeSv.startAnimation(fadeInAnimation);
 
                 Utils.hideItems(progressBar);
+
+                Utils.enableItems(homeSetsVp2);
+
 
                 SetBasicDTO setBasicDTO = ResponseHandler.handleResponse(response);
                 List<ModelLearningSet> modelLearningSets = ModelLearningSetMapper.from(setBasicDTO.sets());
@@ -202,7 +128,7 @@ public class FragmentHome extends Fragment {
             public void onFailure(Call<SetBasicDTO> call, Throwable t) {
                 if (attemptCount < MAX_RETRY_ATTEMPTS) {
                     // Retry the operation
-                    setupLearningSets3Times(attemptCount + 1);
+                    setupLearningSets3Queries(attemptCount + 1);
                     System.out.println(attemptCount);
                 } else {
                     // Maximum attempts reached, handle failure
@@ -210,6 +136,10 @@ public class FragmentHome extends Fragment {
                 }
             }
         });
+    }
+
+    private void setupLearningSets() {
+        setupLearningSets3Queries(0);
     }
 
     @NonNull
@@ -220,9 +150,70 @@ public class FragmentHome extends Fragment {
             intent.putExtra("learningSet", learningSet);
             intent.putExtra("setId", learningSet.getId());
 
+            intent.putExtra("isSetNew",false);
+            intent.putExtra("isUserSet",true);
+            intent.putExtra("isSetInGroup",false);
+
             startActivity(intent);
         };
     }
 
 
+    private void setupGroups3Queries(int attemptCount) {
+        userService.getUserGroups(0, 5, new Callback<GroupBasicDTO>() {
+            @Override
+            public void onResponse(Call<GroupBasicDTO> call, Response<GroupBasicDTO> response) {
+                Utils.enableItems(homeGroupsVp2);
+
+                GroupBasicDTO groupDTO = ResponseHandler.handleResponse(response);
+                List<ModelGroup> modelGroups = ModelGroupMapper.from(groupDTO.groups());
+
+                AdapterGroup adapterGroups = new AdapterGroup(getActivity(), modelGroups, openActivityViewGroup());
+                homeGroupsVp2.setAdapter(adapterGroups);
+
+                homeGroupsVp2.setPageTransformer(Utils::applySwipeTransformer);
+
+                homeGroupsVp2.startAnimation(fadeInAnimation);
+            }
+
+            @Override
+            public void onFailure(Call<GroupBasicDTO> call, Throwable t) {
+                if (attemptCount < MAX_RETRY_ATTEMPTS) {
+                    // Retry the operation
+                    setupGroups3Queries(attemptCount + 1);
+                    System.out.println(attemptCount);
+                } else {
+                    // Maximum attempts reached, handle failure
+                    Utils.showToast(getActivity(), "Network failure");
+                }
+            }
+        });
+    }
+
+    private void setupGroups() {
+        setupGroups3Queries(0);
+    }
+
+    @NonNull
+    private AdapterGroup.OnGroupClickListener openActivityViewGroup() {
+        return v -> {
+            Context context = getActivity();
+            Intent intent = new Intent(context, ActivityViewGroup.class);
+
+
+            intent.putExtra("groupId", v.getId());
+            intent.putExtra("groupName", v.getGroupName());
+            if (context != null) {
+                context.startActivity(intent);
+            }
+        };
+    }
+
+    private void showAllItems(int selectedTabIndex) {
+        FragmentUserLibrary fragmentUserLibrary = FragmentUserLibrary.newInstance(selectedTabIndex);
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(R.id.mainFl, fragmentUserLibrary);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 }

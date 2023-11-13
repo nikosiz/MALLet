@@ -61,9 +61,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     // toolbar options
     private ImageView toolbarOptionsBackIv;
     private TextView toolbarOptionsEditTv, toolbarOptionsAddToUsersCollectionTv, toolbarOptionsDeleteTv, toolbarOptionsCancelTv;
-    private boolean isSetNew, isSetInGroup;
-    // TODO OSBŁUŻYĆ
-    private boolean isUserSet;
+    private boolean isSetNew, isSetInGroup, canUserEditSet=false, isUserSet;
     private List<ModelFlashcard> flashcards;
 
     private SetServiceImpl setService;
@@ -78,11 +76,13 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
         this.setId = getIntent().getLongExtra("setId", 0L);
 
-        isUserSet = getIntent().getBooleanExtra("isSetNew", true);
-        isSetNew = getIntent().getBooleanExtra("isSetNew", false);
-        isSetInGroup = getIntent().getBooleanExtra("isSetInGroup", false);
         learningSet = getIntent().getParcelableExtra("learningSet");
         groupId = getIntent().getLongExtra("groupId", 0L);
+
+        isUserSet = getIntent().getBooleanExtra("isUserSet", true);
+        //isSetNew = getIntent().getBooleanExtra("isSetNew", false);
+        isSetInGroup = getIntent().getBooleanExtra("isSetInGroup", false);
+        canUserEditSet = getIntent().getBooleanExtra("canUserEditSet", false);
 
         fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in);
 
@@ -260,6 +260,44 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
         toolbarOptionsCancelTv = dialogBinding.viewSetOptionsCancelTv;
         toolbarOptionsCancelTv.setOnClickListener(v -> dialog.dismiss());
+
+        if (!isUserSet) {
+            Utils.hideItems(toolbarOptionsEditTv, toolbarOptionsDeleteTv);
+            Utils.showItems(toolbarOptionsAddToUsersCollectionTv);
+        } else if (isUserSet) {
+            Utils.showItems(toolbarOptionsEditTv, toolbarOptionsDeleteTv);
+            toolbarOptionsDeleteTv.setText(getString(R.string.delete_set));
+
+            toolbarOptionsDeleteTv.setOnClickListener(v -> {
+                dialog.dismiss();
+                deleteSet();
+            });
+        }
+
+        /*if (isSetNew == false) {
+            Utils.showItems(toolbarOptionsEditTv, toolbarOptionsDeleteTv);
+            Utils.hideItems(toolbarOptionsAddToUsersCollectionTv);
+        } else if (isSetNew == true) {
+            Utils.hideItems(toolbarOptionsEditTv, toolbarOptionsDeleteTv);
+            Utils.showItems(toolbarOptionsAddToUsersCollectionTv);
+        }*/
+
+        if (isSetInGroup) {
+            if (!canUserEditSet) {
+                Utils.hideItems(toolbarOptionsEditTv, toolbarOptionsDeleteTv/*, toolbarOptionsAddToUsersCollectionTv*/);
+            } else {
+                Utils.showItems(toolbarOptionsEditTv, toolbarOptionsDeleteTv, toolbarOptionsAddToUsersCollectionTv);
+                toolbarOptionsDeleteTv.setText(getString(R.string.delete_set_from_group));
+
+                toolbarOptionsDeleteTv.setOnClickListener(v -> {
+                    dialog.dismiss();
+                    deleteSetFromGroup();
+                });
+            }
+        }
+    }
+
+    private void deleteSetFromGroup() {
     }
 
     private void editSet() {

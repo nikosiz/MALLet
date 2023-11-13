@@ -279,6 +279,10 @@ public class FragmentUserLibrary_Sets extends Fragment {
         intent.putExtra("setId", set.getId());
         intent.putExtra("learningSet", set);
 
+        intent.putExtra("isSetNew",false);
+        intent.putExtra("isUserSet",true);
+        intent.putExtra("isSetInGroup",false);
+
         startActivity(intent);
     }
 

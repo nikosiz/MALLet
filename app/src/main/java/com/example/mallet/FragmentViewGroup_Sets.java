@@ -69,6 +69,11 @@ public class FragmentViewGroup_Sets extends Fragment {
         intent.putExtra("learningSet", set);
         intent.putExtra("isSetInGroup", true);
 
+        intent.putExtra("isSetNew", false);
+        intent.putExtra("isUserSet", true);
+        intent.putExtra("isSetInGroup", true);
+        intent.putExtra("canUserEditSet", ActivityViewGroup.canUserEditSet);
+
         startActivity(intent);
     }
 

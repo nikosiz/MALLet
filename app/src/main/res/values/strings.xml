@@ -169,4 +169,8 @@
     <string name="start_playing">Start playing</string>
     <string name="question">question</string>
     <string name="cd_save_group">save group</string>
+    <string name="no_permissions_to_edit">You do not have permissions to edit sets in this group</string>
+    <string name="XXX_terms">%s terms</string>
+    <string name="delete_set_from_group">Delete set from group</string>
+    <string name="delete_set">Delete set</string>
 </resources>
