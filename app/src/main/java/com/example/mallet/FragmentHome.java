@@ -31,6 +31,7 @@ import com.example.mallet.utils.ModelGroup;
 import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.Utils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Executors;
@@ -86,6 +87,17 @@ public class FragmentHome extends Fragment {
         return binding.getRoot();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshData();
+    }
+
+    private void refreshData() {
+        //setupGroups();
+        //setupLearningSets();
+    }
+
     private void setupContents() {
         homeSv = binding.homeSv;
         Utils.hideItems(homeSv);
@@ -110,7 +122,6 @@ public class FragmentHome extends Fragment {
                 Utils.hideItems(progressBar);
 
                 Utils.enableItems(homeSetsVp2);
-
 
                 SetBasicDTO setBasicDTO = ResponseHandler.handleResponse(response);
                 List<ModelLearningSet> modelLearningSets = ModelLearningSetMapper.from(setBasicDTO.sets());
@@ -201,9 +212,9 @@ public class FragmentHome extends Fragment {
             Context context = getActivity();
             Intent intent = new Intent(context, ActivityViewGroup.class);
 
-
             intent.putExtra("groupId", v.getId());
             intent.putExtra("groupName", v.getGroupName());
+
             if (context != null) {
                 context.startActivity(intent);
             }

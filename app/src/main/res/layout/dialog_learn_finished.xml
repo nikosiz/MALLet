@@ -27,8 +27,7 @@
         style="@style/BasicTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:text="You have learned everything. You can study again to practice or try different mode of study"
+        android:text="@string/you_have_covered_all_the_material"
         android:textColor="@color/colorPrimary"
         android:textSize="20sp" />
 

@@ -22,54 +22,13 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="10dp" />
+        android:layout_height="30dp" />
 
     <TextView
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="You are about to take a test. There are three types of questions:"
-        android:textColor="@color/colorPrimary"
-        android:textSize="20sp" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp" />
-
-    <TextView
-        style="@style/BasicTextStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="- Written: Provide clear, concise responses"
-        android:textColor="@color/colorPrimary"
-        android:textSize="20sp" />
-
-    <TextView
-        style="@style/BasicTextStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="- Multiple Choice: Pick the best answer"
-        android:textColor="@color/colorPrimary"
-        android:textSize="20sp" />
-
-    <TextView
-        style="@style/BasicTextStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="- True/False: Decide if statements are true or false"
-        android:textColor="@color/colorPrimary"
-        android:textSize="20sp" />
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp" />
-
-    <TextView
-        style="@style/BasicTextStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="There is no time limit, but be efficient"
+        android:text="@string/you_are_about_to_take_a_test"
         android:textColor="@color/colorPrimary"
         android:textSize="20sp" />
 

@@ -1,86 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/home_mainCl"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimaryLight1"
-    tools:context=".FragmentHome">
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/home_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:background="@android:color/transparent"
-        android:gravity="center_vertical"
-        android:paddingHorizontal="60dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/home_toolbarLogoTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/russo_one_regular"
-            android:text="@string/app_name"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="30sp" />
-    </androidx.appcompat.widget.Toolbar>
-
-    <ScrollView
-        android:id="@+id/homeSv"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/home_toolbar">
-
-        <LinearLayout
-            android:id="@+id/homeSvLl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/home_wordOfTheDayTitleTv"
-                style="@style/BasicBoldTextStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_weight="1"
-                android:text="Word of the day"
-                android:textColor="@color/primaryTextColor"
-                android:textSize="20sp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
-
-            <LinearLayout
-                android:id="@+id/home_wordOfTheDayLl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:background="@drawable/bg_social_btn"
-                android:orientation="vertical"
-                android:paddingHorizontal="20dp"
-                android:paddingVertical="30dp">
-
-                <TextView
-                    android:id="@+id/home_wordOfTheDayTermTv"
-                    style="@style/BasicTextStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/rem_bold"
-                    android:gravity="center"
-                    android:text="TERM"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="20sp" />
-
+<?xml version="1.0" encoding="utf-8"?><androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"    xmlns:app="http://schemas.android.com/apk/res-auto"    xmlns:tools="http://schemas.android.com/tools"    android:id="@+id/home_mainCl"    android:layout_width="match_parent"    android:layout_height="match_parent"    android:background="@color/colorPrimaryLight1"    tools:context=".FragmentHome">    <androidx.appcompat.widget.Toolbar        android:id="@+id/home_toolbar"        android:layout_width="match_parent"        android:layout_height="wrap_content"        android:layout_gravity="center_vertical"        android:background="@android:color/transparent"        android:gravity="center_vertical"        android:paddingHorizontal="60dp"        app:layout_constraintEnd_toEndOf="parent"        app:layout_constraintStart_toStartOf="parent"        app:layout_constraintTop_toTopOf="parent">        <TextView            android:id="@+id/home_toolbarLogoTv"            android:layout_width="wrap_content"            android:layout_height="wrap_content"            android:fontFamily="@font/russo_one_regular"            android:text="@string/app_name"            android:textColor="@color/colorPrimaryDark"            android:textSize="30sp" />    </androidx.appcompat.widget.Toolbar>    <ScrollView        android:id="@+id/homeSv"        android:layout_width="match_parent"        android:layout_height="0dp"        app:layout_constraintBottom_toBottomOf="parent"        app:layout_constraintEnd_toEndOf="parent"        app:layout_constraintStart_toStartOf="parent"        app:layout_constraintTop_toBottomOf="@id/home_toolbar">        <LinearLayout            android:id="@+id/homeSvLl"            android:layout_width="match_parent"            android:layout_height="wrap_content"            android:orientation="vertical">            <TextView                android:id="@+id/home_wordOfTheDayTitleTv"                style="@style/BasicBoldTextStyle"                android:layout_width="match_parent"                android:layout_height="wrap_content"                android:layout_marginHorizontal="20dp"                android:layout_weight="1"                android:text="Word of the day"                android:textColor="@color/primaryTextColor"                android:textSize="20sp" />            <View                android:layout_width="match_parent"                android:layout_height="10dp" />            <LinearLayout                android:id="@+id/home_wordOfTheDayLl"                android:layout_width="match_parent"                android:layout_height="wrap_content"                android:layout_marginHorizontal="20dp"                android:background="@drawable/bg_social_btn"                android:orientation="vertical"                android:paddingHorizontal="20dp"                android:paddingVertical="30dp">                <TextView                    android:id="@+id/home_wordOfTheDayTermTv"                    style="@style/BasicTextStyle"                    android:layout_width="match_parent"                    android:layout_height="wrap_content"                    android:fontFamily="@font/rem_bold"                    android:gravity="center"                    android:text="TERM"                    android:textColor="@color/colorPrimaryDark"                    android:textSize="20sp" />
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="10dp" />
@@ -211,9 +129,10 @@
     </ScrollView>
 
     <ProgressBar
-        android:padding="30dp"
+        android:id="@+id/fragmentHome_progressBar"
         android:elevation="3dp"
-        android:background="@drawable/bg_corners_rounded" android:id="@+id/fragmentHome_progressBar"
+        android:background="@drawable/bg_circle"
+        android:padding="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

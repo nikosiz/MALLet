@@ -75,7 +75,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     private TextInputEditText flashcardTranslationEt;
     private Long groupId;
     private String groupName;
-    private boolean canUserEditSet;
+    private boolean canUserEditSet, isUserSet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,13 +108,15 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         learningSet = getIntent().getParcelableExtra("learningSet");
 
         isSetNew = getIntent().getBooleanExtra("isSetNew", true);
+        isUserSet = getIntent().getBooleanExtra("isUserSet", true);
         isSetInGroup = getIntent().getBooleanExtra("isSetInGroup", false);
         canUserEditSet = getIntent().getBooleanExtra("canUserEditSet", false);
 
         if (learningSet != null && learningSet.getTerms() != null) {
             flashcards = learningSet.getTerms();
-        }
+        } else {
 
+        }
 
         progressBar = binding.editSetProgressBar;
         Utils.hideItems(progressBar);
@@ -136,8 +138,6 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
         addFlashcardFab = binding.editSetAddFab;
 
-        setName = learningSet.getName();
-
         if (isSetNew) {
             Utils.hideItems(progressBar);
             Utils.hideItems(toolbarDeleteIv);
@@ -149,7 +149,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         } else if (!isSetNew || isSetInGroup) {
             Utils.showItems(toolbarDeleteIv);
 
-            setNameEt.setText(setName);
+            setNameEt.setText(learningSet.getName());
             setDescriptionEt.setText(learningSet.getDescription());
 
             if (learningSet.getTerms() != null) {
@@ -222,13 +222,51 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         TextView confirmTv = dialogBinding.deleteConfirmTv;
         TextView cancelTv = dialogBinding.deleteCancelTv;
 
-        confirmTv.setOnClickListener(v -> deleteSet());
+        confirmTv.setOnClickListener(v -> {
+            dialog.dismiss();
+            deleteSet();
+        });
         cancelTv.setOnClickListener(v -> dialog.dismiss());
     }
 
-    private void deleteSet() {
+    private void deleteSet3Queries(int attemptCount) {
+        Utils.disableItems(toolbarBackIv, toolbarDeleteIv, toolbarSaveIv, setNameEt, addDescriptionTv, addFlashcardFab);
+        Utils.showItems(progressBar);
+        userService.deleteUserSet(learningSetId, new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Utils.enableItems(toolbarBackIv, toolbarDeleteIv, toolbarSaveIv, setNameEt, addDescriptionTv, addFlashcardFab);
+                Utils.hideItems(progressBar);
+
+
+                Intent intent = new Intent(getApplicationContext(), ActivityMain.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                startActivity(intent);
+
+                close();
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                if (attemptCount < MAX_RETRY_ATTEMPTS) {
+                    System.out.println(attemptCount);
+                    // Retry the operation
+                    deleteSet3Queries(attemptCount + 1);
+                } else {
+                    Utils.enableItems(toolbarBackIv, toolbarDeleteIv, toolbarSaveIv, setNameEt, addDescriptionTv, addFlashcardFab);
+                    Utils.showToast(getApplicationContext(), "Network error");
+                    Utils.hideItems(progressBar);
+                }
+            }
+        });
 
     }
+
+    private void deleteSet() {
+        deleteSet3Queries(0);
+    }
+
 
     public void saveSet() {
         String enteredSetName = Objects.requireNonNull(setNameEt.getText()).toString();

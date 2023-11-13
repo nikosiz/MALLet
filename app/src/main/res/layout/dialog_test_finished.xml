@@ -6,19 +6,15 @@
     android:layout_height="wrap_content"
     android:background="@drawable/bg_top_corners_rounded"
     android:orientation="vertical"
-    android:padding="30dp">
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp" />
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="30dp">
 
     <TextView
         style="@style/BasicBoldTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/russo_one_regular"
-        android:text="Congrats!"
+        android:text="@string/congratulations"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="25sp" />
 
@@ -31,11 +27,11 @@
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="You finished the test in "
+        android:text="@string/you_finished_and_scored"
         android:textColor="@color/colorPrimary"
         android:textSize="20sp" />
 
-    <View
+    <!--<View
         android:layout_width="match_parent"
         android:layout_height="10dp" />
 
@@ -43,23 +39,24 @@
         android:id="@+id/testFinished_resultsLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" />
+        android:orientation="vertical" />-->
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="20dp" />
+        android:layout_height="30dp" />
 
     <TextView
         android:id="@+id/testFinished_messageTv"
         style="@style/BasicTextStyle"
+        android:text="@string/motivational_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="motivational_message"
+        android:textColor="@color/colorPrimary"
         android:textSize="20sp" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="10dp" />
+        android:layout_height="30dp" />
 
     <LinearLayout
         android:id="@+id/testFinished_finishRestartLl"
@@ -76,7 +73,6 @@
             android:background="@drawable/bg_ripple"
             android:clickable="true"
             android:focusable="true"
-
             android:padding="10dp"
             android:text="Finish"
             android:textColor="@color/colorPrimary"

@@ -61,11 +61,15 @@ public class FragmentFlashcards extends Fragment {
 
         setupCardStackView();
 
+        shuffleFlashcards();
+
         return binding.getRoot();
     }
 
     private void setupContents() {
         originalFlashcards = getLearningSetData();
+
+
 
         setupToolbar();
 

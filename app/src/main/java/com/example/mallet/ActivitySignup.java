@@ -33,7 +33,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ActivitySignup extends AppCompatActivity {
-    private final Pattern usernamePattern = Pattern.compile("^[a-zA-Z0-9_]+$");
     private ActivitySignupBinding binding;
     private TextInputEditText emailEt, passwordEt;
     private String email, password, username;

@@ -18,8 +18,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import com.example.mallet.databinding.DialogLearnFinishedBinding;
 import com.example.mallet.databinding.DialogLearnOptionsBinding;
-import com.example.mallet.databinding.DialogLearningFinishedBinding;
 import com.example.mallet.databinding.FragmentLearnBinding;
 import com.example.mallet.utils.ModelFlashcard;
 import com.example.mallet.utils.ModelLearningSet;
@@ -30,10 +30,8 @@ import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 
 public class FragmentLearn extends Fragment {
     private ActivityLearn activityLearn;
@@ -131,23 +129,30 @@ public class FragmentLearn extends Fragment {
         dialog.setContentView(dialogBinding.getRoot());
         dialog.show();
 
+        TextView welcomeSubtitleTv = dialogBinding.learnOptionsSubtitleTv;
+        welcomeSubtitleTv.setText(getActivity().getString(R.string.in_this_session_you_will_be_asked, String.valueOf(MAX_QUESTIONS)));
         TextView restartTv = dialogBinding.learnOptionsRestartTv;
         TextView startTv = dialogBinding.learnOptionsStartTv;
         errorTv = dialogBinding.learnOptionsErrorTv;
 
         restartTv.setOnClickListener(v -> {
+            writtenQuestions = activityLearn.generateWrittenQuestions();
+
+            displayWrittenQuestions(writtenQuestions, questionsLl, getLayoutInflater());
+
             currentQuestionIndex = 0;
+
             dialog.dismiss();
         });
 
         startTv.setOnClickListener(v -> {
             writtenQuestions = activityLearn.generateWrittenQuestions();
-            WRITTEN_QUESTIONS = MAX_QUESTIONS;
+
             displayWrittenQuestions(writtenQuestions, questionsLl, getLayoutInflater());
-            dialog.dismiss();
 
             currentQuestionIndex = 0;
-            //optionsDialog.dismiss();
+
+            dialog.dismiss();
         });
     }
 
@@ -220,8 +225,8 @@ public class FragmentLearn extends Fragment {
     }
 
     private void learningFinishedDialog() {
-        Dialog finishedDialog = Utils.createDialog(requireContext(), R.layout.dialog_learning_finished, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
-        DialogLearningFinishedBinding dialogBinding = DialogLearningFinishedBinding.inflate(getLayoutInflater());
+        Dialog finishedDialog = Utils.createDialog(requireContext(), R.layout.dialog_learn_finished, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
+        DialogLearnFinishedBinding dialogBinding = DialogLearnFinishedBinding.inflate(getLayoutInflater());
         finishedDialog.setContentView(dialogBinding.getRoot());
 
         TextView dialogFinishTv = dialogBinding.learningFinishedFinishTv;
@@ -244,17 +249,5 @@ public class FragmentLearn extends Fragment {
         });
 
         finishedDialog.show();
-    }
-
-    private List<ModelFlashcard> getLearningSetData() {
-        Bundle args = getArguments();
-        if (args != null) {
-            ModelLearningSet learningSet = args.getParcelable("learningSet");
-            if (learningSet != null) {
-                flashcards = learningSet.getTerms();
-                return flashcards;
-            }
-        }
-        return new ArrayList<>(); // Return an empty list if data retrieval fails
     }
 }

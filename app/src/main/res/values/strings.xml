@@ -127,13 +127,13 @@
     <string name="term">Term #%s</string>
     <string name="nr_of_terms_singular">%s term</string>
     <string name="nr_of_terms_plural">%s terms</string>
-    <string name="motivational_message05">Great start! Every journey begins with a single step. Keep going, and success will follow!</string>
-    <string name="motivational_message510">Nice effort! You are on your way to mastering this material. Keep pushing yourself to reach new heights!</string>
-    <string name="motivational_message1015">Well done! You are making solid progress. Consistency is key, and you are proving that with each question.</string>
-    <string name="motivational_message1520">Fantastic job! You are really getting the hang of this. Believe in your abilities; you are capable of achieving even more!</string>
-    <string name="motivational_message2025">Outstanding! You are mastering the material with each passing question. Your dedication is paying off, keep up the excellent work!</string>
-    <string name="motivational_message2530">Incredible performance! You are achieving excellence in this test. Your hard work and determination are shining through. Keep aiming high!</string>
-    <string name="motivational_message30">Perfect score! You have aced the material and demonstrated an impressive level of knowledge. Your dedication and intelligence are truly commendable. Congratulations!</string>
+    <string name="motivational_message05">Great start! Every journey begins with a single step. \n\nKeep going, and success will follow!</string>
+    <string name="motivational_message510">Nice effort! You are on your way to mastering this material. \n\nKeep pushing yourself to reach new heights!</string>
+    <string name="motivational_message1015">Well done! You are making solid progress. \n\nConsistency is key, and you are proving that with each question.</string>
+    <string name="motivational_message1520">Fantastic job! You are really getting the hang of this. \n\nBelieve in your abilities; you are capable of achieving even more!</string>
+    <string name="motivational_message2025">Outstanding! You are mastering the material with each passing question. \n\nYour dedication is paying off, keep up the excellent work!</string>
+    <string name="motivational_message2530">Incredible performance! You are achieving excellence in this test. \n\nYour hard work and determination are shining through. \n\nKeep aiming high!</string>
+    <string name="motivational_message30">Perfect score! You have aced the material and demonstrated an impressive level of knowledge. \n\nYour dedication and intelligence are truly commendable. \n\nCongratulations!</string>
     <string name="you_finished_and_scored">You finished the test in %s seconds and scored %s points</string>
     <string name="time_minutes_seconds">%s minutes %s seconds</string>
     <string name="time_seconds">%s seconds</string>
@@ -173,4 +173,10 @@
     <string name="XXX_terms">%s terms</string>
     <string name="delete_set_from_group">Delete set from group</string>
     <string name="delete_set">Delete set</string>
+    <string name="in_this_session_you_will_be_asked">In this session, you will be asked a series of %s questions. Please provide clear and accurate answers. \n\nIf you don\'t know the answer, you will be shown the correct one to learn from. \n\nLet\'s get started!</string>
+    <string name="welcome_to_learn">Welcome to Learn!</string>
+    <string name="you_have_covered_all_the_material">You have covered all the material! \n\nNow, you can revisit for practice or explore different modes of study - the choice is yours!</string>
+    <string name="you_are_about_to_take_a_test">You are about to take a test. There are thirty questions of three types:\n\n- Written: Provide clear, concise responses\n- Multiple Choice: Pick the best answer\n- True/False: Decide if statements are true or false\n\nThere is no time limit but do your best.</string>
+    <string name="motivational_message">motivational_message</string>
+    <string name="congratulations">Congratulations!</string>
 </resources>
