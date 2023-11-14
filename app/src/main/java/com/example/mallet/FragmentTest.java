@@ -3,6 +3,7 @@ package com.example.mallet;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -38,6 +39,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * @noinspection deprecation
+ */
 public class FragmentTest extends Fragment {
     private ActivityLearn activityLearn;
     private FragmentTestBinding binding;
@@ -100,10 +104,6 @@ public class FragmentTest extends Fragment {
         nextTv.setOnClickListener(v -> nextQuestion());
         Utils.showItems(nextTv);
 
-        finishTv = binding.testFinishTv;
-        finishTv.setOnClickListener(v -> testFinishedDialog());
-        Utils.hideItems(finishTv);
-
         writtenQuestionTv = writtenQuestionView.findViewById(R.id.written_questionTv);
         writtenAnswerEt = writtenQuestionView.findViewById(R.id.written_answerEt);
 
@@ -114,7 +114,14 @@ public class FragmentTest extends Fragment {
         } else {
             startTestDialog();
         }
+
+        multipleChoiceMainLl = multipleChoiceQuestionView.findViewById(R.id.multipleChoice_mainLl);
+
+        bgPrimaryStroke = ContextCompat.getDrawable(getActivity(), R.drawable.bg_white_primary_stroke);
+        bgDarkStroke = ContextCompat.getDrawable(getActivity(), R.drawable.bg_white_dark_stroke);
     }
+
+    private LinearLayout multipleChoiceMainLl;
 
     private ImageView toolbarBackIv, toolbarOptionsIv;
 
@@ -191,12 +198,8 @@ public class FragmentTest extends Fragment {
                     System.out.println("Question index: " + currentQuestionIndex);
 
                     if (currentQuestionIndex < writtenQuestions.size()) {
-                        displayWrittenQuestion(writtenQuestions, questionsLl, getLayoutInflater());
+                        displayWrittenQuestion(writtenQuestions, this.questionsLl, getLayoutInflater());
                     } else {
-                        Utils.showItems(finishTv);
-                        Utils.enableItems(finishTv);
-                        Utils.hideItems(nextTv);
-                        Utils.disableItems(nextTv);
                         testFinishedDialog();
                     }
                 } else {
@@ -207,16 +210,24 @@ public class FragmentTest extends Fragment {
                     System.out.println("Question index: " + currentQuestionIndex);
 
                     if (currentQuestionIndex < writtenQuestions.size()) {
-                        displayWrittenQuestion(writtenQuestions, questionsLl, getLayoutInflater());
+                        displayWrittenQuestion(writtenQuestions, this.questionsLl, getLayoutInflater());
                     } else {
-                        Utils.showItems(finishTv);
-                        Utils.enableItems(finishTv);
-                        Utils.hideItems(nextTv);
-                        Utils.disableItems(nextTv);
                         testFinishedDialog();
                     }
                 }
             } else if (currentQuestionIndex < 19) {
+
+
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
+
+                questionsLl.setGravity(Gravity.NO_GRAVITY);
+
+                layoutParams.gravity = Gravity.NO_GRAVITY; // Change to the desired gravity value
+
+                multipleChoiceMainLl.setLayoutParams(layoutParams);
 
                 boolean isCorrect = checkMultipleChoiceAnswer(multipleChoiceClickedPosition, correctMultipleChoiceAnswerPosition);
 
@@ -230,10 +241,6 @@ public class FragmentTest extends Fragment {
                     if (currentQuestionIndex - 10 < multipleChoiceQuestions.size()) {
                         displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
                     } else {
-                        Utils.showItems(finishTv);
-                        Utils.enableItems(finishTv);
-                        Utils.hideItems(nextTv);
-                        Utils.disableItems(nextTv);
                         testFinishedDialog();
                     }
                 } else {
@@ -246,6 +253,7 @@ public class FragmentTest extends Fragment {
                     }
                 }
             } else if (currentQuestionIndex < 30) {
+
                 boolean isTrueFalseCorrect = checkTrueFalseAnswer(trueFalseClicked, trueFalseCorrectAnswer);
 
                 if (isTrueFalseCorrect) {
@@ -343,9 +351,13 @@ public class FragmentTest extends Fragment {
 
             trueTv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
             trueTv.setTypeface(remBold);
+            trueTv.getCompoundDrawables()[0].setTint(getActivity().getResources().getColor(R.color.colorPrimaryDark));
+            trueTv.setBackground(getActivity().getDrawable(R.drawable.bg_white_dark_stroke));
 
             falseTv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
             falseTv.setTypeface(remRegular);
+            falseTv.getCompoundDrawables()[0].setTint(getActivity().getResources().getColor(R.color.colorPrimary));
+            falseTv.setBackground(getActivity().getDrawable(R.drawable.bg_white_primary_stroke));
         });
 
         falseTv.setOnClickListener(v -> {
@@ -354,9 +366,13 @@ public class FragmentTest extends Fragment {
 
             trueTv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
             trueTv.setTypeface(remRegular);
+            trueTv.getCompoundDrawables()[0].setTint(getActivity().getResources().getColor(R.color.colorPrimary));
+            trueTv.setBackground(getActivity().getDrawable(R.drawable.bg_white_primary_stroke));
 
             falseTv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
             falseTv.setTypeface(remBold);
+            falseTv.getCompoundDrawables()[0].setTint(getActivity().getResources().getColor(R.color.colorPrimaryDark));
+            falseTv.setBackground(getActivity().getDrawable(R.drawable.bg_white_dark_stroke));
         });
 
         ll.addView(trueFalseQuestionItem);
@@ -383,6 +399,8 @@ public class FragmentTest extends Fragment {
     private TextView writtenAnswerTv;
     private int correctMultipleChoiceAnswerPosition;
     private TextView option1Tv, option2Tv, option3Tv, option4Tv;
+    private Drawable bgPrimaryStroke;// = ContextCompat.getDrawable(getActivity(),R.drawable.bg_white_primary_stroke);
+    private Drawable bgDarkStroke;// = ContextCompat.getDrawable(getActivity(),R.drawable.bg_white_dark_stroke);
 
     private void displayMultipleChoiceQuestion
             (List<ModelMultipleChoice> questions, LinearLayout ll, LayoutInflater inflater) {
@@ -425,15 +443,23 @@ public class FragmentTest extends Fragment {
 
             option1Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
             option1Tv.setTypeface(remBold);
+            option1Tv.getCompoundDrawables()[0].setTint(getActivity().getResources().getColor(R.color.colorPrimaryDark));
+            option1Tv.setBackground(bgDarkStroke);
 
             option2Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
             option2Tv.setTypeface(remRegular);
+            option2Tv.getCompoundDrawables()[0].setTint(getActivity().getResources().getColor(R.color.colorPrimary));
+            option2Tv.setBackground(bgPrimaryStroke);
 
             option3Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
             option3Tv.setTypeface(remRegular);
+            option3Tv.getCompoundDrawables()[0].setTint(getActivity().getResources().getColor(R.color.colorPrimary));
+            option3Tv.setBackground(bgPrimaryStroke);
 
             option4Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
             option4Tv.setTypeface(remRegular);
+            option4Tv.getCompoundDrawables()[0].setTint(getActivity().getResources().getColor(R.color.colorPrimary));
+            option4Tv.setBackground(bgPrimaryStroke);
         });
 
         option2Tv.setOnClickListener(v -> {
@@ -441,16 +467,24 @@ public class FragmentTest extends Fragment {
             Utils.showToast(getContext(), String.valueOf(multipleChoiceClickedPosition));
 
             option1Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
-            option1Tv.setTypeface(remRegular);
+            option1Tv.setTypeface(remBold);
+            option1Tv.getCompoundDrawables()[0].setTint(getActivity().getResources().getColor(R.color.colorPrimary));
+            option1Tv.setBackground(bgPrimaryStroke);
 
             option2Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
-            option2Tv.setTypeface(remBold);
+            option2Tv.setTypeface(remRegular);
+            option2Tv.getCompoundDrawables()[0].setTint(getActivity().getResources().getColor(R.color.colorPrimaryDark));
+            option2Tv.setBackground(bgDarkStroke);
 
             option3Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
             option3Tv.setTypeface(remRegular);
+            option3Tv.getCompoundDrawables()[0].setTint(getActivity().getResources().getColor(R.color.colorPrimary));
+            option3Tv.setBackground(bgPrimaryStroke);
 
             option4Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
             option4Tv.setTypeface(remRegular);
+            option4Tv.getCompoundDrawables()[0].setTint(getActivity().getResources().getColor(R.color.colorPrimary));
+            option4Tv.setBackground(bgPrimaryStroke);
         });
 
         option3Tv.setOnClickListener(v -> {
@@ -458,16 +492,24 @@ public class FragmentTest extends Fragment {
             Utils.showToast(getContext(), String.valueOf(multipleChoiceClickedPosition));
 
             option1Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
-            option1Tv.setTypeface(remRegular);
+            option1Tv.setTypeface(remBold);
+            option1Tv.getCompoundDrawables()[0].setTint(getActivity().getResources().getColor(R.color.colorPrimary));
+            option1Tv.setBackground(bgPrimaryStroke);
 
             option2Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
             option2Tv.setTypeface(remRegular);
+            option2Tv.getCompoundDrawables()[0].setTint(getActivity().getResources().getColor(R.color.colorPrimary));
+            option2Tv.setBackground(bgPrimaryStroke);
 
             option3Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
-            option3Tv.setTypeface(remBold);
+            option3Tv.setTypeface(remRegular);
+            option3Tv.getCompoundDrawables()[0].setTint(getActivity().getResources().getColor(R.color.colorPrimaryDark));
+            option3Tv.setBackground(bgDarkStroke);
 
             option4Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
             option4Tv.setTypeface(remRegular);
+            option4Tv.getCompoundDrawables()[0].setTint(getActivity().getResources().getColor(R.color.colorPrimary));
+            option4Tv.setBackground(bgPrimaryStroke);
         });
 
         option4Tv.setOnClickListener(v -> {
@@ -475,16 +517,24 @@ public class FragmentTest extends Fragment {
             Utils.showToast(getContext(), String.valueOf(multipleChoiceClickedPosition));
 
             option1Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
-            option1Tv.setTypeface(remRegular);
+            option1Tv.setTypeface(remBold);
+            option1Tv.getCompoundDrawables()[0].setTint(getActivity().getResources().getColor(R.color.colorPrimary));
+            option1Tv.setBackground(bgPrimaryStroke);
 
             option2Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
             option2Tv.setTypeface(remRegular);
+            option2Tv.getCompoundDrawables()[0].setTint(getActivity().getResources().getColor(R.color.colorPrimary));
+            option2Tv.setBackground(bgPrimaryStroke);
 
             option3Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
             option3Tv.setTypeface(remRegular);
+            option3Tv.getCompoundDrawables()[0].setTint(getActivity().getResources().getColor(R.color.colorPrimary));
+            option3Tv.setBackground(bgPrimaryStroke);
 
             option4Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
-            option4Tv.setTypeface(remBold);
+            option4Tv.setTypeface(remRegular);
+            option4Tv.getCompoundDrawables()[0].setTint(getActivity().getResources().getColor(R.color.colorPrimaryDark));
+            option4Tv.setBackground(bgDarkStroke);
         });
 
 
@@ -528,12 +578,6 @@ public class FragmentTest extends Fragment {
             writtenQuestions = activityLearn.generateWrittenQuestions();
             multipleChoiceQuestions = activityLearn.generateMultipleChoiceQuestions();
             trueFalseQuestions = activityLearn.generateTrueFalseQuestions();
-
-            Utils.hideItems(finishTv);
-            Utils.disableItems(finishTv);
-
-            Utils.showItems(nextTv);
-            Utils.enableItems(nextTv);
 
             dialog.dismiss();
 
