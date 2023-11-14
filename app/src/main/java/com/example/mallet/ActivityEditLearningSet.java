@@ -236,6 +236,14 @@ public class ActivityEditLearningSet extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<Long> call, Response<Long> response) {
                                 learningSetId  = ResponseHandler.handleResponse(response);
+
+                                Intent intent = new Intent(getApplicationContext(),ActivityViewGroup.class);
+
+                                intent.putExtra("learningSet", learningSet);
+                                intent.putExtra("learningSetId", learningSetId);
+
+                                startActivity(intent);
+
                                 Utils.showToast(getApplicationContext(), "Set edited");
                                 close();
                             }
@@ -265,6 +273,13 @@ public class ActivityEditLearningSet extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<Void> call, Response<Void> response) {
                                 Utils.showToast(getApplicationContext(), "Set edited");
+
+                                Intent intent = new Intent(getApplicationContext(),ActivityViewGroup.class);
+
+                                intent.putExtra("groupId", groupId);
+
+                                startActivity(intent);
+
                                 close();
                             }
 
@@ -342,7 +357,6 @@ public class ActivityEditLearningSet extends AppCompatActivity {
                 startActivity(intent);
 
                 close();
-                Utils.showToast(getApplicationContext(), "Set created");
             }
 
             @Override

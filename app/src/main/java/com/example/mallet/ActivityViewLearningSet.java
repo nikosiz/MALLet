@@ -186,7 +186,12 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             @Override
             public void onResponse(Call<SetDetailDTO> call, Response<SetDetailDTO> response) {
                 Utils.hideItems(progressBar);
+                Utils.enableItems(toolbarOptionsIv, flashcardsVp2);
+
                 SetDetailDTO setDetailDTO = ResponseHandler.handleResponse(response);
+
+                Utils.showItems(flashcardsVp2, allFlashcardsLlTitleTv);
+                flashcardsVp2.startAnimation(fadeInAnimation);
 
                 flashcards = ModelFlashcardMapper.from(setDetailDTO.terms());
                 learningSet.setFlashcards(flashcards);
@@ -210,47 +215,50 @@ public class ActivityViewLearningSet extends AppCompatActivity {
                     testTitleTv.setText(getApplicationContext().getString(R.string.test_available_more_flashcards, String.valueOf(MIN_FLASHCARDS_FOR_TEST)));
 
                     matchTitleTv.setText(getApplicationContext().getString(R.string.match_available_more_flashcards, String.valueOf(MIN_FLASHCARDS_FOR_MATCH)));
-                } else if (flashcards.size() > 0 && flashcards.size() < MIN_FLASHCARDS_FOR_TEST) {
-                    Utils.enableItems(flashcardsLl, learnLl, testLl, matchLl, viewSetStudyEfab);
-
-                    if (flashcards.size() < MIN_FLASHCARDS_FOR_MATCH) {
-                        Utils.showItems(flashcardsVp2, allFlashcardsLlTitleTv);
-
-                        Utils.disableItems(matchLl);
-
-                        Utils.visuallyDisableTvs(getApplicationContext(), matchTitleTv, matchSubtitleTv);
-                        Utils.visuallyDisableIvs(getApplicationContext(), matchIv);
-
-                        matchTitleTv.setText(getApplicationContext().getString(R.string.match_available_more_flashcards, String.valueOf(MIN_FLASHCARDS_FOR_MATCH)));
-                        matchTitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
-                        matchSubtitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
-                        matchIv.setColorFilter(getApplicationContext().getResources().getColor(R.color.colorPrimary));
-                    }
+                } else if (flashcards.size() > 0) {
+                    Utils.enableItems(flashcardsLl, learnLl);
 
                     if (flashcards.size() < MIN_FLASHCARDS_FOR_TEST) {
-                        Utils.showItems(flashcardsVp2, allFlashcardsLlTitleTv);
+                        Utils.enableItems(flashcardsLl, learnLl, testLl, matchLl, viewSetStudyEfab);
 
-                        Utils.disableItems(testLl);
+                        if (flashcards.size() < MIN_FLASHCARDS_FOR_MATCH) {
+                            Utils.showItems(flashcardsVp2, allFlashcardsLlTitleTv);
 
-                        Utils.visuallyDisableTvs(getApplicationContext(), testTitleTv, testSubtitleTv);
-                        Utils.visuallyDisableIvs(getApplicationContext(), testIv);
+                            Utils.disableItems(matchLl);
 
-                        testTitleTv.setText(getApplicationContext().getString(R.string.test_available_more_flashcards, String.valueOf(MIN_FLASHCARDS_FOR_TEST)));
-                        testTitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
-                        testSubtitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
-                        testIv.setColorFilter(getApplicationContext().getResources().getColor(R.color.colorPrimary));
+                            Utils.visuallyDisableTvs(getApplicationContext(), matchTitleTv, matchSubtitleTv);
+                            Utils.visuallyDisableIvs(getApplicationContext(), matchIv);
+
+                            matchTitleTv.setText(getApplicationContext().getString(R.string.match_available_more_flashcards, String.valueOf(MIN_FLASHCARDS_FOR_MATCH)));
+                            matchTitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+                            matchSubtitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+                            matchIv.setColorFilter(getApplicationContext().getResources().getColor(R.color.colorPrimary));
+                        }
+
+                        if (flashcards.size() < MIN_FLASHCARDS_FOR_TEST) {
+                            Utils.showItems(flashcardsVp2, allFlashcardsLlTitleTv);
+
+                            Utils.disableItems(testLl);
+
+                            Utils.visuallyDisableTvs(getApplicationContext(), testTitleTv, testSubtitleTv);
+                            Utils.visuallyDisableIvs(getApplicationContext(), testIv);
+
+                            testTitleTv.setText(getApplicationContext().getString(R.string.test_available_more_flashcards, String.valueOf(MIN_FLASHCARDS_FOR_TEST)));
+                            testTitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+                            testSubtitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+                            testIv.setColorFilter(getApplicationContext().getResources().getColor(R.color.colorPrimary));
+                        }
                     }
                 } else if (flashcards.size() > MIN_FLASHCARDS_FOR_TEST) {
                     Utils.enableItems(testLl, matchLl);
                 }
 
                 displayFlashcardsInViewPager(flashcards, flashcardsVp2);
-                flashcardsVp2.startAnimation(fadeInAnimation);
 
                 displayFlashcardsInLinearLayout(flashcards, binding.viewSetAllFlashcardsLl, getLayoutInflater());
-                binding.viewSetAllFlashcardsLl.startAnimation(fadeInAnimation);
+                flashcardsLl.startAnimation(fadeInAnimation);
 
-                Utils.enableItems(toolbarOptionsIv, flashcardsVp2, flashcardsLl, learnLl);
+
             }
 
             @Override
@@ -424,6 +432,8 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         intent.putExtra("isSetNew", isSetNew);
 
         startActivity(intent);
+
+        finish();
     }
 
     private boolean isUserSet(long id) {
