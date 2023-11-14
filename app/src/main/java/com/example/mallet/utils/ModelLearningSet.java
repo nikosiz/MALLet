@@ -120,6 +120,7 @@ public class ModelLearningSet implements Parcelable {
     }
 
     protected ModelLearningSet(Parcel in) {
+        id = in.readLong();
         name = in.readString();
         creator = in.readString();
         terms = in.createTypedArrayList(ModelFlashcard.CREATOR);
@@ -151,6 +152,7 @@ public class ModelLearningSet implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
         dest.writeString(name);
         dest.writeString(creator);
         dest.writeTypedList(terms);

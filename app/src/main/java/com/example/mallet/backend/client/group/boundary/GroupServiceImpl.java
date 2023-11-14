@@ -115,4 +115,12 @@ public class GroupServiceImpl {
                 .enqueue(callback);
     }
 
+    public void syncSet(@NonNull Long groupId,
+                          @NonNull SetCreateContainer setCreateContainer,
+                          Callback<Void> callback) {
+        GroupSetCreateDTO groupSetCreateDTO = GroupSetCreateDTOMapper.from(groupId, setCreateContainer);
+
+        groupService.createSet(groupSetCreateDTO)
+                .enqueue(callback);
+    }
 }

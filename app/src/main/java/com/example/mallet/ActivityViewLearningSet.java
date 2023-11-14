@@ -110,11 +110,6 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     }
 
     private void setupContents() {
-        setupToolbar();
-
-        progressBar = binding.viewSetProgressBar;
-        viewSetSv = binding.viewSetSv;
-
         learningSet = getIntent().getParcelableExtra("learningSet");
         groupId = getIntent().getLongExtra("groupId", 0L);
 
@@ -122,6 +117,12 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         //isSetNew = getIntent().getBooleanExtra("isSetNew", false);
         isSetInGroup = getIntent().getBooleanExtra("isSetInGroup", false);
         canUserEditSet = getIntent().getBooleanExtra("canUserEditSet", false);
+
+        setupToolbar();
+
+        progressBar = binding.viewSetProgressBar;
+        viewSetSv = binding.viewSetSv;
+
 
         fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in);
 
@@ -189,7 +190,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
                 flashcards = ModelFlashcardMapper.from(setDetailDTO.terms());
                 learningSet.setFlashcards(flashcards);
-
+                learningSet.setId(Math.toIntExact(setDetailDTO.id()));
                 TextView addVocabTv = binding.viewSetAddVocabTv;
                 addVocabTv.setOnClickListener(v -> editSet());
 
@@ -419,7 +420,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     private void editSet() {
         Intent intent = new Intent(this, ActivityEditLearningSet.class);
 
-        intent.putExtra("learningSet", learningSet);
+        intent.putExtra("learningSe t", learningSet);
         intent.putExtra("isSetNew", isSetNew);
 
         startActivity(intent);
@@ -685,7 +686,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
                 TextView setTermsTv = binding.viewSetNrOfTermsTv;
 
                 setNameTv.setText(setInformationDTO.name());
-
+                learningSet.setId(Math.toIntExact(setInformationDTO.id()));
                 setCreatorTv.setText(setInformationDTO.creator().name());
 
                 Optional.ofNullable(setInformationDTO.description())

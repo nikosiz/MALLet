@@ -78,6 +78,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityEditLearningSetBinding.inflate(getLayoutInflater());
+        setupContents();
         setContentView(binding.getRoot());
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
@@ -91,7 +92,6 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
         this.getOnBackPressedDispatcher().addCallback(this, callback);
 
-        setupContents();
     }
 
     private void setupContents() {
@@ -224,11 +224,66 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         newLearningSet = new ModelLearningSet(enteredSetName, enteredSetDescription, enteredFlashcards);
 
         if (!isSetInGroup) {
-            handleSetCreation(SetCreateContainerMapper.from(newLearningSet));
+            if (isSetNew) {
+                handleSetCreation(SetCreateContainerMapper.from(newLearningSet));
+            }
+            if (!isSetNew) {
+                //todo usuwanie seta uzywkoniak  i tworzenie nowego
+                userService.deleteUserSet(learningSet.getId(), new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        userService.createUserSet(SetCreateContainerMapper.from(newLearningSet), new Callback<Long>() {
+                            @Override
+                            public void onResponse(Call<Long> call, Response<Long> response) {
+                                learningSetId  = ResponseHandler.handleResponse(response);
+                                Utils.showToast(getApplicationContext(), "Set edited");
+                                close();
+                            }
+
+                            @Override
+                            public void onFailure(Call<Long> call, Throwable t) {
+                                Utils.showToast(getApplicationContext(), "Network error");
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Utils.showToast(getApplicationContext(), "Network error");
+                    }
+                });
+            }
         } else if (isSetInGroup) {
-            handleSetInGroupCreation(SetCreateContainerMapper.from(newLearningSet));
+            if (isSetNew) {
+                handleSetInGroupCreation(SetCreateContainerMapper.from(newLearningSet));
+            }
+            if (!isSetNew) {
+                groupService.removeSet(groupId, learningSet.getId(), new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        groupService.createSet(groupId, SetCreateContainerMapper.from(newLearningSet), new Callback<Void>() {
+                            @Override
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                Utils.showToast(getApplicationContext(), "Set edited");
+                                close();
+                            }
+
+                            @Override
+                            public void onFailure(Call<Void> call, Throwable t) {
+                                Utils.showToast(getApplicationContext(), "Network error");
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Utils.showToast(getApplicationContext(), "Network error");
+                    }
+                });
+            }
         }
     }
+
 
     private void addFlashcard(LinearLayout linearLayout, LayoutInflater inflater, String
             term, String definition, String translation) {
