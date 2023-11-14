@@ -25,10 +25,8 @@ import com.example.mallet.backend.client.group.boundary.GroupServiceImpl;
 import com.example.mallet.backend.client.user.boundary.UserServiceImpl;
 import com.example.mallet.backend.entity.set.SetCreateContainer;
 import com.example.mallet.backend.entity.set.SetCreateContainerMapper;
-import com.example.mallet.backend.exception.MalletException;
 import com.example.mallet.databinding.ActivityEditLearningSetBinding;
 import com.example.mallet.databinding.DialogConfirmExitBinding;
-import com.example.mallet.databinding.DialogDeleteAreYouSureBinding;
 import com.example.mallet.utils.AuthenticationUtils;
 import com.example.mallet.utils.ModelFlashcard;
 import com.example.mallet.utils.ModelLearningSet;
@@ -54,7 +52,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     private boolean isSetInGroup;
     private long learningSetId;
     private ProgressBar progressBar;
-    private ImageView toolbarBackIv, toolbarDeleteIv, toolbarSaveIv;
+    private ImageView toolbarBackIv, toolbarSaveIv;
     private TextInputEditText setNameEt;
     private TextView setNameErrTv;
     private TextView addDescriptionTv;
@@ -139,15 +137,12 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
         if (isSetNew) {
             Utils.hideItems(progressBar);
-            Utils.hideItems(toolbarDeleteIv);
 
             Utils.resetEditText(setNameEt, setNameErrTv);
             Utils.hideItems(setNameErrTv);
 
             addFlashcard(flashcardsLl, getLayoutInflater(), null, null, null);
         } else if (!isSetNew || isSetInGroup) {
-            Utils.showItems(toolbarDeleteIv);
-
             setNameEt.setText(learningSet.getName());
             setDescriptionEt.setText(learningSet.getDescription());
 
@@ -275,7 +270,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     }
 
     private void handleSetCreationWithRestart(SetCreateContainer newSetContainer, int attemptCount) {
-        Utils.disableItems(toolbarBackIv, toolbarDeleteIv, toolbarSaveIv, setNameEt,
+        Utils.disableItems(toolbarBackIv, toolbarSaveIv, setNameEt,
                 addDescriptionTv, setDescriptionEt, flashcardTermEt, flashcardDefinitionEt,
                 flashcardTranslationEt, addFlashcardFab);
         userService.createUserSet(newSetContainer, new Callback<Long>() {
@@ -302,7 +297,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
                     // Retry the network call
                     handleSetCreationWithRestart(newSetContainer, attemptCount + 1);
                 } else {
-                    Utils.enableItems(toolbarBackIv, toolbarDeleteIv, toolbarSaveIv, setNameEt,
+                    Utils.enableItems(toolbarBackIv, toolbarSaveIv, setNameEt,
                             addDescriptionTv, setDescriptionEt, flashcardTermEt,
                             flashcardDefinitionEt, flashcardTranslationEt, addFlashcardFab);
                     Utils.showToast(getApplicationContext(), "Set was not created due to a network error");
@@ -317,7 +312,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     }
 
     private void handleSetInGroupCreationWithRestart(SetCreateContainer newSetContainer, int attemptCount) {
-        Utils.disableItems(toolbarBackIv, toolbarDeleteIv, toolbarSaveIv, setNameEt,
+        Utils.disableItems(toolbarBackIv, toolbarSaveIv, setNameEt,
                 addDescriptionTv, setDescriptionEt, flashcardTermEt, flashcardDefinitionEt,
                 flashcardTranslationEt, addFlashcardFab);
         groupService.createSet(groupId, newSetContainer, new Callback<Void>() {
@@ -344,7 +339,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
                     // Retry the network call
                     handleSetCreationWithRestart(newSetContainer, attemptCount + 1);
                 } else {
-                    Utils.enableItems(toolbarBackIv, toolbarDeleteIv, toolbarSaveIv, setNameEt,
+                    Utils.enableItems(toolbarBackIv, toolbarSaveIv, setNameEt,
                             addDescriptionTv, setDescriptionEt, flashcardTermEt, flashcardDefinitionEt,
                             flashcardTranslationEt, addFlashcardFab);
                     Utils.showToast(getApplicationContext(), "Set was not created due to a network error");

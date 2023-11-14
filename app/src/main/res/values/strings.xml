@@ -155,8 +155,7 @@
     <string name="learn">Learn</string>
     <string name="study_in_your_own_pace">Study in your own pace</string>
     <string name="cd_test_icon">test icon</string>
-    <string name="test">Test</string>
-    <string name="take_a_test_to_check_your_knowledge">Take a test to check your knowledge</string>
+=    <string name="take_a_test_to_check_your_knowledge">Take a test to check your knowledge</string>
     <string name="cd_match_icon">match icon</string>
     <string name="match">Match</string>
     <string name="match_vocabulary_in_a_simple_minigame">Match vocabulary in a simple minigame</string>
@@ -183,4 +182,7 @@
     <string name="please_check_your_email">Please check your email and click on the link we sent you to confirm your registration.</string>
     <string name="sorry_there_are_not_enough_flashcards">Sorry but there are not enough flashcards in your set to generate a test for you.\n\nAdd more data to it or try different modes of study.</string>
     <string name="answer">answer</string>
+    <string name="test">Test</string>
+    <string name="test_available_more_flashcards">Test (available with %s+ flashcards)</string>
+    <string name="match_available_more_flashcards">Match (available with %s+ flashcards)</string>
 </resources>

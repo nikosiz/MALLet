@@ -63,9 +63,7 @@ public class ActivitySignup extends AppCompatActivity {
             }
         };
 
-        // Register the callback with the onBackPressedDispatcher
         this.getOnBackPressedDispatcher().addCallback(this, callback);
-
 
         setupContents();
     }
@@ -73,6 +71,9 @@ public class ActivitySignup extends AppCompatActivity {
     private void setupContents() {
         progressBar = binding.signupProgressBar;
         Utils.hideItems(progressBar);
+
+        TextView logo = binding.signupLogoTv;
+        Utils.setupAnimation(this, logo);
 
         userService = new UserServiceImpl(StringUtils.EMPTY);
 
@@ -84,21 +85,14 @@ public class ActivitySignup extends AppCompatActivity {
         passwordErrTv = binding.signupPasswordErrorTv;
         passwordIncorrect = getString(R.string.password_incorrect);
 
-        setupAnimation();
-
         Utils.setupEmailTextWatcher(emailEt, emailErrTv);
         Utils.setupPasswordTextWatcher(passwordEt, passwordErrTv);
 
         signupContinueTv = binding.signupContinueTv;
-        signupLoginHereTv = binding.signupLoginHereTv;
-
         signupContinueTv.setOnClickListener(v -> validateSignupData());
-        signupLoginHereTv.setOnClickListener(v -> loginActivity());
-    }
 
-    private void setupAnimation() {
-        TextView logo = binding.signupLogoTv;
-        Utils.setupAnimation(this, logo);
+        signupLoginHereTv = binding.signupLoginHereTv;
+        signupLoginHereTv.setOnClickListener(v -> loginActivity());
     }
 
     private void chooseUsernameDialog() {
@@ -125,6 +119,10 @@ public class ActivitySignup extends AppCompatActivity {
             dialog.dismiss();
             handleSignup();
         });
+    }
+
+    private void handleSignup() {
+        handleSignupWithRestart(0);
     }
 
     private void handleSignupWithRestart(int attemptCount) {
@@ -177,10 +175,6 @@ public class ActivitySignup extends AppCompatActivity {
 
     private ActivitySignup getThisContext() {
         return this;
-    }
-
-    private void handleSignup() {
-        handleSignupWithRestart(0);
     }
 
 

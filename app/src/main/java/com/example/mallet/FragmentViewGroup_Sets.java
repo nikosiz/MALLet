@@ -1,5 +1,7 @@
 package com.example.mallet;
 
+import static com.example.mallet.ActivityViewGroup.groupId;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -76,7 +78,18 @@ public class FragmentViewGroup_Sets extends Fragment {
     private GroupServiceImpl groupService;
 
     private void deleteSetFromGroup() {
-        groupService.removeSet(ActivityViewGroup.groupId, setId, new Callback<Void>() {
+        groupService.removeSet(groupId, setId, new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Utils.showToast(getActivity(),"Deleted");
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
+            }
+        });
+        /*groupService.removeSet(ActivityViewGroup.groupId, setId, new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 Utils.showToast(getActivity(), "deleted");
@@ -86,7 +99,7 @@ public class FragmentViewGroup_Sets extends Fragment {
             public void onFailure(Call<Void> call, Throwable t) {
 
             }
-        });
+        });*/
     }
 
     private void setupContents() {

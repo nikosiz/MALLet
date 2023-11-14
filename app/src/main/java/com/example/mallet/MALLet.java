@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatDelegate;
 public class MALLet extends Application {
     private MALLet mallet;
     public static final int MAX_RETRY_ATTEMPTS = 3;
+    public static int MIN_FLASHCARDS_FOR_TEST = 15;
+    public static int MIN_FLASHCARDS_FOR_MATCH = 10;
 
     @Override
     public void onCreate() {

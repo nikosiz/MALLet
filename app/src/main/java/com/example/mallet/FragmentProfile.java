@@ -136,8 +136,6 @@ public class FragmentProfile extends Fragment {
     private boolean isLogged;
 
     private void logOut() {
-        // TODO: Implement logic for logging out
-
         clickCount++;
         if (clickCount == 1) {
             Utils.showToast(getContext(), "Click once again to log out");
@@ -149,6 +147,7 @@ public class FragmentProfile extends Fragment {
             Intent intent = new Intent(requireActivity(), ActivityOpening.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
+
             requireActivity().finish();
 
             clickCount = 0;
@@ -189,14 +188,7 @@ public class FragmentProfile extends Fragment {
 
             if (!deleteAccEnteredPassword.isEmpty() && deleteAccCb.isChecked()) {
                 Utils.hideItems(deleteAccPasswordErrTv,deleteAccCbErrTv);
-                validatePassword(deleteAccEnteredPassword, deleteAccPasswordErrTv);
             }
         });
-    }
-
-    private void validatePassword(String enteredPassword, TextView err) {
-
-            password = enteredPassword;
-            //TODO
     }
 }

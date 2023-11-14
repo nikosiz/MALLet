@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -431,6 +432,19 @@ public class Utils {
         }
 
         return dialog;
+    }
+
+    public static void visuallyDisableTvs(Context context, TextView... tvs) {
+        for (TextView tv : tvs) {
+            tv.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
+        }
+
+    }
+
+    public static void visuallyDisableIvs(Context context, ImageView... ivs) {
+        for (ImageView iv : ivs) {
+            iv.setColorFilter(context.getResources().getColor(R.color.colorPrimary));
+        }
     }
 
 }

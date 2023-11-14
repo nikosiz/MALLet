@@ -2,12 +2,9 @@ package com.example.mallet;
 
 import static com.example.mallet.MALLet.MAX_RETRY_ATTEMPTS;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -41,9 +38,8 @@ public class ActivityLogin extends AppCompatActivity {
     private TextInputEditText emailEt, passwordEt;
     private TextView emailErrTv, passwordErrTv;
     private String emailIncorrect, passwordIncorrect;
-    private TextView forgotPasswordTv;
     private Button loginBtn;
-    private TextView signupRedirectTv;
+    private TextView loginSignupHereTv;
     private boolean isLogged;
     private ProgressBar progressBar;
 
@@ -74,41 +70,43 @@ public class ActivityLogin extends AppCompatActivity {
         progressBar = binding.activityLoginProgressBar;
         Utils.hideItems(progressBar);
 
-        // Check if the user is logged in
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        TextView logoTv = binding.loginLogoTv;
+        Utils.setupAnimation(this, logoTv);
 
         userService = new UserServiceImpl(StringUtils.EMPTY);
 
-        setupAnimation();
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         emailEt = binding.loginEmailEt;
         emailErrTv = binding.loginEmailErrorTv;
         emailIncorrect = getString(R.string.email_incorrect);
-        Utils.setupEmailTextWatcher(emailEt, emailErrTv);
 
         passwordEt = binding.loginPasswordEt;
         passwordErrTv = binding.loginPasswordErrorTv;
         passwordIncorrect = getString(R.string.password_incorrect);
+
+        Utils.setupEmailTextWatcher(emailEt, emailErrTv);
         Utils.setupPasswordTextWatcher(passwordEt, passwordErrTv);
 
         loginBtn = binding.loginBtn;
         loginBtn.setOnClickListener(v -> handleLogin());
 
-        signupRedirectTv = binding.loginSignupHereTv;
-        signupRedirectTv.setOnClickListener(v -> signupActivity());
+        loginSignupHereTv = binding.loginSignupHereTv;
+        loginSignupHereTv.setOnClickListener(v -> signupActivity());
     }
 
-    private void setupAnimation() {
-        TextView logo = binding.loginLogoTv;
-        Utils.setupAnimation(this, logo);
+    private void handleLogin() {
+        handleLoginWithRestart(0);
     }
+
+    private String email, password;
 
     private void handleLoginWithRestart(int attemptCount) {
-        String email = Objects.requireNonNull(emailEt.getText()).toString();
-        String password = Objects.requireNonNull(passwordEt.getText()).toString();
+        email = Objects.requireNonNull(emailEt.getText()).toString();
+        password = Objects.requireNonNull(passwordEt.getText()).toString();
 
         if (!Utils.isErrVisible(emailErrTv) && !Utils.isErrVisible(passwordErrTv)) {
-            Utils.disableItems(emailEt, passwordEt, forgotPasswordTv, loginBtn, signupRedirectTv);
+            Utils.disableItems(emailEt, passwordEt, loginBtn, loginSignupHereTv);
             Utils.showItems(progressBar);
             userService.login(email, password, new Callback<>() {
                 @Override
@@ -129,22 +127,25 @@ public class ActivityLogin extends AppCompatActivity {
                         sharedPreferences.edit().putString("username", userDetailDTO.username()).apply();
                         sharedPreferences.edit().putString("email", userDetailDTO.email()).apply();
 
-                        Utils.enableItems(emailEt, passwordEt, forgotPasswordTv, loginBtn, signupRedirectTv);
+                        Utils.enableItems(emailEt, passwordEt, loginBtn, loginSignupHereTv);
                         Utils.hideItems(progressBar);
+
+                        close();
                     } catch (MalletException e) {
-                        Utils.showToast(getApplicationContext(), e.getMessage());
-                        Utils.enableItems(emailEt, passwordEt, forgotPasswordTv, loginBtn, signupRedirectTv);
+                        //Utils.showToast(getApplicationContext(), e.getMessage());
+                        Utils.enableItems(emailEt, passwordEt, loginBtn, loginSignupHereTv);
                         Utils.hideItems(progressBar);
                     }
                 }
 
                 @Override
                 public void onFailure(Call<UserDetailDTO> call, Throwable t) {
-                    if (attemptCount < MAX_RETRY_ATTEMPTS) {System.out.println(attemptCount);
+                    if (attemptCount < MAX_RETRY_ATTEMPTS) {
+                        System.out.println(attemptCount);
                         // Retry the operation
                         handleLoginWithRestart(attemptCount + 1);
                     } else {
-                        Utils.enableItems(emailEt, passwordEt, forgotPasswordTv, loginBtn, signupRedirectTv);
+                        Utils.enableItems(emailEt, passwordEt, loginBtn, loginSignupHereTv);
                         Utils.showToast(getApplicationContext(), "Network error");
                         //Utils.resetEditText(emailEt, emailErrTv);
                         //Utils.resetEditText(passwordEt, passwordErrTv);
@@ -153,18 +154,18 @@ public class ActivityLogin extends AppCompatActivity {
                 }
             });
         } else {
-            Utils.enableItems(emailEt, passwordEt, forgotPasswordTv, loginBtn, signupRedirectTv);
+            Utils.enableItems(emailEt, passwordEt, loginBtn, loginSignupHereTv);
             Utils.hideItems(progressBar);
             System.out.println("Error is visible");
             Utils.hideItems(progressBar);
         }
     }
 
-    private void handleLogin() {
-        handleLoginWithRestart(0);
-    }
-
     private void signupActivity() {
         Utils.openActivity(this, ActivitySignup.class);
+    }
+
+    private void close() {
+        finish();
     }
 }

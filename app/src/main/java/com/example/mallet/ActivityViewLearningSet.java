@@ -2,6 +2,8 @@ package com.example.mallet;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static com.example.mallet.MALLet.MAX_RETRY_ATTEMPTS;
+import static com.example.mallet.MALLet.MIN_FLASHCARDS_FOR_MATCH;
+import static com.example.mallet.MALLet.MIN_FLASHCARDS_FOR_TEST;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -53,6 +55,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * @noinspection deprecation
+ */
 public class ActivityViewLearningSet extends AppCompatActivity {
     private ActivityViewLearningSetBinding binding;
     private UserServiceImpl userService;
@@ -77,6 +82,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     private Long groupId;
     private TextView flashcardsTitleTv, learnTitleTv, testTitleTv, matchTitleTv,
             flashcardsSubtitleTv, learnSubtitleTv, testSubtitleTv, matchSubtitleTv;
+    private ImageView flashcardsIv, learnIv, testIv, matchIv;
     private TextView allFlashcardsLlTitleTv;
     private GroupServiceImpl groupService;
 
@@ -136,13 +142,20 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         setDescriptionTv.setText(learningSet.getDescription());
 
         flashcardsTitleTv = binding.flashcardsLlTitleTv;
-        learnTitleTv = binding.learnLlTitleTv;
-        testTitleTv = binding.testLlTitleTv;
-        matchTitleTv = binding.matchLlTitleTv;
         flashcardsSubtitleTv = binding.flashcardsLlSubtTitleTv;
+        flashcardsIv = binding.viewSetFlashcardsIv;
+
+        learnTitleTv = binding.learnLlTitleTv;
         learnSubtitleTv = binding.learnLlSubtitleTv;
+        learnIv = binding.viewSetLearnIv;
+
+        testTitleTv = binding.testLlTitleTv;
         testSubtitleTv = binding.testLlSubtitleTv;
+        testIv = binding.viewSetTestIv;
+
+        matchTitleTv = binding.matchLlTitleTv;
         matchSubtitleTv = binding.matchLlSubtitleTv;
+        matchIv = binding.viewSetMatchIv;
 
         flashcardsLl = binding.viewSetFlashcardsLl;
         flashcardsLl.setOnClickListener(v -> startFlashcards());
@@ -186,40 +199,57 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
                     Utils.disableItems(flashcardsLl, learnLl, testLl, matchLl, viewSetStudyEfab);
 
-                    flashcardsTitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
-                    flashcardsSubtitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+                    Utils.visuallyDisableTvs(getApplicationContext(), flashcardsTitleTv, flashcardsSubtitleTv,
+                            learnTitleTv, learnSubtitleTv,
+                            testTitleTv, testSubtitleTv,
+                            matchTitleTv, matchSubtitleTv);
 
-                    learnTitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
-                    learnSubtitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+                    Utils.visuallyDisableIvs(getApplicationContext(), flashcardsIv, learnIv, testIv, matchIv);
 
-                    testTitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
-                    testSubtitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+                    testTitleTv.setText(getApplicationContext().getString(R.string.test_available_more_flashcards, String.valueOf(MIN_FLASHCARDS_FOR_TEST)));
 
-                    matchTitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
-                    matchSubtitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
-                } else {
-                    Utils.showItems(flashcardsVp2, allFlashcardsLlTitleTv);
+                    matchTitleTv.setText(getApplicationContext().getString(R.string.match_available_more_flashcards, String.valueOf(MIN_FLASHCARDS_FOR_MATCH)));
+                } else if (flashcards.size() > 0 && flashcards.size() < MIN_FLASHCARDS_FOR_TEST) {
+                    Utils.enableItems(flashcardsLl, learnLl, testLl, matchLl, viewSetStudyEfab);
 
-                    if (flashcards.size() < 10) {
-                        Utils.disableItems(testLl, matchLl);
+                    if (flashcards.size() < MIN_FLASHCARDS_FOR_MATCH) {
+                        Utils.showItems(flashcardsVp2, allFlashcardsLlTitleTv);
 
-                        testTitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
-                        testSubtitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+                        Utils.disableItems(matchLl);
 
+                        Utils.visuallyDisableTvs(getApplicationContext(), matchTitleTv, matchSubtitleTv);
+                        Utils.visuallyDisableIvs(getApplicationContext(), matchIv);
+
+                        matchTitleTv.setText(getApplicationContext().getString(R.string.match_available_more_flashcards, String.valueOf(MIN_FLASHCARDS_FOR_MATCH)));
                         matchTitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
                         matchSubtitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
-                    } else {
-                        Utils.enableItems(testLl, matchLl);
+                        matchIv.setColorFilter(getApplicationContext().getResources().getColor(R.color.colorPrimary));
                     }
 
-                    displayFlashcardsInViewPager(flashcards, flashcardsVp2);
-                    flashcardsVp2.startAnimation(fadeInAnimation);
+                    if (flashcards.size() < MIN_FLASHCARDS_FOR_TEST) {
+                        Utils.showItems(flashcardsVp2, allFlashcardsLlTitleTv);
 
-                    displayFlashcardsInLinearLayout(flashcards, binding.viewSetAllFlashcardsLl, getLayoutInflater());
-                    binding.viewSetAllFlashcardsLl.startAnimation(fadeInAnimation);
+                        Utils.disableItems(testLl);
 
-                    Utils.enableItems(toolbarOptionsIv, flashcardsVp2, flashcardsLl, learnLl);
+                        Utils.visuallyDisableTvs(getApplicationContext(), testTitleTv, testSubtitleTv);
+                        Utils.visuallyDisableIvs(getApplicationContext(), testIv);
+
+                        testTitleTv.setText(getApplicationContext().getString(R.string.test_available_more_flashcards, String.valueOf(MIN_FLASHCARDS_FOR_TEST)));
+                        testTitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+                        testSubtitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+                        testIv.setColorFilter(getApplicationContext().getResources().getColor(R.color.colorPrimary));
+                    }
+                } else if (flashcards.size() > MIN_FLASHCARDS_FOR_TEST) {
+                    Utils.enableItems(testLl, matchLl);
                 }
+
+                displayFlashcardsInViewPager(flashcards, flashcardsVp2);
+                flashcardsVp2.startAnimation(fadeInAnimation);
+
+                displayFlashcardsInLinearLayout(flashcards, binding.viewSetAllFlashcardsLl, getLayoutInflater());
+                binding.viewSetAllFlashcardsLl.startAnimation(fadeInAnimation);
+
+                Utils.enableItems(toolbarOptionsIv, flashcardsVp2, flashcardsLl, learnLl);
             }
 
             @Override
@@ -235,6 +265,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
         });
     }
+
 
     private void getSet() {
         getSetWithRestart(0);

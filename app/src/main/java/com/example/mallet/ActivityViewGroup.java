@@ -185,7 +185,7 @@ public class ActivityViewGroup extends AppCompatActivity {
             if (isUserAdmin) {
                 leaveGroupDialog();
             } else {
-                leaveAndDeleteGroupDialog();
+                confirmGroupDeletion(groupId);
             }
         });
 
@@ -212,13 +212,6 @@ public class ActivityViewGroup extends AppCompatActivity {
     private void leaveGroup(Long groupId) {
         // todo michałek napraw
         //groupService.deleteGroupContributions(groupId, ???);
-    }
-
-    private void leaveAndDeleteGroupDialog() {
-        Dialog dialog = Utils.createDialog(this, R.layout.dialog_admin_leave_are_you_sure, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
-        DialogAdminLeaveAreYouSureBinding dialogBinding = DialogAdminLeaveAreYouSureBinding.inflate(LayoutInflater.from(this));
-        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
-        dialog.show();
     }
 
     private void setupTabLayout(GroupDTO chosenGroup) {
@@ -539,13 +532,13 @@ public class ActivityViewGroup extends AppCompatActivity {
     }
 
     public void confirmGroupDeletionWithRestart(Long id, int attemptCount) {
-        Dialog dialog = Utils.createDialog(this, R.layout.dialog_delete_are_you_sure, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
-        DialogDeleteAreYouSureBinding dialogBinding = DialogDeleteAreYouSureBinding.inflate(LayoutInflater.from(this));
+        Dialog dialog = Utils.createDialog(this, R.layout.dialog_admin_leave_are_you_sure, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
+        DialogAdminLeaveAreYouSureBinding dialogBinding = DialogAdminLeaveAreYouSureBinding.inflate(LayoutInflater.from(this));
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
         dialog.show();
 
-        TextView cancelTv = dialogBinding.deleteCancelTv;
-        TextView confirmTv = dialogBinding.deleteConfirmTv;
+        TextView cancelTv = dialogBinding.adminLeaveCancelTv;
+        TextView confirmTv = dialogBinding.adminLeaveConfirmTv;
 
         cancelTv.setOnClickListener(v -> dialog.dismiss());
         confirmTv.setOnClickListener(v -> {

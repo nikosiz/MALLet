@@ -200,6 +200,7 @@
                     android:padding="10dp">
 
                     <ImageView
+                        android:id="@+id/viewSet_flashcardsIv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/cd_flashcards_icon"
@@ -248,6 +249,7 @@
                     android:padding="10dp">
 
                     <ImageView
+                        android:id="@+id/viewSet_learnIv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/cd_learn_icon"
@@ -296,6 +298,7 @@
                     android:padding="10dp">
 
                     <ImageView
+                        android:id="@+id/viewSet_testIv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/cd_test_icon"
@@ -344,6 +347,7 @@
                     android:padding="10dp">
 
                     <ImageView
+                        android:id="@+id/viewSet_matchIv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/cd_match_icon"

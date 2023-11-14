@@ -1,5 +1,7 @@
 package com.example.mallet;
 
+import static com.example.mallet.MALLet.MIN_FLASHCARDS_FOR_TEST;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Typeface;
@@ -107,7 +109,7 @@ public class FragmentTest extends Fragment {
         writtenQuestionTv = writtenQuestionView.findViewById(R.id.written_questionTv);
         writtenAnswerEt = writtenQuestionView.findViewById(R.id.written_answerEt);
 
-        if (ActivityLearn.flashcardList.size() < 15) {
+        if (ActivityLearn.flashcardList.size() < MIN_FLASHCARDS_FOR_TEST) {
             Utils.hideItems(toolbarOptionsIv, nextTv);
             Utils.disableItems(toolbarOptionsIv, nextTv);
             notEnoughDialog();

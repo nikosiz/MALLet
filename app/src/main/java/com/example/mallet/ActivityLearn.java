@@ -1,5 +1,7 @@
 package com.example.mallet;
 
+import static com.example.mallet.MALLet.MIN_FLASHCARDS_FOR_TEST;
+
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -94,7 +96,7 @@ public class ActivityLearn extends AppCompatActivity {
     private int MAX_PER_TYPE;
 
     private void numberOfQuestions() {
-        if (flashcardList.size() < 10) {
+        if (flashcardList.size() < MIN_FLASHCARDS_FOR_TEST) {
             //Utils.showToast(getApplicationContext(), "There are not enough flashcards to generate questions");
             MAX_PER_TYPE = 10;
         } else {
