@@ -428,7 +428,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     private void editSet() {
         Intent intent = new Intent(this, ActivityEditLearningSet.class);
 
-        intent.putExtra("learningSe t", learningSet);
+        intent.putExtra("learningSet", learningSet);
         intent.putExtra("isSetNew", isSetNew);
 
         startActivity(intent);
