@@ -11,7 +11,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -67,7 +66,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
     private ProgressBar progressBar;
     private Animation fadeInAnimation;
     private ScrollView userSetsSv;
-   private String nextChunkUri = StringUtils.EMPTY;
+    private String nextChunkUri = StringUtils.EMPTY;
     private boolean isNextChunkUriChanged = false;
 
     @Override
@@ -91,37 +90,35 @@ public class FragmentUserLibrary_Sets extends Fragment {
     }
 
     private ImageView indicatorIv;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentUserLibrarySetsBinding.inflate(inflater, container, false);
         setupContents(inflater);
 
 
-        userSetsSv.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-            @Override
-            public void onScrollChanged() {
-                View view = userSetsSv.getChildAt(userSetsSv.getChildCount() - 1);
+        userSetsSv.getViewTreeObserver().addOnScrollChangedListener(() -> {
+            View view = userSetsSv.getChildAt(userSetsSv.getChildCount() - 1);
 
-                int diff = (view.getBottom() - (userSetsSv.getHeight() + userSetsSv
-                        .getScrollY()));
+            int diff = (view.getBottom() - (userSetsSv.getHeight() + userSetsSv
+                    .getScrollY()));
 
-                if (diff == 0) {
-                    if (!nextChunkUri.isEmpty() && isNextChunkUriChanged) {
-                        getUserLibrarySetList(sets, nextChunkUri);
-                        Utils.showItems(indicatorIv);
-                    }
-                } else {
-                    Utils.hideItems(indicatorIv);
+            if (diff == 0) {
+                if (!nextChunkUri.isEmpty() && isNextChunkUriChanged) {
+                    getUserLibrarySetList(sets, nextChunkUri);
+                    Utils.showItems(indicatorIv);
                 }
+            } else {
+                Utils.hideItems(indicatorIv);
             }
         });
 
-        setupSearchAndFetchSets(0, 15);
         getUserLibrarySetList(sets, null);
+        setupSearchAndFetchSets(0, 15);
         return binding.getRoot();
     }
 
-    private void setupSearchAndFetchSets3Queries(long startPosition, long limit, int attemptCount) {
+    private void setupSearchAndFetchSetsWithRestart(long startPosition, long limit, int attemptCount) {
         RxTextView.textChanges(searchEt)
                 .debounce(500, TimeUnit.MILLISECONDS)
                 .subscribe(text -> {
@@ -146,9 +143,10 @@ public class FragmentUserLibrary_Sets extends Fragment {
                         public void onFailure(Call<SetBasicDTO> call, Throwable t) {
                             if (attemptCount < MAX_RETRY_ATTEMPTS) {
                                 System.out.println(attemptCount);
-                                setupSearchAndFetchSets3Queries(startPosition, limit, attemptCount + 1);
+                                // Retry the network call
+                                setupSearchAndFetchSetsWithRestart(startPosition, limit, attemptCount + 1);
                             } else {
-                                Utils.showToast(requireActivity(), "Network error");
+                                Utils.showToast(getContext(), "Network error");
                             }
                         }
                     });
@@ -157,7 +155,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
 
     private void setupSearchAndFetchSets(long startPosition, long limit) {
         int attemptCount = MAX_RETRY_ATTEMPTS;
-        setupSearchAndFetchSets3Queries(startPosition, limit, attemptCount);
+        setupSearchAndFetchSetsWithRestart(startPosition, limit, attemptCount);
     }
 
     private void fetchSetsForSearch(String text, Response<SetBasicDTO> response) {
@@ -208,11 +206,11 @@ public class FragmentUserLibrary_Sets extends Fragment {
         }
     }
 
-    private void fetchUserSets3Queries(long startPosition,
-                                       long limit,
-                                       boolean isBottom,
-                                       List<ModelLearningSet> setList,
-                                       int attemptCount) {
+    private void fetchUserSetsWithRestart(long startPosition,
+                                          long limit,
+                                          boolean isBottom,
+                                          List<ModelLearningSet> setList,
+                                          int attemptCount) {
         userService.getUserSets(startPosition, limit, new Callback<SetBasicDTO>() {
             @Override
             public void onResponse(Call<SetBasicDTO> call, Response<SetBasicDTO> response) {
@@ -248,7 +246,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
             public void onFailure(Call<SetBasicDTO> call, Throwable t) {
                 if (attemptCount < MAX_RETRY_ATTEMPTS) {
                     System.out.println(attemptCount);
-                    fetchUserSets3Queries(startPosition, limit, isBottom, setList, attemptCount + 1);
+                    fetchUserSetsWithRestart(startPosition, limit, isBottom, setList, attemptCount + 1);
                 } else {
                     Utils.showToast(requireActivity(), "Network error");
                 }
@@ -261,7 +259,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
                                boolean isBottom,
                                List<ModelLearningSet> setList) {
         int attemptCount = MAX_RETRY_ATTEMPTS;
-        fetchUserSets3Queries(startPosition, limit, isBottom, setList, attemptCount);
+        fetchUserSetsWithRestart(startPosition, limit, isBottom, setList, attemptCount);
     }
 
     private void setupSetView(@NonNull LayoutInflater inflater,
@@ -276,7 +274,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
             setItemView.setOnClickListener(v -> viewSet(set));
 
             TextView setNameTv = setItemView.findViewById(R.id.learningSet_nameTv);
-            setNameTv.setText(set.getIdentifier());
+            setNameTv.setText(set.getName());
 
             TextView setNrOfTermsTv = setItemView.findViewById(R.id.learningSet_nrOfTermsTv);
             if (set != null) {
@@ -306,14 +304,14 @@ public class FragmentUserLibrary_Sets extends Fragment {
         intent.putExtra("setId", set.getId());
         intent.putExtra("learningSet", set);
 
-        intent.putExtra("isSetNew",false);
-        intent.putExtra("isUserSet",true);
-        intent.putExtra("isSetInGroup",false);
+        intent.putExtra("isSetNew", false);
+        intent.putExtra("isUserSet", true);
+        intent.putExtra("isSetInGroup", false);
 
         startActivity(intent);
     }
 
-    public void confirmSetDeletion3Queries(ModelLearningSet set, int attemptCount) {
+    public void confirmSetDeletionWithRestart(ModelLearningSet set, int attemptCount) {
         Dialog dialog = Utils.createDialog(requireActivity(), R.layout.dialog_delete_are_you_sure, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogDeleteAreYouSureBinding dialogBinding = DialogDeleteAreYouSureBinding.inflate(LayoutInflater.from(requireActivity()));
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
@@ -344,7 +342,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
                 public void onFailure(Call<Void> call, Throwable t) {
                     if (attemptCount < MAX_RETRY_ATTEMPTS) {
                         System.out.println(attemptCount);
-                        confirmSetDeletion3Queries(set, attemptCount + 1);
+                        confirmSetDeletionWithRestart(set, attemptCount + 1);
                     } else {
                         Utils.showToast(requireActivity(), "Network error");
                         Utils.enableItems(cancelTv, confirmTv);
@@ -359,6 +357,6 @@ public class FragmentUserLibrary_Sets extends Fragment {
 
     private void confirmSetDeletion(ModelLearningSet set) {
         int attemptCount = MAX_RETRY_ATTEMPTS;
-        confirmSetDeletion3Queries(set, attemptCount);
+        confirmSetDeletionWithRestart(set, attemptCount);
     }
 }

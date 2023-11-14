@@ -181,4 +181,5 @@
     <string name="motivational_message">motivational_message</string>
     <string name="congratulations">Congratulations!</string>
     <string name="please_check_your_email">Please check your email and click on the link we sent you to confirm your registration.</string>
+    <string name="sorry_there_are_not_enough_flashcards">Sorry but there are not enough flashcards in your set to generate a test for you.\n\nAdd more data to it or try different modes of study.</string>
 </resources>

@@ -35,6 +35,7 @@ import com.example.mallet.backend.client.user.boundary.UserServiceImpl;
 import com.example.mallet.backend.entity.term.ModelFlashcardMapper;
 import com.example.mallet.backend.exception.MalletException;
 import com.example.mallet.databinding.ActivityViewLearningSetBinding;
+import com.example.mallet.databinding.DialogDeleteAreYouSureBinding;
 import com.example.mallet.databinding.DialogViewSetToolbarOptionsBinding;
 import com.example.mallet.utils.AdapterFlashcardViewPager;
 import com.example.mallet.utils.AuthenticationUtils;
@@ -86,22 +87,6 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
         this.setId = getIntent().getLongExtra("setId", 0L);
 
-        learningSet = getIntent().getParcelableExtra("learningSet");
-        groupId = getIntent().getLongExtra("groupId", 0L);
-
-        isUserSet = getIntent().getBooleanExtra("isUserSet", true);
-        //isSetNew = getIntent().getBooleanExtra("isSetNew", false);
-        isSetInGroup = getIntent().getBooleanExtra("isSetInGroup", false);
-        canUserEditSet = getIntent().getBooleanExtra("canUserEditSet", false);
-
-        fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in);
-
-        String credential = AuthenticationUtils.get(getApplicationContext());
-        this.setService = new SetServiceImpl(credential);
-        this.userService = new UserServiceImpl(credential);
-
-        this.groupService = new GroupServiceImpl(credential);
-
 
         setupContents();
         setContentView(binding.getRoot());
@@ -125,6 +110,20 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         viewSetSv = binding.viewSetSv;
 
         learningSet = getIntent().getParcelableExtra("learningSet");
+        groupId = getIntent().getLongExtra("groupId", 0L);
+
+        isUserSet = getIntent().getBooleanExtra("isUserSet", true);
+        //isSetNew = getIntent().getBooleanExtra("isSetNew", false);
+        isSetInGroup = getIntent().getBooleanExtra("isSetInGroup", false);
+        canUserEditSet = getIntent().getBooleanExtra("canUserEditSet", false);
+
+        fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+
+        String credential = AuthenticationUtils.get(getApplicationContext());
+        this.setService = new SetServiceImpl(credential);
+        this.userService = new UserServiceImpl(credential);
+
+        this.groupService = new GroupServiceImpl(credential);
 
         getLearningSetData();
 
@@ -167,7 +166,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         getSet();
     }
 
-    private void getSet3Queries(int attemptCount) {
+    private void getSetWithRestart(int attemptCount) {
         Utils.disableItems(toolbarOptionsIv, flashcardsVp2, flashcardsLl, learnLl, testLl, matchLl, viewSetStudyEfab);
         setService.getSet(setId, new Callback<SetDetailDTO>() {
             @Override
@@ -178,52 +177,67 @@ public class ActivityViewLearningSet extends AppCompatActivity {
                 flashcards = ModelFlashcardMapper.from(setDetailDTO.terms());
                 learningSet.setFlashcards(flashcards);
 
-                if (flashcards == null || flashcards.size() == 0) {
-                    TextView addVocabTv = binding.viewSetAddVocabTv;
-                    addVocabTv.setOnClickListener(v -> editSet());
+                TextView addVocabTv = binding.viewSetAddVocabTv;
+                addVocabTv.setOnClickListener(v -> editSet());
 
+                if (flashcards == null || flashcards.size() == 0) {
                     Utils.hideItems(flashcardsVp2, allFlashcardsLlTitleTv);
                     Utils.showItems(binding.viewSetNoVocabHereLl);
 
                     Utils.disableItems(flashcardsLl, learnLl, testLl, matchLl, viewSetStudyEfab);
 
                     flashcardsTitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
-                    learnTitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
-                    testTitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
-                    matchTitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
                     flashcardsSubtitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+
+                    learnTitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
                     learnSubtitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+
+                    testTitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
                     testSubtitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+
+                    matchTitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
                     matchSubtitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
                 } else {
                     Utils.showItems(flashcardsVp2, allFlashcardsLlTitleTv);
+
+                    if (flashcards.size() < 10) {
+                        Utils.disableItems(testLl, matchLl);
+
+                        testTitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+                        testSubtitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+
+                        matchTitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+                        matchSubtitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+                    } else {
+                        Utils.enableItems(testLl, matchLl);
+                    }
+
                     displayFlashcardsInViewPager(flashcards, flashcardsVp2);
                     flashcardsVp2.startAnimation(fadeInAnimation);
 
-                    Utils.enableItems(flashcardsLl, learnLl, testLl, matchLl, viewSetStudyEfab);
+                    displayFlashcardsInLinearLayout(flashcards, binding.viewSetAllFlashcardsLl, getLayoutInflater());
+                    binding.viewSetAllFlashcardsLl.startAnimation(fadeInAnimation);
+
+                    Utils.enableItems(toolbarOptionsIv, flashcardsVp2, flashcardsLl, learnLl);
                 }
-
-                displayFlashcardsInLinearLayout(flashcards, binding.viewSetAllFlashcardsLl, getLayoutInflater());
-                binding.viewSetAllFlashcardsLl.startAnimation(fadeInAnimation);
-
-                Utils.enableItems(toolbarOptionsIv, flashcardsVp2);
             }
 
             @Override
             public void onFailure(Call<SetDetailDTO> call, Throwable t) {
                 if (attemptCount < MAX_RETRY_ATTEMPTS) {
                     System.out.println(attemptCount);
-                    getSet3Queries(attemptCount + 1);
+                    getSetWithRestart(attemptCount + 1);
                 } else {
                     Utils.showToast(getApplicationContext(), "Network error");
                     Utils.disableItems(flashcardsLl, learnLl, testLl, matchLl);
                 }
             }
+
         });
     }
 
     private void getSet() {
-        getSet3Queries(0);
+        getSetWithRestart(0);
     }
 
     private void setupToolbar() {
@@ -304,7 +318,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
                 toolbarOptionsDeleteTv.setText(getString(R.string.delete_set));
                 toolbarOptionsDeleteTv.setOnClickListener(v -> {
                     dialog.dismiss();
-                    deleteSet();
+                    deleteSetDialog();
                 });
             } else if (!isUserSet) {
                 Utils.showItems(toolbarOptionsAddToUsersCollectionTv);
@@ -388,7 +402,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     }
 
     // If learningSet != userSet:
-    private void addSetToUsersCollection3Queries(int attemptCount) {
+    private void addSetToUsersCollectionWithRestart(int attemptCount) {
         Utils.disableItems(toolbarOptionsBackIv, toolbarOptionsEditTv,
                 toolbarOptionsAddToUsersCollectionTv, toolbarOptionsDeleteTv,
                 toolbarOptionsCancelTv, toolbarBackIv, toolbarOptionsIv, flashcardsVp2,
@@ -418,7 +432,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             public void onFailure(Call<Void> call, Throwable t) {
                 if (attemptCount < MAX_RETRY_ATTEMPTS) {
                     System.out.println(attemptCount);
-                    addSetToUsersCollection3Queries(attemptCount + 1);
+                    addSetToUsersCollectionWithRestart(attemptCount + 1);
                 } else {
                     Utils.showToast(getApplicationContext(), "Network error");
                     Utils.enableItems(toolbarOptionsBackIv, toolbarOptionsEditTv,
@@ -432,11 +446,24 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     }
 
     private void addSetToUsersCollection() {
-        addSetToUsersCollection3Queries(0);
+        addSetToUsersCollectionWithRestart(0);
     }
 
-    // If learningSet == userSet:
-    private void deleteSet3Queries(int attemptCount) {
+    public void deleteSetDialog() {
+        Dialog dialog = Utils.createDialog(this, R.layout.dialog_delete_are_you_sure, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
+        DialogDeleteAreYouSureBinding dialogBinding = DialogDeleteAreYouSureBinding.inflate(LayoutInflater.from(this));
+        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
+        dialog.show();
+
+        TextView cancelTv = dialogBinding.deleteCancelTv;
+        TextView confirmTv = dialogBinding.deleteConfirmTv;
+
+        cancelTv.setOnClickListener(v -> dialog.dismiss());
+        confirmTv.setOnClickListener(v -> deleteSet());
+    }
+
+
+    private void deleteSetWithRestart(int attemptCount) {
         Utils.disableItems(toolbarOptionsBackIv, toolbarOptionsEditTv,
                 toolbarOptionsAddToUsersCollectionTv, toolbarOptionsDeleteTv,
                 toolbarOptionsCancelTv, toolbarBackIv, toolbarOptionsIv, flashcardsVp2,
@@ -467,7 +494,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             public void onFailure(Call<Void> call, Throwable t) {
                 if (attemptCount < MAX_RETRY_ATTEMPTS) {
                     System.out.println(attemptCount);
-                    addSetToUsersCollection3Queries(attemptCount + 1);
+                    addSetToUsersCollectionWithRestart(attemptCount + 1);
                 } else {
                     Utils.showToast(getApplicationContext(), "Network error");
                     Utils.enableItems(toolbarOptionsBackIv, toolbarOptionsEditTv,
@@ -481,10 +508,10 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     }
 
     private void deleteSet() {
-        deleteSet3Queries(0);
+        deleteSetWithRestart(0);
     }
 
-    private void deleteSetFromGroup3Queries(int attemptCount) {
+    private void deleteSetFromGroupWithRestart(int attemptCount) {
         Utils.disableItems(toolbarOptionsBackIv, toolbarOptionsEditTv,
                 toolbarOptionsAddToUsersCollectionTv, toolbarOptionsDeleteTv,
                 toolbarOptionsCancelTv, toolbarBackIv, toolbarOptionsIv, flashcardsVp2,
@@ -516,7 +543,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             public void onFailure(Call<Void> call, Throwable t) {
                 if (attemptCount < MAX_RETRY_ATTEMPTS) {
                     System.out.println(attemptCount);
-                    addSetToUsersCollection3Queries(attemptCount + 1);
+                    addSetToUsersCollectionWithRestart(attemptCount + 1);
                 } else {
                     Utils.showToast(getApplicationContext(), "Network error");
                     Utils.enableItems(toolbarOptionsBackIv, toolbarOptionsEditTv,
@@ -530,7 +557,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     }
 
     private void deleteSetFromGroup() {
-        deleteSetFromGroup3Queries(0);
+        deleteSetFromGroupWithRestart(0);
     }
 
 
@@ -610,7 +637,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         }
     }
 
-    private void getLearningSetData3Queries(int attemptCount) {
+    private void getLearningSetDataWithRestart(int attemptCount) {
         Utils.disableItems(viewSetSv);
         setService.getBasicSet(Collections.singleton(setId), new Callback<SetBasicDTO>() {
             @Override
@@ -643,7 +670,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             public void onFailure(Call<SetBasicDTO> call, Throwable t) {
                 if (attemptCount < MAX_RETRY_ATTEMPTS) {
                     System.out.println(attemptCount);
-                    getLearningSetData3Queries(attemptCount + 1);
+                    getLearningSetDataWithRestart(attemptCount + 1);
                 } else {
                     Utils.showToast(getApplicationContext(), "Network error");
                     Utils.hideItems(progressBar);
@@ -655,6 +682,6 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     }
 
     private void getLearningSetData() {
-        getLearningSetData3Queries(0);
+        getLearningSetDataWithRestart(0);
     }
 }

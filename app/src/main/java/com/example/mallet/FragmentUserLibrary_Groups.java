@@ -98,23 +98,20 @@ public class FragmentUserLibrary_Groups extends Fragment {
 
 
         setupContents(inflater);
-        groupsSv.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-            @Override
-            public void onScrollChanged() {
-                View view = groupsSv.getChildAt(groupsSv.getChildCount() - 1);
+        groupsSv.getViewTreeObserver().addOnScrollChangedListener(() -> {
+            View view = groupsSv.getChildAt(groupsSv.getChildCount() - 1);
 
-                int diff = (view.getBottom() - (groupsSv.getHeight() + groupsSv
-                        .getScrollY()));
+            int diff = (view.getBottom() - (groupsSv.getHeight() + groupsSv
+                    .getScrollY()));
 
-                if (diff == 0) {
-                    //todo TUTAJ TRZEBA NA DOL PRZEWINAC NIKODEM
-                    if (!nextChunkUri.isEmpty() && isNextChunkUriChanged) {
-                        getUserLibraryGroupList(groups, nextChunkUri);
-                        Utils.showItems(indicatorIv);
-                    }
-                } else {
-                    Utils.hideItems(indicatorIv);
+            if (diff == 0) {
+                //todo TUTAJ TRZEBA NA DOL PRZEWINAC NIKODEM
+                if (!nextChunkUri.isEmpty() && isNextChunkUriChanged) {
+                    getUserLibraryGroupList(groups, nextChunkUri);
+                    Utils.showItems(indicatorIv);
                 }
+            } else {
+                Utils.hideItems(indicatorIv);
             }
         });
 
@@ -122,22 +119,19 @@ public class FragmentUserLibrary_Groups extends Fragment {
 
         setupSearchAndFetchGroups(0, 50);
 
-        groupsSv.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-            @Override
-            public void onScrollChanged() {
-                View view = groupsSv.getChildAt(groupsSv.getChildCount() - 1);
+        groupsSv.getViewTreeObserver().addOnScrollChangedListener(() -> {
+            View view = groupsSv.getChildAt(groupsSv.getChildCount() - 1);
 
-                int diff = (view.getBottom() - (groupsSv.getHeight() + groupsSv
-                        .getScrollY()));
+            int diff = (view.getBottom() - (groupsSv.getHeight() + groupsSv
+                    .getScrollY()));
 
-                if (diff == 0) {
-                    if (!nextChunkUri.isEmpty() && isNextChunkUriChanged) {
-                        getUserLibraryGroupList(groups, nextChunkUri);
-                        Utils.showItems(indicatorIv);
-                    }
-                } else {
-                    Utils.hideItems(indicatorIv);
+            if (diff == 0) {
+                if (!nextChunkUri.isEmpty() && isNextChunkUriChanged) {
+                    getUserLibraryGroupList(groups, nextChunkUri);
+                    Utils.showItems(indicatorIv);
                 }
+            } else {
+                Utils.hideItems(indicatorIv);
             }
         });
         return binding.getRoot();
@@ -158,7 +152,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
         this.inflater = inflater;
     }
 
-    private void setupSearchAndFetchGroups3Queries(long startPosition, long limit, int attemptCount) {
+    private void setupSearchAndFetchGroupsWithRestart(long startPosition, long limit, int attemptCount) {
         RxTextView.textChanges(searchEt)
                 .debounce(500, TimeUnit.MILLISECONDS)
                 .subscribe(text -> {
@@ -182,7 +176,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
                             if (attemptCount < MAX_RETRY_ATTEMPTS) {
                                 System.out.println(attemptCount);
                                 // Retry the network call
-                                setupSearchAndFetchGroups3Queries(startPosition, limit, attemptCount + 1);
+                                setupSearchAndFetchGroupsWithRestart(startPosition, limit, attemptCount + 1);
                             } else {
                                 Utils.showToast(getContext(), "Network error");
                             }
@@ -193,7 +187,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
 
     private void setupSearchAndFetchGroups(long startPosition, long limit) {
         int attemptCount = MAX_RETRY_ATTEMPTS;
-        setupSearchAndFetchGroups3Queries(startPosition, limit, attemptCount);
+        setupSearchAndFetchGroupsWithRestart(startPosition, limit, attemptCount);
     }
 
     private void fetchGroupsForSearch(String text, Response<GroupBasicDTO> response) {
@@ -231,7 +225,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
         }
     }
 
-    private void fetchUserGroups3Queries(long startPosition,
+    private void fetchUserGroupsWithRestart(long startPosition,
                                          long limit,
                                          boolean isBottom,
                                          List<ModelGroup> groupList,
@@ -274,7 +268,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
                 if (attemptCount < MAX_RETRY_ATTEMPTS) {
                     System.out.println(attemptCount);
                     // Retry the network call
-                    fetchUserGroups3Queries(startPosition, limit, isBottom, groupList, attemptCount + 1);
+                    fetchUserGroupsWithRestart(startPosition, limit, isBottom, groupList, attemptCount + 1);
                 } else {
                     Utils.showToast(getContext(), "Network error");
                 }
@@ -287,7 +281,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
                                  boolean isBottom,
                                  List<ModelGroup> groupList) {
         int attemptCount = MAX_RETRY_ATTEMPTS;
-        fetchUserGroups3Queries(startPosition, limit, isBottom, groupList, attemptCount);
+        fetchUserGroupsWithRestart(startPosition, limit, isBottom, groupList, attemptCount);
     }
 
     private void setupGroupView(List<ModelGroup> userLibraryGroupList,

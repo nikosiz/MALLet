@@ -37,7 +37,7 @@ public class ActivityLearn extends AppCompatActivity {
     private ActivityLearnBinding binding;
     private String fragmentName;
     private ModelLearningSet learningSet;
-    private List<ModelFlashcard> flashcardList;
+    public static List<ModelFlashcard> flashcardList;
     private Random random;
     private int writtenCorrectAnswerPosition, writtenAlternativeAnswerPosition;
 
@@ -87,6 +87,19 @@ public class ActivityLearn extends AppCompatActivity {
         if (learningSet != null) {
             flashcardList = learningSet.getTerms();
         }
+
+        numberOfQuestions();
+    }
+
+    private int MAX_PER_TYPE;
+
+    private void numberOfQuestions() {
+        if (flashcardList.size() < 10) {
+            //Utils.showToast(getApplicationContext(), "There are not enough flashcards to generate questions");
+            MAX_PER_TYPE = 10;
+        } else {
+            MAX_PER_TYPE = Math.min(20, flashcardList.size());
+        }
     }
 
     public List<ModelWritten> generateWrittenQuestions() {
@@ -96,7 +109,7 @@ public class ActivityLearn extends AppCompatActivity {
         List<ModelFlashcard> shuffledFlashcardList = new ArrayList<>(flashcardList);
         Collections.shuffle(shuffledFlashcardList);
 
-        int MAX_QUESTIONS = Math.min(20, shuffledFlashcardList.size());
+        int MAX_QUESTIONS = Math.min(MAX_PER_TYPE, shuffledFlashcardList.size());
         int questionCount = 0; // Initialize the question count
 
         for (ModelFlashcard flashcard : shuffledFlashcardList) {
@@ -105,32 +118,57 @@ public class ActivityLearn extends AppCompatActivity {
             }
 
             int writtenQuestionPosition = random.nextInt(2);
+            int writtenCorrectAnswerPosition;
+            int writtenAlternativeAnswerPosition = 0;
+
+            if (flashcard.getDefinition() != null && !flashcard.getDefinition().isEmpty()) {
+                writtenCorrectAnswerPosition = (writtenQuestionPosition + 1) % 2;
+                writtenAlternativeAnswerPosition = (writtenQuestionPosition + 2) % 3;
+            } else {
+                writtenCorrectAnswerPosition = (writtenQuestionPosition + 1) % 2;
+            }
 
             List<String> options = new ArrayList<>();
             options.add(flashcard.getTerm());
-            options.add(flashcard.getDefinition());
+            if (flashcard.getDefinition() != null && !flashcard.getDefinition().isEmpty()) {
+                options.add(flashcard.getDefinition());
+            }
             options.add(flashcard.getTranslation());
             Collections.shuffle(options);
 
 
             // Determine the positions of the correct and alternative answers
-            switch (writtenQuestionPosition) {
-                case 0:
-                    writtenCorrectAnswerPosition = 1;
-                    writtenAlternativeAnswerPosition = 2;
-                    break;
-                case 1:
-                    writtenCorrectAnswerPosition = 0;
-                    writtenAlternativeAnswerPosition = 2;
-                    break;
-                case 2:
-                    writtenCorrectAnswerPosition = 1;
-                    writtenAlternativeAnswerPosition = 0;
-                    break;
+            if (flashcard.getDefinition() != null && !flashcard.getDefinition().isEmpty()) {
+                switch (writtenQuestionPosition) {
+                    case 0:
+                        writtenCorrectAnswerPosition = 1;
+                        writtenAlternativeAnswerPosition = 2;
+                        break;
+                    case 1:
+                        writtenCorrectAnswerPosition = 0;
+                        writtenAlternativeAnswerPosition = 2;
+                        break;
+                    case 2:
+                        writtenCorrectAnswerPosition = 1;
+                        writtenAlternativeAnswerPosition = 0;
+                        break;
+                }
+            } else {
+                switch (writtenQuestionPosition) {
+                    case 0:
+                        writtenCorrectAnswerPosition = 1;
+                        break;
+                    case 1:
+                        writtenCorrectAnswerPosition = 0;
+                        break;
+                }
             }
 
             // Create a ModelWritten object with the selected options
-            ModelWritten written = new ModelWritten(options.get(writtenQuestionPosition), options.get(writtenCorrectAnswerPosition), options.get(writtenAlternativeAnswerPosition));
+            ModelWritten written = new ModelWritten(
+                    options.get(writtenQuestionPosition),
+                    options.get(writtenCorrectAnswerPosition),
+                    options.get(writtenAlternativeAnswerPosition));
 
             // Add the written question to the list
             questionList.add(written);
@@ -148,9 +186,9 @@ public class ActivityLearn extends AppCompatActivity {
         List<ModelTrueFalse> trueFalseList = new ArrayList<>();
         Random random = new Random();
         int correctAnswerCount = 0;
-        int totalQuestions = 0;
+        int MAX_QUESTIONS = 0;
 
-        while (correctAnswerCount < 5 && totalQuestions < 20){
+        while (correctAnswerCount < 5 && MAX_QUESTIONS < MAX_PER_TYPE) {
             int questionRow = random.nextInt(flashcardList.size());
             int answerRow = getRandomNeighborRow(questionRow, flashcardList.size());
 
@@ -182,7 +220,7 @@ public class ActivityLearn extends AppCompatActivity {
 
             trueFalseList.add(trueFalse);
 
-            totalQuestions++;
+            MAX_QUESTIONS++;
         }
 
         return trueFalseList;
@@ -234,7 +272,7 @@ public class ActivityLearn extends AppCompatActivity {
     }
 
     public List<ModelMultipleChoice> generateMultipleChoiceQuestions() {
-        int MAX_QUESTIONS = Math.min(20, flashcardList.size());
+        int MAX_QUESTIONS = Math.min(MAX_PER_TYPE, flashcardList.size());
         int questionCounter = 1;
 
         List<ModelMultipleChoice> result = new ArrayList<>();
@@ -270,7 +308,8 @@ public class ActivityLearn extends AppCompatActivity {
                 .build();
     }
 
-    private Set<ModelAnswer> getAllModelAnswers(String correctAnswer, List<String> wrongAnswers) {
+    private Set<ModelAnswer> getAllModelAnswers(String
+                                                        correctAnswer, List<String> wrongAnswers) {
         ModelAnswer correctModelAnswer = buildModelAnswer(correctAnswer, true);
         Set<ModelAnswer> answers = wrongAnswers.stream()
                 .map(wrongAnswer -> buildModelAnswer(wrongAnswer, false))
@@ -288,7 +327,8 @@ public class ActivityLearn extends AppCompatActivity {
                 .build();
     }
 
-    private List<String> getAllQuestions(List<ModelFlashcard> flashcardList, QuestionType questionType) {
+    private List<String> getAllQuestions(List<ModelFlashcard> flashcardList, QuestionType
+            questionType) {
         return switch (questionType) {
             case TERM -> flashcardList.stream()
                     .map(ModelFlashcard::getTerm)
@@ -302,7 +342,8 @@ public class ActivityLearn extends AppCompatActivity {
         };
     }
 
-    private String mapFlashcardToQuestionType(ModelFlashcard correctQuestion, QuestionType questionType) {
+    private String mapFlashcardToQuestionType(ModelFlashcard correctQuestion, QuestionType
+            questionType) {
         return switch (questionType) {
             case DEFINITION -> correctQuestion.getTerm();
             case TERM -> getRandomQuestionForTermType(correctQuestion);
@@ -320,7 +361,8 @@ public class ActivityLearn extends AppCompatActivity {
         };
     }
 
-    private String determineResultQuestionField(ModelFlashcard question, QuestionType questionType) {
+    private String determineResultQuestionField(ModelFlashcard question, QuestionType
+            questionType) {
         return switch (questionType) {
             case DEFINITION -> question.getDefinition();
             case TERM -> question.getTerm();
@@ -340,7 +382,8 @@ public class ActivityLearn extends AppCompatActivity {
         return wrongQuestions;
     }
 
-    private void getRandomWrongQuestion(List<String> questionsWithoutCurrent, List<String> wrongQuestions) {
+    private void getRandomWrongQuestion
+            (List<String> questionsWithoutCurrent, List<String> wrongQuestions) {
         int wrongQuestionIndex = random.nextInt(questionsWithoutCurrent.size());
         String wrongQuestion = questionsWithoutCurrent.get(wrongQuestionIndex);
         wrongQuestions.add(wrongQuestion);

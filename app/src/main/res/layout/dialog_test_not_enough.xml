@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/notEnough_mainLl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_top_corners_rounded"
+    android:orientation="vertical"
+    android:padding="30dp">
+
+
+    <TextView
+        style="@style/BasicBoldTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/russo_one_regular"
+        android:text="Not enough flashcards"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="30sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
+
+    <TextView
+        style="@style/BasicTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sorry_there_are_not_enough_flashcards"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
+
+    <TextView
+        android:id="@+id/notEnough_leaveTv"
+        style="@style/BasicTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:background="@drawable/bg_ripple"
+        android:clickable="true"
+        android:drawablePadding="10dp"
+        android:focusable="true"
+        android:gravity="end"
+        android:padding="10dp"
+        android:text="Leave"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp" />
+
+</LinearLayout>

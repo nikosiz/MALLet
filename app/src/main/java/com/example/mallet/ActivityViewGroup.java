@@ -299,11 +299,11 @@ public class ActivityViewGroup extends AppCompatActivity {
     }
 
     private void addSetsDialog() {
-        addSetsDialog3Queries(0);
+        addSetsDialogWithRestart(0);
     }
 
 
-    private void addSetsDialog3Queries(int attemptCount) {
+    private void addSetsDialogWithRestart(int attemptCount) {
         Dialog dialog = Utils.createDialog(this, R.layout.dialog_add_set_to_group, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogAddSetToGroupBinding dialogBinding = DialogAddSetToGroupBinding.inflate(LayoutInflater.from(this));
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
@@ -333,7 +333,7 @@ public class ActivityViewGroup extends AppCompatActivity {
                     if (attemptCount < MAX_RETRY_ATTEMPTS) {
                         System.out.println(attemptCount);
                         // Retry the operation
-                        addSetsDialog3Queries(attemptCount + 1);
+                        addSetsDialogWithRestart(attemptCount + 1);
                     } else {
                         Utils.showToast(getApplicationContext(), "Network error");
                     }
@@ -538,7 +538,7 @@ public class ActivityViewGroup extends AppCompatActivity {
         });
     }
 
-    public void confirmGroupDeletion3Queries(Long id, int attemptCount) {
+    public void confirmGroupDeletionWithRestart(Long id, int attemptCount) {
         Dialog dialog = Utils.createDialog(this, R.layout.dialog_delete_are_you_sure, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogDeleteAreYouSureBinding dialogBinding = DialogDeleteAreYouSureBinding.inflate(LayoutInflater.from(this));
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
@@ -571,7 +571,7 @@ public class ActivityViewGroup extends AppCompatActivity {
                     if (attemptCount < MAX_RETRY_ATTEMPTS) {
                         System.out.println(attemptCount);
                         // Retry the network call
-                        confirmGroupDeletion3Queries(id, attemptCount + 1);
+                        confirmGroupDeletionWithRestart(id, attemptCount + 1);
                     } else {
                         Utils.showToast(getApplicationContext(), "Group was not deleted due to an error");
                         Utils.enableItems(cancelTv, confirmTv, toolbarOptionsLeaveTv, toolbarOptionsDeleteTv, toolbarOptionsCancelTv, backIv);
@@ -585,7 +585,7 @@ public class ActivityViewGroup extends AppCompatActivity {
 
     private void confirmGroupDeletion(Long id) {
         int attemptCount = MAX_RETRY_ATTEMPTS;
-        confirmGroupDeletion3Queries(id, attemptCount);
+        confirmGroupDeletionWithRestart(id, attemptCount);
     }
 
     private void closeActivity() {

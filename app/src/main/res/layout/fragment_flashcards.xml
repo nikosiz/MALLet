@@ -96,7 +96,7 @@
             android:padding="10dp"
             android:src="@drawable/ic_check_x"
             app:iconSize="30dp"
-            app:tint="@color/accentPrimary" />
+            app:tint="@color/accentPrimaryDark" />
 
         <ImageView
             android:id="@+id/flashcards_undoIv"

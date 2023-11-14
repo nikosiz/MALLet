@@ -103,7 +103,7 @@ public class ActivityLogin extends AppCompatActivity {
         Utils.setupAnimation(this, logo);
     }
 
-    private void handleLogin3Queries(int attemptCount) {
+    private void handleLoginWithRestart(int attemptCount) {
         String email = Objects.requireNonNull(emailEt.getText()).toString();
         String password = Objects.requireNonNull(passwordEt.getText()).toString();
 
@@ -142,7 +142,7 @@ public class ActivityLogin extends AppCompatActivity {
                 public void onFailure(Call<UserDetailDTO> call, Throwable t) {
                     if (attemptCount < MAX_RETRY_ATTEMPTS) {System.out.println(attemptCount);
                         // Retry the operation
-                        handleLogin3Queries(attemptCount + 1);
+                        handleLoginWithRestart(attemptCount + 1);
                     } else {
                         Utils.enableItems(emailEt, passwordEt, forgotPasswordTv, loginBtn, signupRedirectTv);
                         Utils.showToast(getApplicationContext(), "Network error");
@@ -161,7 +161,7 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
     private void handleLogin() {
-        handleLogin3Queries(0);
+        handleLoginWithRestart(0);
     }
 
     private void signupActivity() {

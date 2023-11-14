@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.mallet.databinding.DialogTestAreYouReadyBinding;
 import com.example.mallet.databinding.DialogTestFinishedBinding;
+import com.example.mallet.databinding.DialogTestNotEnoughBinding;
 import com.example.mallet.databinding.FragmentTestBinding;
 import com.example.mallet.utils.ModelAnswer;
 import com.example.mallet.utils.ModelFlashcard;
@@ -55,6 +57,7 @@ public class FragmentTest extends Fragment {
     private TextView nextTv, prevTv, finishTv, errorTv;
     private int currentQuestionIndex = 0;
     private final StopWatch stopWatch = new StopWatch();
+    private View truefalseQuestionView;
 
 
     @Override
@@ -79,6 +82,7 @@ public class FragmentTest extends Fragment {
 
         writtenQuestionView = inflater.inflate(R.layout.model_written, container, false);
         multipleChoiceQuestionView = inflater.inflate(R.layout.model_multiple_choice, container, false);
+        truefalseQuestionView = inflater.inflate(R.layout.model_true_false, container, false);
 
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
@@ -89,8 +93,6 @@ public class FragmentTest extends Fragment {
 
     private void setupContents() {
         setupToolbar();
-
-        startTestDialog();
 
         questionsLl = binding.testQuestionsLl;
 
@@ -104,14 +106,28 @@ public class FragmentTest extends Fragment {
 
         writtenQuestionTv = writtenQuestionView.findViewById(R.id.written_questionTv);
         writtenAnswerEt = writtenQuestionView.findViewById(R.id.written_answerEt);
+
+        if (ActivityLearn.flashcardList.size() < 15) {
+            Utils.hideItems(toolbarOptionsIv, nextTv);
+            Utils.disableItems(toolbarOptionsIv, nextTv);
+            notEnoughDialog();
+        } else {
+            startTestDialog();
+        }
     }
+
+    private ImageView toolbarBackIv, toolbarOptionsIv;
 
     private void setupToolbar() {
         Toolbar toolbar = binding.testToolbar;
         ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
         Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle("");
-        binding.testToolbarBackIv.setOnClickListener(v -> getActivity().finish());
-        binding.testOptionsIv.setOnClickListener(v -> startTestDialog());
+
+        toolbarBackIv = binding.testToolbarBackIv;
+        toolbarBackIv.setOnClickListener(v -> getActivity().finish());
+
+        toolbarOptionsIv = binding.testOptionsIv;
+        toolbarOptionsIv.setOnClickListener(v -> startTestDialog());
     }
 
     private void startTestDialog() {
@@ -127,7 +143,7 @@ public class FragmentTest extends Fragment {
             multipleChoiceQuestions = activityLearn.generateMultipleChoiceQuestions();
             trueFalseQuestions = activityLearn.generateTrueFalseQuestions();
 
-            allQuestions = Math.min(29, writtenQuestions.size() + multipleChoiceQuestions.size() + trueFalseQuestions.size());
+            allQuestions = Math.min(30, writtenQuestions.size() + multipleChoiceQuestions.size() + trueFalseQuestions.size());
 
             displayWrittenQuestion(writtenQuestions, questionsLl, getLayoutInflater());
 
@@ -137,11 +153,28 @@ public class FragmentTest extends Fragment {
         });
     }
 
+    private void notEnoughDialog() {
+        Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_test_not_enough, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
+        DialogTestNotEnoughBinding dialogBinding = DialogTestNotEnoughBinding.inflate(getLayoutInflater());
+        dialog.setContentView(dialogBinding.getRoot());
+        dialog.show();
+
+        TextView leaveTv = dialogBinding.notEnoughLeaveTv;
+
+        leaveTv.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+
+        dialog.setOnDismissListener(dialog1 -> {
+            getActivity().finish();
+        });
+    }
+
     private int allQuestions;
 
     private void nextQuestion() {
-        if (currentQuestionIndex < allQuestions) {
-            if (currentQuestionIndex < allQuestions / 3) {
+        if (currentQuestionIndex < 29) {
+            if (currentQuestionIndex < 9) {
                 writtenAnswer = writtenAnswerEt.getText().toString().toLowerCase().trim();
                 ModelWritten writtenQuestion = writtenQuestions.get(currentQuestionIndex);
                 String writtenCorrectAnswer = writtenQuestion.getCorrectAnswer();
@@ -183,7 +216,7 @@ public class FragmentTest extends Fragment {
                         testFinishedDialog();
                     }
                 }
-            } else if (currentQuestionIndex < 2 * allQuestions / 3) {
+            } else if (currentQuestionIndex < 19) {
 
                 boolean isCorrect = checkMultipleChoiceAnswer(multipleChoiceClickedPosition, correctMultipleChoiceAnswerPosition);
 
@@ -212,7 +245,7 @@ public class FragmentTest extends Fragment {
                         displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
                     }
                 }
-            } else if (currentQuestionIndex < allQuestions + 1) {
+            } else if (currentQuestionIndex < 30) {
                 boolean isTrueFalseCorrect = checkTrueFalseAnswer(trueFalseClicked, trueFalseCorrectAnswer);
 
                 if (isTrueFalseCorrect) {
@@ -225,6 +258,7 @@ public class FragmentTest extends Fragment {
                         displayTrueFalseQuestion(trueFalseQuestions, questionsLl, getLayoutInflater());
                     }
                 } else {
+                    System.out.println("Points: " + points);
                     currentQuestionIndex++;
                     System.out.println("Question index: " + currentQuestionIndex);
 
@@ -236,6 +270,7 @@ public class FragmentTest extends Fragment {
         } else {
             testFinishedDialog();
         }
+
     }
 
     private int points = 0;
@@ -466,10 +501,10 @@ public class FragmentTest extends Fragment {
     }
 
     private void testFinishedDialog() {
-        Dialog finishedDialog = Utils.createDialog(requireContext(), R.layout.dialog_test_finished, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
+        Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_test_finished, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogTestFinishedBinding dialogBinding = DialogTestFinishedBinding.inflate(getLayoutInflater());
-        finishedDialog.setContentView(dialogBinding.getRoot());
-        finishedDialog.show();
+        dialog.setContentView(dialogBinding.getRoot());
+        dialog.show();
         stopWatch.stop();
 
         TextView scoreTimeTv = dialogBinding.testFinishedScoreTimeTv;
@@ -482,12 +517,14 @@ public class FragmentTest extends Fragment {
         TextView dialogRestartTv = dialogBinding.testFinishedRestartTv;
 
         dialogFinishTv.setOnClickListener(v -> {
-            finishedDialog.dismiss();
+            dialog.dismiss();
             requireActivity().finish();
         });
 
         dialogRestartTv.setOnClickListener(v -> {
             currentQuestionIndex = 0;
+            points = 0;
+
             writtenQuestions = activityLearn.generateWrittenQuestions();
             multipleChoiceQuestions = activityLearn.generateMultipleChoiceQuestions();
             trueFalseQuestions = activityLearn.generateTrueFalseQuestions();
@@ -498,7 +535,7 @@ public class FragmentTest extends Fragment {
             Utils.showItems(nextTv);
             Utils.enableItems(nextTv);
 
-            finishedDialog.dismiss();
+            dialog.dismiss();
 
             stopWatch.reset();
 

@@ -1,14 +1,11 @@
 package com.example.mallet;
 
 import android.app.Dialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,6 +19,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
 
 import com.example.mallet.databinding.DialogFlashcardOptionsBinding;
+import com.example.mallet.databinding.DialogFlashcardsFinishedBinding;
 import com.example.mallet.databinding.FragmentFlashcardsBinding;
 import com.example.mallet.utils.AdapterFlashcardStack;
 import com.example.mallet.utils.CallbackFlashcardStack;
@@ -68,8 +66,6 @@ public class FragmentFlashcards extends Fragment {
 
     private void setupContents() {
         originalFlashcards = getLearningSetData();
-
-
 
         setupToolbar();
 
@@ -142,12 +138,20 @@ public class FragmentFlashcards extends Fragment {
         Collections.shuffle(originalFlashcards);
         adapterFlashcardStack.setItems(originalFlashcards);
         adapterFlashcardStack.notifyDataSetChanged();
+
+        // Reset the flashcardsLeft count to the original number
+        flashcardsLeft = originalFlashcards.size();
+        updateCardCounterText();
     }
 
     private void restartFlashcards() {
         adapterFlashcardStack = new AdapterFlashcardStack(originalFlashcards);
         binding.flashcardsCardStackCsv.setAdapter(adapterFlashcardStack);
         cardStackManager.scrollToPosition(0); // Scroll to the first card
+
+        // Reset the flashcardsLeft count to the original number
+        flashcardsLeft = originalFlashcards.size();
+        updateCardCounterText();
     }
 
     private void updateCardCounterText() {
@@ -168,19 +172,23 @@ public class FragmentFlashcards extends Fragment {
                 // Handle card swiped
                 // Log.d(TAG, "onCardSwiped: d = " + manager.getTopPosition() + " d = " + direction);
 
-                if (direction == Direction.Left) {
-                    //Toast.makeText(requireContext(), "Left", Toast.LENGTH_SHORT).show();
-                    flashcardsLeft--;
-                    updateCardCounterText();
-                } else if (direction == Direction.Right) {
+                if (direction == Direction.Left || direction == Direction.Right) {
                     //Toast.makeText(requireContext(), "Right", Toast.LENGTH_SHORT).show();
-                    flashcardsLeft--;
-                    updateCardCounterText();
+                    if (flashcardsLeft > 0) {
+                        flashcardsLeft--;
+                        updateCardCounterText();
+                    }
+
+                    if (flashcardsLeft == 0) {
+                        flashcardsFinishedDialog();
+                    }
                 }
 
                 if (cardStackManager.getTopPosition() == adapterFlashcardStack.getItemCount() - 5) {
                     paginate();
                 }
+
+
             }
 
             private void paginate() {
@@ -255,7 +263,7 @@ public class FragmentFlashcards extends Fragment {
 
             updateCardCounterText();
         } else {
-            Toast.makeText(requireContext(), "No more cards to swipe", Toast.LENGTH_SHORT).show();
+            Utils.showToast(requireContext(), "No more cards to swipe");
         }
     }
 
@@ -268,13 +276,23 @@ public class FragmentFlashcards extends Fragment {
         }
     }
 
-    private Dialog createDialog(int layoutResId) {
-        final Dialog dialog = new Dialog(requireContext());
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(layoutResId);
+    private void flashcardsFinishedDialog() {
+        Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_flashcards_finished, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
+        DialogFlashcardsFinishedBinding dialogBinding = DialogFlashcardsFinishedBinding.inflate(getLayoutInflater());
+        dialog.setContentView(dialogBinding.getRoot());
+        dialog.show();
 
-        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
-        return dialog;
+        TextView restartTv = dialogBinding.flashcardsFinishedRestartTv;
+        TextView finishTv = dialogBinding.flashcardsFinishedFinishTv;
+
+        restartTv.setOnClickListener(v -> {
+            restartFlashcards();
+            dialog.dismiss();
+        });
+
+        finishTv.setOnClickListener(v -> {
+            dialog.dismiss();
+            getActivity().finish();
+        });
     }
 }

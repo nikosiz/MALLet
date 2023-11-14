@@ -111,7 +111,7 @@ public class FragmentHome extends Fragment {
         progressBar = binding.fragmentHomeProgressBar;
     }
 
-    private void setupLearningSets3Queries(int attemptCount) {
+    private void setupLearningSetsWithRestart(int attemptCount) {
         userService.getUserSets(0, 5, new Callback<SetBasicDTO>() {
             @Override
             public void onResponse(Call<SetBasicDTO> call, Response<SetBasicDTO> response) {
@@ -138,7 +138,7 @@ public class FragmentHome extends Fragment {
             public void onFailure(Call<SetBasicDTO> call, Throwable t) {
                 if (attemptCount < MALLet.MAX_RETRY_ATTEMPTS) {
                     // Retry the operation
-                    setupLearningSets3Queries(attemptCount + 1);
+                    setupLearningSetsWithRestart(attemptCount + 1);
                     
                 } else {
                     // Maximum attempts reached, handle failure
@@ -149,7 +149,7 @@ public class FragmentHome extends Fragment {
     }
 
     private void setupLearningSets() {
-        setupLearningSets3Queries(0);
+        setupLearningSetsWithRestart(0);
     }
 
     @NonNull
@@ -169,7 +169,7 @@ public class FragmentHome extends Fragment {
     }
 
 
-    private void setupGroups3Queries(int attemptCount) {
+    private void setupGroupsWithRestart(int attemptCount) {
         userService.getUserGroups(0, 5, new Callback<GroupBasicDTO>() {
             @Override
             public void onResponse(Call<GroupBasicDTO> call, Response<GroupBasicDTO> response) {
@@ -191,7 +191,7 @@ public class FragmentHome extends Fragment {
                 if (attemptCount < MAX_RETRY_ATTEMPTS) {
                     System.out.println(attemptCount);
                     // Retry the operation
-                    setupGroups3Queries(attemptCount + 1);
+                    setupGroupsWithRestart(attemptCount + 1);
 
                 } else {
                     // Maximum attempts reached, handle failure
@@ -202,7 +202,7 @@ public class FragmentHome extends Fragment {
     }
 
     private void setupGroups() {
-        setupGroups3Queries(0);
+        setupGroupsWithRestart(0);
     }
 
     @NonNull

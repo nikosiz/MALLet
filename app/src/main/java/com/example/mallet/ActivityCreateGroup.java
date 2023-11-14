@@ -127,7 +127,7 @@ public class ActivityCreateGroup extends AppCompatActivity {
         });
     }
 
-    private void handleGroupCreation3Queries(int attemptCount) {
+    private void handleGroupCreationWithRestart(int attemptCount) {
         Utils.disableItems(toolbarSaveIv);
 
         Editable text = groupNameEt.getText();
@@ -160,7 +160,7 @@ public class ActivityCreateGroup extends AppCompatActivity {
                 if (attemptCount < MAX_RETRY_ATTEMPTS) {
                     System.out.println(attemptCount);
                     // Retry the operation
-                    handleGroupCreation3Queries(attemptCount + 1);
+                    handleGroupCreationWithRestart(attemptCount + 1);
                 } else {
                     Utils.enableItems(toolbarSaveIv);
                     Utils.showToast(getApplicationContext(), "Network error");
@@ -170,7 +170,7 @@ public class ActivityCreateGroup extends AppCompatActivity {
     }
 
     private void handleGroupCreation() {
-        handleGroupCreation3Queries(0);
+        handleGroupCreationWithRestart(0);
     }
 
 
@@ -247,7 +247,7 @@ public class ActivityCreateGroup extends AppCompatActivity {
         notifyListAdapterDataChanged();
     }
 
-    private void fetchUsers3Queries(CharSequence text, int attemptCount) {
+    private void fetchUsersWithRestart(CharSequence text, int attemptCount) {
         userService.get(text.toString(), new Callback<>() {
             @Override
             public void onResponse(Call<List<UserDTO>> call, Response<List<UserDTO>> response) {
@@ -259,7 +259,7 @@ public class ActivityCreateGroup extends AppCompatActivity {
                 if (attemptCount < MAX_RETRY_ATTEMPTS) {
                     System.out.println(attemptCount);
                     // Retry the network call
-                    fetchUsers3Queries(text, attemptCount + 1);
+                    fetchUsersWithRestart(text, attemptCount + 1);
                 } else {
                     Utils.showToast(getApplicationContext(), "Network error");
                 }
@@ -269,7 +269,7 @@ public class ActivityCreateGroup extends AppCompatActivity {
 
     private void fetchUsers(CharSequence text) {
         int attemptCount = MAX_RETRY_ATTEMPTS;
-        fetchUsers3Queries(text, attemptCount);
+        fetchUsersWithRestart(text, attemptCount);
     }
 
 

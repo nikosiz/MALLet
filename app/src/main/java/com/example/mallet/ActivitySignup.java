@@ -127,7 +127,7 @@ public class ActivitySignup extends AppCompatActivity {
         });
     }
 
-    private void handleSignup3Queries(int attemptCount) {
+    private void handleSignupWithRestart(int attemptCount) {
         username = Objects.requireNonNull(dialogUsernameEt.getText()).toString().trim();
 
         if (!Utils.isErrVisible(dialogErrTv)) {
@@ -158,7 +158,7 @@ public class ActivitySignup extends AppCompatActivity {
                 public void onFailure(Call<Void> call, Throwable t) {
                     if (attemptCount < MAX_RETRY_ATTEMPTS) {System.out.println(attemptCount);
                         // Retry the operation
-                        handleSignup3Queries(attemptCount + 1);
+                        handleSignupWithRestart(attemptCount + 1);
                     } else {
                         Utils.enableItems(emailEt, passwordEt, signupContinueTv, signupContinueTv, signupLoginHereTv);
                         Utils.showToast(getApplicationContext(), "Network error");
@@ -180,7 +180,7 @@ public class ActivitySignup extends AppCompatActivity {
     }
 
     private void handleSignup() {
-        handleSignup3Queries(0);
+        handleSignupWithRestart(0);
     }
 
 

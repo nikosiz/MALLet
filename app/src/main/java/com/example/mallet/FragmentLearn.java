@@ -62,7 +62,6 @@ public class FragmentLearn extends Fragment {
         binding = FragmentLearnBinding.inflate(inflater, container, false);
 
         writtenQuestionView = inflater.inflate(R.layout.model_written, container, false);
-        View multipleChoiceQuestionView = inflater.inflate(R.layout.model_multiple_choice, container, false);
 
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
@@ -88,6 +87,9 @@ public class FragmentLearn extends Fragment {
 
         writtenQuestionTv = writtenQuestionView.findViewById(R.id.written_questionTv);
         writtenAnswerEt = writtenQuestionView.findViewById(R.id.written_answerEt);
+
+        writtenQuestions = activityLearn.generateWrittenQuestions();
+        displayWrittenQuestions(writtenQuestions, questionsLl, getLayoutInflater());
     }
 
     private void setupToolbar() {
@@ -111,8 +113,6 @@ public class FragmentLearn extends Fragment {
         errorTv = dialogBinding.learnOptionsErrorTv;
 
         restartTv.setOnClickListener(v -> {
-            writtenQuestions = activityLearn.generateWrittenQuestions();
-
             displayWrittenQuestions(writtenQuestions, questionsLl, getLayoutInflater());
 
             currentQuestionIndex = 0;
@@ -121,8 +121,6 @@ public class FragmentLearn extends Fragment {
         });
 
         startTv.setOnClickListener(v -> {
-            writtenQuestions = activityLearn.generateWrittenQuestions();
-
             displayWrittenQuestions(writtenQuestions, questionsLl, getLayoutInflater());
 
             currentQuestionIndex = 0;

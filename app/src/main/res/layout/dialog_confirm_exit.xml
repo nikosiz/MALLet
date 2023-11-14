@@ -35,7 +35,6 @@
             android:background="@drawable/bg_ripple"
             android:clickable="true"
             android:focusable="true"
-
             android:padding="10dp"
             android:text="@string/cancel"
             android:textColor="@color/colorPrimary"
@@ -49,7 +48,6 @@
             android:background="@drawable/bg_ripple"
             android:clickable="true"
             android:focusable="true"
-
             android:padding="10dp"
             android:text="Leave"
             android:textColor="@color/colorPrimary"

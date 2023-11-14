@@ -25,6 +25,7 @@ import com.example.mallet.backend.client.group.boundary.GroupServiceImpl;
 import com.example.mallet.backend.client.user.boundary.UserServiceImpl;
 import com.example.mallet.backend.entity.set.SetCreateContainer;
 import com.example.mallet.backend.entity.set.SetCreateContainerMapper;
+import com.example.mallet.backend.exception.MalletException;
 import com.example.mallet.databinding.ActivityEditLearningSetBinding;
 import com.example.mallet.databinding.DialogConfirmExitBinding;
 import com.example.mallet.databinding.DialogDeleteAreYouSureBinding;
@@ -185,9 +186,6 @@ public class ActivityEditLearningSet extends AppCompatActivity {
             toolbarTitleTv.setText("Edit set");
         }
 
-        toolbarDeleteIv = binding.editSetDeleteIv;
-        toolbarDeleteIv.setOnClickListener(v -> deleteSetDialog());
-
         toolbarSaveIv = binding.editSetSaveIv;
         toolbarSaveIv.setOnClickListener(v -> {
             saveSet();
@@ -206,60 +204,6 @@ public class ActivityEditLearningSet extends AppCompatActivity {
             this.finish();
             dialog.dismiss();
         });
-    }
-
-    private void deleteSetDialog() {
-        Dialog dialog = Utils.createDialog(this, R.layout.dialog_delete_are_you_sure, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
-        DialogDeleteAreYouSureBinding dialogBinding = DialogDeleteAreYouSureBinding.inflate(LayoutInflater.from(this));
-        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
-        dialog.show();
-
-        TextView confirmTv = dialogBinding.deleteConfirmTv;
-        TextView cancelTv = dialogBinding.deleteCancelTv;
-
-        confirmTv.setOnClickListener(v -> {
-            dialog.dismiss();
-            deleteSet();
-        });
-        cancelTv.setOnClickListener(v -> dialog.dismiss());
-    }
-
-    private void deleteSet3Queries(int attemptCount) {
-        Utils.disableItems(toolbarBackIv, toolbarDeleteIv, toolbarSaveIv, setNameEt, addDescriptionTv, addFlashcardFab);
-        Utils.showItems(progressBar);
-        userService.deleteUserSet(learningSetId, new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                Utils.enableItems(toolbarBackIv, toolbarDeleteIv, toolbarSaveIv, setNameEt, addDescriptionTv, addFlashcardFab);
-                Utils.hideItems(progressBar);
-
-
-                Intent intent = new Intent(getApplicationContext(), ActivityMain.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-                startActivity(intent);
-
-                close();
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                if (attemptCount < MAX_RETRY_ATTEMPTS) {
-                    System.out.println(attemptCount);
-                    // Retry the operation
-                    deleteSet3Queries(attemptCount + 1);
-                } else {
-                    Utils.enableItems(toolbarBackIv, toolbarDeleteIv, toolbarSaveIv, setNameEt, addDescriptionTv, addFlashcardFab);
-                    Utils.showToast(getApplicationContext(), "Network error");
-                    Utils.hideItems(progressBar);
-                }
-            }
-        });
-
-    }
-
-    private void deleteSet() {
-        deleteSet3Queries(0);
     }
 
     public void saveSet() {
@@ -284,12 +228,11 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
         newLearningSet = new ModelLearningSet(enteredSetName, enteredSetDescription, enteredFlashcards);
 
-        if (isSetNew & !isSetInGroup) {
+        if (!isSetInGroup) {
             handleSetCreation(SetCreateContainerMapper.from(newLearningSet));
-        } else if (isSetNew & isSetInGroup) {
+        } else if (isSetInGroup) {
             handleSetInGroupCreation(SetCreateContainerMapper.from(newLearningSet));
         }
-
     }
 
     private void addFlashcard(LinearLayout linearLayout, LayoutInflater inflater, String
@@ -317,7 +260,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
         linearLayout.addView(flashcardItemView);
         // todo naprawic
-        //scrollView.post(() -> scrollView.fullScroll(View.FOCUS_DOWN));
+        scrollView.post(() -> scrollView.fullScroll(View.FOCUS_DOWN));
         updateFlashcardCounterText();
     }
 
@@ -331,7 +274,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         }
     }
 
-    private void handleSetCreation3Queries(SetCreateContainer newSetContainer, int attemptCount) {
+    private void handleSetCreationWithRestart(SetCreateContainer newSetContainer, int attemptCount) {
         Utils.disableItems(toolbarBackIv, toolbarDeleteIv, toolbarSaveIv, setNameEt,
                 addDescriptionTv, setDescriptionEt, flashcardTermEt, flashcardDefinitionEt,
                 flashcardTranslationEt, addFlashcardFab);
@@ -357,7 +300,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
                 if (attemptCount < MAX_RETRY_ATTEMPTS) {
                     System.out.println(attemptCount);
                     // Retry the network call
-                    handleSetCreation3Queries(newSetContainer, attemptCount + 1);
+                    handleSetCreationWithRestart(newSetContainer, attemptCount + 1);
                 } else {
                     Utils.enableItems(toolbarBackIv, toolbarDeleteIv, toolbarSaveIv, setNameEt,
                             addDescriptionTv, setDescriptionEt, flashcardTermEt,
@@ -370,10 +313,10 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
     private void handleSetCreation(SetCreateContainer newSetContainer) {
         int attemptCount = MAX_RETRY_ATTEMPTS;
-        handleSetCreation3Queries(newSetContainer, attemptCount);
+        handleSetCreationWithRestart(newSetContainer, attemptCount);
     }
 
-    private void handleSetInGroupCreation3Queries(SetCreateContainer newSetContainer, int attemptCount) {
+    private void handleSetInGroupCreationWithRestart(SetCreateContainer newSetContainer, int attemptCount) {
         Utils.disableItems(toolbarBackIv, toolbarDeleteIv, toolbarSaveIv, setNameEt,
                 addDescriptionTv, setDescriptionEt, flashcardTermEt, flashcardDefinitionEt,
                 flashcardTranslationEt, addFlashcardFab);
@@ -399,7 +342,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
                 if (attemptCount < MAX_RETRY_ATTEMPTS) {
                     System.out.println(attemptCount);
                     // Retry the network call
-                    handleSetCreation3Queries(newSetContainer, attemptCount + 1);
+                    handleSetCreationWithRestart(newSetContainer, attemptCount + 1);
                 } else {
                     Utils.enableItems(toolbarBackIv, toolbarDeleteIv, toolbarSaveIv, setNameEt,
                             addDescriptionTv, setDescriptionEt, flashcardTermEt, flashcardDefinitionEt,
@@ -412,7 +355,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
     private void handleSetInGroupCreation(SetCreateContainer newSetContainer) {
         int attemptCount = MAX_RETRY_ATTEMPTS;
-        handleSetInGroupCreation3Queries(newSetContainer, attemptCount);
+        handleSetInGroupCreationWithRestart(newSetContainer, attemptCount);
     }
 
     private void close() {
