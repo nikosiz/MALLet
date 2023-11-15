@@ -52,11 +52,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_weight="1"
-                android:fontFamily="@font/russo_one_regular"
-                android:gravity="center"
+                android:gravity="start"
                 android:text="Word of the day"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="30sp" />
+                android:textSize="20sp" />
 
             <View
                 android:layout_width="match_parent"
@@ -79,13 +78,9 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/rem_bold"
                     android:gravity="center"
-                    android:text="TERM"
+                    android:text="Ordeal"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="20sp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
 
                 <TextView
                     android:id="@+id/home_wordOfTheDayDefinitionTv"
@@ -94,13 +89,9 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/rem_regular"
                     android:gravity="center"
-                    android:text="DEFINITION"
+                    android:text="a severe or trying experience"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="20sp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp" />
 
                 <TextView
                     android:id="@+id/home_wordOfTheDayTranslationTv"
@@ -109,7 +100,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/rem_regular"
                     android:gravity="center"
-                    android:text="TRANSLATION"
+                    android:text="Męka, gehenna"
                     android:textColor="@color/colorPrimary"
                     android:textSize="15sp" />
             </LinearLayout>
@@ -160,6 +151,51 @@
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="20dp" />
 
+            <LinearLayout
+                android:id="@+id/home_noSetsLl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:background="@drawable/bg_corners_rounded"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:visibility="gone">
+
+                <TextView
+                    style="@style/BasicBoldTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/russo_one_regular"
+                    android:gravity="center"
+                    android:text="You have no sets"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp" />
+
+                <TextView
+                    android:id="@+id/home_addSetTv"
+                    style="@style/BasicTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_basic_btn"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="@font/russo_one_regular"
+                    android:gravity="center"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="10dp"
+                    android:text="Create set"
+                    android:textColor="@color/colorLight"
+                    android:textSize="20sp"
+                    app:drawableEndCompat="@drawable/ic_plus"
+                    app:drawableTint="@color/colorLight" />
+
+            </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="20dp" />
@@ -205,6 +241,51 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="20dp" />
+
+            <LinearLayout
+                android:id="@+id/home_noGroupsLl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:background="@drawable/bg_corners_rounded"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:visibility="gone">
+
+                <TextView
+                    style="@style/BasicBoldTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/russo_one_regular"
+                    android:gravity="center"
+                    android:text="You have no groups"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp" />
+
+                <TextView
+                    android:id="@+id/home_addGroupTv"
+                    style="@style/BasicTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_basic_btn"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="@font/russo_one_regular"
+                    android:gravity="center"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="10dp"
+                    android:text="Create group"
+                    android:textColor="@color/colorLight"
+                    android:textSize="20sp"
+                    app:drawableEndCompat="@drawable/ic_plus"
+                    app:drawableTint="@color/colorLight" />
+
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"

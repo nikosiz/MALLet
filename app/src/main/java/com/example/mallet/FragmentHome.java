@@ -8,8 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -97,6 +99,8 @@ public class FragmentHome extends Fragment {
         //setupLearningSets();
     }
 
+    private LinearLayout noSetsLl, noGroupsLl;
+
     private void setupContents() {
         homeSv = binding.homeSv;
         Utils.hideItems(homeSv);
@@ -109,6 +113,28 @@ public class FragmentHome extends Fragment {
         binding.homeGroupViewAllTv.setOnClickListener(v -> showAllItems(1));
 
         progressBar = binding.fragmentHomeProgressBar;
+
+        noSetsLl = binding.homeNoSetsLl;
+        noGroupsLl = binding.homeNoGroupsLl;
+
+        TextView addSetBtn = binding.homeAddSetTv;
+        addSetBtn.setOnClickListener(v -> createNewSet());
+
+        TextView addGroupBtn = binding.homeAddGroupTv;
+        addGroupBtn.setOnClickListener(v -> createNewGroup());
+    }
+
+    private void createNewSet() {
+        Intent intent = new Intent(requireContext(), ActivityEditLearningSet.class);
+
+        //intent.putExtra("isSetNew", true);
+
+        startActivity(intent);
+    }
+
+    private void createNewGroup() {
+        Intent intent = new Intent(requireContext(), ActivityCreateGroup.class);
+        startActivity(intent);
     }
 
     private void setupLearningSetsWithRestart(int attemptCount) {
@@ -120,18 +146,27 @@ public class FragmentHome extends Fragment {
 
                 Utils.hideItems(progressBar);
 
-                Utils.enableItems(homeSetsVp2);
-
                 SetBasicDTO setBasicDTO = ResponseHandler.handleResponse(response);
                 List<ModelLearningSet> modelLearningSets = ModelLearningSetMapper.from(setBasicDTO.sets());
 
                 AdapterLearningSet adapterSets = new AdapterLearningSet(getActivity(), modelLearningSets, openActivityViewSet());
 
                 homeSetsVp2.setAdapter(adapterSets);
-
                 homeSetsVp2.setPageTransformer(Utils::applySwipeTransformer);
 
                 homeSetsVp2.startAnimation(fadeInAnimation);
+
+                if (modelLearningSets == null || modelLearningSets.isEmpty()) {
+                    Utils.showItems(noSetsLl);
+                    Utils.enableItems(noSetsLl);
+                    Utils.hideItems(homeSetsVp2);
+                    Utils.disableItems(homeSetsVp2);
+                } else {
+                    Utils.showItems(homeSetsVp2);
+                    Utils.enableItems(homeSetsVp2);
+                    Utils.hideItems(noSetsLl);
+                    Utils.disableItems(noSetsLl);
+                }
             }
 
             @Override
@@ -139,7 +174,7 @@ public class FragmentHome extends Fragment {
                 if (attemptCount < MALLet.MAX_RETRY_ATTEMPTS) {
                     // Retry the operation
                     setupLearningSetsWithRestart(attemptCount + 1);
-                    
+
                 } else {
                     // Maximum attempts reached, handle failure
                     Utils.showToast(getActivity(), "Network error");
@@ -160,9 +195,9 @@ public class FragmentHome extends Fragment {
             intent.putExtra("learningSet", learningSet);
             intent.putExtra("setId", learningSet.getId());
 
-            intent.putExtra("isSetNew",false);
-            intent.putExtra("isUserSet",true);
-            intent.putExtra("isSetInGroup",false);
+            intent.putExtra("isSetNew", false);
+            intent.putExtra("isUserSet", true);
+            intent.putExtra("isSetInGroup", false);
 
             startActivity(intent);
         };
@@ -184,6 +219,18 @@ public class FragmentHome extends Fragment {
                 homeGroupsVp2.setPageTransformer(Utils::applySwipeTransformer);
 
                 homeGroupsVp2.startAnimation(fadeInAnimation);
+
+                if (modelGroups == null || modelGroups.isEmpty()) {
+                    Utils.showItems(noGroupsLl);
+                    Utils.enableItems(noGroupsLl);
+                    Utils.hideItems(homeGroupsVp2);
+                    Utils.disableItems(homeGroupsVp2);
+                } else {
+                    Utils.showItems(homeGroupsVp2);
+                    Utils.enableItems(homeGroupsVp2);
+                    Utils.hideItems(noGroupsLl);
+                    Utils.disableItems(noGroupsLl);
+                }
             }
 
             @Override

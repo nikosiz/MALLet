@@ -1,6 +1,7 @@
 package com.example.mallet;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+import static com.example.mallet.ActivityViewGroup.groupName;
 import static com.example.mallet.MALLet.MAX_RETRY_ATTEMPTS;
 import static com.example.mallet.MALLet.MIN_FLASHCARDS_FOR_MATCH;
 import static com.example.mallet.MALLet.MIN_FLASHCARDS_FOR_TEST;
@@ -410,7 +411,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
             intent.putExtra("learningSet", learningSet);
 
-            //intent.putExtra("groupName", groupName);
+            intent.putExtra("groupName", groupName);
             intent.putExtra("groupId", groupId);
 
             intent.putExtra("isSetNew", isSetNew);

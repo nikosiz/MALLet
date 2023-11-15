@@ -123,6 +123,11 @@ public class ActivityCreateGroup extends AppCompatActivity {
 
         dialogBinding.confirmExitConfirmTv.setOnClickListener(v -> {
             dialog.dismiss();
+
+            Intent intent = new Intent(this, ActivityMain.class);
+
+            startActivity(intent);
+
             close();
         });
     }

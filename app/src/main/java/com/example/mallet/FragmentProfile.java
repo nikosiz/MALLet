@@ -155,7 +155,9 @@ public class FragmentProfile extends Fragment {
             sharedPreferences.edit().putBoolean("isLogged", isLogged).apply();
 
             Intent intent = new Intent(requireActivity(), ActivityOpening.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+            //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
             startActivity(intent);
 
             requireActivity().finish();

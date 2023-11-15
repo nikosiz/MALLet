@@ -196,8 +196,8 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         dialogBinding.confirmExitCancelTv.setOnClickListener(v -> dialog.dismiss());
 
         dialogBinding.confirmExitConfirmTv.setOnClickListener(v -> {
-            this.finish();
             dialog.dismiss();
+            this.finish();
         });
     }
 
@@ -279,6 +279,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
                                 Intent intent = new Intent(getApplicationContext(), ActivityViewGroup.class);
 
                                 intent.putExtra("groupId", groupId);
+                                intent.putExtra("groupName", groupName);
 
                                 startActivity(intent);
 

@@ -109,7 +109,6 @@
                     android:textSize="20sp"
                     app:drawableEndCompat="@drawable/ic_plus"
                     app:drawableTint="@color/colorLight" />
-
             </LinearLayout>
 
 

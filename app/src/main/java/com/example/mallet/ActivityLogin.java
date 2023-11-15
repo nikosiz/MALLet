@@ -150,6 +150,7 @@ public class ActivityLogin extends AppCompatActivity {
                         //Utils.resetEditText(emailEt, emailErrTv);
                         //Utils.resetEditText(passwordEt, passwordErrTv);
                         Utils.hideItems(progressBar);
+                        Utils.showToast(getApplicationContext(), "Email or password are incorrect");
                     }
                 }
             });

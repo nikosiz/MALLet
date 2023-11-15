@@ -55,7 +55,6 @@ public class ActivityMain extends AppCompatActivity {
         setupContents();
     }
 
-
     private void initializeSelectedFragment(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             selectedFragmentId = savedInstanceState.getInt(SELECTED_FRAGMENT_KEY, R.id.bottom_nav_home);

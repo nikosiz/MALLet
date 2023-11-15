@@ -27,7 +27,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Objects;
-import java.util.regex.Pattern;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -145,6 +144,8 @@ public class ActivitySignup extends AppCompatActivity {
 
                         Utils.enableItems(emailEt, passwordEt, signupContinueTv, signupContinueTv, signupLoginHereTv);
                         Utils.hideItems(progressBar);
+
+                        close();
                     } catch (MalletException e) {
                         Utils.showToast(getApplicationContext(), e.getMessage());
                         Utils.enableItems(emailEt, passwordEt, signupContinueTv, signupContinueTv, signupLoginHereTv);
@@ -154,7 +155,8 @@ public class ActivitySignup extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<Void> call, Throwable t) {
-                    if (attemptCount < MAX_RETRY_ATTEMPTS) {System.out.println(attemptCount);
+                    if (attemptCount < MAX_RETRY_ATTEMPTS) {
+                        System.out.println(attemptCount);
                         // Retry the operation
                         handleSignupWithRestart(attemptCount + 1);
                     } else {
@@ -163,6 +165,7 @@ public class ActivitySignup extends AppCompatActivity {
                         //Utils.resetEditText(emailEt, emailErrTv);
                         //Utils.resetEditText(passwordEt, passwordErrTv);
                         Utils.hideItems(progressBar);
+                        //Utils.showToast(getApplicationContext(), "Email or password are incorrect");
                     }
                 }
             });
@@ -177,6 +180,9 @@ public class ActivitySignup extends AppCompatActivity {
         return this;
     }
 
+    private void close() {
+        finish();
+    }
 
     private void validateSignupData() {
         String enteredEmail = Objects.requireNonNull(emailEt.getText()).toString().trim();

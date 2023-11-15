@@ -34,6 +34,7 @@ public class FragmentViewGroup_Sets extends Fragment {
     private LinearLayout userLibrarySetsLl;
     private final GroupDTO chosenGroup;
     List<ModelLearningSet> userLibrarySetList;
+
     public FragmentViewGroup_Sets(GroupDTO chosenGroup) {
         this.chosenGroup = chosenGroup;
     }
@@ -70,7 +71,7 @@ public class FragmentViewGroup_Sets extends Fragment {
             TextView creator = setItemView.findViewById(R.id.learningSet_creatorTv);
 
             setName.setText(set.getName());
-            nrOfTerms.setText(String.valueOf(set.getNrOfTerms()));
+            nrOfTerms.setText(set.getNrOfTerms() + " terms");
             creator.setText(set.getCreator());
 
             userLibrarySetsLl.addView(setItemView);
@@ -84,12 +85,12 @@ public class FragmentViewGroup_Sets extends Fragment {
         groupService.removeSet(groupId, setId, new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                Utils.showToast(getActivity(),"Deleted");
+                Utils.showToast(getActivity(), "Deleted");
 
-                Intent intent = new Intent(getContext(),ActivityViewGroup.class);
+                Intent intent = new Intent(getContext(), ActivityViewGroup.class);
 
-                intent.putExtra("groupId",groupId);
-                intent.putExtra("groupName",groupName);
+                intent.putExtra("groupId", groupId);
+                intent.putExtra("groupName", groupName);
 
                 startActivity(intent);
 

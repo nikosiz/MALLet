@@ -63,10 +63,12 @@ public class ActivityOpening extends AppCompatActivity {
         setupAnimatedLogo();
         setupNoLoginBtn();
         Button loginBtn = binding.openingLoginBtn;
+
         loginBtn.setOnClickListener(v -> {
             Intent intent = new Intent(this, ActivityLogin.class);
 
             startActivity(intent);
+
             finish();
         });
 
@@ -75,6 +77,7 @@ public class ActivityOpening extends AppCompatActivity {
             Intent intent = new Intent(this, ActivitySignup.class);
 
             startActivity(intent);
+
             finish();
         });
     }
@@ -87,11 +90,11 @@ public class ActivityOpening extends AppCompatActivity {
 
     // TODO: Delete
     private void setupNoLoginBtn() {
-        binding.openingNoLoginBtn.setOnClickListener(v -> {
+        /*binding.openingNoLoginBtn.setOnClickListener(v -> {
             // todo do testow - usunac
             AuthenticationUtils.save(getApplicationContext(), "12345niewiemcotupisac@gmail.com", "SzefBoss123!@#");
             Utils.openActivity(this, ActivityMain.class);
-        });
+        });*/
     }
 
 
