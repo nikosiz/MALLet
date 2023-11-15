@@ -97,7 +97,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@id/viewGroupMembers_savePermissionsTv"
+                android:id="@+id/viewGroupMembers_savePermissionsTv"
                 style="@style/BasicTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
