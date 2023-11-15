@@ -5,7 +5,7 @@ import com.agh.api.PermissionType;
 import lombok.Builder;
 import lombok.NonNull;
 
-@Builder
+@Builder(toBuilder = true)
 public record ContributionUpdateContainer(
         Long id,
         @NonNull

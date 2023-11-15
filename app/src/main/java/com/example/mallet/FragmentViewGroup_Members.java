@@ -15,24 +15,31 @@ import androidx.fragment.app.Fragment;
 
 import com.agh.api.GroupDTO;
 import com.agh.api.PermissionType;
+import com.example.mallet.backend.client.configuration.ResponseHandler;
 import com.example.mallet.backend.client.group.boundary.GroupServiceImpl;
 import com.example.mallet.backend.entity.group.contribution.ModelGroupMemberMapper;
 import com.example.mallet.backend.entity.group.update.ContributionUpdateContainer;
 import com.example.mallet.backend.entity.group.update.GroupUpdateContainer;
 import com.example.mallet.backend.mapper.group.ContributionUpdateContainerMapper;
 import com.example.mallet.databinding.FragmentViewGroupMembersBinding;
-import com.example.mallet.utils.ContributionUpdateInfo;
+import com.example.mallet.utils.AuthenticationUtils;
 import com.example.mallet.utils.ModelGroupMember;
 import com.example.mallet.utils.Utils;
 import com.google.android.material.materialswitch.MaterialSwitch;
 
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FragmentViewGroup_Members extends Fragment {
 
     private final GroupDTO chosenGroup;
-    private final List<ContributionUpdateInfo> contributionsToUpdate = new ArrayList<>();
+    private final Map<Long, ContributionUpdateContainer> contributionsToUpdateByUserId = new HashMap<>();
     private Animation fadeInAnimation;
     private ActivityViewGroup activityViewGroup;
     private FragmentViewGroupMembersBinding binding;
@@ -43,8 +50,6 @@ public class FragmentViewGroup_Members extends Fragment {
     private ModelGroupMember newContributor;
     private GroupServiceImpl groupService;
     private List<ContributionUpdateContainer> containers;
-    private final PermissionType setPermissionType = PermissionType.READ;
-    private final PermissionType groupPermissionType = PermissionType.READ;
     public FragmentViewGroup_Members(GroupDTO chosenGroup) {
         this.chosenGroup = chosenGroup;
     }
@@ -52,6 +57,8 @@ public class FragmentViewGroup_Members extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentViewGroupMembersBinding.inflate(inflater, container, false);
+        String credential = AuthenticationUtils.get(getContext());
+        this.groupService = new GroupServiceImpl(credential);
 
         setupContents();
 
@@ -65,17 +72,13 @@ public class FragmentViewGroup_Members extends Fragment {
         return ModelGroupMemberMapper.from(chosenGroup.contributions());
     }
 
-    private void managePermissions() {
-
-    }
-
     private void setupContents() {
         userLibraryMembersLl = binding.viewGroupMembersMemberListLl; // Change to LinearLayout
         fadeInAnimation = AnimationUtils.loadAnimation(requireActivity(), R.anim.fade_in);
     }
 
     private void displayMembers() {
-        contributionsToUpdate.clear(); // Clear the list before adding contributions
+        contributionsToUpdateByUserId.clear(); // Clear the list before adding contributions
 
         for (ModelGroupMember member : getUserLibraryMemberList()) {
             final int[] clickCounter = {0}; // Define a final variable here
@@ -88,17 +91,24 @@ public class FragmentViewGroup_Members extends Fragment {
             LinearLayout managePermissionsLl = memberItemView.findViewById(R.id.groupMember_permissionsLl);
             editGroupMs = memberItemView.findViewById(R.id.groupMember_editGroupMs);
             editSetsMs = memberItemView.findViewById(R.id.groupMember_editSetsMs);
+            TextView deleteUserTv = memberItemView.findViewById(R.id.groupMember_deleteTv);
 
+            editGroupMs.setChecked(determineIsChecked(member.getGroupPermissionType()));
+            editSetsMs.setChecked(determineIsChecked(member.getSetPermissionType()));
             editSetsMs.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                //handleSetPermissionChange(isChecked, member);
+                handleSetPermissionChange(isChecked, member);
             });
 
             editGroupMs.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                //handleGroupPermissionChange(isChecked, member);
+                handleGroupPermissionChange(isChecked, member);
             });
 
-            TextView deleteUserTv = memberItemView.findViewById(R.id.groupMember_deleteTv);
-
+            deleteUserTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    removeContribution(member);
+                }
+            });
             // Initially hide the TextViews
             Utils.hideItems(deleteUserTv, managePermissionsLl);
             Utils.disableItems(deleteUserTv, managePermissionsLl);
@@ -109,23 +119,34 @@ public class FragmentViewGroup_Members extends Fragment {
                 clickCounter[0]++;
                 // Use the local clickCounter here
                 if (clickCounter[0] % 2 != 0) {
+                    if (PermissionType.ADMIN.equals(member.getGroupPermissionType()) && PermissionType.ADMIN.equals(member.getSetPermissionType())) {
+                      return;
+                    }
                     Utils.showItems(deleteUserTv, managePermissionsLl); // Show on odd clicks
                     Utils.enableItems(deleteUserTv);
                 } else {
                     Utils.hideItems(deleteUserTv, managePermissionsLl); // Hide on even clicks
-                    Utils.enableItems(deleteUserTv);
+                    Utils.disableItems(deleteUserTv);
                 }
             });
+
+            if (PermissionType.ADMIN.equals(member.getGroupPermissionType()) && PermissionType.ADMIN.equals(member.getSetPermissionType())) {
+                Utils.hideItems(memberOptionsIv);
+            }
 
             memberOptionsIv.setOnClickListener(v -> {
                 clickCounter[0]++;
                 // Use the local clickCounter here
                 if (clickCounter[0] % 2 != 0) {
+                    if (PermissionType.ADMIN.equals(member.getGroupPermissionType()) && PermissionType.ADMIN.equals(member.getSetPermissionType())) {
+                        return;
+                    }
                     Utils.showItems(deleteUserTv, managePermissionsLl); // Show on odd clicks
                     Utils.enableItems(deleteUserTv, managePermissionsLl);
                 } else {
                     Utils.hideItems(deleteUserTv, managePermissionsLl); // Hide on even clicks
-                    Utils.enableItems(deleteUserTv, managePermissionsLl);
+                    Utils.disableItems(deleteUserTv);
+
                 }
             });
 
@@ -133,84 +154,99 @@ public class FragmentViewGroup_Members extends Fragment {
 
             userLibraryMembersLl.addView(memberItemView);
 
-            contributionsToUpdate.add(new ContributionUpdateInfo(member, setPermissionType, groupPermissionType));
+            contributionsToUpdateByUserId.put(member.getUserId(), ContributionUpdateContainerMapper.from(member));
         }
+        TextView savePermissionTv = binding.viewGroupMembersSavePermissionsTv;
 
-        //containers = mapContributionsToUpdate();
-
-        // Display the contents of contributionsToUpdate after the loop
-        //displayContributionsToUpdate();
-
-        //handleContributionUpdate(containers);
-    }
-/*
-    private void handleSetPermissionChange(boolean isChecked, ModelGroupMember member) {
-        // Handle set permission change and update contributionsToUpdate
-        setPermissionType = isChecked ? PermissionType.READ_WRITE : PermissionType.READ;
-        updateContributionsToUpdate(member);
+        savePermissionTv.setOnClickListener(v -> saveContributions());
     }
 
-    private void handleGroupPermissionChange(boolean isChecked, ModelGroupMember member) {
-        // Handle group permission change and update contributionsToUpdate
-        groupPermissionType = isChecked ? PermissionType.READ_WRITE : PermissionType.READ;
-        updateContributionsToUpdate(member);
-    }
-
-    private void updateContributionsToUpdate(ModelGroupMember member) {
-        // Create com.example.mallet.utils.ContributionUpdateInfo object with default values
-        contributionsToUpdate.add(new ContributionUpdateInfo(member, setPermissionType, groupPermissionType));
-
-        // Optionally, you can display the updated list here
-        displayContributionsToUpdate();
-    }
-
-    private void displayContributionsToUpdate() {
-        for (ContributionUpdateInfo contributionInfo : contributionsToUpdate) {
-            System.out.println("ContributionsToUpdate\n" + "User: " + contributionInfo.getMember().getUsername() +
-                    ", Set Permission: " + contributionInfo.getSetPermissionType() +
-                    ", Group Permission: " + contributionInfo.getGroupPermissionType());
-        }
-    }
-
-    private List<ContributionUpdateContainer> mapContributionsToUpdate() {
-        List<ContributionUpdateContainer> containers = new ArrayList<>();
-
-        for (ContributionUpdateInfo updateInfo : contributionsToUpdate) {
-            ContributionUpdateContainer container = ContributionUpdateContainerMapper.from(updateInfo);
-            containers.add(container);
-        }
-
-        return containers;
-    }
-
-    public void saveContributions() {
-        //newContributor = new ModelGroupMember()
-
-        //handleContributionUpdate(ContributionUpdateContainerMapper.from(member, contribution.groupPermissionType));
-    }
-
-    private void handleContributionUpdate(GroupUpdateContainer gUC) {
-        ContributionUpdateContainer contribution = ContributionUpdateContainer.builder()
-                .groupPermissionType(PermissionType.READ)
-                .setPermissionType(PermissionType.READ)
-                .contributorId(clickedUser.getId())
-                .build();
-
-        GroupUpdateContainer groupUpdateContainer = GroupUpdateContainer.builder()
-                .id(groupId)
-                .contribution(contribution)
-                .build();
-
-        groupService.updateGroupContribution(groupUpdateContainer, new Callback<Void>() {
+    private void removeContribution(ModelGroupMember member) {
+        groupService.deleteGroupContributions(chosenGroup.id(), Collections.singleton(member.getContributionId()), new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                Utils.showToast(getApplicationContext(), "Added");
+                ResponseHandler.handleResponse(response);
+                Utils.showToast(getContext(),"Member removed");
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Utils.showToast(getApplicationContext(), "Network error");
+                Utils.showToast(getContext(), "Network error");
             }
         });
-    }*/
+    }
+
+    private void handleSetPermissionChange(boolean isChecked, ModelGroupMember member) {
+        updateContributionSetPermissionToUpdate(member, determinePermissionType(isChecked));
+    }
+
+    private void handleGroupPermissionChange(boolean isChecked, ModelGroupMember member) {
+        updateContributionGroupPermissionToUpdate(member, determinePermissionType(isChecked));
+    }
+
+    private PermissionType determinePermissionType(boolean isChecked) {
+        if(isChecked){
+            return PermissionType.READ_WRITE;
+        }
+        return PermissionType.READ;
+    }
+
+    private boolean determineIsChecked(PermissionType permissionType) {
+        return !PermissionType.READ_WRITE.equals(permissionType);
+    }
+    private void updateContributionGroupPermissionToUpdate(ModelGroupMember member, PermissionType permissionType) {
+        long userId = member.getUserId();
+        if (contributionsToUpdateByUserId.containsKey(userId)) {
+            ContributionUpdateContainer contribution = contributionsToUpdateByUserId.get(userId);
+            ContributionUpdateContainer newContribution = contribution.toBuilder()
+                    .groupPermissionType(permissionType)
+                    .build();
+            contributionsToUpdateByUserId.replace(userId, newContribution);
+            return;
+        }
+        ContributionUpdateContainer contribution = ContributionUpdateContainerMapper.from(member).toBuilder()
+                .groupPermissionType(permissionType)
+                .build();
+        contributionsToUpdateByUserId.put(userId, contribution);
+    }
+
+    private void updateContributionSetPermissionToUpdate(ModelGroupMember member, PermissionType permissionType) {
+        long userId = member.getUserId();
+        if (contributionsToUpdateByUserId.containsKey(userId)) {
+            ContributionUpdateContainer contribution = contributionsToUpdateByUserId.get(userId);
+            ContributionUpdateContainer newContribution = contribution.toBuilder()
+                    .setPermissionType(permissionType)
+                    .build();
+            contributionsToUpdateByUserId.replace(userId, newContribution);
+            return;
+        }
+        ContributionUpdateContainer contribution = ContributionUpdateContainerMapper.from(member).toBuilder()
+                .setPermissionType(permissionType)
+                .build();
+        contributionsToUpdateByUserId.put(userId, contribution);
+    }
+
+    public void saveContributions() {
+        GroupUpdateContainer groupUpdateContainer = GroupUpdateContainer.builder()
+                .id(chosenGroup.id())
+                .name(chosenGroup.name())
+                .contributions(contributionsToUpdateByUserId.values())
+                .build();
+        handleContributionUpdate(groupUpdateContainer);
+    }
+
+    private void handleContributionUpdate(GroupUpdateContainer groupUpdateContainer) {
+
+        groupService.updateGroupContribution(groupUpdateContainer, new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Utils.showToast(getContext(), "Added");
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Utils.showToast(getContext(), "Network error");
+            }
+        });
+    }
 }

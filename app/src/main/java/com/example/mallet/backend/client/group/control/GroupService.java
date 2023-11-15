@@ -33,7 +33,7 @@ public interface GroupService {
     @PUT(GroupServiceConstants.GROUP_CONTRIBUTION_PATH)
     Call<Void> updateGroup(@Body GroupUpdateDTO groupUpdateDTO);
 
-    @DELETE(GroupServiceConstants.GROUP_PATH)
+    @PUT(GroupServiceConstants.GROUP_CONTRIBUTION_DELETE_PATH)
     Call<Void> deleteGroupContributions(@Body GroupContributionDeleteDTO GroupContributionDeleteDTO);
 
     @PUT(GroupServiceConstants.GROUP_ADMIN_PATH)
@@ -55,7 +55,7 @@ public interface GroupService {
     @POST(GroupServiceConstants.GROUP_SET_PATH)
     Call<Void> createSet(@Body GroupSetCreateDTO groupSetCreateDTO);
 
-    @POST(GroupServiceConstants.GROUP_CONTRIBUTION_PATH)
+    @PUT(GroupServiceConstants.GROUP_CONTRIBUTION_PATH)
     Call<Void> updateGroupContribution(@Body GroupUpdateDTO groupUpdateDTO);
 
 

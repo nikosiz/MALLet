@@ -22,9 +22,6 @@ public class ModelGroupMemberMapper {
     public static ModelGroupMember from(ContributionDTO contributionDTO){
         UserDTO contributor = contributionDTO.contributor();
 
-        return ModelGroupMember.builder()
-                .userId(contributor.id())
-                .username(contributor.name())
-                .build();
+        return new ModelGroupMember(contributor.id(),contributor.name(), contributionDTO.id(),contributionDTO.groupPermissionType(), contributionDTO.setPermissionType());
     }
 }

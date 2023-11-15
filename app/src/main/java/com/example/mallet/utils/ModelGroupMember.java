@@ -5,23 +5,33 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-import lombok.Builder;
+import com.agh.api.PermissionType;
 
-@Builder
 public class ModelGroupMember implements Parcelable {
     private long userId;
     private String username;
     private Long contributionId;
+   private PermissionType setPermissionType, groupPermissionType;
 
-    public ModelGroupMember(long userId, String username, Long contributionId) {
+    public ModelGroupMember(long userId, String username, Long contributionId, PermissionType setPermissionType, PermissionType groupPermissionType) {
         this.userId = userId;
         this.username = username;
         this.contributionId = contributionId;
+        this.setPermissionType = setPermissionType;
+        this.groupPermissionType = groupPermissionType;
     }
 
     protected ModelGroupMember(Parcel in) {
         userId = in.readLong();
         username = in.readString();
+    }
+
+    public PermissionType getSetPermissionType() {
+        return setPermissionType;
+    }
+
+    public PermissionType getGroupPermissionType() {
+        return groupPermissionType;
     }
 
     public static final Creator<ModelGroupMember> CREATOR = new Creator<ModelGroupMember>() {
