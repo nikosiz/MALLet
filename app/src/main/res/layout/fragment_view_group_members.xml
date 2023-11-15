@@ -78,7 +78,6 @@
                         android:background="@drawable/bg_ripple"
                         android:drawablePadding="10dp"
                         android:gravity="center_vertical"
-
                         android:padding="10dp"
                         android:text="Add members"
                         android:textColor="@color/colorPrimary"
@@ -95,8 +94,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
             </LinearLayout>
+
+            <TextView
+                style="@style/BasicTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Save permissions"
+                android:textSize="25sp" />
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

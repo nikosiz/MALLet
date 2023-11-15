@@ -139,6 +139,9 @@ public class ActivityCreateGroup extends AppCompatActivity {
         if (text != null && (Objects.isNull(text) || text.toString().isEmpty())) {
             Utils.showItems(groupNameErrTv);
             groupNameErrTv.setText(R.string.field_cannot_be_empty);
+
+            Utils.enableItems(toolbarSaveIv);
+
             return;
         }
 

@@ -209,9 +209,8 @@ public class ActivitySignup extends AppCompatActivity {
         cancelTv.setOnClickListener(v -> {
             Utils.resetEditText(emailEt, emailErrTv);
             Utils.resetEditText(passwordEt, passwordErrTv);
-            dialog.dismiss();
-            System.out.println("Email and password ETs reset");
             Utils.hideItems(emailErrTv, passwordErrTv);
+            dialog.dismiss();
         });
 
     }
