@@ -79,11 +79,21 @@ public class FragmentProfile extends Fragment {
         return binding.getRoot();
     }
 
+    private String username, email;
+
     private void setupContents() {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
         isLogged = sharedPreferences.getBoolean("isLogged", false);
+        username = sharedPreferences.getString("username", "");
+        email = sharedPreferences.getString("email", "");
+
+        TextView emailTv = binding.profileEmailTv;
+        emailTv.setText(email);
+
+        TextView usernameTv = binding.profileUsernameTv;
+        usernameTv.setText(username);
 
         LinearLayout themeLl = binding.profileThemeLl;
         themeTv = binding.profileThemeTv;
@@ -187,7 +197,7 @@ public class FragmentProfile extends Fragment {
             }
 
             if (!deleteAccEnteredPassword.isEmpty() && deleteAccCb.isChecked()) {
-                Utils.hideItems(deleteAccPasswordErrTv,deleteAccCbErrTv);
+                Utils.hideItems(deleteAccPasswordErrTv, deleteAccCbErrTv);
             }
         });
     }
