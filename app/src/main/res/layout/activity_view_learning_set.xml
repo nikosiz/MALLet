@@ -433,7 +433,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:backgroundTint="@color/colorPrimaryDark"
-        android:fontFamily="@font/rem_bold"
+        android:fontFamily="@font/russo_one_regular"
         android:gravity="center"
         android:text="@string/study_this_set"
         android:textColor="@color/colorLight"

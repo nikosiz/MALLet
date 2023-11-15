@@ -80,7 +80,7 @@ public class ActivityViewGroup extends AppCompatActivity {
     private static boolean areFabOptionsVisible = false;
     private LinearLayout fabOptionsLl;
     public static Long groupId;
-    private String groupName;
+    public static String groupName;
     private GroupServiceImpl groupService;
     private FragmentViewGroup_Sets setFragment;
     private FragmentViewGroup_Members memberFragment;
@@ -118,7 +118,7 @@ public class ActivityViewGroup extends AppCompatActivity {
         this.getOnBackPressedDispatcher().addCallback(this, callback);
 
         groupId = getIntent().getLongExtra("groupId", 0L);
-        this.groupName = getIntent().getStringExtra("groupName");
+        groupName = getIntent().getStringExtra("groupName");
 
         binding = ActivityViewGroupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

@@ -86,7 +86,7 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- TODO: to może być niepotrzebne -->
+    <!-- TODO: to może być niepotrzebne
     <ScrollView
         android:id="@+id/addSetToGroupSv"
         android:layout_width="match_parent"
@@ -104,7 +104,7 @@
                 android:layout_height="30dp" />
 
         </LinearLayout>
-    </ScrollView>
+    </ScrollView>-->
 
     <TextView
         android:id="@+id/addSetToGroup_confirmTv"

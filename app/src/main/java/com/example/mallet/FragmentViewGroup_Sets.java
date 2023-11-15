@@ -1,12 +1,14 @@
 package com.example.mallet;
 
 import static com.example.mallet.ActivityViewGroup.groupId;
+import static com.example.mallet.ActivityViewGroup.groupName;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -40,6 +42,8 @@ public class FragmentViewGroup_Sets extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentViewGroupSetsBinding.inflate(inflater, container, false);
 
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
         setupContents();
 
         userLibrarySetList = getUserLibrarySetList();
@@ -71,7 +75,6 @@ public class FragmentViewGroup_Sets extends Fragment {
 
             userLibrarySetsLl.addView(setItemView);
             setItemView.setOnClickListener(view -> openActivityViewSet(set));
-
         }
     }
 
@@ -82,6 +85,15 @@ public class FragmentViewGroup_Sets extends Fragment {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 Utils.showToast(getActivity(),"Deleted");
+
+                Intent intent = new Intent(getContext(),ActivityViewGroup.class);
+
+                intent.putExtra("groupId",groupId);
+                intent.putExtra("groupName",groupName);
+
+                startActivity(intent);
+
+                requireActivity().finish();
             }
 
             @Override

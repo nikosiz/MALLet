@@ -227,6 +227,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
             if (isSetNew) {
                 handleSetCreation(SetCreateContainerMapper.from(newLearningSet));
             }
+
             if (!isSetNew) {
                 //todo usuwanie seta uzywkoniak  i tworzenie nowego
                 userService.deleteUserSet(learningSet.getId(), new Callback<Void>() {
@@ -235,16 +236,17 @@ public class ActivityEditLearningSet extends AppCompatActivity {
                         userService.createUserSet(SetCreateContainerMapper.from(newLearningSet), new Callback<Long>() {
                             @Override
                             public void onResponse(Call<Long> call, Response<Long> response) {
-                                learningSetId  = ResponseHandler.handleResponse(response);
+                                learningSetId = ResponseHandler.handleResponse(response);
 
-                                Intent intent = new Intent(getApplicationContext(),ActivityViewGroup.class);
+                                Intent intent = new Intent(getApplicationContext(), ActivityViewLearningSet.class);
 
+                                intent.putExtra("setId", learningSetId);
                                 intent.putExtra("learningSet", learningSet);
-                                intent.putExtra("learningSetId", learningSetId);
 
                                 startActivity(intent);
 
                                 Utils.showToast(getApplicationContext(), "Set edited");
+
                                 close();
                             }
 
@@ -274,7 +276,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
                             public void onResponse(Call<Void> call, Response<Void> response) {
                                 Utils.showToast(getApplicationContext(), "Set edited");
 
-                                Intent intent = new Intent(getApplicationContext(),ActivityViewGroup.class);
+                                Intent intent = new Intent(getApplicationContext(), ActivityViewGroup.class);
 
                                 intent.putExtra("groupId", groupId);
 

@@ -108,17 +108,8 @@ public class FragmentLearn extends Fragment {
 
         TextView welcomeSubtitleTv = dialogBinding.learnOptionsSubtitleTv;
         welcomeSubtitleTv.setText(getActivity().getString(R.string.in_this_session_you_will_be_asked, String.valueOf(MAX_QUESTIONS)));
-        TextView restartTv = dialogBinding.learnOptionsRestartTv;
         TextView startTv = dialogBinding.learnOptionsStartTv;
         errorTv = dialogBinding.learnOptionsErrorTv;
-
-        restartTv.setOnClickListener(v -> {
-            displayWrittenQuestions(writtenQuestions, questionsLl, getLayoutInflater());
-
-            currentQuestionIndex = 0;
-
-            dialog.dismiss();
-        });
 
         startTv.setOnClickListener(v -> {
             displayWrittenQuestions(writtenQuestions, questionsLl, getLayoutInflater());
@@ -207,7 +198,10 @@ public class FragmentLearn extends Fragment {
 
         dialogFinishTv.setOnClickListener(v -> {
             finishedDialog.dismiss();
+
             requireActivity().finish();
+
+            finishedDialog.setOnDismissListener(d -> requireActivity().finish());
         });
 
         dialogRestartTv.setOnClickListener(v -> {

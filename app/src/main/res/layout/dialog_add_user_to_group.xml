@@ -61,19 +61,6 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <ScrollView
-        android:id="@+id/usersGroupsSv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:id="@+id/addUsersToGroup_membersLl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="30dp"
-            android:orientation="vertical" />
-    </ScrollView>
-
     <TextView
         android:id="@+id/addUsersToGroup_confirmTv"
         android:layout_width="wrap_content"
