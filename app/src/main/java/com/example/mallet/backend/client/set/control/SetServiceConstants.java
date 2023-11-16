@@ -8,6 +8,7 @@ class SetServiceConstants {
     static final String IDS_PARAM = "ids";
     static final String TOPIC_PARAM = "topic";
     static final String LANGUAGE_PARAM = "language";
+    static final String PREDEFINED_PARAM = "predefined";
     static final String SET_PATH = "set";
     static final String SET_BASIC_PATH = SET_PATH + "/basic";
 

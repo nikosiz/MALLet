@@ -11,7 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.mallet.backend.client.set.boundary.SetServiceImpl;
 import com.example.mallet.databinding.FragmentDatabaseBinding;
+import com.example.mallet.utils.AuthenticationUtils;
 import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.Utils;
 
@@ -21,15 +23,22 @@ import java.util.List;
 public class FragmentDatabase extends Fragment {
     private FragmentDatabaseBinding binding;
 
+    private SetServiceImpl setService;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+
+    //todo fetch sets
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentDatabaseBinding.inflate(getLayoutInflater());
+
+        String credential = AuthenticationUtils.get(getContext());
+        this.setService = new SetServiceImpl(credential);
 
         setupContents();
 

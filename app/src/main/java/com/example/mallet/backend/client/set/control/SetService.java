@@ -25,4 +25,10 @@ public interface SetService {
 
     @GET(SetServiceConstants.SET_BASIC_PATH)
     Call<SetBasicDTO> getBasicSet(@Query(SetServiceConstants.TOPIC_PARAM) String topic);
+
+    @GET(SetServiceConstants.SET_BASIC_PATH)
+    Call<SetBasicDTO> getBasicSet(@Query(SetServiceConstants.START_POSITION_PARAM) long startPosition,
+                                  @Query(SetServiceConstants.LIMIT_PARAM) long limit,
+                                  @Query(SetServiceConstants.PREDEFINED_PARAM) boolean predefined);
+
 }

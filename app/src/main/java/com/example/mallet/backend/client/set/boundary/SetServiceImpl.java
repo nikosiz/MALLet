@@ -47,4 +47,12 @@ public class SetServiceImpl {
                 .enqueue(callback);
     }
 
+    public void getBasicSet(long startPosition,
+                            long limit,
+                            boolean predefined,
+                            Callback<SetBasicDTO> callback) {
+        setService.getBasicSet(startPosition, limit, predefined)
+                .enqueue(callback);
+    }
+
  }
