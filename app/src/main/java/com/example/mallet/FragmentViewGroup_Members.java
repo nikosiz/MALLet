@@ -50,6 +50,7 @@ public class FragmentViewGroup_Members extends Fragment {
     private ModelGroupMember newContributor;
     private GroupServiceImpl groupService;
     private List<ContributionUpdateContainer> containers;
+    private List<ModelGroupMember> contributions;
     public FragmentViewGroup_Members(GroupDTO chosenGroup) {
         this.chosenGroup = chosenGroup;
     }
@@ -59,17 +60,13 @@ public class FragmentViewGroup_Members extends Fragment {
         binding = FragmentViewGroupMembersBinding.inflate(inflater, container, false);
         String credential = AuthenticationUtils.get(getContext());
         this.groupService = new GroupServiceImpl(credential);
-
+        contributions = ModelGroupMemberMapper.from(chosenGroup.contributions());
         setupContents();
 
         displayMembers();
 
 
         return binding.getRoot();
-    }
-
-    private List<ModelGroupMember> getUserLibraryMemberList() {
-        return ModelGroupMemberMapper.from(chosenGroup.contributions());
     }
 
     private void setupContents() {
@@ -80,7 +77,7 @@ public class FragmentViewGroup_Members extends Fragment {
     private void displayMembers() {
         contributionsToUpdateByUserId.clear(); // Clear the list before adding contributions
 
-        for (ModelGroupMember member : getUserLibraryMemberList()) {
+        for (ModelGroupMember member : contributions) {
             final int[] clickCounter = {0}; // Define a final variable here
 
             final View memberItemView = getLayoutInflater().inflate(R.layout.model_group_member, userLibraryMembersLl, false);
@@ -166,6 +163,8 @@ public class FragmentViewGroup_Members extends Fragment {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 ResponseHandler.handleResponse(response);
+                //todo check if refreshing
+                contributions.remove(member);
                 Utils.showToast(getContext(),"Member removed");
             }
 
