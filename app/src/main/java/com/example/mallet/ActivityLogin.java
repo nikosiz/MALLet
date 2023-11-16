@@ -124,6 +124,7 @@ public class ActivityLogin extends AppCompatActivity {
                         isLogged = true;
 
                         sharedPreferences.edit().putBoolean("isLogged", isLogged).apply();
+                        sharedPreferences.edit().putLong("userId", userDetailDTO.id()).apply();
                         sharedPreferences.edit().putString("username", userDetailDTO.username()).apply();
                         sharedPreferences.edit().putString("email", userDetailDTO.email()).apply();
 
@@ -132,7 +133,7 @@ public class ActivityLogin extends AppCompatActivity {
 
                         close();
                     } catch (MalletException e) {
-                        //Utils.showToast(getApplicationContext(), e.getMessage());
+                        Utils.showToast(getApplicationContext(), e.getMessage());
                         Utils.enableItems(emailEt, passwordEt, loginBtn, loginSignupHereTv);
                         Utils.hideItems(progressBar);
                     }
@@ -141,7 +142,7 @@ public class ActivityLogin extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<UserDetailDTO> call, Throwable t) {
                     if (attemptCount < MAX_RETRY_ATTEMPTS) {
-                        System.out.println(attemptCount);
+                       // System.out.println(attemptCount);
                         // Retry the operation
                         handleLoginWithRestart(attemptCount + 1);
                     } else {
@@ -150,14 +151,13 @@ public class ActivityLogin extends AppCompatActivity {
                         //Utils.resetEditText(emailEt, emailErrTv);
                         //Utils.resetEditText(passwordEt, passwordErrTv);
                         Utils.hideItems(progressBar);
-                        Utils.showToast(getApplicationContext(), "Email or password are incorrect");
                     }
                 }
             });
         } else {
             Utils.enableItems(emailEt, passwordEt, loginBtn, loginSignupHereTv);
             Utils.hideItems(progressBar);
-            System.out.println("Error is visible");
+           // System.out.println("Error is visible");
             Utils.hideItems(progressBar);
         }
     }

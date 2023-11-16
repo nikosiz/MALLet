@@ -174,7 +174,7 @@ public class ActivityLearn extends AppCompatActivity {
 
             // Add the written question to the list
             questionList.add(written);
-            System.out.println(written);
+           // System.out.println(written);
 
             questionCount++; // Increment the question count
         }
@@ -215,10 +215,10 @@ public class ActivityLearn extends AppCompatActivity {
 
             ModelTrueFalse trueFalse = new ModelTrueFalse(question, answer, isAnswerCorrect);
 
-            System.out.println("Question: " + question);
-            System.out.println("Displayed Answer: " + answer);
-            System.out.println("Is Answer Correct? " + isAnswerCorrect);
-            System.out.println();
+           // System.out.println("Question: " + question);
+           // System.out.println("Displayed Answer: " + answer);
+           // System.out.println("Is Answer Correct? " + isAnswerCorrect);
+           // System.out.println();
 
             trueFalseList.add(trueFalse);
 

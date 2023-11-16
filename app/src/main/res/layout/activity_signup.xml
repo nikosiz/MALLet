@@ -32,7 +32,7 @@
             android:fontFamily="@font/russo_one_regular"
             android:gravity="center"
             android:text="@string/app_logo"
-            android:textColor="@color/colorLight" />
+            android:textColor="#FFFFFF" />
 
         <LinearLayout
             android:id="@+id/signupCvLl"

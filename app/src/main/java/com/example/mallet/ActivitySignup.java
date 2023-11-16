@@ -144,8 +144,6 @@ public class ActivitySignup extends AppCompatActivity {
 
                         Utils.enableItems(emailEt, passwordEt, signupContinueTv, signupContinueTv, signupLoginHereTv);
                         Utils.hideItems(progressBar);
-
-                        close();
                     } catch (MalletException e) {
                         Utils.showToast(getApplicationContext(), e.getMessage());
                         Utils.enableItems(emailEt, passwordEt, signupContinueTv, signupContinueTv, signupLoginHereTv);
@@ -156,7 +154,7 @@ public class ActivitySignup extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<Void> call, Throwable t) {
                     if (attemptCount < MAX_RETRY_ATTEMPTS) {
-                        System.out.println(attemptCount);
+                       // System.out.println(attemptCount);
                         // Retry the operation
                         handleSignupWithRestart(attemptCount + 1);
                     } else {
@@ -172,7 +170,7 @@ public class ActivitySignup extends AppCompatActivity {
         } else {
             Utils.enableItems(emailEt, passwordEt, signupContinueTv, signupContinueTv, signupLoginHereTv);
             Utils.hideItems(progressBar);
-            System.out.println("Error is visible");
+           // System.out.println("Error is visible");
         }
     }
 
@@ -194,7 +192,7 @@ public class ActivitySignup extends AppCompatActivity {
 
             chooseUsernameDialog();
         } else {
-            System.out.println("Error is visible");
+           // System.out.println("Error is visible");
         }
     }
 
@@ -202,7 +200,6 @@ public class ActivitySignup extends AppCompatActivity {
         Dialog dialog = Utils.createDialog(this, R.layout.dialog_confirm_account, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogConfirmAccountBinding dialogBinding = DialogConfirmAccountBinding.inflate(getLayoutInflater());
         dialog.setContentView(dialogBinding.getRoot());
-        dialog.show();
 
         TextView cancelTv = dialogBinding.confirmAccountCancelTv;
 
@@ -213,6 +210,7 @@ public class ActivitySignup extends AppCompatActivity {
             dialog.dismiss();
         });
 
+        dialog.show();
     }
 
     private void loginActivity() {
