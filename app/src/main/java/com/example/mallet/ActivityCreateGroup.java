@@ -166,7 +166,7 @@ public class ActivityCreateGroup extends AppCompatActivity {
             @Override
             public void onFailure(Call<Long> call, Throwable t) {
                 if (attemptCount < MAX_RETRY_ATTEMPTS) {
-                    System.out.println(attemptCount);
+                   // System.out.println(attemptCount);
                     // Retry the operation
                     handleGroupCreationWithRestart(attemptCount + 1);
                 } else {
@@ -265,7 +265,7 @@ public class ActivityCreateGroup extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<UserDTO>> call, Throwable t) {
                 if (attemptCount < MAX_RETRY_ATTEMPTS) {
-                    System.out.println(attemptCount);
+                   // System.out.println(attemptCount);
                     // Retry the network call
                     fetchUsersWithRestart(text, attemptCount + 1);
                 } else {

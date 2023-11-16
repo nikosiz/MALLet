@@ -142,7 +142,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
                         @Override
                         public void onFailure(Call<SetBasicDTO> call, Throwable t) {
                             if (attemptCount < MAX_RETRY_ATTEMPTS) {
-                                System.out.println(attemptCount);
+                               // System.out.println(attemptCount);
                                 // Retry the network call
                                 setupSearchAndFetchSetsWithRestart(startPosition, limit, attemptCount + 1);
                             } else {
@@ -245,7 +245,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
             @Override
             public void onFailure(Call<SetBasicDTO> call, Throwable t) {
                 if (attemptCount < MAX_RETRY_ATTEMPTS) {
-                    System.out.println(attemptCount);
+                   // System.out.println(attemptCount);
                     fetchUserSetsWithRestart(startPosition, limit, isBottom, setList, attemptCount + 1);
                 } else {
                     Utils.showToast(requireActivity(), "Network error");
@@ -341,7 +341,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
                 @Override
                 public void onFailure(Call<Void> call, Throwable t) {
                     if (attemptCount < MAX_RETRY_ATTEMPTS) {
-                        System.out.println(attemptCount);
+                       // System.out.println(attemptCount);
                         confirmSetDeletionWithRestart(set, attemptCount + 1);
                     } else {
                         Utils.showToast(requireActivity(), "Network error");

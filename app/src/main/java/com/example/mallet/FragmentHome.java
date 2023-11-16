@@ -236,7 +236,7 @@ public class FragmentHome extends Fragment {
             @Override
             public void onFailure(Call<GroupBasicDTO> call, Throwable t) {
                 if (attemptCount < MAX_RETRY_ATTEMPTS) {
-                    System.out.println(attemptCount);
+                   // System.out.println(attemptCount);
                     // Retry the operation
                     setupGroupsWithRestart(attemptCount + 1);
 

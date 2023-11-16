@@ -193,11 +193,11 @@ public class FragmentTest extends Fragment {
 
                 if (isCorrect) {
                     points++;
-                    System.out.println("Points: " + points);
+                   // System.out.println("Points: " + points);
 
                     writtenAnswerEt.setText("");
                     currentQuestionIndex++;
-                    System.out.println("Question index: " + currentQuestionIndex);
+                   // System.out.println("Question index: " + currentQuestionIndex);
 
                     if (currentQuestionIndex < writtenQuestions.size()) {
                         displayWrittenQuestion(writtenQuestions, this.questionsLl, getLayoutInflater());
@@ -205,11 +205,11 @@ public class FragmentTest extends Fragment {
                         testFinishedDialog();
                     }
                 } else {
-                    System.out.println("Points: " + points);
+                   // System.out.println("Points: " + points);
 
                     writtenAnswerEt.setText("");
                     currentQuestionIndex++;
-                    System.out.println("Question index: " + currentQuestionIndex);
+                   // System.out.println("Question index: " + currentQuestionIndex);
 
                     if (currentQuestionIndex < writtenQuestions.size()) {
                         displayWrittenQuestion(writtenQuestions, this.questionsLl, getLayoutInflater());
@@ -235,10 +235,10 @@ public class FragmentTest extends Fragment {
 
                 if (isCorrect) {
                     points++;
-                    System.out.println("Points: " + points);
+                   // System.out.println("Points: " + points);
 
                     currentQuestionIndex++;
-                    System.out.println("Question index: " + currentQuestionIndex);
+                   // System.out.println("Question index: " + currentQuestionIndex);
 
                     if (currentQuestionIndex - 10 < multipleChoiceQuestions.size()) {
                         displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
@@ -246,9 +246,9 @@ public class FragmentTest extends Fragment {
                         testFinishedDialog();
                     }
                 } else {
-                    System.out.println("Points: " + points);
+                   // System.out.println("Points: " + points);
                     currentQuestionIndex++;
-                    System.out.println("Question index: " + currentQuestionIndex);
+                   // System.out.println("Question index: " + currentQuestionIndex);
 
                     if (currentQuestionIndex - 10 < multipleChoiceQuestions.size()) {
                         displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
@@ -260,17 +260,17 @@ public class FragmentTest extends Fragment {
 
                 if (isTrueFalseCorrect) {
                     points++;
-                    System.out.println("Points: " + points);
+                   // System.out.println("Points: " + points);
                     currentQuestionIndex++;
-                    System.out.println("Question index: " + currentQuestionIndex);
+                   // System.out.println("Question index: " + currentQuestionIndex);
 
                     if (currentQuestionIndex - 20 < trueFalseQuestions.size()) {
                         displayTrueFalseQuestion(trueFalseQuestions, questionsLl, getLayoutInflater());
                     }
                 } else {
-                    System.out.println("Points: " + points);
+                   // System.out.println("Points: " + points);
                     currentQuestionIndex++;
-                    System.out.println("Question index: " + currentQuestionIndex);
+                   // System.out.println("Question index: " + currentQuestionIndex);
 
                     if (currentQuestionIndex - 10 < trueFalseQuestions.size()) {
                         displayTrueFalseQuestion(trueFalseQuestions, questionsLl, getLayoutInflater());
@@ -434,7 +434,7 @@ public class FragmentTest extends Fragment {
         option3Tv.setText(answers.get(2).getAnswer());
         option4Tv.setText(answers.get(3).getAnswer());
 
-        System.out.println(correctMultipleChoiceAnswerPosition);
+       // System.out.println(correctMultipleChoiceAnswerPosition);
 
         Typeface remBold = Typeface.createFromAsset(requireContext().getAssets(), "rem_bold.ttf");
         Typeface remRegular = Typeface.createFromAsset(requireContext().getAssets(), "rem_regular.ttf");
@@ -469,12 +469,12 @@ public class FragmentTest extends Fragment {
             Utils.showToast(getContext(), String.valueOf(multipleChoiceClickedPosition));
 
             option1Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
-            option1Tv.setTypeface(remBold);
+            option1Tv.setTypeface(remRegular);
             option1Tv.getCompoundDrawables()[0].setTint(getActivity().getResources().getColor(R.color.colorPrimary));
             option1Tv.setBackground(bgPrimaryStroke);
 
             option2Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
-            option2Tv.setTypeface(remRegular);
+            option2Tv.setTypeface(remBold);
             option2Tv.getCompoundDrawables()[0].setTint(getActivity().getResources().getColor(R.color.colorPrimaryDark));
             option2Tv.setBackground(bgDarkStroke);
 
@@ -494,7 +494,7 @@ public class FragmentTest extends Fragment {
             Utils.showToast(getContext(), String.valueOf(multipleChoiceClickedPosition));
 
             option1Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
-            option1Tv.setTypeface(remBold);
+            option1Tv.setTypeface(remRegular);
             option1Tv.getCompoundDrawables()[0].setTint(getActivity().getResources().getColor(R.color.colorPrimary));
             option1Tv.setBackground(bgPrimaryStroke);
 
@@ -504,7 +504,7 @@ public class FragmentTest extends Fragment {
             option2Tv.setBackground(bgPrimaryStroke);
 
             option3Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
-            option3Tv.setTypeface(remRegular);
+            option3Tv.setTypeface(remBold);
             option3Tv.getCompoundDrawables()[0].setTint(getActivity().getResources().getColor(R.color.colorPrimaryDark));
             option3Tv.setBackground(bgDarkStroke);
 
@@ -519,7 +519,7 @@ public class FragmentTest extends Fragment {
             Utils.showToast(getContext(), String.valueOf(multipleChoiceClickedPosition));
 
             option1Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
-            option1Tv.setTypeface(remBold);
+            option1Tv.setTypeface(remRegular);
             option1Tv.getCompoundDrawables()[0].setTint(getActivity().getResources().getColor(R.color.colorPrimary));
             option1Tv.setBackground(bgPrimaryStroke);
 
@@ -534,7 +534,7 @@ public class FragmentTest extends Fragment {
             option3Tv.setBackground(bgPrimaryStroke);
 
             option4Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
-            option4Tv.setTypeface(remRegular);
+            option4Tv.setTypeface(remBold);
             option4Tv.getCompoundDrawables()[0].setTint(getActivity().getResources().getColor(R.color.colorPrimaryDark));
             option4Tv.setBackground(bgDarkStroke);
         });

@@ -4,6 +4,7 @@ import static com.example.mallet.MALLet.MAX_RETRY_ATTEMPTS;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -23,9 +24,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.agh.api.ContributionDTO;
 import com.agh.api.GroupDTO;
 import com.agh.api.PermissionType;
 import com.agh.api.SetBasicDTO;
@@ -42,6 +45,7 @@ import com.example.mallet.databinding.ActivityViewGroupBinding;
 import com.example.mallet.databinding.DialogAddSetToGroupBinding;
 import com.example.mallet.databinding.DialogAddUserToGroupBinding;
 import com.example.mallet.databinding.DialogAdminLeaveAreYouSureBinding;
+import com.example.mallet.databinding.DialogConfirmExitBinding;
 import com.example.mallet.databinding.DialogDeleteAreYouSureBinding;
 import com.example.mallet.databinding.DialogViewGroupToolbarOptionsBinding;
 import com.example.mallet.utils.AuthenticationUtils;
@@ -121,6 +125,9 @@ public class ActivityViewGroup extends AppCompatActivity {
         groupName = getIntent().getStringExtra("groupName");
 
         binding = ActivityViewGroupBinding.inflate(getLayoutInflater());
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
         setContentView(binding.getRoot());
 
         setupContents();
@@ -150,19 +157,11 @@ public class ActivityViewGroup extends AppCompatActivity {
 
         optionsIv = binding.viewGroupToolbarOptionsIv;
         optionsIv.setOnClickListener(v -> viewGroupToolbarOptionsDialog());
-
-        saveGroupIv = binding.viewGroupToolbarSaveGroupIv;
-        saveGroupIv.setOnClickListener(v -> saveGroup());
-    }
-
-    private void saveGroup() {
-        // TODO TUTAJ MICHAŁEK
     }
 
     private boolean isUserAdmin;
     private final boolean isSetInGroup = true;
 
-    // TODO - JAK TO SPRAWDZIĆ X D ?
     public static boolean canUserEditSet = true;
 
     private ImageView toolbarOptionsBackIv;
@@ -182,7 +181,7 @@ public class ActivityViewGroup extends AppCompatActivity {
         toolbarOptionsBackIv.setOnClickListener(v -> dialog.dismiss());
 
         toolbarOptionsLeaveTv.setOnClickListener(v -> {
-            if (isUserAdmin) {
+            if (isUserAdmin == false) {
                 leaveGroupDialog();
             } else {
                 confirmGroupDeletion(groupId);
@@ -195,15 +194,15 @@ public class ActivityViewGroup extends AppCompatActivity {
     }
 
     private void leaveGroupDialog() {
-        Dialog dialog = Utils.createDialog(this, R.layout.dialog_delete_are_you_sure, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
-        DialogDeleteAreYouSureBinding dialogBinding = DialogDeleteAreYouSureBinding.inflate(LayoutInflater.from(this));
+        Dialog dialog = Utils.createDialog(this, R.layout.dialog_confirm_exit, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
+        DialogConfirmExitBinding dialogBinding = DialogConfirmExitBinding.inflate(LayoutInflater.from(this));
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
         dialog.show();
 
-        TextView cancelTv = dialogBinding.deleteCancelTv;
+        TextView cancelTv = dialogBinding.confirmExitCancelTv;
         cancelTv.setOnClickListener(v -> dialog.dismiss());
 
-        TextView confirmTv = dialogBinding.deleteConfirmTv;
+        TextView confirmTv = dialogBinding.confirmExitConfirmTv;
         confirmTv.setText("Continue");
         confirmTv.setOnClickListener(v -> leaveGroup(groupId));
     }
@@ -324,7 +323,7 @@ public class ActivityViewGroup extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<Void> call, Throwable t) {
                     if (attemptCount < MAX_RETRY_ATTEMPTS) {
-                        System.out.println(attemptCount);
+                       // System.out.println(attemptCount);
                         // Retry the operation
                         addSetsDialogWithRestart(attemptCount + 1);
                     } else {
@@ -450,7 +449,7 @@ public class ActivityViewGroup extends AppCompatActivity {
             groupService.updateGroupContribution(groupUpdateContainer, new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
-                    Utils.showToast(getApplicationContext(), "Added");
+                    // Utils.showToast(getApplicationContext(), "Added");
                 }
 
                 @Override
@@ -515,11 +514,22 @@ public class ActivityViewGroup extends AppCompatActivity {
         });
     }
 
+    private SharedPreferences sharedPreferences;
+    private Long userId;
+
     private void getGroupData() {
         groupService.getGroup(groupId, new Callback<GroupDTO>() {
             @Override
             public void onResponse(Call<GroupDTO> call, Response<GroupDTO> response) {
                 GroupDTO groupDTO = ResponseHandler.handleResponse(response);
+
+                ContributionDTO contributionDTO1 = groupDTO.contributions().stream()
+                        .filter(contributionDTO -> PermissionType.ADMIN.equals(contributionDTO.groupPermissionType()) && PermissionType.ADMIN.equals(contributionDTO.setPermissionType()))
+                        .findAny().get();
+
+                userId = sharedPreferences.getLong("userId", 0L);
+
+                isUserAdmin = contributionDTO1.contributor().id().equals(userId);
 
                 setupTabLayout(groupDTO);
             }
@@ -532,13 +542,13 @@ public class ActivityViewGroup extends AppCompatActivity {
     }
 
     public void confirmGroupDeletionWithRestart(Long id, int attemptCount) {
-        Dialog dialog = Utils.createDialog(this, R.layout.dialog_admin_leave_are_you_sure, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
-        DialogAdminLeaveAreYouSureBinding dialogBinding = DialogAdminLeaveAreYouSureBinding.inflate(LayoutInflater.from(this));
+        Dialog dialog = Utils.createDialog(this, R.layout.dialog_delete_are_you_sure, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
+        DialogDeleteAreYouSureBinding dialogBinding = DialogDeleteAreYouSureBinding.inflate(LayoutInflater.from(this));
         Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
         dialog.show();
 
-        TextView cancelTv = dialogBinding.adminLeaveCancelTv;
-        TextView confirmTv = dialogBinding.adminLeaveConfirmTv;
+        TextView cancelTv = dialogBinding.deleteCancelTv;
+        TextView confirmTv = dialogBinding.deleteConfirmTv;
 
         cancelTv.setOnClickListener(v -> dialog.dismiss());
         confirmTv.setOnClickListener(v -> {
@@ -554,7 +564,7 @@ public class ActivityViewGroup extends AppCompatActivity {
 
                         closeActivity();
                     } catch (MalletException e) {
-                        System.out.println(e.getMessage());
+                       // System.out.println(e.getMessage());
                         Utils.enableItems(cancelTv, confirmTv, toolbarOptionsLeaveTv, toolbarOptionsDeleteTv, toolbarOptionsCancelTv, backIv);
                     }
                 }
@@ -562,7 +572,7 @@ public class ActivityViewGroup extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<Void> call, Throwable t) {
                     if (attemptCount < MAX_RETRY_ATTEMPTS) {
-                        System.out.println(attemptCount);
+                       // System.out.println(attemptCount);
                         // Retry the network call
                         confirmGroupDeletionWithRestart(id, attemptCount + 1);
                     } else {

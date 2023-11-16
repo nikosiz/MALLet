@@ -85,7 +85,7 @@ public class FragmentViewGroup_Sets extends Fragment {
         groupService.removeSet(groupId, setId, new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                Utils.showToast(getActivity(), "Deleted");
+                // Utils.showToast(getActivity(), "Deleted");
 
                 Intent intent = new Intent(getContext(), ActivityViewGroup.class);
 
@@ -105,7 +105,7 @@ public class FragmentViewGroup_Sets extends Fragment {
         /*groupService.removeSet(ActivityViewGroup.groupId, setId, new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                Utils.showToast(getActivity(), "deleted");
+                // Utils.showToast(getActivity(), "deleted");
             }
 
             @Override

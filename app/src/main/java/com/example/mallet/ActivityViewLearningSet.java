@@ -216,56 +216,51 @@ public class ActivityViewLearningSet extends AppCompatActivity {
                     testTitleTv.setText(getApplicationContext().getString(R.string.test_available_more_flashcards, String.valueOf(MIN_FLASHCARDS_FOR_TEST)));
 
                     matchTitleTv.setText(getApplicationContext().getString(R.string.match_available_more_flashcards, String.valueOf(MIN_FLASHCARDS_FOR_MATCH)));
-                } else if (flashcards.size() > 0) {
-                    Utils.enableItems(flashcardsLl, learnLl);
+                } else if (flashcards.size() > 0 && flashcards.size() < MIN_FLASHCARDS_FOR_TEST) {
+                    Utils.enableItems(flashcardsLl, learnLl, testLl, matchLl);
+
+                    if (flashcards.size() < MIN_FLASHCARDS_FOR_MATCH) {
+                        Utils.showItems(flashcardsVp2, allFlashcardsLlTitleTv);
+
+                        Utils.disableItems(matchLl);
+
+                        Utils.visuallyDisableTvs(getApplicationContext(), matchTitleTv, matchSubtitleTv);
+                        Utils.visuallyDisableIvs(getApplicationContext(), matchIv);
+
+                        matchTitleTv.setText(getApplicationContext().getString(R.string.match_available_more_flashcards, String.valueOf(MIN_FLASHCARDS_FOR_MATCH)));
+                        matchTitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+                        matchSubtitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+                        matchIv.setColorFilter(getApplicationContext().getResources().getColor(R.color.colorPrimary));
+                    }
 
                     if (flashcards.size() < MIN_FLASHCARDS_FOR_TEST) {
-                        Utils.enableItems(flashcardsLl, learnLl, testLl, matchLl, viewSetStudyEfab);
+                        Utils.showItems(flashcardsVp2, allFlashcardsLlTitleTv);
 
-                        if (flashcards.size() < MIN_FLASHCARDS_FOR_MATCH) {
-                            Utils.showItems(flashcardsVp2, allFlashcardsLlTitleTv);
+                        Utils.disableItems(testLl);
 
-                            Utils.disableItems(matchLl);
+                        Utils.visuallyDisableTvs(getApplicationContext(), testTitleTv, testSubtitleTv);
+                        Utils.visuallyDisableIvs(getApplicationContext(), testIv);
 
-                            Utils.visuallyDisableTvs(getApplicationContext(), matchTitleTv, matchSubtitleTv);
-                            Utils.visuallyDisableIvs(getApplicationContext(), matchIv);
-
-                            matchTitleTv.setText(getApplicationContext().getString(R.string.match_available_more_flashcards, String.valueOf(MIN_FLASHCARDS_FOR_MATCH)));
-                            matchTitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
-                            matchSubtitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
-                            matchIv.setColorFilter(getApplicationContext().getResources().getColor(R.color.colorPrimary));
-                        }
-
-                        if (flashcards.size() < MIN_FLASHCARDS_FOR_TEST) {
-                            Utils.showItems(flashcardsVp2, allFlashcardsLlTitleTv);
-
-                            Utils.disableItems(testLl);
-
-                            Utils.visuallyDisableTvs(getApplicationContext(), testTitleTv, testSubtitleTv);
-                            Utils.visuallyDisableIvs(getApplicationContext(), testIv);
-
-                            testTitleTv.setText(getApplicationContext().getString(R.string.test_available_more_flashcards, String.valueOf(MIN_FLASHCARDS_FOR_TEST)));
-                            testTitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
-                            testSubtitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
-                            testIv.setColorFilter(getApplicationContext().getResources().getColor(R.color.colorPrimary));
-                        }
+                        testTitleTv.setText(getApplicationContext().getString(R.string.test_available_more_flashcards, String.valueOf(MIN_FLASHCARDS_FOR_TEST)));
+                        testTitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+                        testSubtitleTv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+                        testIv.setColorFilter(getApplicationContext().getResources().getColor(R.color.colorPrimary));
                     }
-                } else if (flashcards.size() > MIN_FLASHCARDS_FOR_TEST) {
-                    Utils.enableItems(testLl, matchLl);
+
+                } else if (flashcards.size() >= MIN_FLASHCARDS_FOR_TEST) {
+                    Utils.enableItems(flashcardsLl, learnLl, testLl, matchLl);
                 }
 
                 displayFlashcardsInViewPager(flashcards, flashcardsVp2);
 
                 displayFlashcardsInLinearLayout(flashcards, binding.viewSetAllFlashcardsLl, getLayoutInflater());
                 flashcardsLl.startAnimation(fadeInAnimation);
-
-
             }
 
             @Override
             public void onFailure(Call<SetDetailDTO> call, Throwable t) {
                 if (attemptCount < MAX_RETRY_ATTEMPTS) {
-                    System.out.println(attemptCount);
+                    // System.out.println(attemptCount);
                     getSetWithRestart(attemptCount + 1);
                 } else {
                     Utils.showToast(getApplicationContext(), "Network error");
@@ -474,7 +469,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 if (attemptCount < MAX_RETRY_ATTEMPTS) {
-                    System.out.println(attemptCount);
+                    // System.out.println(attemptCount);
                     addSetToUsersCollectionWithRestart(attemptCount + 1);
                 } else {
                     Utils.showToast(getApplicationContext(), "Network error");
@@ -536,7 +531,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 if (attemptCount < MAX_RETRY_ATTEMPTS) {
-                    System.out.println(attemptCount);
+                    // System.out.println(attemptCount);
                     addSetToUsersCollectionWithRestart(attemptCount + 1);
                 } else {
                     Utils.showToast(getApplicationContext(), "Network error");
@@ -585,7 +580,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 if (attemptCount < MAX_RETRY_ATTEMPTS) {
-                    System.out.println(attemptCount);
+                    // System.out.println(attemptCount);
                     addSetToUsersCollectionWithRestart(attemptCount + 1);
                 } else {
                     Utils.showToast(getApplicationContext(), "Network error");
@@ -712,7 +707,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             @Override
             public void onFailure(Call<SetBasicDTO> call, Throwable t) {
                 if (attemptCount < MAX_RETRY_ATTEMPTS) {
-                    System.out.println(attemptCount);
+                    // System.out.println(attemptCount);
                     getLearningSetDataWithRestart(attemptCount + 1);
                 } else {
                     Utils.showToast(getApplicationContext(), "Network error");

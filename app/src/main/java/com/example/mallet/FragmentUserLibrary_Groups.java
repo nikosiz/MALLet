@@ -174,7 +174,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
                         @Override
                         public void onFailure(Call<GroupBasicDTO> call, Throwable t) {
                             if (attemptCount < MAX_RETRY_ATTEMPTS) {
-                                System.out.println(attemptCount);
+                               // System.out.println(attemptCount);
                                 // Retry the network call
                                 setupSearchAndFetchGroupsWithRestart(startPosition, limit, attemptCount + 1);
                             } else {
@@ -266,7 +266,7 @@ public class FragmentUserLibrary_Groups extends Fragment {
             @Override
             public void onFailure(Call<GroupBasicDTO> call, Throwable t) {
                 if (attemptCount < MAX_RETRY_ATTEMPTS) {
-                    System.out.println(attemptCount);
+                   // System.out.println(attemptCount);
                     // Retry the network call
                     fetchUserGroupsWithRestart(startPosition, limit, isBottom, groupList, attemptCount + 1);
                 } else {

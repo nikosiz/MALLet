@@ -64,19 +64,6 @@
                 android:focusable="true"
                 android:src="@drawable/ic_toolbar_options"
                 app:tint="@color/colorPrimaryDark" />
-
-            <ImageView
-                android:id="@+id/viewGroup_toolbarSaveGroupIv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/bg_ripple"
-                android:clickable="true"
-                android:contentDescription="@string/cd_save_group"
-                android:focusable="true"
-                android:src="@drawable/ic_check"
-                app:tint="@color/colorPrimaryDark" />
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
