@@ -38,7 +38,7 @@
         app:layout_constraintTop_toBottomOf="@id/databaseToolbar">
 
         <LinearLayout
-            android:id="@+id/database_setsSvLl"
+            android:id="@+id/database_setsLl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"

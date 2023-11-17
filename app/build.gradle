@@ -44,9 +44,15 @@ dependencies {
     implementation fileTree(dir: 'C:\\Users\\Nikodem\\Desktop\\Nikodem\\srAGH\\MALLetAPI\\mallet-api', include: ['*.aar', '*.jar'], exclude: [])
     implementation fileTree(dir: 'C:\\Users\\Nikodem\\Desktop\\Nikodem\\srAGH\\MALLetAPI\\mallet-api\\target', include: ['*.aar', '*.jar'], exclude: [])
     implementation 'com.android.car.ui:car-ui-lib:2.5.1'
+    implementation 'junit:junit:4.12'
+
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    androidTestImplementation 'androidx.test:runner:1.4.0'
+    androidTestImplementation 'androidx.test:rules:1.4.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     // Added by authors
     implementation 'androidx.core:core-splashscreen:1.0.1'

@@ -1,10 +1,19 @@
 package com.example.mallet;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
@@ -15,6 +24,8 @@ import android.widget.TextView;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -26,7 +37,11 @@ import com.example.mallet.utils.Utils;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 
+import org.junit.runner.RunWith;
+
+import java.util.Calendar;
 import java.util.Objects;
+
 
 public class ActivityMain extends AppCompatActivity {
     private static final String SELECTED_FRAGMENT_KEY = "selected_fragment";
@@ -48,6 +63,13 @@ public class ActivityMain extends AppCompatActivity {
         };
 
         this.getOnBackPressedDispatcher().addCallback(this, callback);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(ActivityMain.this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(ActivityMain.this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 101);
+            }
+        }
+
 
         initializeSelectedFragment(savedInstanceState);
         setExceptionItemColor();

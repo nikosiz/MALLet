@@ -1,13 +1,17 @@
 package com.example.mallet;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -21,17 +25,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentDatabase extends Fragment {
+    private ActivityMain activityMain;
     private FragmentDatabaseBinding binding;
-
     private SetServiceImpl setService;
+    private LinearLayout setsLl;
+    private Animation fadeInAnimation;
+
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        if (context instanceof ActivityMain) {
+            activityMain = (ActivityMain) context;
+            fadeInAnimation = AnimationUtils.loadAnimation(requireActivity(), R.anim.fade_in);
+        } else {
+            // Handle the case where the activity does not implement the method
+        }
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
-
     //todo fetch sets
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -42,16 +61,13 @@ public class FragmentDatabase extends Fragment {
 
         setupContents();
 
-        return inflater.inflate(R.layout.fragment_database, container, false);
+        return binding.getRoot();
     }
-
 
     private void setupContents() {
         ProgressBar progressBar = binding.databaseProgressBar;
 
-        LinearLayout setsLl = binding.databaseSetsSvLl;
-
-
+        setsLl = binding.databaseSetsLl;
 
         Utils.hideItems(progressBar);
     }

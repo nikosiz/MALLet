@@ -203,7 +203,6 @@ public class FragmentHome extends Fragment {
         };
     }
 
-
     private void setupGroupsWithRestart(int attemptCount) {
         userService.getUserGroups(0, 5, new Callback<GroupBasicDTO>() {
             @Override
