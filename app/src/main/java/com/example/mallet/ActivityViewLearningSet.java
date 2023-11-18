@@ -220,7 +220,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
                     matchTitleTv.setText(getApplicationContext().getString(R.string.match_available_more_flashcards, String.valueOf(MIN_FLASHCARDS_FOR_MATCH)));
                 } else if (flashcards.size() > 0 && flashcards.size() < MIN_FLASHCARDS_FOR_TEST) {
-                    Utils.enableItems(flashcardsLl, learnLl, testLl, matchLl);
+                    Utils.enableItems(flashcardsLl, learnLl, testLl, matchLl, viewSetStudyEfab);
 
                     if (flashcards.size() < MIN_FLASHCARDS_FOR_MATCH) {
                         Utils.showItems(flashcardsVp2, allFlashcardsLlTitleTv);
@@ -251,7 +251,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
                     }
 
                 } else if (flashcards.size() >= MIN_FLASHCARDS_FOR_TEST) {
-                    Utils.enableItems(flashcardsLl, learnLl, testLl, matchLl);
+                    Utils.enableItems(flashcardsLl, learnLl, testLl, matchLl, viewSetStudyEfab);
                 }
 
                 displayFlashcardsInViewPager(flashcards, flashcardsVp2);

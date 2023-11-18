@@ -8,7 +8,11 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.VolumeShaper;
 import android.os.Build;
+
+import androidx.work.Configuration;
+import androidx.work.WorkManager;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
@@ -26,6 +30,25 @@ public class MALLet extends Application {
         initializeTheme();
 
         mallet = new MALLet();
+
+        // Initialize WorkManager with a custom configuration
+        //WorkManager.initialize(this, new Configuration.Builder().build());
+
+        // Schedule the initial reminder notifications
+        //scheduleInitialReminderNotifications();
+
+        // Initialize the notification channel
+        NotificationUtils.createNotificationChannel(this);
+
+        // Schedule the notifications
+        NotificationScheduler.scheduleNotifications(this);
+
+        ScheduleWork.schedulePeriodicWork();
+    }
+
+    private void scheduleInitialReminderNotifications() {
+        // Schedule the initial reminder notifications when the app starts
+        NotificationWorker.scheduleReminderNotifications(this);
     }
 
     public MALLet getMALLet() {

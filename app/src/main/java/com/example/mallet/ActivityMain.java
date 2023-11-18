@@ -59,23 +59,10 @@ public class ActivityMain extends AppCompatActivity {
 
         this.getOnBackPressedDispatcher().addCallback(this, callback);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(ActivityMain.this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(ActivityMain.this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 101);
-            }
-        }
-
-
         initializeSelectedFragment(savedInstanceState);
         setExceptionItemColor();
 
         setupContents();
-
-        notificationChannel();
-        pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, new Intent(this, BroadcastReceiver.class), PendingIntent.FLAG_IMMUTABLE);
-        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-
-        setNotificationAlarm(12*60*60*1000);
     }
 
     private void initializeSelectedFragment(Bundle savedInstanceState) {
@@ -174,46 +161,6 @@ public class ActivityMain extends AppCompatActivity {
     private Activity thisActivity() {
         Activity thisActivity = this;
         return thisActivity;
-    }
-
-    private PendingIntent pendingIntent;
-    private AlarmManager alarmManager;
-
-    private void notificationChannel() {
-        CharSequence name = "Notification name";
-        String description = "Notification";
-
-        int importance = NotificationManager.IMPORTANCE_DEFAULT;
-
-        NotificationChannel channel = new NotificationChannel("Notification", name, importance);
-
-        channel.setDescription(description);
-
-        NotificationManager notificationManager = getSystemService(NotificationManager.class);
-        notificationManager.createNotificationChannel(channel);
-    }
-
-    public void setNotificationAlarm(long interval) {
-        long triggerAtMillis = System.currentTimeMillis() + interval;
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-
-
-        if (Build.VERSION.SDK_INT >= 23) {
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), interval, pendingIntent);
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent);
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent);
-        } else {
-            alarmManager.set(AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent);
-        }
-    }
-
-    public void cancelNotificationAlarm() {
-        alarmManager.cancel(pendingIntent);
     }
 
 }

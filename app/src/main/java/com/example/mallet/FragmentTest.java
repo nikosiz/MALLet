@@ -4,6 +4,7 @@ import static com.example.mallet.MALLet.MIN_FLASHCARDS_FOR_TEST;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 
 import com.example.mallet.databinding.DialogTestAreYouReadyBinding;
 import com.example.mallet.databinding.DialogTestFinishedBinding;
@@ -91,6 +93,8 @@ public class FragmentTest extends Fragment {
         truefalseQuestionView = inflater.inflate(R.layout.model_true_false, container, false);
 
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireActivity());
 
         setupContents();
 
@@ -193,11 +197,11 @@ public class FragmentTest extends Fragment {
 
                 if (isCorrect) {
                     points++;
-                   // System.out.println("Points: " + points);
+                    // System.out.println("Points: " + points);
 
                     writtenAnswerEt.setText("");
                     currentQuestionIndex++;
-                   // System.out.println("Question index: " + currentQuestionIndex);
+                    // System.out.println("Question index: " + currentQuestionIndex);
 
                     if (currentQuestionIndex < writtenQuestions.size()) {
                         displayWrittenQuestion(writtenQuestions, this.questionsLl, getLayoutInflater());
@@ -205,11 +209,11 @@ public class FragmentTest extends Fragment {
                         testFinishedDialog();
                     }
                 } else {
-                   // System.out.println("Points: " + points);
+                    // System.out.println("Points: " + points);
 
                     writtenAnswerEt.setText("");
                     currentQuestionIndex++;
-                   // System.out.println("Question index: " + currentQuestionIndex);
+                    // System.out.println("Question index: " + currentQuestionIndex);
 
                     if (currentQuestionIndex < writtenQuestions.size()) {
                         displayWrittenQuestion(writtenQuestions, this.questionsLl, getLayoutInflater());
@@ -235,10 +239,10 @@ public class FragmentTest extends Fragment {
 
                 if (isCorrect) {
                     points++;
-                   // System.out.println("Points: " + points);
+                    // System.out.println("Points: " + points);
 
                     currentQuestionIndex++;
-                   // System.out.println("Question index: " + currentQuestionIndex);
+                    // System.out.println("Question index: " + currentQuestionIndex);
 
                     if (currentQuestionIndex - 10 < multipleChoiceQuestions.size()) {
                         displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
@@ -246,9 +250,9 @@ public class FragmentTest extends Fragment {
                         testFinishedDialog();
                     }
                 } else {
-                   // System.out.println("Points: " + points);
+                    // System.out.println("Points: " + points);
                     currentQuestionIndex++;
-                   // System.out.println("Question index: " + currentQuestionIndex);
+                    // System.out.println("Question index: " + currentQuestionIndex);
 
                     if (currentQuestionIndex - 10 < multipleChoiceQuestions.size()) {
                         displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
@@ -260,17 +264,17 @@ public class FragmentTest extends Fragment {
 
                 if (isTrueFalseCorrect) {
                     points++;
-                   // System.out.println("Points: " + points);
+                    // System.out.println("Points: " + points);
                     currentQuestionIndex++;
-                   // System.out.println("Question index: " + currentQuestionIndex);
+                    // System.out.println("Question index: " + currentQuestionIndex);
 
                     if (currentQuestionIndex - 20 < trueFalseQuestions.size()) {
                         displayTrueFalseQuestion(trueFalseQuestions, questionsLl, getLayoutInflater());
                     }
                 } else {
-                   // System.out.println("Points: " + points);
+                    // System.out.println("Points: " + points);
                     currentQuestionIndex++;
-                   // System.out.println("Question index: " + currentQuestionIndex);
+                    // System.out.println("Question index: " + currentQuestionIndex);
 
                     if (currentQuestionIndex - 10 < trueFalseQuestions.size()) {
                         displayTrueFalseQuestion(trueFalseQuestions, questionsLl, getLayoutInflater());
@@ -434,7 +438,7 @@ public class FragmentTest extends Fragment {
         option3Tv.setText(answers.get(2).getAnswer());
         option4Tv.setText(answers.get(3).getAnswer());
 
-       // System.out.println(correctMultipleChoiceAnswerPosition);
+        // System.out.println(correctMultipleChoiceAnswerPosition);
 
         Typeface remBold = Typeface.createFromAsset(requireContext().getAssets(), "rem_bold.ttf");
         Typeface remRegular = Typeface.createFromAsset(requireContext().getAssets(), "rem_regular.ttf");
@@ -552,6 +556,9 @@ public class FragmentTest extends Fragment {
         return clickedOption == correctAnswerPosition;
     }
 
+    private static SharedPreferences sharedPreferences;
+    private int lastTestScore;
+
     private void testFinishedDialog() {
         Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_test_finished, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogTestFinishedBinding dialogBinding = DialogTestFinishedBinding.inflate(getLayoutInflater());
@@ -564,6 +571,8 @@ public class FragmentTest extends Fragment {
 
         TextView motivationalMessageTv = dialogBinding.testFinishedMessageTv;
         motivationalMessageTv.setText(motivationalMessage());
+        lastTestScore = points;
+        sharedPreferences.edit().putInt("lastTestScore", lastTestScore).apply();
 
         TextView dialogFinishTv = dialogBinding.testFinishedFinishTv;
         TextView dialogRestartTv = dialogBinding.testFinishedRestartTv;
