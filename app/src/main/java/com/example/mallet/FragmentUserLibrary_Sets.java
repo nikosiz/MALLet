@@ -96,7 +96,6 @@ public class FragmentUserLibrary_Sets extends Fragment {
         binding = FragmentUserLibrarySetsBinding.inflate(inflater, container, false);
         setupContents(inflater);
 
-
         userSetsSv.getViewTreeObserver().addOnScrollChangedListener(() -> {
             View view = userSetsSv.getChildAt(userSetsSv.getChildCount() - 1);
 

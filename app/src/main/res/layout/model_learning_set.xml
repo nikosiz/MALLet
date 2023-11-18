@@ -63,8 +63,6 @@
         style="@style/BasicTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-
         android:singleLine="true"
         android:text="nr_of_terms"
         android:textColor="@color/colorPrimary"
