@@ -245,7 +245,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
                                 startActivity(intent);
 
-                                Utils.showToast(getApplicationContext(), "Set edited");
+                                //Utils.showToast(getApplicationContext(), "Set edited");
 
                                 close();
                             }
@@ -274,7 +274,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
                         groupService.createSet(groupId, SetCreateContainerMapper.from(newLearningSet), new Callback<Void>() {
                             @Override
                             public void onResponse(Call<Void> call, Response<Void> response) {
-                                Utils.showToast(getApplicationContext(), "Set edited");
+                                //Utils.showToast(getApplicationContext(), "Set edited");
 
                                 Intent intent = new Intent(getApplicationContext(), ActivityViewGroup.class);
 

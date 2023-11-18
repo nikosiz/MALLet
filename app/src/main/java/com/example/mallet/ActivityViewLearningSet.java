@@ -123,6 +123,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
         progressBar = binding.viewSetProgressBar;
         viewSetSv = binding.viewSetSv;
+        Utils.hideItems(viewSetSv);
 
 
         fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in);
@@ -134,6 +135,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         this.groupService = new GroupServiceImpl(credential);
 
         getLearningSetData();
+
 
         flashcardsVp2 = binding.viewSetFlashcardVp2;
 
@@ -188,6 +190,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
             public void onResponse(Call<SetDetailDTO> call, Response<SetDetailDTO> response) {
                 Utils.hideItems(progressBar);
                 Utils.enableItems(toolbarOptionsIv, flashcardsVp2);
+                Utils.showItems(viewSetSv);
 
                 SetDetailDTO setDetailDTO = ResponseHandler.handleResponse(response);
 

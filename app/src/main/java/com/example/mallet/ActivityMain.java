@@ -8,11 +8,9 @@ import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,7 +23,6 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -36,8 +33,6 @@ import com.example.mallet.databinding.DialogCreateBinding;
 import com.example.mallet.utils.Utils;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
-
-import org.junit.runner.RunWith;
 
 import java.util.Calendar;
 import java.util.Objects;
@@ -75,6 +70,12 @@ public class ActivityMain extends AppCompatActivity {
         setExceptionItemColor();
 
         setupContents();
+
+        notificationChannel();
+        pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, new Intent(this, BroadcastReceiver.class), PendingIntent.FLAG_IMMUTABLE);
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+        setNotificationAlarm(12*60*60*1000);
     }
 
     private void initializeSelectedFragment(Bundle savedInstanceState) {
@@ -173,6 +174,46 @@ public class ActivityMain extends AppCompatActivity {
     private Activity thisActivity() {
         Activity thisActivity = this;
         return thisActivity;
+    }
+
+    private PendingIntent pendingIntent;
+    private AlarmManager alarmManager;
+
+    private void notificationChannel() {
+        CharSequence name = "Notification name";
+        String description = "Notification";
+
+        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+
+        NotificationChannel channel = new NotificationChannel("Notification", name, importance);
+
+        channel.setDescription(description);
+
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        notificationManager.createNotificationChannel(channel);
+    }
+
+    public void setNotificationAlarm(long interval) {
+        long triggerAtMillis = System.currentTimeMillis() + interval;
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), interval, pendingIntent);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent);
+        } else {
+            alarmManager.set(AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent);
+        }
+    }
+
+    public void cancelNotificationAlarm() {
+        alarmManager.cancel(pendingIntent);
     }
 
 }

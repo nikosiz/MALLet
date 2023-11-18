@@ -170,8 +170,12 @@ public class FragmentLearn extends Fragment {
             writtenQuestionTv.setText(writtenQuestion.getQuestion());
 
             TextView correctAnswersTv = writtenQuestionItem.findViewById(R.id.written_correctAnswersTv);
-            correctAnswersTv.setText("\"" + writtenQuestion.getCorrectAnswer() + "\" or \"" + writtenQuestion.getAlternativeAnswer() + "\"");
 
+            if (writtenQuestion.getAlternativeAnswer().equals(writtenQuestion.getCorrectAnswer())) {
+                correctAnswersTv.setText("\"" + writtenQuestion.getCorrectAnswer() + "\"");
+            } else {
+                correctAnswersTv.setText("\"" + writtenQuestion.getCorrectAnswer() + "\" or \"" + writtenQuestion.getAlternativeAnswer() + "\"");
+            }
             writtenAnswerEt = writtenQuestionItem.findViewById(R.id.written_answerEt);
             answersLl = writtenQuestionItem.findViewById(R.id.written_correctAnswersLl);
             Utils.hideItems(answersLl);

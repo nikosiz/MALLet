@@ -127,7 +127,7 @@
                     android:layout_gravity="start"
                     android:fontFamily="@font/russo_one_regular"
                     android:gravity="center"
-                    android:text="@string/SET_NAME"
+                    android:text=""
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="20sp" />
 
@@ -162,7 +162,7 @@
                         android:drawablePadding="10dp"
                         android:gravity="center_vertical"
                         android:paddingEnd="10dp"
-                        android:text="@string/USERNAME"
+                        android:text=""
                         android:textColor="@color/colorPrimaryDark"
                         app:drawableStartCompat="@drawable/ic_profile"
                         app:drawableTint="@color/colorPrimaryDark"
@@ -179,7 +179,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="10dp"
-                        android:text="@string/NR_OF_TERMS"
+                        android:text=""
                         android:textColor="@color/danube_blue_400" />
                 </LinearLayout>
 
