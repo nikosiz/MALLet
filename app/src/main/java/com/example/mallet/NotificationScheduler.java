@@ -1,6 +1,7 @@
 package com.example.mallet;
 
 import android.content.Context;
+
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
@@ -17,7 +18,7 @@ public class NotificationScheduler {
 
         // Schedule a periodic work request for twice a day
         PeriodicWorkRequest periodicNotificationWork = new PeriodicWorkRequest.Builder(
-                NotificationWorker.class, 12, TimeUnit.HOURS)
+                NotificationWorker.class, 1, TimeUnit.DAYS)
                 .build();
         WorkManager.getInstance(context).enqueue(periodicNotificationWork);
     }

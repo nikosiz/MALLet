@@ -59,7 +59,7 @@ public class NotificationUtils {
         String[] titles = {"Can you do it?",
                 "MALLet misses you \uD83E\uDD7A",
                 "Do you know this word?"};
-        String[] contentTexts = {"Last time you scored " + lastTestScore + " points. Can you beat your score?",
+        String[] contentTexts = {"Last time you scored " + lastTestScore + " points. Can you beat this score?",
                 "Come back and test your knowledge!",
                 "Check out today's word of the day!"};
 
@@ -85,5 +85,10 @@ public class NotificationUtils {
         notificationManager.notify(notificationId, notification);
 
         Log.d("NotificationUtils", "Notification shown with ID: " + notificationId);
+    }
+
+    public static void cancelAllNotifications(Context context) {
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancelAll();
     }
 }

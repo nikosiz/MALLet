@@ -183,7 +183,11 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
         toolbarSaveIv = binding.editSetSaveIv;
         toolbarSaveIv.setOnClickListener(v -> {
-            saveSet();
+
+            if (setNameEt.getText().toString().isEmpty()) {
+                Utils.showItems(setNameErrTv);
+            } else
+                saveSet();
         });
     }
 
@@ -365,7 +369,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
             @Override
             public void onFailure(Call<Long> call, Throwable t) {
                 if (attemptCount < MAX_RETRY_ATTEMPTS) {
-                   // System.out.println(attemptCount);
+                    // System.out.println(attemptCount);
                     // Retry the network call
                     handleSetCreationWithRestart(newSetContainer, attemptCount + 1);
                 } else {
@@ -407,7 +411,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 if (attemptCount < MAX_RETRY_ATTEMPTS) {
-                   // System.out.println(attemptCount);
+                    // System.out.println(attemptCount);
                     // Retry the network call
                     handleSetCreationWithRestart(newSetContainer, attemptCount + 1);
                 } else {

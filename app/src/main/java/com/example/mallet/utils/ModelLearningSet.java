@@ -6,10 +6,12 @@ import android.os.Parcelable;
 import java.util.List;
 
 import lombok.Builder;
+import lombok.NonNull;
 
 @Builder
 public class ModelLearningSet implements Parcelable {
     private long id;
+    @NonNull
     private String name;
     private String description;
     private String identifier;

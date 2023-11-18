@@ -24,6 +24,8 @@ public class NotificationWorker extends Worker {
     public Result doWork() {
         // Perform background tasks, such as sending notifications
 
+        NotificationUtils.cancelAllNotifications(getApplicationContext());
+
         sendNotification();
 
         Log.d("NotificationWorker", "Notification work performed successfully");
