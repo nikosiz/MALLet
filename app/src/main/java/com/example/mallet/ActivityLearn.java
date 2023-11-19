@@ -123,7 +123,7 @@ public class ActivityLearn extends AppCompatActivity {
             int writtenCorrectAnswerPosition;
             int writtenAlternativeAnswerPosition = 0;
 
-            if (flashcard.getDefinition() != null && !flashcard.getDefinition().isEmpty()) {
+            if (flashcard.getDefinition() != null && Objects.nonNull(flashcard.getDefinition())) {
                 writtenCorrectAnswerPosition = (writtenQuestionPosition + 1) % 2;
                 writtenAlternativeAnswerPosition = (writtenQuestionPosition + 2) % 3;
             } else {
@@ -132,7 +132,7 @@ public class ActivityLearn extends AppCompatActivity {
 
             List<String> options = new ArrayList<>();
             options.add(flashcard.getTerm());
-            if (flashcard.getDefinition() != null && !flashcard.getDefinition().isEmpty()) {
+            if (flashcard.getDefinition() != null && Objects.nonNull(flashcard.getDefinition())) {
                 options.add(flashcard.getDefinition());
             }
             options.add(flashcard.getTranslation());
@@ -140,7 +140,7 @@ public class ActivityLearn extends AppCompatActivity {
 
 
             // Determine the positions of the correct and alternative answers
-            if (flashcard.getDefinition() != null && !flashcard.getDefinition().isEmpty()) {
+            if (flashcard.getDefinition() != null && Objects.nonNull(flashcard.getDefinition())) {
                 switch (writtenQuestionPosition) {
                     case 0:
                         writtenCorrectAnswerPosition = 1;
@@ -198,17 +198,16 @@ public class ActivityLearn extends AppCompatActivity {
             List<String> answerCard = flashcardList.get(answerRow);
 
             String questionType = getRandomType();
-            String answerType;
-
-            do {
-                answerType = getRandomType();
-            } while (questionType.equals(answerType));
+            String answerType = questionType;
 
             String question = getRandomContent(questionCard, questionType);
             String answer = getRandomContent(answerCard, answerType);
 
-            boolean isAnswerCorrect = questionRow == answerRow;
+            if(Objects.isNull(question) || Objects.isNull(answer)){
+                continue;
+            }
 
+            boolean isAnswerCorrect = questionRow == answerRow;
             if (isAnswerCorrect) {
                 correctAnswerCount++;
             }
@@ -280,23 +279,38 @@ public class ActivityLearn extends AppCompatActivity {
         List<ModelMultipleChoice> result = new ArrayList<>();
         Collections.shuffle(flashcardList);
 
+        boolean includeDefinitionType = shouldIncludeDefinitionType(flashcardList);
         for (ModelFlashcard correctQuestion : flashcardList) {
             if (questionCounter > MAX_QUESTIONS) {
                 return result;
             }
+            QuestionType questionType;
+            if (includeDefinitionType) {
+                 questionType = QuestionType.randomType();
 
-            QuestionType questionType = QuestionType.randomType();
+            } else {
+                 questionType = QuestionType.randomTypeWithoutDefinitionType();
+            }
             String currentQuestionSpecificType = determineResultQuestionField(correctQuestion, questionType);
 
             List<String> allQuestions = getAllQuestions(flashcardList, questionType);
             List<String> wrongAnswers = getWrongAnswers(allQuestions, currentQuestionSpecificType);
 
-            ModelMultipleChoice modelMultipleChoice = buildModelMultipleChoice(mapFlashcardToQuestionType(correctQuestion, questionType), currentQuestionSpecificType, wrongAnswers);
+            ModelMultipleChoice modelMultipleChoice = buildModelMultipleChoice(mapFlashcardToQuestionType(correctQuestion, questionType,includeDefinitionType), currentQuestionSpecificType, wrongAnswers);
             result.add(modelMultipleChoice);
 
             questionCounter++;
         }
         return result;
+    }
+
+    private boolean shouldIncludeDefinitionType(List<ModelFlashcard> flashcardList) {
+        long definitionCount = flashcardList.stream()
+                .map(ModelFlashcard::getDefinition)
+                .filter(Objects::nonNull)
+                .filter(definition -> !definition.isEmpty())
+                .count();
+        return (double) definitionCount / (double) flashcardList.size() >= 0.5;
     }
 
     private ModelMultipleChoice buildModelMultipleChoice(String question,
@@ -344,16 +358,20 @@ public class ActivityLearn extends AppCompatActivity {
         };
     }
 
-    private String mapFlashcardToQuestionType(ModelFlashcard correctQuestion, QuestionType
-            questionType) {
+    private String mapFlashcardToQuestionType(ModelFlashcard correctQuestion,
+                                              QuestionType questionType,
+                                              boolean includeDefinitionType) {
         return switch (questionType) {
             case DEFINITION -> correctQuestion.getTerm();
-            case TERM -> getRandomQuestionForTermType(correctQuestion);
+            case TERM -> getRandomQuestionForTermType(correctQuestion, includeDefinitionType);
             case TRANSLATION -> correctQuestion.getTerm();
         };
     }
 
-    private String getRandomQuestionForTermType(ModelFlashcard correctQuestion) {
+    private String getRandomQuestionForTermType(ModelFlashcard correctQuestion, boolean includeDefinitionType) {
+        if(!includeDefinitionType){
+            return correctQuestion.getTranslation();
+        }
         int randomInt = random.nextInt(2);
 
         return switch (randomInt) {
@@ -375,17 +393,19 @@ public class ActivityLearn extends AppCompatActivity {
     private List<String> getWrongAnswers(List<String> questions, String correctQuestion) {
         List<String> questionsWithoutCurrent = new ArrayList<>(questions);
         questionsWithoutCurrent.remove(correctQuestion);
+        List<String> notEmptyQuestionsWithoutCurrent = questionsWithoutCurrent.stream()
+                .filter(question -> !question.isEmpty())
+                .collect(Collectors.toList());
 
         List<String> wrongQuestions = new ArrayList<>();
 
         IntStream.range(0, 3)
-                .forEach(integer -> getRandomWrongQuestion(questionsWithoutCurrent, wrongQuestions));
+                .forEach(integer -> getRandomWrongQuestion(notEmptyQuestionsWithoutCurrent, wrongQuestions));
 
         return wrongQuestions;
     }
 
-    private void getRandomWrongQuestion
-            (List<String> questionsWithoutCurrent, List<String> wrongQuestions) {
+    private void getRandomWrongQuestion(List<String> questionsWithoutCurrent, List<String> wrongQuestions) {
         int wrongQuestionIndex = random.nextInt(questionsWithoutCurrent.size());
         String wrongQuestion = questionsWithoutCurrent.get(wrongQuestionIndex);
         wrongQuestions.add(wrongQuestion);

@@ -11,9 +11,16 @@ public class TermCreateContainerMapper {
     }
 
     public static TermCreateContainer from(ModelFlashcard flashcard) {
+        String definition;
+        if(flashcard.getDefinition().isEmpty()){
+            definition = null;
+        }
+        else{
+            definition = flashcard.getDefinition();
+        }
         return TermCreateContainer.builder()
                 .term(flashcard.getTerm())
-                .definition(flashcard.getDefinition())
+                .definition(definition)
                 .translation(TermCreateContainerMapper.from(flashcard.getTranslation()))
                 .language(Language.EN)
                 .build();

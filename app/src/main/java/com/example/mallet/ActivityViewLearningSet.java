@@ -689,7 +689,7 @@ public class ActivityViewLearningSet extends AppCompatActivity {
                 flashcardTermTv.setTextSize(20.0f);
                 Utils.makeTextPhat(this, flashcardTermTv);
 
-                if (!flashcard.getDefinition().isEmpty()) {
+                if (Objects.nonNull(flashcard.getDefinition())) {
                     View aboveDefinition = flashcardItemView.findViewById(R.id.flashcard_aboveDefinitionView);
                     Utils.setViewLayoutParams(aboveDefinition, MATCH_PARENT, 5);
                     Utils.showItems(aboveDefinition);

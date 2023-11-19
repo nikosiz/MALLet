@@ -420,7 +420,7 @@ public class FragmentMatch extends Fragment {
             ModelFlashcard flashcard = shuffledFlashcards.get(i);
             frontTexts[i] = flashcard.getTerm();
 
-            if (randomInt == 0 && !flashcard.getDefinition().isEmpty()) {
+            if (randomInt == 0 && Objects.nonNull(flashcard.getDefinition())) {
                 backTexts[i] = flashcard.getDefinition();
             } else if (randomInt == 0 && flashcard.getDefinition().isEmpty()) {
                 backTexts[i] = flashcard.getTranslation();

@@ -1,27 +1,15 @@
 package com.example.mallet;
 
-import android.app.AlarmManager;
 import android.app.Application;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.VolumeShaper;
-import android.os.Build;
-
-import androidx.work.Configuration;
-import androidx.work.WorkManager;
 
 import androidx.appcompat.app.AppCompatDelegate;
-
-import java.util.Calendar;
 
 public class MALLet extends Application {
     private MALLet mallet;
     public static final int MAX_RETRY_ATTEMPTS = 3;
-    public static int MIN_FLASHCARDS_FOR_TEST = 25;
+    public static int MIN_FLASHCARDS_FOR_TEST = 15;
     public static int MIN_FLASHCARDS_FOR_MATCH = 10;
 
     @Override

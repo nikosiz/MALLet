@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mallet.R;
 
 import java.util.List;
+import java.util.Objects;
 
 public class AdapterFlashcardViewPager extends RecyclerView.Adapter<AdapterFlashcardViewPager.FlashcardViewHolder> {
     private final List<ModelFlashcard> flashcards;
@@ -40,7 +41,7 @@ public class AdapterFlashcardViewPager extends RecyclerView.Adapter<AdapterFlash
             Utils.showItems(holder.termTv);
             holder.termTv.setText(flashcard.getTerm());
 
-            if (!flashcard.getDefinition().isEmpty()) {
+            if (Objects.nonNull(flashcard.getDefinition())) {
                 holder.definitionTv.setVisibility(View.VISIBLE);
                 holder.definitionTv.setText(flashcard.getDefinition());
             }
