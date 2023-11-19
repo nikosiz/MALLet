@@ -27,6 +27,14 @@ public class SetServiceImpl {
                 .enqueue(callback);
     }
 
+    public void getSet(@NonNull Long id,
+                       long startPosition,
+                       long limit,
+                       Callback<SetDetailDTO> callback) {
+        setService.getSet(id, startPosition, limit)
+                .enqueue(callback);
+    }
+
     public void getBasicSet(@NonNull String topic,
                             Callback<SetBasicDTO> callback) {
         setService.getBasicSet(topic)
