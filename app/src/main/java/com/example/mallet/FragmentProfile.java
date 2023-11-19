@@ -117,6 +117,8 @@ public class FragmentProfile extends Fragment {
             }
         });
 
+        themeTv.setText("Light theme");
+
         themeRg.setOnCheckedChangeListener((group, checkedId) -> {
             if (checkedId == R.id.profile_lightThemeRb) {
                 themeTv.setText("Light theme");
