@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingHorizontal="20dp"
-            android:paddingTop="20dp">
+            android:paddingTop="30dp">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/viewGroupSets_addSetsCv"
@@ -79,7 +79,6 @@
                         android:background="@drawable/bg_ripple"
                         android:drawablePadding="10dp"
                         android:gravity="center_vertical"
-
                         android:padding="10dp"
                         android:text="Add sets"
                         android:textColor="@color/colorPrimary"

@@ -91,12 +91,12 @@ public class FragmentDatabase extends Fragment {
 
     private void setupSetView(List<ModelLearningSet> modelLearningSets) {
         for (ModelLearningSet set : modelLearningSets) {
-            View view = inflater.inflate(R.layout.model_learning_set, setsLl, false);
+            View setItemView = getLayoutInflater().inflate(R.layout.model_learning_set, setsLl, false);
 
-            view.setOnClickListener(v -> viewSet(set));
+            setItemView.setOnClickListener(v -> viewSet(set));
 
-            TextView setName = binding.databaseSetNameTv;
-            TextView nrOfTerms = binding.databaseNrOfTermsTv;
+            TextView setName = setItemView.findViewById(R.id.learningSet_nameTv);
+            TextView nrOfTerms = setItemView.findViewById(R.id.learningSet_nrOfTermsTv);
 
             setName.setText(set.getName());
 
@@ -106,9 +106,9 @@ public class FragmentDatabase extends Fragment {
                 nrOfTerms.setText(getActivity().getString(R.string.nr_of_terms_plural, String.valueOf(set.getNrOfTerms())));
             }
 
-            view.startAnimation(AnimationUtils.loadAnimation(requireActivity(), R.anim.fade_in));
+            setItemView.startAnimation(AnimationUtils.loadAnimation(requireActivity(), R.anim.fade_in));
 
-            setsLl.addView(view);
+            setsLl.addView(setItemView);
 
         }
     }
@@ -127,7 +127,7 @@ public class FragmentDatabase extends Fragment {
     }
 
     private void setupContents() {
-        ProgressBar progressBar = binding.database_progressBar;
+        ProgressBar progressBar = binding.databaseProgressBar;
 
         setsLl = binding.databaseSetsLl;
 
