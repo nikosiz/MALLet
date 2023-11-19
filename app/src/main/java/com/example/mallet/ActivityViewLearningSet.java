@@ -8,6 +8,7 @@ import static com.example.mallet.MALLet.MIN_FLASHCARDS_FOR_TEST;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -254,10 +255,13 @@ public class ActivityViewLearningSet extends AppCompatActivity {
                     Utils.enableItems(flashcardsLl, learnLl, testLl, matchLl, viewSetStudyEfab);
                 }
 
+
                 displayFlashcardsInViewPager(flashcards, flashcardsVp2);
 
-                displayFlashcardsInLinearLayout(flashcards, binding.viewSetAllFlashcardsLl, getLayoutInflater());
+                displayFlashcardsInLinearLayout(flashcards, binding.viewSetAllFlashcardsLl, getLayoutInflater(),true);
                 flashcardsLl.startAnimation(fadeInAnimation);
+
+                fetchNextSets(setId, setDetailDTO.nextChunkUri());
             }
 
             @Override
@@ -274,6 +278,41 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         });
     }
 
+    private void fetchNextSets(long setId,
+                               String nextChunkUri) {
+
+        if (Objects.isNull(nextChunkUri)) {
+            Utils.showItems(toolbarOptionsEditTv);
+            return;
+        } else {
+            Uri uri = Uri.parse(nextChunkUri);
+            String startPosition = uri.getQueryParameter("startPosition");
+            String limit = uri.getQueryParameter("limit");
+            if (startPosition != null && limit != null) {
+                fetchNextSets(setId,Long.parseLong(startPosition), Long.parseLong(limit));
+            }
+        }
+    }
+
+    private void fetchNextSets(long setId,long startPosition,
+                           long limit) {
+        setService.getSet(setId, startPosition, limit, new Callback<SetDetailDTO>() {
+            @Override
+            public void onResponse(Call<SetDetailDTO> call, Response<SetDetailDTO> response) {
+                SetDetailDTO setDetailDTO = ResponseHandler.handleResponse(response);
+                flashcards.addAll(ModelFlashcardMapper.from(setDetailDTO.terms()));
+
+                displayFlashcardsInViewPager(flashcards, flashcardsVp2);
+                displayFlashcardsInLinearLayout(flashcards, binding.viewSetAllFlashcardsLl, getLayoutInflater(),false);
+                fetchNextSets(setId, setDetailDTO.nextChunkUri());
+            }
+
+            @Override
+            public void onFailure(Call<SetDetailDTO> call, Throwable t) {
+                Utils.showToast(getApplicationContext(), "Network error");
+            }
+        });
+    }
 
     private void getSet() {
         getSetWithRestart(0);
@@ -341,6 +380,8 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         toolbarOptionsEditTv = dialogBinding.viewSetOptionsEditTv;
         toolbarOptionsAddToUsersCollectionTv = dialogBinding.viewSetOptionsAddToCollectionTv;
         toolbarOptionsDeleteTv = dialogBinding.viewSetOptionsDeleteSetTv;
+
+        Utils.hideItems(toolbarOptionsEditTv);
 
         if (!isSetInGroup) {
             if (isUserSet) {
@@ -626,9 +667,10 @@ public class ActivityViewLearningSet extends AppCompatActivity {
     }
 
     private void displayFlashcardsInLinearLayout
-            (List<ModelFlashcard> flashcards, LinearLayout linearLayout, LayoutInflater inflater) {
-        linearLayout.removeAllViews();
-
+            (List<ModelFlashcard> flashcards, LinearLayout linearLayout, LayoutInflater inflater, boolean addNew) {
+        if(addNew) {
+            linearLayout.removeAllViews();
+        }
         if (flashcards != null && flashcards.size() > 0) {
             for (ModelFlashcard flashcard : flashcards) {
                 View flashcardItemView = inflater.inflate(R.layout.model_flashcard, linearLayout, false);
@@ -696,7 +738,11 @@ public class ActivityViewLearningSet extends AppCompatActivity {
 
                 setNameTv.setText(setInformationDTO.name());
                 learningSet.setId(Math.toIntExact(setInformationDTO.id()));
-                setCreatorTv.setText(setInformationDTO.creator().name());
+                if(Objects.isNull(setInformationDTO.creator())){
+                    setCreatorTv.setText("");
+                }else{
+                    setCreatorTv.setText(setInformationDTO.creator().name());
+                }
 
                 Optional.ofNullable(setInformationDTO.description())
                         .ifPresent((setDescription -> {

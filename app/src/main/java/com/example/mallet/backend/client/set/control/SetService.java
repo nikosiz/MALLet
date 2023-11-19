@@ -15,6 +15,11 @@ public interface SetService {
     @GET(SetServiceConstants.SET_PATH)
     Call<SetDetailDTO> getSet(@Query(SetServiceConstants.ID_PARAM) long id);
 
+    @GET(SetServiceConstants.SET_PATH)
+    Call<SetDetailDTO> getSet(@Query(SetServiceConstants.ID_PARAM) long id,
+                              @Query(SetServiceConstants.TERM_START_POSITION_PARAM) long startPosition,
+                              @Query(SetServiceConstants.TERM_LIMIT_PARAM) long limit);
+
     @GET(SetServiceConstants.SET_BASIC_PATH)
     Call<SetBasicDTO> getBasicSet(@Query(SetServiceConstants.START_POSITION_PARAM) long startPosition,
                                   @Query(SetServiceConstants.LIMIT_PARAM) long limit,
