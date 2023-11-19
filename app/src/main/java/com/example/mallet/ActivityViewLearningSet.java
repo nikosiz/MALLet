@@ -282,7 +282,6 @@ public class ActivityViewLearningSet extends AppCompatActivity {
                                String nextChunkUri) {
 
         if (Objects.isNull(nextChunkUri)) {
-            Utils.showItems(toolbarOptionsEditTv);
             return;
         } else {
             Uri uri = Uri.parse(nextChunkUri);
@@ -381,7 +380,6 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         toolbarOptionsAddToUsersCollectionTv = dialogBinding.viewSetOptionsAddToCollectionTv;
         toolbarOptionsDeleteTv = dialogBinding.viewSetOptionsDeleteSetTv;
 
-        Utils.hideItems(toolbarOptionsEditTv);
 
         if (!isSetInGroup) {
             if (isUserSet) {
