@@ -86,26 +86,6 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- TODO: to może być niepotrzebne
-    <ScrollView
-        android:id="@+id/addSetToGroupSv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:id="@+id/addSetToGroupSvLl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="30dp" />
-
-        </LinearLayout>
-    </ScrollView>-->
-
     <TextView
         android:id="@+id/addSetToGroup_confirmTv"
         android:layout_width="wrap_content"

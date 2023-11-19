@@ -1,11 +1,13 @@
 package com.example.mallet;
 
+import android.app.Application;
 import android.app.Notification;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.work.OneTimeWorkRequest;
+import androidx.preference.PreferenceManager;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 import androidx.work.Worker;
@@ -26,29 +28,42 @@ public class NotificationWorker extends Worker {
 
         NotificationUtils.cancelAllNotifications(getApplicationContext());
 
-        sendNotification();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        boolean isLogged = sharedPreferences.getBoolean("isLogged", false);
 
-        Log.d("NotificationWorker", "Notification work performed successfully");
+        if (isLogged) {
+            if (!isAppInForeground(getApplicationContext())) {
+                NotificationUtils.cancelAllNotifications(getApplicationContext());
+                sendNotification();
+                Log.d("NotificationWorker", "Notification work performed successfully");
+            }
+        }
 
         return Result.success();
     }
 
     private void sendNotification() {
-        // Build and show the notification here
+        NotificationUtils.cancelAllNotifications(getApplicationContext());
         Notification notification = NotificationUtils.buildRandomNotification(getApplicationContext());
         NotificationUtils.showNotification(getApplicationContext(), 1, notification);
     }
 
     public static void scheduleReminderNotifications(Context context) {
         // Schedule a one-time work request for immediate notification
-        OneTimeWorkRequest initialNotificationWork = new OneTimeWorkRequest.Builder(NotificationWorker.class)
+        /*OneTimeWorkRequest initialNotificationWork = new OneTimeWorkRequest.Builder(NotificationWorker.class)
                 .build();
-        WorkManager.getInstance(context).enqueue(initialNotificationWork);
+        WorkManager.getInstance(context).enqueue(initialNotificationWork);*/
 
         // Schedule a periodic work request for twice a day
         PeriodicWorkRequest periodicNotificationWork = new PeriodicWorkRequest.Builder(
                 NotificationWorker.class, 12, TimeUnit.HOURS)
                 .build();
         WorkManager.getInstance(context).enqueue(periodicNotificationWork);
+    }
+
+    private boolean isAppInForeground(Context context) {
+        AppStateMonitor appStateMonitor = new AppStateMonitor(getApplicationContext());
+        ((Application) context.getApplicationContext()).registerActivityLifecycleCallbacks(appStateMonitor);
+        return appStateMonitor.isInForeground();
     }
 }

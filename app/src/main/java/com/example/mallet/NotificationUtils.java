@@ -28,6 +28,7 @@ public class NotificationUtils {
                     CHANNEL_NAME,
                     NotificationManager.IMPORTANCE_DEFAULT
             );
+
             channel.setDescription(CHANNEL_DESCRIPTION);
 
             NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
@@ -39,11 +40,9 @@ public class NotificationUtils {
     private static int lastTestScore;
 
     public static Notification buildRandomNotification(Context context) {
-        // Create an Intent that specifies the target activity
-        Intent intent = new Intent(context, ActivityMain.class);
+        Intent intent = new Intent(context, ActivityOpening.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-        // Create a PendingIntent
         PendingIntent pendingIntent = PendingIntent.getActivity(
                 context,
                 0,
@@ -55,7 +54,6 @@ public class NotificationUtils {
 
         lastTestScore = sharedPreferences.getInt("lastTestScore", 0);
 
-        // Generate a random version of the notification content
         String[] titles = {"Can you do it?",
                 "MALLet misses you \uD83E\uDD7A",
                 "Do you know this word?"};
@@ -67,7 +65,6 @@ public class NotificationUtils {
         String title = titles[randomIndex];
         String contentText = contentTexts[randomIndex];
 
-        // Build the notification with the random content and the PendingIntent
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notifications)
                 .setContentTitle(title)

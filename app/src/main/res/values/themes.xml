@@ -9,7 +9,7 @@
 
     <style name="Theme.MALLet" parent="Base.Theme.MALLet">
         <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:statusBarColor">@color/colorPrimaryLight</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
     </style>
 
 </resources>
