@@ -67,11 +67,13 @@ public class FragmentViewGroup_Sets extends Fragment {
 
             setId = set.getId();
             TextView setName = setItemView.findViewById(R.id.learningSet_nameTv);
+            TextView setIdentifier = setItemView.findViewById(R.id.learningSet_identifierTv);
             TextView nrOfTerms = setItemView.findViewById(R.id.learningSet_nrOfTermsTv);
             TextView creator = setItemView.findViewById(R.id.learningSet_creatorTv);
             Utils.hideItems(creator);
 
             setName.setText(set.getName());
+            setIdentifier.setText(set.getIdentifier());
             nrOfTerms.setText(set.getNrOfTerms() + " terms");
 
             userLibrarySetsLl.addView(setItemView);

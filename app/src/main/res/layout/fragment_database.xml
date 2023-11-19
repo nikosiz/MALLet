@@ -40,21 +40,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingHorizontal="20dp"
-            android:paddingTop="30dp">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
+            android:paddingBottom="30dp">
 
             <LinearLayout
                 android:id="@+id/database_setsLl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="30dp" />
         </LinearLayout>
     </ScrollView>
 

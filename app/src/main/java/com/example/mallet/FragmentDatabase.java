@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -95,10 +96,18 @@ public class FragmentDatabase extends Fragment {
 
             setItemView.setOnClickListener(v -> viewSet(set));
 
+            ImageView deleteIv = setItemView.findViewById(R.id.learningSet_deleteIv);
+
             TextView setName = setItemView.findViewById(R.id.learningSet_nameTv);
+            TextView setIdentifierTv = setItemView.findViewById(R.id.learningSet_identifierTv);
             TextView nrOfTerms = setItemView.findViewById(R.id.learningSet_nrOfTermsTv);
 
+            View aboveCreator = setItemView.findViewById(R.id.learningSet_aboveCreator);
+            TextView creatorTv = setItemView.findViewById(R.id.learningSet_creatorTv);
+            Utils.hideItems(deleteIv, aboveCreator, creatorTv);
+
             setName.setText(set.getName());
+            setIdentifierTv.setText(set.getIdentifier());
 
             if (set.getNrOfTerms() == 1) {
                 nrOfTerms.setText(getActivity().getString(R.string.nr_of_terms_singular, String.valueOf(set.getNrOfTerms())));

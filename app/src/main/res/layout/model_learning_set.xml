@@ -47,16 +47,37 @@
         android:layout_width="match_parent"
         android:layout_height="10dp" />
 
-    <TextView
-        android:id="@+id/learningSet_nameTv"
-        style="@style/BasicBoldTextStyle"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        android:singleLine="true"
-        android:text="set_name"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="20sp" />
+        <TextView
+            android:id="@+id/learningSet_nameTv"
+            style="@style/BasicBoldTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:text="set_name"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/learningSet_identifierTv"
+            style="@style/BasicTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:singleLine="true"
+            android:text="set_identifier"
+            android:textColor="@color/colorPrimaryLight1"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp" />
 
     <TextView
         android:id="@+id/learningSet_nrOfTermsTv"
@@ -69,6 +90,7 @@
         android:textSize="15sp" />
 
     <View
+        android:id="@+id/learningSet_aboveCreator"
         android:layout_width="match_parent"
         android:layout_height="20dp" />
 

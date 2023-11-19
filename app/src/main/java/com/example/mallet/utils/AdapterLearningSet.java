@@ -39,6 +39,7 @@ public class AdapterLearningSet extends RecyclerView.Adapter<AdapterLearningSet.
 
         if (learningSet != null) {
             holder.learningSetNameTv.setText(learningSet.getName());
+            holder.learningSetIdentifierTv.setText(learningSet.getIdentifier());
             holder.learningSetCreatorTv.setText(learningSet.getCreator());
             holder.learningSetNrOfTermsTv.setText(learningSet.getNrOfTerms() + " terms");
         } else {
@@ -58,12 +59,13 @@ public class AdapterLearningSet extends RecyclerView.Adapter<AdapterLearningSet.
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        final TextView learningSetNameTv, learningSetCreatorTv, learningSetNrOfTermsTv;
+        final TextView learningSetNameTv, learningSetIdentifierTv, learningSetCreatorTv, learningSetNrOfTermsTv;
         private final ImageView deleteIv;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             learningSetNameTv = itemView.findViewById(R.id.learningSet_nameTv);
+            learningSetIdentifierTv = itemView.findViewById(R.id.learningSet_identifierTv);
             learningSetNrOfTermsTv = itemView.findViewById(R.id.learningSet_nrOfTermsTv);
             learningSetCreatorTv = itemView.findViewById(R.id.learningSet_creatorTv);
             deleteIv = itemView.findViewById(R.id.learningSet_deleteIv);

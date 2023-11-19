@@ -141,7 +141,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
                         @Override
                         public void onFailure(Call<SetBasicDTO> call, Throwable t) {
                             if (attemptCount < MAX_RETRY_ATTEMPTS) {
-                               // System.out.println(attemptCount);
+                                // System.out.println(attemptCount);
                                 // Retry the network call
                                 setupSearchAndFetchSetsWithRestart(startPosition, limit, attemptCount + 1);
                             } else {
@@ -244,7 +244,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
             @Override
             public void onFailure(Call<SetBasicDTO> call, Throwable t) {
                 if (attemptCount < MAX_RETRY_ATTEMPTS) {
-                   // System.out.println(attemptCount);
+                    // System.out.println(attemptCount);
                     fetchUserSetsWithRestart(startPosition, limit, isBottom, setList, attemptCount + 1);
                 } else {
                     Utils.showToast(requireActivity(), "Network error");
@@ -274,6 +274,9 @@ public class FragmentUserLibrary_Sets extends Fragment {
 
             TextView setNameTv = setItemView.findViewById(R.id.learningSet_nameTv);
             setNameTv.setText(set.getName());
+
+            TextView setIdentifierTv = setItemView.findViewById(R.id.learningSet_identifierTv);
+            setIdentifierTv.setText(set.getIdentifier());
 
             TextView setNrOfTermsTv = setItemView.findViewById(R.id.learningSet_nrOfTermsTv);
             if (set != null) {
@@ -340,7 +343,7 @@ public class FragmentUserLibrary_Sets extends Fragment {
                 @Override
                 public void onFailure(Call<Void> call, Throwable t) {
                     if (attemptCount < MAX_RETRY_ATTEMPTS) {
-                       // System.out.println(attemptCount);
+                        // System.out.println(attemptCount);
                         confirmSetDeletionWithRestart(set, attemptCount + 1);
                     } else {
                         Utils.showToast(requireActivity(), "Network error");
