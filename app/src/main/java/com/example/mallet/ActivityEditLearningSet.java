@@ -163,6 +163,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
         addFlashcardFab.setOnClickListener(v -> {
             addFlashcard(flashcardsLl, getLayoutInflater(), "", "", "");
+            scrollView.post(() -> scrollView.fullScroll(View.FOCUS_DOWN));
         });
     }
 
@@ -332,7 +333,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
         linearLayout.addView(flashcardItemView);
         // todo naprawic
-        scrollView.post(() -> scrollView.fullScroll(View.FOCUS_DOWN));
+
         updateFlashcardCounterText();
     }
 
