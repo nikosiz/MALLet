@@ -44,7 +44,6 @@ import com.example.mallet.backend.exception.MalletException;
 import com.example.mallet.databinding.ActivityViewGroupBinding;
 import com.example.mallet.databinding.DialogAddSetToGroupBinding;
 import com.example.mallet.databinding.DialogAddUserToGroupBinding;
-import com.example.mallet.databinding.DialogAdminLeaveAreYouSureBinding;
 import com.example.mallet.databinding.DialogConfirmExitBinding;
 import com.example.mallet.databinding.DialogDeleteAreYouSureBinding;
 import com.example.mallet.databinding.DialogViewGroupToolbarOptionsBinding;
@@ -181,7 +180,7 @@ public class ActivityViewGroup extends AppCompatActivity {
         toolbarOptionsBackIv.setOnClickListener(v -> dialog.dismiss());
 
         toolbarOptionsLeaveTv.setOnClickListener(v -> {
-            if (isUserAdmin == false) {
+            if (!isUserAdmin) {
                 leaveGroupDialog();
             } else {
                 confirmGroupDeletion(groupId);
@@ -323,7 +322,7 @@ public class ActivityViewGroup extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<Void> call, Throwable t) {
                     if (attemptCount < MAX_RETRY_ATTEMPTS) {
-                       // System.out.println(attemptCount);
+                        // System.out.println(attemptCount);
                         // Retry the operation
                         addSetsDialogWithRestart(attemptCount + 1);
                     } else {
@@ -449,7 +448,7 @@ public class ActivityViewGroup extends AppCompatActivity {
             groupService.updateGroupContribution(groupUpdateContainer, new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
-                    // Utils.showToast(getApplicationContext(), "Added");
+                    Utils.showToast(getApplicationContext(), "User added to group");
                 }
 
                 @Override
@@ -564,7 +563,7 @@ public class ActivityViewGroup extends AppCompatActivity {
 
                         closeActivity();
                     } catch (MalletException e) {
-                       // System.out.println(e.getMessage());
+                        // System.out.println(e.getMessage());
                         Utils.enableItems(cancelTv, confirmTv, toolbarOptionsLeaveTv, toolbarOptionsDeleteTv, toolbarOptionsCancelTv, backIv);
                     }
                 }
@@ -572,7 +571,7 @@ public class ActivityViewGroup extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<Void> call, Throwable t) {
                     if (attemptCount < MAX_RETRY_ATTEMPTS) {
-                       // System.out.println(attemptCount);
+                        // System.out.println(attemptCount);
                         // Retry the network call
                         confirmGroupDeletionWithRestart(id, attemptCount + 1);
                     } else {

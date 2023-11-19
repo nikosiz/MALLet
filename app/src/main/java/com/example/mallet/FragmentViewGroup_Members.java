@@ -51,6 +51,7 @@ public class FragmentViewGroup_Members extends Fragment {
     private GroupServiceImpl groupService;
     private List<ContributionUpdateContainer> containers;
     private List<ModelGroupMember> contributions;
+
     public FragmentViewGroup_Members(GroupDTO chosenGroup) {
         this.chosenGroup = chosenGroup;
     }
@@ -117,7 +118,7 @@ public class FragmentViewGroup_Members extends Fragment {
                 // Use the local clickCounter here
                 if (clickCounter[0] % 2 != 0) {
                     if (PermissionType.ADMIN.equals(member.getGroupPermissionType()) && PermissionType.ADMIN.equals(member.getSetPermissionType())) {
-                      return;
+                        return;
                     }
                     Utils.showItems(deleteUserTv, managePermissionsLl); // Show on odd clicks
                     Utils.enableItems(deleteUserTv);
@@ -165,7 +166,7 @@ public class FragmentViewGroup_Members extends Fragment {
                 ResponseHandler.handleResponse(response);
                 //todo check if refreshing
                 contributions.remove(member);
-                Utils.showToast(getContext(),"Member removed");
+                Utils.showToast(getContext(), "Member removed");
             }
 
             @Override
@@ -184,7 +185,7 @@ public class FragmentViewGroup_Members extends Fragment {
     }
 
     private PermissionType determinePermissionType(boolean isChecked) {
-        if(isChecked){
+        if (isChecked) {
             return PermissionType.READ_WRITE;
         }
         return PermissionType.READ;
@@ -193,6 +194,7 @@ public class FragmentViewGroup_Members extends Fragment {
     private boolean determineIsChecked(PermissionType permissionType) {
         return !PermissionType.READ_WRITE.equals(permissionType);
     }
+
     private void updateContributionGroupPermissionToUpdate(ModelGroupMember member, PermissionType permissionType) {
         long userId = member.getUserId();
         if (contributionsToUpdateByUserId.containsKey(userId)) {
@@ -239,7 +241,7 @@ public class FragmentViewGroup_Members extends Fragment {
         groupService.updateGroupContribution(groupUpdateContainer, new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                Utils.showToast(getContext(), "Added");
+                Utils.showToast(getContext(), "Permissions updated");
             }
 
             @Override

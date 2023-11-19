@@ -3,8 +3,10 @@ package com.example.mallet;
 import static com.example.mallet.ActivityViewGroup.groupId;
 import static com.example.mallet.ActivityViewGroup.groupName;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +21,14 @@ import androidx.fragment.app.Fragment;
 import com.agh.api.GroupDTO;
 import com.example.mallet.backend.client.group.boundary.GroupServiceImpl;
 import com.example.mallet.backend.entity.set.ModelLearningSetMapper;
+import com.example.mallet.databinding.DialogConfirmExitBinding;
+import com.example.mallet.databinding.DialogDeleteAreYouSureBinding;
 import com.example.mallet.databinding.FragmentViewGroupSetsBinding;
 import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.Utils;
 
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -63,7 +68,7 @@ public class FragmentViewGroup_Sets extends Fragment {
             View setItemView = getLayoutInflater().inflate(R.layout.model_learning_set, userLibrarySetsLl, false);
 
             ImageView deleteSetIv = setItemView.findViewById(R.id.learningSet_deleteIv);
-            deleteSetIv.setOnClickListener(v -> deleteSetFromGroup());
+            deleteSetIv.setOnClickListener(v -> confirmDialog());
 
             setId = set.getId();
             TextView setName = setItemView.findViewById(R.id.learningSet_nameTv);
@@ -79,6 +84,20 @@ public class FragmentViewGroup_Sets extends Fragment {
             userLibrarySetsLl.addView(setItemView);
             setItemView.setOnClickListener(view -> openActivityViewSet(set));
         }
+    }
+
+    private void confirmDialog() {
+        Dialog dialog = Utils.createDialog(getContext(), R.layout.dialog_delete_are_you_sure, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
+        DialogDeleteAreYouSureBinding dialogBinding = DialogDeleteAreYouSureBinding.inflate(LayoutInflater.from(getContext()));
+        Objects.requireNonNull(dialog).setContentView(dialogBinding.getRoot());
+        dialog.show();
+
+        dialogBinding.deleteCancelTv.setOnClickListener(v -> dialog.dismiss());
+
+        dialogBinding.deleteConfirmTv.setOnClickListener(v -> {
+            dialog.dismiss();
+            deleteSetFromGroup();
+        });
     }
 
     private GroupServiceImpl groupService;
