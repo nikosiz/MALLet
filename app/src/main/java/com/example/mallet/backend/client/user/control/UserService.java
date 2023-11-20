@@ -49,4 +49,8 @@ public interface UserService {
     @GET(UserServiceConstants.USER_GROUP_PATH)
     Call<GroupBasicDTO> getUserGroups(@Query(UserServiceConstants.START_POSITION_PARAM) long startPosition,
                                       @Query(UserServiceConstants.LIMIT_PARAM) long limit);
+
+    @DELETE(UserServiceConstants.USER_PATH)
+    Call<Void> delete(@Query(UserServiceConstants.ID_PARAM) long id);
+
 }

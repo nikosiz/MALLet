@@ -4,6 +4,7 @@ class UserServiceConstants {
 
     static final String LIMIT_PARAM = "limit";
     static final String START_POSITION_PARAM = "startPosition";
+    static final String ID_PARAM = "id";
     static final String SET_ID_PARAM = "setId";
     static final String USER_PATH = "user";
     static final String USERNAME_PARAM = "username";

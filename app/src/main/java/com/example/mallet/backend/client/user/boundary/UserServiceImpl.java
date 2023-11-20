@@ -95,4 +95,10 @@ public class UserServiceImpl {
                 .enqueue(callback);
     }
 
+    public void deleteUser(long id,
+                           Callback<Void> callback) {
+        userService.delete(id)
+                .enqueue(callback);
+    }
+
 }
