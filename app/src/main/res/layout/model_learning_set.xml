@@ -71,7 +71,7 @@
             android:layout_gravity="center_vertical"
             android:singleLine="true"
             android:text="set_identifier"
-            android:textColor="@color/colorPrimaryLight1"
+            android:textColor="@color/colorPrimaryLight2"
             android:textSize="15sp" />
     </LinearLayout>
 

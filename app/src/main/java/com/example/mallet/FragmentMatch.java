@@ -329,7 +329,7 @@ public class FragmentMatch extends Fragment {
         scoreTv.setText("Your score: " + playerPoints);*/
 
         TextView timeTv = dialogBinding.gameOverTimeTv;
-        timeTv.setText("Your time: " + chronometer.getText());
+        timeTv.setText(getActivity().getResources().getString(R.string.match_finished, chronometer.getText()));
 
         TextView finish = dialogBinding.gameOverFinishTv;
         TextView restart = dialogBinding.gameOverRestartTv;
@@ -422,14 +422,17 @@ public class FragmentMatch extends Fragment {
 
             if (randomInt == 0 && Objects.nonNull(flashcard.getDefinition())) {
                 backTexts[i] = flashcard.getDefinition();
-            } else if (randomInt == 0 && flashcard.getDefinition().isEmpty()) {
-                backTexts[i] = flashcard.getTranslation();
+            } else if (flashcard.getDefinition() != null) {
+                if (randomInt == 0 && !Objects.nonNull(flashcard.getDefinition())) {
+                    backTexts[i] = flashcard.getTranslation();
+                }
             } else if (randomInt == 1) {
                 backTexts[i] = flashcard.getTranslation();
+
             }
         }
 
-        // Assign the generated texts to variables
+// Assign the generated texts to variables
         text101 = frontTexts[0];
         text102 = frontTexts[1];
         text103 = frontTexts[2];

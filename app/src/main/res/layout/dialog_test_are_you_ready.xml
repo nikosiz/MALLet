@@ -14,15 +14,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/russo_one_regular"
-        android:text="Are you ready?"
+        android:text="Are you ready for a test?"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="30sp" />
+        android:textSize="25sp" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="30dp" />
 
     <TextView
+        android:id="@+id/testReady_messageTv"
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

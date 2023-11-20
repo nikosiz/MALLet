@@ -25,9 +25,23 @@
         style="@style/BasicTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Time: "
+        android:text="@string/match_finished"
         android:textColor="@color/colorPrimary"
         android:textSize="20sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
+
+    <TextView
+        style="@style/BasicBoldTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/russo_one_regular"
+        android:gravity="center"
+        android:text="Keep up the great work! "
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="25sp"/>
 
     <View
         android:layout_width="match_parent"

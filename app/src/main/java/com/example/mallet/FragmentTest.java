@@ -150,6 +150,8 @@ public class FragmentTest extends Fragment {
         dialog.show();
 
         TextView startTv = dialogBinding.testReadyStartTv;
+        TextView messageTv = dialogBinding.testReadyMessageTv;
+
 
         startTv.setOnClickListener(v -> {
             writtenQuestions = activityLearn.generateWrittenQuestions();
@@ -164,6 +166,8 @@ public class FragmentTest extends Fragment {
             dialog.dismiss();
             stopWatch.start();
         });
+
+        messageTv.setText(getActivity().getResources().getString(R.string.you_are_about_to_take_a_test,String.valueOf(allQuestions)));
     }
 
     private void notEnoughDialog() {
