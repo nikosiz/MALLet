@@ -376,7 +376,13 @@ public class ActivityLearn extends AppCompatActivity {
 
         return switch (randomInt) {
             case 0 -> correctQuestion.getTranslation();
-            case 1 -> correctQuestion.getDefinition();
+            case 1 -> {
+                String definition = correctQuestion.getDefinition();
+                if (Objects.isNull(definition) || definition.isEmpty()) {
+                    yield correctQuestion.getTranslation();
+                }
+                yield definition;
+            }
             default -> throw new MalletException("Unexpected value: " + randomInt);
         };
     }
@@ -394,6 +400,7 @@ public class ActivityLearn extends AppCompatActivity {
         List<String> questionsWithoutCurrent = new ArrayList<>(questions);
         questionsWithoutCurrent.remove(correctQuestion);
         List<String> notEmptyQuestionsWithoutCurrent = questionsWithoutCurrent.stream()
+                .filter(Objects::nonNull)
                 .filter(question -> !question.isEmpty())
                 .collect(Collectors.toList());
 
