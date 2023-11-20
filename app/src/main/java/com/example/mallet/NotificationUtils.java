@@ -54,14 +54,21 @@ public class NotificationUtils {
 
         lastTestScore = sharedPreferences.getInt("lastTestScore", 0);
 
-        String[] titles = {"Can you do it?",
-                "MALLet misses you \uD83E\uDD7A",
-                "Do you know this word?"};
-        String[] contentTexts = {"Last time you scored " + lastTestScore + " points. Can you beat this score?",
-                "Come back and test your knowledge!",
-                "Check out today's word of the day!"};
+        String[] titles = {"MALLet misses you \uD83E\uDD7A",
+                "Do you know this word?",
+                "Can you do it?"};
+        String[] contentTexts = {"Come back and test your knowledge!",
+                "Check out today's word of the day!",
+                "Last time you scored " + lastTestScore + " points. Can you beat this score?"};
 
-        int randomIndex = new Random().nextInt(titles.length);
+        int randomIndex;// = new Random().nextInt(titles.length);
+
+        if (lastTestScore == 0) {
+            randomIndex = new Random().nextInt(2);
+        } else {
+            randomIndex = new Random().nextInt(titles.length);
+        }
+
         String title = titles[randomIndex];
         String contentText = contentTexts[randomIndex];
 

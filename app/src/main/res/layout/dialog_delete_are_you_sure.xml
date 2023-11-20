@@ -4,8 +4,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_top_corners_rounded"
     android:orientation="vertical"
-    android:paddingHorizontal="20dp"
-    android:paddingVertical="30dp">
+    android:padding="30dp">
 
     <TextView
         android:id="@+id/delete_titleTv"
@@ -26,7 +25,7 @@
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="This action is irreversible"
+        android:text="This action is irreversible ⚠️"
         android:textColor="@color/colorPrimary"
         android:textSize="20sp" />
 

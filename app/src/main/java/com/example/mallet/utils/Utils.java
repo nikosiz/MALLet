@@ -127,117 +127,143 @@ public class Utils {
         logo.startAnimation(pulseAnimation);
     }
 
-    public static void setupPasswordTextWatcher(TextInputEditText et, TextView err) {
+    public static void setupSignupPasswordTextWatcher(TextInputEditText et, TextView errTv) {
         et.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                hideItems(errTv);
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String input = s.toString().trim();
                 if (input.isEmpty()) {
-                    showItems(err);
-                    err.setText("This field cannot be empty");
+                    showItems(errTv);
+                    errTv.setText("This field cannot be empty.");
                 } else if (input.contains(" ")) {
-                    showItems(err);
-                    err.setText("Check your input for spaces");
+                    showItems(errTv);
+                    errTv.setText("Check your input for spaces.");
                 } else if (checkPasswordPattern(input)) {
-                    showItems(err);
-                    err.setText("Invalid password");
+                    showItems(errTv);
+                    errTv.setText("Password must consist of a minimum of 8 characters: a combination of lowercase and uppercase letters, numbers, and special symbols.");
                 } else {
-                    hideItems(err);
+                    hideItems(errTv);
                 }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+                hideItems(errTv);
             }
         });
     }
 
-    public static void setupEmailTextWatcher(TextInputEditText et, TextView err) {
+    public static void setupLoginPasswordTextWatcher(TextInputEditText et, TextView errTv) {
         et.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                hideItems(errTv);
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String input = s.toString().trim();
                 if (input.isEmpty()) {
-                    showItems(err);
-                    err.setText("This field cannot be empty");
+                    showItems(errTv);
+                    errTv.setText("This field cannot be empty.");
                 } else if (input.contains(" ")) {
-                    showItems(err);
-                    err.setText("Check your input for spaces");
-                } else if (checkEmailPattern(input)) {
-                    showItems(err);
-                    err.setText("Invalid email");
+                    showItems(errTv);
+                    errTv.setText("Check your input for spaces.");
                 } else {
-                    hideItems(err);
+                    hideItems(errTv);
                 }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+                hideItems(errTv);
             }
         });
     }
 
-    public static void setupUniversalTextWatcher(TextInputEditText et, TextView err) {
+    public static void setupEmailTextWatcher(TextInputEditText et, TextView errTv) {
         et.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                hideItems(errTv);
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String input = s.toString().trim();
                 if (input.isEmpty()) {
-                    showItems(err);
-                    err.setText("This field cannot be empty");
+                    showItems(errTv);
+                    errTv.setText("This field cannot be empty.");
+                } else if (input.contains(" ")) {
+                    showItems(errTv);
+                    errTv.setText("Check your input for spaces.");
+                } else if (checkEmailPattern(input)) {
+                    showItems(errTv);
+                    errTv.setText("Provided email is incorrect.");
                 } else {
-                    hideItems(err);
+                    hideItems(errTv);
                 }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+                hideItems(errTv);
             }
         });
     }
 
-
-    public static void setupConfirmPasswordTextWatcher(TextInputEditText newPassEt, TextInputEditText confirmNewPassEt, TextView confirmErrTv, Pattern p, String errMsg) {
-        confirmNewPassEt.addTextChangedListener(new TextWatcher() {
+    public static void setupUniversalTextWatcher(TextInputEditText et, TextView errTv) {
+        et.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                hideItems(errTv);
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String newPassword = Objects.requireNonNull(newPassEt.getText()).toString();
-                String confirmPassword = Objects.requireNonNull(confirmNewPassEt.getText()).toString();
-                if (confirmPassword.isEmpty()) {
-                    showItems(confirmErrTv);
-                    confirmErrTv.setText("This field cannot be empty");
-                } else if (confirmPassword.contains(" ")) {
-                    showItems(confirmErrTv);
-                    confirmErrTv.setText("Check your input for spaces");
-                } else if (!p.matcher(confirmPassword).matches()) {
-                    showItems(confirmErrTv);
-                    confirmErrTv.setText(errMsg);
-                } else if (!confirmPassword.equals(newPassword)) { // Use .equals() to compare string content
-                    showItems(confirmErrTv);
-                    confirmErrTv.setText("Passwords do not match");
+                String input = s.toString().trim();
+                if (input.isEmpty()) {
+                    showItems(errTv);
+                    errTv.setText("This field cannot be empty.");
                 } else {
-                    hideItems(confirmErrTv);
+                    hideItems(errTv);
                 }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+                hideItems(errTv);
+            }
+        });
+    }
+
+    public static void setupAddFlashcardTextWatcher(TextInputEditText et, TextView errTv) {
+
+        et.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                hideItems(errTv);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String input = s.toString().trim();
+                if (input.isEmpty()) {
+                    showItems(errTv);
+                    errTv.setText("This field cannot be empty.");
+                } else {
+                    hideItems(errTv);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                hideItems(errTv);
             }
         });
     }

@@ -150,6 +150,8 @@ public class FragmentTest extends Fragment {
         dialog.show();
 
         TextView startTv = dialogBinding.testReadyStartTv;
+        TextView messageTv = dialogBinding.testReadyMessageTv;
+
 
         startTv.setOnClickListener(v -> {
             writtenQuestions = activityLearn.generateWrittenQuestions();
@@ -164,6 +166,8 @@ public class FragmentTest extends Fragment {
             dialog.dismiss();
             stopWatch.start();
         });
+
+        messageTv.setText(getActivity().getResources().getString(R.string.you_are_about_to_take_a_test,String.valueOf(allQuestions)));
     }
 
     private void notEnoughDialog() {
@@ -239,10 +243,7 @@ public class FragmentTest extends Fragment {
 
                 if (isCorrect) {
                     points++;
-                    // System.out.println("Points: " + points);
-
                     currentQuestionIndex++;
-                    // System.out.println("Question index: " + currentQuestionIndex);
 
                     if (currentQuestionIndex - 10 < multipleChoiceQuestions.size()) {
                         displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
@@ -250,9 +251,7 @@ public class FragmentTest extends Fragment {
                         testFinishedDialog();
                     }
                 } else {
-                    // System.out.println("Points: " + points);
                     currentQuestionIndex++;
-                    // System.out.println("Question index: " + currentQuestionIndex);
 
                     if (currentQuestionIndex - 10 < multipleChoiceQuestions.size()) {
                         displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
@@ -264,19 +263,15 @@ public class FragmentTest extends Fragment {
 
                 if (isTrueFalseCorrect) {
                     points++;
-                    // System.out.println("Points: " + points);
                     currentQuestionIndex++;
-                    // System.out.println("Question index: " + currentQuestionIndex);
 
                     if (currentQuestionIndex - 20 < trueFalseQuestions.size()) {
                         displayTrueFalseQuestion(trueFalseQuestions, questionsLl, getLayoutInflater());
                     }
                 } else {
-                    // System.out.println("Points: " + points);
                     currentQuestionIndex++;
-                    // System.out.println("Question index: " + currentQuestionIndex);
 
-                    if (currentQuestionIndex - 10 < trueFalseQuestions.size()) {
+                    if (currentQuestionIndex - 20 < trueFalseQuestions.size()) {
                         displayTrueFalseQuestion(trueFalseQuestions, questionsLl, getLayoutInflater());
                     }
                 }

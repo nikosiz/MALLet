@@ -46,7 +46,6 @@
         android:id="@+id/learnOptions_errorTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:paddingHorizontal="10dp"
         android:text="Select at least one type of questions"
         android:textColor="@color/accentPrimary"

@@ -86,7 +86,7 @@ public class ActivityLogin extends AppCompatActivity {
         passwordIncorrect = getString(R.string.password_incorrect);
 
         Utils.setupEmailTextWatcher(emailEt, emailErrTv);
-        Utils.setupPasswordTextWatcher(passwordEt, passwordErrTv);
+        Utils.setupLoginPasswordTextWatcher(passwordEt, passwordErrTv);
 
         loginBtn = binding.loginBtn;
         loginBtn.setOnClickListener(v -> handleLogin());

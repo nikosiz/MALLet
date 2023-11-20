@@ -64,6 +64,6 @@ public class NotificationWorker extends Worker {
     private boolean isAppInForeground(Context context) {
         AppStateMonitor appStateMonitor = new AppStateMonitor(getApplicationContext());
         ((Application) context.getApplicationContext()).registerActivityLifecycleCallbacks(appStateMonitor);
-        return appStateMonitor.isInForeground();
+        return AppStateMonitor.isAppInForeground();
     }
 }

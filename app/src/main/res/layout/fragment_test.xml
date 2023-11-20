@@ -64,31 +64,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/test_toolbar">
 
-        <ScrollView
+        <LinearLayout
+            android:id="@+id/test_questionsLl"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:id="@+id/test_questionsLl"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:orientation="horizontal" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp" />
-            </LinearLayout>
-        </ScrollView>
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal" />
 
         <LinearLayout
             android:id="@+id/test_bottomTvsLl"

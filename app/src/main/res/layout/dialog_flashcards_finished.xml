@@ -25,7 +25,8 @@
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="You've completed the review of all the flashcards Your dedication to learning is truly commendable. \n\nTake a moment to celebrate your progress and feel free to continue exploring more topics to deepen your knowledge. Remember, every bit of learning brings you closer to your goals."
+        android:text="You've completed the review of all the flashcards! 🎉 Your dedication to learning is truly commendable 🌟
+        \n\nTake a moment to celebrate your progress and feel free to continue exploring more topics to deepen your knowledge 🚀 \n\nRemember, every bit of learning brings you closer to your goals 📚"
         android:textColor="@color/colorPrimary"
         android:textSize="20sp" />
 
