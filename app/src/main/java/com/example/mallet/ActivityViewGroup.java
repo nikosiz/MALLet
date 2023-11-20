@@ -427,9 +427,26 @@ public class ActivityViewGroup extends AppCompatActivity {
         });
 
         TextInputEditText searchUsersEt = dialogBinding.addUsersToGroupSearchEt;
+        TextView addUsersToGroupConfirmTv = dialogBinding.addUsersToGroupConfirmTv;
         this.userListLv = dialogBinding.addUsersToGroupListLv;
         userListAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, allUsernames);
         userListLv.setAdapter(userListAdapter);
+
+        RxTextView.textChanges(searchUsersEt)
+                .debounce(500, TimeUnit.MILLISECONDS)
+                .subscribe(text -> {
+                    if (text.length() < 2) {
+                        return;
+                    }
+                    if (text.length() == 0) {
+                        handleUserEmptyInput();
+                        return;
+                    }
+
+                    fetchUsers(text);
+                });
+
+        addUsersToGroupConfirmTv.setOnClickListener(v -> dialog.dismiss());
 
         userListLv.setOnItemClickListener((parent, view, position, id) -> {
             ModelUser clickedUser = allUsernames.get(position);
@@ -457,19 +474,6 @@ public class ActivityViewGroup extends AppCompatActivity {
                 }
             });
 
-            RxTextView.textChanges(searchUsersEt)
-                    .debounce(500, TimeUnit.MILLISECONDS)
-                    .subscribe(text -> {
-                        if (text.length() < 2) {
-                            return;
-                        }
-                        if (text.length() == 0) {
-                            handleUserEmptyInput();
-                            return;
-                        }
-
-                        fetchUsers(text);
-                    });
 
         });
     }
