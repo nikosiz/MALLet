@@ -56,7 +56,7 @@ public class NotificationWorker extends Worker {
 
         // Schedule a periodic work request for twice a day
         PeriodicWorkRequest periodicNotificationWork = new PeriodicWorkRequest.Builder(
-                NotificationWorker.class, 12, TimeUnit.HOURS)
+                NotificationWorker.class, 1, TimeUnit.MINUTES)
                 .build();
         WorkManager.getInstance(context).enqueue(periodicNotificationWork);
     }
@@ -64,6 +64,6 @@ public class NotificationWorker extends Worker {
     private boolean isAppInForeground(Context context) {
         AppStateMonitor appStateMonitor = new AppStateMonitor(getApplicationContext());
         ((Application) context.getApplicationContext()).registerActivityLifecycleCallbacks(appStateMonitor);
-        return appStateMonitor.isInForeground();
+        return AppStateMonitor.isAppInForeground();
     }
 }

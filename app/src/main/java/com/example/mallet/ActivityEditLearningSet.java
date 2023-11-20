@@ -54,7 +54,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
     private ProgressBar progressBar;
     private ImageView toolbarBackIv, toolbarSaveIv;
     private TextInputEditText setNameEt;
-    private TextView setNameErrTv;
+    private TextView setNameErrTv, termErrorTv, translationErrorTv;
     private TextView addDescriptionTv;
     private TextInputLayout setDescriptionTil;
     private TextInputEditText setDescriptionEt;
@@ -124,6 +124,7 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         setNameErrTv = binding.editSetErrorTv;
         Utils.setupUniversalTextWatcher(setNameEt, setNameErrTv);
 
+
         addDescriptionTv = binding.editSetAddDescriptionTv;
 
         setDescriptionTil = binding.editSetDescriptionTil;
@@ -184,9 +185,14 @@ public class ActivityEditLearningSet extends AppCompatActivity {
 
         toolbarSaveIv = binding.editSetSaveIv;
         toolbarSaveIv.setOnClickListener(v -> {
-
             if (setNameEt.getText().toString().isEmpty()) {
                 Utils.showItems(setNameErrTv);
+            } else if (!flashcardTermEt.getText().toString().isEmpty() && flashcardTranslationEt.getText().toString().isEmpty()) {
+                Utils.showItems(translationErrorTv);
+                translationErrorTv.setText("Translation is mandatory.");
+            } else if (flashcardTermEt.getText().toString().isEmpty() && !flashcardTranslationEt.getText().toString().isEmpty()) {
+                Utils.showItems(termErrorTv);
+                termErrorTv.setText("Term is mandatory.");
             } else
                 saveSet();
         });
@@ -324,8 +330,14 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         });
 
         flashcardTermEt = flashcardItemView.findViewById(R.id.addFlashcard_termEt);
+        termErrorTv = flashcardItemView.findViewById(R.id.addFlashcard_termErrTv);
+        Utils.setupAddFlashcardTextWatcher(flashcardTermEt, termErrorTv);
+
         flashcardDefinitionEt = flashcardItemView.findViewById(R.id.addFlashcard_definitionEt);
+
         flashcardTranslationEt = flashcardItemView.findViewById(R.id.addFlashcard_translationEt);
+        translationErrorTv = flashcardItemView.findViewById(R.id.addFlashcard_translationErrTv);
+        Utils.setupAddFlashcardTextWatcher(flashcardTranslationEt, translationErrorTv);
 
         flashcardTermEt.setText(term);
         flashcardDefinitionEt.setText(definition);

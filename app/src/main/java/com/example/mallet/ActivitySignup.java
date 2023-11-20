@@ -85,7 +85,7 @@ public class ActivitySignup extends AppCompatActivity {
         passwordIncorrect = getString(R.string.password_incorrect);
 
         Utils.setupEmailTextWatcher(emailEt, emailErrTv);
-        Utils.setupPasswordTextWatcher(passwordEt, passwordErrTv);
+        Utils.setupSignupPasswordTextWatcher(passwordEt, passwordErrTv);
 
         signupContinueTv = binding.signupContinueTv;
         signupContinueTv.setOnClickListener(v -> validateSignupData());

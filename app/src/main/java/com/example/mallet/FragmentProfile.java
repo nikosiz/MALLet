@@ -177,7 +177,7 @@ public class FragmentProfile extends Fragment {
 
         TextInputEditText deleteAccPasswordEt = dialogBinding.deleteAccountPasswordEt;
         TextView deleteAccPasswordErrTv = dialogBinding.deleteAccountErrorTv;
-        Utils.setupPasswordTextWatcher(deleteAccPasswordEt, deleteAccPasswordErrTv);
+        Utils.setupSignupPasswordTextWatcher(deleteAccPasswordEt, deleteAccPasswordErrTv);
 
         String deleteAccEnteredPassword = Objects.requireNonNull(deleteAccPasswordEt.getText()).toString();
 

@@ -174,7 +174,7 @@ public class ActivityLearn extends AppCompatActivity {
 
             // Add the written question to the list
             questionList.add(written);
-           // System.out.println(written);
+            // System.out.println(written);
 
             questionCount++; // Increment the question count
         }
@@ -203,7 +203,7 @@ public class ActivityLearn extends AppCompatActivity {
             String question = getRandomContent(questionCard, questionType);
             String answer = getRandomContent(answerCard, answerType);
 
-            if(Objects.isNull(question) || Objects.isNull(answer)){
+            if (Objects.isNull(question) || Objects.isNull(answer)) {
                 continue;
             }
 
@@ -214,10 +214,10 @@ public class ActivityLearn extends AppCompatActivity {
 
             ModelTrueFalse trueFalse = new ModelTrueFalse(question, answer, isAnswerCorrect);
 
-           // System.out.println("Question: " + question);
-           // System.out.println("Displayed Answer: " + answer);
-           // System.out.println("Is Answer Correct? " + isAnswerCorrect);
-           // System.out.println();
+            // System.out.println("Question: " + question);
+            // System.out.println("Displayed Answer: " + answer);
+            // System.out.println("Is Answer Correct? " + isAnswerCorrect);
+            // System.out.println();
 
             trueFalseList.add(trueFalse);
 
@@ -286,17 +286,17 @@ public class ActivityLearn extends AppCompatActivity {
             }
             QuestionType questionType;
             if (includeDefinitionType) {
-                 questionType = QuestionType.randomType();
+                questionType = QuestionType.randomType();
 
             } else {
-                 questionType = QuestionType.randomTypeWithoutDefinitionType();
+                questionType = QuestionType.randomTypeWithoutDefinitionType();
             }
             String currentQuestionSpecificType = determineResultQuestionField(correctQuestion, questionType);
 
             List<String> allQuestions = getAllQuestions(flashcardList, questionType);
             List<String> wrongAnswers = getWrongAnswers(allQuestions, currentQuestionSpecificType);
 
-            ModelMultipleChoice modelMultipleChoice = buildModelMultipleChoice(mapFlashcardToQuestionType(correctQuestion, questionType,includeDefinitionType), currentQuestionSpecificType, wrongAnswers);
+            ModelMultipleChoice modelMultipleChoice = buildModelMultipleChoice(mapFlashcardToQuestionType(correctQuestion, questionType, includeDefinitionType), currentQuestionSpecificType, wrongAnswers);
             result.add(modelMultipleChoice);
 
             questionCounter++;
@@ -369,7 +369,7 @@ public class ActivityLearn extends AppCompatActivity {
     }
 
     private String getRandomQuestionForTermType(ModelFlashcard correctQuestion, boolean includeDefinitionType) {
-        if(!includeDefinitionType){
+        if (!includeDefinitionType) {
             return correctQuestion.getTranslation();
         }
         int randomInt = random.nextInt(2);
@@ -394,7 +394,7 @@ public class ActivityLearn extends AppCompatActivity {
         List<String> questionsWithoutCurrent = new ArrayList<>(questions);
         questionsWithoutCurrent.remove(correctQuestion);
         List<String> notEmptyQuestionsWithoutCurrent = questionsWithoutCurrent.stream()
-                .filter(question -> !question.isEmpty())
+                .filter(question -> Objects.nonNull(!question.isEmpty()))
                 .collect(Collectors.toList());
 
         List<String> wrongQuestions = new ArrayList<>();

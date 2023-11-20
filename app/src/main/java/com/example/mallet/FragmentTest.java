@@ -239,10 +239,7 @@ public class FragmentTest extends Fragment {
 
                 if (isCorrect) {
                     points++;
-                    // System.out.println("Points: " + points);
-
                     currentQuestionIndex++;
-                    // System.out.println("Question index: " + currentQuestionIndex);
 
                     if (currentQuestionIndex - 10 < multipleChoiceQuestions.size()) {
                         displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
@@ -250,9 +247,7 @@ public class FragmentTest extends Fragment {
                         testFinishedDialog();
                     }
                 } else {
-                    // System.out.println("Points: " + points);
                     currentQuestionIndex++;
-                    // System.out.println("Question index: " + currentQuestionIndex);
 
                     if (currentQuestionIndex - 10 < multipleChoiceQuestions.size()) {
                         displayMultipleChoiceQuestion(multipleChoiceQuestions, questionsLl, getLayoutInflater());
@@ -264,19 +259,15 @@ public class FragmentTest extends Fragment {
 
                 if (isTrueFalseCorrect) {
                     points++;
-                    // System.out.println("Points: " + points);
                     currentQuestionIndex++;
-                    // System.out.println("Question index: " + currentQuestionIndex);
 
                     if (currentQuestionIndex - 20 < trueFalseQuestions.size()) {
                         displayTrueFalseQuestion(trueFalseQuestions, questionsLl, getLayoutInflater());
                     }
                 } else {
-                    // System.out.println("Points: " + points);
                     currentQuestionIndex++;
-                    // System.out.println("Question index: " + currentQuestionIndex);
 
-                    if (currentQuestionIndex - 10 < trueFalseQuestions.size()) {
+                    if (currentQuestionIndex - 20 < trueFalseQuestions.size()) {
                         displayTrueFalseQuestion(trueFalseQuestions, questionsLl, getLayoutInflater());
                     }
                 }
