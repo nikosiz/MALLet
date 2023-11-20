@@ -56,7 +56,7 @@ public class NotificationWorker extends Worker {
 
         // Schedule a periodic work request for twice a day
         PeriodicWorkRequest periodicNotificationWork = new PeriodicWorkRequest.Builder(
-                NotificationWorker.class, 1, TimeUnit.MINUTES)
+                NotificationWorker.class, 12, TimeUnit.HOURS)
                 .build();
         WorkManager.getInstance(context).enqueue(periodicNotificationWork);
     }

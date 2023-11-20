@@ -14,13 +14,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.example.mallet.databinding.DialogAreYouReadyBinding;
-import com.example.mallet.databinding.DialogGameOverBinding;
+import com.example.mallet.databinding.DialogMatchFinishedBinding;
 import com.example.mallet.databinding.FragmentMatchBinding;
 import com.example.mallet.utils.ModelFlashcard;
 import com.example.mallet.utils.ModelLearningSet;
@@ -42,12 +40,10 @@ public class FragmentMatch extends Fragment {
     private TextView tv_p1;
     private CardView cv_11, cv_12, cv_21, cv_22, cv_31, cv_32, cv_41, cv_42, cv_51, cv_52;
     private TextView cv_11Tv, cv_12Tv, cv_21Tv, cv_22Tv, cv_31Tv, cv_32Tv, cv_41Tv, cv_42Tv, cv_51Tv, cv_52Tv;
-    private TextView pointsTv;
     private String text101, text102, text103, text104, text105, text201, text202, text203, text204, text205;
     private int firstCard, secondCard;
     private int clickedFirst, clickedSecond;
     private int cardNr = 1;
-    private int playerPoints = 0;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -63,6 +59,8 @@ public class FragmentMatch extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
     }
 
     @Override
@@ -72,16 +70,12 @@ public class FragmentMatch extends Fragment {
 
         setupContents();
 
-        generateTextVariables(flashcardList);
-
         View rootView = inflater.inflate(R.layout.fragment_match, container, false);
 
         chronometer = rootView.findViewById(R.id.matchF_chronometer);
-        pointsTv = rootView.findViewById(R.id.matchF_pointsTv);
 
         areYouReadyDialog();
-
-        //tv_p1 = rootView.findViewById(R.id.tv_p1);
+        generateTextVariables(flashcardList);
 
         cv_11 = rootView.findViewById(R.id.cv_11);
         cv_11Tv = rootView.findViewById(R.id.cv_11Tv);
@@ -174,19 +168,11 @@ public class FragmentMatch extends Fragment {
 
 
     private void setupContents() {
-        setupToolbar();
+        ImageView toolbarBackIv = binding.matchFToolbarBackIv;
+
+        toolbarBackIv.setOnClickListener(v -> requireActivity().finish());
 
         flashcardList = getLearningSetData();
-    }
-
-    private void setupToolbar() {
-        Toolbar toolbar = binding.matchFToolbar;
-        ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
-        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle("");
-
-        ImageView backIv = binding.matchFToolbarBackIv;
-
-        backIv.setOnClickListener(v -> activityLearn.confirmExitDialog());
     }
 
     private void areYouReadyDialog() {
@@ -204,11 +190,11 @@ public class FragmentMatch extends Fragment {
             chronometer.setBase(SystemClock.elapsedRealtime());
             chronometer.start();
         });
+
+
     }
 
-
     private void handleMatching(CardView cv, TextView tv, int card) {
-
         if (cardNr == 1) {
             firstCard = cardsArray[card];
             if (firstCard > 200) {
@@ -286,14 +272,8 @@ public class FragmentMatch extends Fragment {
                 cv_52.setVisibility(View.INVISIBLE);
             }
 
-            playerPoints++;
-            pointsTv.setText(Integer.toString(playerPoints));
-            //tv_p1.setText("P1: " + playerPoints);
-
         } else {
-            //playerPoints--;
             chronometer.setBase(chronometer.getBase() - 5 * 1000);
-
         }
 
         enableAllCardViews();
@@ -320,8 +300,8 @@ public class FragmentMatch extends Fragment {
     }
 
     private void gameOverDialog() {
-        Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_game_over, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
-        DialogGameOverBinding dialogBinding = DialogGameOverBinding.inflate(getLayoutInflater());
+        Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_match_finished, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
+        DialogMatchFinishedBinding dialogBinding = DialogMatchFinishedBinding.inflate(getLayoutInflater());
         dialog.setContentView(dialogBinding.getRoot());
         dialog.show();
 
@@ -332,41 +312,8 @@ public class FragmentMatch extends Fragment {
         timeTv.setText(getActivity().getResources().getString(R.string.match_finished, chronometer.getText()));
 
         TextView finish = dialogBinding.gameOverFinishTv;
-        TextView restart = dialogBinding.gameOverRestartTv;
-
-        restart.setOnClickListener(v -> {
-            dialog.dismiss();
-            restartMatch();
-        });
 
         finish.setOnClickListener(v -> requireActivity().finish());
-    }
-
-    private void restartMatch() {
-        resetGameState();
-        recreateFragment();
-    }
-
-    private void resetGameState() {
-        // Reset any game-related variables, views, or logic
-        playerPoints = 0;
-        chronometer.setBase(SystemClock.elapsedRealtime());
-        pointsTv.setText("0");
-
-        // Reset the visibility of card views
-        cv_11.setVisibility(View.VISIBLE);
-        cv_12.setVisibility(View.VISIBLE);
-        cv_21.setVisibility(View.VISIBLE);
-        cv_22.setVisibility(View.VISIBLE);
-        cv_31.setVisibility(View.VISIBLE);
-        cv_32.setVisibility(View.VISIBLE);
-        cv_41.setVisibility(View.VISIBLE);
-        cv_42.setVisibility(View.VISIBLE);
-        cv_51.setVisibility(View.VISIBLE);
-        cv_52.setVisibility(View.VISIBLE);
-
-        // Enable all card views
-        enableAllCardViews();
     }
 
     private void enableAllCardViews() {
@@ -404,35 +351,42 @@ public class FragmentMatch extends Fragment {
     }
 
     private void generateTextVariables(List<ModelFlashcard> flashcards) {
-        // Shuffle the flashcards
         List<ModelFlashcard> shuffledFlashcards = new ArrayList<>(flashcards);
         Collections.shuffle(shuffledFlashcards);
 
-        // Initialize text variables for terms and definitions
         String[] frontTexts = new String[5];
         String[] backTexts = new String[5];
 
         Random random = new Random();
 
-        // Select five random terms and definitions
         for (int i = 0; i < 5; i++) {
-            int randomInt = random.nextInt(2);
+            int randomInt = random.nextInt(3);
             ModelFlashcard flashcard = shuffledFlashcards.get(i);
-            frontTexts[i] = flashcard.getTerm();
 
-            if (randomInt == 0 && Objects.nonNull(flashcard.getDefinition())) {
-                backTexts[i] = flashcard.getDefinition();
-            } else if (flashcard.getDefinition() != null) {
-                if (randomInt == 0 && !Objects.nonNull(flashcard.getDefinition())) {
+            if (randomInt == 0) {
+                frontTexts[i] = flashcard.getTerm();
+            } else if (randomInt == 1) {
+                if (flashcard.getDefinition() == null || flashcard.getDefinition().isEmpty()) {
+                    frontTexts[i] = flashcard.getTranslation();
+                } else {
+                    frontTexts[i] = flashcard.getDefinition();
+                }
+            } else {
+                frontTexts[i] = flashcard.getTranslation();
+            }
+
+
+            if (randomInt == 0) {
+                if (flashcard.getDefinition() != null && !flashcard.getDefinition().isEmpty()) {
+                    backTexts[i] = flashcard.getDefinition();
+                } else {
                     backTexts[i] = flashcard.getTranslation();
                 }
-            } else if (randomInt == 1) {
-                backTexts[i] = flashcard.getTranslation();
-
+            } else {
+                backTexts[i] = flashcard.getTerm();
             }
         }
 
-// Assign the generated texts to variables
         text101 = frontTexts[0];
         text102 = frontTexts[1];
         text103 = frontTexts[2];
@@ -445,5 +399,4 @@ public class FragmentMatch extends Fragment {
         text204 = backTexts[3];
         text205 = backTexts[4];
     }
-
 }
