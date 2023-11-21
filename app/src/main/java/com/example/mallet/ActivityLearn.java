@@ -171,7 +171,9 @@ public class ActivityLearn extends AppCompatActivity {
                     options.get(writtenQuestionPosition),
                     options.get(writtenCorrectAnswerPosition),
                     options.get(writtenAlternativeAnswerPosition));
-
+            if(written.getQuestion().isEmpty() || written.getCorrectAnswer().isEmpty() ){
+                continue;
+            }
             // Add the written question to the list
             questionList.add(written);
            // System.out.println(written);
@@ -203,7 +205,7 @@ public class ActivityLearn extends AppCompatActivity {
             String question = getRandomContent(questionCard, questionType);
             String answer = getRandomContent(answerCard, answerType);
 
-            if (Objects.isNull(question) || Objects.isNull(answer)) {
+            if (Objects.isNull(question) || Objects.isNull(answer) || question.isEmpty() || answer.isEmpty()) {
                 continue;
             }
 
