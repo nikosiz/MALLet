@@ -293,6 +293,10 @@ public class ActivityLearn extends AppCompatActivity {
             }
             String currentQuestionSpecificType = determineResultQuestionField(correctQuestion, questionType);
 
+            if(currentQuestionSpecificType.isEmpty()){
+                continue;
+            }
+
             List<String> allQuestions = getAllQuestions(flashcardList, questionType);
             List<String> wrongAnswers = getWrongAnswers(allQuestions, currentQuestionSpecificType);
 
@@ -343,8 +347,7 @@ public class ActivityLearn extends AppCompatActivity {
                 .build();
     }
 
-    private List<String> getAllQuestions(List<ModelFlashcard> flashcardList, QuestionType
-            questionType) {
+    private List<String> getAllQuestions(List<ModelFlashcard> flashcardList, QuestionType questionType) {
         return switch (questionType) {
             case TERM -> flashcardList.stream()
                     .map(ModelFlashcard::getTerm)
@@ -387,10 +390,9 @@ public class ActivityLearn extends AppCompatActivity {
         };
     }
 
-    private String determineResultQuestionField(ModelFlashcard question, QuestionType
-            questionType) {
+    private String determineResultQuestionField(ModelFlashcard question, QuestionType questionType) {
         return switch (questionType) {
-            case DEFINITION -> question.getDefinition();
+            case DEFINITION -> Objects.isNull(question.getDefinition()) ? "" : question.getDefinition();
             case TERM -> question.getTerm();
             case TRANSLATION -> question.getTranslation();
         };
