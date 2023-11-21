@@ -49,10 +49,12 @@ public class ActivityOpening extends AppCompatActivity {
         setupContents();
 
         if (isLogged) {
-            Utils.hideItems(openingLl);
+            //Utils.hideItems(openingLl);
 
             Intent intent = new Intent(this, ActivityMain.class);
             startActivity(intent);
+
+            finish();
         }
     }
 
