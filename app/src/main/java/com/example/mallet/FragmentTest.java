@@ -35,6 +35,7 @@ import com.example.mallet.utils.ModelMultipleChoice;
 import com.example.mallet.utils.ModelTrueFalse;
 import com.example.mallet.utils.ModelWritten;
 import com.example.mallet.utils.Utils;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import org.apache.commons.lang3.time.StopWatch;
@@ -62,7 +63,8 @@ public class FragmentTest extends Fragment {
     private List<ModelMultipleChoice> multipleChoiceQuestions;
     private List<ModelTrueFalse> trueFalseQuestions;
 
-    private TextView nextTv, prevTv, finishTv, errorTv;
+    private TextView prevTv, finishTv, errorTv;
+    private ExtendedFloatingActionButton nextEfab;
     private int currentQuestionIndex = 0;
     private final StopWatch stopWatch = new StopWatch();
     private View truefalseQuestionView;
@@ -106,16 +108,16 @@ public class FragmentTest extends Fragment {
 
         questionsLl = binding.testQuestionsLl;
 
-        nextTv = binding.testNextTv;
-        nextTv.setOnClickListener(v -> nextQuestion());
-        Utils.showItems(nextTv);
+        nextEfab = binding.testNextEfab;
+        nextEfab.setOnClickListener(v -> nextQuestion());
+        Utils.showItems(nextEfab);
 
         writtenQuestionTv = writtenQuestionView.findViewById(R.id.written_questionTv);
         writtenAnswerEt = writtenQuestionView.findViewById(R.id.written_answerEt);
 
         if (ActivityLearn.flashcardList.size() < MIN_FLASHCARDS_FOR_TEST) {
-            Utils.hideItems(toolbarOptionsIv, nextTv);
-            Utils.disableItems(toolbarOptionsIv, nextTv);
+            Utils.hideItems(toolbarOptionsIv, nextEfab);
+            Utils.disableItems(toolbarOptionsIv, nextEfab);
             notEnoughDialog();
         } else {
             startTestDialog();

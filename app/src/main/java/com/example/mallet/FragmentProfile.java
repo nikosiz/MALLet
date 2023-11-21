@@ -1,5 +1,7 @@
 package com.example.mallet;
 
+import static com.example.mallet.MALLet.MAX_RETRY_ATTEMPTS;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -21,13 +24,18 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
+import com.example.mallet.backend.client.user.boundary.UserServiceImpl;
 import com.example.mallet.databinding.DialogDeleteAccountBinding;
 import com.example.mallet.databinding.FragmentProfileBinding;
+import com.example.mallet.utils.AuthenticationUtils;
 import com.example.mallet.utils.Utils;
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.util.Objects;
 import java.util.regex.Pattern;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FragmentProfile extends Fragment {
     private static final String PREFS_NAME = "ProfileAppSettings";
@@ -52,13 +60,19 @@ public class FragmentProfile extends Fragment {
     private String password;
     private TextView passwordErrTv, cbErrTv;
     private SharedPreferences sharedPreferences;
+    private UserServiceImpl userService;
+    private Long userId;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
 
+        String credential = AuthenticationUtils.get(getActivity());
+        userService = new UserServiceImpl(credential);
+
         setupContents();
+
         // Set themeTv based on the current theme
         int currentTheme = AppCompatDelegate.getDefaultNightMode();
         if (currentTheme == AppCompatDelegate.MODE_NIGHT_NO) {
@@ -88,6 +102,10 @@ public class FragmentProfile extends Fragment {
         isLogged = sharedPreferences.getBoolean("isLogged", false);
         username = sharedPreferences.getString("username", "");
         email = sharedPreferences.getString("email", "");
+        userId = sharedPreferences.getLong("userId", 0L);
+
+        progressBar = binding.profileProgressBar;
+        Utils.hideItems(progressBar);
 
         TextView emailTv = binding.profileEmailTv;
         emailTv.setText(email);
@@ -168,18 +186,13 @@ public class FragmentProfile extends Fragment {
         }
     }
 
-    // TODO
-    private void deleteAccountDialog() {
+    private ProgressBar progressBar;
+
+    private void deleteAccountDialogWithRestart(int attemptCount) {
         Dialog dialog = Utils.createDialog(requireContext(), R.layout.dialog_delete_account, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogDeleteAccountBinding dialogBinding = DialogDeleteAccountBinding.inflate(LayoutInflater.from(requireContext()));
         dialog.setContentView(dialogBinding.getRoot());
         dialog.show();
-
-        TextInputEditText deleteAccPasswordEt = dialogBinding.deleteAccountPasswordEt;
-        TextView deleteAccPasswordErrTv = dialogBinding.deleteAccountErrorTv;
-        Utils.setupSignupPasswordTextWatcher(deleteAccPasswordEt, deleteAccPasswordErrTv);
-
-        String deleteAccEnteredPassword = Objects.requireNonNull(deleteAccPasswordEt.getText()).toString();
 
         CheckBox deleteAccCb = dialogBinding.deleteAccountCb;
         TextView deleteAccCbErrTv = dialogBinding.deleteAccountCbErrorTv;
@@ -193,16 +206,48 @@ public class FragmentProfile extends Fragment {
         deleteAccConfirmTv.setOnClickListener(v -> {
             if (!deleteAccCb.isChecked()) {
                 Utils.showItems(deleteAccCbErrTv);
-            }
+            } else {
+                Utils.hideItems(deleteAccCbErrTv);
+                Utils.enableItems(deleteAccConfirmTv);
+                Utils.showItems(progressBar);
+                userService.deleteUser(userId, new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        Utils.hideItems(progressBar);
 
-            if (deleteAccEnteredPassword.isEmpty()) {
-                Utils.showItems(deleteAccPasswordErrTv);
-                deleteAccPasswordErrTv.setText(R.string.field_cannot_be_empty);
-            }
+                        sharedPreferences.edit().clear().commit();
+                        System.out.println(userId);
+                        isLogged = false;
 
-            if (!deleteAccEnteredPassword.isEmpty() && deleteAccCb.isChecked()) {
-                Utils.hideItems(deleteAccPasswordErrTv, deleteAccCbErrTv);
+                        sharedPreferences.edit().remove("credential").apply();
+                        sharedPreferences.edit().putBoolean("isLogged", isLogged).apply();
+                        sharedPreferences.edit().putInt("selectedTheme", selectedTheme);
+
+                        dialog.dismiss();
+
+                        getActivity().finish();
+
+                        Intent intent = new Intent(requireContext(), ActivityOpening.class);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        if (attemptCount < MAX_RETRY_ATTEMPTS) {
+                            // System.out.println(attemptCount);
+                            // Retry the operation
+                            deleteAccountDialogWithRestart(attemptCount + 1);
+                        } else {
+                            Utils.showToast(requireContext(), "Network error");
+                            Utils.hideItems(progressBar);
+                        }
+                    }
+                });
             }
         });
+    }
+
+    private void deleteAccountDialog() {
+        deleteAccountDialogWithRestart(0);
     }
 }

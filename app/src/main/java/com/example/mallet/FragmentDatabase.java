@@ -129,7 +129,7 @@ public class FragmentDatabase extends Fragment {
         intent.putExtra("learningSet", set);
 
         intent.putExtra("isSetNew", false);
-        intent.putExtra("isUserSet", true);
+        intent.putExtra("isUserSet", false);
         intent.putExtra("isSetInGroup", false);
 
         startActivity(intent);

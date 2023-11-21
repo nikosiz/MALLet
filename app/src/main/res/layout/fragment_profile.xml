@@ -1,93 +1,133 @@
-<?xml version="1.0" encoding="utf-8"?><ScrollView xmlns:android="http://schemas.android.com/apk/res/android"    xmlns:app="http://schemas.android.com/apk/res-auto"    xmlns:tools="http://schemas.android.com/tools"    android:id="@+id/profile_mainSv"    android:layout_width="match_parent"    android:layout_height="match_parent"    android:background="@color/colorPrimaryLight1"    android:orientation="vertical"    android:scrollbars="none"    tools:context=".FragmentProfile"    tools:ignore="Overdraw">    <LinearLayout        android:id="@+id/profileNsvLl"        android:layout_width="match_parent"        android:layout_height="wrap_content"        android:gravity="center"        android:orientation="vertical">        <View            android:layout_width="match_parent"            android:layout_height="30dp" />        <ImageView            android:id="@+id/profile_userPhotoIv"            android:layout_width="100dp"            android:layout_height="100dp"            android:clickable="true"            android:contentDescription="@string/profile_photo"            android:focusable="true"            android:src="@drawable/ic_user"            app:tint="@color/colorPrimaryDark"            tools:ignore="ImageContrastCheck" />
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/profile_mainSv"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryLight1"
+    tools:context=".FragmentProfile"
+    tools:ignore="Overdraw">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="30dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_marginHorizontal="20dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_corners_rounded"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:id="@+id/profile_emailLl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:minHeight="65dp"
-                android:orientation="vertical"
-                android:paddingHorizontal="20dp"
-                android:paddingTop="20dp"
-                android:paddingBottom="10dp">
-
-                <TextView
-                    android:id="@+id/profile_emailTitleTv"
-                    style="@style/BasicBoldTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="bottom"
-                    android:text="@string/email"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/profile_emailTv"
-                    style="@style/BasicSubTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="top"
-                    android:text="@string/email"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/profile_usernameLll"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:minHeight="65dp"
-                android:orientation="vertical"
-                android:paddingHorizontal="20dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="20dp">
-
-                <TextView
-                    android:id="@+id/profile_usernameTitleTv"
-                    style="@style/BasicBoldTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="bottom"
-                    android:text="@string/username"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/profile_usernameTv"
-                    style="@style/BasicSubTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="top"
-                    android:text="@string/username"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp" />
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:id="@+id/profileNsvLl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:background="@drawable/bg_corners_rounded"
+            android:gravity="center"
             android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+            <ImageView
+                android:id="@+id/profile_userPhotoIv"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:clickable="true"
+                android:contentDescription="@string/profile_photo"
+                android:focusable="true"
+                android:src="@drawable/ic_user"
+                app:tint="@color/colorPrimaryDark"
+                tools:ignore="ImageContrastCheck" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:background="@drawable/bg_corners_rounded"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/profile_emailLl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:minHeight="65dp"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="20dp"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:id="@+id/profile_emailTitleTv"
+                        style="@style/BasicBoldTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="bottom"
+                        android:text="@string/email"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/profile_emailTv"
+                        style="@style/BasicSubTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="top"
+                        android:text="@string/email"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/profile_usernameLll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:minHeight="65dp"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="20dp">
+
+                    <TextView
+                        android:id="@+id/profile_usernameTitleTv"
+                        style="@style/BasicBoldTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="bottom"
+                        android:text="@string/username"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/profile_usernameTv"
+                        style="@style/BasicSubTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="top"
+                        android:text="@string/username"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:background="@drawable/bg_corners_rounded"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:id="@+id/profile_theme_permissionsLl"
@@ -156,95 +196,110 @@
                             android:layout_height="wrap_content"
                             android:text="Dark"
                             android:textSize="15sp" />
-                        </RadioGroup>
+                    </RadioGroup>
                 </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/profile_versionLl"
+                <LinearLayout
+                    android:id="@+id/profile_versionLl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:minHeight="65dp"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="20dp"
+                    android:weightSum="3">
+
+                    <TextView
+                        android:id="@+id/profile_versionTitleTv"
+                        style="@style/BasicBoldTextStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="3"
+                        android:gravity="center_vertical"
+                        android:text="Version"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/profile_versionTv"
+                        style="@style/BasicSubTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|center"
+                        android:gravity="end"
+                        android:text="0.7"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+
+            <TextView
+                android:id="@+id/profile_logoutTv"
+                style="@style/BasicBoldTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_marginHorizontal="20dp"
+                android:background="@drawable/bg_corners_rounded"
                 android:clickable="true"
                 android:focusable="true"
+                android:gravity="center_vertical"
                 android:minHeight="65dp"
-                android:orientation="horizontal"
                 android:paddingHorizontal="20dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="20dp"
-                android:weightSum="3">
+                android:paddingVertical="20dp"
+                android:text="@string/log_out"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/profile_versionTitleTv"
-                    style="@style/BasicBoldTextStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="3"
-                    android:gravity="center_vertical"
-                    android:text="Version"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
 
-                <TextView
-                    android:id="@+id/profile_versionTv"
-                    style="@style/BasicSubTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end|center"
-                    android:gravity="end"
-                    android:text="0.7"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16sp" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/profile_deleteAccTv"
+                style="@style/BasicBoldTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginHorizontal="20dp"
+                android:background="@drawable/bg_corners_rounded"
+                android:backgroundTint="@color/accentPrimaryLight"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:minHeight="65dp"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="20dp"
+                android:text="@string/delete_account"
+                android:textColor="@color/accentPrimary"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
         </LinearLayout>
+    </ScrollView>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp" />
-
-
-        <TextView
-            android:id="@+id/profile_logoutTv"
-            style="@style/BasicBoldTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:background="@drawable/bg_corners_rounded"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center_vertical"
-            android:minHeight="65dp"
-            android:paddingHorizontal="20dp"
-            android:paddingVertical="20dp"
-            android:text="@string/log_out"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="16sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp" />
-
-        <TextView
-            android:id="@+id/profile_deleteAccTv"
-            style="@style/BasicBoldTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:background="@drawable/bg_corners_rounded"
-            android:backgroundTint="@color/accentPrimaryLight"
-            android:clickable="true"
-            android:focusable="true"
-            android:layout_gravity="bottom"
-            android:gravity="center"
-            android:minHeight="65dp"
-            android:paddingHorizontal="20dp"
-            android:paddingVertical="20dp"
-            android:text="@string/delete_account"
-            android:textColor="@color/accentPrimary"
-            android:textSize="16sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="30dp" />
-    </LinearLayout>
-</ScrollView>
+    <ProgressBar
+        android:id="@+id/profile_progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_circle"
+        android:elevation="3dp"
+        android:indeterminateTint="@color/colorPrimaryDark"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

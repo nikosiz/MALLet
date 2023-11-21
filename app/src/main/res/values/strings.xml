@@ -192,4 +192,6 @@
     <string name="test_available_more_flashcards">Test (available with %s+ flashcards)</string>
     <string name="match_available_more_flashcards">Match (available with %s+ flashcards)</string>
     <string name="match_finished">Good job! You aced the memory game! 👏\n\n⏰ Time elapsed: %s</string>
+    <string name="you_are_about_to_delete_your_account">You are about to delete your account permanently. \n\nIf you want to continue, please check the box and click \"Delete my account\"</string>
+    <string name="i_am_aware_that_this_action_is_irreversible">I am aware that this action is irreversible</string>
 </resources>

@@ -282,7 +282,6 @@ public class ActivityViewLearningSet extends AppCompatActivity {
                                String nextChunkUri) {
 
         if (Objects.isNull(nextChunkUri)) {
-            return;
         } else {
             Uri uri = Uri.parse(nextChunkUri);
             String startPosition = uri.getQueryParameter("startPosition");
@@ -400,9 +399,9 @@ public class ActivityViewLearningSet extends AppCompatActivity {
                 });
             } else if (!isUserSet) {
                 Utils.showItems(toolbarOptionsAddToUsersCollectionTv);
-                Utils.hideItems(toolbarOptionsEditTv);
                 Utils.enableItems(toolbarOptionsAddToUsersCollectionTv);
-                Utils.disableItems(toolbarOptionsEditTv);
+                Utils.hideItems(toolbarOptionsEditTv, toolbarOptionsDeleteTv);
+                Utils.disableItems(toolbarOptionsEditTv, toolbarOptionsDeleteTv);
 
                 toolbarOptionsAddToUsersCollectionTv.setOnClickListener(v -> {
                     dialog.dismiss();

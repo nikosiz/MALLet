@@ -29,56 +29,13 @@
         style="@style/BasicTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:text="You are about to delete your account permanently. If you want to continue, please input your password"
+        android:text="@string/you_are_about_to_delete_your_account"
         android:textColor="@color/colorPrimary"
         android:textSize="19sp" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="10dp" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/deleteAccount_passwordTil"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="5dp"
-        android:paddingBottom="5dp"
-        app:boxBackgroundColor="@color/colorLight"
-        app:boxBackgroundMode="outline"
-        app:boxCornerRadiusBottomEnd="10dp"
-        app:boxCornerRadiusBottomStart="10dp"
-        app:boxCornerRadiusTopEnd="10dp"
-        app:boxCornerRadiusTopStart="10dp"
-
-        app:boxStrokeColor="@drawable/text_input_layout"
-
-        app:boxStrokeWidth="2dp"
-        app:hintTextColor="@color/colorPrimary"
-        app:passwordToggleEnabled="true">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/deleteAccount_passwordEt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="password"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:textColorHint="@color/downriver_blue_300"
-            android:textSize="15sp" />
-
-        <TextView
-            android:id="@+id/deleteAccount_errorTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginBottom="5dp"
-
-            android:text="This field cannot be empty"
-            android:textColor="@color/accentPrimary"
-            android:visibility="gone" />
-    </com.google.android.material.textfield.TextInputLayout>
+        android:layout_height="30dp" />
 
     <CheckBox
         android:id="@+id/deleteAccountCb"
@@ -86,16 +43,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_ripple"
-        android:text="I am aware that this action is irreversible"
-        android:textColor="@color/colorPrimary"
-        android:textSize="16sp" />
+        android:fontFamily="@font/russo_one_regular"
+        android:paddingHorizontal="10dp"
+        android:text="@string/i_am_aware_that_this_action_is_irreversible"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/deleteAccount_cbErrorTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-
         android:text="You need to check this box in order to continue"
         android:textColor="@color/accentPrimary"
         android:visibility="gone" />
