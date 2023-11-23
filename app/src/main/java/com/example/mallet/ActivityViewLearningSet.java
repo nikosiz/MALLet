@@ -473,13 +473,6 @@ public class ActivityViewLearningSet extends AppCompatActivity {
         finish();
     }
 
-    private boolean isUserSet(long id) {
-        id = setId;
-        // TODO zapytać starego Michała
-
-        return false;
-    }
-
     // If learningSet != userSet:
     private void addSetToUsersCollectionWithRestart(int attemptCount) {
         Utils.disableItems(toolbarOptionsBackIv, toolbarOptionsEditTv,

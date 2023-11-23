@@ -3,12 +3,10 @@ package com.example.mallet.utils;
 public class ModelWritten {
     private final String question;
     private final String correctAnswer;
-    private final String alternativeAnswer;
 
-    public ModelWritten(String question, String correctAnswer, String alternativeAnswer) {
+    public ModelWritten(String question, String correctAnswer) {
         this.question = question;
         this.correctAnswer = correctAnswer;
-        this.alternativeAnswer = alternativeAnswer;
     }
 
     public String getQuestion() {
@@ -19,16 +17,11 @@ public class ModelWritten {
         return correctAnswer;
     }
 
-    public String getAlternativeAnswer() {
-        return alternativeAnswer;
-    }
-
 
     @Override
     public String toString() {
         return "Written: \n" +
                 "Question: " + question + "\n" +
-                "Correct answer: " + correctAnswer + "\n" +
-                "Alternative answer: " + alternativeAnswer + "\n";
+                "Correct answer: " + correctAnswer + "\n";
     }
 }

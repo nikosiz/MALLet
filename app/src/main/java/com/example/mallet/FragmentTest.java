@@ -157,7 +157,7 @@ public class FragmentTest extends Fragment {
 
         startTv.setOnClickListener(v -> {
             writtenQuestions = activityLearn.generateWrittenQuestions();
-            multipleChoiceQuestions = activityLearn.generateMultipleChoiceQuestions();
+            multipleChoiceQuestions = ActivityLearn.generateMultipleChoiceQuestions();
             trueFalseQuestions = activityLearn.generateTrueFalseQuestions();
 
             allQuestions = Math.min(30, writtenQuestions.size() + multipleChoiceQuestions.size() + trueFalseQuestions.size());
@@ -197,17 +197,14 @@ public class FragmentTest extends Fragment {
                 writtenAnswer = writtenAnswerEt.getText().toString().toLowerCase().trim();
                 ModelWritten writtenQuestion = writtenQuestions.get(currentQuestionIndex);
                 String writtenCorrectAnswer = writtenQuestion.getCorrectAnswer();
-                String writtenAlternativeAnswer = writtenQuestion.getAlternativeAnswer();
 
-                boolean isCorrect = checkWrittenAnswer(writtenAnswer, writtenCorrectAnswer, writtenAlternativeAnswer);
+                boolean isCorrect = checkWrittenAnswer(writtenAnswer, writtenCorrectAnswer);
 
                 if (isCorrect) {
                     points++;
-                    // System.out.println("Points: " + points);
 
                     writtenAnswerEt.setText("");
                     currentQuestionIndex++;
-                    // System.out.println("Question index: " + currentQuestionIndex);
 
                     if (currentQuestionIndex < writtenQuestions.size()) {
                         displayWrittenQuestion(writtenQuestions, this.questionsLl, getLayoutInflater());
@@ -215,11 +212,9 @@ public class FragmentTest extends Fragment {
                         testFinishedDialog();
                     }
                 } else {
-                    // System.out.println("Points: " + points);
 
                     writtenAnswerEt.setText("");
                     currentQuestionIndex++;
-                    // System.out.println("Question index: " + currentQuestionIndex);
 
                     if (currentQuestionIndex < writtenQuestions.size()) {
                         displayWrittenQuestion(writtenQuestions, this.questionsLl, getLayoutInflater());
@@ -237,7 +232,7 @@ public class FragmentTest extends Fragment {
 
                 questionsLl.setGravity(Gravity.NO_GRAVITY);
 
-                layoutParams.gravity = Gravity.NO_GRAVITY; // Change to the desired gravity value
+                layoutParams.gravity = Gravity.NO_GRAVITY;
 
                 multipleChoiceMainLl.setLayoutParams(layoutParams);
 
@@ -286,12 +281,10 @@ public class FragmentTest extends Fragment {
 
     private int points = 0;
 
-    private boolean checkWrittenAnswer(String userAnswer, String correctAnswer, String
-            alternativeAnswer) {
+    private boolean checkWrittenAnswer(String userAnswer, String correctAnswer) {
         String userInputLower = userAnswer.toLowerCase();
         String correctAnswerLower = correctAnswer.toLowerCase();
-        String alternativeAnswerLower = alternativeAnswer.toLowerCase();
-        return userInputLower.equals(correctAnswerLower) || userInputLower.equals(alternativeAnswerLower);
+        return userInputLower.equals(correctAnswerLower);
     }
 
     private void displayWrittenQuestion(List<ModelWritten> wQuestions, LinearLayout
@@ -306,7 +299,7 @@ public class FragmentTest extends Fragment {
             writtenQuestionTv.setText(writtenQuestion.getQuestion());
 
             correctAnswersTv = writtenQuestionItem.findViewById(R.id.written_correctAnswersTv);
-            correctAnswersTv.setText("\"" + writtenQuestion.getCorrectAnswer() + "\" or \"" + writtenQuestion.getAlternativeAnswer() + "\"");
+            correctAnswersTv.setText("\"" + writtenQuestion.getCorrectAnswer() + "\"");
 
             writtenAnswerEt = writtenQuestionItem.findViewById(R.id.written_answerEt);
             answersLl = writtenQuestionItem.findViewById(R.id.written_correctAnswersLl);
@@ -584,7 +577,7 @@ public class FragmentTest extends Fragment {
             points = 0;
 
             writtenQuestions = activityLearn.generateWrittenQuestions();
-            multipleChoiceQuestions = activityLearn.generateMultipleChoiceQuestions();
+            multipleChoiceQuestions = ActivityLearn.generateMultipleChoiceQuestions();
             trueFalseQuestions = activityLearn.generateTrueFalseQuestions();
 
             dialog.dismiss();

@@ -124,9 +124,8 @@ public class FragmentLearn extends Fragment {
         writtenAnswer = writtenAnswerEt.getText().toString().toLowerCase().trim();
         ModelWritten writtenQuestion = writtenQuestions.get(currentQuestionIndex);
         String writtenCorrectAnswer = writtenQuestion.getCorrectAnswer();
-        String writtenAlternativeAnswer = writtenQuestion.getAlternativeAnswer();
 
-        boolean isCorrect = checkWrittenAnswer(writtenAnswer, writtenCorrectAnswer, writtenAlternativeAnswer);
+        boolean isCorrect = checkWrittenAnswer(writtenAnswer, writtenCorrectAnswer);
 
         if (isCorrect) {
             writtenAnswerEt.setText("");
@@ -149,12 +148,10 @@ public class FragmentLearn extends Fragment {
     }
 
 
-    private boolean checkWrittenAnswer(String userAnswer, String correctAnswer, String
-            alternativeAnswer) {
+    private boolean checkWrittenAnswer(String userAnswer, String correctAnswer) {
         String userInputLower = userAnswer.toLowerCase();
         String correctAnswerLower = correctAnswer.toLowerCase();
-        String alternativeAnswerLower = alternativeAnswer.toLowerCase();
-        return userInputLower.equals(correctAnswerLower) || userInputLower.equals(alternativeAnswerLower);
+        return userInputLower.equals(correctAnswerLower);
     }
 
 
@@ -171,11 +168,8 @@ public class FragmentLearn extends Fragment {
 
             TextView correctAnswersTv = writtenQuestionItem.findViewById(R.id.written_correctAnswersTv);
 
-            if (writtenQuestion.getAlternativeAnswer().equals(writtenQuestion.getCorrectAnswer())) {
-                correctAnswersTv.setText("\"" + writtenQuestion.getCorrectAnswer() + "\"");
-            } else {
-                correctAnswersTv.setText("\"" + writtenQuestion.getCorrectAnswer() + "\" or \"" + writtenQuestion.getAlternativeAnswer() + "\"");
-            }
+            correctAnswersTv.setText("\"" + writtenQuestion.getCorrectAnswer() + "\"");
+
             writtenAnswerEt = writtenQuestionItem.findViewById(R.id.written_answerEt);
             answersLl = writtenQuestionItem.findViewById(R.id.written_correctAnswersLl);
             Utils.hideItems(answersLl);
