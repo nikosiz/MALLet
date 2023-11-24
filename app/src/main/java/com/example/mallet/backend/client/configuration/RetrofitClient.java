@@ -26,8 +26,8 @@ public class RetrofitClient {
 
     //todo do poprawy jak postawimy gdzies to
     //todo no i https tez trzeba bd zrobic zeby stary nie zrobił ataku man in the middle czy innego chuja
+  //  private static final String BASE_URL = "http://mallet.onrender.com";
     private static final String BASE_URL = "http://10.0.2.2:8080/";
-    //private static final String BASE_URL = "http://192.168.8.105:8080/";
 
     private static final Gson gson;
 
@@ -56,6 +56,8 @@ public class RetrofitClient {
     private static OkHttpClient buildHttpClient(String credential) {
         return new OkHttpClient.Builder()
                 .callTimeout(10, TimeUnit.SECONDS)
+                .followRedirects(true)
+                .followSslRedirects(true)
                 .authenticator(new Authenticator() {
                     @Override
                     public Request authenticate(Route route, Response response) throws IOException {

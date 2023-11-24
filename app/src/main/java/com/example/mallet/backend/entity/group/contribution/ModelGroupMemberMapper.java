@@ -22,6 +22,6 @@ public class ModelGroupMemberMapper {
     public static ModelGroupMember from(ContributionDTO contributionDTO){
         UserDTO contributor = contributionDTO.contributor();
 
-        return new ModelGroupMember(contributor.id(),contributor.name(), contributionDTO.id(),contributionDTO.groupPermissionType(), contributionDTO.setPermissionType());
+        return new ModelGroupMember(contributor.id(),contributor.name(), contributionDTO.id(),contributionDTO.setPermissionType(), contributionDTO.groupPermissionType());
     }
 }

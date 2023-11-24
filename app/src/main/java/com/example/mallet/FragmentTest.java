@@ -442,7 +442,6 @@ public class FragmentTest extends Fragment {
 
         option1Tv.setOnClickListener(v -> {
             multipleChoiceClickedPosition = 0;
-            Utils.showToast(getContext(), String.valueOf(multipleChoiceClickedPosition));
 
             option1Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
             option1Tv.setTypeface(remBold);

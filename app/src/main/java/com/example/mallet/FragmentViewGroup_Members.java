@@ -192,7 +192,7 @@ public class FragmentViewGroup_Members extends Fragment {
     }
 
     private boolean determineIsChecked(PermissionType permissionType) {
-        return !PermissionType.READ_WRITE.equals(permissionType);
+        return PermissionType.READ_WRITE.equals(permissionType);
     }
 
     private void updateContributionGroupPermissionToUpdate(ModelGroupMember member, PermissionType permissionType) {

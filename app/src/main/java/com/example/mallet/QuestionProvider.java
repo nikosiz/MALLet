@@ -9,7 +9,6 @@ import com.example.mallet.utils.ModelWritten;
 import com.example.mallet.utils.QuestionType;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -266,10 +265,10 @@ public class QuestionProvider {
             List<String> questionCard = flashcardList.get(questionRow);
             List<String> answerCard = flashcardList.get(answerRow);
 
-            String questionType = getRandomType();
+            QuestionType questionType = QuestionType.randomType();
 
-            String question = getRandomContent(questionCard, questionType);
-            String answer = getRandomContent(answerCard, questionType);
+            String question = getRandomQuestionContent(questionCard, questionType);
+            String answer = getRandomAnswerContent(answerCard, questionType);
 
             if (Objects.isNull(question) || Objects.isNull(answer) || question.isEmpty() || answer.isEmpty()) {
                 continue;
@@ -282,11 +281,6 @@ public class QuestionProvider {
 
             ModelTrueFalse trueFalse = new ModelTrueFalse(question, answer, isAnswerCorrect);
 
-            // System.out.println("Question: " + question);
-            // System.out.println("Displayed Answer: " + answer);
-            // System.out.println("Is Answer Correct? " + isAnswerCorrect);
-            // System.out.println();
-
             trueFalseList.add(trueFalse);
 
             MAX_QUESTIONS++;
@@ -296,20 +290,21 @@ public class QuestionProvider {
     }
 
 
-    private static String getRandomType() {
-        List<String> types = Arrays.asList("term", "definition", "translation");
-        Random random = new Random();
-        return types.get(random.nextInt(types.size()));
-    }
-
-    private static String getRandomContent(List<String> flashcard, String type) {
+    private static String getRandomQuestionContent(List<String> flashcard, QuestionType type) {
         return switch (type) {
-            case "term" -> flashcard.get(0);
-            case "definition" -> flashcard.get(1);
-            case "translation" -> flashcard.get(2);
-            default -> "";
+            case TERM -> flashcard.get(0);
+            case DEFINITION -> flashcard.get(1);
+            case TRANSLATION -> flashcard.get(2);
         };
     }
+
+    private static String getRandomAnswerContent(List<String> flashcard, QuestionType type) {
+        return switch (type) {
+            case TERM -> flashcard.get(1);
+            case DEFINITION, TRANSLATION -> flashcard.get(0);
+        };
+    }
+
 
     private  static int getRandomNeighborRow(int currentRow, int totalRows) {
         // Ensure the neighboring row is within the valid range
