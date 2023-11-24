@@ -58,20 +58,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:autoSizeMaxTextSize="20sp"
+            android:autoSizeMinTextSize="10sp"
+            android:autoSizeStepGranularity="1sp"
+            android:autoSizeTextType="uniform"
             android:singleLine="true"
             android:text="set_name"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="20sp" />
+            android:textColor="@color/colorPrimaryDark" />
 
         <TextView
-            android:id="@+id/learningSet_identifierTv"
+            android:id="@+id/learningSet_nrOfTermsTv"
             style="@style/BasicTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:singleLine="true"
-            android:text="set_identifier"
-            android:textColor="@color/colorPrimaryLight2"
+            android:text="nr_of_terms"
+            android:textColor="@color/colorPrimary"
             android:textSize="15sp" />
     </LinearLayout>
 
@@ -80,14 +82,18 @@
         android:layout_height="5dp" />
 
     <TextView
-        android:id="@+id/learningSet_nrOfTermsTv"
+        android:id="@+id/learningSet_identifierTv"
         style="@style/BasicTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:autoSizeMaxTextSize="15sp"
+        android:autoSizeMinTextSize="10sp"
+        android:autoSizeStepGranularity="1sp"
+        android:autoSizeTextType="uniform"
         android:singleLine="true"
-        android:text="nr_of_terms"
-        android:textColor="@color/colorPrimary"
-        android:textSize="15sp" />
+        android:text="set_identifier"
+        android:textColor="@color/colorPrimaryLight2" />
 
     <View
         android:id="@+id/learningSet_aboveCreator"

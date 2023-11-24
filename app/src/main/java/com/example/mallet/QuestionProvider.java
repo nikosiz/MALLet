@@ -180,70 +180,44 @@ public class QuestionProvider {
         Collections.shuffle(shuffledFlashcardList);
 
         int MAX_QUESTIONS = Math.min(maxPerType, shuffledFlashcardList.size());
-        int questionCount = 0; // Initialize the question count
+        int questionCount = 0;
 
         for (ModelFlashcard flashcard : shuffledFlashcardList) {
             if (questionCount >= MAX_QUESTIONS) {
                 break;
             }
 
-            int writtenQuestionPosition = random.nextInt(2);
-            int writtenCorrectAnswerPosition;
-            int writtenAlternativeAnswerPosition = 0;
+            int writtenQuestionPosition = random.nextInt(1);
+            int writtenCorrectAnswerPosition = (writtenQuestionPosition + 1) % 2;
 
-            if (flashcard.getDefinition() != null && Objects.nonNull(flashcard.getDefinition())) {
-                writtenCorrectAnswerPosition = (writtenQuestionPosition + 1) % 2;
-                writtenAlternativeAnswerPosition = (writtenQuestionPosition + 2) % 3;
-            } else {
-                writtenCorrectAnswerPosition = (writtenQuestionPosition + 1) % 2;
-            }
 
             List<String> options = new ArrayList<>();
             options.add(flashcard.getTerm());
-            if (flashcard.getDefinition() != null && Objects.nonNull(flashcard.getDefinition())) {
-                options.add(flashcard.getDefinition());
-            }
             options.add(flashcard.getTranslation());
             Collections.shuffle(options);
 
 
-            // Determine the positions of the correct and alternative answers
-            if (flashcard.getDefinition() != null && Objects.nonNull(flashcard.getDefinition())) {
-                switch (writtenQuestionPosition) {
-                    case 0 -> {
-                        writtenCorrectAnswerPosition = 1;
-                        writtenAlternativeAnswerPosition = 2;
-                    }
-                    case 1 -> {
-                        writtenCorrectAnswerPosition = 0;
-                        writtenAlternativeAnswerPosition = 2;
-                    }
-                    case 2 -> {
-                        writtenCorrectAnswerPosition = 1;
-                        writtenAlternativeAnswerPosition = 0;
-                    }
+            switch (writtenQuestionPosition) {
+                case 0 -> {
+                    writtenCorrectAnswerPosition = 1;
+                    //writtenAlternativeAnswerPosition = 2;
                 }
-            } else {
-                writtenCorrectAnswerPosition = switch (writtenQuestionPosition) {
-                    case 0 -> 1;
-                    case 1 -> 0;
-                    default -> writtenCorrectAnswerPosition;
-                };
+                case 1 -> {
+                    writtenCorrectAnswerPosition = 0;
+                    //writtenAlternativeAnswerPosition = 2;
+                }
             }
 
-            // Create a ModelWritten object with the selected options
             ModelWritten written = new ModelWritten(
                     options.get(writtenQuestionPosition),
-                    options.get(writtenCorrectAnswerPosition),
-                    options.get(writtenAlternativeAnswerPosition));
-            if(written.getQuestion().isEmpty() || written.getCorrectAnswer().isEmpty() ){
+                    options.get(writtenCorrectAnswerPosition));
+
+            if (written.getQuestion().isEmpty() || written.getCorrectAnswer().isEmpty()) {
                 continue;
             }
-            // Add the written question to the list
             questionList.add(written);
-            // System.out.println(written);
 
-            questionCount++; // Increment the question count
+            questionCount++;
         }
 
         return questionList;
@@ -304,7 +278,6 @@ public class QuestionProvider {
             case DEFINITION, TRANSLATION -> flashcard.get(0);
         };
     }
-
 
     private  static int getRandomNeighborRow(int currentRow, int totalRows) {
         // Ensure the neighboring row is within the valid range
