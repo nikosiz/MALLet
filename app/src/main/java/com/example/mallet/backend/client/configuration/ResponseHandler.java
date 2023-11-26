@@ -13,7 +13,7 @@ import retrofit2.Response;
 
 public class ResponseHandler {
 
-    private static final String UNKNOWN_ERROR_OCCURRED_ERROR_MSG = "Unknown error occured";
+    private static final String UNKNOWN_ERROR_OCCURRED_ERROR_MSG = "Unknown error occurred";
 
     private static final Gson gson;
 
@@ -28,24 +28,26 @@ public class ResponseHandler {
             return response.body();
         }
 
-        ResponseBody errorBody = response.errorBody();
-        if (Objects.nonNull(errorBody)) {
-            ErrorResponseDTO errorResponseDTO = null;
-            if (errorBody != null) {
-                errorResponseDTO = parseException(errorBody);
-            }
-            throw new MalletException(errorResponseDTO.message());
-        }
+        return handleError(response);
+    }
 
+    private static <T> T handleError(Response<T> response) throws MalletException {
+        ResponseBody errorBody = response.errorBody();
+
+        if (Objects.nonNull(errorBody)) {
+            ErrorResponseDTO errorResponseDTO = parseException(errorBody);
+            if (Objects.nonNull(errorResponseDTO.message())) {
+                throw new MalletException(errorResponseDTO.message());
+            }
+        }
         throw new MalletException(UNKNOWN_ERROR_OCCURRED_ERROR_MSG);
     }
 
     private static ErrorResponseDTO parseException(ResponseBody errorBody) {
         try {
             return gson.fromJson(errorBody.string(), ErrorResponseDTO.class);
-        } catch (IOException e) {
-            //todo
-            throw new RuntimeException(e);
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
         }
     }
 
