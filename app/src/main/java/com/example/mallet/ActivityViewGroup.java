@@ -446,7 +446,18 @@ public class ActivityViewGroup extends AppCompatActivity {
                     fetchUsers(text);
                 });
 
-        addUsersToGroupConfirmTv.setOnClickListener(v -> dialog.dismiss());
+        addUsersToGroupConfirmTv.setOnClickListener(v -> {
+            dialog.dismiss();
+
+            Intent intent = new Intent(getApplicationContext(), ActivityViewGroup.class);
+
+            intent.putExtra("groupId", groupId);
+            intent.putExtra("groupName", groupName);
+
+            startActivity(intent);
+
+            closeActivity();
+        });
 
         userListLv.setOnItemClickListener((parent, view, position, id) -> {
             ModelUser clickedUser = allUsernames.get(position);

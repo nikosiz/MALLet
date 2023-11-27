@@ -1,5 +1,9 @@
 package com.example.mallet;
 
+import static com.example.mallet.ActivityViewGroup.groupId;
+import static com.example.mallet.ActivityViewGroup.groupName;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +45,6 @@ public class FragmentViewGroup_Members extends Fragment {
     private final GroupDTO chosenGroup;
     private final Map<Long, ContributionUpdateContainer> contributionsToUpdateByUserId = new HashMap<>();
     private Animation fadeInAnimation;
-    private ActivityViewGroup activityViewGroup;
     private FragmentViewGroupMembersBinding binding;
     private MaterialSwitch editGroupMs;
     private MaterialSwitch editSetsMs;
@@ -65,7 +68,6 @@ public class FragmentViewGroup_Members extends Fragment {
         setupContents();
 
         displayMembers();
-
 
         return binding.getRoot();
     }
@@ -107,6 +109,7 @@ public class FragmentViewGroup_Members extends Fragment {
                     removeContribution(member);
                 }
             });
+
             // Initially hide the TextViews
             Utils.hideItems(deleteUserTv, managePermissionsLl);
             Utils.disableItems(deleteUserTv, managePermissionsLl);
@@ -164,9 +167,19 @@ public class FragmentViewGroup_Members extends Fragment {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 ResponseHandler.handleResponse(response);
+
                 //todo check if refreshing
                 contributions.remove(member);
                 Utils.showToast(getContext(), "Member removed");
+
+                Intent intent = new Intent(getContext(), ActivityViewGroup.class);
+
+                intent.putExtra("groupId", groupId);
+                intent.putExtra("groupName", groupName);
+
+                startActivity(intent);
+
+                requireActivity().finish();
             }
 
             @Override
@@ -237,7 +250,6 @@ public class FragmentViewGroup_Members extends Fragment {
     }
 
     private void handleContributionUpdate(GroupUpdateContainer groupUpdateContainer) {
-
         groupService.updateGroupContribution(groupUpdateContainer, new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
