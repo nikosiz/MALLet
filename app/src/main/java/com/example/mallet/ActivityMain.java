@@ -117,6 +117,7 @@ public class ActivityMain extends AppCompatActivity {
 
         if (selectedFragmentId == R.id.bottom_nav_home) {
             replaceFragment(new FragmentHome());
+
         } else if (selectedFragmentId == R.id.bottom_nav_library) {
             replaceFragment(new FragmentDatabase());
         } else if (selectedFragmentId == R.id.bottom_nav_add_new) {

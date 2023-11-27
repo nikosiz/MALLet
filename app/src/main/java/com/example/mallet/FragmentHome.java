@@ -22,6 +22,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.agh.api.GroupBasicDTO;
 import com.agh.api.SetBasicDTO;
 import com.example.mallet.backend.client.configuration.ResponseHandler;
+import com.example.mallet.backend.client.configuration.RetrofitClient;
 import com.example.mallet.backend.client.user.boundary.UserServiceImpl;
 import com.example.mallet.backend.entity.group.ModelGroupMapper;
 import com.example.mallet.backend.entity.set.ModelLearningSetMapper;
@@ -34,6 +35,7 @@ import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.Terminology;
 import com.example.mallet.utils.Utils;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;

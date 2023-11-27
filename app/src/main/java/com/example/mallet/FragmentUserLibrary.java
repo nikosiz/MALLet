@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.mallet.backend.client.configuration.RetrofitClient;
 import com.example.mallet.databinding.FragmentUserLibraryBinding;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -47,6 +48,7 @@ public class FragmentUserLibrary extends Fragment {
 
         return binding.getRoot();
     }
+
     int selectedTabIndex;
     private void setupContents() {
         //selectedTabIndex = getArguments().getInt("selectedTabIndex", 0); // Default to 0 if not provided

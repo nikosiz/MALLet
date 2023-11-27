@@ -26,10 +26,28 @@ public class RetrofitClient {
 
     //todo do poprawy jak postawimy gdzies to
     //todo no i https tez trzeba bd zrobic zeby stary nie zrobił ataku man in the middle czy innego chuja
-  //  private static final String BASE_URL = "http://mallet.onrender.com";
+    //private static final String BASE_URL = "http://mallet.onrender.com";
     private static final String BASE_URL = "http://10.0.2.2:8080/";
 
     private static final Gson gson;
+
+    public static volatile RetrofitClient instance;
+
+    private RetrofitClient() {
+    }
+
+    public static RetrofitClient getInstance() {
+        RetrofitClient result = instance;
+        if (result != null) {
+            return result;
+        }
+        synchronized(RetrofitClient.class) {
+            if (instance == null) {
+                instance = new RetrofitClient();
+            }
+            return instance;
+        }
+    }
 
     static {
         gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new JsonDeserializer<LocalDate>() {
@@ -38,9 +56,6 @@ public class RetrofitClient {
                 return LocalDate.parse(json.getAsJsonPrimitive().getAsString());
             }
         }).create();
-    }
-
-    private RetrofitClient() {
     }
 
     public static Retrofit getRetrofitClient(String credential) {
@@ -79,5 +94,6 @@ public class RetrofitClient {
         }
         return result;
     }
+
 
 }

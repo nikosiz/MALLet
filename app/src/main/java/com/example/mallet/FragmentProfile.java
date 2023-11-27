@@ -24,6 +24,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
+import com.example.mallet.backend.client.configuration.RetrofitClient;
 import com.example.mallet.backend.client.user.boundary.UserServiceImpl;
 import com.example.mallet.databinding.DialogDeleteAccountBinding;
 import com.example.mallet.databinding.FragmentProfileBinding;
@@ -38,27 +39,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FragmentProfile extends Fragment {
-    private static final String PREFS_NAME = "ProfileAppSettings";
-    private static final String KEY_NOTIFICATIONS = "notifications";
-    private static final String KET_SETS_OFFLINE = "setsOffline";
-    private final Pattern usernamePattern = Pattern.compile("^[a-zA-Z0-9_]+$");
-    private final Pattern passwordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^*()<>?/|}{~:]).{8,}$");
     int[] themeClickCounter = {0};
     private FragmentProfileBinding binding;
     private int clickCount = 0;
-    // Declare your strings here, but don't initialize them immediately
     private String usernameIncorrect;
     private String emailIncorrect;
     private String passwordIncorrect;
     private TextView themeTv;
-    private LinearLayout themeRgLl;
-    private RadioButton systemThemeRb;
     private RadioButton lightThemeRb;
     private RadioButton darkThemeRb;
     private int selectedTheme;
-    private TextInputEditText passwordEt;
-    private String password;
-    private TextView passwordErrTv, cbErrTv;
     private SharedPreferences sharedPreferences;
     private UserServiceImpl userService;
     private Long userId;
@@ -73,7 +63,6 @@ public class FragmentProfile extends Fragment {
 
         setupContents();
 
-        // Set themeTv based on the current theme
         int currentTheme = AppCompatDelegate.getDefaultNightMode();
         if (currentTheme == AppCompatDelegate.MODE_NIGHT_NO) {
             themeTv.setText("Light theme");

@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import com.agh.api.SetBasicDTO;
 import com.agh.api.SetInformationDTO;
 import com.example.mallet.backend.client.configuration.ResponseHandler;
+import com.example.mallet.backend.client.configuration.RetrofitClient;
 import com.example.mallet.backend.client.set.boundary.SetServiceImpl;
 import com.example.mallet.backend.entity.set.ModelLearningSetMapper;
 import com.example.mallet.databinding.FragmentDatabaseBinding;
