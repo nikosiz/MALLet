@@ -134,6 +134,9 @@ public class FragmentUserLibrary_Sets extends Fragment {
                     userService.getUserSets(startPosition, limit, new Callback<SetBasicDTO>() {
                         @Override
                         public void onResponse(Call<SetBasicDTO> call, Response<SetBasicDTO> response) {
+                            if (Objects.isNull(getView())) {
+                                return;
+                            }
                             userSetsLl.removeAllViews();
                             fetchSetsForSearch(text.toString(), response);
                         }
@@ -213,6 +216,9 @@ public class FragmentUserLibrary_Sets extends Fragment {
         userService.getUserSets(startPosition, limit, new Callback<SetBasicDTO>() {
             @Override
             public void onResponse(Call<SetBasicDTO> call, Response<SetBasicDTO> response) {
+                if (Objects.isNull(getView())) {
+                    return;
+                }
                 Utils.hideItems(progressBar);
                 SetBasicDTO setBasicDTO = ResponseHandler.handleResponse(response);
                 List<ModelLearningSet> modelLearningSets = ModelLearningSetMapper.from(setBasicDTO.sets());
@@ -328,6 +334,9 @@ public class FragmentUserLibrary_Sets extends Fragment {
             userService.deleteUserSet(set.getId(), new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
+                    if (Objects.isNull(getView())) {
+                        return;
+                    }
                     try {
                         ResponseHandler.handleResponse(response);
                         Utils.showToast(requireActivity(), set.getName() + " was deleted");

@@ -21,7 +21,6 @@ import androidx.fragment.app.Fragment;
 import com.agh.api.GroupDTO;
 import com.example.mallet.backend.client.group.boundary.GroupServiceImpl;
 import com.example.mallet.backend.entity.set.ModelLearningSetMapper;
-import com.example.mallet.databinding.DialogConfirmExitBinding;
 import com.example.mallet.databinding.DialogDeleteAreYouSureBinding;
 import com.example.mallet.databinding.FragmentViewGroupSetsBinding;
 import com.example.mallet.utils.ModelLearningSet;
@@ -106,6 +105,9 @@ public class FragmentViewGroup_Sets extends Fragment {
         groupService.removeSet(groupId, setId, new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
+                if (Objects.isNull(getView())) {
+                    return;
+                }
                 // Utils.showToast(getActivity(), "Deleted");
 
                 Intent intent = new Intent(getContext(), ActivityViewGroup.class);

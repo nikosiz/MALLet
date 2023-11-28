@@ -35,6 +35,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -166,6 +167,9 @@ public class FragmentViewGroup_Members extends Fragment {
         groupService.deleteGroupContributions(chosenGroup.id(), Collections.singleton(member.getContributionId()), new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
+                if (Objects.isNull(getView())) {
+                    return;
+                }
                 ResponseHandler.handleResponse(response);
 
                 //todo check if refreshing

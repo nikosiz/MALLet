@@ -2,16 +2,13 @@ package com.example.mallet;
 
 import static com.example.mallet.MALLet.MAX_RETRY_ATTEMPTS;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -30,8 +27,6 @@ import com.example.mallet.backend.client.configuration.ResponseHandler;
 import com.example.mallet.backend.client.group.boundary.GroupServiceImpl;
 import com.example.mallet.backend.client.user.boundary.UserServiceImpl;
 import com.example.mallet.backend.entity.group.ModelGroupMapper;
-import com.example.mallet.backend.exception.MalletException;
-import com.example.mallet.databinding.DialogDeleteAreYouSureBinding;
 import com.example.mallet.databinding.FragmentUserLibraryGroupsBinding;
 import com.example.mallet.utils.AuthenticationUtils;
 import com.example.mallet.utils.ModelGroup;
@@ -167,6 +162,9 @@ public class FragmentUserLibrary_Groups extends Fragment {
                     userService.getUserGroups(startPosition, limit, new Callback<GroupBasicDTO>() {
                         @Override
                         public void onResponse(Call<GroupBasicDTO> call, Response<GroupBasicDTO> response) {
+                            if (Objects.isNull(getView())) {
+                                return;
+                            }
                             userGroupsLl.removeAllViews();
                             fetchGroupsForSearch(text.toString(), response);
                         }
@@ -233,6 +231,9 @@ public class FragmentUserLibrary_Groups extends Fragment {
         userService.getUserGroups(startPosition, limit, new Callback<GroupBasicDTO>() {
             @Override
             public void onResponse(Call<GroupBasicDTO> call, Response<GroupBasicDTO> response) {
+                if (Objects.isNull(getView())) {
+                    return;
+                }
                 Utils.hideItems(progressBar);
 
                 GroupBasicDTO groupDTO = ResponseHandler.handleResponse(response);

@@ -22,7 +22,6 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.agh.api.GroupBasicDTO;
 import com.agh.api.SetBasicDTO;
 import com.example.mallet.backend.client.configuration.ResponseHandler;
-import com.example.mallet.backend.client.configuration.RetrofitClient;
 import com.example.mallet.backend.client.user.boundary.UserServiceImpl;
 import com.example.mallet.backend.entity.group.ModelGroupMapper;
 import com.example.mallet.backend.entity.set.ModelLearningSetMapper;
@@ -35,7 +34,6 @@ import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.Terminology;
 import com.example.mallet.utils.Utils;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
@@ -152,34 +150,36 @@ public class FragmentHome extends Fragment {
         userService.getUserSets(0, 5, new Callback<SetBasicDTO>() {
             @Override
             public void onResponse(Call<SetBasicDTO> call, Response<SetBasicDTO> response) {
-                Utils.showItems(homeSv);
-                homeSv.startAnimation(fadeInAnimation);
-
-                Utils.hideItems(progressBar);
-
-                SetBasicDTO setBasicDTO = ResponseHandler.handleResponse(response);
-                List<ModelLearningSet> modelLearningSets = ModelLearningSetMapper.from(setBasicDTO.sets());
-
-                AdapterLearningSet adapterSets = new AdapterLearningSet(getActivity(), modelLearningSets, openActivityViewSet());
-
-                homeSetsVp2.setAdapter(adapterSets);
-                homeSetsVp2.setPageTransformer(Utils::applySwipeTransformer);
-
-                homeSetsVp2.startAnimation(fadeInAnimation);
-
-                if (modelLearningSets == null || modelLearningSets.isEmpty()) {
-                    Utils.showItems(noSetsLl);
-                    Utils.enableItems(noSetsLl);
-                    Utils.hideItems(homeSetsVp2);
-                    Utils.disableItems(homeSetsVp2);
-                } else {
-                    Utils.showItems(homeSetsVp2);
-                    Utils.enableItems(homeSetsVp2);
-                    Utils.hideItems(noSetsLl);
-                    Utils.disableItems(noSetsLl);
+                if (Objects.isNull(getView())) {
+                    return;
                 }
-            }
+                    Utils.showItems(homeSv);
+                    homeSv.startAnimation(fadeInAnimation);
 
+                    Utils.hideItems(progressBar);
+
+                    SetBasicDTO setBasicDTO = ResponseHandler.handleResponse(response);
+                    List<ModelLearningSet> modelLearningSets = ModelLearningSetMapper.from(setBasicDTO.sets());
+
+                    AdapterLearningSet adapterSets = new AdapterLearningSet(getActivity(), modelLearningSets, openActivityViewSet());
+
+                    homeSetsVp2.setAdapter(adapterSets);
+                    homeSetsVp2.setPageTransformer(Utils::applySwipeTransformer);
+
+                    homeSetsVp2.startAnimation(fadeInAnimation);
+
+                    if (modelLearningSets == null || modelLearningSets.isEmpty()) {
+                        Utils.showItems(noSetsLl);
+                        Utils.enableItems(noSetsLl);
+                        Utils.hideItems(homeSetsVp2);
+                        Utils.disableItems(homeSetsVp2);
+                    } else {
+                        Utils.showItems(homeSetsVp2);
+                        Utils.enableItems(homeSetsVp2);
+                        Utils.hideItems(noSetsLl);
+                        Utils.disableItems(noSetsLl);
+                    }
+            }
             @Override
             public void onFailure(Call<SetBasicDTO> call, Throwable t) {
                 if (attemptCount < MALLet.MAX_RETRY_ATTEMPTS) {
@@ -218,6 +218,9 @@ public class FragmentHome extends Fragment {
         userService.getUserGroups(0, 5, new Callback<GroupBasicDTO>() {
             @Override
             public void onResponse(Call<GroupBasicDTO> call, Response<GroupBasicDTO> response) {
+                if (Objects.isNull(getView())) {
+                    return;
+                }
                 Utils.enableItems(homeGroupsVp2);
 
                 GroupBasicDTO groupDTO = ResponseHandler.handleResponse(response);

@@ -20,7 +20,6 @@ import androidx.fragment.app.Fragment;
 import com.agh.api.SetBasicDTO;
 import com.agh.api.SetInformationDTO;
 import com.example.mallet.backend.client.configuration.ResponseHandler;
-import com.example.mallet.backend.client.configuration.RetrofitClient;
 import com.example.mallet.backend.client.set.boundary.SetServiceImpl;
 import com.example.mallet.backend.entity.set.ModelLearningSetMapper;
 import com.example.mallet.databinding.FragmentDatabaseBinding;
@@ -29,6 +28,7 @@ import com.example.mallet.utils.ModelLearningSet;
 import com.example.mallet.utils.Utils;
 
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -77,6 +77,9 @@ public class FragmentDatabase extends Fragment {
         setService.getBasicSet(0, 100, true, new Callback<SetBasicDTO>() {
             @Override
             public void onResponse(Call<SetBasicDTO> call, Response<SetBasicDTO> response) {
+                if (Objects.isNull(getView())) {
+                    return;
+                }
                 SetBasicDTO setBasicDTO = ResponseHandler.handleResponse(response);
                 List<SetInformationDTO> sets = setBasicDTO.sets();
                 List<ModelLearningSet> modelLearningSets = ModelLearningSetMapper.from(sets);

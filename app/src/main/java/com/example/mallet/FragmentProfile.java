@@ -24,15 +24,13 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
-import com.example.mallet.backend.client.configuration.RetrofitClient;
 import com.example.mallet.backend.client.user.boundary.UserServiceImpl;
 import com.example.mallet.databinding.DialogDeleteAccountBinding;
 import com.example.mallet.databinding.FragmentProfileBinding;
 import com.example.mallet.utils.AuthenticationUtils;
 import com.example.mallet.utils.Utils;
-import com.google.android.material.textfield.TextInputEditText;
 
-import java.util.regex.Pattern;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -202,6 +200,9 @@ public class FragmentProfile extends Fragment {
                 userService.deleteUser(userId, new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
+                        if (Objects.isNull(getView())) {
+                            return;
+                        }
                         Utils.hideItems(progressBar);
 
                         sharedPreferences.edit().clear().commit();
