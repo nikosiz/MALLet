@@ -27,9 +27,12 @@ public class QuestionProvider {
         int MAX_QUESTIONS = Math.min(maxPerType, flashcardList.size());
         int questionCounter = 1;
 
+        // Inicjalizacja listy wynikowej pytań wielokrotnego wyboru
         List<ModelMultipleChoice> result = new ArrayList<>();
+        // Przetasowanie listy fiszek
         Collections.shuffle(flashcardList);
 
+        // Sprawdzenie, czy należy uwzględnić pytania związane z definicjami
         boolean includeDefinitionType = shouldIncludeDefinitionType(flashcardList);
         for (ModelFlashcard correctQuestion : flashcardList) {
             if (questionCounter > MAX_QUESTIONS) {
@@ -176,42 +179,46 @@ public class QuestionProvider {
         List<ModelWritten> questionList = new ArrayList<>();
         Random random = new Random();
 
+        // Tasowanie listy fiszek
         List<ModelFlashcard> shuffledFlashcardList = new ArrayList<>(flashcardList);
         Collections.shuffle(shuffledFlashcardList);
 
+        // Ograniczenie liczby pytań do maksymalnej liczby lub liczby fiszek
         int MAX_QUESTIONS = Math.min(maxPerType, shuffledFlashcardList.size());
         int questionCount = 0;
 
+        // Pętla generująca pytania
         for (ModelFlashcard flashcard : shuffledFlashcardList) {
             if (questionCount >= MAX_QUESTIONS) {
                 break;
             }
 
+            // Losowanie pozycji pytania pisemnego i poprawnej odpowiedzi
             int writtenQuestionPosition = random.nextInt(1);
             int writtenCorrectAnswerPosition = (writtenQuestionPosition + 1) % 2;
 
-
+            // Przygotowanie listy opcji odpowiedzi
             List<String> options = new ArrayList<>();
             options.add(flashcard.getTerm());
             options.add(flashcard.getTranslation());
             Collections.shuffle(options);
 
-
+            // Wybór poprawnej odpowiedzi w zależności od wylosowanej pozycji pytania
             switch (writtenQuestionPosition) {
                 case 0 -> {
                     writtenCorrectAnswerPosition = 1;
-                    //writtenAlternativeAnswerPosition = 2;
                 }
                 case 1 -> {
                     writtenCorrectAnswerPosition = 0;
-                    //writtenAlternativeAnswerPosition = 2;
                 }
             }
 
+            // Tworzenie obiektu pytania pisemnego i dodawanie do listy
             ModelWritten written = new ModelWritten(
                     options.get(writtenQuestionPosition),
                     options.get(writtenCorrectAnswerPosition));
 
+            // Pominięcie pustych pytań lub odpowiedzi
             if (written.getQuestion().isEmpty() || written.getCorrectAnswer().isEmpty()) {
                 continue;
             }

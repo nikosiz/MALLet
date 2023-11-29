@@ -68,36 +68,38 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ActivityViewGroup extends AppCompatActivity {
+    public static Long groupId;
+    public static String groupName;
+    public static String credential;
+    public static boolean canUserEditSet = true;
+    private static boolean areFabOptionsVisible = false;
+    private final List<ModelUser> allUsernames = new ArrayList<>();
+    private final List<ModelLearningSet> allSets = new ArrayList<>();
+    private final boolean isSetInGroup = true;
+    private final boolean isSetNew = true;
     private UserServiceImpl userService;
     private SetServiceImpl setService;
     private ActivityViewGroupBinding binding;
     private ImageView backIv;
     private TextView groupNameTv;
     private ImageView optionsIv;
-
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
     private ExtendedFloatingActionButton addEfab;
     private TextView addSetTv;
     private TextView addUserTv;
-    private static boolean areFabOptionsVisible = false;
     private LinearLayout fabOptionsLl;
-    public static Long groupId;
-    public static String groupName;
     private GroupServiceImpl groupService;
-    private FragmentViewGroup_Sets setFragment;
-    private FragmentViewGroup_Members memberFragment;
-
     private ListView userListLv;
     private ListView setListLv;
     private ArrayAdapter userListAdapter;
-    private final List<ModelUser> allUsernames = new ArrayList<>();
     private ArrayAdapter setListAdapter;
-    private final List<ModelLearningSet> allSets = new ArrayList<>();
-
     private GroupDTO chosenGroup;
-    private ImageView saveGroupIv;
-    public static String credential;
+    private boolean isUserAdmin;
+    private ImageView toolbarOptionsBackIv;
+    private TextView toolbarOptionsLeaveTv, toolbarOptionsDeleteTv, toolbarOptionsCancelTv;
+    private SharedPreferences sharedPreferences;
+    private Long userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,14 +160,6 @@ public class ActivityViewGroup extends AppCompatActivity {
         optionsIv.setOnClickListener(v -> viewGroupToolbarOptionsDialog());
     }
 
-    private boolean isUserAdmin;
-    private final boolean isSetInGroup = true;
-
-    public static boolean canUserEditSet = true;
-
-    private ImageView toolbarOptionsBackIv;
-    private TextView toolbarOptionsLeaveTv, toolbarOptionsDeleteTv, toolbarOptionsCancelTv;
-
     private void viewGroupToolbarOptionsDialog() {
         Dialog dialog = Utils.createDialog(this, R.layout.dialog_view_group_toolbar_options, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT), Gravity.BOTTOM);
         DialogViewGroupToolbarOptionsBinding dialogBinding = DialogViewGroupToolbarOptionsBinding.inflate(LayoutInflater.from(this));
@@ -206,10 +200,19 @@ public class ActivityViewGroup extends AppCompatActivity {
         confirmTv.setOnClickListener(v -> leaveGroup(groupId));
     }
 
-
     private void leaveGroup(Long groupId) {
         // todo michałek napraw
-        //groupService.deleteGroupContributions(groupId, ???);
+        /*groupService.deleteGroupContributions(groupId, userId, new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
+            }
+        });*/
     }
 
     private void setupTabLayout(GroupDTO chosenGroup) {
@@ -293,7 +296,6 @@ public class ActivityViewGroup extends AppCompatActivity {
         addSetsDialogWithRestart(0);
     }
 
-
     private void addSetsDialogWithRestart(int attemptCount) {
         Dialog dialog = Utils.createDialog(this, R.layout.dialog_add_set_to_group, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT), Gravity.BOTTOM);
         DialogAddSetToGroupBinding dialogBinding = DialogAddSetToGroupBinding.inflate(LayoutInflater.from(this));
@@ -301,10 +303,17 @@ public class ActivityViewGroup extends AppCompatActivity {
         dialog.show();
 
         ImageView createNewSetIv = dialogBinding.addSetToGroupCreateNewIv;
-        createNewSetIv.setOnClickListener(v -> {
-            dialog.dismiss();
-            createNewSetInGroup();
-        });
+        if (canUserEditSet) {
+            Utils.showItems(createNewSetIv);
+            Utils.enableItems(createNewSetIv);
+            createNewSetIv.setOnClickListener(v -> {
+                dialog.dismiss();
+                createNewSetInGroup();
+            });
+        } else {
+            Utils.hideItems(createNewSetIv);
+            Utils.disableItems(createNewSetIv);
+        }
 
         setListLv = dialogBinding.addSetToGroupListLv;
         setListAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, allSets);
@@ -354,8 +363,6 @@ public class ActivityViewGroup extends AppCompatActivity {
         });
     }
 
-    private final boolean isSetNew = true;
-
     private void createNewSetInGroup() {
         Intent intent = new Intent(this, ActivityEditLearningSet.class);
 
@@ -371,7 +378,6 @@ public class ActivityViewGroup extends AppCompatActivity {
 
         this.finish();
     }
-
 
     private void handleSetEmptyInput() {
         allSets.clear();
@@ -394,7 +400,6 @@ public class ActivityViewGroup extends AppCompatActivity {
 
     private void handleFetchSetsResponse(Response<SetBasicDTO> response) {
         SetBasicDTO sets = ResponseHandler.handleResponse(response);
-
 
         allSets.clear();
         sets.sets().stream()
@@ -527,9 +532,6 @@ public class ActivityViewGroup extends AppCompatActivity {
             }
         });
     }
-
-    private SharedPreferences sharedPreferences;
-    private Long userId;
 
     private void getGroupData() {
         groupService.getGroup(groupId, new Callback<GroupDTO>() {

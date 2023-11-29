@@ -27,7 +27,7 @@
             app:tint="@color/colorPrimary" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
@@ -37,13 +37,14 @@
                 android:id="@+id/learningSet_nameTv"
                 style="@style/BasicBoldTextStyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:autoSizeMaxTextSize="20sp"
                 android:autoSizeMinTextSize="15sp"
                 android:autoSizeStepGranularity="1sp"
                 android:autoSizeTextType="uniform"
+                android:minHeight="30dp"
                 android:singleLine="true"
                 android:text="set_name"
                 android:textColor="@color/colorPrimaryDark" />

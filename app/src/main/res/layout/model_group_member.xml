@@ -92,7 +92,7 @@
                 android:fontFamily="@font/rem_bold"
                 android:minHeight="65dp"
                 android:paddingHorizontal="30dp"
-                android:text="Edit group"
+                android:text="Manage group members"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="16sp"
                 app:thumbTint="@drawable/switch_thumb_color"
