@@ -59,8 +59,10 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
@@ -100,6 +102,7 @@ public class ActivityViewGroup extends AppCompatActivity {
     private TextView toolbarOptionsLeaveTv, toolbarOptionsDeleteTv, toolbarOptionsCancelTv;
     private SharedPreferences sharedPreferences;
     private Long userId;
+    private ContributionDTO userContribution;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -197,22 +200,33 @@ public class ActivityViewGroup extends AppCompatActivity {
 
         TextView confirmTv = dialogBinding.confirmExitConfirmTv;
         confirmTv.setText("Continue");
-        confirmTv.setOnClickListener(v -> leaveGroup(groupId));
+        confirmTv.setOnClickListener(v -> leaveGroup(groupId, userContribution.id()));
     }
 
-    private void leaveGroup(Long groupId) {
-        // todo michałek napraw
-        /*groupService.deleteGroupContributions(groupId, userId, new Callback<Void>() {
+
+    private void leaveGroup(Long groupId, Long contributionId) {
+        groupService.deleteGroupContributions(groupId, Collections.singleton(contributionId), new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
+                try {
+                    ResponseHandler.handleResponse(response);
 
+                    Intent intent = new Intent(getApplicationContext(), ActivityMain.class);
+                    startActivity(intent);
+
+                    finish();
+
+                } catch (MalletException exception) {
+                    Utils.showToast(getApplicationContext(), exception.getMessage());
+                }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
+                Utils.showToast(getApplicationContext(), "Network error");
 
             }
-        });*/
+        });
     }
 
     private void setupTabLayout(GroupDTO chosenGroup) {
@@ -231,7 +245,7 @@ public class ActivityViewGroup extends AppCompatActivity {
                 if (position == 0) {
                     result = new FragmentViewGroup_Sets(chosenGroup);
                 } else if (position == 1) {
-                    result = new FragmentViewGroup_Members(chosenGroup);
+                    result = new FragmentViewGroup_Members(chosenGroup, userContribution);
                 }
                 return result;
             }
@@ -323,9 +337,13 @@ public class ActivityViewGroup extends AppCompatActivity {
             groupService.addSet(groupId, clickedSet.getId(), new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
-                    getGroupData();
-                    //dialog.dismiss();
-                    Utils.showToast(getApplicationContext(), "Set added");
+                    try {
+                        ResponseHandler.handleResponse(response);
+                        getGroupData();
+                        Utils.showToast(getApplicationContext(), "Set added");
+                    } catch (MalletException exception) {
+                        Utils.showToast(getApplicationContext(), exception.getMessage());
+                    }
                 }
 
                 @Override
@@ -481,7 +499,12 @@ public class ActivityViewGroup extends AppCompatActivity {
             groupService.updateGroupContribution(groupUpdateContainer, new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
-                    Utils.showToast(getApplicationContext(), "User added to group");
+                    try {
+                        ResponseHandler.handleResponse(response);
+                        Utils.showToast(getApplicationContext(), "User added to group");
+                    } catch (MalletException exception) {
+                        Utils.showToast(getApplicationContext(), exception.getMessage());
+                    }
                 }
 
                 @Override
@@ -539,13 +562,17 @@ public class ActivityViewGroup extends AppCompatActivity {
             public void onResponse(Call<GroupDTO> call, Response<GroupDTO> response) {
                 GroupDTO groupDTO = ResponseHandler.handleResponse(response);
 
-                ContributionDTO contributionDTO1 = groupDTO.contributions().stream()
-                        .filter(contributionDTO -> PermissionType.ADMIN.equals(contributionDTO.groupPermissionType()) && PermissionType.ADMIN.equals(contributionDTO.setPermissionType()))
-                        .findAny().get();
-
                 userId = sharedPreferences.getLong("userId", 0L);
 
-                isUserAdmin = contributionDTO1.contributor().id().equals(userId);
+                Optional<ContributionDTO> userContributionDTO = groupDTO.contributions().stream()
+                        .filter(contributionDTO -> contributionDTO.contributor().id().equals(userId))
+                        .findAny();
+
+                isUserAdmin = userContributionDTO
+                        .filter(contributionDTO -> PermissionType.ADMIN.equals(contributionDTO.groupPermissionType()) && PermissionType.ADMIN.equals(contributionDTO.setPermissionType()))
+                        .isPresent();
+
+                userContribution = userContributionDTO.get();
 
                 setupTabLayout(groupDTO);
             }
@@ -580,7 +607,7 @@ public class ActivityViewGroup extends AppCompatActivity {
 
                         closeActivity();
                     } catch (MalletException e) {
-                        // System.out.println(e.getMessage());
+                        Utils.showToast(getApplicationContext(), e.getMessage());
                         Utils.enableItems(cancelTv, confirmTv, toolbarOptionsLeaveTv, toolbarOptionsDeleteTv, toolbarOptionsCancelTv, backIv);
                     }
                 }

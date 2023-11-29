@@ -25,6 +25,7 @@ import com.example.mallet.backend.client.group.boundary.GroupServiceImpl;
 import com.example.mallet.backend.client.user.boundary.UserServiceImpl;
 import com.example.mallet.backend.entity.set.SetCreateContainer;
 import com.example.mallet.backend.entity.set.SetCreateContainerMapper;
+import com.example.mallet.backend.exception.MalletException;
 import com.example.mallet.databinding.ActivityEditLearningSetBinding;
 import com.example.mallet.databinding.DialogConfirmExitBinding;
 import com.example.mallet.utils.AuthenticationUtils;
@@ -247,18 +248,22 @@ public class ActivityEditLearningSet extends AppCompatActivity {
                         userService.createUserSet(SetCreateContainerMapper.from(newLearningSet), new Callback<Long>() {
                             @Override
                             public void onResponse(Call<Long> call, Response<Long> response) {
-                                learningSetId = ResponseHandler.handleResponse(response);
+                                try {
+                                    learningSetId = ResponseHandler.handleResponse(response);
 
-                                Intent intent = new Intent(getApplicationContext(), ActivityViewLearningSet.class);
+                                    Intent intent = new Intent(getApplicationContext(), ActivityViewLearningSet.class);
 
-                                intent.putExtra("setId", learningSetId);
-                                intent.putExtra("learningSet", learningSet);
+                                    intent.putExtra("setId", learningSetId);
+                                    intent.putExtra("learningSet", learningSet);
 
-                                startActivity(intent);
+                                    startActivity(intent);
 
-                                //Utils.showToast(getApplicationContext(), "Set edited");
+                                    //Utils.showToast(getApplicationContext(), "Set edited");
 
-                                close();
+                                    close();
+                                } catch (MalletException exception) {
+                                    Utils.showToast(getApplicationContext(), exception.getMessage());
+                                }
                             }
 
                             @Override
@@ -366,17 +371,21 @@ public class ActivityEditLearningSet extends AppCompatActivity {
         userService.createUserSet(newSetContainer, new Callback<Long>() {
             @Override
             public void onResponse(Call<Long> call, Response<Long> response) {
-                Utils.enableItems(toolbarSaveIv);
+                try {
+                    Utils.enableItems(toolbarSaveIv);
 
-                Long setId = ResponseHandler.handleResponse(response);
-                Intent intent = new Intent(getApplicationContext(), ActivityViewLearningSet.class);
+                    Long setId = ResponseHandler.handleResponse(response);
+                    Intent intent = new Intent(getApplicationContext(), ActivityViewLearningSet.class);
 
-                intent.putExtra("learningSet", newLearningSet);
-                intent.putExtra("setId", setId);
+                    intent.putExtra("learningSet", newLearningSet);
+                    intent.putExtra("setId", setId);
 
-                startActivity(intent);
+                    startActivity(intent);
 
-                close();
+                    close();
+                }catch (MalletException exception){
+                    Utils.showToast(getApplicationContext(), exception.getMessage());
+                }
             }
 
             @Override

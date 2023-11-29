@@ -17,6 +17,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.agh.api.ContributionDTO;
 import com.agh.api.GroupDTO;
 import com.agh.api.PermissionType;
 import com.example.mallet.backend.client.configuration.ResponseHandler;
@@ -24,6 +25,7 @@ import com.example.mallet.backend.client.group.boundary.GroupServiceImpl;
 import com.example.mallet.backend.entity.group.contribution.ModelGroupMemberMapper;
 import com.example.mallet.backend.entity.group.update.ContributionUpdateContainer;
 import com.example.mallet.backend.entity.group.update.GroupUpdateContainer;
+import com.example.mallet.backend.exception.MalletException;
 import com.example.mallet.backend.mapper.group.ContributionUpdateContainerMapper;
 import com.example.mallet.databinding.FragmentViewGroupMembersBinding;
 import com.example.mallet.utils.AuthenticationUtils;
@@ -55,9 +57,11 @@ public class FragmentViewGroup_Members extends Fragment {
     private GroupServiceImpl groupService;
     private List<ContributionUpdateContainer> containers;
     private List<ModelGroupMember> contributions;
+    private ContributionDTO selfContribution;
 
-    public FragmentViewGroup_Members(GroupDTO chosenGroup) {
+    public FragmentViewGroup_Members(GroupDTO chosenGroup, ContributionDTO selfContribution ) {
         this.chosenGroup = chosenGroup;
+        this.selfContribution = selfContribution;
     }
 
     @Override
@@ -121,7 +125,7 @@ public class FragmentViewGroup_Members extends Fragment {
                 clickCounter[0]++;
                 // Use the local clickCounter here
                 if (clickCounter[0] % 2 != 0) {
-                    if (PermissionType.ADMIN.equals(member.getGroupPermissionType()) && PermissionType.ADMIN.equals(member.getSetPermissionType())) {
+                    if (isAdminOrSelf(member)) {
                         return;
                     }
                     Utils.showItems(deleteUserTv, managePermissionsLl); // Show on odd clicks
@@ -132,7 +136,7 @@ public class FragmentViewGroup_Members extends Fragment {
                 }
             });
 
-            if (PermissionType.ADMIN.equals(member.getGroupPermissionType()) && PermissionType.ADMIN.equals(member.getSetPermissionType())) {
+            if (isAdminOrSelf(member)) {
                 Utils.hideItems(memberOptionsIv);
             }
 
@@ -140,7 +144,7 @@ public class FragmentViewGroup_Members extends Fragment {
                 clickCounter[0]++;
                 // Use the local clickCounter here
                 if (clickCounter[0] % 2 != 0) {
-                    if (PermissionType.ADMIN.equals(member.getGroupPermissionType()) && PermissionType.ADMIN.equals(member.getSetPermissionType())) {
+                    if (isAdminOrSelf(member)) {
                         return;
                     }
                     Utils.showItems(deleteUserTv, managePermissionsLl); // Show on odd clicks
@@ -163,6 +167,11 @@ public class FragmentViewGroup_Members extends Fragment {
         savePermissionTv.setOnClickListener(v -> saveContributions());
     }
 
+    private  boolean isAdminOrSelf(ModelGroupMember member) {
+        return (PermissionType.ADMIN.equals(member.getGroupPermissionType()) && PermissionType.ADMIN.equals(member.getSetPermissionType())) ||
+                selfContribution.id().equals(member.getContributionId());
+    }
+
     private void removeContribution(ModelGroupMember member) {
         groupService.deleteGroupContributions(chosenGroup.id(), Collections.singleton(member.getContributionId()), new Callback<Void>() {
             @Override
@@ -170,20 +179,23 @@ public class FragmentViewGroup_Members extends Fragment {
                 if (Objects.isNull(getView())) {
                     return;
                 }
-                ResponseHandler.handleResponse(response);
+                try {
+                    ResponseHandler.handleResponse(response);
+                    //todo check if refreshing
+                    contributions.remove(member);
+                    Utils.showToast(getContext(), "Member removed");
 
-                //todo check if refreshing
-                contributions.remove(member);
-                Utils.showToast(getContext(), "Member removed");
+                    Intent intent = new Intent(getContext(), ActivityViewGroup.class);
 
-                Intent intent = new Intent(getContext(), ActivityViewGroup.class);
+                    intent.putExtra("groupId", groupId);
+                    intent.putExtra("groupName", groupName);
 
-                intent.putExtra("groupId", groupId);
-                intent.putExtra("groupName", groupName);
+                    startActivity(intent);
 
-                startActivity(intent);
-
-                requireActivity().finish();
+                    requireActivity().finish();
+                } catch (MalletException exception) {
+                    Utils.showToast(getContext(), exception.getMessage());
+                }
             }
 
             @Override
@@ -257,7 +269,12 @@ public class FragmentViewGroup_Members extends Fragment {
         groupService.updateGroupContribution(groupUpdateContainer, new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                Utils.showToast(getContext(), "Permissions updated");
+                try {
+                    ResponseHandler.handleResponse(response);
+                    Utils.showToast(getContext(), "Permissions updated");
+                } catch (MalletException exception) {
+                    Utils.showToast(getContext(), exception.getMessage());
+                }
             }
 
             @Override

@@ -14,6 +14,7 @@ import retrofit2.Response;
 public class ResponseHandler {
 
     private static final String UNKNOWN_ERROR_OCCURRED_ERROR_MSG = "Unknown error occurred";
+    private static final String UNAUTHORIZED_ERROR_MSG = "Unauthorized";
 
     private static final Gson gson;
 
@@ -26,6 +27,9 @@ public class ResponseHandler {
     public static <T> T handleResponse(Response<T> response) throws MalletException {
         if (response.isSuccessful()) {
             return response.body();
+        }
+        if (response.code() == 401) {
+            throw new MalletException(UNAUTHORIZED_ERROR_MSG);
         }
 
         return handleError(response);
