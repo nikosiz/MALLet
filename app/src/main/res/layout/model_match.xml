@@ -1,12 +1,85 @@
-<?xml version="1.0" encoding="utf-8"?><GridLayout xmlns:android="http://schemas.android.com/apk/res/android"    xmlns:app="http://schemas.android.com/apk/res-auto"    android:id="@+id/matchM_mainGl"    android:layout_width="match_parent"    android:layout_height="match_parent"    android:layout_gravity="center"    android:columnCount="2"    android:orientation="horizontal"    android:rowCount="5">    <androidx.cardview.widget.CardView        android:id="@+id/cv_42"        android:layout_width="0dp"        android:layout_height="0dp"        android:layout_rowWeight="1"        android:layout_columnWeight="1"        android:layout_margin="7dp"        android:background="@color/colorLight"        android:clickable="true"        android:focusable="true"        android:gravity="center"        android:orientation="vertical"        android:src="@drawable/img_transparent"        app:cardCornerRadius="10dp"        app:cardElevation="0dp">        <LinearLayout            android:layout_width="match_parent"            android:layout_height="match_parent"            android:gravity="center"            android:padding="20dp">            <TextView                android:id="@+id/cv_42Tv"                style="@style/BasicTextStyle"                android:layout_width="wrap_content"                android:layout_height="wrap_content"                android:gravity="center"                android:text=""                android:textColor="@color/colorPrimaryDark"                android:textSize="18sp" />        </LinearLayout>    </androidx.cardview.widget.CardView>    <androidx.cardview.widget.CardView        android:id="@+id/cv_32"        android:layout_width="0dp"        android:layout_height="0dp"        android:layout_rowWeight="1"        android:layout_columnWeight="1"        android:layout_margin="7dp"        android:background="@color/colorLight"        android:clickable="true"        android:focusable="true"        android:gravity="center"        android:orientation="vertical"        android:src="@drawable/img_transparent"        app:cardCornerRadius="10dp"        app:cardElevation="0dp">        <LinearLayout            android:layout_width="match_parent"            android:layout_height="match_parent"            android:gravity="center"            android:padding="10dp">            <TextView
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/matchM_mainGl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:columnCount="2"
+    android:orientation="horizontal"
+    android:rowCount="5">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_42"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
+        android:layout_margin="7dp"
+        android:background="@color/colorLight"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:src="@drawable/img_transparent"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/cv_42Tv"
+                style="@style/BasicTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoSizeMaxTextSize="18sp"
+                android:autoSizeMinTextSize="10sp"
+                android:autoSizeStepGranularity="2sp"
+                android:autoSizeTextType="uniform"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/colorPrimaryDark" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_32"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
+        android:layout_margin="7dp"
+        android:background="@color/colorLight"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:src="@drawable/img_transparent"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="10dp">
+
+            <TextView
                 android:id="@+id/cv_32Tv"
                 style="@style/BasicTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:autoSizeMaxTextSize="18sp"
+                android:autoSizeMinTextSize="10sp"
+                android:autoSizeStepGranularity="2sp"
+                android:autoSizeTextType="uniform"
                 android:gravity="center"
                 android:text=""
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp" />
+                android:textColor="@color/colorPrimaryDark" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -37,10 +110,13 @@
                 style="@style/BasicTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:autoSizeMaxTextSize="18sp"
+                android:autoSizeMinTextSize="10sp"
+                android:autoSizeStepGranularity="2sp"
+                android:autoSizeTextType="uniform"
                 android:gravity="center"
                 android:text=""
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp" />
+                android:textColor="@color/colorPrimaryDark" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -71,10 +147,13 @@
                 style="@style/BasicTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:autoSizeMaxTextSize="18sp"
+                android:autoSizeMinTextSize="10sp"
+                android:autoSizeStepGranularity="2sp"
+                android:autoSizeTextType="uniform"
                 android:gravity="center"
                 android:text=""
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp" />
+                android:textColor="@color/colorPrimaryDark" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -105,10 +184,13 @@
                 style="@style/BasicTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:autoSizeMaxTextSize="18sp"
+                android:autoSizeMinTextSize="10sp"
+                android:autoSizeStepGranularity="2sp"
+                android:autoSizeTextType="uniform"
                 android:gravity="center"
                 android:text=""
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp" />
+                android:textColor="@color/colorPrimaryDark" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -139,11 +221,13 @@
                 style="@style/BasicTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:autoSizeMaxTextSize="18sp"
+                android:autoSizeMinTextSize="10sp"
+                android:autoSizeStepGranularity="2sp"
+                android:autoSizeTextType="uniform"
                 android:gravity="center"
-
                 android:text=""
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp" />
+                android:textColor="@color/colorPrimaryDark" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -174,10 +258,13 @@
                 style="@style/BasicTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:autoSizeMaxTextSize="18sp"
+                android:autoSizeMinTextSize="10sp"
+                android:autoSizeStepGranularity="2sp"
+                android:autoSizeTextType="uniform"
                 android:gravity="center"
                 android:text=""
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp" />
+                android:textColor="@color/colorPrimaryDark" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -208,11 +295,13 @@
                 style="@style/BasicTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:autoSizeMaxTextSize="18sp"
+                android:autoSizeMinTextSize="10sp"
+                android:autoSizeStepGranularity="2sp"
+                android:autoSizeTextType="uniform"
                 android:gravity="center"
-
                 android:text=""
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp" />
+                android:textColor="@color/colorPrimaryDark" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -243,11 +332,13 @@
                 style="@style/BasicTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:autoSizeMaxTextSize="18sp"
+                android:autoSizeMinTextSize="10sp"
+                android:autoSizeStepGranularity="2sp"
+                android:autoSizeTextType="uniform"
                 android:gravity="center"
-
                 android:text=""
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp" />
+                android:textColor="@color/colorPrimaryDark" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -278,11 +369,13 @@
                 style="@style/BasicTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:autoSizeMaxTextSize="18sp"
+                android:autoSizeMinTextSize="10sp"
+                android:autoSizeStepGranularity="2sp"
+                android:autoSizeTextType="uniform"
                 android:gravity="center"
-
                 android:text=""
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp" />
+                android:textColor="@color/colorPrimaryDark" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </GridLayout>

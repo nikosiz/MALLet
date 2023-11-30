@@ -459,7 +459,6 @@ public class FragmentTest extends Fragment {
 
         option2Tv.setOnClickListener(v -> {
             multipleChoiceClickedPosition = 1;
-            Utils.showToast(getContext(), String.valueOf(multipleChoiceClickedPosition));
 
             option1Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
             option1Tv.setTypeface(remRegular);
@@ -484,7 +483,6 @@ public class FragmentTest extends Fragment {
 
         option3Tv.setOnClickListener(v -> {
             multipleChoiceClickedPosition = 2;
-            Utils.showToast(getContext(), String.valueOf(multipleChoiceClickedPosition));
 
             option1Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
             option1Tv.setTypeface(remRegular);
@@ -509,7 +507,6 @@ public class FragmentTest extends Fragment {
 
         option4Tv.setOnClickListener(v -> {
             multipleChoiceClickedPosition = 3;
-            Utils.showToast(getContext(), String.valueOf(multipleChoiceClickedPosition));
 
             option1Tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
             option1Tv.setTypeface(remRegular);
