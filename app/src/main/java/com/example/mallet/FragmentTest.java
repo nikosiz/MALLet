@@ -169,7 +169,7 @@ public class FragmentTest extends Fragment {
             stopWatch.start();
         });
 
-        messageTv.setText(getActivity().getResources().getString(R.string.you_are_about_to_take_a_test,String.valueOf(allQuestions)));
+        messageTv.setText(getActivity().getResources().getString(R.string.you_are_about_to_take_a_test));
     }
 
     private void notEnoughDialog() {

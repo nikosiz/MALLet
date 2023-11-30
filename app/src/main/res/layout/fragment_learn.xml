@@ -1,4 +1,75 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"    xmlns:app="http://schemas.android.com/apk/res-auto"    android:id="@+id/learn_mainLl"    android:layout_width="match_parent"    android:layout_height="match_parent"    android:layout_gravity="center"    android:background="@color/colorPrimaryLight"    android:orientation="vertical">    <androidx.appcompat.widget.Toolbar        android:id="@+id/learn_toolbar"        android:layout_width="match_parent"        android:layout_height="wrap_content"        android:layout_gravity="center_vertical"        android:background="@android:color/transparent"        android:gravity="center_vertical"        android:paddingHorizontal="20dp"        app:layout_constraintEnd_toEndOf="parent"        app:layout_constraintHorizontal_bias="0.0"        app:layout_constraintStart_toStartOf="parent"        app:layout_constraintTop_toTopOf="parent">        <ImageView            android:id="@+id/learn_toolbarBackIv"            android:layout_width="wrap_content"            android:layout_height="wrap_content"            android:layout_gravity="start"            android:layout_marginHorizontal="20dp"            android:layout_marginEnd="50dp"            android:background="@drawable/bg_ripple"            android:clickable="true"            android:contentDescription="toolbar options"            android:focusable="true"            android:src="@drawable/ic_arrow_back"            app:tint="@color/colorPrimaryDark" />        <TextView            android:id="@+id/learn_toolbarTitleTv"            android:layout_width="wrap_content"            android:layout_height="wrap_content"            android:fontFamily="@font/russo_one_regular"            android:text="Learn"            android:textColor="@color/colorPrimaryDark"            android:textSize="30sp" />        <ImageView            android:id="@+id/learn_optionsIv"            android:layout_width="wrap_content"            android:layout_height="wrap_content"            android:layout_gravity="end"            android:layout_marginHorizontal="20dp"            android:background="@drawable/bg_ripple"            android:clickable="true"            android:contentDescription="set options"            android:focusable="true"            android:src="@drawable/ic_toolbar_options"            app:tint="@color/colorPrimaryDark" />    </androidx.appcompat.widget.Toolbar>    <androidx.constraintlayout.widget.ConstraintLayout        android:layout_width="match_parent"        android:layout_height="0dp"        android:orientation="vertical"        app:layout_constraintBottom_toBottomOf="parent"        app:layout_constraintTop_toBottomOf="@id/learn_toolbar">        <LinearLayout            android:id="@+id/learn_questionsLl"            android:layout_width="0dp"            android:layout_height="0dp"            android:orientation="horizontal"            app:layout_constraintBottom_toTopOf="@id/learn_bottomTvsLl"            app:layout_constraintEnd_toEndOf="parent"            app:layout_constraintStart_toStartOf="parent"            app:layout_constraintTop_toTopOf="parent" />        <LinearLayout            android:id="@+id/learn_bottomTvsLl"            android:layout_width="match_parent"            android:layout_height="wrap_content"            android:gravity="end"            android:orientation="horizontal"            app:layout_constraintBottom_toBottomOf="parent"            app:layout_constraintEnd_toEndOf="parent"            app:layout_constraintStart_toStartOf="parent">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/learn_mainLl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@color/colorPrimaryLight"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/learn_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/learn_toolbarBackIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/bg_ripple"
+            android:clickable="true"
+            android:contentDescription="toolbar options"
+            android:focusable="true"
+            android:src="@drawable/ic_arrow_back"
+            app:tint="@color/colorPrimaryDark" />
+
+        <TextView
+            android:id="@+id/learn_toolbarTitleTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/russo_one_regular"
+            android:text="Learn"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="30sp" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/learn_toolbar">
+
+        <LinearLayout
+            android:id="@+id/learn_questionsLl"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/learn_bottomTvsLl"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/learn_bottomTvsLl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
             <TextView
                 android:id="@+id/learn_nextTv"

@@ -176,7 +176,7 @@
     <string name="in_this_session_you_will_be_asked">Get ready for a series of %s questions 🤔 \n\nMake your answers clear and accurate 🎯 If you\'re not sure, no worries! We\'ll show you the correct ones to learn from 📚 \n\nLet\'s dive in and get started! 💪</string>
     <string name="welcome_to_learn">Welcome to Learn!</string>
     <string name="you_have_covered_all_the_material">Congratulations! 🌟 You\'ve covered all the material! 📚 \n\nNow, you can dive back in for some practice or try out different study modes - it\'s all up to you! 🚀</string>
-    <string name="you_are_about_to_take_a_test">There are %s questions coming your way, and they come in three flavours:
+    <string name="you_are_about_to_take_a_test">There are 30 questions coming your way, and they come in three flavours:
 
     \n\n● Written - we advise you to share clear and concise responses 🖋️
     \n● Single Choice, where you need to pick the best answer 🔠

@@ -97,7 +97,6 @@ public class FragmentLearn extends Fragment {
         ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
         Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle("");
         binding.learnToolbarBackIv.setOnClickListener(v -> getActivity().finish());
-        binding.learnOptionsIv.setOnClickListener(v -> learnOptionsDialog());
     }
 
     private void learnOptionsDialog() {
