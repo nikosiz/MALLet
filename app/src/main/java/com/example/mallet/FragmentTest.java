@@ -212,7 +212,6 @@ public class FragmentTest extends Fragment {
                         testFinishedDialog();
                     }
                 } else {
-
                     writtenAnswerEt.setText("");
                     currentQuestionIndex++;
 
@@ -223,8 +222,6 @@ public class FragmentTest extends Fragment {
                     }
                 }
             } else if (currentQuestionIndex < 19) {
-
-
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT
@@ -531,15 +528,16 @@ public class FragmentTest extends Fragment {
 
 
         ll.addView(multipleChoiceQuestionItem);
-        //} else{
-        // All questions have been shown
-        //}
     }
 
-    private int multipleChoiceClickedPosition = 4;
+    private int multipleChoiceClickedPosition=4;
 
     private boolean checkMultipleChoiceAnswer(int clickedOption, int correctAnswerPosition) {
-        return clickedOption == correctAnswerPosition;
+        boolean isCorrect = clickedOption == correctAnswerPosition;
+
+        multipleChoiceClickedPosition = 4;
+
+        return isCorrect;
     }
 
     private static SharedPreferences sharedPreferences;
