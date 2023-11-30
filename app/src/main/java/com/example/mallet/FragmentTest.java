@@ -340,7 +340,7 @@ public class FragmentTest extends Fragment {
 
         trueTv.setOnClickListener(v -> {
             trueFalseClicked = 1;
-            checkTrueFalseAnswer(trueFalseClicked, trueFalseCorrectAnswer);
+            //checkTrueFalseAnswer(trueFalseClicked, trueFalseCorrectAnswer);
 
             trueTv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
             trueTv.setTypeface(remBold);
@@ -355,7 +355,7 @@ public class FragmentTest extends Fragment {
 
         falseTv.setOnClickListener(v -> {
             trueFalseClicked = 2;
-            checkTrueFalseAnswer(trueFalseClicked, trueFalseCorrectAnswer);
+           // checkTrueFalseAnswer(trueFalseClicked, trueFalseCorrectAnswer);
 
             trueTv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
             trueTv.setTypeface(remRegular);
@@ -379,12 +379,16 @@ public class FragmentTest extends Fragment {
 
     private boolean checkTrueFalseAnswer(int clickedAnswer, boolean correctAnswer) {
         if (correctAnswer && clickedAnswer == 1) {
+            trueFalseClicked = 0;
             return true;
         } else if (!correctAnswer && clickedAnswer == 2) {
+            trueFalseClicked = 0;
             return true;
         } else if (correctAnswer && clickedAnswer == 2) {
+            trueFalseClicked = 0;
             return false;
         } else {
+            trueFalseClicked = 0;
             return false;
         }
     }
