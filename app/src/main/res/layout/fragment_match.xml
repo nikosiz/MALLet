@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    tools:context=".frontend.view.common.fragment.FragmentMatch">
+    tools:context="com.mallet.mallet.frontend.view.common.fragment.FragmentMatch">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/matchF_toolbar"

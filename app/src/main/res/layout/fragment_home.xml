@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryLight1"
-    tools:context=".frontend.view.common.fragment.FragmentHome">
+    tools:context="com.mallet.mallet.frontend.view.common.fragment.FragmentHome">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/home_toolbar"

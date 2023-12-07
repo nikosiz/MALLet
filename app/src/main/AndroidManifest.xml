@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
-        android:name="MALLet"
+        android:name="com.mallet.mallet.MALLet"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -20,41 +20,41 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".frontend.view.group.ActivityCreateGroup"
+            android:name="com.mallet.mallet.frontend.view.group.ActivityCreateGroup"
             android:exported="false" />
         <activity
-            android:name=".frontend.view.set.ActivityViewLearningSet"
+            android:name="com.mallet.mallet.frontend.view.set.ActivityViewLearningSet"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".frontend.view.group.ActivityViewGroup"
+            android:name="com.mallet.mallet.frontend.view.group.ActivityViewGroup"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".frontend.view.common.activity.ActivityLearn"
+            android:name="com.mallet.mallet.frontend.view.common.activity.ActivityLearn"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".frontend.view.common.activity.ActivitySignup"
+            android:name="com.mallet.mallet.frontend.view.common.activity.ActivitySignup"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".frontend.view.common.activity.ActivityLogin"
+            android:name="com.mallet.mallet.frontend.view.common.activity.ActivityLogin"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".frontend.view.set.ActivityEditLearningSet"
+            android:name="com.mallet.mallet.frontend.view.set.ActivityEditLearningSet"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".frontend.view.common.activity.ActivityOpening"
+            android:name="com.mallet.mallet.frontend.view.common.activity.ActivityOpening"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
@@ -65,7 +65,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".frontend.view.common.activity.ActivityMain"
+            android:name="com.mallet.mallet.frontend.view.common.activity.ActivityMain"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
@@ -80,7 +80,7 @@
         </receiver>
 
         <receiver
-            android:name=".frontend.notification.NotificationScheduler"
+            android:name="com.mallet.mallet.frontend.notification.NotificationScheduler"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -89,7 +89,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".frontend.notification.NotificationReceiver"
+            android:name="com.mallet.mallet.frontend.notification.NotificationReceiver"
             android:enabled="true"
             android:exported="false" />
 

@@ -8,7 +8,7 @@
     android:background="@color/colorPrimaryLight"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".frontend.view.group.FragmentViewGroup_Members"
+    tools:context="com.mallet.mallet.frontend.view.group.FragmentViewGroup_Members"
     tools:ignore="Overdraw">
 
     <ScrollView
