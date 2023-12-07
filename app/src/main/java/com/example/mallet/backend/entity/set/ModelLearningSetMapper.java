@@ -1,7 +1,7 @@
 package com.example.mallet.backend.entity.set;
 
 import com.agh.api.SetInformationDTO;
-import com.example.mallet.utils.ModelLearningSet;
+import com.example.mallet.frontend.model.set.ModelLearningSet;
 
 import java.util.Collection;
 import java.util.List;

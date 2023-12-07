@@ -2,7 +2,7 @@ package com.example.mallet.backend.entity.group.contribution;
 
 import com.agh.api.ContributionDTO;
 import com.agh.api.UserDTO;
-import com.example.mallet.utils.ModelGroupMember;
+import com.example.mallet.frontend.model.group.ModelGroupMember;
 
 import java.util.Collection;
 import java.util.List;

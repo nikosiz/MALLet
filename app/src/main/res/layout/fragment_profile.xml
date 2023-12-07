@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryLight1"
-    tools:context=".FragmentProfile"
+    tools:context=".frontend.view.common.fragment.FragmentProfile"
     tools:ignore="Overdraw">
 
     <ScrollView

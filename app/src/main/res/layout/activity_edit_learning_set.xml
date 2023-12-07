@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryLight1"
-    tools:context=".ActivityEditLearningSet"
+    tools:context=".frontend.view.set.ActivityEditLearningSet"
     tools:ignore="Overdraw">
 
     <androidx.appcompat.widget.Toolbar

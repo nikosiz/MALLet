@@ -1,7 +1,7 @@
 package com.example.mallet.backend.entity.term;
 
 import com.agh.api.TermDTO;
-import com.example.mallet.utils.ModelFlashcard;
+import com.example.mallet.frontend.model.flashcard.ModelFlashcard;
 
 import java.util.Collection;
 import java.util.List;

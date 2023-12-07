@@ -6,6 +6,11 @@ import android.content.SharedPreferences;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
+import com.example.mallet.frontend.notification.NotificationScheduler;
+import com.example.mallet.frontend.notification.NotificationUtils;
+import com.example.mallet.frontend.notification.NotificationWorker;
+import com.example.mallet.frontend.utils.ScheduleWork;
+
 public class MALLet extends Application {
     private MALLet mallet;
     public static final int MAX_RETRY_ATTEMPTS = 3;

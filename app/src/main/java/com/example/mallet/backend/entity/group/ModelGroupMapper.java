@@ -1,7 +1,7 @@
 package com.example.mallet.backend.entity.group;
 
 import com.agh.api.GroupBasicInformationDTO;
-import com.example.mallet.utils.ModelGroup;
+import com.example.mallet.frontend.model.group.ModelGroup;
 
 import java.util.Collection;
 import java.util.List;

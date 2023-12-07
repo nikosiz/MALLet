@@ -2,11 +2,12 @@ package com.example.mallet;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.example.mallet.utils.ModelAnswer;
-import com.example.mallet.utils.ModelFlashcard;
-import com.example.mallet.utils.ModelMultipleChoice;
-import com.example.mallet.utils.ModelTrueFalse;
-import com.example.mallet.utils.ModelWritten;
+import com.example.mallet.frontend.model.question.ModelAnswer;
+import com.example.mallet.frontend.model.flashcard.ModelFlashcard;
+import com.example.mallet.frontend.model.question.ModelSingleChoice;
+import com.example.mallet.frontend.model.question.ModelTrueFalse;
+import com.example.mallet.frontend.model.question.ModelWritten;
+import com.example.mallet.frontend.utils.QuestionProvider;
 
 import org.junit.Test;
 
@@ -24,7 +25,7 @@ public class QuestionProviderTest {
         List<ModelFlashcard> modelFlashcards = generateFlashcards(1, 112);
         int maxPerType = getNumberOfQuestions(modelFlashcards);
 
-        List<ModelMultipleChoice> generatedQuestions = QuestionProvider.generateMultipleChoiceQuestions(maxPerType, modelFlashcards);
+        List<ModelSingleChoice> generatedQuestions = QuestionProvider.generateMultipleChoiceQuestions(maxPerType, modelFlashcards);
 
         assertThat(generatedQuestions)
                 .filteredOn(getModelMultipleChoiceAssertPredicate())
@@ -36,7 +37,7 @@ public class QuestionProviderTest {
         List<ModelFlashcard> modelFlashcards = generateFlashcardsWithEmptyDefinition();
         int maxPerType = getNumberOfQuestions(modelFlashcards);
 
-        List<ModelMultipleChoice> generatedQuestions = QuestionProvider.generateMultipleChoiceQuestions(maxPerType, modelFlashcards);
+        List<ModelSingleChoice> generatedQuestions = QuestionProvider.generateMultipleChoiceQuestions(maxPerType, modelFlashcards);
 
         assertThat(generatedQuestions)
                 .filteredOn(getModelMultipleChoiceAssertPredicate())
@@ -94,8 +95,8 @@ public class QuestionProviderTest {
 
     private Predicate<ModelWritten> getModelWrittenAssertPredicate() {
         return model -> {
-            boolean objectsNonNull = Objects.nonNull(model) && Objects.nonNull(model.getQuestion()) && Objects.nonNull(model.getAlternativeAnswer()) && Objects.nonNull(model.getCorrectAnswer());
-            return objectsNonNull && !model.getQuestion().isEmpty() && !model.getAlternativeAnswer().isEmpty() && !model.getCorrectAnswer().isEmpty();
+            boolean objectsNonNull = Objects.nonNull(model) && Objects.nonNull(model.getQuestion()) && Objects.nonNull(model.getCorrectAnswer());
+            return objectsNonNull && !model.getQuestion().isEmpty() && !model.getCorrectAnswer().isEmpty();
         };
     }
 
@@ -106,7 +107,7 @@ public class QuestionProviderTest {
         };
     }
 
-    private Predicate<ModelMultipleChoice> getModelMultipleChoiceAssertPredicate() {
+    private Predicate<ModelSingleChoice> getModelMultipleChoiceAssertPredicate() {
         return question -> {
             boolean objectsNonNull = Objects.nonNull(question) && Objects.nonNull(question.getQuestion()) && Objects.nonNull(question.getAnswers());
             Set<ModelAnswer> answers = question.getAnswers();

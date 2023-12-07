@@ -1,7 +1,7 @@
 package com.example.mallet.backend.entity.set;
 
 import com.example.mallet.backend.entity.term.TermCreateContainerMapper;
-import com.example.mallet.utils.ModelLearningSet;
+import com.example.mallet.frontend.model.set.ModelLearningSet;
 
 import java.util.Collections;
 

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryLight"
     android:fitsSystemWindows="true"
-    tools:context=".ActivityViewLearningSet"
+    tools:context=".frontend.view.set.ActivityViewLearningSet"
     tools:ignore="Overdraw">
 
     <androidx.appcompat.widget.Toolbar

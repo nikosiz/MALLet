@@ -2,8 +2,8 @@ package com.example.mallet.backend.mapper.group;
 
 import com.agh.api.PermissionType;
 import com.example.mallet.backend.entity.group.update.ContributionUpdateContainer;
-import com.example.mallet.utils.ModelGroupMember;
-import com.example.mallet.utils.ModelUser;
+import com.example.mallet.frontend.model.group.ModelGroupMember;
+import com.example.mallet.frontend.model.user.ModelUser;
 
 public class ContributionUpdateContainerMapper {
     private ContributionUpdateContainerMapper() {}

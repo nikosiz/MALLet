@@ -5,7 +5,7 @@
     android:id="@+id/userLibraryGroups_mainSv"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentUserLibrary_Groups">
+    tools:context=".frontend.view.userlibrary.FragmentUserLibrary_Groups">
 
     <ScrollView
         android:id="@+id/userLibraryGroupsSv"

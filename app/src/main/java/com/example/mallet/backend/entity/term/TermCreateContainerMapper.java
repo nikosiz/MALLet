@@ -1,6 +1,6 @@
 package com.example.mallet.backend.entity.term;
 
-import com.example.mallet.utils.ModelFlashcard;
+import com.example.mallet.frontend.model.flashcard.ModelFlashcard;
 
 import java.util.Collection;
 import java.util.List;
