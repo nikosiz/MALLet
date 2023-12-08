@@ -8,7 +8,7 @@
     android:background="@drawable/splash_bg"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="com.mallet.mallet.frontend.view.common.activity.ActivityOpening">
+    tools:context="com.mallet.frontend.view.common.activity.ActivityOpening">
 
     <TextView
         android:id="@+id/opening_logoTv"

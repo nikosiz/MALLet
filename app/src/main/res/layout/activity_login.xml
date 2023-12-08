@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/splash_bg"
     android:orientation="vertical"
-    tools:context="com.mallet.mallet.frontend.view.common.activity.ActivityLogin">
+    tools:context="com.mallet.frontend.view.common.activity.ActivityLogin">
 
     <LinearLayout
         android:layout_width="match_parent"

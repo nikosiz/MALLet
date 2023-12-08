@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryLight"
-    tools:context="com.mallet.mallet.frontend.view.common.fragment.FragmentFlashcards"
+    tools:context="com.mallet.frontend.view.common.fragment.FragmentFlashcards"
     tools:ignore="Overdraw">
 
     <androidx.appcompat.widget.Toolbar

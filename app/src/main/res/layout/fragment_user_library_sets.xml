@@ -5,7 +5,7 @@
     android:id="@+id/userLibrarySets_mainSv"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mallet.mallet.frontend.view.userlibrary.FragmentUserLibrary_Sets">
+    tools:context="com.mallet.frontend.view.userlibrary.FragmentUserLibrary_Sets">
 
     <ScrollView
         android:id="@+id/userLibrarySetsSv"

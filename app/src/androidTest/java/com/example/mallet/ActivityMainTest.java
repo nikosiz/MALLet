@@ -11,7 +11,7 @@ import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.mallet.mallet.frontend.view.common.activity.ActivityMain;
+import com.mallet.frontend.view.common.activity.ActivityMain;
 
 import org.junit.Rule;
 import org.junit.Test;

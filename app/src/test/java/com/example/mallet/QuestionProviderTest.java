@@ -2,12 +2,12 @@ package com.example.mallet;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.mallet.mallet.frontend.model.question.ModelAnswer;
-import com.mallet.mallet.frontend.model.flashcard.ModelFlashcard;
-import com.mallet.mallet.frontend.model.question.ModelSingleChoice;
-import com.mallet.mallet.frontend.model.question.ModelTrueFalse;
-import com.mallet.mallet.frontend.model.question.ModelWritten;
-import com.mallet.mallet.frontend.utils.QuestionProvider;
+import com.mallet.frontend.model.question.ModelAnswer;
+import com.mallet.frontend.model.flashcard.ModelFlashcard;
+import com.mallet.frontend.model.question.ModelSingleChoice;
+import com.mallet.frontend.model.question.ModelTrueFalse;
+import com.mallet.frontend.model.question.ModelWritten;
+import com.mallet.frontend.utils.QuestionProvider;
 
 import org.junit.Test;
 
