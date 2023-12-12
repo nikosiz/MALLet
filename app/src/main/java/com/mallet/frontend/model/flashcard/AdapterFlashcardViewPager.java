@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mallet.R;
+import com.mallet.R;
 import com.mallet.frontend.utils.ViewUtils;
 
 import java.util.List;

@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.mallet'
+    namespace 'com.mallet'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.mallet"
+        applicationId "com.mallet"
         minSdk 29
         targetSdk 34
         versionCode 1

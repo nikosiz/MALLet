@@ -10,17 +10,17 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.mallet.R;
-import com.example.mallet.databinding.ActivityLearnBinding;
-import com.example.mallet.databinding.DialogConfirmExitBinding;
+import com.mallet.MALLet;
+import com.mallet.R;
+import com.mallet.databinding.ActivityLearnBinding;
+import com.mallet.databinding.DialogConfirmExitBinding;
 import com.mallet.frontend.model.flashcard.ModelFlashcard;
-import com.mallet.frontend.model.set.ModelLearningSet;
 import com.mallet.frontend.model.question.ModelSingleChoice;
 import com.mallet.frontend.model.question.ModelTrueFalse;
 import com.mallet.frontend.model.question.ModelWritten;
+import com.mallet.frontend.model.set.ModelLearningSet;
 import com.mallet.frontend.utils.QuestionProvider;
 import com.mallet.frontend.utils.ViewUtils;
-import com.mallet.MALLet;
 
 import java.util.List;
 import java.util.Objects;

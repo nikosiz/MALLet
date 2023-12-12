@@ -17,14 +17,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
-import com.mallet.frontend.view.common.activity.ActivityLearn;
-import com.example.mallet.R;
-import com.example.mallet.databinding.DialogLearnFinishedBinding;
-import com.example.mallet.databinding.DialogLearnOptionsBinding;
-import com.example.mallet.databinding.FragmentLearnBinding;
+import com.google.android.material.textfield.TextInputEditText;
+import com.mallet.R;
+import com.mallet.databinding.DialogLearnFinishedBinding;
+import com.mallet.databinding.DialogLearnOptionsBinding;
+import com.mallet.databinding.FragmentLearnBinding;
 import com.mallet.frontend.model.question.ModelWritten;
 import com.mallet.frontend.utils.ViewUtils;
-import com.google.android.material.textfield.TextInputEditText;
+import com.mallet.frontend.view.common.activity.ActivityLearn;
 
 import java.util.List;
 import java.util.Objects;

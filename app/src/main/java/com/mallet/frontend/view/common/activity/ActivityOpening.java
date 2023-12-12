@@ -14,8 +14,8 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 
-import com.example.mallet.R;
-import com.example.mallet.databinding.ActivityOpeningBinding;
+import com.mallet.R;
+import com.mallet.databinding.ActivityOpeningBinding;
 import com.mallet.frontend.utils.ViewUtils;
 
 public class ActivityOpening extends AppCompatActivity {

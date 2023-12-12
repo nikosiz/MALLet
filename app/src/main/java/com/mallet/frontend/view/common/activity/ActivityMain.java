@@ -20,18 +20,18 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.mallet.R;
-import com.example.mallet.databinding.ActivityMainBinding;
-import com.example.mallet.databinding.DialogCreateBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
+import com.mallet.R;
+import com.mallet.databinding.ActivityMainBinding;
+import com.mallet.databinding.DialogCreateBinding;
+import com.mallet.frontend.utils.ViewUtils;
 import com.mallet.frontend.view.common.fragment.FragmentDatabase;
 import com.mallet.frontend.view.common.fragment.FragmentHome;
 import com.mallet.frontend.view.common.fragment.FragmentProfile;
 import com.mallet.frontend.view.group.ActivityCreateGroup;
 import com.mallet.frontend.view.set.ActivityEditLearningSet;
 import com.mallet.frontend.view.userlibrary.FragmentUserLibrary;
-import com.mallet.frontend.utils.ViewUtils;
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 
 import java.util.Objects;
 

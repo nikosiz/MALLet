@@ -1,6 +1,5 @@
-package com.example.mallet;
+package com.mallet;
 
-import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
@@ -26,7 +25,7 @@ public class ActivityMainTest {
     @Test
     public void testNavigationToFragmentHome() {
         // Click on the home item in the bottom navigation
-        Espresso.onView(withId(R.id.bottom_nav_home)).perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withId(R.id.bottom_nav_home)).perform(ViewActions.click());
 
         // Verify that the FragmentHome is displayed
         Espresso.onView(withId(R.id.mainFl)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));

@@ -18,10 +18,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
 
-import com.example.mallet.R;
-import com.example.mallet.databinding.DialogFlashcardOptionsBinding;
-import com.example.mallet.databinding.DialogFlashcardsFinishedBinding;
-import com.example.mallet.databinding.FragmentFlashcardsBinding;
+import com.mallet.R;
+import com.mallet.databinding.DialogFlashcardOptionsBinding;
+import com.mallet.databinding.DialogFlashcardsFinishedBinding;
+import com.mallet.databinding.FragmentFlashcardsBinding;
 import com.mallet.frontend.model.flashcard.AdapterFlashcardStack;
 import com.mallet.frontend.model.flashcard.CallbackFlashcardStack;
 import com.mallet.frontend.model.flashcard.ModelFlashcard;

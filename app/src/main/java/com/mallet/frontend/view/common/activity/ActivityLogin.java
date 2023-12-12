@@ -13,15 +13,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 
 import com.agh.api.UserDetailDTO;
-import com.example.mallet.R;
+import com.google.android.material.textfield.TextInputEditText;
+import com.mallet.MALLet;
+import com.mallet.R;
 import com.mallet.backend.client.configuration.ResponseHandler;
 import com.mallet.backend.client.user.boundary.UserServiceImpl;
 import com.mallet.backend.exception.MalletException;
-import com.example.mallet.databinding.ActivityLoginBinding;
+import com.mallet.databinding.ActivityLoginBinding;
 import com.mallet.frontend.security.CredentialsHandler;
 import com.mallet.frontend.utils.ViewUtils;
-import com.google.android.material.textfield.TextInputEditText;
-import com.mallet.MALLet;
 
 import org.apache.commons.lang3.StringUtils;
 

@@ -12,11 +12,11 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.mallet.frontend.view.common.activity.ActivityMain;
-import com.example.mallet.R;
-import com.example.mallet.databinding.FragmentUserLibraryBinding;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.mallet.R;
+import com.mallet.databinding.FragmentUserLibraryBinding;
+import com.mallet.frontend.view.common.activity.ActivityMain;
 
 import java.util.Objects;
 

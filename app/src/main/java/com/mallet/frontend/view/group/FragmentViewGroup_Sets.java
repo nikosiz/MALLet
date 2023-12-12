@@ -19,14 +19,14 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.agh.api.GroupDTO;
-import com.mallet.frontend.view.set.ActivityViewLearningSet;
-import com.example.mallet.R;
+import com.mallet.R;
 import com.mallet.backend.client.group.boundary.GroupServiceImpl;
 import com.mallet.backend.entity.set.ModelLearningSetMapper;
-import com.example.mallet.databinding.DialogDeleteAreYouSureBinding;
-import com.example.mallet.databinding.FragmentViewGroupSetsBinding;
+import com.mallet.databinding.DialogDeleteAreYouSureBinding;
+import com.mallet.databinding.FragmentViewGroupSetsBinding;
 import com.mallet.frontend.model.set.ModelLearningSet;
 import com.mallet.frontend.utils.ViewUtils;
+import com.mallet.frontend.view.set.ActivityViewLearningSet;
 
 import java.util.List;
 import java.util.Objects;

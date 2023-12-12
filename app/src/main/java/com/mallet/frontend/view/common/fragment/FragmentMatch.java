@@ -17,14 +17,14 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import com.mallet.frontend.view.common.activity.ActivityLearn;
-import com.example.mallet.R;
-import com.example.mallet.databinding.DialogAreYouReadyBinding;
-import com.example.mallet.databinding.DialogMatchFinishedBinding;
-import com.example.mallet.databinding.FragmentMatchBinding;
+import com.mallet.R;
+import com.mallet.databinding.DialogAreYouReadyBinding;
+import com.mallet.databinding.DialogMatchFinishedBinding;
+import com.mallet.databinding.FragmentMatchBinding;
 import com.mallet.frontend.model.flashcard.ModelFlashcard;
 import com.mallet.frontend.model.set.ModelLearningSet;
 import com.mallet.frontend.utils.ViewUtils;
+import com.mallet.frontend.view.common.activity.ActivityLearn;
 
 import java.util.ArrayList;
 import java.util.Arrays;

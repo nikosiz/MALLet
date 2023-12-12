@@ -13,8 +13,8 @@ import android.util.Log;
 import androidx.core.app.NotificationCompat;
 import androidx.preference.PreferenceManager;
 
+import com.mallet.R;
 import com.mallet.frontend.view.common.activity.ActivityOpening;
-import com.example.mallet.R;
 
 import java.util.Random;
 

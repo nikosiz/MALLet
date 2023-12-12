@@ -1,4 +1,4 @@
-package com.example.mallet;
+package com.mallet;
 
 import static org.junit.Assert.assertEquals;
 

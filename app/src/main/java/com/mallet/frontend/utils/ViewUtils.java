@@ -24,8 +24,8 @@ import android.widget.Toast;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 
-import com.example.mallet.R;
 import com.google.android.material.textfield.TextInputEditText;
+import com.mallet.R;
 
 import java.util.Objects;
 import java.util.regex.Matcher;

@@ -23,21 +23,21 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
-import com.mallet.frontend.view.common.activity.ActivityLearn;
-import com.example.mallet.R;
-import com.example.mallet.databinding.DialogTestAreYouReadyBinding;
-import com.example.mallet.databinding.DialogTestFinishedBinding;
-import com.example.mallet.databinding.DialogTestNotEnoughBinding;
-import com.example.mallet.databinding.FragmentTestBinding;
-import com.mallet.frontend.model.question.ModelAnswer;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.mallet.MALLet;
+import com.mallet.R;
+import com.mallet.databinding.DialogTestAreYouReadyBinding;
+import com.mallet.databinding.DialogTestFinishedBinding;
+import com.mallet.databinding.DialogTestNotEnoughBinding;
+import com.mallet.databinding.FragmentTestBinding;
 import com.mallet.frontend.model.flashcard.ModelFlashcard;
+import com.mallet.frontend.model.question.ModelAnswer;
 import com.mallet.frontend.model.question.ModelSingleChoice;
 import com.mallet.frontend.model.question.ModelTrueFalse;
 import com.mallet.frontend.model.question.ModelWritten;
 import com.mallet.frontend.utils.ViewUtils;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.textfield.TextInputEditText;
-import com.mallet.MALLet;
+import com.mallet.frontend.view.common.activity.ActivityLearn;
 
 import org.apache.commons.lang3.time.StopWatch;
 

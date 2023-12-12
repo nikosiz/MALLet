@@ -23,19 +23,19 @@ import androidx.fragment.app.Fragment;
 
 import com.agh.api.GroupBasicDTO;
 import com.agh.api.GroupBasicInformationDTO;
-import com.mallet.frontend.view.common.activity.ActivityMain;
-import com.example.mallet.R;
+import com.google.android.material.textfield.TextInputEditText;
+import com.jakewharton.rxbinding.widget.RxTextView;
+import com.mallet.R;
 import com.mallet.backend.client.configuration.ResponseHandler;
 import com.mallet.backend.client.group.boundary.GroupServiceImpl;
 import com.mallet.backend.client.user.boundary.UserServiceImpl;
 import com.mallet.backend.entity.group.ModelGroupMapper;
-import com.example.mallet.databinding.FragmentUserLibraryGroupsBinding;
-import com.mallet.frontend.security.CredentialsHandler;
+import com.mallet.databinding.FragmentUserLibraryGroupsBinding;
 import com.mallet.frontend.model.group.ModelGroup;
-import com.mallet.frontend.view.group.ActivityViewGroup;
+import com.mallet.frontend.security.CredentialsHandler;
 import com.mallet.frontend.utils.ViewUtils;
-import com.google.android.material.textfield.TextInputEditText;
-import com.jakewharton.rxbinding.widget.RxTextView;
+import com.mallet.frontend.view.common.activity.ActivityMain;
+import com.mallet.frontend.view.group.ActivityViewGroup;
 
 import org.apache.commons.lang3.StringUtils;
 

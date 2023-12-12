@@ -22,14 +22,14 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
-import com.mallet.frontend.view.common.activity.ActivityOpening;
-import com.example.mallet.R;
+import com.mallet.MALLet;
+import com.mallet.R;
 import com.mallet.backend.client.user.boundary.UserServiceImpl;
-import com.example.mallet.databinding.DialogDeleteAccountBinding;
-import com.example.mallet.databinding.FragmentProfileBinding;
+import com.mallet.databinding.DialogDeleteAccountBinding;
+import com.mallet.databinding.FragmentProfileBinding;
 import com.mallet.frontend.security.CredentialsHandler;
 import com.mallet.frontend.utils.ViewUtils;
-import com.mallet.MALLet;
+import com.mallet.frontend.view.common.activity.ActivityOpening;
 
 import java.util.Objects;
 

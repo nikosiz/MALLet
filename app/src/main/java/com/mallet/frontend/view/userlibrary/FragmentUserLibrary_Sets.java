@@ -25,21 +25,21 @@ import androidx.fragment.app.Fragment;
 
 import com.agh.api.SetBasicDTO;
 import com.agh.api.SetInformationDTO;
-import com.mallet.frontend.view.common.activity.ActivityMain;
-import com.example.mallet.R;
+import com.google.android.material.textfield.TextInputEditText;
+import com.jakewharton.rxbinding.widget.RxTextView;
+import com.mallet.R;
 import com.mallet.backend.client.configuration.ResponseHandler;
 import com.mallet.backend.client.group.boundary.GroupServiceImpl;
 import com.mallet.backend.client.user.boundary.UserServiceImpl;
 import com.mallet.backend.entity.set.ModelLearningSetMapper;
 import com.mallet.backend.exception.MalletException;
-import com.example.mallet.databinding.DialogDeleteAreYouSureBinding;
-import com.example.mallet.databinding.FragmentUserLibrarySetsBinding;
-import com.mallet.frontend.security.CredentialsHandler;
+import com.mallet.databinding.DialogDeleteAreYouSureBinding;
+import com.mallet.databinding.FragmentUserLibrarySetsBinding;
 import com.mallet.frontend.model.set.ModelLearningSet;
-import com.mallet.frontend.view.set.ActivityViewLearningSet;
+import com.mallet.frontend.security.CredentialsHandler;
 import com.mallet.frontend.utils.ViewUtils;
-import com.google.android.material.textfield.TextInputEditText;
-import com.jakewharton.rxbinding.widget.RxTextView;
+import com.mallet.frontend.view.common.activity.ActivityMain;
+import com.mallet.frontend.view.set.ActivityViewLearningSet;
 
 import org.apache.commons.lang3.StringUtils;
 
