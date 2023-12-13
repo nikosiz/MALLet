@@ -10,5 +10,6 @@ import lombok.Value;
 public class ModelSingleChoice {
     String question;
     Set<ModelAnswer> answers;
+
 }
 

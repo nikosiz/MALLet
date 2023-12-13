@@ -1,17 +1,22 @@
 package com.mallet.frontend.utils;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import com.mallet.backend.exception.MalletException;
 import com.mallet.frontend.model.question.ModelAnswer;
 import com.mallet.frontend.model.flashcard.ModelFlashcard;
 import com.mallet.frontend.model.question.ModelSingleChoice;
 import com.mallet.frontend.model.question.ModelTrueFalse;
 import com.mallet.frontend.model.question.ModelWritten;
-import com.mallet.frontend.model.question.QuestionType;
+import com.mallet.frontend.model.question.AnswerType;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -23,8 +28,9 @@ public class QuestionProvider {
 
     private static final Random random = new Random();
 
-    public static List<ModelSingleChoice> generateMultipleChoiceQuestions(int maxPerType, List<ModelFlashcard> flashcardList) {
-        int MAX_QUESTIONS = Math.min(maxPerType, flashcardList.size());
+    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
+    public static List<ModelSingleChoice> generateSingleChoiceQuestions(int maxPerType, List<ModelFlashcard> flashcardList) {
+        int maxQuestions = Math.min(maxPerType, flashcardList.size());
         int questionCounter = 1;
 
         // Inicjalizacja listy wynikowej pytań wielokrotnego wyboru
@@ -34,32 +40,48 @@ public class QuestionProvider {
 
         // Sprawdzenie, czy należy uwzględnić pytania związane z definicjami
         boolean includeDefinitionType = shouldIncludeDefinitionType(flashcardList);
-        for (ModelFlashcard correctQuestion : flashcardList) {
-            if (questionCounter > MAX_QUESTIONS) {
+        for (ModelFlashcard flashcard : flashcardList) {
+            if (questionCounter > maxQuestions) {
                 return result;
             }
-            QuestionType questionType;
-            if (includeDefinitionType) {
-                questionType = QuestionType.randomType();
 
-            } else {
-                questionType = QuestionType.randomTypeWithoutDefinitionType();
-            }
-            String currentQuestionSpecificType = determineResultQuestionField(correctQuestion, questionType);
+            // losowanie jakiego typu ma byc pytanie (definicja, term, translation)
+            AnswerType answerType = generateRandomQuestionType(includeDefinitionType);
 
-            if (currentQuestionSpecificType.isEmpty()) {
+            //  poprawna odpowiedz na podstawie questionType
+            Optional<String> correctAnswer = determineResultQuestionField(flashcard, answerType);
+
+            // jesli question jest pusty (jedyny przypadek jak definicja jest pusta) to skipujemy ta iteracje
+            if (correctAnswer.isEmpty()) {
                 continue;
             }
 
-            List<String> allQuestions = getAllQuestions(flashcardList, questionType);
-            List<String> wrongAnswers = getWrongAnswers(allQuestions, currentQuestionSpecificType);
+            // wszystkie pytania z flashcardList danego typu (questionType)
+            List<String> allQuestions = getAllQuestions(flashcardList, answerType);
 
-            ModelSingleChoice modelSingleChoice = buildModelMultipleChoice(mapFlashcardToQuestionType(correctQuestion, questionType, includeDefinitionType), currentQuestionSpecificType, wrongAnswers);
+            // losowanie 3 złych odpowiedzi
+            List<String> wrongAnswers = getWrongAnswers(allQuestions, correctAnswer.get());
+
+            // determinowanie pytania na podstawie tego jakiego typu sa odpowiedzi oraz czy brac pod uwage definicje
+            String question = mapFlashcardToQuestionType(flashcard, answerType, includeDefinitionType);
+
+            //budowanie ModelSingleChoice na podstawie
+            // question - pytanie
+            // correctAnswer - poprawna odpowiedz
+            // wrongAnswers - niepoprawne odpowiedzi
+            ModelSingleChoice modelSingleChoice = buildModelMultipleChoice(question, correctAnswer.get(), wrongAnswers);
             result.add(modelSingleChoice);
 
             questionCounter++;
         }
         return result;
+    }
+
+    private static AnswerType generateRandomQuestionType(boolean includeDefinitionType) {
+        if (includeDefinitionType) {
+            return AnswerType.randomType();
+        }
+        return AnswerType.randomTypeWithoutDefinitionType();
     }
 
     private static boolean shouldIncludeDefinitionType(List<ModelFlashcard> flashcardList) {
@@ -68,6 +90,7 @@ public class QuestionProvider {
                 .filter(Objects::nonNull)
                 .filter(definition -> !definition.isEmpty())
                 .count();
+
         return (double) definitionCount / (double) flashcardList.size() >= 0.5;
     }
 
@@ -101,8 +124,8 @@ public class QuestionProvider {
                 .build();
     }
 
-    private static List<String> getAllQuestions(List<ModelFlashcard> flashcardList, QuestionType questionType) {
-        return switch (questionType) {
+    private static List<String> getAllQuestions(List<ModelFlashcard> flashcardList, AnswerType answerType) {
+        return switch (answerType) {
             case TERM -> flashcardList.stream()
                     .map(ModelFlashcard::getTerm)
                     .collect(Collectors.toList());
@@ -116,9 +139,9 @@ public class QuestionProvider {
     }
 
     private static String mapFlashcardToQuestionType(ModelFlashcard correctQuestion,
-                                                     QuestionType questionType,
+                                                     AnswerType answerType,
                                                      boolean includeDefinitionType) {
-        return switch (questionType) {
+        return switch (answerType) {
             case DEFINITION, TRANSLATION -> correctQuestion.getTerm();
             case TERM -> getRandomQuestionForTermType(correctQuestion, includeDefinitionType);
         };
@@ -143,12 +166,12 @@ public class QuestionProvider {
         };
     }
 
-    private static String determineResultQuestionField(ModelFlashcard question, QuestionType questionType) {
-        return switch (questionType) {
+    private static Optional<String> determineResultQuestionField(ModelFlashcard question, AnswerType answerType) {
+        return switch (answerType) {
             case DEFINITION ->
-                    Objects.isNull(question.getDefinition()) ? "" : question.getDefinition();
-            case TERM -> question.getTerm();
-            case TRANSLATION -> question.getTranslation();
+                    Objects.isNull(question.getDefinition()) ? Optional.empty() : Optional.of(question.getDefinition());
+            case TERM -> Optional.of(question.getTerm());
+            case TRANSLATION -> Optional.of(question.getTranslation());
         };
     }
 
@@ -246,10 +269,10 @@ public class QuestionProvider {
             List<String> questionCard = flashcardList.get(questionRow);
             List<String> answerCard = flashcardList.get(answerRow);
 
-            QuestionType questionType = QuestionType.randomType();
+            AnswerType answerType = AnswerType.randomType();
 
-            String question = getRandomQuestionContent(questionCard, questionType);
-            String answer = getRandomAnswerContent(answerCard, questionType);
+            String question = getRandomQuestionContent(questionCard, answerType);
+            String answer = getRandomAnswerContent(answerCard, answerType);
 
             if (Objects.isNull(question) || Objects.isNull(answer) || question.isEmpty() || answer.isEmpty()) {
                 continue;
@@ -271,7 +294,7 @@ public class QuestionProvider {
     }
 
 
-    private static String getRandomQuestionContent(List<String> flashcard, QuestionType type) {
+    private static String getRandomQuestionContent(List<String> flashcard, AnswerType type) {
         return switch (type) {
             case TERM -> flashcard.get(0);
             case DEFINITION -> flashcard.get(1);
@@ -279,7 +302,7 @@ public class QuestionProvider {
         };
     }
 
-    private static String getRandomAnswerContent(List<String> flashcard, QuestionType type) {
+    private static String getRandomAnswerContent(List<String> flashcard, AnswerType type) {
         return switch (type) {
             case TERM -> flashcard.get(1);
             case DEFINITION, TRANSLATION -> flashcard.get(0);

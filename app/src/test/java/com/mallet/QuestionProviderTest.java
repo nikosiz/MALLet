@@ -25,7 +25,7 @@ public class QuestionProviderTest {
         List<ModelFlashcard> modelFlashcards = generateFlashcards(1, 112);
         int maxPerType = getNumberOfQuestions(modelFlashcards);
 
-        List<ModelSingleChoice> generatedQuestions = QuestionProvider.generateMultipleChoiceQuestions(maxPerType, modelFlashcards);
+        List<ModelSingleChoice> generatedQuestions = QuestionProvider.generateSingleChoiceQuestions(maxPerType, modelFlashcards);
 
         assertThat(generatedQuestions)
                 .filteredOn(getModelMultipleChoiceAssertPredicate())
@@ -37,7 +37,7 @@ public class QuestionProviderTest {
         List<ModelFlashcard> modelFlashcards = generateFlashcardsWithEmptyDefinition();
         int maxPerType = getNumberOfQuestions(modelFlashcards);
 
-        List<ModelSingleChoice> generatedQuestions = QuestionProvider.generateMultipleChoiceQuestions(maxPerType, modelFlashcards);
+        List<ModelSingleChoice> generatedQuestions = QuestionProvider.generateSingleChoiceQuestions(maxPerType, modelFlashcards);
 
         assertThat(generatedQuestions)
                 .filteredOn(getModelMultipleChoiceAssertPredicate())

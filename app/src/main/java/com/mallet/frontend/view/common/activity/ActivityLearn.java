@@ -88,7 +88,7 @@ public class ActivityLearn extends AppCompatActivity {
     private static int MAX_PER_TYPE;
 
     public static List<ModelSingleChoice> generateMultipleChoiceQuestions() {
-        return QuestionProvider.generateMultipleChoiceQuestions(MAX_PER_TYPE, flashcardList);
+        return QuestionProvider.generateSingleChoiceQuestions(MAX_PER_TYPE, flashcardList);
     }
 
     private void numberOfQuestions() {
