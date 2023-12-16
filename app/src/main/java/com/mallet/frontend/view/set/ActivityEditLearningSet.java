@@ -27,7 +27,7 @@ import com.mallet.backend.client.configuration.ResponseHandler;
 import com.mallet.backend.client.group.boundary.GroupServiceImpl;
 import com.mallet.backend.client.user.boundary.UserServiceImpl;
 import com.mallet.backend.entity.set.SetCreateContainer;
-import com.mallet.backend.entity.set.SetCreateContainerMapper;
+import com.mallet.backend.mapper.set.SetCreateContainerMapper;
 import com.mallet.backend.exception.MalletException;
 import com.mallet.databinding.ActivityEditLearningSetBinding;
 import com.mallet.databinding.DialogConfirmExitBinding;

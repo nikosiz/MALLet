@@ -1,4 +1,4 @@
-package com.mallet.backend.entity.set;
+package com.mallet.backend.mapper.set;
 
 import com.agh.api.SetInformationDTO;
 import com.mallet.frontend.model.set.ModelLearningSet;

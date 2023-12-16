@@ -1,4 +1,4 @@
-package com.mallet.backend.entity.group.contribution;
+package com.mallet.backend.mapper.group;
 
 import com.agh.api.ContributionDTO;
 import com.agh.api.UserDTO;

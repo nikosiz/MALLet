@@ -37,7 +37,7 @@ import com.mallet.backend.client.configuration.ResponseHandler;
 import com.mallet.backend.client.group.boundary.GroupServiceImpl;
 import com.mallet.backend.client.set.boundary.SetServiceImpl;
 import com.mallet.backend.client.user.boundary.UserServiceImpl;
-import com.mallet.backend.entity.term.ModelFlashcardMapper;
+import com.mallet.backend.mapper.term.ModelFlashcardMapper;
 import com.mallet.backend.exception.MalletException;
 import com.mallet.databinding.ActivityViewLearningSetBinding;
 import com.mallet.databinding.DialogDeleteAreYouSureBinding;

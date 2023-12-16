@@ -31,7 +31,7 @@ import com.mallet.R;
 import com.mallet.backend.client.configuration.ResponseHandler;
 import com.mallet.backend.client.group.boundary.GroupServiceImpl;
 import com.mallet.backend.client.user.boundary.UserServiceImpl;
-import com.mallet.backend.entity.set.ModelLearningSetMapper;
+import com.mallet.backend.mapper.set.ModelLearningSetMapper;
 import com.mallet.backend.exception.MalletException;
 import com.mallet.databinding.DialogDeleteAreYouSureBinding;
 import com.mallet.databinding.FragmentUserLibrarySetsBinding;

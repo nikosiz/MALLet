@@ -1,5 +1,7 @@
-package com.mallet.backend.entity.term;
+package com.mallet.backend.mapper.term;
 
+import com.mallet.backend.entity.term.Language;
+import com.mallet.backend.entity.term.TermCreateContainer;
 import com.mallet.frontend.model.flashcard.ModelFlashcard;
 
 import java.util.Collection;

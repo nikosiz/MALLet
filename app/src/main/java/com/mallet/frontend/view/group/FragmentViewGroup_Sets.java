@@ -21,7 +21,7 @@ import androidx.fragment.app.Fragment;
 import com.agh.api.GroupDTO;
 import com.mallet.R;
 import com.mallet.backend.client.group.boundary.GroupServiceImpl;
-import com.mallet.backend.entity.set.ModelLearningSetMapper;
+import com.mallet.backend.mapper.set.ModelLearningSetMapper;
 import com.mallet.databinding.DialogDeleteAreYouSureBinding;
 import com.mallet.databinding.FragmentViewGroupSetsBinding;
 import com.mallet.frontend.model.set.ModelLearningSet;

@@ -21,7 +21,7 @@ import com.google.android.material.materialswitch.MaterialSwitch;
 import com.mallet.R;
 import com.mallet.backend.client.configuration.ResponseHandler;
 import com.mallet.backend.client.group.boundary.GroupServiceImpl;
-import com.mallet.backend.entity.group.contribution.ModelGroupMemberMapper;
+import com.mallet.backend.mapper.group.ModelGroupMemberMapper;
 import com.mallet.backend.entity.group.update.ContributionUpdateContainer;
 import com.mallet.backend.entity.group.update.GroupUpdateContainer;
 import com.mallet.backend.exception.MalletException;

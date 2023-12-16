@@ -29,7 +29,7 @@ import com.mallet.R;
 import com.mallet.backend.client.configuration.ResponseHandler;
 import com.mallet.backend.client.group.boundary.GroupServiceImpl;
 import com.mallet.backend.client.user.boundary.UserServiceImpl;
-import com.mallet.backend.entity.group.ModelGroupMapper;
+import com.mallet.backend.mapper.group.ModelGroupMapper;
 import com.mallet.databinding.FragmentUserLibraryGroupsBinding;
 import com.mallet.frontend.model.group.ModelGroup;
 import com.mallet.frontend.security.CredentialsHandler;

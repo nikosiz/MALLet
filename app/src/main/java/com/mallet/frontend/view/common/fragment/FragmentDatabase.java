@@ -22,7 +22,7 @@ import com.agh.api.SetInformationDTO;
 import com.mallet.R;
 import com.mallet.backend.client.configuration.ResponseHandler;
 import com.mallet.backend.client.set.boundary.SetServiceImpl;
-import com.mallet.backend.entity.set.ModelLearningSetMapper;
+import com.mallet.backend.mapper.set.ModelLearningSetMapper;
 import com.mallet.databinding.FragmentDatabaseBinding;
 import com.mallet.frontend.model.set.ModelLearningSet;
 import com.mallet.frontend.security.CredentialsHandler;

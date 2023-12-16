@@ -1,4 +1,4 @@
-package com.mallet.backend.entity.group;
+package com.mallet.backend.mapper.group;
 
 import com.agh.api.GroupBasicInformationDTO;
 import com.mallet.frontend.model.group.ModelGroup;

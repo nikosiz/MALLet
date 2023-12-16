@@ -45,7 +45,7 @@ import com.mallet.backend.client.set.boundary.SetServiceImpl;
 import com.mallet.backend.client.user.boundary.UserServiceImpl;
 import com.mallet.backend.entity.group.update.ContributionUpdateContainer;
 import com.mallet.backend.entity.group.update.GroupUpdateContainer;
-import com.mallet.backend.entity.set.ModelLearningSetMapper;
+import com.mallet.backend.mapper.set.ModelLearningSetMapper;
 import com.mallet.backend.exception.MalletException;
 import com.mallet.databinding.ActivityViewGroupBinding;
 import com.mallet.databinding.DialogAddSetToGroupBinding;

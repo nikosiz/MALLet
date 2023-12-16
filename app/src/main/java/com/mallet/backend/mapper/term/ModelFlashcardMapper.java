@@ -1,4 +1,4 @@
-package com.mallet.backend.entity.term;
+package com.mallet.backend.mapper.term;
 
 import com.agh.api.TermDTO;
 import com.mallet.frontend.model.flashcard.ModelFlashcard;
