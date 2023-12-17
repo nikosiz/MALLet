@@ -1,16 +1,12 @@
 package com.mallet.frontend.utils;
 
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
-
 import com.mallet.backend.exception.MalletException;
-import com.mallet.frontend.model.question.ModelAnswer;
 import com.mallet.frontend.model.flashcard.ModelFlashcard;
+import com.mallet.frontend.model.question.AnswerType;
+import com.mallet.frontend.model.question.ModelAnswer;
 import com.mallet.frontend.model.question.ModelSingleChoice;
 import com.mallet.frontend.model.question.ModelTrueFalse;
 import com.mallet.frontend.model.question.ModelWritten;
-import com.mallet.frontend.model.question.AnswerType;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,7 +24,6 @@ public class QuestionProvider {
 
     private static final Random random = new Random();
 
-    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     public static List<ModelSingleChoice> generateSingleChoiceQuestions(int maxPerType, List<ModelFlashcard> flashcardList) {
         int maxQuestions = Math.min(maxPerType, flashcardList.size());
         int questionCounter = 1;
@@ -45,8 +40,8 @@ public class QuestionProvider {
                 return result;
             }
 
-            // losowanie jakiego typu ma byc pytanie (definicja, term, translation)
-            AnswerType answerType = generateRandomQuestionType(includeDefinitionType);
+            // losowanie jakiego typu maja byc odpowiedzi (definicja, term, translation)
+            AnswerType answerType = generateRandomAnswerType(includeDefinitionType);
 
             //  poprawna odpowiedz na podstawie questionType
             Optional<String> correctAnswer = determineResultQuestionField(flashcard, answerType);
@@ -56,14 +51,11 @@ public class QuestionProvider {
                 continue;
             }
 
-            // wszystkie pytania z flashcardList danego typu (questionType)
-            List<String> allQuestions = getAllQuestions(flashcardList, answerType);
-
             // losowanie 3 złych odpowiedzi
-            List<String> wrongAnswers = getWrongAnswers(allQuestions, correctAnswer.get());
+            List<String> wrongAnswers = getWrongAnswers(flashcardList, answerType, correctAnswer.get());
 
             // determinowanie pytania na podstawie tego jakiego typu sa odpowiedzi oraz czy brac pod uwage definicje
-            String question = mapFlashcardToQuestionType(flashcard, answerType, includeDefinitionType);
+            String question = mapFlashcardToQuestion(flashcard, answerType, includeDefinitionType);
 
             //budowanie ModelSingleChoice na podstawie
             // question - pytanie
@@ -77,7 +69,7 @@ public class QuestionProvider {
         return result;
     }
 
-    private static AnswerType generateRandomQuestionType(boolean includeDefinitionType) {
+    private static AnswerType generateRandomAnswerType(boolean includeDefinitionType) {
         if (includeDefinitionType) {
             return AnswerType.randomType();
         }
@@ -124,7 +116,7 @@ public class QuestionProvider {
                 .build();
     }
 
-    private static List<String> getAllQuestions(List<ModelFlashcard> flashcardList, AnswerType answerType) {
+    private static List<String> getAllAnswers(List<ModelFlashcard> flashcardList, AnswerType answerType) {
         return switch (answerType) {
             case TERM -> flashcardList.stream()
                     .map(ModelFlashcard::getTerm)
@@ -138,9 +130,9 @@ public class QuestionProvider {
         };
     }
 
-    private static String mapFlashcardToQuestionType(ModelFlashcard correctQuestion,
-                                                     AnswerType answerType,
-                                                     boolean includeDefinitionType) {
+    private static String mapFlashcardToQuestion(ModelFlashcard correctQuestion,
+                                                 AnswerType answerType,
+                                                 boolean includeDefinitionType) {
         return switch (answerType) {
             case DEFINITION, TRANSLATION -> correctQuestion.getTerm();
             case TERM -> getRandomQuestionForTermType(correctQuestion, includeDefinitionType);
@@ -175,10 +167,10 @@ public class QuestionProvider {
         };
     }
 
-    private static List<String> getWrongAnswers(List<String> questions, String correctQuestion) {
-        List<String> questionsWithoutCurrent = new ArrayList<>(questions);
-        questionsWithoutCurrent.remove(correctQuestion);
-        List<String> notEmptyQuestionsWithoutCurrent = questionsWithoutCurrent.stream()
+    private static List<String> getWrongAnswers(List<ModelFlashcard> flashcardList, AnswerType answerType, String correctQuestion) {
+        List<String> allQuestions = getAllAnswers(flashcardList, answerType);
+        allQuestions.remove(correctQuestion);
+        List<String> notEmptyQuestionsWithoutCurrent = allQuestions.stream()
                 .filter(Objects::nonNull)
                 .filter(question -> !question.isEmpty())
                 .collect(Collectors.toList());
