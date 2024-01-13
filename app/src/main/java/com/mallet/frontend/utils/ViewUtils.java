@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Patterns;
@@ -25,15 +26,18 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.jakewharton.rxbinding.widget.RxTextView;
 import com.mallet.R;
 
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ViewUtils {
 
-    private ViewUtils() {}
+    private ViewUtils() {
+    }
 
     private static boolean backClickCounter = false;
 
@@ -78,93 +82,47 @@ public class ViewUtils {
     }
 
     public static void setupSignupPasswordTextWatcher(TextInputEditText et, TextView errTv) {
-        et.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                hideItems(errTv);
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String input = s.toString().trim();
-                if (input.isEmpty()) {
-                    showItems(errTv);
-                    errTv.setText("This field cannot be empty.");
-                } else if (input.contains(" ")) {
-                    showItems(errTv);
-                    errTv.setText("Check your input for spaces.");
-                } else if (checkPasswordPattern(input)) {
-                    showItems(errTv);
-                    errTv.setText("Password must consist of a minimum of 8 characters: a combination of lowercase and uppercase letters, numbers, and special symbols.");
-                } else {
-                    hideItems(errTv);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                hideItems(errTv);
-            }
-        });
-    }
-
-    public static void setupLoginPasswordTextWatcher(TextInputEditText et, TextView errTv) {
-        et.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                hideItems(errTv);
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String input = s.toString().trim();
-                if (input.isEmpty()) {
-                    showItems(errTv);
-                    errTv.setText("This field cannot be empty.");
-                } else if (input.contains(" ")) {
-                    showItems(errTv);
-                    errTv.setText("Check your input for spaces.");
-                } else {
-                    hideItems(errTv);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                hideItems(errTv);
-            }
-        });
+        RxTextView.textChanges(et)
+                .debounce(800, TimeUnit.MILLISECONDS)
+                .subscribe(text -> {
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            String input = text.toString();
+                            if (input.contains(" ")) {
+                                showItems(errTv);
+                                errTv.setText("Check your input for spaces.");
+                            } else if (checkPasswordPattern(input) && !input.isEmpty()) {
+                                showItems(errTv);
+                                errTv.setText("Password must consist of a minimum of 8 characters: a combination of lowercase and uppercase letters, numbers, and special symbols.");
+                            } else {
+                                hideItems(errTv);
+                            }
+                        }
+                    });
+                });
     }
 
     public static void setupEmailTextWatcher(TextInputEditText et, TextView errTv) {
-        et.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                hideItems(errTv);
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String input = s.toString().trim();
-                if (input.isEmpty()) {
-                    showItems(errTv);
-                    errTv.setText("This field cannot be empty.");
-                } else if (input.contains(" ")) {
-                    showItems(errTv);
-                    errTv.setText("Check your input for spaces.");
-                } else if (checkEmailPattern(input)) {
-                    showItems(errTv);
-                    errTv.setText("Provided email is incorrect.");
-                } else {
-                    hideItems(errTv);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                hideItems(errTv);
-            }
-        });
+        RxTextView.textChanges(et)
+                .debounce(800, TimeUnit.MILLISECONDS)
+                .subscribe(text -> {
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            String input = text.toString();
+                            if (input.contains(" ")) {
+                                showItems(errTv);
+                                errTv.setText("Check your input for spaces.");
+                            } else if (checkEmailPattern(input) && !input.isEmpty()) {
+                                showItems(errTv);
+                                errTv.setText("Provided email is incorrect.");
+                            } else {
+                                hideItems(errTv);
+                            }
+                        }
+                    });
+                });
     }
 
     public static void setupUniversalTextWatcher(TextInputEditText et, TextView errTv) {

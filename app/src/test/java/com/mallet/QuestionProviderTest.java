@@ -21,26 +21,26 @@ import java.util.stream.IntStream;
 public class QuestionProviderTest {
 
     @Test
-    public void testGenerateMultipleChoiceQuestions() {
+    public void testGenerateSingleChoiceQuestions() {
         List<ModelFlashcard> modelFlashcards = generateFlashcards(1, 112);
         int maxPerType = getNumberOfQuestions(modelFlashcards);
 
         List<ModelSingleChoice> generatedQuestions = QuestionProvider.generateSingleChoiceQuestions(maxPerType, modelFlashcards);
 
         assertThat(generatedQuestions)
-                .filteredOn(getModelMultipleChoiceAssertPredicate())
+                .filteredOn(getModelSingleChoiceAssertPredicate())
                 .hasSizeGreaterThanOrEqualTo(20);
     }
 
     @Test
-    public void testGenerateMultipleChoiceQuestionsWithEmptyDefinitions() {
+    public void testGenerateSingleChoiceQuestionsWithEmptyDefinitions() {
         List<ModelFlashcard> modelFlashcards = generateFlashcardsWithEmptyDefinition();
         int maxPerType = getNumberOfQuestions(modelFlashcards);
 
         List<ModelSingleChoice> generatedQuestions = QuestionProvider.generateSingleChoiceQuestions(maxPerType, modelFlashcards);
 
         assertThat(generatedQuestions)
-                .filteredOn(getModelMultipleChoiceAssertPredicate())
+                .filteredOn(getModelSingleChoiceAssertPredicate())
                 .hasSizeGreaterThanOrEqualTo(10);
     }
 
@@ -107,7 +107,7 @@ public class QuestionProviderTest {
         };
     }
 
-    private Predicate<ModelSingleChoice> getModelMultipleChoiceAssertPredicate() {
+    private Predicate<ModelSingleChoice> getModelSingleChoiceAssertPredicate() {
         return question -> {
             boolean objectsNonNull = Objects.nonNull(question) && Objects.nonNull(question.getQuestion()) && Objects.nonNull(question.getAnswers());
             Set<ModelAnswer> answers = question.getAnswers();
